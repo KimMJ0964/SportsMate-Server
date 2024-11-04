@@ -56,12 +56,16 @@
 	
 	.header-input input {
 	    flex: 1;                         /* 입력 필드가 가능한 모든 공간을 차지하도록 설정 */
-	    width: 80%;    
+	    width: 90%;    
 	    border: none;                    /* 기본 테두리 제거 */
 	    height: 90%;                    /* 높이를 부모와 맞춤 */
 	    padding-left: 10px;              /* 왼쪽 패딩 추가 */
 	    border-radius: 8px;              /* 모서리 둥글게 */
 	    outline: none;                   /* 포커스 시 기본 테두리 제거 */
+	}
+	
+	#searchPlaceForm {
+		width: 100%;
 	}
 	
 	.header-input img {

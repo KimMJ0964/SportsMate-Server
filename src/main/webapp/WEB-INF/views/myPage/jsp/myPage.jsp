@@ -185,12 +185,13 @@
 	.club-info {
 		display: flex;
 		flex-direction: column;
-		padding-left: 15px;
-		padding-right: 15px;
+		padding-left: 35px;
+		padding-right: 35px;
 		padding-bottom: 15px;
 		border: 3px solid #307DFA;
 		border-radius: 5px;
 		margin-top: 10px;
+		
 	}
 	
 	.club-head {
@@ -476,11 +477,11 @@
 											</div>
 											<p class="profile-name">이름</p>
 											<div class="star-rating">
-												<span class="star full"></span>
-												<span class="star empty"></span>
-												<span class="star empty"></span>
-												<span class="star empty"></span>
-												<span class="star empty"></span>
+												<img src="resources/img/fill_star.png" />
+												<img src="resources/img/empty_star.png" />
+												<img src="resources/img/empty_star.png" />
+												<img src="resources/img/empty_star.png" />
+												<img src="resources/img/empty_star.png" />
 											</div>
 										</div>
 									</div>
@@ -503,11 +504,11 @@
 											</div>
 											<p class="profile-name">이름</p>
 											<div class="star-rating">
-												<span class="star half"></span>
-												<span class="star empty"></span>
-												<span class="star empty"></span>
-												<span class="star empty"></span>
-												<span class="star empty"></span>
+												<img src="resources/img/fill_star.png" />
+												<img src="resources/img/half_star.png" />
+												<img src="resources/img/empty_star.png" />
+												<img src="resources/img/empty_star.png" />
+												<img src="resources/img/empty_star.png" />
 											</div>
 										</div>
 										</div>
