@@ -1,0 +1,76 @@
+.main-content{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 20px;
+    flex-direction: row;
+}
+
+.main-content-title{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    height : 50px;
+    text-align : center;
+    line-height : 50px;
+}
+
+.main-content-title h4, .main-content-title form{
+	margin: 0;
+}
+
+.inner-left{
+    width: 400px;
+    height: 500px;
+    border: 1px solid black;
+    margin-left: 10px;
+    margin-right: 10px
+}
+
+.inner-right{
+    width: 400px;
+    height: 500px;
+    margin-left: 10px;
+    margin-right: 10px
+}
+
+.main-content-record{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+	border: 1px solid black;
+	height: calc(500px - 50px);
+    ma
+}
+
+.team-record{
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    height: 60px;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.team-A, .team-B{
+    display: flex;
+    align-items: baseline;
+    font-size: 12px;
+}
+
+.radius-img{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.record-score{
+    display: flex;
+    align-items: center;
+}
