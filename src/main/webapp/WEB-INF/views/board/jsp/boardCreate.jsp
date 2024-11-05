@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 생성</title>
+<link href="${pageContext.request.contextPath}/resources/css/board/boardCM.css" rel="stylesheet" >
 <style>
 </style>
 </head>
