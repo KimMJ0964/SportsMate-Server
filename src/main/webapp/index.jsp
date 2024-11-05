@@ -13,6 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
-    <jsp:forward page="WEB-INF/views/board/boardModify.jsp"></jsp:forward>
+    <h1><%= "Hello World!" %>
+    </h1>
+    <br/>
+    <a href="hello-servlet">Hello Servlet</a>
+    <jsp:forward page="WEB-INF/views/jsp/main.jsp" />
 </body>
 </html>
