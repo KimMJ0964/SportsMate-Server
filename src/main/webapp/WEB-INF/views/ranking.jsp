@@ -13,13 +13,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
-    #wrap{
+    #wrap {
         width: 1200px;
     }
    * {
       margin: 0 auto;
       box-sizing: b;
    }
+   /* header css */
    .header-container {
        display: flex;                    /* Flexbox 사용 */
        justify-content: space-between;   /* 좌우 간격을 최대로 */
@@ -88,6 +89,7 @@
        height: 60px;                     /* 높이 설정 */
        padding: 0 10%;                   /* 좌우 패딩 추가 */
    }
+   /* Footer css */
    body {
       margin: 0 auto;
       box-sizing: border-box;
@@ -112,7 +114,7 @@
    .footer p {
       font-size: 10px;
    }
-   
+
    .footer h3 {
       font-size: 20px;
    }
@@ -155,7 +157,7 @@
             color: #888;
         }
 
-   
+   /* 미디어쿼리 css */
    @media (max-width: 430px) {
        .header-container {
            display: none; /* 430px 이하에서는 header-container를 숨김 */

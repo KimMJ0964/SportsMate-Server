@@ -9,7 +9,7 @@
     </h1>
     <br/>
     <a href="hello-servlet">Hello Servlet</a>
-    <%--<jsp:forward page="WEB-INF/views/matching.jsp" />--%>
-    <jsp:forward page="WEB-INF/views/ranking.jsp" />
+    <jsp:forward page="WEB-INF/views/matching.jsp" />
+    <%--<jsp:forward page="WEB-INF/views/ranking.jsp" />--%>
 </body>
 </html>
