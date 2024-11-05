@@ -6,54 +6,9 @@
 <meta charset="UTF-8">
 <title>footer</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-<link href="common/css/footer.css" rel="stylesheet" >
+<link href="resources/css/common/footer.css" rel="stylesheet" >
 <style>
-	body {
-		margin: 0 auto;
-		box-sizing: border-box;
-		font-family: 'Noto Sans KR', sans-serif; /* 나눔고딕 설정 */
-	}
-	
-	.footer {
-		display: block;
-		margin-top: 50px;
-		background-color: #3C3636;
-		height: 230px;
-		color: white;
-		padding-left: 15px;
-		padding-top: 10px;
-		padding-bottom: 15px;
-		position: relative;
-		@media (max-width : 430px) {
-			display : none;	
-		}
-	}
-	
-	.footer p {
-		font-size: 10px;
-	}
-	
-	.footer h3 {
-		font-size: 20px;
-	}
-	
-	.sixall-mem {
-		position: absolute;
-		right: 2%;
-	}
-	.img-group {
-		position: absolute;
-		right: 2%;
-		bottom: 10%;
-		display: flex;
-		gap: 20px;
-	}
-	
-	.img-group img {
-		width: 36px;
-		height: 36px;
-	}
-	</style>
+</style>
 </head>
 <body>
 	<div class="footer">

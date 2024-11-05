@@ -9,6 +9,6 @@
     </h1>
     <br/>
     <a href="hello-servlet">Hello Servlet</a>
-    <jsp:forward page="WEB-INF/views/myPage/jsp/myPage.jsp" />
+    <jsp:forward page="WEB-INF/views/board/jsp/boardCreate.jsp" />
 </body>
 </html>

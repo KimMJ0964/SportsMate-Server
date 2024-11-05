@@ -263,31 +263,8 @@
 	    margin-top: 5px; /* 필요시 여백 추가 */
 	}
 	
-	.star {
-	    font-size: 1.5em;
-	    color: #C0C0C0; /* 기본 회색 별 */
-	    position: relative;
-	}
-	
-	.star.full::before {
-	    content: "\2605"; /* 가득 찬 별 모양 */
-	    color: #FFD700; /* 금색 */
-	}
-	
-	.star.half::before {
-	    content: "\2605"; /* 빈 별 모양 */
-	    color: #C0C0C0; /* 기본 회색 */
-	}
-	
-	.star.half::after {
-	    content: "\2605"; /* 반쪽 별 색상 채우기 */
-	    color: #FFD700; /* 금색 */
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    width: 50%; /* 반쪽 채움 */
-	    overflow: hidden;
-	    white-space: nowrap;
+	.star-rating img {
+		width: 24px;
 	}
 	
 	/* 구단 입단 명단 */
@@ -467,33 +444,6 @@
 					<div class="club-container">
 						<div class="clubInfoContainer">
 							<div class="club-info">
-								<div class="soccer">
-									<!-- 축구 구단 -->
-									<div class="club-head">
-										<p>축구</p>
-										<div class="profile">
-											<div class="profile-img-container">
-												<div class="profile-circle"></div>
-											</div>
-											<p class="profile-name">이름</p>
-											<div class="star-rating">
-												<img src="resources/img/fill_star.png" />
-												<img src="resources/img/empty_star.png" />
-												<img src="resources/img/empty_star.png" />
-												<img src="resources/img/empty_star.png" />
-												<img src="resources/img/empty_star.png" />
-											</div>
-										</div>
-									</div>
-									<div class="club-body">
-										<h4>구단 정보</h4>
-										<p>point : 1000</p>
-										<p>인원수 : 11 / 11</p>
-										<p>창설일 : 2024 / 01 / 01</p>
-										<p>구단장 : 김단장</p>
-									</div>
-									<hr></hr>
-								</div>
 								<!-- 야구 구단 -->
 								<div class="baseball">
 									<div class="club-head">
@@ -549,7 +499,6 @@
 			</div>
 		</div>
 		<!-- myPage-container 끝 -->
-
 	</div>
 	<!-- warp 끝 -->
 
