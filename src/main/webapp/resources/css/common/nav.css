@@ -16,6 +16,7 @@ body {
     height: 60px; /* 네비게이션 바의 높이를 60px로 고정 */
     background-color: #fff; /* 네비게이션 바 배경을 흰색으로 설정 */
     margin: 0 auto; /* 네비게이션 바를 가운데에 배치 */
+    z-index: 9999;
 }
 
 /* 네비게이션 아이템 스타일 */

@@ -1,173 +1,183 @@
 @charset "UTF-8";
 
-body {
-    font-family: Arial, sans-serif; /* 기본 글꼴을 Arial로 설정하고, Arial이 없으면 sans-serif를 사용 */
-    background-color: #f5f5f5; /* 배경색을 밝은 회색으로 설정 */
-    display: flex; /* Flexbox를 사용하여 페이지 중앙에 배치 */
-    justify-content: center; /* 수평 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-    height: 100vh; /* 화면 높이 100%로 설정하여 전체 화면을 채움 */
-    margin: 0; /* 브라우저의 기본 여백을 제거 */
-}
 
 .container {
-    width: 425px; /* 컨테이너 너비를 425px로 설정 */
-    background-color: #fff; /* 배경색을 흰색으로 설정 */
-    border-radius: 8px; /* 테두리 모서리를 8px 둥글게 설정 */
-    padding: 20px; /* 컨테이너 안쪽 여백을 20px로 설정 */
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1); /* 살짝 어두운 그림자를 추가하여 입체감 부여 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
+    width: 100%; /* 컨테이너 가로 너비를 화면에 맞춤 */
+    max-width: 425px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
+    background-color: #fff; /* 흰색 배경 */
+    border-radius: 8px; /* 모서리를 둥글게 처리 */
+    padding: 20px; /* 안쪽 패딩 */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3); /* 가벼운 그림자 추가 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    box-sizing: border-box; /* 패딩이 포함된 너비 계산 방식 */
 }
 
 .profile {
-    display: flex; /* 프로필 섹션을 Flexbox로 설정하여 좌우로 배치 */
-    align-items: center; /* 프로필 섹션의 아이템을 수직 중앙 정렬 */
-    justify-content: space-between; /* 프로필 사진과 버튼 사이에 간격을 최대로 벌림 */
-    margin-bottom: 20px; /* 프로필 섹션 아래쪽에 20px 간격 추가 */
+    display: flex; /* Flexbox로 구성 요소 좌우 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: space-between; /* 양 끝 정렬 */
+    margin-bottom: 20px; /* 하단 여백 추가 */
 }
 
 .profile-info {
-    display: flex; /* 프로필 정보(사진과 텍스트)를 좌우로 배치 */
-    align-items: center; /* 사진과 텍스트를 수직 중앙 정렬 */
+    display: flex; /* 프로필 정보(이미지와 텍스트)를 좌우 배치 */
+    align-items: center; /* 이미지와 텍스트 수직 중앙 정렬 */
 }
 
 .profile img {
-    width: 50px; /* 프로필 이미지 너비를 50px로 설정 */
-    height: 50px; /* 프로필 이미지 높이를 50px로 설정 */
-    border-radius: 50%; /* 이미지를 원형으로 표시 */
-    margin-right: 10px; /* 이미지 오른쪽에 10px 간격 추가 */
+    width: 50px; /* 프로필 이미지 너비 */
+    height: 50px; /* 프로필 이미지 높이 */
+    border-radius: 50%; /* 원형 모양으로 변경 */
+    margin-right: 10px; /* 오른쪽 여백 */
 }
 
 .profile-details {
-    font-size: 14px; /* 프로필 텍스트 크기를 14px로 설정 */
-    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    font-size: 14px; /* 프로필 텍스트 크기 설정 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
 }
 
 .profile-details strong {
-    display: block; /* strong 요소를 블록 요소로 설정하여 다음 요소와 간격을 만듦 */
-    font-size: 16px; /* 이름 텍스트 크기를 16px로 설정 */
-    font-weight: bold; /* 텍스트를 굵게 표시 */
-    margin-bottom: 2px; /* 이름 아래에 2px 간격 추가 */
+    display: block; /* strong을 블록 요소로 설정하여 간격 확보 */
+    font-size: 16px; /* 이름 텍스트 크기 */
+    font-weight: bold; /* 굵은 글씨 */
+    margin-bottom: 2px; /* 아래 여백 */
 }
 
 .profile button {
-    background-color: #307DFA; /* 버튼 배경색을 파란색으로 설정 */
-    color: #fff; /* 버튼 텍스트 색상을 흰색으로 설정 */
-    border: none; /* 버튼 테두리를 제거 */
-    padding: 3px 12px; /* 버튼 내부 여백을 위아래 6px, 좌우 12px로 설정 */
-    border-radius: 8px; /* 버튼의 모서리를 20px 둥글게 설정 */
-    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
-    font-size: 15px; /* 버튼 텍스트 크기를 14px로 설정 */
+    background-color: #307DFA; /* 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색상 */
+    border: none; /* 테두리 없음 */
+    width: 100px; /* */
+    padding: 6px 12px; /* 버튼 내부 여백 */
+    border-radius: 8px; /* 둥근 모서리 */
+    cursor: pointer; /* 마우스 포인터 설정 */
+    font-size: 12px; /* 버튼 텍스트 크기 */
 }
 
 .menu-box {
-    background-color: #fff; /* 메뉴 박스의 배경색을 흰색으로 설정 */
-    border: 1px solid #ddd; /* 메뉴 박스에 연한 회색 테두리 추가 */
-    border-radius: 8px; /* 메뉴 박스의 모서리를 8px 둥글게 설정 */
-    padding: 15px; /* 메뉴 박스의 내부 여백을 15px로 설정 */
-    margin-bottom: 20px; /* 메뉴 박스 아래에 20px 간격 추가 */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 추가 */
-    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    background-color: #fff; /* 메뉴 박스 배경색 */
+    border: 1px solid #ddd; /* 테두리 색상 */
+    border-radius: 8px; /* 둥근 모서리 */
+    padding: 15px; /* 내부 여백 */
+    margin-bottom: 20px; /* 아래 여백 */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
 }
 
 .menu-box h3 {
-    font-size: 16px; /* 메뉴 제목 텍스트 크기를 16px로 설정 */
-    font-weight: bold; /* 텍스트를 굵게 표시 */
-    margin-bottom: 10px; /* 제목 아래에 10px 간격 추가 */
+    font-size: 16px; /* 제목 텍스트 크기 */
+    font-weight: bold; /* 굵은 글씨 */
+    margin-bottom: 10px; /* 아래 여백 */
 }
 
 .menu-item {
-    display: flex; /* 메뉴 항목을 Flexbox로 설정하여 좌우로 배치 */
-    align-items: center; /* 메뉴 아이템을 수직 중앙 정렬 */
-    font-size: 14px; /* 메뉴 텍스트 크기를 14px로 설정 */
-    margin: 8px 0; /* 각 메뉴 항목 위아래에 8px 간격 추가 */
+    display: flex; /* Flexbox로 이미지와 텍스트를 좌우 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    font-size: 14px; /* 텍스트 크기 */
+    margin: 8px 0; /* 위아래 여백 */
 }
 
 .menu-item img {
-    width: 24px; /* 메뉴 아이콘 너비를 24px로 설정 */
-    height: 24px; /* 메뉴 아이콘 높이를 24px로 설정 */
-    margin-right: 10px; /* 아이콘 오른쪽에 10px 간격 추가 */
+    width: 24px; /* 아이콘 너비 */
+    height: 24px; /* 아이콘 높이 */
+    margin-right: 10px; /* 오른쪽 여백 */
 }
 
 .logout-button {
-    display: block; /* 로그아웃 버튼을 블록 요소로 설정하여 너비 100%로 적용 */
-    width: 100%; /* 버튼 너비를 100%로 설정하여 컨테이너에 맞춤 */
-    background-color: #307DFA; /* 버튼 배경색을 파란색으로 설정 */
-    color: #fff; /* 버튼 텍스트 색상을 흰색으로 설정 */
-    border: none; /* 버튼 테두리를 제거 */
-    padding: 12px; /* 버튼 내부 여백을 위아래 12px로 설정 */
-    border-radius: 8px; /* 버튼의 모서리를 8px 둥글게 설정 */
-    font-size: 20px; /* 버튼 텍스트 크기를 16px로 설정 */
-    font-weight: bold; /* 텍스트를 굵게 표시 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 버튼에 가벼운 그림자 추가 */
+    display: block; /* 블록 요소로 설정하여 버튼을 전체 너비로 확장 */
+    width: 100%; /* 가로 너비 100% */
+    background-color: #307DFA; /* 배경색 설정 */
+    color: #fff; /* 텍스트 색상 */
+    border: none; /* 테두리 없음 */
+    padding: 12px; /* 내부 여백 */
+    border-radius: 8px; /* 둥근 모서리 */
+    font-size: 16px; /* 텍스트 크기 */
+    font-weight: bold; /* 굵은 글씨 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    cursor: pointer; /* 마우스 포인터 설정 */
+    margin-top: 20px; /* 상단 여백 */
 }
 
 /* 미디어 쿼리: 화면 너비가 480px 이하일 때 적용 */
 @media (max-width: 480px) {
+    .container {
+        padding: 15px; /* 작은 화면에서는 패딩을 줄임 */
+    }
 
+    .profile img {
+        width: 40px; /* 작은 화면에서 이미지 크기 축소 */
+        height: 40px;
+    }
+
+    .profile-details {
+        font-size: 12px; /* 작은 화면에서 텍스트 크기 축소 */
+    }
+
+    .logout-button {
+        font-size: 16px; /* 로그아웃 버튼 텍스트 크기 */
+        padding: 10px; /* 버튼 내부 여백 축소 */
+    }
 }
 
 /* 미디어 쿼리: 화면 너비가 481px 이상일 때 적용 */
 @media (min-width: 481px) {
-
     .container {
-        width: 750px; /* 더 넓은 화면을 위해 너비를 확장 */
-        padding: 30px; /* 안쪽 여백을 약간 확장 */
-        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15); /* 더 진한 그림자를 추가 */
-        margin-top: 80px; /* 네비게이션 바가 상단에 고정되었으므로 컨테이너에 여백 추가 */
+        width: 750px; /* 큰 화면에서는 컨테이너 너비를 확장 */
+        padding: 30px; /* 패딩 확장 */
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15); /* 더 진한 그림자 */
+        margin-top: 80px; /* 네비게이션 바가 고정되어 있을 때 여백 추가 */
     }
 
     .profile {
-        justify-content: flex-start; /* 프로필을 왼쪽 정렬 */
-        margin-bottom: 30px; /* 아래 여백을 확대 */
+        justify-content: flex-start; /* 큰 화면에서 왼쪽 정렬 */
+        margin-bottom: 30px; /* 아래 여백 확장 */
     }
 
     .profile-info {
-        margin-right: auto; /* 프로필 정보와 버튼 사이에 간격 확보 */
+        margin-right: auto; /* 프로필 정보와 버튼 사이에 간격 추가 */
     }
 
     .profile img {
-        width: 60px; /* 프로필 이미지 크기 확대 */
+        width: 60px; /* 이미지 크기 확장 */
         height: 60px;
     }
 
     .profile-details {
-        font-size: 16px; /* 프로필 텍스트 크기 확대 */
+        font-size: 16px; /* 텍스트 크기 확장 */
     }
 
     .profile-details strong {
-        font-size: 18px; /* 이름 텍스트 크기 확대 */
+        font-size: 18px; /* 이름 텍스트 크기 확장 */
     }
 
     .profile button {
-        font-size: 16px; /* 버튼 텍스트 크기 확대 */
-        padding: 8px 16px; /* 버튼 여백 확대 */
+        font-size: 14px; /* 버튼 텍스트 크기 확장 */
+        padding: 8px 16px; /* 버튼 여백 확장 */
     }
 
     .menu-box {
-        padding: 20px; /* 메뉴 박스 여백 확대 */
-        margin-bottom: 30px; /* 메뉴 박스 아래 여백 확대 */
+        padding: 20px; /* 메뉴 박스 여백 확장 */
+        margin-bottom: 30px; /* 메뉴 박스 아래 여백 확장 */
     }
 
     .menu-box h3 {
-        font-size: 18px; /* 메뉴 제목 텍스트 크기 확대 */
+        font-size: 18px; /* 메뉴 제목 텍스트 크기 확장 */
     }
 
     .menu-item {
-        font-size: 16px; /* 메뉴 아이템 텍스트 크기 확대 */
-        margin: 12px 0; /* 메뉴 아이템 간격 확대 */
+        font-size: 16px; /* 메뉴 텍스트 크기 확장 */
+        margin: 12px 0; /* 메뉴 항목 간격 확장 */
     }
 
     .menu-item img {
-        width: 35px; /* 메뉴 아이콘 크기 확대 */
+        width: 35px; /* 아이콘 크기 확장 */
         height: 35px;
     }
 
     .logout-button {
-        font-size: 18px; /* 로그아웃 버튼 텍스트 크기 확대 */
-        padding: 16px; /* 버튼 여백 확대 */
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15); /* 더 진한 그림자 추가 */
+        font-size: 18px; /* 로그아웃 버튼 텍스트 크기 확장 */
+        width: 100;
+        padding: 16px; /* 버튼 여백 확장 */
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15); /* 더 진한 그림자 */
     }
 }
