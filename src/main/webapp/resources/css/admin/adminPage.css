@@ -110,6 +110,34 @@
     margin-top: 20px; /* 상단 여백 */
 }
 
+.dash-board{
+	display: flex;
+    justify-content: space-evenly;
+}
+
+.dash-board fieldset{
+    border: 4px solid #307DFA;
+    border-radius: 8px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.dash-1, .dash-2{
+	width: 160px;
+	height: 70px;
+}
+
+.dash-1{
+	margin-right: 5px
+}
+
+.dash-2{
+	margin-left: 5px
+}
+
 /* 미디어 쿼리: 화면 너비가 480px 이하일 때 적용 */
 @media (max-width: 480px) {
     .mypage-container {
@@ -129,6 +157,7 @@
     .logout-button {
         font-size: 16px; /* 로그아웃 버튼 텍스트 크기 */
         padding: 10px; /* 버튼 내부 여백 축소 */
+        margin-bottom: 100px;
     }
 }
 

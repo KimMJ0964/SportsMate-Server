@@ -48,6 +48,20 @@
                 <!-- 메뉴 박스 -->
                 <div class="menu-box">
                     <h3>대시보드</h3>
+                    <div class="dash-board">
+                        <div class="dash-1">
+                            <fieldset>
+                                <legend>신고 접수</legend>
+                                <h4>1건</h4>
+                            </fieldset>
+                        </div>
+                        <div class="dash-2">
+                            <fieldset>
+                                <legend>차단 유저</legend>
+                                <h4>10명</h4>
+                            </fieldset>
+                        </div>
+                    </div>
                     <div class="row">
                         
                         <div class="col-md-6">
