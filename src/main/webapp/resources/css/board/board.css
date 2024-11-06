@@ -182,7 +182,7 @@ body {
     	display: none;
     }
     
-    @media (max-width: 430px) {
+    @media (max-width: 480px) {
 		.board-banner, .board-table-container, .board-pagination {
 			display: none;
 		}
