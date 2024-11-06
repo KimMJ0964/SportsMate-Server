@@ -5,9 +5,7 @@
     width: 100%; /* 컨테이너 가로 너비를 화면에 맞춤 */
     max-width: 425px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
     background-color: #fff; /* 흰색 배경 */
-    border-radius: 8px; /* 모서리를 둥글게 처리 */
     padding: 20px; /* 안쪽 패딩 */
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3); /* 가벼운 그림자 추가 */
     text-align: center; /* 텍스트 중앙 정렬 */
     box-sizing: border-box; /* 패딩이 포함된 너비 계산 방식 */
 }
