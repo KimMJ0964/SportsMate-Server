@@ -58,7 +58,7 @@
     border-radius: 8px; /* 둥근 모서리 */
     padding: 15px; /* 내부 여백 */
     margin-bottom: 20px; /* 아래 여백 */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3); /* 가벼운 그림자 */
     text-align: left; /* 텍스트 왼쪽 정렬 */
 }
 
@@ -122,7 +122,6 @@
     .container {
         width: 750px; /* 큰 화면에서는 컨테이너 너비를 확장 */
         padding: 30px; /* 패딩 확장 */
-        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15); /* 더 진한 그림자 */
         margin-top: 80px; /* 네비게이션 바가 고정되어 있을 때 여백 추가 */
     }
 
@@ -176,6 +175,5 @@
         font-size: 18px; /* 로그아웃 버튼 텍스트 크기 확장 */
         width: 100;
         padding: 16px; /* 버튼 여백 확장 */
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15); /* 더 진한 그림자 */
     }
 }
