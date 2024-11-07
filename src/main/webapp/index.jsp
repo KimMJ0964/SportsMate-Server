@@ -13,6 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
-    <jsp:forward page="WEB-INF/views/admin/adminPage.jsp"></jsp:forward>
+    <jsp:forward page="WEB-INF/views/matching/matchingReq.jsp"></jsp:forward>
 </body>
 </html>
