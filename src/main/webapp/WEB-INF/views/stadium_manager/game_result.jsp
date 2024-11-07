@@ -50,7 +50,7 @@
                         <div class="team-details">우리동네FC</div>
                     </div>
                     <div class="checkbox-container">
-                        <input type="checkbox" id="team-a-checkbox" checked>
+                        <input type="radio" name="result" id="team-a-checkbox">
                     </div>
                 </div>
                 <div class="divider"></div>
@@ -61,7 +61,7 @@
                         <div class="team-details">우리동네FC</div>
                     </div>
                     <div class="checkbox-container">
-                        <input type="checkbox" id="team-b-checkbox">
+                        <input type="radio" name="result" id="team-b-checkbox">
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                                     <td>김개똥</td>
                                     <td class="star-rating">★★★★★</td>
                                     <td class="star-rating">★★★☆☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox" checked></td>
+                                    <td><input type="checkbox" class="warning-checkbox"></td>
                                 </tr>
                                 <tr>
                                     <td>김개똥</td>
@@ -137,7 +137,7 @@
                                     <td>인최리</td>
                                     <td class="star-rating">★★★★★</td>
                                     <td class="star-rating">★★★☆☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox" checked></td>
+                                    <td><input type="checkbox" class="warning-checkbox"></td>
                                 </tr>
                                 <tr>
                                     <td>인최리</td>
@@ -160,9 +160,11 @@
                             </tbody>
                         </table>
 
+                        <button class="registration-button">등록하기</button>
+
                 </div>
-                    <!-- 등록 버튼 -->
-                    <button class="registration-button">등록하기</button>
+                    <!-- 뒤로가기 버튼 -->
+                    <button class="registration2-button">뒤로가기</button>
             </div>
 
         <jsp:include page="/WEB-INF/views/footer.jsp" />
