@@ -54,7 +54,27 @@
     justify-content: space-around;
 }
 
-.enroll-form button[type='submit'] {
+/*.enroll-form button[type='submit'] {*/
+/*    width: 100%;*/
+/*    height: 65px;*/
+/*    border-radius: 8px;*/
+/*    border: none;*/
+/*    background-color: #307DFA;*/
+/*    color: white;*/
+/*    font-size: 20px;*/
+/*    font-weight: 700;*/
+/*}*/
+.none-clickable{
+    width: 100%;
+    height: 65px;
+    border-radius: 8px;
+    border: none;
+    background-color: #8cb0ed;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+}
+.clickable{
     width: 100%;
     height: 65px;
     border-radius: 8px;
@@ -63,6 +83,7 @@
     color: white;
     font-size: 20px;
     font-weight: 700;
+    cursor: pointer;
 }
 
 .find-info-wrap {
@@ -193,5 +214,11 @@ select option:nth-child(1) {
 
 #baseball-info > div, span {
     margin: 20px 0px;
+
+}
+#soccer-info, #futsal-info, #basketball-info, #baseball-info{
+    display: none;
+}
+.submit-btn > button {
 
 }

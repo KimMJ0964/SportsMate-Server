@@ -28,9 +28,22 @@ public class Member {
     private String memName;
     private String memGender;
     private String memAdd;
-    private int memAge;
+    private String memBirth;
     private String memPhone;
     private double memRank;
     private Date memEnrollDate;
     private String memStatus;
+
+    public Member(String memEmail, String memPwd, String memName, String memGender, String memAdd, String memBirth, String memPhone, String memStatus) {
+        this.memEmail = memEmail;
+        this.memPwd = memPwd;
+        this.memName = memName;
+        this.memGender = memGender;
+        this.memAdd = memAdd;
+        this.memBirth = memBirth;
+        this.memPhone = memPhone;
+        this.memStatus = memStatus;
+    }
 }
+
+

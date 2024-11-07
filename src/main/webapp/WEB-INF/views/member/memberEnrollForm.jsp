@@ -48,8 +48,8 @@
                     <span class="form-title">성별</span><br>
                     <select name="memGender" id="">
                         <option disabled hidden selected>성별</option>
-                        <option value="male">남자</option>
-                        <option value="female">여자</option>
+                        <option value="M">남자</option>
+                        <option value="F">여자</option>
                     </select>
                 </div>
                 <div class="input-wrap">
@@ -81,6 +81,10 @@
                             <input type="number" name="phone3" id="phone3" maxlength="4">
                         </div>
                     </div>
+                </div>
+                <div class="input-wrap">
+                    <span class="form-title">주소</span><br>
+                    <input type="text" name="memAdd" placeholder="주소를 입력해주세요.">
                 </div>
                 <div class="split-bar"></div>
                 <div class="input-wrap">
@@ -269,7 +273,7 @@
                 </div>
 
                 <div class="submit-btn">
-                    <button type="submit">회원가입</button>
+                    <button type="submit" disabled class="none-clickable">회원가입</button>
                 </div>
 
             </form>

@@ -1,11 +1,15 @@
 package com.kh.sportsmate.member.controller;
 
+import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
+import com.kh.sportsmate.member.model.vo.Category;
+import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,13 +65,25 @@ public class MemberController {
     }
     @PostMapping(value = "member_enroll.me")
     public String memberEnroll(MemberEnrollDto m, MultipartFile userProfile, HttpSession session){
+        Profile profile = null;
         System.out.println("profile : "+userProfile);
         System.out.println(m);
+        String path = "resources/images/userProFile/";
+        String savePath = session.getServletContext().getRealPath(path);
         if (!userProfile.getOriginalFilename().equals("")){
-            String changeName = Template.saveFile(userProfile,session, "resources/userProFile/");
-
+            String changeName = Template.saveFile(userProfile,session, path);
+            profile = new Profile(userProfile.getOriginalFilename(), changeName, savePath);
         }
+        String encPwd = bCryptPasswordEncoder.encode(m.getMemPwd()); // 비밀번호 암호화
+        m.setMemPwd(encPwd);
+        int result = memberService.insertMember(m, profile);
 
-        return "redirect:/";
+        if(result > 0){
+            session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
+            return "redirect:/";
+        }else{
+            session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
+            return "redirect:/";
+        }
     }
 }

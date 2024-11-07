@@ -1,5 +1,8 @@
 package com.kh.sportsmate.service;
 
+import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
+
 /**
  * packageName    : com.kh.sportsmate.service
  * fileName       : MemberService
@@ -12,4 +15,5 @@ package com.kh.sportsmate.service;
  * 2024. 11. 7.        jun       최초 생성
  */
 public interface MemberService {
+    int insertMember(MemberEnrollDto m, Profile profile);
 }

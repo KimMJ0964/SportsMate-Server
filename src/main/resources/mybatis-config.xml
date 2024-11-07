@@ -11,12 +11,14 @@
 
 
     <typeAliases>
-
+        <typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
+        <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
+        <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="Category"/>
     </typeAliases>
 
 
     <mappers>
-
+        <mapper resource="mappers/member-mapper.xml"/>
     </mappers>
 
 

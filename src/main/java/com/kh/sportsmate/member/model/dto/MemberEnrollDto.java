@@ -32,11 +32,12 @@ public class MemberEnrollDto {
     private String phone1;
     private String phone2;
     private String phone3;
+    private String memAdd;
     private List category;
     private String soccerPosition;
     private String soccerSkill;
-    private String fusalPosition;
-    private String fusalSkill;
+    private String futsalPosition;
+    private String futsalSkill;
     private String basketballPosition;
     private String basketballSkill;
 
