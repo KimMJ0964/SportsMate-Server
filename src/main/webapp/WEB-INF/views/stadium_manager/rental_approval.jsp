@@ -7,7 +7,7 @@
 <title>대관 승인 페이지</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/rental_approval.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/stadium_manager/rental_approval.css">
 
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -8,7 +8,7 @@
     <title>구장 관리자 메인 페이지</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/stadium_manager.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/stadium_manager/stadium_manager.css">
 
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

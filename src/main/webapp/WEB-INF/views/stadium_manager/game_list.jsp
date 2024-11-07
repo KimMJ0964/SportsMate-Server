@@ -7,7 +7,7 @@
 <title>경기 리스트</title>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/game_list.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/stadium_manager/game_list.css">
 
 <!-- font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

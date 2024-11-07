@@ -263,4 +263,14 @@ input[type="checkbox"] {
             text-align: center; /* 텍스트 중앙 정렬 */
             cursor: pointer; /* 마우스 포인터 설정 */
         }
+
+        .victory-row {
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+
+        .victory2-row {
+            margin-left: 20%;
+            margin-right: 20%;
+        }
     }

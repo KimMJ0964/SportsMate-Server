@@ -7,7 +7,7 @@
 <title>경기 결과</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/game_result.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/stadium_manager/game_result.css">
 
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,9 @@
         <jsp:include page="/WEB-INF/views/header.jsp" />
 
         <br>
-
+        <div class="warning-container" id="warningContainer" style="display: none;">
+        <jsp:include page="/WEB-INF/views/stadium_manager/game_result_warning.jsp" />
+        </div>
         <jsp:include page="/WEB-INF/views/nav.jsp" />
 
         <div class="gameresult-container">
@@ -169,5 +171,8 @@
 
         <jsp:include page="/WEB-INF/views/footer.jsp" />
         </div>
+
+        <script src="${pageContext.request.contextPath}/resources/js/game_result.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/game_result_warning.js"></script>
 </body>
 </html>

@@ -1,5 +1,18 @@
 @charset "UTF-8";
 
+.modal-overlay {
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%; /* 화면 전체 너비 */
+    height: 100%; /* 화면 전체 높이 */
+    background: rgba(0, 0, 0, 0.5); /* 반투명한 검정 배경 */
+    display: flex; /* Flexbox를 사용하여 가운데 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    z-index: 1000; /* 다른 요소들 위에 위치 */
+}
+
 .warning-container{
     width: 100%; /* 컨테이너 가로 너비를 화면에 맞춤 */
     max-width: 425px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
