@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="divider"></div>
-                <div class="victory-row">
+                <div class="victory2-row">
                     <div class="team-info">
                         <div class="team-name">B팀</div>
                         <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="팀 로고" class="team-logo">

@@ -68,6 +68,14 @@
     margin-bottom: 20px; /* 하단 여백 추가 */
 }
 
+.victory2-row {
+    display: flex; /* Flexbox로 구성 요소 좌우 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: space-between; /* 양 끝 정렬 */
+    margin-top: 20px;
+    margin-bottom: 10px; /* 하단 여백 추가 */
+}
+
 /* 구분선 스타일 */
 .divider {
     border-top: 1px solid #ddd;
