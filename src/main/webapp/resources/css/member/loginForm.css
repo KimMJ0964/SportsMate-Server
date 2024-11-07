@@ -87,4 +87,7 @@
     #login-wrap{
         width: 80%;
     }
+    .search-bar-m{
+        display: none !important;
+    }
 }

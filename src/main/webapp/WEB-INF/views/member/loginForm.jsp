@@ -16,6 +16,7 @@
 </head>
 <body>
     <div class="wrap">
+        <jsp:include page="/WEB-INF/views/common/header.jsp"/>
         <div id="login-wrap">
             <form action="login.me" class="login-form">
                 <div class="email-wrap">

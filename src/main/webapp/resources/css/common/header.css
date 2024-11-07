@@ -19,6 +19,7 @@
 	height: 30px;
 	float: right;
 	margin-right: 20px;
+	cursor: pointer;
 }
 
 .search-btn{
@@ -42,6 +43,7 @@
 	width: calc(100% - 25px);
 	height: 100%;
 	border-radius: 8px;
+	border: none;
 }
 
 #search-bar-form input:focus{
@@ -63,6 +65,7 @@
 	font-style: normal;
 	width: 30%;
 	font-size: 25px;
+	cursor: pointer;
 }
 
 .search-bar{
@@ -72,6 +75,7 @@
 .user-icon{
 	width: 30%;
 }
+
 
 .search-bar-m{
 	display: none;

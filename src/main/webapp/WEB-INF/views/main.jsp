@@ -23,11 +23,11 @@
     <body>
         <div class="wrap">
 
-            <jsp:include page="header.jsp" />
+            <jsp:include page="common/header.jsp" />
 
             <br>
 
-            <jsp:include page="nav.jsp" />
+            <jsp:include page="common/nav.jsp" />
 
             <!-- Carousel -->
             <div id="demo" class="carousel slide" data-bs-ride="carousel">
@@ -282,9 +282,9 @@
                 </div>
             </div>
 
-			<jsp:include page="matching.jsp" />
+			<jsp:include page="common/matching.jsp" />
 			
-            <jsp:include page="footer.jsp" />
+            <jsp:include page="common/footer.jsp" />
 
         </div>
     </body>
