@@ -24,6 +24,21 @@
 
         <jsp:include page="/WEB-INF/views/nav.jsp" />
 
+        <div class="gameresult-container">
+            <div class="headname-container">
+                <div class="gamersult-row">
+                    <div class="team-info">
+                        <img src="${pageContext.request.contextPath}/resources/images/result_game.png" alt="경기 결과 로고" class="gameresult-logo">
+                        <div class="team-details">
+                            <h4 class="head-name">경기 결과</h4>
+                        </div>
+                    </div>
+                    <div class="checkbox-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 승리 팀 표시 -->
          <div class="result-container">
             <div class="victory-container">

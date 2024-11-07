@@ -7,17 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>구장 관리자 메인 페이지</title>
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/stadium_manager.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
 
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap"
+        rel="stylesheet">
 
 </head>
 <body>
     <div class="wrap">
 
+        <jsp:include page="/WEB-INF/views/header.jsp" />
+        
+        <br>
+        
         <jsp:include page="/WEB-INF/views/nav.jsp" />
 
-        <div class="container">
+        <div class="stadium-container">
             <!-- 프로필 섹션 -->
             <div class="profile">
                 <div class="profile-info">
@@ -61,6 +70,8 @@
 
         </div>
     </div>
+
+    <jsp:include page="/WEB-INF/views/footer.jsp" />
     
 
 

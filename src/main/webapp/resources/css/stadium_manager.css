@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
 
-.container {
+.stadium-container {
     width: 100%; /* 컨테이너 가로 너비를 화면에 맞춤 */
-    max-width: 425px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
     background-color: #fff; /* 흰색 배경 */
     padding: 20px; /* 안쪽 패딩 */
     text-align: center; /* 텍스트 중앙 정렬 */
     box-sizing: border-box; /* 패딩이 포함된 너비 계산 방식 */
+    margin: auto;
 }
 
 .profile {
@@ -46,7 +46,7 @@
     color: #fff; /* 버튼 텍스트 색상 */
     border: none; /* 테두리 없음 */
     width: 100px; /* */
-    padding: 6px 12px; /* 버튼 내부 여백 */
+    padding: 6px 0; /* 버튼 내부 여백 */
     border-radius: 8px; /* 둥근 모서리 */
     cursor: pointer; /* 마우스 포인터 설정 */
     font-size: 12px; /* 버튼 텍스트 크기 */
@@ -56,7 +56,7 @@
     background-color: #fff; /* 메뉴 박스 배경색 */
     border: 1px solid #ddd; /* 테두리 색상 */
     border-radius: 8px; /* 둥근 모서리 */
-    padding: 15px; /* 내부 여백 */
+    padding: 20px; /* 내부 여백 */
     margin-bottom: 20px; /* 아래 여백 */
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3); /* 가벼운 그림자 */
     text-align: left; /* 텍스트 왼쪽 정렬 */
@@ -98,7 +98,8 @@
 
 /* 미디어 쿼리: 화면 너비가 480px 이하일 때 적용 */
 @media (max-width: 480px) {
-    .container {
+    .stadium-container {
+        max-width: 425px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
         padding: 15px; /* 작은 화면에서는 패딩을 줄임 */
     }
 
@@ -114,15 +115,16 @@
     .logout-button {
         font-size: 16px; /* 로그아웃 버튼 텍스트 크기 */
         padding: 10px; /* 버튼 내부 여백 축소 */
+        margin-bottom: 100px;
     }
 }
 
 /* 미디어 쿼리: 화면 너비가 481px 이상일 때 적용 */
 @media (min-width: 481px) {
-    .container {
-        width: 750px; /* 큰 화면에서는 컨테이너 너비를 확장 */
+    .stadium-container {
+        max-width: 750px; /* 큰 화면에서는 컨테이너 너비를 확장 */
         padding: 30px; /* 패딩 확장 */
-        margin-top: 80px; /* 네비게이션 바가 고정되어 있을 때 여백 추가 */
+        margin-top: 30px;
     }
 
     .profile {
@@ -149,11 +151,11 @@
 
     .profile button {
         font-size: 14px; /* 버튼 텍스트 크기 확장 */
-        padding: 8px 16px; /* 버튼 여백 확장 */
+        padding: 8px 0; /* 버튼 여백 확장 */
     }
 
     .menu-box {
-        padding: 20px; /* 메뉴 박스 여백 확장 */
+        padding: 30px 100px; /* 메뉴 박스 여백 확장 */
         margin-bottom: 30px; /* 메뉴 박스 아래 여백 확장 */
     }
 
