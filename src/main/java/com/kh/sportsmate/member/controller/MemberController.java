@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -85,5 +87,27 @@ public class MemberController {
             session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
             return "redirect:/";
         }
+    }
+    @PostMapping("login.me")
+    public String loginMember(Member m, HttpSession session, String saveId, HttpServletResponse response){
+        Member loginMember = memberService.loginMember(m);
+        if(loginMember == null){
+            session.setAttribute("alertMsg", "일치하는 아이디를 찾을 수 없습니다.");
+            return "redirect:/loginForm.me";
+        }else if(!bCryptPasswordEncoder.matches(m.getMemPwd(), loginMember.getMemPwd())){
+            session.setAttribute("alertMsg", "비밀번호가 틀렸습니다.");
+            return "redirect:/loginForm.me";
+        }else{
+            Cookie ck = new Cookie("saveId", loginMember.getMemEmail());
+            if(saveId == null){
+                ck.setMaxAge(0); // 쿠키 삭제
+            }
+            response.addCookie(ck);
+            session.setAttribute("loginMember",loginMember);
+            session.setAttribute("alertMsg", "로그인에 성공하셨습니다.");
+            System.out.println(loginMember);
+            return "redirect:/";
+        }
+
     }
 }

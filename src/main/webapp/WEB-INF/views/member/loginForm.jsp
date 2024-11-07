@@ -18,16 +18,16 @@
     <div class="wrap">
         <jsp:include page="/WEB-INF/views/common/header.jsp"/>
         <div id="login-wrap">
-            <form action="login.me" class="login-form">
+            <form action="login.me" class="login-form" method="post">
                 <div class="email-wrap">
                     <span class="form-title">이메일</span> <br>
-                    <input type="email" name="email" placeholder="이메일을 입력해주세요.">
+                    <input type="email" name="memEmail" placeholder="이메일을 입력해주세요." value="${cookie.saveId.value}">
                 </div>
                 <div class="pwd-wrap">
                     <span class="form-title">비밀번호</span><br>
-                    <input type="password" name="pwd" placeholder="비밀번호를 입력해주세요.">
+                    <input type="password" name="memPwd" placeholder="비밀번호를 입력해주세요.">
                 </div>
-                <input type="checkbox" name="saveId" id="saveId"> 이메일 저장
+                <input type="checkbox" name="saveId" id="saveId" checked> 이메일 저장
                 <div class="submit-btn">
                     <button type="submit">로그인</button>
                 </div>

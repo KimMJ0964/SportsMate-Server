@@ -48,4 +48,7 @@ public class MemberDao {
     public int insertCategory(SqlSessionTemplate sqlSession, Category category){
         return sqlSession.insert("memberMapper.insertCategory",category);
     }
+    public Member loginMember(SqlSessionTemplate sqlSession, Member m){
+        return sqlSession.selectOne("memberMapper.loginMember", m);
+    }
 }

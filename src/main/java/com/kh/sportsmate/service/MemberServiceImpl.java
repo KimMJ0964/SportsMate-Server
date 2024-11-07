@@ -32,6 +32,11 @@ public class MemberServiceImpl implements MemberService {
         this.memberDao = memberDao;
     }
 
+    @Override
+    public Member loginMember(Member m) {
+        return memberDao.loginMember(sqlSession,m);
+    }
+
     @Transactional
     @Override
     public int insertMember(MemberEnrollDto m, Profile profile) {
