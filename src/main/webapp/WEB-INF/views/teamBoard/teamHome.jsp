@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>구단 미니 홈피</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link href="resources/css/board/board.css" rel="stylesheet">
 <link href="resources/css/teamBoard/teamHome.css" rel="stylesheet" >
 <link rel="stylesheet"
@@ -37,7 +38,7 @@
 				<div class="teamcomu-work">
 					<h4 class="teamcomu-title-name">구단</h4>
 					<div class="teamcomu-work-three">
-						<div class="teamcomu-work-vote">
+						<div class="teamcomu-work-vote" data-bs-toggle="modal" data-bs-target="#voteModal">
 							<img class="teamcomu-wrok-vote-img"
 								src="${pageContext.request.contextPath}/resources/images/team_board_vote.png">
 							<div class="teamcomu-center-word">투표</div>
@@ -54,6 +55,45 @@
 						</div>
 					</div>
 				</div>
+		        
+		        <!-- 모달 -->
+		        <div class="modal fade" id="voteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <p class="modal-title fs-5" id="exampleModalLabel">투표</p>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				        <div class="bd-report-title">
+				        	<h6>현재 비밀번호</h6>
+				        </div>
+				        <div class="bd-report-content">
+				        	<input type="password" class="mp-modal-input-form before" placeholder="현재 비밀번호를 입력하세요.">
+				        </div>
+				        <br>
+				        <div class="bd-report-title">
+				        	<h6>비밀번호 재입력</h6>
+				        </div>
+				        <div class="bd-report-content">
+				        	<input type="password" class="mp-modal-input-form reBefore" placeholder="현재 비밀번호를 다시 입력하세요.">
+				        </div>
+				        <br>
+				        <div class="bd-report-title">
+				        	<h6>비밀번호 변경</h6>
+				        </div>
+				        <div class="bd-report-content">
+				        	<input type="password" class="mp-modal-input-form after" placeholder="변경할 비밀번호를 입력하세요.">
+				        </div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				        <button type="button" class="btn btn-primary">수정 완료</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				
 
 				<div class="teamcomu-member">
 					<h4 class="teamcomu-title-name">팀원 목록</h4>
@@ -268,13 +308,12 @@
 				<div class="teamcomu-board">
 					<div class="board-search-container">
 						<select class="board-search-option">
-							<option value="">선택</option>
-							<option value="1">축구</option>
-							<option value="2">농구</option>
-							<option value="3">풋볼</option>
-							<option value="4">야구</option>
-							<option value="5">후기</option>
-							<option value="6">기타</option>
+							<option value="" selected>선택</option>
+						    <option value="soccer">축구</option>
+						    <option value="baksetball">농구</option>
+						    <option value="footsal">풋살</option>
+						    <option value="baseball">야구</option>
+						    <option value="review">후기</option>
 						</select> <input type="text" class="board-search-input"
 							placeholder="검색어 입력" />
 
@@ -389,6 +428,7 @@
 		</div>
 
 		<jsp:include page="/WEB-INF/views/footer.jsp" />
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	</div>
 </body>
 </html>
