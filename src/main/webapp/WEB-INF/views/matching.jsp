@@ -6,15 +6,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/matching.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/matching.css">
 </head>
 <body>
-    <div class="wrap">
+    <div class="matching-wrap">
         <div class="matching-container">
             <div class="matching-img">
                 <div class="matching-img-box">
                     <div class="matching-write">현재 진행중인 매칭</div>
-                    <img src="resources/img/matching.png" alt="매칭 이미지" />
+                    <img src="${pageContext.request.contextPath}/resources/images/matching.png" alt="매칭 이미지" />
                 </div>
             </div>
         </div>

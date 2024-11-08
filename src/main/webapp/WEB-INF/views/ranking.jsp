@@ -4,32 +4,69 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RankingPage</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+
+		<!-- jQuery -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap"
+            rel="stylesheet">
 <style>
-    .wrap {
-        max-width: 1200px;
-        margin: auto;
-    }
-    /* 매칭 테이블 */
-   	table {
-        width: 50%;
-        margin: auto;
-        border-collapse: collapse;
-        text-align: center;
-    }
-    tr {
-        border-left: none;
-        border-right: none;
-    }
-    td {
-        padding: 8px;
-        border-top: 1px solid #ddd;
-        border-bottom: 1px solid #ddd;
-    }
-    .point {
-        font-size: 0.8em;
-        color: #888;
-    }
+   .row {
+	    display: flex;
+	    align-items: center;
+	    border-top: 1px solid #ddd;
+	    padding: 4px 0;
+	}
+	
+	.cell {
+	    flex: 1; /* 셀을 균등하게 배분 */
+	    text-align: center;
+	}
+	
+	.left {
+	    display: flex;
+	    align-items: center;
+	    justify-content: flex-start; /* 왼쪽 정렬 */
+	    margin-left: 20px;
+	}
+	
+	.left span {
+	    display: inline-block;
+	    width: 20px;
+	    text-align: center;
+	}
+	
+	.left img {
+	    margin-left: 20px; /* 이미지와 숫자 사이의 간격 */
+	}
+	
+	.center {
+	    text-align: center; /* 가운데 정렬 */
+	}
+	
+	.right {
+	    text-align: right; /* 오른쪽 정렬 */
+	    margin-right: 20px;
+	}
+	
+	.point {
+	    font-size: 0.8em;
+	    color: #888;
+	}
+	
+	.divider {
+	    height: 1px; /* 줄의 두께 */
+	    background-color: #ddd; /* 줄의 색상 */
+	    margin: 0; /* 위아래 간격 */
+	}
+
     /* 페이지네이션 */
     .board-pagination {
        display: flex;
@@ -94,11 +131,22 @@
     img {
     	margin: 20px;
     }
+    
+    hr {
+    	background-color: black;
+    }
 </style>
 </head>
 <body>
 <div class="wrap">
 <jsp:include page="header.jsp" />
+
+<br>
+
+<jsp:include page="nav.jsp" />
+
+<hr>
+
     <p class="size">실시간 랭킹</p>
 	<div class="sport-button-container">
         <button class="sport-btn">축구</button>
@@ -106,59 +154,57 @@
         <button class="sport-btn">야구</button>
         <button class="sport-btn">농구</button>
     </div> 
-    <div>
-        <table>
-            <tr>
-                <td>1<img src="resources/img/team.png" /></td>
-                <td>우리동네FC</td>
-                <td><div class="point">Point</div>1389</td>
-            </tr>
-            <tr>
-                <td>2<img src="resources/img/team.png" /></td>
-                <td>우리동네FC</td>
-                <td><div class="point">Point</div>1389</td>
-            </tr>
-            <tr>
-                <td>3<img src="resources/img/team.png" /></td>
-                <td>우리동네FC</td>
-                <td><div class="point">Point</div>1389</td>
-            </tr>
-            <tr>
-                <td>4<img src="resources/img/team.png" /></td>
-                <td>우리동네FC</td>
-                <td><div class="point">Point</div>1389</td>
-            </tr>
-            <tr>
-                <td>5<img src="resources/img/team.png" /></td>
-                <td>우리동네FC</td>
-                <td><div class="point">Point</div>1389</td>
-            </tr>
-            <tr>
-                <td>6<img src="resources/img/team.png" /></td>
-                <td>우리동네FC</td>
-                <td><div class="point">Point</div>1389</td>
-            </tr>
-            <tr>
-                <td>7<img src="resources/img/team.png" /></td>
-                <td>우리동네FC</td>
-                <td><div class="point">Point</div>1389</td>
-            </tr>
-            <tr>
-                <td>8<img src="resources/img/team.png" /></td>
-                <td>우리동네FC</td>
-                <td><div class="point">Point</div>1389</td>
-            </tr>
-            <tr>
-                <td>9<img src="resources/img/team.png" /></td>
-                <td>우리동네FC</td>
-                <td><div class="point">Point</div>1389</td>
-            </tr>
-            <tr>
-                <td>10<img src="resources/img/team.png" /></td>
-                <td>우리동네FC</td>
-                <td><div class="point">Point</div>1389</td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="cell left"><span>1</span><img src="resources/images/team.png" /></div>
+            <div class="cell center">우리동네FC</div>
+            <div class="cell right"><div class="point">Point</div>1389</div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>2</span><img src="resources/images/team.png" /></div>
+            <div class="cell center">우리동네FC</div>
+            <div class="cell right"><div class="point">Point</div>1389</div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>3</span><img src="resources/images/team.png" /></div>
+            <div class="cell center">우리동네FC</div>
+            <div class="cell right"><div class="point">Point</div>1389</div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>4</span><img src="resources/images/team.png" /></div>
+            <div class="cell center">우리동네FC</div>
+            <div class="cell right"><div class="point">Point</div>1389</div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>5</span><img src="resources/images/team.png" /></div>
+            <div class="cell center">우리동네FC</div>
+            <div class="cell right"><div class="point">Point</div>1389</div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>6</span><img src="resources/images/team.png" /></div>
+            <div class="cell center">우리동네FC</div>
+            <div class="cell right"><div class="point">Point</div>1389</div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>7</span><img src="resources/images/team.png" /></div>
+            <div class="cell center">우리동네FC</div>
+            <div class="cell right"><div class="point">Point</div>1389</div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>8</span><img src="resources/images/team.png" /></div>
+            <div class="cell center">우리동네FC</div>
+            <div class="cell right"><div class="point">Point</div>1389</div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>9</span><img src="resources/images/team.png" /></div>
+            <div class="cell center">우리동네FC</div>
+            <div class="cell right"><div class="point">Point</div>1389</div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>10</span><img src="resources/images/team.png" /></div>
+            <div class="cell center">우리동네FC</div>
+            <div class="cell right"><div class="point">Point</div>1389</div>
+        </div>
+        <div class="row"></div>
     </div>
     <div class="board-pagination">
         <button class="board-page-btn">&laquo;</button>
@@ -169,8 +215,8 @@
         <button class="board-page-btn">5</button>
         <button class="board-page-btn">&raquo;</button>
     </div>
-</div>
 <jsp:include page="footer.jsp" />
+</div>
     
     <script>
         document.querySelectorAll('.sport-btn').forEach(button => {

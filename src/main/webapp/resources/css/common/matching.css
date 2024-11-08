@@ -1,7 +1,9 @@
 @charset "UTF-8";
-	.wrap{
+
+.matching-wrap{
 	    max-width: 1200px;
 	    margin: auto;
+	    margin-bottom: 100px;
 	}
 /*진행중인매칭이미지*/
     body{
@@ -12,6 +14,7 @@
             box-sizing: border-box;
         }
         .matching-container {
+        	margin-top: 40px;
             text-align: center;
             margin-bottom: 20px; /* 이미지와 날짜 간격주기*/
         }
@@ -34,9 +37,9 @@
             color: white;
             z-index: 1; /* 이미지 위로 텍스트가 나오도록 설정 */
         }
-        img {
-            max-width: 1210px;
-            max-height: 100px;
+        .matching-wrap img {
+            width: 100%;
+    		height: 100px;
         }
         /*날짜 선택*/
         .weekday-selector {
