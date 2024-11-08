@@ -29,25 +29,60 @@
 
             <div id="login-wrap">
                 <form action="member_enroll.me" class="enroll-form" method="post" enctype="multipart/form-data">
+
+                    <div class="gameresult-container">
+                        <div class="headname-container">
+                            <div class="gamersult-row">
+                                <div class="team-info">
+                                    <img src="${pageContext.request.contextPath}/resources/images/result_game.png" alt="경기 결과 로고" class="gameresult-logo">
+                                    <div class="team-details">
+                                        <h4 class="head-name">구장정보 수정/탈퇴</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-wrap">
+                        <div class="category-checkBox-wrap">
+                            <div class="category-checkBox">
+                                <input type="checkbox" name="category" id="soccer" value="soccer">
+                                <label class="category-name" for="soccer">축구</label>
+                            </div>
+                            <div class="category-checkBox">
+                                <input type="checkbox" name="category" id="futsal" value="futsal">
+                                <label class="category-name" for="futsal">풋살</label>
+                            </div>
+                            <div class="category-checkBox">
+                                <input type="checkbox" name="category" id="basketball" value="basketball">
+                                <label class="category-name" for="basketball">농구</label>
+                            </div>
+                            <div class="category-checkBox">
+                                <input type="checkbox" name="category" id="baseball" value="baseball">
+                                <label class="category-name" for="baseball">야구</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="input-wrap">
                         <span class="form-title">구장명</span> <br>
-                        <input type="email" name="" placeholder="구장명을 입력해주세요.">
+                        <input type="stadiumname" name="" placeholder="구장명을 입력해주세요.">
                     </div>
                     <div class="input-wrap">
                         <span class="form-title">주소</span><br>
-                        <input type="password" name="" placeholder="주소를 입력해주세요.">
+                        <input type="address" name="" placeholder="주소를 입력해주세요.">
                     </div>
                     <div class="input-wrap">
                         <span class="form-title">가격</span><br>
-                        <input type="password" name="" placeholder="가격을를 한 번 더 입력해주세요.">
+                        <input type="price" name="" placeholder="가격을를 한 번 더 입력해주세요.">
                     </div>
                     <div class="input-wrap">
                         <span class="form-title">이름</span><br>
-                        <input type="text" name="memName" placeholder="이름을 입력해주세요.">
+                        <input type="name" name="memName" placeholder="이름을 입력해주세요.">
                     </div>
                     <div class="input-wrap">
                         <span class="form-title">성별</span><br>
-                        <select name="memGender" id="">
+                        <select name="managerGender" id="">
                             <option disabled hidden selected>성별</option>
                             <option value="M">남자</option>
                             <option value="F">여자</option>
@@ -88,26 +123,7 @@
                         <input type="text" name="memAdd" placeholder="주소를 입력해주세요.">
                     </div>
                     <div class="split-bar"></div>
-                    <div class="input-wrap">
-                        <div class="category-checkBox-wrap">
-                            <div class="category-checkBox">
-                                <input type="checkbox" name="category" id="soccer" value="soccer">
-                                <label class="category-name" for="soccer">축구</label>
-                            </div>
-                            <div class="category-checkBox">
-                                <input type="checkbox" name="category" id="futsal" value="futsal">
-                                <label class="category-name" for="futsal">풋살</label>
-                            </div>
-                            <div class="category-checkBox">
-                                <input type="checkbox" name="category" id="basketball" value="basketball">
-                                <label class="category-name" for="basketball">농구</label>
-                            </div>
-                            <div class="category-checkBox">
-                                <input type="checkbox" name="category" id="baseball" value="baseball">
-                                <label class="category-name" for="baseball">야구</label>
-                            </div>
-                        </div>
-                    </div>
+                    
                     
                     <div class="button-wrap">
                         <button type="submit" class="clickable">수정하기</button>

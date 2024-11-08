@@ -35,8 +35,6 @@
                             <h4 class="head-name">경기 결과</h4>
                         </div>
                     </div>
-                    <div class="checkbox-container">
-                    </div>
                 </div>
             </div>
         </div>
