@@ -1,0 +1,186 @@
+@charset "UTF-8";
+
+
+/* --------------- Header에 포함되어 있는 css ---------------*/
+#login-wrap {
+    /*width: 40%;*/
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: auto;
+}
+
+.enroll-form {
+    width: 100%;
+}
+
+.enroll-form > div {
+    margin: 20px 0px;
+}
+
+.email-wrap {
+    width: 100%;
+}
+
+.enroll-form input[type='email'], input[type='password'], input[type='text'], select, input[type='number'] {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    background-color: #F1F3F5;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.year-wrap, .month-wrap, .day-wrap {
+    width: 30%;
+    height: 50px;
+}
+
+.birth-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+/*.enroll-form button[type='submit'] {*/
+/*    width: 100%;*/
+/*    height: 65px;*/
+/*    border-radius: 8px;*/
+/*    border: none;*/
+/*    background-color: #307DFA;*/
+/*    color: white;*/
+/*    font-size: 20px;*/
+/*    font-weight: 700;*/
+/*}*/
+.clickable{
+    width: 90px;
+    background-color: #307DFA; /* 배경색 설정 */
+    color: #fff; /* 텍스트 색상 */
+    border: none; /* 테두리 없음 */
+    padding: 4px 10px; /* 내부 여백 */
+    border-radius: 8px; /* 둥근 모서리 */
+    font-size: 16px; /* 텍스트 크기 */
+    font-weight: bold; /* 굵은 글씨 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    cursor: pointer; /* 마우스 포인터 설정 */
+    margin-bottom: 100px;
+}
+
+.find-info-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.find-info-wrap a {
+    text-decoration-line: none;
+    color: black;
+}
+
+.find-info {
+    width: 50%;
+    text-align: center;
+}
+
+.enroll-member {
+    width: 50%;
+    text-align: center;
+}
+
+.split-bar {
+    width: 100%;
+    border-bottom: 2px solid lightgray;
+}
+
+@media (min-width: 481px) and (max-width: 1200px) {
+    .clickable{
+        margin-bottom: 50px;
+    }
+
+}
+
+@media (min-width: 300px) and (max-width: 480px) {
+    #login-wrap {
+        width: 80%;
+    }
+
+    .enroll-form input[type='email'], input[type='password'], input[type='text'], select {
+        font-size: 14px;
+
+    }
+}
+
+
+/*--------------------------------------------------------*/
+
+#profileImg {
+    cursor: pointer;
+}
+
+select option:nth-child(1) {
+    color: #757575;
+}
+
+.category-checkBox-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 30px 0px;
+}
+
+.category-checkBox > input[type=checkbox], label {
+    width: 15px;
+    height: 15px;
+    font-size: 20px;
+    padding: 0px 5px;
+}
+
+.category-name{
+    display: contents;
+}
+
+
+.description-skill-wrap {
+    width: 100%;
+    /*height: 150px;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    margin: 10px 0px;
+    padding: 10px 10px;
+}
+
+.description-skill-wrap div {
+    padding: 3px 0px;
+}
+
+.split-bar-agreement {
+    width: 100%;
+    border-bottom: 2px solid lightgray;
+    margin: 3px 0px 6px 0px !important;
+}
+
+.agreement {
+    width: 15px;
+    height: 15px;
+    padding: 0px 5px;
+}
+
+.button-wrap {
+    width: 100%;
+    text-align: right;
+}
+
+
+.submit-btn > button {
+
+}
