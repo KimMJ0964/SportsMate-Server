@@ -8,6 +8,7 @@
     <title>매칭</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/matching/matchingReq.css">
     <!-- jQuery -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -31,9 +32,9 @@
                 <h4>구장정보</h4>
             </div>
         
-            <div class="matching-info">
+            <div class="match-info">
                 <div>
-                    <img class="ground-thunb" src="" alt="">
+                    <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/event-banner.png" alt="">
                 </div>
                 <div>
                     <p>주소지</p>
@@ -48,9 +49,9 @@
                 <h4>대전팀</h4>
             </div>
 
-            <div class="matching-a">
+            <div class="match-a">
                 <div class="team-profile">
-                    <img src="" alt="">
+                    <img src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="">
                     <h4>구단: 구단명</h4>
                 </div>
 
@@ -66,7 +67,7 @@
                 <h4>경기일정</h4>
             </div>
 
-            <div class="matching-b">
+            <div class="match-b">
                 <div class="team-profile">
                     <img src="" alt="">
                     <h4>구단: 구단명</h4>
@@ -95,7 +96,7 @@
                 <h4>결제</h4>
             </div>
 
-            <div class="matching-order">
+            <div class="match-order">
                 <form action="">
                     <div class="total">
                         <h4>대관료</h4>
@@ -109,9 +110,10 @@
                         </select>
 
                         <div class="order-box">
-
+                            dja
                         </div>
                     </div>
+                    <button>결제완료</button>
                 </form>
             </div>
         </div>
