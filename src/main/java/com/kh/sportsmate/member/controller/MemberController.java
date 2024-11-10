@@ -6,6 +6,10 @@ import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.service.MemberService;
+import com.kh.sportsmate.service.MyPageService;
+import com.kh.sportsmate.team.model.vo.Recruit;
+import com.kh.sportsmate.team.model.vo.Team;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -36,10 +42,13 @@ import javax.servlet.http.HttpSession;
 public class MemberController {
     private final MemberService memberService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final MyPageService myPageService;
+    
     @Autowired
-    public MemberController(MemberService memberService, BCryptPasswordEncoder bCryptPasswordEncoder){
+    public MemberController(MemberService memberService, BCryptPasswordEncoder bCryptPasswordEncoder, MyPageService myPageService){
         this.memberService = memberService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.myPageService = myPageService;
     }
 
     /***
@@ -109,5 +118,27 @@ public class MemberController {
             return "redirect:/";
         }
 
+    }
+    
+    /* 마이페이지 */
+    @RequestMapping("myPageInfo.mp")
+    public String myPageSelect(Model model) {
+    	int memNo = 1;
+    	
+    	// 내 정보
+    	Member myInfo = myPageService.selectMyInfo(memNo);
+    	
+    	// 내 구단
+    	ArrayList<Team> myTeam = myPageService.selectMyTeam(memNo);
+    	
+    	// 내 구단 입단 명단
+    	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
+    	
+    	
+    	model.addAttribute("myInfo", myInfo);
+		model.addAttribute("myTeam", myTeam);
+		model.addAttribute("myRecruit", myRecruit);
+		
+    	return "myPage/myPage";
     }
 }

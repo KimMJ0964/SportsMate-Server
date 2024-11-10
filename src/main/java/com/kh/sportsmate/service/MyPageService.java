@@ -1,0 +1,19 @@
+package com.kh.sportsmate.service;
+
+import java.util.ArrayList;
+
+import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.team.model.vo.Recruit;
+import com.kh.sportsmate.team.model.vo.Team;
+
+public interface MyPageService {
+	 /* 마이페이지 */
+    // 내 정보
+    Member selectMyInfo(int memNo);
+    
+    // 내 구단
+    ArrayList<Team> selectMyTeam(int memNo);
+    	
+    // 내 구단 입단 명단
+    ArrayList<Recruit> selectMyRecruit(int memNo);
+}

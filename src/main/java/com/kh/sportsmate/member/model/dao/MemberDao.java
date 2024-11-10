@@ -3,6 +3,11 @@ package com.kh.sportsmate.member.model.dao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.team.model.vo.Recruit;
+import com.kh.sportsmate.team.model.vo.Team;
+
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -51,4 +56,21 @@ public class MemberDao {
     public Member loginMember(SqlSessionTemplate sqlSession, Member m){
         return sqlSession.selectOne("memberMapper.loginMember", m);
     }
+    
+    /* 마이페이지 */
+    
+    // 내 정보
+	public Member selectMyInfo(SqlSessionTemplate sqlSession, int memNo) {
+    	return sqlSession.selectOne("memberMapper.selectMyInfo", memNo);
+    }
+
+    // 내 구단
+	public ArrayList<Team> selectMyTeam(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMyTeam", memNo);
+	}
+
+	// 내 전적
+	public ArrayList<Recruit> selectMyRecruit(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMyRecruit", memNo);
+	}
 }

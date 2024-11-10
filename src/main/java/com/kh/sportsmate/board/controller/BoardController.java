@@ -97,7 +97,8 @@ public class BoardController {
 		@PostMapping("modify.bd")
 		public String updateBoard(Board b, HttpSession session, Model m, int bno) {
 			System.out.println(b);
-			int result = boardService.updateBoard(b, bno);
+			b.setBoardNo(bno);
+			int result = boardService.updateBoard(b);
 			
 			if(result > 0) { //성공
 				session.setAttribute("alertMsg", "게시글 작성 성공");
@@ -108,5 +109,19 @@ public class BoardController {
 				return "main";
 			}
 			
+		}
+		
+		@PostMapping("delete.bd")
+		public String deleteBoard(Model m, HttpSession session, int bno) {
+			int result = boardService.deleteBoard(bno);
+			
+			if(result > 0) { //성공
+				session.setAttribute("alertMsg", "게시글 삭제 성공");
+				return "redirect:boardList.bd";
+			} else { //실패
+				System.out.println("일반 게시글 생성 실패");
+				m.addAttribute("errorMsg", "게시글 삭제 실패");
+				return "main";
+			}
 		}
 }

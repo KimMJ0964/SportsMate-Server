@@ -12,6 +12,11 @@
 
      <typeAliases>
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.Team" alias="Team"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoard" alias="TeamBoard"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamMember" alias="TeamMember"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoardComment" alias="TeamBoardComment"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.Recruit" alias="Recruit"/>
     	<typeAlias type="com.kh.sportsmate.board.model.vo.BoardComment" alias="BoardComment"/>
     	<typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
     </typeAliases>
@@ -19,6 +24,7 @@
 
     <mappers>
         <mapper resource="mappers/board-mapper.xml"/>
+        <mapper resource="mappers/team-mapper.xml"/>
         <mapper resource="mappers/member-mapper.xml"/>
     </mappers>
 

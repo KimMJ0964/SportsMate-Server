@@ -39,7 +39,11 @@ public class BoardDao {
 		return sqlSession.insert("boardMapper.createBoard", b);
 	}
 	
-	public int updateBoard(SqlSessionTemplate sqlSession, Board b, int bno) {
+	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
 		return sqlSession.update("boardMapper.updateBoard", b);
+	}
+	
+	public int deleteBoard(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.update("boardMapper.deleteBoard", bno);
 	}
 }

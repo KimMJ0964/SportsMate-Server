@@ -20,4 +20,25 @@
     <!--        <result column="STATUS" property="status"/>-->
     <!--    </resultMap>-->
     
+    <!-- 마이페이지 -->
+     <select id="selectMyInfo" resultType="Member">
+        SELECT *
+        FROM MEMBER
+        WHERE MEM_NO = #{memNo}
+    </select>
+    
+    <select id="selectMyTeam" resultType='Team">
+        SELECT T.*
+		FROM TEAM T
+		JOIN TEAM_MEMBER TM ON T.TEAM_NO = TM.TEAM_NO
+		WHERE TM.memNo = #{memNo};
+    </select>
+    
+    <select id="selectMyRecruit" resultType="Recruit">
+        SELECT R.MEM_NO
+		FROM TEAM T
+		JOIN RECRUIT R ON T.TEAM_NO = R.TEAM_NO
+		WHERE T.MEM_NO = #{memNo};
+    </select>
+    
 </mapper>

@@ -4,30 +4,57 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- !namespace : 해당 mapper파일의 고유한 별칭 -->
-<mapper namespace="boardMapper">
+<mapper namespace="teamMapper">
     
     <select id="selectListCount" resultType="_int">
         SELECT COUNT(*)
-        FROM BOARD
+        FROM TEAM_BOARD
         WHERE STATUS = 'Y'
+        AND TEAM_NO = #{teamNo}
     </select>
     
-     <!-- 게시글 조회 -->
-	  <select id="selectList" resultType="Board">
+     <!-- 구단 게시글 조회 -->
+	 <select id="selectList" parameterType="map" resultType="Team">
 	    SELECT b.BOARD_NO AS boardNo,
 	           b.TITLE AS title,
 	           m.MEM_NAME AS memName,
 	           b.CREATE_DATE AS createDate,
 	           b.VIEW AS view,
 	           b.TYPE AS type
-	    FROM BOARD b
+	    FROM TEAM_BOARD b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 	    WHERE b.STATUS = 'Y'
+	      AND b.TEAM_NO = #{teamNo}
 	    ORDER BY b.BOARD_NO DESC
 	</select>
 	
+	<!-- 구단 인원 목록 -->
+	<select id="selectMemberList" resultType="TeamMember">
+	    SELECT tm.TEAM_NO AS teamNo,
+	           tm.MEM_NO AS memNo,
+	           tm.MEM_ENROLL_DATE AS memEnrollDate,
+	           m.MEM_NAME AS memName,
+	           CASE 
+	               WHEN t.TEAM_TYPE = '축구' THEN c.SOC_POSI
+	               WHEN t.TEAM_TYPE = '농구' THEN c.BASKET_POSI
+	               WHEN t.TEAM_TYPE = '풋살' THEN c.FOOT_POSI
+	               WHEN t.TEAM_TYPE = '야구' THEN c.BASE_POSI
+	           END AS position,
+	           CASE 
+	               WHEN t.TEAM_TYPE = '축구' THEN c.SOC_ABILITY
+	               WHEN t.TEAM_TYPE = '농구' THEN c.BASKET_ABILITY
+	               WHEN t.TEAM_TYPE = '풋살' THEN c.FOOT_ABILITY
+	               WHEN t.TEAM_TYPE = '야구' THEN c.BASE_ABILITY
+	           END AS ability
+	      FROM TEAM_MEMBER tm
+	      JOIN MEMBER m ON tm.MEM_NO = m.MEM_NO
+	      JOIN TEAM t ON tm.TEAM_NO = t.TEAM_NO
+	      JOIN CATEGORY c ON m.MEM_NO = c.MEM_NO
+	     WHERE tm.TEAM_NO = #{teamNo}
+	</select>
+	
 	<!-- 게시글 내용 가져오기 -->
-	<select id="detailList" resultType="Board">
+	<select id="detailList" resultType="TeamBoard">
 		 SELECT b.TITLE AS title,
 	           m.MEM_NAME AS memName,
 	           b.CREATE_DATE AS createDate,
@@ -36,37 +63,37 @@
 	           b.CONTENT AS content,
 	           b.BOARD_NO AS boardNo,
 	           b.TYPE AS type
-	    FROM BOARD b
+	    FROM TEAM_BOARD b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 	    WHERE b.STATUS = 'Y'
 	    AND b.BOARD_NO = #{bno}
 	</select>
 	
 	<!-- 댓글 내용 가져오기 -->
-	<select id="commentList" resultType="BoardComment">
+	<select id="commentList" resultType="TeamBoardComment">
 		SELECT b.COM_NO AS comNo,
-			   b.REF_BOARD_NO AS refBoardNo,
+			   b.REF_TEAM_BOARD_NO AS refTeamBoardNo,
 			   m.MEM_NAME AS memName,
 			   b.COM_CREATE_DATE AS comCreateDate,
 			   b.COM_MODIFY_DATE AS comModifyDate,
 			   b.STATUS AS status,
 			   b.COM_PARENT_NO AS comParentNo,
 			   b.COM_CONTENT AS comContent
-		 FROM BOARD_COMMENT b
+		 FROM TEAM_BOARD_COMMENT b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
-	    WHERE REF_BOARD_NO = #{bno}
+	    WHERE REF_TEAM_BOARD_NO = #{bno}
 	</select>
 	
 	<!-- 댓글 수 계산 -->
     <select id="commentCount" resultType="_int">
         SELECT COUNT(*)
-        FROM BOARD_COMMENT
-        WHERE REF_BOARD_NO = #{bno}
+        FROM TEAM_BOARD_COMMENT
+        WHERE REF_TEAM_BOARD_NO = #{bno}
     </select>
 	
 	<!-- 게시글 생성 -->
 	<insert id="createBoard">
-	  	INSERT INTO BOARD (
+	  	INSERT INTO TEAM_BOARD (
 		    TITLE,
 		    MEM_NO,
 		    CONTENT,
@@ -83,7 +110,7 @@
 	  </insert>
 	  
 	  <!-- 게시글 생성 -->
-	<update id="updateBoard" parameterType="int">
+	<update id="updateBoard">
 	    UPDATE BOARD
 	    SET 
 	        TITLE = #{title},
@@ -94,10 +121,4 @@
 	        BOARD_NO = #{boardNo} <!-- 보통 게시글 ID를 기준으로 수정 -->
 	</update>
 	
-	<!-- 게시글 삭제 -->
-	<update id="deleteBoard" parameterType="int">
-	    UPDATE BOARD
-	    SET STATUS = 'N'
-	    WHERE BOARD_NO = #{bno}
-	</update>
 </mapper>
