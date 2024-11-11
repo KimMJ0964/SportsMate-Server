@@ -1,31 +1,7 @@
 @charset "UTF-8";
 
-
-/* --------------- Header에 포함되어 있는 css ---------------*/
-#login-wrap {
-    /*width: 40%;*/
-    width: 480px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    margin: auto;
-}
-
-.enroll-form {
-    width: 100%;
-}
-
-.enroll-form > div {
-    margin: 20px 0px;
-}
-
-.email-wrap {
-    width: 100%;
-}
-
-/* 전체 컨테이너 스타일 */
-.gameresult-container{
+/* 구장정보 수정/탈퇴 */
+.stadiuminfo-container{
     width: 100%; /* 컨테이너 가로 너비를 화면에 맞춤 */
     max-width: 425px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
     background-color: #fff; /* 흰색 배경 */
@@ -42,12 +18,12 @@
     text-align: left; /* 텍스트 왼쪽 정렬 */
 }
 
-.gamersult-row{
+.stadiuminfo-row{
     display: flex; /* Flexbox로 구성 요소 좌우 배치 */
     align-items: center; /* 수직 중앙 정렬 */
 }
 
-.gameresult-logo {
+.stadiuminfo-logo {
     width: 30px;
     height: 30px;
 }
@@ -56,173 +32,196 @@
     font-weight: bold;
 }
 
-.enroll-form input[type='stadiumname'], input[type='address'], input[type='price'], select, input[type='name'] {
-    width: 100%;
-    height: 50px;
-    border: none;
-    border-radius: 8px;
-    background-color: #F1F3F5;
-    font-size: 16px;
-    padding: 10px;
-}
-
-.year-wrap, .month-wrap, .day-wrap {
-    width: 30%;
-    height: 50px;
-}
-
-.birth-wrap {
+.team-info {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+/* */
+
+.category-container{
+    width: 100%; /* 컨테이너 가로 너비를 화면에 맞춤 */
+    max-width: 425px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
+    background-color: #fff; /* 흰색 배경 */
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center; /* 텍스트 중앙 정렬 */
+    box-sizing: border-box; /* 패딩이 포함된 너비 계산 방식 */
+    margin: auto;
+}
+
+.sport-options {
+    display: flex;
+    gap: 10px;
+    align-items: center;
     justify-content: space-around;
 }
 
-/*.enroll-form button[type='submit'] {*/
-/*    width: 100%;*/
-/*    height: 65px;*/
-/*    border-radius: 8px;*/
-/*    border: none;*/
-/*    background-color: #307DFA;*/
-/*    color: white;*/
-/*    font-size: 20px;*/
-/*    font-weight: 700;*/
-/*}*/
-.clickable{
-    width: 90px;
+.sport-options label {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.sport-options input[type="checkbox"] {
+    width: 20px; /* 체크박스의 가로 크기 */
+    height: 20px; /* 체크박스의 세로 크기 */
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    background-color: #f3f3f3;
+    margin-right: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+
+.address-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.zipcode {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+}
+
+.address-search-button {
+    padding: 8px 12px;
+    background-color: #307DFA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.basic-address,
+.detail-address {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: flex;
+    margin-bottom: 5px;
+    font-size: 21px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="time"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.time-group {
+    display: flex;
+    align-items: center;
+}
+
+.time-group span {
+    margin: 0 5px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkbox-group label{
+    font-size: 20px;
+}
+
+.image-upload-group {
+    display: flex;
+    align-items: center;
+    background-color: #D9D9D9;
+    border-radius: 8px;
+    gap: 10px;
+}
+
+.image-button {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.registration-button {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 150px; /* 가로 너비 100% */
     background-color: #307DFA; /* 배경색 설정 */
     color: #fff; /* 텍스트 색상 */
     border: none; /* 테두리 없음 */
-    padding: 4px 10px; /* 내부 여백 */
+    padding: 12px; /* 내부 여백 */
     border-radius: 8px; /* 둥근 모서리 */
     font-size: 16px; /* 텍스트 크기 */
     font-weight: bold; /* 굵은 글씨 */
     text-align: center; /* 텍스트 중앙 정렬 */
     cursor: pointer; /* 마우스 포인터 설정 */
-    margin-bottom: 100px;
 }
-
-.find-info-wrap {
-    width: 100%;
+.info-btn{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
 }
 
-.find-info-wrap a {
-    text-decoration-line: none;
-    color: black;
-}
 
-.find-info {
-    width: 50%;
-    text-align: center;
-}
-
-.enroll-member {
-    width: 50%;
-    text-align: center;
-}
-
-.split-bar {
-    width: 100%;
-    border-bottom: 2px solid lightgray;
-}
-
-@media (min-width: 481px) and (max-width: 1200px) {
-    .clickable{
-        margin-bottom: 50px;
+@media (max-width: 480px) {
+    .stadiuminfo-container {
+        max-width: 425px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
+        padding: 15px; /* 작은 화면에서는 패딩을 줄임 */
     }
 
-    .gameresult-container{
-        max-width: 750px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
-        background-color: #fff; /* 흰색 배경 */
-        padding-left: 30px;
-        padding-right: 30px;
-        text-align: center; /* 텍스트 중앙 정렬 */
-        box-sizing: border-box; /* 패딩이 포함된 너비 계산 방식 */
-        margin-top: 30px;
+    .player-table td {
+        background-color: #fff; /* 헤더 배경색 설정 */
+        font-size: 11px;
+    }
+
+    .registration2-button{
+        margin-bottom: 100px;
+    }
+
+    .info-btn{
+        margin-top: 20px;
+        margin-bottom: 100px;
+    }
+
+    .registration-button {
+        width: 100px; /* 가로 너비 100% */
     }
 
 }
 
-@media (min-width: 300px) and (max-width: 480px) {
-    #login-wrap {
-        width: 80%;
-    }
+    @media (min-width: 481px) {
+        .stadiuminfo-container {
+            max-width: 750px; /* 큰 화면에서는 컨테이너 너비를 확장 */
+            padding: 30px; /* 패딩 확장 */
+        }
 
-    .enroll-form input[type='email'], input[type='password'], input[type='text'], select {
-        font-size: 14px;
-
-    }
-}
-
-
-/*--------------------------------------------------------*/
-
-#profileImg {
-    cursor: pointer;
-}
-
-select option:nth-child(1) {
-    color: #757575;
-}
-
-.category-checkBox-wrap {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    margin: 30px 0px;
-}
-
-.category-checkBox > input[type=checkbox], label {
-    width: 15px;
-    height: 15px;
-    font-size: 20px;
-    padding: 0px 5px;
-}
-
-.category-name{
-    display: contents;
-}
-
-
-.description-skill-wrap {
-    width: 100%;
-    /*height: 150px;*/
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
-    margin: 10px 0px;
-    padding: 10px 10px;
-}
-
-.description-skill-wrap div {
-    padding: 3px 0px;
-}
-
-.split-bar-agreement {
-    width: 100%;
-    border-bottom: 2px solid lightgray;
-    margin: 3px 0px 6px 0px !important;
-}
-
-.agreement {
-    width: 15px;
-    height: 15px;
-    padding: 0px 5px;
-}
-
-.button-wrap {
-    width: 100%;
-    text-align: right;
-}
-
-
-.submit-btn > button {
-
+        .category-container{
+            max-width: 750px;
+        }
 }
