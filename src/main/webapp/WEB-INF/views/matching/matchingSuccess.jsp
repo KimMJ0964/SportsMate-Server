@@ -21,11 +21,11 @@
 </head>
 <body>
     <div class="wrap">
-        <jsp:include page="/WEB-INF/views/header.jsp" />
+        <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
         <br>
 
-        <jsp:include page="/WEB-INF/views/nav.jsp" />
+        <jsp:include page="/WEB-INF/views/common/nav.jsp" />
 
         <div class="order-success">
             <h4>결제완료</h4>
@@ -66,7 +66,7 @@
 
         <button class="done">목록가기</button>
 
-        <jsp:include page="/WEB-INF/views/footer.jsp" />
+        <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </div>
 </body>
 </html>
