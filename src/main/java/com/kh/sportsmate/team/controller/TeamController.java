@@ -27,6 +27,8 @@ import com.kh.sportsmate.team.model.vo.TeamMember;
 @Controller
 public class TeamController {
 
+	private final TeamService teamService;
+	
 	@Autowired
 	public TeamController(TeamService teamService) {
 		this.teamService = teamService;
@@ -34,16 +36,23 @@ public class TeamController {
 	
 	// 구단 메인 페이지 : 게시글, 페이지네이션, 팀원 목록
 	@RequestMapping("boardList.tm")
-	public String selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+	public String selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model, int tno) {
 		// 임의의 팀 번호 값
-		int teamNo = 1;
+
 		
-		int boardCount = teamService.selectListCount(teamNo);
+		System.out.println(tno + "번 구단 미니 홈피");
+		int boardCount = teamService.selectListCount(tno);
 		
 		PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 10);
-		ArrayList<Team> list = teamService.selectList(pi, teamNo);
-		ArrayList<TeamMember> memberList = teamService.selectMemberList(teamNo);
+		ArrayList<TeamBoard> list = teamService.selectList(pi, tno);
+		ArrayList<TeamMember> memberList = teamService.selectMemberList(tno);
 		
+		for (TeamMember teamMember : memberList) {
+			System.out.println(teamMember);
+		}
+		
+		
+		model.addAttribute("tno", tno);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		model.addAttribute("memberList", memberList);
@@ -81,7 +90,7 @@ public class TeamController {
 		
 		// 게시글 생성
 		@PostMapping("createBd.tm")
-		public String insertBoard(Board b, HttpSession session, Model m) {
+		public String insertBoard(TeamBoard b, HttpSession session, Model m) {
 			System.out.println(b);
 			int result = teamService.createBoard(b);
 			

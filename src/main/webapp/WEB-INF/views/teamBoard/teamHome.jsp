@@ -109,10 +109,10 @@
 									${ml.memName }</td>
 							</tr>
 							<tr>
-								<td class="teamcomu-table-position">포지션 : ${ml.position }</td>
+								<td class="teamcomu-table-position">포지션 : ${ml.memEnrollDate }</td>
 							</tr>
 							<tr>
-								<td class="teamcomu-table-point">레벨 : ${ml.ability }</td>
+								<td class="teamcomu-table-point">레벨 : ${ml.status }</td>
 							</tr>
 						</table>
 					</c:forEach>
@@ -200,12 +200,12 @@
 				            			<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
 				            		</c:when>
 				            		<c:otherwise>
-				            			<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${pi.currentPage - 1}">이전</a></li>
+				            			<li class="page-item"><a class="page-link" href="boardList.tm?cpage=${pi.currentPage - 1}&tno=${tno}">이전</a></li>
 				            		</c:otherwise>
 				            	</c:choose>
 				
 								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-									<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${p}">${p}</a></li>
+									<li class="page-item"><a class="page-link" href="boardList.tm?cpage=${p}&tno=${tno}">${p}</a></li>
 								</c:forEach>
 				                
 				              <c:choose>
@@ -213,7 +213,7 @@
 				            			<li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
 				            		</c:when>
 				            		<c:otherwise>
-				            			<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${pi.currentPage + 1}">다음</a></li>
+				            			<li class="page-item"><a class="page-link" href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno}">다음</a></li>
 				            		</c:otherwise>
 				            	</c:choose>
 				            

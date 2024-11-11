@@ -96,8 +96,8 @@ public class BoardController {
 	// 게시글 수정
 		@PostMapping("modify.bd")
 		public String updateBoard(Board b, HttpSession session, Model m, int bno) {
-			System.out.println(b);
 			b.setBoardNo(bno);
+			System.out.println(b);
 			int result = boardService.updateBoard(b);
 			
 			if(result > 0) { //성공
@@ -111,10 +111,10 @@ public class BoardController {
 			
 		}
 		
-		@PostMapping("delete.bd")
+		@RequestMapping("delete.bd")
 		public String deleteBoard(Model m, HttpSession session, int bno) {
+			System.out.println(bno);
 			int result = boardService.deleteBoard(bno);
-			
 			if(result > 0) { //성공
 				session.setAttribute("alertMsg", "게시글 삭제 성공");
 				return "redirect:boardList.bd";

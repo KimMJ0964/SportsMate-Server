@@ -34,6 +34,8 @@ public class Member {
     private Date memEnrollDate;
     private String memStatus;
 
+    private int memAge;
+    
     public Member(String memEmail, String memPwd, String memName, String memGender, String memAdd, String memBirth, String memPhone, String memStatus) {
         this.memEmail = memEmail;
         this.memPwd = memPwd;

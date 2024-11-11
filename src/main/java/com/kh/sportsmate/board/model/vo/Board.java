@@ -19,6 +19,7 @@ public class Board {
 	private int view;
 	private int likeCount;
 	private String type;
+	private String status;
 	
 	/* 조인*/
 	private String memName;

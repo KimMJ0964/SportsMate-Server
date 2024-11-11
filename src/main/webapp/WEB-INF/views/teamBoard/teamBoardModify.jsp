@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>구단 게시글 수정</title>
+<title>게시글 수정</title>
 <link href="${pageContext.request.contextPath}/resources/css/board/boardCM.css?after" rel="stylesheet" >
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 </head>
@@ -25,12 +25,12 @@
 				<div class="bcm-select-container">
 					 <select class="bcm-select-select" name="type">
 				        <option value="">선택</option>
-				        <option value="자유" ${board.type == "자유" ? 'selected' : ''}>자유</option>
-				        <option value="응원" ${board.type == "응원" ? 'selected' : ''}>응원</option>
-				        <option value="질문" ${board.type == "질문" ? 'selected' : ''}>질문</option>
-				        <option value="공지" ${board.type == "공지" ? 'selected' : ''}>공지</option>
+				        <option value="축구" ${board.type == "축구" ? 'selected' : ''}>축구</option>
+				        <option value="농구" ${board.type == "농구" ? 'selected' : ''}>농구</option>
+				        <option value="풋살" ${board.type == "풋살" ? 'selected' : ''}>풋살</option>
+				        <option value="야구" ${board.type == "야구" ? 'selected' : ''}>야구</option>
 				        <option value="후기" ${board.type == "후기" ? 'selected' : ''}>후기</option>
-			
+				        <option value="기타" ${board.type == "기타" ? 'selected' : ''}>기타</option>
 				    </select>
 					
 					<div class="bcm-upload-file">
@@ -42,15 +42,15 @@
 				<!-- 내용 -->
 				<div class="bcm-content-container">
 					<hr>
-					<div class="bcm-content-textarea" name="content">
-						<textarea placeholder="내용을 입력하세요">${board.content }</textarea>
+					<div class="bcm-content-textarea">
+						<textarea placeholder="내용을 입력하세요" name="content">${board.content }</textarea>
 					</div>
 				</div>
 				
 				<!-- 버튼 -->
 				<div class="bcm-button-content">
-					<button class="bcm-back-btn">게시글로 돌아가기</button>
-					<button class="bcm-delete-btn">게시글 삭제</button>
+					<div class="bcm-back-btn">게시글로 돌아가기</div>
+					<div class="bcm-delete-btn"  onclick="location.href = 'delete.bd?bno=${board.boardNo}'">게시글 삭제</div>
 					<button class="bcm-complete-btn" type="submit">게시글 수정</button>
 				</div>
 			</form>

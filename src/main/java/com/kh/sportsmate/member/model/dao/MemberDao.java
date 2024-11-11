@@ -1,6 +1,7 @@
 package com.kh.sportsmate.member.model.dao;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -69,8 +70,13 @@ public class MemberDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMyTeam", memNo);
 	}
 
-	// 내 전적
+	// 내 구단 입단 명단자
 	public ArrayList<Recruit> selectMyRecruit(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMyRecruit", memNo);
+	}
+	
+	// 내 전적
+	public ArrayList<Match> selectMyMatch(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMyMatch", memNo);
 	}
 }

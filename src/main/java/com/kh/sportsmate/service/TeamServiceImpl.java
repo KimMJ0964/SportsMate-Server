@@ -29,13 +29,13 @@ public class TeamServiceImpl implements TeamService {
 	// 게시글 수 세기
 	@Override
 	public int selectListCount(int teamNo) {
-		return teamDao.selectListCount(sqlSession);
+		return teamDao.selectListCount(sqlSession, teamNo);
 	}
 
 	// 게시글 목록 가져오기
 	@Override
-	public ArrayList<Team> selectList(PageInfo pi, int teamNo) {
-		return teamDao.selectList(sqlSession, pi);
+	public ArrayList<TeamBoard> selectList(PageInfo pi, int teamNo) {
+		return teamDao.selectList(sqlSession, pi, teamNo);
 	}
 
 	// 구단 멤버 가져오기

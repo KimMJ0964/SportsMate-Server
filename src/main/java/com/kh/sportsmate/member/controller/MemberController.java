@@ -2,6 +2,7 @@ package com.kh.sportsmate.member.controller;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.common.template.Template;
+import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
@@ -128,6 +129,9 @@ public class MemberController {
     	// 내 정보
     	Member myInfo = myPageService.selectMyInfo(memNo);
     	
+    	// 내 전적
+    	ArrayList<Match> myMatch = myPageService.selectMyMatch(memNo); 
+    	
     	// 내 구단
     	ArrayList<Team> myTeam = myPageService.selectMyTeam(memNo);
     	
@@ -135,6 +139,12 @@ public class MemberController {
     	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
     	
     	
+    	for (Match match : myMatch) {
+    	    System.out.println(match);
+    	    
+    	}
+    	
+    	model.addAttribute("myMatch", myMatch);
     	model.addAttribute("myInfo", myInfo);
 		model.addAttribute("myTeam", myTeam);
 		model.addAttribute("myRecruit", myRecruit);

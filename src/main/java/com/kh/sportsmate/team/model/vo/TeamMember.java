@@ -22,5 +22,7 @@ public class TeamMember {
 	private Date memEnrollDate;
 	private Date approve;
 	
+	private String ability;
+	private String position;
 	private String memName;
 }

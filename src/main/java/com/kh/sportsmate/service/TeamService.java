@@ -13,7 +13,7 @@ public interface TeamService {
 		int selectListCount(int teamNo);
 		
 		// 게시글 목록 가져오기
-		ArrayList<Team> selectList(PageInfo pi, int teamNo);
+		ArrayList<TeamBoard> selectList(PageInfo pi, int teamNo);
 		
 		// 팀 목록 가져오기
 		ArrayList<TeamMember> selectMemberList(int teamNo);

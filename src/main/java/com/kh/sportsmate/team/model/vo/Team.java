@@ -30,4 +30,7 @@ public class Team {
 	private Date teamEnrollDate;
 	private String application;
 	private int memNo;
+	
+	private String memName;
+	private int teamMemberCount;
 }

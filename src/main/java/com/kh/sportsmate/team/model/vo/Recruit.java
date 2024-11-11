@@ -21,4 +21,14 @@ public class Recruit {
 	private int memNo;
 	private String approveOrNot;
 	private Date applicationDate;
+	private String introduce;
+	
+	private String teamName;
+	private String memName;
+	private int memAge;
+	private String memGender;
+	private String ability;
+	private String position;
+	private double memRank;
+	
 }

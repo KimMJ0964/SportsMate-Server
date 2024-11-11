@@ -21,24 +21,81 @@
     <!--    </resultMap>-->
     
     <!-- 마이페이지 -->
+    <!-- 내 정보 -->
      <select id="selectMyInfo" resultType="Member">
-        SELECT *
+        SELECT MEM_NO as memNo,
+        	   MEM_NAME as memName,
+        	   MEM_ADD as memAdd,
+        	   MEM_GENDER as memGender,
+        	   MEM_RANK as memRank,
+        	   MEM_BIRTH as memBirth,
+           		TIMESTAMPDIFF(YEAR, MEM_BIRTH, CURDATE()) as memAge
         FROM MEMBER
         WHERE MEM_NO = #{memNo}
     </select>
     
-    <select id="selectMyTeam" resultType='Team">
-        SELECT T.*
-		FROM TEAM T
-		JOIN TEAM_MEMBER TM ON T.TEAM_NO = TM.TEAM_NO
-		WHERE TM.memNo = #{memNo};
-    </select>
+    <!-- 내 구단 -->
+   <select id="selectMyTeam" resultType="Team">
+	    SELECT 
+	        T.TEAM_NO as teamNo,
+	        T.TEAM_NAME as teamName,
+	        T.TEAM_MAX_PERSON as teamMaxPerson,
+	        T.SCORE as score,
+	        T.TEAM_POINT as teamPoint,
+	        T.TEAM_ENROLL_DATE as teamEnrollDate,
+	        TM.MEM_NO as memNo,
+	        T.TEAM_TYPE as teamType,
+	        M.MEM_NAME as memName,
+	        (SELECT COUNT(*) FROM TEAM_MEMBER TM2 WHERE TM2.TEAM_NO = T.TEAM_NO) as teamMemberCount
+	    FROM TEAM T
+	    JOIN TEAM_MEMBER TM ON T.TEAM_NO = TM.TEAM_NO
+	    JOIN MEMBER M ON T.MEM_NO = M.MEM_NO
+	    WHERE TM.MEM_NO = #{memNo};
+	</select>
     
+    <!-- 내 구단 입단 명단자 -->
     <select id="selectMyRecruit" resultType="Recruit">
-        SELECT R.MEM_NO
-		FROM TEAM T
-		JOIN RECRUIT R ON T.TEAM_NO = R.TEAM_NO
-		WHERE T.MEM_NO = #{memNo};
-    </select>
+	    SELECT 
+	        R.MEM_NO as memNo,
+	        R.INTRODUCE as introduce,
+	        T.TEAM_NAME as teamName,
+	        M.MEM_NAME as memName,  <!-- MEMBER 테이블에서 MEM_NAME을 추가 -->
+	        M.MEM_BIRTH as memBirth,
+	        M.MEM_GENDER as memGender,
+	        M.MEM_RANK as memRank,
+	        TIMESTAMPDIFF(YEAR, M.MEM_BIRTH, CURDATE()) as memAge,
+	        CASE 
+	               WHEN T.TEAM_TYPE = '축구' THEN c.SOC_POSI
+	               WHEN T.TEAM_TYPE = '농구' THEN c.BASKET_POSI
+	               WHEN T.TEAM_TYPE = '풋살' THEN c.FOOT_POSI
+	               WHEN T.TEAM_TYPE = '야구' THEN c.BASE_POSI
+	           END AS position,
+	           CASE 
+	               WHEN T.TEAM_TYPE = '축구' THEN c.SOC_ABILITY
+	               WHEN T.TEAM_TYPE = '농구' THEN c.BASKET_ABILITY
+	               WHEN T.TEAM_TYPE = '풋살' THEN c.FOOT_ABILITY
+	               WHEN T.TEAM_TYPE = '야구' THEN c.BASE_ABILITY
+	           END AS ability
+	    FROM TEAM T
+	    JOIN RECRUIT R ON T.TEAM_NO = R.TEAM_NO
+	    JOIN MEMBER M ON R.MEM_NO = M.MEM_NO  <!-- RECRUIT와 MEMBER 테이블을 MEM_NO를 기준으로 JOIN -->
+	    JOIN CATEGORY c ON M.MEM_NO = c.MEM_NO 
+	    WHERE T.MEM_NO = #{memNo};
+	</select>
+    
+    <!-- 내 전적 -->
+    <select id="selectMyMatch" resultType="Match">
+	    SELECT DISTINCT
+		    M.SCORE_A AS scoreA,
+		    M.SCORE_B AS scoreB,
+		    A.TEAM_NAME AS teamAName,
+		    B.TEAM_NAME AS teamBName
+		FROM `MATCH` M
+		JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
+		JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
+		JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
+		JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
+		WHERE (TA.MEM_NO = 1 OR TB.MEM_NO = 1);
+	</select>
     
 </mapper>

@@ -96,13 +96,25 @@
         padding-bottom: 100px;
 	}
 	
-	.bcm-back-btn, .bcm-complete-btn {
+	.bcm-complete-btn {
         border-radius: 5px;
     	color: white;
     	cursor: pointer;
     	background-color: #007bff;
     	border-style: none;
     	height: 40px;
+    }
+    
+    .bcm-back-btn {
+    	border-radius: 5px;
+    	color: white;
+    	cursor: pointer;
+    	background-color: #FA1D1D;
+    	border-style: none;
+    	height: 40px;
+    	display: flex;             
+	    justify-content: center;
+	    align-items: center;
     }
     
     .bcm-delete-btn {
@@ -112,6 +124,9 @@
     	background-color: #FA1D1D;
     	border-style: none;
     	height: 40px;
+    	display: flex;             
+	    justify-content: center;
+	    align-items: center;
     }
     
     @media (max-width: 480px) {

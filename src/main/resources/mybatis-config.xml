@@ -11,6 +11,7 @@
 
 
      <typeAliases>
+     	<typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.Team" alias="Team"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoard" alias="TeamBoard"/>

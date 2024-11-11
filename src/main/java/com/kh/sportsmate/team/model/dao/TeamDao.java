@@ -22,11 +22,11 @@ public class TeamDao {
 		return sqlSession.selectOne("teamMapper.selectListCount", teamNo);
 	}
 	
-	public ArrayList<Team> selectList(SqlSessionTemplate sqlSession, PageInfo pi, int teamNo) {
+	public ArrayList<TeamBoard> selectList(SqlSessionTemplate sqlSession, PageInfo pi, int teamNo) {
 	    int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 	    RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 
-	    Map<String, Object> params = new HashMap()<>();
+	    Map<String, Object> params = new HashMap<>();
 	    params.put("teamNo", teamNo);
 
 	    return (ArrayList)sqlSession.selectList("teamMapper.selectList", params, rowBounds);
