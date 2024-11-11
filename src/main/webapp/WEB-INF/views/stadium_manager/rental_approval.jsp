@@ -23,7 +23,7 @@
 
         <jsp:include page="/WEB-INF/views/nav.jsp" />
 
-        <div class="rental-container">
+        <div class="rental-container"> 
             <div class="headname-container">
                 <div class="gamersult-row">
                     <div class="team-info">
