@@ -111,6 +111,21 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="inquiry-container">
+            <div class="inquirycontents-container">
+                <div class="inquiry-row">
+                    <div class="team-info">
+                        <form action="">
+                            <ul>
+                                <li><h5>제목 : 구장 상태 점검해주세요.</h5></li>
+                                <li><h7>문의 내용 : 구장 잔디 상태가 좋지 않습니다. 점검 부탁드립니다.</h7></li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <!-- 등록 버튼 -->
         <button class="registration-button">뒤로가기</button>
         </div>
