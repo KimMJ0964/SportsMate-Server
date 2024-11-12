@@ -18,13 +18,13 @@
 <body>
     <div class="wrap">
 
-        <jsp:include page="/WEB-INF/views/header.jsp" />
+        <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
         <br>
         <div class="warning-container" id="warningContainer" style="display: none;">
         <jsp:include page="/WEB-INF/views/stadium_manager/game_result_warning.jsp" />
         </div>
-        <jsp:include page="/WEB-INF/views/nav.jsp" />
+        <jsp:include page="/WEB-INF/views/common/nav.jsp" />
 
         <div class="gameresult-container">
             <div class="headname-container">
@@ -84,33 +84,113 @@
                             <tbody>
                                 <tr>
                                     <td>김개똥</td>
-                                    <td class="star-rating">★★★★★</td>
-                                    <td class="star-rating">★★★☆☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox"></td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
                                 <tr>
                                     <td>김개똥</td>
-                                    <td class="star-rating">★★★★★</td>
-                                    <td class="star-rating">★★★☆☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox"></td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
                                 <tr>
                                     <td>김개똥</td>
-                                    <td class="star-rating">★★★★★</td>
-                                    <td class="star-rating">★★★★☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox"></td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
                                 <tr>
                                     <td>김개똥</td>
-                                    <td class="star-rating">★★★★★</td>
-                                    <td class="star-rating">★★★☆☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox"></td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
                                 <tr>
                                     <td>김개똥</td>
-                                    <td class="star-rating">★★★★★</td>
-                                    <td class="star-rating">★★★★☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox"></td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -129,45 +209,125 @@
                             <tbody>
                                 <tr>
                                     <td>인최리</td>
-                                    <td class="star-rating">★★★★★</td>
-                                    <td class="star-rating">★★★★☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox"></td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
                                 <tr>
                                     <td>인최리</td>
-                                    <td class="star-rating">★★★★★</td>
-                                    <td class="star-rating">★★★☆☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox"></td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
                                 <tr>
                                     <td>인최리</td>
-                                    <td class="star-rating">★★★★★</td>
-                                    <td class="star-rating">★★★★☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox"></td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
                                 <tr>
                                     <td>인최리</td>
-                                    <td class="star-rating">★★★★☆</td>
-                                    <td class="star-rating">★★★☆☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox"></td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
                                 <tr>
                                     <td>인최리</td>
-                                    <td class="star-rating">★★★★☆</td>
-                                    <td class="star-rating">★★★★☆</td>
-                                    <td><input type="checkbox" class="warning-checkbox"></td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td class="star-rating">
+                                        <div class="star-container" data-rating="0">
+                                            <span class="star" data-value="1">★</span>
+                                            <span class="star" data-value="2">★</span>
+                                            <span class="star" data-value="3">★</span>
+                                            <span class="star" data-value="4">★</span>
+                                            <span class="star" data-value="5">★</span>
+                                        </div>
+                                    </td>
+                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <button class="registration-button">등록하기</button>
+                        <button class="registration-button" >등록하기</button>
 
                 </div>
                     <!-- 뒤로가기 버튼 -->
                     <button class="registration2-button">뒤로가기</button>
             </div>
 
-        <jsp:include page="/WEB-INF/views/footer.jsp" />
+        <jsp:include page="/WEB-INF/views/common/footer.jsp" />
         </div>
 
         <script src="${pageContext.request.contextPath}/resources/js/game_result.js"></script>

@@ -23,13 +23,13 @@
                 <div class="wnmenu-box">
                     <h2>경고</h2> <br>
                     <h4>구장명</h4> 
-                    <input type="text" class="warning-input" placeholder="     구장명을 입력해주세요.">
+                    <input type="text" id="stadiumName" class="warning-input" placeholder="     구장명을 입력해주세요.">
 
                     <h4>경고 일시</h4>
-                    <input type="text" class="warning-input" placeholder="     20xx년 xx월 xx일">
+                    <input type="text" id="warningDate" class="warning-input" placeholder="     20xx년 xx월 xx일">
 
                     <h4>경고 사유</h4>
-                    <input type="text" class="warning-input2" placeholder="    경고 사유를 입력해주세요.">
+                    <input type="text" id="warningReason" class="warning-input2" placeholder="    경고 사유를 입력해주세요.">
 
                 </div>
 

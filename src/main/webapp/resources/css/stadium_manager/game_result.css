@@ -216,6 +216,41 @@ input[type="checkbox"] {
     cursor: pointer; /* 마우스 포인터 설정 */
 }
 
+.star-container {
+    display: inline-flex;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ddd; /* 초기 상태는 회색 */
+}
+
+.star {
+    font-size: 20px;
+    color: #ddd; /* 기본 회색으로 표시 */
+    position: relative;
+}
+
+.star::before {
+    content: "★";
+    color: #FFA500;
+    position: absolute;
+    width: 0%; /* 기본적으로 채워지지 않음 */
+    overflow: hidden;
+    left: 0;
+}
+
+.star.full::before {
+    width: 100%; /* 전체 채워진 상태 */
+}
+
+.star.half::before {
+    width: 50%; /* 반만 채워진 상태 */
+}
+
+
+
+
+
+
 @media (max-width: 480px) {
     .result-container {
         max-width: 425px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
@@ -229,6 +264,11 @@ input[type="checkbox"] {
 
     .registration2-button{
         margin-bottom: 100px;
+    }
+
+    .star {
+        font-size: 12px;
+
     }
 }
 

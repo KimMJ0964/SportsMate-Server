@@ -17,11 +17,11 @@
 </head>
 <body>
     <div class="wrap">
-        <jsp:include page="/WEB-INF/views/header.jsp" />
+        <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
         <br>
 
-        <jsp:include page="/WEB-INF/views/nav.jsp" />
+        <jsp:include page="/WEB-INF/views/common/nav.jsp" />
 
         <div class="rental-container"> 
             <div class="headname-container">
@@ -140,7 +140,7 @@
             <button class="registration-button">뒤로가기</button>
         </div>
 
-        <jsp:include page="/WEB-INF/views/footer.jsp" />
+        <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
     </div>
 
