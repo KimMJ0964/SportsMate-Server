@@ -1,6 +1,7 @@
 package com.kh.sportsmate.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
@@ -30,4 +31,10 @@ public interface BoardService {
 	
 	// 게시글 삭제
 	int deleteBoard(int bno);
+	
+	// 게시글 검색
+	ArrayList<Board> searchBoard(PageInfo pi, Map<String, String> map);
+	
+	// 댓글 입력
+	int writeReply(Map<String, String> map);
 }

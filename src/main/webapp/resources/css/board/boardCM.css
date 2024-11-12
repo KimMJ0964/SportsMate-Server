@@ -109,12 +109,14 @@
     	border-radius: 5px;
     	color: white;
     	cursor: pointer;
-    	background-color: #FA1D1D;
+    	background-color: #007bff;
     	border-style: none;
     	height: 40px;
     	display: flex;             
 	    justify-content: center;
 	    align-items: center;
+	    padding-left: 5px;
+	    padding-right: 5px;
     }
     
     .bcm-delete-btn {
@@ -127,6 +129,8 @@
     	display: flex;             
 	    justify-content: center;
 	    align-items: center;
+	    padding-left: 5px;
+	    padding-right: 5px;
     }
     
     @media (max-width: 480px) {

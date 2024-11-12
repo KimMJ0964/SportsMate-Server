@@ -48,7 +48,8 @@
 	           b.LIKE_COUNT AS likeCount,
 	           b.CONTENT AS content,
 	           b.BOARD_NO AS boardNo,
-	           b.TYPE AS type
+	           b.TYPE AS type,
+	           b.TEAM_NO AS teamNo
 	    FROM TEAM_BOARD b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 	    WHERE b.STATUS = 'Y'
@@ -84,20 +85,22 @@
 		    MEM_NO,
 		    CONTENT,
 		    TYPE,
-		    CREATE_DATE
+		    CREATE_DATE,
+		    TEAM_NO
 		)
 		VALUES (
 		    #{title},
 		    1,
 		    #{content},
 		    #{type},
-		    NOW()
+		    NOW(),
+		    #{teamNo}
 		)
 	  </insert>
 	  
-	  <!-- 게시글 생성 -->
+	  <!-- 게시글 수정 -->
 	<update id="updateBoard">
-	    UPDATE BOARD
+	    UPDATE TEAM_BOARD
 	    SET 
 	        TITLE = #{title},
 	        CONTENT = #{content},
@@ -107,4 +110,60 @@
 	        BOARD_NO = #{boardNo} <!-- 보통 게시글 ID를 기준으로 수정 -->
 	</update>
 	
+	
+	<!-- 게시글 삭제 -->
+	<update id="deleteBoard">
+	    UPDATE TEAM_BOARD
+	    SET STATUS = 'N'
+	    WHERE BOARD_NO = #{bno}
+	</update>
+	
+	<!-- 입단자 거절 -->
+	<delete id="rejectJoin">
+		DELETE
+		FROM RECRUIT
+		WHERE MEM_NO = #{mno}
+	</delete>
+	
+	<!-- 입단자 수락 [reject 테이블 제거] -->
+	<delete id="approveJoin">
+		DELETE
+		FROM RECRUIT
+		WHERE MEM_NO = #{mno}
+	</delete>
+	
+	<!-- 입단자 수락 [member 테이블 추가]-->
+	<insert id="approveJoinTwo">
+		INSERT INTO TEAM_MEMBER (
+			    TEAM_NO,
+			    MEM_NO,
+			    STATUS,
+			    MEM_ENROLL_DATE,
+			    APPROVE
+			)
+			VALUES (
+			    #{tno},
+			    #{mno},
+			    'Y',
+			    NOW(),
+			    NOW()
+			)
+	</insert>
+	
+	<!-- 게시글 검색 -->
+	 <select id="searchBoard" parameterType="map" resultType="TeamBoard">
+	    SELECT b.BOARD_NO AS boardNo,
+	           b.TITLE AS title,
+	           m.MEM_NAME AS memName,
+	           b.CREATE_DATE AS createDate,
+	           b.VIEW AS view,
+	           b.TYPE AS type
+	    FROM TEAM_BOARD b
+	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+	    WHERE b.STATUS = 'Y'
+	    	AND b.TEAM_NO = #{tno}
+	        AND b.TYPE = #{category}
+	    	AND b.TITLE LIKE CONCAT('%', #{keyword}, '%')
+	    ORDER BY b.BOARD_NO DESC
+	</select>
 </mapper>

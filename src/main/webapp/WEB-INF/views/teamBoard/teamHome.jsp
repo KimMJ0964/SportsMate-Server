@@ -152,8 +152,10 @@
 
 			<div class="teamcomu-board-container">
 				<div class="teamcomu-board">
+				<form method="get" action="searchBoard.tm">
+				<input type="hidden" name="tno" value="${tno}">
 					<div class="board-search-container">
-						<select class="board-search-option">
+						<select class="board-search-option" name="category" id="category">
 							<option value="" selected>선택</option>
 						    <option value="자유">자유</option>
 							<option value="응원">응원</option>
@@ -161,11 +163,11 @@
 						    <option value="공지">공지</option>
 						    <option value="후기">후기</option>
 						</select> <input type="text" class="board-search-input"
-							placeholder="검색어 입력" />
+							placeholder="검색어 입력"  name="keyword" id="keyword" />
 
 						<button type="submit" class="board-search-btn">검색</button>
 					</div>
-
+				</form>
 					<!-- 게시글 목록 -->
 					<div class="board-table-container">
 						<table>
@@ -223,7 +225,7 @@
 						<div class="board-createMove-btn-container">
 							<Button class="board-plus-btn">➖</Button>
 							<Button class="board-minus-btn">➕</Button>
-							<Button class="board-createMove-btn">글쓰기</Button>
+							<Button class="board-createMove-btn" onclick="location.href = 'createMoveBd.tm?tno=${tno}'">글쓰기</Button>
 						</div>
 					</div>
 				</div>

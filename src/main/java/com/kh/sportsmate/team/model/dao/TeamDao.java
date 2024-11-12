@@ -55,4 +55,27 @@ public class TeamDao {
 	public int updateBoard(SqlSessionTemplate sqlSession, TeamBoard b) {
 		return sqlSession.update("teamMapper.updateBoard", b);
 	}
+	
+	public int deleteBoard(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.delete("teamMapper.deleteBoard", bno);
+	}
+	
+	public int rejectJoin(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.delete("teamMapper.rejectJoin", mno);
+	}
+	
+	public int approveJoin(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.delete("teamMapper.approveJoin", mno);
+	}
+	
+	public int approveJoinTwo(SqlSessionTemplate sqlSession, Map<String, Integer> nos) {
+		return sqlSession.insert("teamMapper.approveJoinTwo", nos);
+	}
+	
+	public ArrayList<TeamBoard> searchBoard(SqlSessionTemplate sqlSession, PageInfo pi, Map<String, String> map) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+	    RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+
+	    return (ArrayList)sqlSession.selectList("teamMapper.searchBoard", map, rowBounds);
+	}
 }

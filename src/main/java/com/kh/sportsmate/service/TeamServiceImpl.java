@@ -1,6 +1,7 @@
 package com.kh.sportsmate.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +73,34 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public int updateBoard(TeamBoard b) {
 		return teamDao.updateBoard(sqlSession, b);
+	}
+
+	// 게시글 삭제
+	@Override
+	public int deleteBoard(int bno) {
+		return teamDao.deleteBoard(sqlSession, bno);
+	}
+
+	// 입단 거절
+	@Override
+	public int rejectJoin(int mno) {
+		return teamDao.rejectJoin(sqlSession, mno);
+	}
+
+	// 입단 승인
+	@Override
+	public int approveJoin(Map<String, Integer> nos) {
+		int mno = nos.get("mno");
+		if(teamDao.approveJoin(sqlSession, mno) > 0) {
+			return teamDao.approveJoinTwo(sqlSession, nos);
+		} else {
+			return 0;
+		}
+	}
+
+	// 게시글 검색
+	@Override
+	public ArrayList<TeamBoard> searchBoard(PageInfo pi, Map<String, String> map) {
+		return teamDao.searchBoard(sqlSession, pi, map);
 	}
 }

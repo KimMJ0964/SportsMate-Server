@@ -328,8 +328,8 @@
 								data-posi="${mr.position}"
 								data-intro="${mr.introduce }"
 		                        	>입단자 정보</Button>
-							<Button class="approve-btn">승인</Button>
-							<Button class="reject-btn">거절</Button>
+							<Button class="approve-btn" onclick="location.href = 'approveJoin.tm?mno=${mr.memNo}&tno=${mr.teamNo }'">승인</Button>
+							<Button class="reject-btn" onclick="location.href = 'rejectJoin.tm?mno=${mr.memNo}'">거절</Button>
 						</div>
 					</div>
 					<br>

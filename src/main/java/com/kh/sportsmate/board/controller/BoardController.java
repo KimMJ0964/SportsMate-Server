@@ -18,6 +18,8 @@ import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.service.BoardService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -111,6 +113,7 @@ public class BoardController {
 			
 		}
 		
+		// 게시글 삭제
 		@RequestMapping("delete.bd")
 		public String deleteBoard(Model m, HttpSession session, int bno) {
 			System.out.println(bno);
@@ -123,5 +126,35 @@ public class BoardController {
 				m.addAttribute("errorMsg", "게시글 삭제 실패");
 				return "main";
 			}
+		}
+		
+		// 게시글 검색
+		@RequestMapping("search.bd")
+		public String searchBoard(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model m, String category, String keyword) {
+			int boardCount = boardService.selectListCount();
+			PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 10);
+			
+			Map<String, String> map = new HashMap<>();
+			map.put("category", category);
+			map.put("keyword", keyword);
+			ArrayList<Board> list = boardService.searchBoard(pi, map);
+			
+			m.addAttribute("list", list);
+			m.addAttribute("pi", pi);
+	
+			return "board/board";
+		}
+		
+		// 댓글 작성
+		@RequestMapping("writeReply.bd")
+		public String writeReply(int bno, String content, Model m) {
+			int memNo = 1;
+			Map<String, String> map = new HashMap<>();
+			map.put("bno", String.valueOf(bno));
+			map.put("memNo", String.valueOf(memNo));
+			map.put("content", content);
+			
+			int boardComment = boardService.writeReply(map);
+			return "detailMove.bd?bno=" + bno;
 		}
 }

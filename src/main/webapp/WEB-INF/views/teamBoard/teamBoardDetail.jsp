@@ -20,29 +20,29 @@
 		<jsp:include page="/WEB-INF/views/nav.jsp" />
         <!-- 1. 게시글 제목 -->
         <div class="bd-title-container">
-            <h1 class="bd-title">${board.title }</h1>
+            <h1 class="bd-title">${teamBoard.title }</h1>
             <!-- 2. 수평선 -->
             <hr>
             
             <!-- 3. 닉네임 / 게시일 / 조회수 -->
             <div class="bd-meta-info">
-                ${board.memName } / ${board.createDate } / ${board.view }
+                ${teamBoard.memName } / ${teamBoard.createDate } / ${teamBoard.view }
             </div>
         </div>
         
         <!-- 4. 게시글 내용 -->
         <div class="bd-content-container">
             <div class="bd-content">
-                ${board.content }
+                ${teamBoard.content }
             </div>
             <!-- 5. 버튼들 -->
             <div class="bd-button-container">
                 <button class="bd-button">파일 다운로드</button>
-                 <button class="bd-button"  onclick="location.href = 'modifyMove.bd?mpage=${board.boardNo}'">수정하기</button>
+                 <button class="bd-button"  onclick="location.href = 'modifyMoveBd.tm?mpage=${teamBoard.boardNo}'">수정하기</button>
                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</button>
                  <div>
 				 	<img class="bd-like" src="${pageContext.request.contextPath}/resources/images/board_like.png"/>
-            		<div class="bd-like-count" style="text-align: center;">${board.likeCount }</div>
+            		<div class="bd-like-count" style="text-align: center;">${teamBoard.likeCount }</div>
             	</div>
             </div>
             <hr>

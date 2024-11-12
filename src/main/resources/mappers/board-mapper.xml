@@ -100,4 +100,38 @@
 	    SET STATUS = 'N'
 	    WHERE BOARD_NO = #{bno}
 	</update>
+	
+	 <!-- 게시글 검색 -->
+	  <select id="searchBoard" resultType="Board">
+	    SELECT b.BOARD_NO AS boardNo,
+	           b.TITLE AS title,
+	           m.MEM_NAME AS memName,
+	           b.CREATE_DATE AS createDate,
+	           b.VIEW AS view,
+	           b.TYPE AS type
+	    FROM BOARD b
+	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+	    WHERE b.STATUS = 'Y'
+	    AND b.TYPE = #{category}
+	    AND b.TITLE LIKE CONCAT('%', #{keyword}, '%')
+	    ORDER BY b.BOARD_NO DESC
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="writeReply">
+		INSERT INTO BOARD_COMMENT (
+		    REF_BOARD_NO,
+		    MEM_NO,
+		    COM_CREATE_DATE,
+		    STATUS,
+		    COM_CONTENT
+		)
+		VALUES (
+		    #{bno},
+		    #{memNo},
+		    NOW(),
+		    'Y',
+		    #{content}
+		)
+	</insert>
 </mapper>

@@ -1,6 +1,7 @@
 package com.kh.sportsmate.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.team.model.vo.Team;
@@ -32,4 +33,16 @@ public interface TeamService {
 		
 		// 게시글 수정
 		int updateBoard(TeamBoard b);
+		
+		// 게시글 삭제
+		int deleteBoard(int bno);
+		
+		// 입단 허락
+		int approveJoin(Map<String, Integer> nos);
+		
+		// 입단 거부
+		int rejectJoin(int mno);
+		
+		// 게시글 검색
+		ArrayList<TeamBoard> searchBoard(PageInfo pi, Map<String, String> map);
 }

@@ -29,20 +29,22 @@
 				<div class="board-app-banner"><h4>커뮤니티</h4></div>
 				
 				<!-- 게시글 검색 -->
-				<div class="board-search-container">
-					<select class="board-search-option">
-					    <option value="" selected>선택</option>
-					    <option value="soccer">축구</option>
-					    <option value="baksetball">농구</option>
-					    <option value="footsal">풋살</option>
-					    <option value="baseball">야구</option>
-					    <option value="review">후기</option>
-					</select>
-					
-					<input type="text" class="board-search-input" placeholder="검색어 입력" />
-					
-					<button type="submit" class="board-search-btn">검색</button>
-				</div>
+				<form method="get" action="search.bd">
+					<div class="board-search-container">
+						<select class="board-search-option" name="category" id="category">
+						    <option value="" selected>선택</option>
+						    <option value="축구">축구</option>
+						    <option value="농구">농구</option>
+						    <option value="풋살">풋살</option>
+						    <option value="야구">야구</option>
+						    <option value="후기">후기</option>
+						</select>
+						
+						<input type="text" class="board-search-input" placeholder="검색어 입력" name="keyword" id="keyword" />
+						
+						<button type="submit" class="board-search-btn">검색</button>
+					</div>
+				</form>
 				
 				<!-- 게시글 목록 -->
 				<div class="board-table-container">

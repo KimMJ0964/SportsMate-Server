@@ -49,16 +49,21 @@
         </div>
         <!-- 8. 댓글 작성 폼 -->
         <div class="bd-comment-container">
-            <div class="bd-comment-section">
-                <textarea class="bd-comment-textarea" rows="3" style="resize: none; width: 100%;"></textarea>
-                <button class="bd-button" style="float: right;">댓글 작성 완료</button>
-            </div>
+        	<form method="post" action="writeReply.bd?bno=${board.boardNo}">
+	            <div class="bd-comment-section">
+	                <textarea class="bd-comment-textarea" rows="3" style="resize: none; width: 100%;" name="content" id="content"></textarea>
+	                <button type="submit" class="bd-button" style="float: right;">댓글 작성 완료</button>
+	            </div>
+            </form>
         </div>
         <!-- 댓글 -->
         <div class="bd-comment">
             <h4>댓글 ${commentCount}</h4><hr>
         	<!-- 부모 댓글 -->
-        	
+        	<div class="bd-reply-form">
+		                <textarea rows="3" style="width: 100%; height: 120px; border: 1px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
+		                <button class="bd-button" style="float: right;">답장 작성 완료</button>
+		            </div>
         	<c:forEach var="comments" items="${comment}">
 				 <c:if test="${comments.comParentNo == 0}">    
 		        <div class="bd-one-comment-container">
@@ -69,15 +74,9 @@
 		            <div class="bd-comment-content">${comments.comContent}</div>
 		            <hr>
 		            <div class="bd-button-container">
-		                <button class="bd-red-button">댓글 삭제</button>
-		                <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</button>
+		                <div class="bd-red-button">댓글 삭제</div>
+		                <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</div>
 		                <button class="bd-button" onclick="toggleReplyForm(event)">답글 작성</button>
-		            </div>
-		
-		            <!-- 대댓글 작성 폼 -->
-		            <div class="bd-reply-form">
-		                <textarea rows="3" style="width: 100%; height: 120px; border: 1px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
-		                <button class="bd-button" style="float: right;">답장 작성 완료</button>
 		            </div>
 		
 		            <!-- 대댓글 (Replies) -->

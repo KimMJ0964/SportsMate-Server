@@ -1,6 +1,8 @@
 package com.kh.sportsmate.team.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -59,9 +61,10 @@ public class TeamController {
 		return "teamBoard/teamHome";
 	}
 	
-	// 게시글 생성 페이지 이동
+		// 게시글 생성 페이지 이동
 		@RequestMapping("createMoveBd.tm")
-		public String enrollForm() {
+		public String enrollForm(Model m, int tno) {
+			m.addAttribute("tno", tno);
 			return "teamBoard/teamBoardCreate";
 		}
 		
@@ -90,13 +93,13 @@ public class TeamController {
 		
 		// 게시글 생성
 		@PostMapping("createBd.tm")
-		public String insertBoard(TeamBoard b, HttpSession session, Model m) {
-			System.out.println(b);
+		public String insertBoard(TeamBoard b, HttpSession session, Model m, int tno) {
+			b.setTeamNo(tno);
 			int result = teamService.createBoard(b);
 			
 			if(result > 0) { //성공
 				session.setAttribute("alertMsg", "게시글 작성 성공");
-				return "redirect:boardList.tm";
+				return "redirect:boardList.tm?tno=" + tno;
 			} else { //실패
 				System.out.println("일반 게시글 생성 실패");
 				m.addAttribute("errorMsg", "게시글 작성 실패");
@@ -104,4 +107,96 @@ public class TeamController {
 			}
 			
 		}
+		
+		// 게시글 수정
+		@PostMapping("modify.tm")
+		public String updateBoard(TeamBoard b, HttpSession session, Model m, int bno, int tno) {
+			b.setBoardNo(bno);
+			System.out.println(b);
+			int result = teamService.updateBoard(b);
+					
+			if(result > 0) { //성공
+				session.setAttribute("alertMsg", "게시글 작성 성공");
+				return "redirect:boardList.tm?tno=" + tno;
+			} else { //실패
+				System.out.println("일반 게시글 생성 실패");
+				m.addAttribute("errorMsg", "게시글 작성 실패");
+				return "main";
+			}
+					
+		}
+				
+		// 게시글 삭제
+		@RequestMapping("delete.tm")
+		public String deleteBoard(Model m, HttpSession session, int bno, int tno) {
+			System.out.println(bno);
+			int result = teamService.deleteBoard(bno);
+			if(result > 0) { //성공
+				session.setAttribute("alertMsg", "게시글 삭제 성공");
+				return "redirect:boardList.tm?tno=" + tno;
+			} else { //실패
+				System.out.println("일반 게시글 생성 실패");
+				m.addAttribute("errorMsg", "게시글 삭제 실패");
+				return "main";
+			}
+		}
+		
+		// 구단 입단 신청 허락
+		@RequestMapping("approveJoin.tm")
+		public String approveJoin(Model m, HttpSession session, int mno, int tno) {
+			Map<String, Integer> nos = new HashMap<>();
+			nos.put("mno", mno);
+			nos.put("tno", tno);
+			
+			int result = teamService.approveJoin(nos);
+			    
+			if(result > 0) { //성공
+				session.setAttribute("alertMsg", "입단 성공");
+				return "redirect:myPageInfo.mp";
+			} else { //실패
+				m.addAttribute("errorMsg", "입단 실패");
+				return "redirect:myPageInfo.mp";
+			} 
+		}
+		
+		// 구단 입단 신청 거절
+		@RequestMapping("rejectJoin.tm")
+		public String rejectJoin(Model m, HttpSession session, int mno) {
+			int result = teamService.rejectJoin(mno);
+			if(result > 0) { //성공
+				session.setAttribute("alertMsg", "입단 거부 성공");
+				return "redirect:myPageInfo.mp";
+			} else { //실패
+				m.addAttribute("errorMsg", "입단 거부 실패");
+				return "redirect:myPageInfo.mp";
+			} 
+		}
+		
+		// 게시글 검색
+		@RequestMapping("searchBoard.tm")
+		public String searchBoard(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model m, String category, String keyword, int tno) {
+			System.out.println(category + "/" + keyword + "/" + tno);
+			int boardCount = teamService.selectListCount(tno);
+			PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 10);
+					
+			Map<String, String> map = new HashMap<>();
+			map.put("category", category);
+			map.put("keyword", keyword);
+			map.put("tno", String.valueOf(tno));
+			ArrayList<TeamBoard> list = teamService.searchBoard(pi, map);
+			ArrayList<TeamMember> memberList = teamService.selectMemberList(tno);
+					
+			m.addAttribute("list", list);
+			m.addAttribute("pi", pi);
+			m.addAttribute("memberList", memberList);
+			m.addAttribute("tno", tno);
+			
+			return "teamBoard/teamHome";
+		}
 }
+
+
+
+
+
+

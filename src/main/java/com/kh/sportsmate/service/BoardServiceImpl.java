@@ -1,6 +1,7 @@
 package com.kh.sportsmate.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,16 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int deleteBoard(int bno) {
 		return boardDao.deleteBoard(sqlSession, bno);
+	}
+
+	@Override
+	public ArrayList<Board> searchBoard(PageInfo pi, Map<String, String> map) {
+		return boardDao.searchBoard(sqlSession, pi, map);
+	}
+
+	// 댓글 작성
+	@Override
+	public int writeReply(Map<String, String> map) {
+		return boardDao.writeReply(sqlSession, map);
 	}
 }

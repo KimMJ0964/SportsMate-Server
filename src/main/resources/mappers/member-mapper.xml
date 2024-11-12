@@ -54,11 +54,13 @@
 	</select>
     
     <!-- 내 구단 입단 명단자 -->
+    <!-- 해당 종목의 레벨과 포지션 가지고 있어야 조회가능 -->
     <select id="selectMyRecruit" resultType="Recruit">
 	    SELECT 
 	        R.MEM_NO as memNo,
 	        R.INTRODUCE as introduce,
 	        T.TEAM_NAME as teamName,
+	        T.TEAM_NO as teamNo,
 	        M.MEM_NAME as memName,  <!-- MEMBER 테이블에서 MEM_NAME을 추가 -->
 	        M.MEM_BIRTH as memBirth,
 	        M.MEM_GENDER as memGender,

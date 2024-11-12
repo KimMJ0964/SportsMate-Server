@@ -1,6 +1,7 @@
 package com.kh.sportsmate.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -45,5 +46,16 @@ public class BoardDao {
 	
 	public int deleteBoard(SqlSessionTemplate sqlSession, int bno) {
 		return sqlSession.update("boardMapper.deleteBoard", bno);
+	}
+	
+	public ArrayList<Board> searchBoard(SqlSessionTemplate sqlSession, PageInfo pi, Map<String, String> map) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.searchBoard", map, rowBounds);
+	}
+	
+	public int writeReply(SqlSessionTemplate sqlSession, Map<String, String>map) {
+		return sqlSession.insert("boardMapper.writeReply", map);
 	}
 }

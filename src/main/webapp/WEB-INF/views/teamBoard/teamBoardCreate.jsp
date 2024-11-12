@@ -18,7 +18,7 @@
 		<jsp:include page="/WEB-INF/views/nav.jsp" />
 		<div class="bcm-container">
 			<!-- 제목 -->
-			<form method="post" action="create.bd" enctype="multipart/form-data">
+			<form method="post" action="createBd.tm?tno=${tno}" enctype="multipart/form-data">
 				<div class="bcm-title-container">
 					<h3>제목</h3>
 					<input placeholder="  제목을 입력하시오." id="title" name="title">
@@ -51,7 +51,7 @@
 				
 				<!-- 버튼 -->
 				<div class="bcm-button-content">
-					<button class="bcm-back-btn" onclick="location.href = 'boardList.bd'">게시판 목록으로 돌아가기</button>
+					<div class="bcm-back-btn" onclick="location.href = 'boardList.tm?tno=${tno}'">게시판 목록으로 돌아가기</div>
 					<button class="bcm-complete-btn" type="submit">게시글 생성</button>
 				</div>
 			</form>

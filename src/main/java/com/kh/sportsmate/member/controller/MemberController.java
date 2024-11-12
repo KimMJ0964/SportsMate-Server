@@ -138,12 +138,6 @@ public class MemberController {
     	// 내 구단 입단 명단
     	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
     	
-    	
-    	for (Match match : myMatch) {
-    	    System.out.println(match);
-    	    
-    	}
-    	
     	model.addAttribute("myMatch", myMatch);
     	model.addAttribute("myInfo", myInfo);
 		model.addAttribute("myTeam", myTeam);
