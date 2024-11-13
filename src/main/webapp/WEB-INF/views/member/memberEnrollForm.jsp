@@ -20,8 +20,9 @@
     <title>Title</title>
 </head>
 <body>
+    <jsp:include page="../common/header.jsp" />
     <div class="wrap">
-        <div id="login-wrap">
+        <div id="enroll-wrap">
             <form action="member_enroll.me" class="enroll-form" method="post" enctype="multipart/form-data">
                 <div class="user-profile-wrap">
                     <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt=""
