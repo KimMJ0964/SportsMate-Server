@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- !namespace : 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="adminMapper">
+	<!-- 차트 데이터 가져오기 -->
+    <select id="drawChart" resultType="ChartDateDto">
+        SELECT
+		    COUNT(CASE WHEN login_date = CURDATE() THEN 1 END) AS today,
+		    COUNT(CASE WHEN login_date = CURDATE() - INTERVAL 1 DAY THEN 1 END) AS oneDay,
+		    COUNT(CASE WHEN login_date = CURDATE() - INTERVAL 2 DAY THEN 1 END) AS twoDay,
+		    COUNT(CASE WHEN login_date = CURDATE() - INTERVAL 3 DAY THEN 1 END) AS threeDay,
+		    COUNT(CASE WHEN login_date = CURDATE() - INTERVAL 4 DAY THEN 1 END) AS fourDay
+		FROM login_log;
+    </select>
+    
+    <!-- 신고접수 리스트 가져오기 -->
+    <select id="selectReportList" resultType="MemberPenalty">
+        SELECT MEM_NO,
+        PN_CONTENT AS ,
+        PN_DATE,
+        PN_COUNT,
+        PN_REPORTER,
+        PN_GROUND,
+        PN_COMMUNITY,
+        PN_COMMENT,
+        PN_TYPE
+		FROM member_penalty
+		WHERE PN_dATE = CURDATE();
+    </select>
+    
+    
+</mapper>

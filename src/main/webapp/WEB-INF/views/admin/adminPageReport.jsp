@@ -5,10 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>신고관리</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/adminPageReport.css">
-
+    <script  src="${pageContext.request.contextPath}/resources/js/admin/adminPageReport.js"></script>
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -121,23 +122,23 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <p><b>경기장:</b> xx경기장</p>
+                                        <p><b>경기장:</b> ${report.repGround}</p>
                                     </td>
                                     <td>
-                                        <p><b>신고일:</b> 24.01.01</p>
+                                        <p><b>신고일:</b> ${report.repDate}</p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p><b>신고자:</b> 심판1</p>
+                                        <p><b>신고자:</b> ${report.repNo}</p>
                                     </td>
                                     <td>
-                                        <p><b>신고대상:</b> 비매너유저1</p>
+                                        <p><b>신고대상:</b> ${report.pnUser}</p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <p><b>신고사유:</b> 나쁜사람임</p>
+                                        <p><b>신고사유:</b> ${report.repDetail}</p>
                                     </td>
                                 </tr>
                             </table>
