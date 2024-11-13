@@ -47,3 +47,5 @@ public class Member {
         this.memStatus = memStatus;
     }
 }
+
+

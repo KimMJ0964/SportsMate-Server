@@ -154,3 +154,4 @@ public class MemberController {
     	return "myPage/myPage";
     }
 }
+

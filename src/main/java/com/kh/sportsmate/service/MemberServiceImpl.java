@@ -64,3 +64,4 @@ public class MemberServiceImpl implements MemberService {
         return result1 * result2 * result3;
     }
 }
+

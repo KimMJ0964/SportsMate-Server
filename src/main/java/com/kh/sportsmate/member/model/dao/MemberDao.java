@@ -1,6 +1,7 @@
 package com.kh.sportsmate.member.model.dao;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+<<<<<<< HEAD
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
@@ -9,6 +10,10 @@ import com.kh.sportsmate.team.model.vo.Team;
 
 import java.util.ArrayList;
 
+=======
+import com.kh.sportsmate.member.model.vo.Category;
+import com.kh.sportsmate.member.model.vo.Member;
+>>>>>>> 87b7105549cf979f9fb85a526200b076e6391f3a
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 

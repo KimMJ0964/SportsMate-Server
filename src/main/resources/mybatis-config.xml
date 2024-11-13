@@ -10,6 +10,7 @@
     </settings>
 
 
+<<<<<<< HEAD
      <typeAliases>
      	<typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
@@ -20,12 +21,21 @@
         <typeAlias type="com.kh.sportsmate.team.model.vo.Recruit" alias="Recruit"/>
     	<typeAlias type="com.kh.sportsmate.board.model.vo.BoardComment" alias="BoardComment"/>
     	<typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
+=======
+    <typeAliases>
+        <typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
+        <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
+        <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="Category"/>
+>>>>>>> 87b7105549cf979f9fb85a526200b076e6391f3a
     </typeAliases>
 
 
     <mappers>
+<<<<<<< HEAD
         <mapper resource="mappers/board-mapper.xml"/>
         <mapper resource="mappers/team-mapper.xml"/>
+=======
+>>>>>>> 87b7105549cf979f9fb85a526200b076e6391f3a
         <mapper resource="mappers/member-mapper.xml"/>
     </mappers>
 
