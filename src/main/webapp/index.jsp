@@ -17,6 +17,6 @@
     </h1>
     <br/>
     <a href="hello-servlet">Hello Servlet</a>
-    <jsp:forward page="WEB-INF/views/myPage/myPage.jsp" />
+    <jsp:forward page="WEB-INF/views/main.jsp" />
 </body>
 </html>
