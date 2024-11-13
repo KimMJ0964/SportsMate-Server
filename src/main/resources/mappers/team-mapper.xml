@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- !namespace : 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="teamMapper">
+    
+    <select id="selectListCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM TEAM_BOARD
+        WHERE STATUS = 'Y'
+        AND TEAM_NO = #{teamNo}
+    </select>
+    
+     <!-- 구단 게시글 조회 -->
+	 <select id="selectList" parameterType="map" resultType="TeamBoard">
+	    SELECT b.BOARD_NO AS boardNo,
+	           b.TITLE AS title,
+	           m.MEM_NAME AS memName,
+	           b.CREATE_DATE AS createDate,
+	           b.VIEW AS view,
+	           b.TYPE AS type
+	    FROM TEAM_BOARD b
+	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+	    WHERE b.STATUS = 'Y'
+	      AND b.TEAM_NO = #{teamNo}
+	    ORDER BY b.BOARD_NO DESC
+	</select>
+	
+	<!-- 구단 인원 목록 -->
+	<select id="selectMemberList" resultType="TeamMember">
+	    SELECT TM.MEM_NO as memNo,
+	           TM.MEM_ENROLL_DATE as memEnrollDate,
+	           TM.STATUS as status,
+	           M.MEM_NAME as memName
+	    FROM TEAM_MEMBER TM
+	    JOIN MEMBER M ON TM.MEM_NO = M.MEM_NO
+	    WHERE TM.TEAM_NO = #{teamNo}
+	</select>
+	
+	<!-- 게시글 내용 가져오기 -->
+	<select id="detailList" resultType="TeamBoard">
+		 SELECT b.TITLE AS title,
+	           m.MEM_NAME AS memName,
+	           b.CREATE_DATE AS createDate,
+	           b.VIEW AS view,
+	           b.LIKE_COUNT AS likeCount,
+	           b.CONTENT AS content,
+	           b.BOARD_NO AS boardNo,
+	           b.TYPE AS type,
+	           b.TEAM_NO AS teamNo
+	    FROM TEAM_BOARD b
+	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+	    WHERE b.STATUS = 'Y'
+	    AND b.BOARD_NO = #{bno}
+	</select>
+	
+	<!-- 댓글 내용 가져오기 -->
+	<select id="commentList" resultType="TeamBoardComment">
+		SELECT b.COM_NO AS comNo,
+			   b.REF_TEAM_BOARD_NO AS refTeamBoardNo,
+			   m.MEM_NAME AS memName,
+			   b.COM_CREATE_DATE AS comCreateDate,
+			   b.COM_MODIFY_DATE AS comModifyDate,
+			   b.STATUS AS status,
+			   b.COM_PARENT_NO AS comParentNo,
+			   b.COM_CONTENT AS comContent
+		 FROM TEAM_BOARD_COMMENT b
+	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+	    WHERE REF_TEAM_BOARD_NO = #{bno}
+	</select>
+	
+	<!-- 댓글 수 계산 -->
+    <select id="commentCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM TEAM_BOARD_COMMENT
+        WHERE REF_TEAM_BOARD_NO = #{bno}
+    </select>
+	
+	<!-- 게시글 생성 -->
+	<insert id="createBoard">
+	  	INSERT INTO TEAM_BOARD (
+		    TITLE,
+		    MEM_NO,
+		    CONTENT,
+		    TYPE,
+		    CREATE_DATE,
+		    TEAM_NO
+		)
+		VALUES (
+		    #{title},
+		    1,
+		    #{content},
+		    #{type},
+		    NOW(),
+		    #{teamNo}
+		)
+	  </insert>
+	  
+	  <!-- 게시글 수정 -->
+	<update id="updateBoard">
+	    UPDATE TEAM_BOARD
+	    SET 
+	        TITLE = #{title},
+	        CONTENT = #{content},
+	        TYPE = #{type},
+	        CREATE_DATE = NOW()
+	    WHERE 
+	        BOARD_NO = #{boardNo} <!-- 보통 게시글 ID를 기준으로 수정 -->
+	</update>
+	
+	
+	<!-- 게시글 삭제 -->
+	<update id="deleteBoard">
+	    UPDATE TEAM_BOARD
+	    SET STATUS = 'N'
+	    WHERE BOARD_NO = #{bno}
+	</update>
+	
+	<!-- 입단자 거절 -->
+	<delete id="rejectJoin">
+		DELETE
+		FROM RECRUIT
+		WHERE MEM_NO = #{mno}
+	</delete>
+	
+	<!-- 입단자 수락 [reject 테이블 제거] -->
+	<delete id="approveJoin">
+		DELETE
+		FROM RECRUIT
+		WHERE MEM_NO = #{mno}
+	</delete>
+	
+	<!-- 입단자 수락 [member 테이블 추가]-->
+	<insert id="approveJoinTwo">
+		INSERT INTO TEAM_MEMBER (
+			    TEAM_NO,
+			    MEM_NO,
+			    STATUS,
+			    MEM_ENROLL_DATE,
+			    APPROVE
+			)
+			VALUES (
+			    #{tno},
+			    #{mno},
+			    'Y',
+			    NOW(),
+			    NOW()
+			)
+	</insert>
+	
+	<!-- 게시글 검색 -->
+	 <select id="searchBoard" parameterType="map" resultType="TeamBoard">
+	    SELECT b.BOARD_NO AS boardNo,
+	           b.TITLE AS title,
+	           m.MEM_NAME AS memName,
+	           b.CREATE_DATE AS createDate,
+	           b.VIEW AS view,
+	           b.TYPE AS type
+	    FROM TEAM_BOARD b
+	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+	    WHERE b.STATUS = 'Y'
+	    	AND b.TEAM_NO = #{tno}
+	        AND b.TYPE = #{category}
+	    	AND b.TITLE LIKE CONCAT('%', #{keyword}, '%')
+	    ORDER BY b.BOARD_NO DESC
+	</select>
+</mapper>

@@ -1,0 +1,220 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.wrap {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* --------------- Header에 포함되어 있는 css ---------------*/
+#login-wrap {
+    /*width: 40%;*/
+    width: 480px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: auto;
+}
+
+.enroll-form {
+    width: 100%;
+}
+
+.enroll-form > div {
+    margin: 20px 0px;
+}
+
+.email-wrap {
+    width: 100%;
+}
+
+.enroll-form input[type='email'], input[type='password'], input[type='text'], select, input[type='number'] {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    background-color: #F1F3F5;
+    font-size: 16px;
+    padding: 10px;
+}
+
+
+.enroll-form button[type='submit'] {
+    width: 100%;
+    height: 65px;
+    border-radius: 8px;
+    border: none;
+    background-color: #307DFA;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+@media (min-width: 481px) and (max-width: 1200px) {
+
+}
+
+@media (min-width: 300px) and (max-width: 480px) {
+    #login-wrap {
+        width: 80%;
+    }
+
+    .enroll-form input[type='email'], input[type='password'], input[type='text'], select {
+        font-size: 14px;
+
+    }
+}
+
+
+/*--------------------------------------------------------*/
+.user-profile-wrap {
+    text-align: center;
+}
+
+.user-profile-wrap img {
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+}
+
+#profileImg {
+    cursor: pointer;
+}
+
+select option:nth-child(1) {
+    color: #757575;
+}
+
+
+.team-introduce {
+    width: 100%;
+    height: 200px;
+    border: none;
+    border-radius: 8px;
+    background-color: #F1F3F5;
+    font-size: 16px;
+    padding: 10px;
+    resize: none;    /* 크기 조정 불가 */
+    overflow: auto;  /* 내용이 넘칠 경우 스크롤 */
+}
+
+.day-select-wrap {
+    gap: 10px;  /* 박스 간 간격 */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+.form-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.day-box {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #F1F3F5;
+}
+
+.day-box.selected {
+    background-color: #307DFA;
+    color: white;
+}
+
+.time-box {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #F1F3F5;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+}
+
+.time-range {
+	display: inline-block;
+    width: 100px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    background: none;
+    margin-top: 10px;
+    padding-bottom: 5px;
+}
+
+.time-box .time-range {
+    color: #333;
+}
+
+.time-box .separator {
+    font-size: 18px;
+    color: #888;
+    margin-left: 5px;
+}
+.time-range {
+	font-size: 12px;
+	
+}
+.time-box.selected {
+    background-color: #307DFA;
+    color: white;
+}
+
+.time-range.selected {
+    background-color: #307DFA;
+    color: white;
+}
+
+.time-box.selected .time-range {
+    color: white;
+}
+
+.time-box.selected .separator {
+    color: white;
+}
+
+select option:nth-child(1) {
+    color: #757575;
+}
+
+.category-checkBox-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0px;
+}
+
+.category-checkBox > input[type=checkbox], label {
+    height: 15px;
+    font-size: 20px;
+    padding: 0px 5px;
+}
+
+.category-name {
+    font-size: 20px;
+    font-weight: 600;
+}

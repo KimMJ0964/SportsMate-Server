@@ -27,4 +27,5 @@ public class PageInfo {
     private int maxPage; // 가장 마지막 페이지(총 페이지 수)
     private int startPage; // 페이징바의 시작 수
     private int endPage; //페이징바의 마지막 끝 수
+
 }

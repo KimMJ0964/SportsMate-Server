@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="matchMapper">
+    
+    <!-- 베스트 플레이어 선정   #{memNo} #{matchNo} #{bestMNo} -->
+    <update id="bestPlayerChoice">
+    	UPDATE MATCH_BEST mb
+		JOIN MATCH_BEST yt ON mb.MEM_NO = yt.MEM_NO
+		SET 
+		    mb.VOTE_STATUS = NOW(),
+		    yt.MEM_NO_VOTE_COUNT = yt.MEM_NO_VOTE_COUNT + 1
+		WHERE 
+		    mb.MATCH_NO = #{matchNo}
+		AND 
+		    mb.MEM_NO = #{memNo}
+		AND 
+		    yt.MEM_NO = #{bestMNo};
+    </update>
+    
+</mapper>

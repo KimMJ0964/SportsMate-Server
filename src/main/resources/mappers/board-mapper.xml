@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- !namespace : 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="boardMapper">
+    
+    <select id="selectListCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM BOARD
+        WHERE STATUS = 'Y'
+    </select>
+    
+     <!-- 게시글 조회 -->
+	  <select id="selectList" resultType="Board">
+	    SELECT b.BOARD_NO AS boardNo,
+	           b.TITLE AS title,
+	           m.MEM_NAME AS memName,
+	           b.CREATE_DATE AS createDate,
+	           b.VIEW AS view,
+	           b.TYPE AS type
+	    FROM BOARD b
+	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+	    WHERE b.STATUS = 'Y'
+	    ORDER BY b.BOARD_NO DESC
+	</select>
+	
+	<!-- 게시글 내용 가져오기 -->
+	<select id="detailList" resultType="Board">
+		 SELECT b.TITLE AS title,
+	           m.MEM_NAME AS memName,
+	           b.CREATE_DATE AS createDate,
+	           b.VIEW AS view,
+	           b.LIKE_COUNT AS likeCount,
+	           b.CONTENT AS content,
+	           b.BOARD_NO AS boardNo,
+	           b.TYPE AS type
+	    FROM BOARD b
+	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+	    WHERE b.STATUS = 'Y'
+	    AND b.BOARD_NO = #{bno}
+	</select>
+	
+	<!-- 댓글 내용 가져오기 -->
+	<select id="commentList" resultType="BoardComment">
+		SELECT b.COM_NO AS comNo,
+			   b.REF_BOARD_NO AS refBoardNo,
+			   m.MEM_NAME AS memName,
+			   b.COM_CREATE_DATE AS comCreateDate,
+			   b.COM_MODIFY_DATE AS comModifyDate,
+			   b.STATUS AS status,
+			   b.COM_PARENT_NO AS comParentNo,
+			   b.COM_CONTENT AS comContent
+		 FROM BOARD_COMMENT b
+	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+	    WHERE REF_BOARD_NO = #{bno}
+	</select>
+	
+	<!-- 댓글 수 계산 -->
+    <select id="commentCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM BOARD_COMMENT
+        WHERE REF_BOARD_NO = #{bno}
+    </select>
+	
+	<!-- 게시글 생성 -->
+	<insert id="createBoard">
+	  	INSERT INTO BOARD (
+		    TITLE,
+		    MEM_NO,
+		    CONTENT,
+		    TYPE,
+		    CREATE_DATE
+		)
+		VALUES (
+		    #{title},
+		    1,
+		    #{content},
+		    #{type},
+		    NOW()
+		)
+	  </insert>
+	  
+	  <!-- 게시글 생성 -->
+	<update id="updateBoard">
+	    UPDATE BOARD
+	    SET 
+	        TITLE = #{title},
+	        CONTENT = #{content},
+	        TYPE = #{type},
+	        CREATE_DATE = NOW()
+	    WHERE 
+	        BOARD_NO = #{boardNo} <!-- 보통 게시글 ID를 기준으로 수정 -->
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<update id="deleteBoard">
+	    UPDATE BOARD
+	    SET STATUS = 'N'
+	    WHERE BOARD_NO = #{bno}
+	</update>
+	
+	 <!-- 게시글 검색 -->
+	  <select id="searchBoard" resultType="Board">
+	    SELECT b.BOARD_NO AS boardNo,
+	           b.TITLE AS title,
+	           m.MEM_NAME AS memName,
+	           b.CREATE_DATE AS createDate,
+	           b.VIEW AS view,
+	           b.TYPE AS type
+	    FROM BOARD b
+	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+	    WHERE b.STATUS = 'Y'
+	    AND b.TYPE = #{category}
+	    AND b.TITLE LIKE CONCAT('%', #{keyword}, '%')
+	    ORDER BY b.BOARD_NO DESC
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="writeReply">
+		INSERT INTO BOARD_COMMENT (
+		    REF_BOARD_NO,
+		    MEM_NO,
+		    COM_CREATE_DATE,
+		    STATUS,
+		    COM_CONTENT
+		)
+		VALUES (
+		    #{bno},
+		    #{memNo},
+		    NOW(),
+		    'Y',
+		    #{content}
+		)
+	</insert>
+</mapper>
