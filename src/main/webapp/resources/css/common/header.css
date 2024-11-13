@@ -43,7 +43,7 @@
 	width: calc(100% - 25px);
 	height: 100%;
 	border-radius: 8px;
-	border: none;
+	font-size: 14px;
 }
 
 #search-bar-form input:focus{
