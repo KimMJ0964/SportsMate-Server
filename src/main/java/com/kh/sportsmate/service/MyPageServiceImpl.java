@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dao.MemberDao;
+import com.kh.sportsmate.member.model.dto.MemberPosition;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.place.model.vo.PlaceReview;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -29,7 +30,7 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	// 내 정보
 	@Override
-	public Member selectMyInfo(int memNo) {
+	public MemberPosition selectMyInfo(int memNo) {
 		return memberDao.selectMyInfo(sqlSession, memNo);
 	}
 	
@@ -63,12 +64,12 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 	@Override
-	public ArrayList<Member> selectATeamInfo(int teamANo) {
+	public ArrayList<MemberPosition> selectATeamInfo(int teamANo) {
 		return memberDao.selectATeamInfo(sqlSession, teamANo);
 	}
 
 	@Override
-	public ArrayList<Member> selectBTeamInfo(int teamBNo) {
+	public ArrayList<MemberPosition> selectBTeamInfo(int teamBNo) {
 		return memberDao.selectBTeamInfo(sqlSession, teamBNo);
 	}
 

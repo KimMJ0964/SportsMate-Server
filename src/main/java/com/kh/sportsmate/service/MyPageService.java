@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.member.model.dto.MemberPosition;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.place.model.vo.PlaceReview;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -12,7 +13,7 @@ import com.kh.sportsmate.team.model.vo.Team;
 public interface MyPageService {
 	 /* 마이페이지 */
     // 내 정보
-    Member selectMyInfo(int memNo);
+    MemberPosition selectMyInfo(int memNo);
     
     // 내 전적
     ArrayList<Match> selectMyMatch(int memNo);
@@ -30,10 +31,10 @@ public interface MyPageService {
     ArrayList<Recruit> selectMyRecruit(int memNo);
     
     // a팀 정보
-    ArrayList<Member> selectATeamInfo(int teamANo);
+    ArrayList<MemberPosition> selectATeamInfo(int teamANo);
     
     // b팀 정보
-    ArrayList<Member> selectBTeamInfo(int teamBNo);
+    ArrayList<MemberPosition> selectBTeamInfo(int teamBNo);
     
     // 구장 리뷰
     int insertPReview(PlaceReview pr);

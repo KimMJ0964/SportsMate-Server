@@ -11,6 +11,7 @@
 
     <typeAliases>
         <typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
+         <typeAlias type="com.kh.sportsmate.member.model.dto.MemberPosition" alias="MemberPosition"/>
         <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
         <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="Category"/>
      	<typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
@@ -27,8 +28,6 @@
 
 
     <mappers>
-        <mapper resource="mappers/board-mapper.xml"/>
-        <mapper resource="mappers/team-mapper.xml"/>
         <mapper resource="mappers/board-mapper.xml"/>
         <mapper resource="mappers/team-mapper.xml"/>
         <mapper resource="mappers/member-mapper.xml"/>

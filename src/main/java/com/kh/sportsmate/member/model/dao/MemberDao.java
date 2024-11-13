@@ -1,6 +1,7 @@
 package com.kh.sportsmate.member.model.dao;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.member.model.dto.MemberPosition;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.place.model.vo.PlaceReview;
@@ -66,7 +67,7 @@ public class MemberDao {
     /* 마이페이지 */
     
     // 내 정보
-	public Member selectMyInfo(SqlSessionTemplate sqlSession, int memNo) {
+	public MemberPosition selectMyInfo(SqlSessionTemplate sqlSession, int memNo) {
     	return sqlSession.selectOne("memberMapper.selectMyInfo", memNo);
     }
 
@@ -96,12 +97,12 @@ public class MemberDao {
 	}
 	
 	// a팀 정보
-	public ArrayList<Member> selectATeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
+	public ArrayList<MemberPosition> selectATeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
 	}
 	
 	// b팀 정보
-	public ArrayList<Member> selectBTeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
+	public ArrayList<MemberPosition> selectBTeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
 	}
 	

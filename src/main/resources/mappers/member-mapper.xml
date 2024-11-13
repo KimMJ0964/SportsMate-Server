@@ -113,7 +113,7 @@
     
     <!-- 마이페이지 -->
     <!-- 내 정보 -->
-     <select id="selectMyInfo" resultType="Member">
+     <select id="selectMyInfo" resultType="MemberPosition">
         SELECT MEM_NO as memNo,
         	   MEM_NAME as memName,
         	   MEM_ADD as memAdd,
@@ -229,7 +229,7 @@
 	</select>
     
     <!-- a팀 정보  #{teamANo} -->
-    <select id="selectTeamInfo" resultType="Member">
+    <select id="selectTeamInfo" resultType="MemberPosition">
 	    SELECT 
 		    m.MEM_NO as memNo, 
 		    m.MEM_NAME as memName,
