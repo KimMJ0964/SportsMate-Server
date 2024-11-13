@@ -93,7 +93,6 @@
             <div class="form-group">
                 <label>대여 시스템</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox"> 축구화</label>
                     <label><input type="checkbox"> 공</label>
                     <label><input type="checkbox"> 조끼</label>
                 </div>
@@ -124,7 +123,7 @@
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </div>
 
-    <script src="${pageContext.request.contextPath}/resources/js/stadium_info.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/stadium_info.js"></script>
 
 </body>
 </html>

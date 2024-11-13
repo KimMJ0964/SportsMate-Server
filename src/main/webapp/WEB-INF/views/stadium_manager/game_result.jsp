@@ -70,9 +70,6 @@
                     </div>
                 </div>
             </div>
-            
-        
-        
 
             <!-- A팀 선수 평가 -->
             
@@ -336,7 +333,7 @@
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
         </div>
 
-        <script src="${pageContext.request.contextPath}/resources/js/game_result.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/game_result_warning.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/game_result.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/game_result_warning.js"></script>
 </body>
 </html>

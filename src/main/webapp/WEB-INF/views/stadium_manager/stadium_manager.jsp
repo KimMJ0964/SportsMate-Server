@@ -73,7 +73,7 @@
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     
-
+	<script src="${pageContext.request.contextPath}/resources/js/stadium_manager/stadium_manager.js"></script>
 
 </body>
 </html>

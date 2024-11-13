@@ -13,16 +13,11 @@
     margin: auto;
 }
 
-
 .team-info {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-
-/* */
-
-
 
 .zipcode{
     flex: 1;
@@ -48,8 +43,6 @@
     gap: 5px;
 }
 
-
-
 .form-group {
     margin-bottom: 15px;
 }
@@ -68,7 +61,6 @@
     border-radius: 8px;
     box-sizing: border-box;
 }
-
 
 .image-upload-group {
     display: flex;
@@ -120,8 +112,6 @@
 .birth-part {
     flex: 1;
 }
-
-
 
 @media (max-width: 480px) {
     .stadiuminfo-container {

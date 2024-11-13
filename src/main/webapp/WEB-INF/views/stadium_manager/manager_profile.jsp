@@ -99,6 +99,6 @@
         </div>
     </div>
     
-    <script src="${pageContext.request.contextPath}/resources/js/manager_profile.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/manager_profile.js"></script>
 </body>
 </html>
