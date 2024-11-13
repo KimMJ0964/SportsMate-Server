@@ -1,6 +1,6 @@
 function openModal() {
-    // 모달 창을 열기 - 'modalOverlay' 요소의 display 속성을 'block'으로 설정하여 보이게 함
-    document.getElementById('modalOverlay').style.display = 'block';
+    // 모달 창을 열기 - 'modalOverlay' 요소의 display 속성을 'flex'로 설정하여 보이게 함
+    document.getElementById('modalOverlay').style.display = 'flex';
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
 
 // 별점 평가 기능 - 반별 선택 가능
 document.querySelectorAll('.star-container').forEach(container => {

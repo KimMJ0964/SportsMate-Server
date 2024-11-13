@@ -43,6 +43,7 @@
          <div class="result-container">
             <div class="victory-container">
                 <h4 class="victory-title">승리팀</h4>
+                
                 <div class="victory-row">
                     <div class="team-info">
                         <div class="team-name">A팀</div>
@@ -50,10 +51,13 @@
                         <div class="team-details">우리동네FC</div>
                     </div>
                     <div class="checkbox-container">
-                        <input type="radio" name="result" id="team-a-checkbox">
+                        <input type="radio" name="result" id="team-a-checkbox" class="custom-radio">
+                        <label for="team-a-checkbox" class="custom-radio-label"></label>
                     </div>
                 </div>
+                
                 <div class="divider"></div>
+                
                 <div class="victory2-row">
                     <div class="team-info">
                         <div class="team-name">B팀</div>
@@ -61,10 +65,12 @@
                         <div class="team-details">우리동네FC</div>
                     </div>
                     <div class="checkbox-container">
-                        <input type="radio" name="result" id="team-b-checkbox">
+                        <input type="radio" name="result" id="team-b-checkbox" class="custom-radio">
+                        <label for="team-b-checkbox" class="custom-radio-label"></label>
                     </div>
                 </div>
             </div>
+            
         
         
 

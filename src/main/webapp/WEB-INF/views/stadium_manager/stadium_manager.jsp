@@ -48,7 +48,7 @@
                         alt="경기 결과">경기 결과</a>
 
                 <a href="#" class="menu-item">
-                    <img src="${pageContext.request.contextPath}/resources/images/rantal.png"
+                    <img src="${pageContext.request.contextPath}/resources/images/rental.png"
                     alt="대관 승인">대관 승인</a>
 
                 <a href="#" class="menu-item">
@@ -66,7 +66,7 @@
 
             <!-- 로그아웃 버튼 -->
             <button class="logout-button">로그아웃</button>
-
+ 
 
         </div>
     </div>

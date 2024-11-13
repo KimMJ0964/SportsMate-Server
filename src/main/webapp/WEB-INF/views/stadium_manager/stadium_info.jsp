@@ -78,7 +78,7 @@
                     <span>~</span>
                     <input type="time" id="end-time" value="09:00">
                 </div>
-            </div>
+            </div> 
             
             <div class="form-group">
                 <label>편의 시설</label>
@@ -123,6 +123,8 @@
         
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </div>
+
+    <script src="${pageContext.request.contextPath}/resources/js/stadium_info.js"></script>
 
 </body>
 </html>
