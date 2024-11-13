@@ -79,4 +79,14 @@ public class MemberDao {
 	public ArrayList<Match> selectMyMatch(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMyMatch", memNo);
 	}
+	
+	// 내 전적 판 수
+	public int selectMyMatchCount(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.selectOne("memberMapper.selectMyMatchCount", memNo);
+	}
+	
+	//내 전적 이긴 판 수
+	public int selectMyMatchWinCount(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.selectOne("memberMapper.selectMyMatchWinCount", memNo);
+	}
 }

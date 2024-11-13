@@ -70,11 +70,11 @@
 					<div class="stats-container">
 						<div class="AllCountBox">
 							<div class="all">총 경기 수</div>
-							<div class="all_count">번</div>
+							<div class="all_count">${myMatchCount}번</div>
 						</div>
 						<div class="VictoryCountBox">
 							<div class="victory">승리 횟수</div>
-							<div class="victory_count">번</div>
+							<div class="victory_count">${myMatchWinCount}번</div>
 						</div>
 					</div>
 					<c:forEach var="mm" items="${myMatch}">
@@ -88,8 +88,9 @@
 								<span>${mm.teamBName }</span>
 								<p>${mm.teamBName }</p>
 							</div>
-							<img src="resources/images/User_vote.png" style="cursor: pointer;"
-								data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<img class="bestplayer-btn" src="resources/images/User_vote.png" style="cursor: pointer;"
+								data-bs-toggle="modal" data-bs-target="#exampleModal" data-placeno="${mm.placeNo}"
+								data-matchno="${mm.matchNo}">
 						</div>
 					</c:forEach>
 				</div>
@@ -99,102 +100,106 @@
 			<div class="modal fade" id="exampleModal" tabindex="-1"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="exampleModalLabel">베스트 플레이어
-								투표</h1>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<div class="my-bestplayer-vote">
-								<!-- a팀 -->
-								<div class="my-bestplayer-vote-a">
-									<div>
-										<img
-											src="${pageContext.request.contextPath}/resources/images/Logo.png"
-											style="width: 60px;"> <span>a팀</span>
+					<form>
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">베스트 플레이어
+									투표</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="my-bestplayer-vote">
+									<!-- a팀 -->
+									<div class="my-bestplayer-vote-a">
+										<div>
+											<img
+												src="${pageContext.request.contextPath}/resources/images/Logo.png"
+												style="width: 60px;"> <span>a팀</span>
+										</div>
+										<br>
+										<table class="modal-ateam-table"
+											style="width: 100%; text-align: center;">
+											<tr>
+												<td><div class="modal-ateam-table-img">
+														<img
+															src="${pageContext.request.contextPath}/resources/images/Logo.png"
+															style="width: 50px;">
+													</div></td>
+												<td><div class="modal-ateam-table-name">이름 / 포지션</div></td>
+												<td><div class="modal-bteam-table-vote-btn">
+														<img
+															src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png">
+													</div></td>
+											</tr>
+										</table>
+										<hr>
 									</div>
-									<br>
-									<table class="modal-ateam-table"
-										style="width: 100%; text-align: center;">
-										<tr>
-											<td><div class="modal-ateam-table-img">
-													<img
-														src="${pageContext.request.contextPath}/resources/images/Logo.png"
-														style="width: 50px;">
-												</div></td>
-											<td><div class="modal-ateam-table-name">이름 / 포지션</div></td>
-											<td><div class="modal-bteam-table-vote-btn">
-													<img
-														src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png">
-												</div></td>
-										</tr>
-									</table>
-									<hr>
-								</div>
-								<hr style="height: 3px; background-color: black;">
-								<!-- B팀 -->
-								<div class="my-bestplayer-vote-b">
-									<div>
-										<img
-											src="${pageContext.request.contextPath}/resources/images/Logo.png"
-											style="width: 60px;"> <span>b팀</span>
+									<hr style="height: 3px; background-color: black;">
+									<!-- B팀 -->
+									<div class="my-bestplayer-vote-b">
+										<div>
+											<img
+												src="${pageContext.request.contextPath}/resources/images/Logo.png"
+												style="width: 60px;"> <span>b팀</span>
+										</div>
+										<br>
+										<table class="modal-bteam-table"
+											style="width: 100%; text-align: center;">
+											<tr>
+												<td><div class="modal-bteam-table-img">
+														<img
+															src="${pageContext.request.contextPath}/resources/images/Logo.png"
+															style="width: 50px;">
+													</div></td>
+												<td><div class="modal-bteam-table-name">이름 / 포지션</div></td>
+												<td><div class="modal-bteam-table-vote-btn">
+														<img
+															src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png">
+													</div></td>
+											</tr>
+										</table>
+										<hr>
 									</div>
-									<br>
-									<table class="modal-bteam-table"
-										style="width: 100%; text-align: center;">
-										<tr>
-											<td><div class="modal-bteam-table-img">
-													<img
-														src="${pageContext.request.contextPath}/resources/images/Logo.png"
-														style="width: 50px;">
-												</div></td>
-											<td><div class="modal-bteam-table-name">이름 / 포지션</div></td>
-											<td><div class="modal-bteam-table-vote-btn">
-													<img
-														src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png">
-												</div></td>
-										</tr>
-									</table>
-									<hr>
+									<hr style="height: 3px; background-color: black;">
 								</div>
-								<hr style="height: 3px; background-color: black;">
+							</div>
+							
+							<input id="applicantPlaceNo" >
+							
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">구장 리뷰</h1>
+							</div>
+							<div class="modal-body">
+								<div class="my-place-review-textarea">
+									<textarea class="my-place-review-textarea-content"></textarea>
+								</div>
+							</div>
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">구장 별점</h1>
+							</div>
+							<div class="modal-body">
+								<label for="rating" style="font-weight: bold;">별점 선택:</label> <select
+									id="my-modal-start-rating" class="form-select">
+									<!-- 1부터 5까지 0.5 단위로 옵션 추가 -->
+									<option value="1">1.0</option>
+									<option value="1.5">1.5</option>
+									<option value="2">2.0</option>
+									<option value="2.5">2.5</option>
+									<option value="3">3.0</option>
+									<option value="3.5">3.5</option>
+									<option value="4">4.0</option>
+									<option value="4.5">4.5</option>
+									<option value="5">5.0</option>
+								</select>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">닫기</button>
+								<button type="button" class="btn btn-primary">완료</button>
 							</div>
 						</div>
-						
-						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="exampleModalLabel">구장 리뷰</h1>
-						</div>
-						<div class="modal-body">
-							<div class="my-place-review-textarea">
-								<textarea class="my-place-review-textarea-content"></textarea>
-							</div>
-						</div>
-						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="exampleModalLabel">구장 별점</h1>
-						</div>
-						<div class="modal-body">
-							<label for="rating" style="font-weight: bold;">별점 선택:</label> <select
-								id="my-modal-start-rating" class="form-select">
-								<!-- 1부터 5까지 0.5 단위로 옵션 추가 -->
-								<option value="1">1.0</option>
-								<option value="1.5">1.5</option>
-								<option value="2">2.0</option>
-								<option value="2.5">2.5</option>
-								<option value="3">3.0</option>
-								<option value="3.5">3.5</option>
-								<option value="4">4.0</option>
-								<option value="4.5">4.5</option>
-								<option value="5">5.0</option>
-							</select>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">닫기</button>
-							<button type="button" class="btn btn-primary">완료</button>
-						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 
@@ -389,7 +394,8 @@
 	<script src="${pageContext.request.contextPath}/resources/js/myPage/myPage.js"></script>
 	<script>
 	 const viewButtons = document.querySelectorAll('.view-btn');
-
+	 const bestPlayerButtons = document.querySelectorAll('.bestplayer-btn');
+	 
 	    viewButtons.forEach(button => {
 	        button.addEventListener('click', function() {
 	            // 클릭된 버튼에서 data-* 속성 값을 가져옴
@@ -411,6 +417,17 @@
 	            document.getElementById('applicantAbl').textContent = abl;
 	            document.getElementById('applicantPosi').textContent = posi;
 	            document.getElementById('applicantIntro').textContent = intro;
+	        });
+	    });
+	    
+	    bestPlayerButtons.forEach(img => {
+	        img.addEventListener('click', function() {
+	            // 클릭된 버튼에서 data-* 속성 값을 가져옴
+	            const placeNo = this.getAttribute('data-placeno');
+	            const matchNo = this.getAttribute('data-matchno');
+	            
+	            document.getElementById('applicantPlacNo').textContent = placeNo;
+	            document.getElementById('applicantMatchNo').textContent = matchNo;
 	        });
 	    });
 	</script>

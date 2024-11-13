@@ -15,6 +15,12 @@ public interface MyPageService {
     // 내 전적
     ArrayList<Match> selectMyMatch(int memNo);
     
+    // 내 전적 판 수
+    int selectMyMatchCount(int memNo);
+    
+    // 내 전적 이긴 판 수
+    int selectMyMatchWinCount(int memNo);
+    
     // 내 구단
     ArrayList<Team> selectMyTeam(int memNo);
     	

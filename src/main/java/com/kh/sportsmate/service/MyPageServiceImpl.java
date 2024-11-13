@@ -49,4 +49,15 @@ public class MyPageServiceImpl implements MyPageService{
 		return memberDao.selectMyMatch(sqlSession, memNo);
 	}
 
+	// 내 전적 판 수
+	@Override
+	public int selectMyMatchCount(int memNo) {
+		return memberDao.selectMyMatchCount(sqlSession, memNo);
+	}
+
+	@Override
+	public int selectMyMatchWinCount(int memNo) {
+		return memberDao.selectMyMatchWinCount(sqlSession, memNo);
+	}
+
 }

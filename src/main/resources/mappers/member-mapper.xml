@@ -90,6 +90,8 @@
 	    SELECT DISTINCT
 		    M.SCORE_A AS scoreA,
 		    M.SCORE_B AS scoreB,
+		    M.PLACE_NO AS placeNo,
+		    M.MATCH_NO AS matchNo,
 		    A.TEAM_NAME AS teamAName,
 		    B.TEAM_NAME AS teamBName
 		FROM `MATCH` M
@@ -97,7 +99,40 @@
 		JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
 		JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
 		JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
-		WHERE (TA.MEM_NO = 1 OR TB.MEM_NO = 1);
+		WHERE (TA.MEM_NO = #{memNo} OR TB.MEM_NO = #{memNo});
+	</select>
+	
+	<!-- 내 전적 판 수 -->
+	<select id="selectMyMatchCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT DISTINCT
+		        M.SCORE_A AS scoreA,
+		        M.SCORE_B AS scoreB,
+		        A.TEAM_NAME AS teamAName,
+		        B.TEAM_NAME AS teamBName
+		    FROM `MATCH` M
+		    JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
+		    JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
+		    JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
+		    JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
+		    WHERE (TA.MEM_NO = #{memNo} OR TB.MEM_NO = #{memNo})
+		) AS match_count;
+	</select>
+	
+	<!-- 내 전적 이긴 횟수 -->
+	<select id="selectMyMatchWinCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT DISTINCT M.MATCH_NO
+		    FROM `MATCH` M
+		    JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
+		    JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
+		    JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
+		    JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
+		    WHERE (TA.MEM_NO = #{memNo} AND M.SCORE_A > M.SCORE_B)
+		       OR (TB.MEM_NO = #{memNo} AND M.SCORE_B > M.SCORE_A)
+		) AS higher_score_matches;
 	</select>
     
 </mapper>

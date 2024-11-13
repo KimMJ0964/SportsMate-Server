@@ -132,12 +132,20 @@ public class MemberController {
     	// 내 전적
     	ArrayList<Match> myMatch = myPageService.selectMyMatch(memNo); 
     	
+    	// 내 전적 판 수
+    	int myMatchCount = myPageService.selectMyMatchCount(memNo);
+    	
+    	// 내 전적 이긴 판 수
+    	int myMatchWinCount = myPageService.selectMyMatchWinCount(memNo);
+    	
     	// 내 구단
     	ArrayList<Team> myTeam = myPageService.selectMyTeam(memNo);
     	
     	// 내 구단 입단 명단
     	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
     	
+    	model.addAttribute("myMatchWinCount", myMatchWinCount);
+    	model.addAttribute("myMatchCount", myMatchCount);
     	model.addAttribute("myMatch", myMatch);
     	model.addAttribute("myInfo", myInfo);
 		model.addAttribute("myTeam", myTeam);
