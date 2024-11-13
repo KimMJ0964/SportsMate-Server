@@ -33,7 +33,11 @@
     width: 100%;
 }
 
-.enroll-form input[type='email'], input[type='password'], input[type='text'], select, input[type='number'] {
+.enroll-form input[type='email'],
+.enroll-form input[type='password'],
+.enroll-form input[type='text'],
+.enroll-form select,
+.enroll-form input[type='number']  {
     width: 100%;
     height: 50px;
     border: none;
@@ -106,6 +110,41 @@
 .split-bar {
     width: 100%;
     border-bottom: 2px solid lightgray;
+}
+/*------------- 주소 -------------*/
+.address-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.zipcode {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+}
+
+.address-search-button {
+    padding: 8px 12px;
+    background-color: #307DFA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.basic-address,
+.detail-address {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
 }
 
 @media (min-width: 481px) and (max-width: 1200px) {

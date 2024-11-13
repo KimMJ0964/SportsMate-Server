@@ -32,13 +32,12 @@ public class ManagerEnrollDto {
     private String phone1;
     private String phone2;
     private String phone3;
-//    private String memAdd; // 수정 필요
-    private int memberZipcode; // 멤버 우편번호
+    private String memberZipcode; // 멤버 우편번호
     private String memberBaseAdd; // 멤버 기본 주소
     private String memberDetailAdd; // 멤버 상세 주소
     private String category;
     private String stadiumName;
-    private int zipcode;
+    private String zipcode;
     private String baseAdd;
     private String detailAdd;
     private int price;

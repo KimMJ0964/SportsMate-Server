@@ -19,11 +19,13 @@
     <!--        <result column="MODIFY_DATE" property="modifyDate"/>-->
     <!--        <result column="STATUS" property="status"/>-->
     <!--    </resultMap>-->
+    <!-- Select -->
     <select id="loginMember" parameterType="Member" resultType="Member">
         select MEM_NO as memNo,
             MEM_EMAIL as memEmail,
             MEM_PWD as memPwd,
             MEM_NAME as memName,
+            MEM_ZIPCODE as memZipcode,
             MEM_ADD as memAdd,
             MEM_GENDER as memGender,
             MEM_PHONE as memPhone,
@@ -41,6 +43,7 @@
         MEM_PWD,
         MEM_NAME,
         MEM_GENDER,
+        MEM_ZIPCODE,
         MEM_ADD,
         MEM_BIRTH,
         MEM_PHONE,
@@ -50,6 +53,7 @@
         #{memPwd},
         #{memName},
         #{memGender},
+        #{memZipcode},
         #{memAdd},
         #{memBirth},
         #{memPhone},

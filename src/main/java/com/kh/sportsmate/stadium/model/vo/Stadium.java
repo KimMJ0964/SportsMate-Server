@@ -26,7 +26,7 @@ public class Stadium {
     private int memNo; // 구장 관리자 번호
     private String stadiumName; // 구장명
     private String stadiumAdd; // 구장 주소
-    private int stadiumZipcode; // 구장 우편번호
+    private String stadiumZipcode; // 구장 우편번호
     private double stadiumScore; // 구장 평점
     private int stadiumPrice; // 구장 한 세션 이용요금
     private String stadiumCategory; // 구장 종목
@@ -34,7 +34,7 @@ public class Stadium {
     private Time stadiumEndTime; // 구장 운영 종료 시간
     private String status; // 구장 상태
 
-    public Stadium(int memNo, String stadiumName, String stadiumAdd, int stadiumZipcode, int stadiumPrice,
+    public Stadium(int memNo, String stadiumName, String stadiumAdd, String stadiumZipcode, int stadiumPrice,
                    String stadiumCategory, Time stadiumStartTime, Time stadiumEndTime) {
         this.memNo = memNo;
         this.stadiumName = stadiumName;
@@ -46,7 +46,7 @@ public class Stadium {
         this.stadiumEndTime = stadiumEndTime;
     }
 
-    public Stadium(int stadiumZipcode, String stadiumName, String stadiumAdd, String stadiumCategory, Time stadiumStartTime, Time stadiumEndTime, int stadiumPrice) {
+    public Stadium(String stadiumZipcode, String stadiumName, String stadiumAdd, String stadiumCategory, Time stadiumStartTime, Time stadiumEndTime, int stadiumPrice) {
         this.stadiumZipcode = stadiumZipcode;
         this.stadiumName = stadiumName;
         this.stadiumAdd = stadiumAdd;

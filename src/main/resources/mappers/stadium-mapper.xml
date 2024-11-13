@@ -11,7 +11,7 @@
             MEM_NO,
             STADIUM_NAME,
             STADIUM_ADDRESS,
-            STADIUM_POSTCODE,
+            STADIUM_ZIPCODE,
             STADIUM_SCORE,
             STADIUM_PRICE,
             STADIUM_CATEGORY,
@@ -115,11 +115,11 @@
         )values
         <foreach collection="list" item="attachment" separator=",">
             (
-            #{attachment.stadiumNo},
-            #{attachment.originName},
-            #{attachment.changeName},
-            #{attachment.filePath},
-            #{attachment.fileType}
+                #{attachment.stadiumNo},
+                #{attachment.originName},
+                #{attachment.changeName},
+                #{attachment.filePath},
+                #{attachment.fileType}
             )
         </foreach>
 
