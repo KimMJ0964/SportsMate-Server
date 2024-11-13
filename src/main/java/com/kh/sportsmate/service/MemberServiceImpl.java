@@ -1,14 +1,15 @@
 package com.kh.sportsmate.service;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.vo.Category;
+import com.kh.sportsmate.member.model.vo.LoginLog;
 import com.kh.sportsmate.member.model.vo.Member;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * packageName    : com.kh.sportsmate.service
@@ -34,7 +35,15 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member loginMember(Member m) {
-        return memberDao.loginMember(sqlSession,m);
+    	int result = 1;
+    	Member loginUser = memberDao.loginMember(sqlSession,m);
+    	//로그인 로그 객체 추가
+    	LoginLog loginLog = new LoginLog();
+    	loginLog.setMemNo(loginUser.getMemNo());
+    	
+    	// 로그인 기록 추가
+    	result = memberDao.loginLog(sqlSession, loginLog);
+        return loginUser;
     }
 
     @Transactional

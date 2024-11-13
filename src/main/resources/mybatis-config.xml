@@ -7,6 +7,7 @@
 
     <settings>
         <setting name="jdbcTypeForNull" value="NULL"/>
+        <setting name="logImpl" value="LOG4J" />
     </settings>
 
 
@@ -14,11 +15,15 @@
         <typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
         <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
         <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="Category"/>
+        <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="LoginLog"/>
+        <typeAlias type="com.kh.sportsmate.admin.model.dto.ChartDateDto" alias="ChartDateDto"/>
+        <typeAlias type="com.kh.sportsmate.admin.model.vo.MemberPenalty" alias="MemberPenalty"/>
     </typeAliases>
 
 
     <mappers>
         <mapper resource="mappers/member-mapper.xml"/>
+        <mapper resource="mappers/admin-mapper.xml"/>
     </mappers>
 
 

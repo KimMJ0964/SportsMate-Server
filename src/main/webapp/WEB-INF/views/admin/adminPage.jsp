@@ -19,7 +19,7 @@
             rel="stylesheet">
 
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-        <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src='https://www.google.com/jsapi'></script>
         <script  src="${pageContext.request.contextPath}/resources/js/admin/adminPage.js"></script>
 
@@ -73,19 +73,19 @@
                 <div class="menu-box">
                     <h3>구장 관리자 메뉴</h3>
 
-                    <a href="#" class="menu-item">
+                    <a href="adminReport.me?category=match&cpage=1" class="menu-item">
                         <img src="${pageContext.request.contextPath}/resources/images/report-match.png" alt="">경기 신고
                         관리</a>
 
-                    <a href="#" class="menu-item">
+                    <a href="adminReport.me?category=community" class="menu-item">
                         <img src="${pageContext.request.contextPath}/resources/images/report-community.png" alt="">게시글
                         신고 관리</a>
 
-                    <a href="#" class="menu-item">
+                    <a href="adminReport.me?category=comment" class="menu-item">
                         <img src="${pageContext.request.contextPath}/resources/images/report-comment.png" alt="">댓글 신고
                         관리</a>
 
-                    <a href="#" class="menu-item">
+                    <a href="blockUser.me" class="menu-item">
                         <img src="${pageContext.request.contextPath}/resources/images/block-user.png" alt="">차단 유저
                         관리</a>
                 </div>

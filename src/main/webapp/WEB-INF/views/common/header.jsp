@@ -40,7 +40,7 @@
 		<div class="user-icon">
 			<c:choose>
 				<c:when test="${loginMember.memStatus.equals('A')}">
-					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/adminPage.me'">
 				</c:when>
 				<c:when test="${loginMember.memStatus.equals('M')}">
 					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">

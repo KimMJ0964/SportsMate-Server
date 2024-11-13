@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- !namespace : 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="adminMapper">
+	<!-- 차트 데이터 가져오기 -->
+    <select id="drawChart" resultType="ChartDateDto">
+        SELECT
+		    COUNT(CASE WHEN login_date = CURDATE() THEN 1 END) AS today,
+		    COUNT(CASE WHEN login_date = CURDATE() - INTERVAL 1 DAY THEN 1 END) AS oneDay,
+		    COUNT(CASE WHEN login_date = CURDATE() - INTERVAL 2 DAY THEN 1 END) AS twoDay,
+		    COUNT(CASE WHEN login_date = CURDATE() - INTERVAL 3 DAY THEN 1 END) AS threeDay,
+		    COUNT(CASE WHEN login_date = CURDATE() - INTERVAL 4 DAY THEN 1 END) AS fourDay
+		FROM login_log
+    </select>
+    
+    <!-- 신고접수 리스트 가져오기 -->
+    <select id="selectListCount" resultType="_int">
+        SELECT COUNT(*)
+		FROM member_penalty
+		WHERE PN_DATE IS NULL
+    </select>
+    
+    <!-- 신고접수 리스트 가져오기 -->
+    <select id="selectList" resultType="MemberPenalty">
+        SELECT PN_NO AS pnNo,
+        		M.MEM_NO AS memNo,
+		        PN_CONTENT AS pnContent,
+		        PN_DATE AS pnDate,
+		        REP_DATE AS repDate,
+		        PN_COUNT AS pnCount,
+		        PN_REPORTER AS pnReporter,
+		        PN_GROUND AS pnGround,
+		        PN_COMMUNITY AS pnCommunity,
+		        PN_COMMENT AS pnComment,
+		        PN_TYPE AS pnType,
+		  		STADIUM_NAME AS stadiumName
+		FROM member_penalty M
+		LEFT JOIN STADIUM S ON M.PN_GROUND = S.STADIUM_NO
+		WHERE PN_DATE IS NULL
+    </select>
+    
+    
+</mapper>

@@ -1,10 +1,12 @@
 package com.kh.sportsmate.member.model.dao;
 
-import com.kh.sportsmate.Attachment.model.vo.Profile;
-import com.kh.sportsmate.member.model.vo.Category;
-import com.kh.sportsmate.member.model.vo.Member;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.member.model.vo.Category;
+import com.kh.sportsmate.member.model.vo.LoginLog;
+import com.kh.sportsmate.member.model.vo.Member;
 
 /**
  * packageName    : com.kh.sportsmate.member.model.dao
@@ -50,5 +52,12 @@ public class MemberDao {
     }
     public Member loginMember(SqlSessionTemplate sqlSession, Member m){
         return sqlSession.selectOne("memberMapper.loginMember", m);
+    }
+    
+    public int loginLog(SqlSessionTemplate sqlSession, LoginLog loginLog) {
+    	if(sqlSession.selectOne("memberMapper.selectLog", loginLog) == null) { //당일 접속 로그가 없을때
+    		return sqlSession.insert("memberMapper.insertLog", loginLog);
+    	}
+    	return 1; //당일 접속 로그가 없을때
     }
 }
