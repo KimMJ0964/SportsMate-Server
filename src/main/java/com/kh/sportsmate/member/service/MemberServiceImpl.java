@@ -105,13 +105,13 @@ public class MemberServiceImpl implements MemberService {
         // 사용자 정보 결합
         String memBirth = m.getYear() + "." + m.getMonth() + "." + m.getDay(); // 생년월일 concatenate
         String memPhone = m.getPhone1() + "-" + m.getPhone2() + "-" + m.getPhone3(); // 전화번호
-
+        String memAdd = m.getBaseAdd() + " " + m.getDetailAdd();
         // 구장 주소 결합
         String stadiumAdd = m.getBaseAdd() + " " + m.getDetailAdd();
 
         // 멤버 객체 생성
         Member processedMember = new Member(m.getMemEmail(), m.getMemPwd(), m.getMemName(),
-                m.getMemGender(), m.getMemAdd(), memBirth, memPhone, "M");
+                m.getMemGender(), memAdd, memBirth, memPhone, "M");
         result1 = memberDao.insertMember(sqlSession, processedMember);
 
         // 구장 객체 생성

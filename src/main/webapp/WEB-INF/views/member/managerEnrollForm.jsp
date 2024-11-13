@@ -26,6 +26,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/member/managerEnrollForm.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -87,9 +88,18 @@
                         </div>
                     </div>
                 </div>
+<%--                <div class="input-wrap">--%>
+<%--                    <span class="form-title">주소</span><br>--%>
+<%--                    <input type="text" name="memAdd" placeholder="주소를 입력해주세요.">--%>
+<%--                </div>--%>
                 <div class="input-wrap">
-                    <span class="form-title">주소</span><br>
-                    <input type="text" name="memAdd" placeholder="주소를 입력해주세요.">
+                    <span class="form-title">주소</span> <br>
+                    <div class="address-container">
+                        <input type="text" class="zipcode" id="memberZipcode" name="memberZipcode" placeholder="우편번호">
+                        <button type="button" class="address-search-button" onclick="addSearch('memberZipcode','memberBaseAdd','memberDetailAdd')">주소 검색</button>
+                    </div>
+                    <input type="text" class="basic-address" id="memberBaseAdd" name="memberBaseAdd" placeholder="기본 주소">
+                    <input type="text" class="detail-address" id="memberDetailAdd" name="memberDetailAdd" placeholder="상세 주소">
                 </div>
                 <div class="split-bar"></div>
                 <div class="input-wrap">
@@ -120,13 +130,12 @@
                 <div class="input-wrap">
                     <span class="form-title">주소</span> <br>
                     <div class="address-container">
-                        <input type="text" class="zipcode" placeholder="우편번호">
-                        <button type="button" class="address-search-button">주소 검색</button>
+                        <input type="text" class="zipcode" id="zipcode" name="zipcode" placeholder="우편번호">
+                        <button type="button" class="address-search-button" onclick="addSearch('zipcode','baseAdd', 'detailAdd')">주소 검색</button>
                     </div>
-                    <input type="text" class="basic-address" name="baseAdd" placeholder="기본 주소">
-                    <input type="text" class="detail-address" name="detailAdd" placeholder="상세 주소">
+                    <input type="text" class="basic-address" id="baseAdd" name="baseAdd" placeholder="기본 주소">
+                    <input type="text" class="detail-address" id="detailAdd" name="detailAdd" placeholder="상세 주소">
                 </div>
-
 
                 <div class="input-wrap">
                     <span class="form-title">가격</span> <br>
