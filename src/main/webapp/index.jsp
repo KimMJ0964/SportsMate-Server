@@ -13,14 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
-<<<<<<< HEAD
     <h1><%= "Hello World!" %>
     </h1>
     <br/>
     <a href="hello-servlet">Hello Servlet</a>
-    <jsp:forward page="WEB-INF/views/myPage/myPage.jsp" />
-=======
-    <jsp:forward page="WEB-INF/views/stadium_manager/game_result.jsp"></jsp:forward>
->>>>>>> 87b7105549cf979f9fb85a526200b076e6391f3a
+    <jsp:forward page="WEB-INF/views/main.jsp" />
 </body>
 </html>

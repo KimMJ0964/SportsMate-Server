@@ -98,21 +98,7 @@
             <jsp:include page="/WEB-INF/views/common/footer.jsp" />
         </div>
 
-<<<<<<< HEAD
-    <!-- font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="wrap">
-    </div>
-</body>
-</html>
-=======
-        
-
     </body>
 
     </html>
->>>>>>> 87b7105549cf979f9fb85a526200b076e6391f3a
+        

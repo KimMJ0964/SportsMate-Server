@@ -10,9 +10,9 @@
 </head>
 <body>
 	<div class="wrap">
-		<jsp:include page="/WEB-INF/views/header.jsp" />
+		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<br>
-		<jsp:include page="/WEB-INF/views/nav.jsp" />
+		<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 		<div class="bcm-container">
 			<!-- 제목 -->
 			<form method="post" action="modify.bd?bno=${board.boardNo }" enctype="multipart/form-data">
@@ -55,7 +55,7 @@
 				</div>
 			</form>
 		</div>
-	<jsp:include page="/WEB-INF/views/footer.jsp" />
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 </body>
 </html>

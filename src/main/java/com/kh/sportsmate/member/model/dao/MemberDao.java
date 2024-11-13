@@ -1,7 +1,9 @@
 package com.kh.sportsmate.member.model.dao;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
-<<<<<<< HEAD
+import com.kh.sportsmate.member.model.vo.Category;
+import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.place.model.vo.PlaceReview;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
@@ -9,11 +11,9 @@ import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
 import java.util.ArrayList;
-
-=======
+import java.util.Map;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
->>>>>>> 87b7105549cf979f9fb85a526200b076e6391f3a
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -90,8 +90,28 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.selectMyMatchCount", memNo);
 	}
 	
-	//내 전적 이긴 판 수
+	// 내 전적 이긴 판 수
 	public int selectMyMatchWinCount(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.selectOne("memberMapper.selectMyMatchWinCount", memNo);
+	}
+	
+	// a팀 정보
+	public ArrayList<Member> selectATeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
+	}
+	
+	// b팀 정보
+	public ArrayList<Member> selectBTeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
+	}
+	
+	// 리뷰 작성
+	public int insertPReview(SqlSessionTemplate sqlSession, PlaceReview pr) {
+		return sqlSession.insert("placeMapper.insertPReview", pr);
+	}
+	
+	// 베스트 플레이어 선정
+	public int bestPlayerChoice(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("matchMapper.bestPlayerChoice", map);
 	}
 }

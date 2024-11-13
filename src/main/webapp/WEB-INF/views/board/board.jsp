@@ -16,9 +16,9 @@
 </head>
 <body>
 	<div class="wrap">
-		 <jsp:include page="/WEB-INF/views/header.jsp" />
+		 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<br>
-		<jsp:include page="/WEB-INF/views/nav.jsp" />
+		<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 		<div class="board-desktop-container"> <!-- 전체적인 게시글 목록 페이지 -->
 			<div class="desktop-board"> <!-- 데스크탑일 때 출력 -->
 				<div class="board-banner">
@@ -131,7 +131,7 @@
 
 		</div>
 		<!-- board-container 끝 -->
-	<jsp:include page="/WEB-INF/views/footer.jsp" />
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 	<!-- wrap 끝 -->
 </body>

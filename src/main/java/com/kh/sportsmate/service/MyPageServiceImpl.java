@@ -1,6 +1,7 @@
 package com.kh.sportsmate.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.place.model.vo.PlaceReview;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -58,6 +60,26 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public int selectMyMatchWinCount(int memNo) {
 		return memberDao.selectMyMatchWinCount(sqlSession, memNo);
+	}
+
+	@Override
+	public ArrayList<Member> selectATeamInfo(int teamANo) {
+		return memberDao.selectATeamInfo(sqlSession, teamANo);
+	}
+
+	@Override
+	public ArrayList<Member> selectBTeamInfo(int teamBNo) {
+		return memberDao.selectBTeamInfo(sqlSession, teamBNo);
+	}
+
+	@Override
+	public int insertPReview(PlaceReview pr) {
+		return memberDao.insertPReview(sqlSession, pr);
+	}
+
+	@Override
+	public int bestPlayerChoice(Map<String, Object> map) {
+		return memberDao.bestPlayerChoice(sqlSession, map);
 	}
 
 }

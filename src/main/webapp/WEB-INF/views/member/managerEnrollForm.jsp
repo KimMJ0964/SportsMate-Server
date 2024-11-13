@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,9 +20,9 @@
 </head>
 <body>
 	<div class="wrap">
-		<jsp:include page="/WEB-INF/views/header.jsp" />
+		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<br>
-		<jsp:include page="/WEB-INF/views/nav.jsp" />
+		<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 		<div id="login-wrap">
 			<form action="" class="enroll-form" method="post"
 				enctype="multipart/form-data">
@@ -163,24 +162,3 @@
 	<script src="${pageContext.request.contextPath}/resources/js/teamBoard/teamModify.js"></script>
 </body>
 </html>
-=======
-<%--
-  Created by IntelliJ IDEA.
-  User: jun
-  Date: 2024. 11. 5.
-  Time: 12:25
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
-</head>
-<body>
-    매니저 회원가입
-</body>
-</html>
->>>>>>> 87b7105549cf979f9fb85a526200b076e6391f3a

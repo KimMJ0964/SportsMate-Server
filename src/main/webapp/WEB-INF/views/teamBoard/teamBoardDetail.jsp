@@ -15,9 +15,9 @@
 </head>
 <body>
     <div class="wrap">
-    	<jsp:include page="/WEB-INF/views/header.jsp" />
+    	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<br>
-		<jsp:include page="/WEB-INF/views/nav.jsp" />
+		<jsp:include page="/WEB-INF/views/common/nav.jsp" />
         <!-- 1. 게시글 제목 -->
         <div class="bd-title-container">
             <h1 class="bd-title">${teamBoard.title }</h1>
@@ -128,7 +128,7 @@
 		    </div>
 		  </div>
 		</div>
-    <jsp:include page="/WEB-INF/views/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/board/boardDetail.js"></script>

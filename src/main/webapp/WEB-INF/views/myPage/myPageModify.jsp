@@ -20,9 +20,9 @@
 </head>
 <body>
 	<div class="wrap">
-		<jsp:include page="/WEB-INF/views/header.jsp" />
+		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<br>
-		<jsp:include page="/WEB-INF/views/nav.jsp" />
+		<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 		<div id="login-wrap">
 			<form action="member_enroll.me" class="enroll-form" method="post"
 				enctype="multipart/form-data">

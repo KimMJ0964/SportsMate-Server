@@ -35,9 +35,9 @@
 <body>
 
 	<div class="wrap">
-		<jsp:include page="/WEB-INF/views/header.jsp" />
+		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<br>
-		<jsp:include page="/WEB-INF/views/nav.jsp" />
+		<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 		<!-- 헤더 -->
 
 		<div class="myPage-container">
@@ -90,7 +90,7 @@
 							</div>
 							<img class="bestplayer-btn" src="resources/images/User_vote.png" style="cursor: pointer;"
 								data-bs-toggle="modal" data-bs-target="#exampleModal" data-placeno="${mm.placeNo}"
-								data-matchno="${mm.matchNo}">
+								data-matchno="${mm.matchNo}" data-atno="${mm.teamANo}" data-btno="${mm.teamBNo}">
 						</div>
 					</c:forEach>
 				</div>
@@ -100,7 +100,7 @@
 			<div class="modal fade" id="exampleModal" tabindex="-1"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
-					<form>
+					<form method="post" action="myPageVote.mp">
 						<div class="modal-content">
 							<div class="modal-header">
 								<h1 class="modal-title fs-5" id="exampleModalLabel">베스트 플레이어
@@ -120,18 +120,7 @@
 										<br>
 										<table class="modal-ateam-table"
 											style="width: 100%; text-align: center;">
-											<tr>
-												<td><div class="modal-ateam-table-img">
-														<img
-															src="${pageContext.request.contextPath}/resources/images/Logo.png"
-															style="width: 50px;">
-													</div></td>
-												<td><div class="modal-ateam-table-name">이름 / 포지션</div></td>
-												<td><div class="modal-bteam-table-vote-btn">
-														<img
-															src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png">
-													</div></td>
-											</tr>
+											
 										</table>
 										<hr>
 									</div>
@@ -146,18 +135,7 @@
 										<br>
 										<table class="modal-bteam-table"
 											style="width: 100%; text-align: center;">
-											<tr>
-												<td><div class="modal-bteam-table-img">
-														<img
-															src="${pageContext.request.contextPath}/resources/images/Logo.png"
-															style="width: 50px;">
-													</div></td>
-												<td><div class="modal-bteam-table-name">이름 / 포지션</div></td>
-												<td><div class="modal-bteam-table-vote-btn">
-														<img
-															src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png">
-													</div></td>
-											</tr>
+											
 										</table>
 										<hr>
 									</div>
@@ -172,15 +150,20 @@
 							</div>
 							<div class="modal-body">
 								<div class="my-place-review-textarea">
-									<textarea class="my-place-review-textarea-content"></textarea>
+									<textarea class="my-place-review-textarea-content" id="reviewContent" name="reviewContent"></textarea>
 								</div>
 							</div>
 							<div class="modal-header">
 								<h1 class="modal-title fs-5" id="exampleModalLabel">구장 별점</h1>
 							</div>
+					
+							
 							<div class="modal-body">
+								<input type="hidden" id="modalPlaceNo" name="placeNo">
+								<input type="hidden" id="modalMatchNo" name="matchNo">
+								<input type="hidden" id="bestMNo" name="bestMNo">
 								<label for="rating" style="font-weight: bold;">별점 선택:</label> <select
-									id="my-modal-start-rating" class="form-select">
+									id="my-modal-start-rating" class="form-select" name="reviewStar">
 									<!-- 1부터 5까지 0.5 단위로 옵션 추가 -->
 									<option value="1">1.0</option>
 									<option value="1.5">1.5</option>
@@ -196,7 +179,7 @@
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">닫기</button>
-								<button type="button" class="btn btn-primary">완료</button>
+								<button type="submit" class="btn btn-primary">완료</button>
 							</div>
 						</div>
 					</form>
@@ -341,7 +324,7 @@
 				</c:forEach>
 			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/footer.jsp" />
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 
 
@@ -392,44 +375,78 @@
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/myPage/myPage.js"></script>
-	<script>
-	 const viewButtons = document.querySelectorAll('.view-btn');
-	 const bestPlayerButtons = document.querySelectorAll('.bestplayer-btn');
-	 
-	    viewButtons.forEach(button => {
-	        button.addEventListener('click', function() {
-	            // 클릭된 버튼에서 data-* 속성 값을 가져옴
-	            const name = this.getAttribute('data-name');
-	            const age = this.getAttribute('data-age');
-	            const gender = this.getAttribute('data-gender');
-	            const rank = this.getAttribute('data-rank');
-	            const abl = this.getAttribute('data-abl');
-	            const posi = this.getAttribute('data-posi');
-	            const intro = this.getAttribute('data-intro');
-	            
-	            const genderText = gender === 'M' ? '남자' : gender === 'F' ? '여자' : gender;
-	            
-	            // 모달 내용 업데이트
-	            document.getElementById('applicantName').textContent = name;
-	            document.getElementById('applicantAge').textContent = age;
-	            document.getElementById('applicantGender').textContent = genderText;
-	            document.getElementById('applicantRank').textContent = rank;
-	            document.getElementById('applicantAbl').textContent = abl;
-	            document.getElementById('applicantPosi').textContent = posi;
-	            document.getElementById('applicantIntro').textContent = intro;
+	<script>	    
+	    $(document).on('click', '.bestplayer-btn', function() {
+	        var teamANo = $(this).data('atno');
+	        var teamBNo = $(this).data('btno');
+	        
+	        $.ajax({
+	            url: 'getTeamInfo.mp', // 서버에서 팀 정보를 받아올 URL
+	            type: 'GET',
+	            data: {
+	                teamANo: teamANo,
+	                teamBNo: teamBNo
+	            },
+	            success: function(response) {
+	                const aTeamInfo = response.aTeamInfo;
+	                const bTeamInfo = response.bTeamInfo;
+
+	                // a팀 멤버 정보 출력
+	                let aTeamHtml = '';
+	                aTeamInfo.forEach(member => {
+	                	console.log(member)
+	                    aTeamHtml += `
+	                        <tr>
+	                            <td><div class="modal-ateam-table-img">
+	                                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" style="width: 50px;">
+	                            </div></td>
+	                            <td><div class="modal-ateam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
+	                            <td><div class="modal-ateam-table-vote-btn">
+	                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
+	                            </div></td>
+	                        </tr>`;
+	                });
+	                $(".modal-ateam-table").html(aTeamHtml);
+
+	                // b팀 멤버 정보 출력
+	                let bTeamHtml = '';
+	                bTeamInfo.forEach(member => {
+	                	console.log(member)
+	                    bTeamHtml += `
+	                        <tr>
+	                            <td><div class="modal-bteam-table-img">
+	                                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" style="width: 50px;" data-bestmno="a팀">
+	                            </div></td>
+	                            <td><div class="modal-bteam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
+	                            <td><div class="modal-bteam-table-vote-btn">
+	                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
+	                            </div></td>
+	                        </tr>`;
+	                });
+	                $(".modal-bteam-table").html(bTeamHtml);
+	            },
+	            error: function() {
+	                alert("팀 정보를 불러오는 데 실패했습니다.");
+	            }
 	        });
 	    });
 	    
-	    bestPlayerButtons.forEach(img => {
-	        img.addEventListener('click', function() {
-	            // 클릭된 버튼에서 data-* 속성 값을 가져옴
-	            const placeNo = this.getAttribute('data-placeno');
-	            const matchNo = this.getAttribute('data-matchno');
-	            
-	            document.getElementById('applicantPlacNo').textContent = placeNo;
-	            document.getElementById('applicantMatchNo').textContent = matchNo;
+	 // 이미지 클릭 시 상태 변경
+	    $(document).on('click', '.vote-btn', function() {
+	        // 모든 이미지를 원래대로 설정
+	        $('.vote-btn').each(function() {
+	            $(this).attr('src', `${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png`);
 	        });
+	        
+	        // 클릭한 이미지만 my_check_vote.png로 변경
+	        $(this).attr('src', `${pageContext.request.contextPath}/resources/images/my_check_vote.png`);
 	    });
+	 
+	    function updateBestMNo(imgElement) {
+	        const bestMNo = imgElement.getAttribute('data-bestmno');
+	        
+	        document.getElementById('bestMNo').value = bestMNo;
+	    }
 	</script>
 </body>
 </html>

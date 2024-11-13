@@ -45,6 +45,13 @@
 	}
 	
 	/* 내 전적 */
+	.modal-ateam-table-img, .modal-bteam-table-img {
+		height: 80px;
+		display: flex; /* 부모 요소를 flexbox로 설정 */
+	    justify-content: center; /* 가로 가운데 정렬 */
+	    align-items: center; /* 세로 가운데 정렬 */
+	} 
+	
 	.MyRecordContainer {
 		width: 60%;
 		padding: 15px;

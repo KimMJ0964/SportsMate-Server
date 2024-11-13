@@ -35,6 +35,7 @@ public class Member {
     private String memStatus;
 
     private int memAge;
+    private String position;
     
     public Member(String memEmail, String memPwd, String memName, String memGender, String memAdd, String memBirth, String memPhone, String memStatus) {
         this.memEmail = memEmail;
@@ -47,5 +48,3 @@ public class Member {
         this.memStatus = memStatus;
     }
 }
-
-
