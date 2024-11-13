@@ -13,8 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
     <!-- font -->
-<%--    <link rel="preconnect" href="https://fonts.googleapis.com">--%>
-<%--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>--%>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
@@ -34,7 +32,7 @@
 
     <div class="wrap">
         <div id="enroll-wrap">
-            <form action="" class="enroll-form" method="post" enctype="multipart/form-data">
+            <form action="manager_enroll.me" class="enroll-form" method="post" enctype="multipart/form-data" >
                 <div class="input-wrap">
                     <span class="form-title">이메일</span> <br>
                     <input type="email" name="memEmail" placeholder="이메일을 입력해주세요.">
@@ -125,8 +123,8 @@
                         <input type="text" class="zipcode" placeholder="우편번호">
                         <button type="button" class="address-search-button">주소 검색</button>
                     </div>
-                    <input type="text" class="basic-address" placeholder="기본 주소">
-                    <input type="text" class="detail-address" placeholder="상세 주소">
+                    <input type="text" class="basic-address" name="baseAdd" placeholder="기본 주소">
+                    <input type="text" class="detail-address" name="detailAdd" placeholder="상세 주소">
                 </div>
 
 
@@ -139,9 +137,9 @@
                 <div class="input-wrap">
                     <label>운영 시간</label>
                     <div class="time-group">
-                        <input type="time" id="start-time" value="09:00">
+                        <input type="time" id="start-time" name="startTime" value="09:00">
                         <span>~</span>
-                        <input type="time" id="end-time" value="18:00">
+                        <input type="time" id="end-time" name="endTime" value="18:00">
                     </div>
                 </div>
 
@@ -149,23 +147,23 @@
                     <span class="form-title">편의 시설</span><br>
                     <div class="category-checkBox-wrap">
                         <div class="category-checkBox">
-                            <input type="checkbox" name="facilities" id="toilet" value="toilet">
+                            <input type="checkbox" name="amenities" id="toilet" value="toilet">
                             <label for="toilet">화장실</label>
                         </div>
                         <div class="category-checkBox">
-                            <input type="checkbox" name="facilities" id="vendingMachine" value="vendingMachine">
-                            <label for="vendingMachine">자판기</label>
+                            <input type="checkbox" name="amenities" id="drink" value="drink">
+                            <label for="drink">자판기</label>
                         </div>
                         <div class="category-checkBox">
-                            <input type="checkbox" name="facilities" id="parkingLot" value="parkingLot">
+                            <input type="checkbox" name="amenities" id="parkingLot" value="parkingLot">
                             <label for="parkingLot">주차장</label>
                         </div>
                         <div class="category-checkBox">
-                            <input type="checkbox" name="facilities" id="smoking" value="smoking">
-                            <label for="smoking">흡연실</label>
+                            <input type="checkbox" name="amenities" id="smoke" value="smoke">
+                            <label for="smoke">흡연실</label>
                         </div>
                         <div class="category-checkBox">
-                            <input type="checkbox" name="facilities" id="shower" value="shower">
+                            <input type="checkbox" name="amenities" id="shower" value="shower">
                             <label for="shower">샤워실</label>
                         </div>
                     </div>
@@ -188,7 +186,7 @@
                 <div class="input-wrap">
                     <span class="form-title">구장 대표 이미지</span><br>
                     <div class="image-upload-group">
-                        <input type="file" name="thumbnail" id="thumbnail">
+                        <input type="file" name="thumbnailImg" id="thumbnail">
                     </div>
                 </div>
 
@@ -196,7 +194,7 @@
                     <span class="form-title">구장 상세 이미지</span><br>
 
                     <div class="image-upload-group">
-                        <input type="file" name="detail" id="detail" multiple>
+                        <input type="file" name="detailImg" id="detail" multiple>
                     </div>
                 </div>
                 <div class="split-bar"></div>
@@ -215,12 +213,6 @@
 
             </form>
         </div>
-
-
-        <%--            <div class="info-btn">--%>
-        <%--                <button class="registration-button">수정하기</button>--%>
-        <%--                <button class="registration-button">탈퇴하기</button>--%>
-        <%--            </div>--%>
     </div>
 
     </div>
