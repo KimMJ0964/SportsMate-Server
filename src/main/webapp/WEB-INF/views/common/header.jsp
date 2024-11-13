@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,61 +19,15 @@
 </style>
 </head>
 <body>
-	<!-- <div class="header-container">
-		<div class="header-logo">
-			<div>
-				<a class="header-logo" href="index.jsp">
-					<img src="${pageContext.request.contextPath}/resources/images/Logo.png" />
-				</a>
-			</div>
-			<div>
-				<p> SportMate </p>
-			</div>
-		</div>
-		<div class="header-input">
-			<form id="searchPlaceForm" action="List.sm" method="get">
-				<input placeholder="구장명을 입력하시오." /> <img
-					src="${pageContext.request.contextPath}/resources/images/search-btn.png" onclick="submitForm()" style="cursor: pointer;" />
-			</form>
-		</div>
-		<div class="header-userImg">
-			 <a href="login.me">
-				<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" />
-			</a>
-		</div>
-	</div>
-
-	<div class="additional-container">
-		<div class="header-appTop">
-			<div class="header-logo">
-				<a class="header-logo" href="index.jsp">
-					<img src="${pageContext.request.contextPath}/resources/images/Logo.png" />
-				</a>
-				<p> SportMate</p>
-			</div>
-			<div class="header-userImg">
-				<a href="login.me">
-					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" />
-				</a>
-			</div>
-		</div>
-		<div class="header-input">
-			<form id="searchPlaceForm" action="List.sm" method="get">
-				<input placeholder="구장명을 입력하시오." /> <img
-					src="resources/img/search-btn.png" onclick="submitForm()" style="cursor: pointer;" />
-			</form>
-		</div>
-	</div>
-	
-	<script>
-	    function submitForm() {
-	        document.getElementById("searchPlaceForm").submit(); // 폼 제출
-	    }
-	</script> -->
-
+	<c:if test="${not empty alertMsg}">
+		<script>
+			alert("${alertMsg}");
+		</script>
+		<c:remove var="alertMsg" scope="session"/>
+	</c:if>
 	<div class="header-div">
-		<div class="logo-div">
-			<img src="${pageContext.request.contextPath}/resources/images/Logo.png" class="logo-img" alt="">
+		<div class="logo-div" onclick="location.href = '${pageContext.request.contextPath}'">
+			<img src="${pageContext.request.contextPath}/resources/images/Logo.png" class="logo-img" alt="" onclick="location.href = '/'">
 			SportMate
 		</div>
 
@@ -82,9 +37,22 @@
 				<button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png" class="search-btn"></button>
 			</form>
 		</div>
-
 		<div class="user-icon">
-			<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="">
+			<c:choose>
+				<c:when test="${loginMember.memStatus.equals('A')}">
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+				</c:when>
+				<c:when test="${loginMember.memStatus.equals('M')}">
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+				</c:when>
+				<c:when test="${loginMember.memStatus.equals('Y')}">
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/myPage.me'">
+				</c:when>
+				<c:otherwise>
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+				</c:otherwise>
+			</c:choose>
+
 		</div>
 	</div>
 	<div class="search-bar-m">
