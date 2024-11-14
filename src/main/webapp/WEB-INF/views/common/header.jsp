@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,58 +21,6 @@
 </style>
 </head>
 <body>
-	<!-- <div class="header-container">
-		<div class="header-logo">
-			<div>
-				<a class="header-logo" href="index.jsp">
-					<img src="${pageContext.request.contextPath}/resources/images/Logo.png" />
-				</a>
-			</div>
-			<div>
-				<p> SportMate </p>
-			</div>
-		</div>
-		<div class="header-input">
-			<form id="searchPlaceForm" action="List.sm" method="get">
-				<input placeholder="구장명을 입력하시오." /> <img
-					src="${pageContext.request.contextPath}/resources/images/search-btn.png" onclick="submitForm()" style="cursor: pointer;" />
-			</form>
-		</div>
-		<div class="header-userImg">
-			 <a href="login.me">
-				<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" />
-			</a>
-		</div>
-	</div>
-
-	<div class="additional-container">
-		<div class="header-appTop">
-			<div class="header-logo">
-				<a class="header-logo" href="index.jsp">
-					<img src="${pageContext.request.contextPath}/resources/images/Logo.png" />
-				</a>
-				<p> SportMate</p>
-			</div>
-			<div class="header-userImg">
-				<a href="login.me">
-					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" />
-				</a>
-			</div>
-		</div>
-		<div class="header-input">
-			<form id="searchPlaceForm" action="List.sm" method="get">
-				<input placeholder="구장명을 입력하시오." /> <img
-					src="resources/img/search-btn.png" onclick="submitForm()" style="cursor: pointer;" />
-			</form>
-		</div>
-	</div>
-	
-	<script>
-	    function submitForm() {
-	        document.getElementById("searchPlaceForm").submit(); // 폼 제출
-	    }
-	</script> -->
-
 	<div class="header-div">
 		<div class="logo-div">
 			<img src="${pageContext.request.contextPath}/resources/images/Logo.png" class="logo-img" alt="">

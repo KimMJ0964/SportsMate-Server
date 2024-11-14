@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,7 +143,7 @@
 	
 	<br>
 	
-	<jsp:include page="nav.jsp" />
+	<jsp:include page="common/nav.jsp" />
 	
 	<hr>
 	
@@ -215,7 +214,7 @@
 	        <button class="board-page-btn">5</button>
 	        <button class="board-page-btn">&raquo;</button>
 	    </div>
-	<jsp:include page="footer.jsp" />
+	<jsp:include page="common/footer.jsp" />
 </div>
     
     <script>

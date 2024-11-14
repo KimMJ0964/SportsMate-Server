@@ -2,12 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+        
 <!-- !namespace : 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="teamMapper">
-	<select id="getAllTeams" resultType="com.example.maodel.Team">
-		SELECT TEAM_NAME, TEAM_POINT
-		FROM TEAM
-		WHERE STATUS = 'Y'
+	
+	<!-- 모든 구단 조회 -->
+	<select id="selectTeamList" resultType="Team">
+		
 	</select>
+	
 </mapper>

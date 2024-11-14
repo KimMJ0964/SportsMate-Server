@@ -13,9 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
-    <%--<jsp:forward page="WEB-INF/views/main.jsp"></jsp:forward>--%>
-    <jsp:forward page="WEB-INF/views/ranking.jsp" />
-    <%--<jsp:forward page="WEB-INF/views/listPage.jsp" />--%>
-    <%--<jsp:forward page="WEB-INF/views/detail.jsp" />--%>
+    <jsp:forward page="WEB-INF/views/main.jsp"></jsp:forward>
 </body>
 </html>
