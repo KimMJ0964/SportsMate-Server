@@ -11,14 +11,14 @@
 </head>
 <body>
 <div class="wrap">
-    <jsp:include page="header.jsp" />
+    <jsp:include page="/WEB-INF/views/common/header.jsp" />
     <br>
-    <jsp:include page="nav.jsp" />
+    <jsp:include page="/WEB-INF/views/common/nav.jsp" />
     <br>
 
     <!-- 이미지와 지도 컨테이너 -->
     <div class="image-container">
-        <img id="stadiumImage" src="resources/images/stadium.png" alt="Stadium Image" />
+        <img id="stadiumImage" src="resources/images/field.png" alt="Stadium Image" />
         <div id="map"></div> <!-- 지도 div 추가 -->
     </div>
 
@@ -313,7 +313,7 @@
         </aside>
     </div>
 
-    <jsp:include page="footer.jsp" />
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=043f5595cb50307eae5f33cc8943d0e6"></script>
     <script>

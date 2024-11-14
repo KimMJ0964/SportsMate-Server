@@ -4,47 +4,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>header</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<link
-	href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link href="${pageContext.request.contextPath}/resources/css/common/header.css" rel="stylesheet" >
-<link href="${pageContext.request.contextPath}/resources/css/common/modal.css" rel="stylesheet" >
-<style>
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>header</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    	  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+            rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="${pageContext.request.contextPath}/resources/css/common/header.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/common/modal.css" rel="stylesheet" >
+    <style>
+    </style>
 </head>
 <body>
-	<div class="header-div">
-		<div class="logo-div">
-			<img src="${pageContext.request.contextPath}/resources/images/Logo.png" class="logo-img" alt="">
-			SportMate
-		</div>
+    <c:if test="${not empty alertMsg}">
+        <script>
+            alert("${alertMsg}");
+        </script>
+        <c:remove var="alertMsg" scope="session"/>
+    </c:if>
+    <div class="header-div">
+        <div class="logo-div" onclick="location.href = '${pageContext.request.contextPath}'">
+            <img src="${pageContext.request.contextPath}/resources/images/Logo.png" class="logo-img" alt=""
+                 onclick="location.href = '/'">
+            SportMate
+        </div>
 
-		<div class="search-bar" data-bs-toggle="modal" data-bs-target="#searchModal">
-			<form action="" id="search-bar-form">
-				<input type="text" placeholder="구장명을 입력하세요.">
-				<button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png" class="search-btn" ></button>
-			</form>
-		</div>
+        <div class="search-bar" data-bs-toggle="modal" data-bs-target="#searchModal">
+            <form action="" id="search-bar-form">
+                <input type="text" placeholder="구장명을 입력하세요.">
+                <button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png"
+                             class="search-btn"></button>
+            </form>
+        </div>
+        <div class="user-icon">
+            <c:choose>
+                <c:when test="${loginMember.memStatus.equals('A')}">
+                    <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
+                         alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+                </c:when>
+                <c:when test="${loginMember.memStatus.equals('M')}">
+                    <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
+                         alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+                </c:when>
+                <c:when test="${loginMember.memStatus.equals('Y')}">
+                    <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
+                         alt="" onclick="location.href = '${pageContext.request.contextPath}/myPage.me'">
+                </c:when>
+                <c:otherwise>
+                    <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
+                         alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+                </c:otherwise>
+            </c:choose>
 
-		<div class="user-icon">
-			<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="">
-		</div>
-	</div>
-	<div class="search-bar-m">
-		<form action="" id="search-bar-form">
-			<input type="text" placeholder="구장명을 입력하세요.">
-			<button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png" class="search-btn"></button>
-		</form>
-	</div>
-	<!-- 모달 창 -->
+        </div>
+    </div>
+    <div class="search-bar-m">
+        <form action="" id="search-bar-form">
+            <input type="text" placeholder="구장명을 입력하세요.">
+            <button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png" class="search-btn">
+            </button>
+        </form>
+    </div>
+   	<!-- 모달 창 -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -96,7 +125,7 @@
 
                         <!-- 달력 내용 연결 -->
                         <div class="calendar-container" id="calendar-container">
-                        <jsp:include page="/WEB-INF/views/calendar.jsp" />
+                        <jsp:include page="/WEB-INF/views/modal/calendar.jsp" />
                         </div>
                     </div>
                 </div>
@@ -106,7 +135,7 @@
             </div>
         </div>
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         const dateSelector = document.getElementById('date-selector');

@@ -143,7 +143,7 @@
 	
 	<br>
 	
-	<jsp:include page="common/nav.jsp" />
+	<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 	
 	<hr>
 	
@@ -214,7 +214,7 @@
 	        <button class="board-page-btn">5</button>
 	        <button class="board-page-btn">&raquo;</button>
 	    </div>
-	<jsp:include page="common/footer.jsp" />
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </div>
     
     <script>

@@ -77,11 +77,11 @@ padding: 10px; /* 정보 영역에 패딩 추가 */
 </head>
 <body>
 <div class="wrap">
-<jsp:include page="header.jsp" />
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <br>
 
-<jsp:include page="nav.jsp" />
+<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 
 <br>
 
@@ -231,7 +231,7 @@ padding: 10px; /* 정보 영역에 패딩 추가 */
             </div>
         </div>
     </section>
-<jsp:include page="footer.jsp" />
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </div>
 </body>
 </html>
