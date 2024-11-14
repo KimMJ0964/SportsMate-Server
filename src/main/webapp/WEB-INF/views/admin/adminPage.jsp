@@ -72,7 +72,6 @@
 
                 <div class="menu-box">
                     <h3>구장 관리자 메뉴</h3>
-
                     <a href="adminReport.me?category=match&cpage=1" class="menu-item">
                         <img src="${pageContext.request.contextPath}/resources/images/report-match.png" alt="">경기 신고
                         관리</a>
