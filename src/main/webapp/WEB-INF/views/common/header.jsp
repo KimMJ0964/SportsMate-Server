@@ -49,7 +49,7 @@
                 </c:when>
                 <c:when test="${loginMember.memStatus.equals('M')}">
                     <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
-                         alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+                         alt="" onclick="location.href = '${pageContext.request.contextPath}/managermypage.me'">
                 </c:when>
                 <c:when test="${loginMember.memStatus.equals('Y')}">
                     <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"

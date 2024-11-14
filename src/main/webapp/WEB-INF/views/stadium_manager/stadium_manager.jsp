@@ -43,25 +43,25 @@
             <div class="menu-box">
                 <h3>구장 관리자 메뉴</h3>
 
-                <a href="#" class="menu-item">
-                    <img src="${pageContext.request.contextPath}/resources/images/result_game.png"
-                        alt="경기 결과">경기 결과</a>
-
-                <a href="#" class="menu-item">
-                    <img src="${pageContext.request.contextPath}/resources/images/rental.png"
-                    alt="대관 승인">대관 승인</a>
-
-                <a href="#" class="menu-item">
+                <a href="#" class="menu-item" onclick="location.href = 'gameschedule.me'">
                     <img src="${pageContext.request.contextPath}/resources/images/game_list.png"
-                        alt="경기 리스트">경기 리스트</a>
+                        alt="" onclick="location.href = '${pageContext.request.contextPath}/gameschedule.me'">진행 예정 매치</a>
 
-                <a href="#" class="menu-item">
+                <a href="#" class="menu-item" onclick="location.href = 'gamefinish.me'">
+                    <img src="${pageContext.request.contextPath}/resources/images/result_game.png"
+                        alt="" onclick="location.href = '${pageContext.request.contextPath}/gamefinish.me'">진행 완료 매치</a>
+
+                <a href="#" class="menu-item" onclick="location.href = 'rentalapproval.me'">
+                    <img src="${pageContext.request.contextPath}/resources/images/rental.png"
+                        alt="" onclick="location.href = '${pageContext.request.contextPath}/rentalapproval.me'">대관 승인</a>
+
+                <a href="#" class="menu-item" onclick="location.href = 'stadiuminfo.me'">
                     <img src="${pageContext.request.contextPath}/resources/images/information.png"
-                    alt="구장 정보 수정/탈퇴">구장 정보 수정/탈퇴</a>
+                    alt="" onclick="location.href = '${pageContext.request.contextPath}/stadiuminfo.me'">구장 정보 수정/탈퇴</a>
 
-                <a href="#" class="menu-item">
+                <a href="#" class="menu-item" onclick="location.href = 'inquiry.me'">
                     <img src="${pageContext.request.contextPath}/resources/images/inquiry.png"
-                    alt="문의">문의</a>
+                    alt="" onclick="location.href = '${pageContext.request.contextPath}/inquiry.me'">문의</a>
             </div>
 
             <!-- 로그아웃 버튼 -->
