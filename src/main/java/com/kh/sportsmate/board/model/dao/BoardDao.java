@@ -58,4 +58,8 @@ public class BoardDao {
 	public int writeReply(SqlSessionTemplate sqlSession, Map<String, String>map) {
 		return sqlSession.insert("boardMapper.writeReply", map);
 	}
+	
+	public int deleteReply(SqlSessionTemplate sqlSession, int cno) {
+		return sqlSession.update("boardMapper.deleteReply", cno);
+	}
 }

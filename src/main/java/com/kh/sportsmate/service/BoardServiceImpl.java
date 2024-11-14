@@ -81,4 +81,9 @@ public class BoardServiceImpl implements BoardService{
 	public int writeReply(Map<String, String> map) {
 		return boardDao.writeReply(sqlSession, map);
 	}
+
+	@Override
+	public int deleteReply(int cno) {
+		return boardDao.deleteReply(sqlSession, cno);
+	}
 }

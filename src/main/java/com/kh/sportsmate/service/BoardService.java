@@ -37,4 +37,7 @@ public interface BoardService {
 	
 	// 댓글 입력
 	int writeReply(Map<String, String> map);
+	
+	// 댓글 삭제
+	int deleteReply(int cno);
 }

@@ -147,14 +147,33 @@ public class BoardController {
 		
 		// 댓글 작성
 		@RequestMapping("writeReply.bd")
-		public String writeReply(int bno, String content, Model m) {
+		public String writeReply(int bno, String content, Model m, HttpSession session) {
 			int memNo = 1;
 			Map<String, String> map = new HashMap<>();
 			map.put("bno", String.valueOf(bno));
 			map.put("memNo", String.valueOf(memNo));
 			map.put("content", content);
 			
-			int boardComment = boardService.writeReply(map);
-			return "detailMove.bd?bno=" + bno;
+			int result = boardService.writeReply(map);
+			
+			if(result > 0) { //성공
+				return "redirect:detailMove.bd?bno=" + bno;
+			} else { //실패
+				m.addAttribute("errorMsg", "댓글 작성 실패");
+				return "redirect:detailMove.bd?bno=" + bno;
+			}
+		}
+		
+		// 댓글 삭제
+		@RequestMapping("deleteComm.bd")
+		public String deleteReply(int cno, int bno, Model m) {
+			int result = boardService.deleteReply(cno);
+			
+			if(result > 0) { //성공
+				return "redirect:detailMove.bd?bno=" + bno;
+			} else { //실패
+				m.addAttribute("errorMsg", "댓글 작성 실패");
+				return "redirect:detailMove.bd?bno=" + bno;
+			}
 		}
 }

@@ -49,10 +49,12 @@
         </div>
         <!-- 8. 댓글 작성 폼 -->
         <div class="bd-comment-container">
-            <div class="bd-comment-section">
-                <textarea class="bd-comment-textarea" rows="3" style="resize: none; width: 100%;"></textarea>
-                <button class="bd-button" style="float: right;">댓글 작성 완료</button>
-            </div>
+	        <form method="post" action="writeReply.tm?bno=${teamBoard.boardNo}">
+	            <div class="bd-comment-section">
+	                <textarea class="bd-comment-textarea" rows="3" style="resize: none; width: 100%;"></textarea>
+	                <button class="bd-button" style="float: right;">댓글 작성 완료</button>
+	            </div>
+	        </form>
         </div>
         <!-- 댓글 -->
         <div class="bd-comment">
@@ -69,8 +71,8 @@
 		            <div class="bd-comment-content">${comments.comContent}</div>
 		            <hr>
 		            <div class="bd-button-container">
-		                <button class="bd-red-button">댓글 삭제</button>
-		                <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</button>
+		                <div class="bd-red-button" onclick="location.href = 'deleteComm.tm?cno=${comments.comNo}&bno=${teamBoard.boardNo }&tno=${teamBoard.teamNo }'">댓글 삭제</div>
+		                <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</div>
 		                <button class="bd-button" onclick="toggleReplyForm(event)">답글 작성</button>
 		            </div>
 		
@@ -92,8 +94,8 @@
                               <div class="bd-comment-content">${reply.comContent}</div>
                               <hr>
                               <div class="bd-button-container">
-                                  <button class="bd-red-button">답글 삭제</button>
-                                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</button>
+                                  <div class="bd-red-button">답글 삭제</div>
+                                  <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</div>
                                   <button class="bd-button" onclick="toggleReplyForm(event)">답글 작성</button>
                               </div>
                           </c:if>

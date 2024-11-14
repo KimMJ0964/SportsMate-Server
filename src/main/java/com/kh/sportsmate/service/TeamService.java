@@ -45,4 +45,10 @@ public interface TeamService {
 		
 		// 게시글 검색
 		ArrayList<TeamBoard> searchBoard(PageInfo pi, Map<String, String> map);
+		
+		// 댓글 입력
+		int writeReply(Map<String, String> map);
+		
+		// 댓글 삭제
+		int deleteReply(int cno);
 }

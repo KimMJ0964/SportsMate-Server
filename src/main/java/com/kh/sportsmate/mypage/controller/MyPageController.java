@@ -33,7 +33,7 @@ public class MyPageController {
     private final MyPageService myPageService;
     
     @Autowired
-    public MemberController(MemberService memberService, BCryptPasswordEncoder bCryptPasswordEncoder, MyPageService myPageService){
+    public MyPageController(MemberService memberService, BCryptPasswordEncoder bCryptPasswordEncoder, MyPageService myPageService){
         this.memberService = memberService;
 		this.myPageService = myPageService;
     }
@@ -86,12 +86,14 @@ public class MyPageController {
         int reviewResult = myPageService.insertPReview(pr);
         
         MatchBest mb = new MatchBest(memNo, matchNo);
-        Map<String, Object> map = new HashMap<>();
-        map.put("mb", mb);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("matchNo", matchNo);
         map.put("bestMNo", bestMNo);
+        map.put("memNo", memNo);
         int bpChoice = myPageService.bestPlayerChoice(map);
+        int bpVote = myPageService.bestPlayerVote(map);
         
-        if(reviewResult > 0 && bpChoice > 0){
+        if(reviewResult > 0 && (bpChoice > 0 && bpVote > 0)){
             session.setAttribute("alertMsg", "리뷰 작성이 완료되었습니다.");
             return "redirect:/myPageInfo.mp";
         }else{

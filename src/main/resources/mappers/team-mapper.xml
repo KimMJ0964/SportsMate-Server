@@ -69,6 +69,7 @@
 		 FROM TEAM_BOARD_COMMENT b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 	    WHERE REF_TEAM_BOARD_NO = #{bno}
+	    AND b.STATUS = 'Y'
 	</select>
 	
 	<!-- 댓글 수 계산 -->
@@ -166,4 +167,31 @@
 	    	AND b.TITLE LIKE CONCAT('%', #{keyword}, '%')
 	    ORDER BY b.BOARD_NO DESC
 	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="writeReply">
+		INSERT INTO TEAM_BOARD_COMMENT (
+		    REF_TEAM_BOARD_NO,
+		    MEM_NO,
+		    COM_CREATE_DATE,
+		    STATUS,
+		    COM_CONTENT
+		)
+		VALUES (
+		    #{bno},
+		    #{memNo},
+		    NOW(),
+		    'Y',
+		    #{content}
+		)
+	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<update id="deleteReply">
+		UPDATE TEAM_BOARD_COMMENT
+	    SET 
+	        STATUS = 'N'
+	    WHERE 
+	        COM_NO = #{cno}
+	</update>
 </mapper>

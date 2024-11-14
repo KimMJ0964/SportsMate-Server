@@ -12,6 +12,7 @@ import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
 import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.mypage.model.dao.MyPageDao;
 import com.kh.sportsmate.place.model.vo.PlaceReview;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
@@ -26,61 +27,67 @@ public class MyPageServiceImpl implements MyPageService{
 	private final SqlSessionTemplate sqlSession;
 	
 	@Autowired
-	private final MemberDao memberDao;
+	private final MyPageDao mypageDao;
 	
 	// 내 정보
 	@Override
 	public MemberPosition selectMyInfo(int memNo) {
-		return memberDao.selectMyInfo(sqlSession, memNo);
+		return mypageDao.selectMyInfo(sqlSession, memNo);
 	}
 	
 	// 내 구단
 	@Override
 	public ArrayList<Team> selectMyTeam(int memNo) {
-		return memberDao.selectMyTeam(sqlSession, memNo);
+		return mypageDao.selectMyTeam(sqlSession, memNo);
 	}
 
 	// 내 구단 입단 명단자
 	@Override
 	public ArrayList<Recruit> selectMyRecruit(int memNo) {
-		return memberDao.selectMyRecruit(sqlSession, memNo);
+		return mypageDao.selectMyRecruit(sqlSession, memNo);
 	}
 	
 	// 내 전적
 	@Override
 	public ArrayList<Match> selectMyMatch(int memNo) {
-		return memberDao.selectMyMatch(sqlSession, memNo);
+		return mypageDao.selectMyMatch(sqlSession, memNo);
 	}
 
 	// 내 전적 판 수
 	@Override
 	public int selectMyMatchCount(int memNo) {
-		return memberDao.selectMyMatchCount(sqlSession, memNo);
+		return mypageDao.selectMyMatchCount(sqlSession, memNo);
 	}
 
 	@Override
 	public int selectMyMatchWinCount(int memNo) {
-		return memberDao.selectMyMatchWinCount(sqlSession, memNo);
+		return mypageDao.selectMyMatchWinCount(sqlSession, memNo);
 	}
 
 	@Override
 	public ArrayList<MemberPosition> selectATeamInfo(int teamANo) {
-		return memberDao.selectATeamInfo(sqlSession, teamANo);
+		return mypageDao.selectATeamInfo(sqlSession, teamANo);
 	}
 
 	@Override
 	public ArrayList<MemberPosition> selectBTeamInfo(int teamBNo) {
-		return memberDao.selectBTeamInfo(sqlSession, teamBNo);
+		return mypageDao.selectBTeamInfo(sqlSession, teamBNo);
 	}
 
 	@Override
 	public int insertPReview(PlaceReview pr) {
-		return memberDao.insertPReview(sqlSession, pr);
+		return mypageDao.insertPReview(sqlSession, pr);
 	}
 
 	@Override
-	public int bestPlayerChoice(Map<String, Object> map) {
-		return memberDao.bestPlayerChoice(sqlSession, map);
+	public int bestPlayerChoice(Map<String, Integer> map) {
+		return mypageDao.bestPlayerChoice(sqlSession, map);
 	}
+
+	@Override
+	public int bestPlayerVote(Map<String, Integer> map) {
+		return mypageDao.bestPlayerVote(sqlSession, map);
+	}
+	
 
 }

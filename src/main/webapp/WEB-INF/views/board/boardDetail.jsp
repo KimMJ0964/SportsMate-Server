@@ -74,7 +74,7 @@
 		            <div class="bd-comment-content">${comments.comContent}</div>
 		            <hr>
 		            <div class="bd-button-container">
-		                <div class="bd-red-button">댓글 삭제</div>
+		                <div class="bd-red-button" onclick="location.href = 'deleteComm.bd?cno=${comments.comNo}&bno=${board.boardNo }'">댓글 삭제</div>
 		                <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</div>
 		                <button class="bd-button" onclick="toggleReplyForm(event)">답글 작성</button>
 		            </div>

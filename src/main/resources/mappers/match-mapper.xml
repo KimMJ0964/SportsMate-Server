@@ -6,18 +6,16 @@
 <mapper namespace="matchMapper">
     
     <!-- 베스트 플레이어 선정   #{memNo} #{matchNo} #{bestMNo} -->
-    <update id="bestPlayerChoice">
-    	UPDATE MATCH_BEST mb
-		JOIN MATCH_BEST yt ON mb.MEM_NO = yt.MEM_NO
-		SET 
-		    mb.VOTE_STATUS = NOW(),
-		    yt.MEM_NO_VOTE_COUNT = yt.MEM_NO_VOTE_COUNT + 1
-		WHERE 
-		    mb.MATCH_NO = #{matchNo}
-		AND 
-		    mb.MEM_NO = #{memNo}
-		AND 
-		    yt.MEM_NO = #{bestMNo};
-    </update>
+    <update id="updateVoteStatus">
+	    UPDATE MATCH_BEST
+	    SET VOTE_STATUS = NOW()
+	    WHERE MATCH_NO = #{matchNo} AND MEM_NO = #{memNo}
+	</update>
+	
+	<update id="incrementVoteCount">
+	    UPDATE MATCH_BEST
+	    SET MEM_NO_VOTE_COUNT = MEM_NO_VOTE_COUNT + 1
+	    WHERE MATCH_NO = #{matchNo} AND MEM_NO = #{bestMNo}
+	</update>
     
 </mapper>
