@@ -103,4 +103,16 @@ public class TeamServiceImpl implements TeamService {
 	public ArrayList<TeamBoard> searchBoard(PageInfo pi, Map<String, String> map) {
 		return teamDao.searchBoard(sqlSession, pi, map);
 	}
+
+	@Override
+	public int writeReply(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteReply(int cno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
