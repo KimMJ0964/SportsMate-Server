@@ -25,7 +25,7 @@
             <img src="${pageContext.request.contextPath}/resources/images/home-btn.png"
                  alt="홈">홈</a>
 
-        <a href="#" class="nav-item">
+        <a href="boardList.bd" class="nav-item">
             <img src="${pageContext.request.contextPath}/resources/images/community-btn.png"
                  alt="커뮤니티">커뮤니티</a>
 
