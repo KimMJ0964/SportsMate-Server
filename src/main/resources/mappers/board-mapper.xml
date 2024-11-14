@@ -145,4 +145,11 @@
 	    WHERE 
 	        COM_NO = #{cno}
 	</update>
+	
+	<!-- 조회수 증가 -->
+	<update id="viewAdd">
+		UPDATE BOARD
+	    SET VIEW = VIEW + 1
+	    WHERE BOARD_NO = #{bno}
+	</update>
 </mapper>

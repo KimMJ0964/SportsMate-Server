@@ -56,7 +56,7 @@ public class BoardController {
 		Board board = boardService.detailList(bno);
 		ArrayList<BoardComment> comment = boardService.commentList(bno); 
 		int commentCount = boardService.commentCount(bno);
-		
+		int boardViewAdd = boardService.viewAdd(bno);
 		
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("comment", comment);

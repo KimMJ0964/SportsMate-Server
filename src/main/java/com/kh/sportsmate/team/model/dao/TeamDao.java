@@ -86,4 +86,8 @@ public class TeamDao {
 	public int deleteReply(SqlSessionTemplate sqlSession, int cno) {
 		return sqlSession.update("teamMapper.deleteReply", cno);
 	}
+	
+	public int viewAdd(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.update("teamMapper.viewAdd", bno);
+	}
 }

@@ -62,4 +62,8 @@ public class BoardDao {
 	public int deleteReply(SqlSessionTemplate sqlSession, int cno) {
 		return sqlSession.update("boardMapper.deleteReply", cno);
 	}
+	
+	public int viewAdd(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.update("boardMapper.viewAdd", bno);
+	}
 }

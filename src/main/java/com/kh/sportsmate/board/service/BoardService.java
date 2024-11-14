@@ -23,6 +23,9 @@ public interface BoardService {
 	// 댓글 수 구하기
 	int commentCount(int bno);
 	
+	// 조회수 증가
+	int viewAdd(int bno);
+	
 	// 게시글 생성
 	int createBoard(Board b);
 	

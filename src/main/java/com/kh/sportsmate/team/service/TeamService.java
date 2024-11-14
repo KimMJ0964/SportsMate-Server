@@ -51,5 +51,8 @@ public interface TeamService {
 		
 		// 댓글 삭제
 		int deleteReply(int cno);
+		
+		// 조회수 증가
+		int viewAdd(int bno);
 }
 

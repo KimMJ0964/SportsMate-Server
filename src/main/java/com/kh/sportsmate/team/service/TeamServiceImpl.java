@@ -104,14 +104,22 @@ public class TeamServiceImpl implements TeamService {
 		return teamDao.searchBoard(sqlSession, pi, map);
 	}
 
+	// 댓글 쓰기
 	@Override
 	public int writeReply(Map<String, String> map) {
 		return teamDao.writeReply(sqlSession, map);
 	}
 
+	// 댓글 삭제
 	@Override
 	public int deleteReply(int cno) {
 		return teamDao.deleteReply(sqlSession, cno);
+	}
+
+	// 조회수 증가
+	@Override
+	public int viewAdd(int bno) {
+		return teamDao.viewAdd(sqlSession, bno);
 	}
 }
 

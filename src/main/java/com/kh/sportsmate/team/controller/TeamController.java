@@ -75,6 +75,7 @@ public class TeamController {
 		TeamBoard teamBoard = teamService.detailList(bno);
 		ArrayList<TeamBoardComment> comment = teamService.commentList(bno);
 		int commentCount = teamService.commentCount(bno);
+		int boardViewAdd = teamService.viewAdd(bno);
 
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("comment", comment);

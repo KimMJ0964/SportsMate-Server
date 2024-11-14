@@ -3,6 +3,7 @@ package com.kh.sportsmate.board.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSessionManager;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,9 +83,16 @@ public class BoardServiceImpl implements BoardService{
 	public int writeReply(Map<String, String> map) {
 		return boardDao.writeReply(sqlSession, map);
 	}
-
+	
+	// 댓글 삭제
 	@Override
 	public int deleteReply(int cno) {
 		return boardDao.deleteReply(sqlSession, cno);
+	}
+
+	// 조회수 증가
+	@Override
+	public int viewAdd(int bno) {
+		return boardDao.viewAdd(sqlSession, bno);
 	}
 }
