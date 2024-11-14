@@ -1,10 +1,7 @@
-$(document).ready(function() {
-    $('#profileImg').on('click', profileUpload);
-    setDateSelectBox(); // 연도 selectBox option 추가
-
-    // 종목 체크박스 클릭 시 해당 info div 표시/숨김 처리
-    $('input[type="checkbox"][name="category"]').on('change', function() {
-        toggleInfoDisplay(this);
+$(document).ready(function () {
+    // 종목 체크박스 클릭 시 해당 체크박스 외 나머지 체크 해제
+    $(`input[type="checkbox"][name="category"]`).on('click', function() {
+        checkToRadio($(this));
     });
 
     // 전체 동의 체크박스 클릭 시
@@ -18,20 +15,17 @@ $(document).ready(function() {
         updateEntireAgreementStatus();
         toggleSubmit();
     });
+
+    setDateSelectBox(); // 연도 selectBox option 추가
+
 });
 
-const profileUpload = ()=> {
-    $('#userProfile').click();
-    $('#userProfile').on('change', profileUpdate);
-};
-
-const profileUpdate = (ev) =>{
-    const file = ev.target.files[0]; // 선택한 사진 가져오기
-    if(file){
-        const imgUrl = URL.createObjectURL(file); //  임시 URL을 생성
-        $('#profileImg').attr('src',imgUrl);
-        $('#profileImg').on('load', ()=> URL.revokeObjectURL(imgUrl)); // 임시 URL 메모리 해제
-    }
+// 클릭된 체크박스를 제외하고 모든 체크박스를 해제
+const checkToRadio = (checkbox) => {
+    // 클릭된 체크박스를 제외하고 다른 모든 체크박스를 해제
+    $(`input[type="checkbox"][name="category"]`).not(checkbox).prop('checked', false);
+    // 클릭된 체크박스의 상태를 유지
+    checkbox.prop('checked', true);
 };
 
 const setDateSelectBox = () =>{
@@ -50,16 +44,6 @@ const setDateSelectBox = () =>{
     }
     for (var i = 1; i <= 31; i++){
         $("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
-    }
-};
-
-// 체크박스 클릭 시 해당 종목의 info div를 표시/숨김
-const toggleInfoDisplay = (checkbox) => {
-    const infoDiv = $('#' + checkbox.id + '-info');
-    if (checkbox.checked) {
-        infoDiv.show();
-    } else {
-        infoDiv.hide();
     }
 };
 
@@ -87,6 +71,7 @@ const toggleSubmit = () => {
         submitBtn.prop('class','clickable');
     }
 };
+
 function addSearch(zipcodeId, baseAddId, detailAddId){
     new daum.Postcode({
         oncomplete: function (data) {

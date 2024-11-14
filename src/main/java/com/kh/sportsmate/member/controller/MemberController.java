@@ -1,15 +1,15 @@
 package com.kh.sportsmate.member.controller;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.common.template.Template;
+import com.kh.sportsmate.member.model.dto.ManagerEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
-import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
-import com.kh.sportsmate.service.MemberService;
+import com.kh.sportsmate.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * packageName    : com.kh.sportsmate.member.controller
@@ -109,5 +111,34 @@ public class MemberController {
             return "redirect:/";
         }
 
+    }
+    @PostMapping(value = "manager_enroll.me")
+    public String managerEnroll(ManagerEnrollDto m, MultipartFile thumbnailImg, List<MultipartFile> detailImg, HttpSession session ){
+        System.out.println(m);
+        System.out.println("thumbnailImg" + thumbnailImg);
+        System.out.println("detailImg" + detailImg);
+        System.out.println(m.getStartTime().getClass().getName());
+        ArrayList<StadiumAttachment> stadiumAttachmentImgs =new ArrayList<>();
+        String path = "resources/images/stadiumFile/";
+        String savePath = session.getServletContext().getRealPath(path);
+        if (!thumbnailImg.getOriginalFilename().equals("") && !detailImg.isEmpty()){
+            String changeName = Template.saveFile(thumbnailImg,session, path);
+            stadiumAttachmentImgs.add(new StadiumAttachment(thumbnailImg.getOriginalFilename(), changeName, savePath,0));
+            for(MultipartFile detailFile : detailImg){
+                changeName = Template.saveFile(detailFile, session, path);
+                stadiumAttachmentImgs.add(new StadiumAttachment(detailFile.getOriginalFilename(), changeName, savePath, 1));
+            }
+        }
+        String encPwd = bCryptPasswordEncoder.encode(m.getMemPwd()); // 비밀번호 암호화
+        m.setMemPwd(encPwd);
+        int result = memberService.insertManagerMember(m, stadiumAttachmentImgs);
+
+        if(result > 0){
+            session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
+            return "redirect:/";
+        }else{
+            session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
+            return "redirect:/";
+        }
     }
 }

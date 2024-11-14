@@ -7,18 +7,26 @@
 
     <settings>
         <setting name="jdbcTypeForNull" value="NULL"/>
+        <setting name="logImpl" value="LOG4J"/>
     </settings>
 
 
     <typeAliases>
+        <!-- Member -->
         <typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
-        <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
         <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="Category"/>
+        <!-- Attachment -->
+        <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
+        <!-- Stadium -->
+        <typeAlias type="com.kh.sportsmate.stadium.model.vo.Stadium" alias="Stadium"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.vo.Amenities" alias="Amenities"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.vo.Rental" alias="Rental"/>
     </typeAliases>
 
 
     <mappers>
         <mapper resource="mappers/member-mapper.xml"/>
+        <mapper resource="mappers/stadium-mapper.xml"/>
     </mappers>
 
 
