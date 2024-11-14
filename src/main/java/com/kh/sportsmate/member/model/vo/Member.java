@@ -41,11 +41,9 @@ public class Member {
         this.memName = memName;
         this.memGender = memGender;
         this.memZipcode = memZipcode;
-        this.memAdd = memAdd;
+        this.memAdd = memAdd; 
         this.memBirth = memBirth;
         this.memPhone = memPhone;
         this.memStatus = memStatus;
     }
 }
-
-
