@@ -7,200 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>구장 디테일 페이지</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-    <style>
-    	/* 구장 이미지 & 지도 API 사이즈 CSS */
-    	.image-container, .map-container {
-            width: 1200px; /* 이미지와 같은 너비 */
-            height: 500px; /* 이미지와 같은 높이 */
-            position: relative; /* 자식 요소의 절대 위치를 설정하기 위함 */
-        }
-        img {
-            width: 1200px;
-            height: 500px;
-            object-fit: cover;
-        }
-        /* 별점 이미지 */
-        .star {
-        	width: 20px;
-        	height: 20px;
-        	margin: 2px;
-        }
-        /* 칸 나누기 CSS */
-        .container {
-            display: flex;
-            margin-top: 20px;
-        }
-        .main-content {
-            flex: 3;
-        }
-        .sidebar {
-            flex: 2;
-            margin-left: 20px;
-        }
-        .info-box {
-            border: 1px solid black;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            margin-top: 0; /* 위쪽 여백 제거 */
-        }
-        .info-section {
-            display: flex;
-            justify-content: space-between; /* 왼쪽과 오른쪽 정렬 */
-        }
-        /* 사이드바쪽 CSS */
-        hr {
-        	background: black;
-        	height:1px;
-        	border:0;
-        }
-        
-        .p1 {
-        	font-size:18px;
-        }
-        
-        .p2 {
-        	font-size:20px;
-        	font-weight: bold;
-        }
-        
-        .p3 {
-        	font-size: 16px;
-        }
-        
-        .scope {
-        	display: flex;
-        }
-        .bt1 {
-        	color: #727f88;
-        	text-decoration: underline;
-        }
-        .bt2 {
-        	background-color: #1570ff; /* 배경색 */
-		    color: white; /* 텍스트 색상 */
-		    width: 130px; /* 너비 */
-		    font-size: 18px; /* 글자 크기 */
-		    padding: 10px; /* 내부 여백 */
-		    border-radius: 8px; /* 모서리 둥글게 */
-		    border: none; /* 테두리 없음 */
-		    cursor: pointer; /* 커서 모양 */
-        }
-        /* 카카오map */
-        #map {
-        	display: none; /* 초기 상태에서 지도 숨김 */
-        	width: 100%;
-            height: 100%; /* 이미지와 동일한 크기 */
-            position: absolute; /* 부모 요소 안에서 절대 위치 설정 */
-            top: 0;
-            left: 0;
-        }
-        /* 구장 정보 */
-        .section_header{
-        	padding: 20px;
-        }
-        .section_title {
-        	display: flex;
-        	align-items: center;
-        	justify-content: space-between;
-        	position: relative;
-        }
-        .section_body {
-        	padding: 0px 20px 24px 20px;
-        }
-        .info_list_wrapper {
-        	margin-bottom: 10px;
-        }
-        .info_list_wrapper.double ul li {
-        	width: 48%;
-        	display: inline-flex;
-        	align-items: center;
-        }
-        .info_list_wrapper .info_list {
-        	padding: 10px 0px;
-        	display: flex;
-        }
-        .info_list_wrapper .info_list .title_line {
-        	font-size:16px;
-        	padding-bottom: 5px;
-        	text-decoration-line: line-through;
-        	color: #c4cdd4;
-        }
-        .stadInner {
-        	border-top: 1px solid #d9e0e6;
-        	padding-top: 10px;
-        }
-        .stadInner .matchRule:first-child {
-        	margin-top: 0;
-        }
-        .stadInner .matchRule {
-        	margin-top: 20px;
-        }
-        .stadInner pre {
-        	white-space: pre-line;
-        	word-break: keep-all;
-        	font-size: 14px;
-        	line-height: 22px;
-        	overflow: auto;
-        }
-        .txt2 {
-        	font-size: 14px;
-        }
-        pre {
-        	font-size: 1.1cm;
-        }
-        pre {
-        	white-space: pre-wrap;
-		    word-wrap: break-word;
-		    word-break: keep-all;
-		    overflow: auto;
-        }
-        /* 매치 진행 방식 */
-        .section_title--arrow {
-        	cursor: pointer;
-        }
-        element.style {
-        	border: none;
-        }
-        .section_body {
-        	padding: 0px 20px 24px 20px;
-        }
-        .stadInner .matchRule:first-child {
-        	margin-top: 0;
-        }
-        .stadInner .matchRule h4 {
-        	font-size: 14px;
-        	margin-bottom: 5px;
-        }
-        .stadInner .matchRule table {
-        	border-radius: 10px;
-        	border-style: hidden;
-        	box-shadow: 0 0 0 1px #9eaab3;
-        	width: 100%;
-        	margin-top: 10px;
-        }
-        .stadInner .matchRule table, th, td {
-        	border: 1px solid #9eaab3;
-        	border-collapse: collapse;
-        	font-size: 14px;
-        }
-        colgroup {
-        	display: table-column-group;
-        	unicode-bidi: isolate;
-        }
-        col {
-        	display: table-column;
-        	unicode-bidi: isolate;
-        }
-        table {
-        	display: table;
-        	border-collapse: separate;
-		    box-sizing: border-box;
-		    text-indent: initial;
-		    unicode-bidi: isolate;
-		    border-spacing: 2px;
-		    border-color: gray;
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/detail.css">
 </head>
 <body>
 <div class="wrap">
@@ -217,6 +24,36 @@
 
     <div class="info-section">
         <div class="main-content">
+        	<!-- 미디어쿼리 적용 후 모바일 페이지 -->
+        	<div class="info-box mobile-only">
+				<div class="section-mobile">
+					<div class="matchTime">11월 12일 화요일 07:00</div>
+					<div class="matchPlace">
+						<h1 class="txtH w700h">
+							<p>서울 강동 송파 풋살장</p>
+						</h1>
+						<div class="wtgTool">
+							<span class="stadium-info_address">서울특별시 송파구 풍납동 403-3</span>
+							<button onclick="showMap()" class="bt1">지도 보기</button>
+						</div>
+						<div style="margin-top: 10px; display: flex;">
+							<div class="scope"><img src="resources/images/star.png" class="star"><span>5/5</span></div>
+						</div>
+					</div>
+					<div class="match-info_fee">
+						<div class="matchFee">
+							<div>
+								<span class="matchFee_money">200.000원</span>
+								<span> / 2시간</span>
+							</div>
+							<div>
+								<p style="color: black; font-size: 12px;">구장 운영 시간 : </p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 여기서 부터 PC버전 -->
             <div class="info-box">
                 <h3>지역 날씨</h3>
             </div>
@@ -353,45 +190,126 @@
 								</tr>
 							</tbody>
 						</table>
-						<li>
-							
+						<li>취소 수수료 발생 시 사용된 포인트를 우선 차감 후 차액을 캐시로 지급합니다.</li>
+						<li>변경은 상단 취소 환불 규정과 동일하게 적용됩니다.</li>
+					</ul>
+					<ul class="matchRule"><h4>그 외 취소 규정</h4>
+						<li>신청 후 30분 이내에는 하루 1회에 한해 무료 취소가 가능합니다.
+						<br><b>(단, 매치 시작 90분 이내일 경우 불가)</b></li>
+						<li>쿠폰 신청자는 매치 시작 90분전까지 취소 시 쿠폰이 반환됩니다.</li>
+						<li>실 결제금액(쿠폰 제외)을 기준으로 위 규정에 따라 환급됩니다.</li>
+						<li>매치 시작 90분 전까지 최소 인원이 모이지 않을시 카카오톡 혹은 LMS으로 안내되며, 자동 전액 환불처리됩니다. (단, 공지 전 직접 취소하시는 경우 상단 일반 환불 규정되로 처리됩니다.)</li>
+					</ul>
+					<ul class="matchRule"><h4>유의 상항</h4>
+						<li>단순 변심으로 취소 혹은 변경을 요청하는 경우 환불이 불가합니다.</li>
+						<li>무단 불참하거나 매치 시작 90분 이내에 취소하면 페널티를 받습니다.</li>
+						<li>참여가 어려울 경우 , 원활한 매치 진행을 위해 마이페이지에서 미리 취소해주세요.</li>
+					</ul>
+					<ul class="matchRule"><h4>강수 환불 규정</h4>
+						<li>기상청 날씨 예보에 따라 환불 가능시 공지해드립니다.<br>[공지시점]<br>
+							<ul>
+								<li>
+									오전(12시 이전) 매치 : 하루 전 22시 기준, 매치 진행 시간의 강수량 예보가 1mm 이상 시
+								</li>
+								<li>
+									오후(12시 이후) 매치 : 매치 시작 4기간 전 기준, 매치 진행 시간의 강수량 예보가 1mm이상 시
+								</li>
+							</ul>
+							[공지 방법] : 문자(본인 인증된 연락처)
 						</li>
+						<li>문자를 받으시고, 매치 시작 90분 전까지 취소하면 전액 환불됩니다.</li>
+						<li>알림톡 발송 없이 직접 취소하시는 경우 상단 일반 환불 규정대로 처리됩니다.</li>
+						<li>별도 공지가 없을 시 매치는 정상 진행됩니다.</li>
+						<li>다수의 인원이 취소하거나, 구장 상태가 좋지 않아 진행이 어렵다면 매치 시작 90분 이내라도 매치를 취소합니다.</li>
+						<li>현장에서 심판님께서 직접 귀가 의사를 전달해야만 환불 처리가 됩니다.</li>
+					</ul>
+					<ul class="matchRule"><h4>취소 방법</h4>
+						<li>[마이페이지] -> 취소를 원하는 매치의 [상세 내역] 내 [취소하기]</li>
 					</ul>
                 </div>
             </div>            
                    
 			<div class="info-box">
-                <ul>
-                    <h3>매치 진행방식</h3>
-                    <li><strong>이용 안내:</strong> 이용 가능 시간, 요금 등</li>
-                    <li><strong>편의시설:</strong>
-                        <ul>
-                            <li>화장실</li>
-                            <li>주차장</li>
-                            <li>음료수 자판기</li>
-                        </ul>
-                    </li>
-                </ul>
+				<h3>리뷰</h3>
+				<table>
+					<tr>
+						<td>1.</td>
+						<td>정말 좋은 구장입니다 ~!</td>
+						<td>이명건</td>
+						<td>2024.10.31 <img src="" alt="평점" class="" />5</td>
+					</tr>
+					<tr>
+						<td>1.</td>
+						<td>정말 좋은 구장입니다 ~!</td>
+						<td>이명건</td>
+						<td>2024.10.31 <img src="" alt="평점" class="" />5</td>
+					</tr>
+					<tr>
+						<td>1.</td>
+						<td>정말 좋은 구장입니다 ~!</td>
+						<td>이명건</td>
+						<td>2024.10.31 <img src="" alt="평점" class="" />5</td>
+					</tr>
+				</table>
             </div>
-            
+			<!-- 미디어쿼리 적용 후 모바일 페이지  -->
+        	<div class="info-box mobile-only">
+				<div class="match-apply_Wrap">
+					<div class="match-apply_button">
+						<div>
+							<p class="match-apply_button-text">지금 신청하면<br>진행 확정이 빨라져요!</p>
+						</div>
+						<div class="btnWrap" style="width: 144px;">
+							<button type="button" class="btn letsplab">
+								<p>신청하기</p>
+							</button>
+						</div>
+					</div>
+				</div>
+        	</div>
+        </div> 
+           
         <aside class="sidebar">
-            <div class="info-box">
-                <p class="p1">풋살</p>
-                <p class="p2">서울 영등포 SKY 풋살파크 B구장</p>
-                <p class="p3">서울 영등포구 선유로 43길 19 
-                <button onclick="showMap()" class="bt1">지도 보기</button>
-                </p>
-                <div class="scope"><img src="resources/images/star.png" class="star"><p>5/5</p></div>
-                <hr>
-                <p class="p2">가격: 200,000원</p>
-                <p class="p1">구장 운영 시간 -> 09:00 ~ 24:00</p>
-                 <div style="display: flex; justify-content: space-between; align-items: center;">
-			         <div>
-			                지금 신청하면<br>진행 확정이 빨라져요!
-			         </div>
-			         <button class="bt2">신청하기</button>
-		        </div>
-            </div>
+        	<div class="info-box">
+				<div class="section-pc">
+					<div class="matchTime">11월 12일 화요일 07:00</div>
+					<div class="matchPlace">
+						<h1 class="txtH w700h">
+							<p>서울 강동 송파 풋살장</p>
+						</h1>
+						<div class="wtgTool">
+							<span class="stadium-info_address">서울특별시 송파구 풍납동 403-3</span>
+							<button onclick="showMap()" class="bt1">지도 보기</button>
+						</div>
+						<div style="margin-top: 10px; display: flex;">
+							<div class="scope"><img src="resources/images/star.png" class="star"><span>5/5</span></div>
+						</div>
+					</div>
+					<div class="match-info_fee">
+						<div class="matchFee">
+							<div>
+								<span class="matchFee_money">200.000원</span>
+								<span> / 2시간</span>
+							</div>
+							<div>
+								<p style="color: black; font-size: 12px;">구장 운영 시간 : </p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="match-apply_Wrap">
+					<div class="match-apply_button">
+						<div>
+							<p class="match-apply_button-text">지금 신청하면<br>진행 확정이 빨라져요!</p>
+						</div>
+						<div class="btnWrap" style="width: 144px;">
+							<button type="button" class="btn letsplab">
+								<p>신청하기</p>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
         </aside>
     </div>
 

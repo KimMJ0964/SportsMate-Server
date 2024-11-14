@@ -14,8 +14,8 @@
 </head>
 <body>
     <%--<jsp:forward page="WEB-INF/views/main.jsp"></jsp:forward>--%>
-    <%--<jsp:forward page="WEB-INF/views/ranking.jsp" />--%>
+    <jsp:forward page="WEB-INF/views/ranking.jsp" />
     <%--<jsp:forward page="WEB-INF/views/listPage.jsp" />--%>
-    <jsp:forward page="WEB-INF/views/detail.jsp" />
+    <%--<jsp:forward page="WEB-INF/views/detail.jsp" />--%>
 </body>
 </html>

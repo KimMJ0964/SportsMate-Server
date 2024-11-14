@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,83 +140,82 @@
 </head>
 <body>
 <div class="wrap">
-<jsp:include page="header.jsp" />
-
-<br>
-
-<jsp:include page="nav.jsp" />
-
-<hr>
-
-    <p class="size">실시간 랭킹</p>
-	<div class="sport-button-container">
-        <button class="sport-btn">축구</button>
-        <button class="sport-btn active">풋살</button>
-        <button class="sport-btn">야구</button>
-        <button class="sport-btn">농구</button>
-    </div> 
-        <div class="row">
-            <div class="cell left"><span>1</span><img src="resources/images/team.png" /></div>
-            <div class="cell center">우리동네FC</div>
-            <div class="cell right"><div class="point">Point</div>1389</div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>2</span><img src="resources/images/team.png" /></div>
-            <div class="cell center">우리동네FC</div>
-            <div class="cell right"><div class="point">Point</div>1389</div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>3</span><img src="resources/images/team.png" /></div>
-            <div class="cell center">우리동네FC</div>
-            <div class="cell right"><div class="point">Point</div>1389</div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>4</span><img src="resources/images/team.png" /></div>
-            <div class="cell center">우리동네FC</div>
-            <div class="cell right"><div class="point">Point</div>1389</div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>5</span><img src="resources/images/team.png" /></div>
-            <div class="cell center">우리동네FC</div>
-            <div class="cell right"><div class="point">Point</div>1389</div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>6</span><img src="resources/images/team.png" /></div>
-            <div class="cell center">우리동네FC</div>
-            <div class="cell right"><div class="point">Point</div>1389</div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>7</span><img src="resources/images/team.png" /></div>
-            <div class="cell center">우리동네FC</div>
-            <div class="cell right"><div class="point">Point</div>1389</div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>8</span><img src="resources/images/team.png" /></div>
-            <div class="cell center">우리동네FC</div>
-            <div class="cell right"><div class="point">Point</div>1389</div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>9</span><img src="resources/images/team.png" /></div>
-            <div class="cell center">우리동네FC</div>
-            <div class="cell right"><div class="point">Point</div>1389</div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>10</span><img src="resources/images/team.png" /></div>
-            <div class="cell center">우리동네FC</div>
-            <div class="cell right"><div class="point">Point</div>1389</div>
-        </div>
-        <div class="row"></div>
-    </div>
-    <div class="board-pagination">
-        <button class="board-page-btn">&laquo;</button>
-        <button class="board-page-btn">1</button>
-        <button class="board-page-btn">2</button>
-        <button class="board-page-btn">3</button>
-        <button class="board-page-btn">4</button>
-        <button class="board-page-btn">5</button>
-        <button class="board-page-btn">&raquo;</button>
-    </div>
-<jsp:include page="footer.jsp" />
+	<jsp:include page="TeamSearch.jsp" />
+	
+	<br>
+	
+	<jsp:include page="nav.jsp" />
+	
+	<hr>
+	
+	    <p class="size">실시간 랭킹</p>
+		<div class="sport-button-container">
+	        <button class="sport-btn">축구</button>
+	        <button class="sport-btn active">풋살</button>
+	        <button class="sport-btn">야구</button>
+	        <button class="sport-btn">농구</button>
+	    </div> 
+	        <div class="row">
+	            <div class="cell left"><span>1</span><img src="resources/images/team.png" /></div>
+	            <div class="cell center">우리동네FC</div>
+	            <div class="cell right"><div class="point">Point</div>1389</div>
+	        </div>
+	        <div class="row">
+	            <div class="cell left"><span>2</span><img src="resources/images/team.png" /></div>
+	            <div class="cell center">우리동네FC</div>
+	            <div class="cell right"><div class="point">Point</div>1389</div>
+	        </div>
+	        <div class="row">
+	            <div class="cell left"><span>3</span><img src="resources/images/team.png" /></div>
+	            <div class="cell center">우리동네FC</div>
+	            <div class="cell right"><div class="point">Point</div>1389</div>
+	        </div>
+	        <div class="row">
+	            <div class="cell left"><span>4</span><img src="resources/images/team.png" /></div>
+	            <div class="cell center">우리동네FC</div>
+	            <div class="cell right"><div class="point">Point</div>1389</div>
+	        </div>
+	        <div class="row">
+	            <div class="cell left"><span>5</span><img src="resources/images/team.png" /></div>
+	            <div class="cell center">우리동네FC</div>
+	            <div class="cell right"><div class="point">Point</div>1389</div>
+	        </div>
+	        <div class="row">
+	            <div class="cell left"><span>6</span><img src="resources/images/team.png" /></div>
+	            <div class="cell center">우리동네FC</div>
+	            <div class="cell right"><div class="point">Point</div>1389</div>
+	        </div>
+	        <div class="row">
+	            <div class="cell left"><span>7</span><img src="resources/images/team.png" /></div>
+	            <div class="cell center">우리동네FC</div>
+	            <div class="cell right"><div class="point">Point</div>1389</div>
+	        </div>
+	        <div class="row">
+	            <div class="cell left"><span>8</span><img src="resources/images/team.png" /></div>
+	            <div class="cell center">우리동네FC</div>
+	            <div class="cell right"><div class="point">Point</div>1389</div>
+	        </div>
+	        <div class="row">
+	            <div class="cell left"><span>9</span><img src="resources/images/team.png" /></div>
+	            <div class="cell center">우리동네FC</div>
+	            <div class="cell right"><div class="point">Point</div>1389</div>
+	        </div>
+	        <div class="row">
+	            <div class="cell left"><span>10</span><img src="resources/images/team.png" /></div>
+	            <div class="cell center">우리동네FC</div>
+	            <div class="cell right"><div class="point">Point</div>1389</div>
+	        </div>
+	        <div class="row"></div>
+	    <div class="board-pagination">
+	        <button class="board-page-btn">&laquo;</button>
+	        <button class="board-page-btn">1</button>
+	        <button class="board-page-btn">2</button>
+	        <button class="board-page-btn">3</button>
+	        <button class="board-page-btn">4</button>
+	        <button class="board-page-btn">5</button>
+	        <button class="board-page-btn">&raquo;</button>
+	    </div>
+	<jsp:include page="footer.jsp" />
 </div>
     
     <script>

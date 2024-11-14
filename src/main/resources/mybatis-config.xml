@@ -11,12 +11,12 @@
 
 
     <typeAliases>
-
+		
     </typeAliases>
 
 
     <mappers>
-
+		<mapper resource="mappers/team-mapper.xml"/>
     </mappers>
 
 
