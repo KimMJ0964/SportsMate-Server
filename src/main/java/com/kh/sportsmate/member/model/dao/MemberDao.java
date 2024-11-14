@@ -54,5 +54,7 @@ public class MemberDao {
     public Member loginMember(SqlSessionTemplate sqlSession, Member m){
         return sqlSession.selectOne("memberMapper.loginMember", m);
     }
-
+    public int selectEmail(SqlSessionTemplate sqlSession, String email){
+        return sqlSession.selectOne("memberMapper.selectEmail", email);
+    }
 }

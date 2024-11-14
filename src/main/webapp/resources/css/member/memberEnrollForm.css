@@ -146,6 +146,12 @@
     background-color: #f3f3f3;
     box-sizing: border-box;
 }
+.red{
+    color: red;
+}
+.green{
+    color: green;
+}
 
 @media (min-width: 481px) and (max-width: 1200px) {
 

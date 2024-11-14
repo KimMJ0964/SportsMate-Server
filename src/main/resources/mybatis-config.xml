@@ -12,6 +12,8 @@
 
 
     <typeAliases>
+        <!-- common -->
+
         <!-- Member -->
         <typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
         <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="Category"/>

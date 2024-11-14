@@ -185,4 +185,9 @@ public class MemberServiceImpl implements MemberService {
         }
         return result1 * result2 * result3 * result4 * result5;
     }
+
+    @Override
+    public int emailCheck(String email) {
+        return memberDao.selectEmail(sqlSession, email);
+    }
 }
