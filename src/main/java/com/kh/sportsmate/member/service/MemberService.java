@@ -24,4 +24,7 @@ public interface MemberService {
     Member loginMember(Member m);
 
     int insertManagerMember(ManagerEnrollDto m, ArrayList<StadiumAttachment> stadiumAttachmentImgs);
+
+    // email 중복 검사
+    int emailCheck(String email);
 }

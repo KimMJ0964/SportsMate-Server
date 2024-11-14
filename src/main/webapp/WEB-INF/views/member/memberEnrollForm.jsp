@@ -33,14 +33,17 @@
                 <div class="input-wrap">
                     <span class="form-title">이메일</span> <br>
                     <input type="email" name="memEmail" placeholder="이메일을 입력해주세요.">
+                    <span id="emailCheckResult" class="hide"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">비밀번호</span><br>
                     <input type="password" name="memPwd" placeholder="비밀번호를 입력해주세요.">
+                    <span id="checkPwdCondition"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">비밀번호 확인</span><br>
                     <input type="password" name="pwdCheck" placeholder="비밀번호를 한 번 더 입력해주세요.">
+                    <span id="checkPwdResult"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">이름</span><br>
@@ -84,10 +87,6 @@
                         </div>
                     </div>
                 </div>
-<%--                <div class="input-wrap">--%>
-<%--                    <span class="form-title">주소</span><br>--%>
-<%--                    <input type="text" name="memAdd" placeholder="주소를 입력해주세요.">--%>
-<%--                </div>--%>
                 <div class="input-wrap">
                     <span class="form-title">주소</span> <br>
                     <div class="address-container">
@@ -284,7 +283,7 @@
                 </div>
 
                 <div class="submit-btn">
-                    <button type="submit" disabled class="none-clickable">회원가입</button>
+                    <button type="submit" class="none-clickable">회원가입</button>
                 </div>
 
             </form>
