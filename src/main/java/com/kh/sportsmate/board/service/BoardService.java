@@ -1,4 +1,4 @@
-package com.kh.sportsmate.service;
+package com.kh.sportsmate.board.service;
 
 import java.util.ArrayList;
 import java.util.Map;

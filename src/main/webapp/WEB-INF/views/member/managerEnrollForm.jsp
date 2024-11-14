@@ -1,164 +1,229 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%--
+  Created by IntelliJ IDEA.
+  User: jun
+  Date: 2024. 11. 5.
+  Time: 12:25
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>구단 창설</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/teamBoard/teamModify.css?after">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/default.css">
-<style>
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/managerEnrollForm.css">
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <!-- jQuery Timepicker 추가 -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/member/managerEnrollForm.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
-	<div class="wrap">
-		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<br>
-		<jsp:include page="/WEB-INF/views/common/nav.jsp" />
-		<div id="login-wrap">
-			<form action="" class="enroll-form" method="post"
-				enctype="multipart/form-data">
-				<div class="user-profile-wrap">
-					<img
-						src="${pageContext.request.contextPath}/resources/images/user_default_profile.png"
-						alt="" id="profileImg"> <input type="file"
-						name="userProfile" id="userProfile" style="display: none">
-				</div>
-				<div class="input-wrap">
-					<span class="form-title">구단명</span> <br> <input type="text"
-						name="teamName" placeholder="구단명을 입력해주세요.">
-				</div>
-				<div class="day-input-wrap">
-				    <span class="form-title">활동 요일</span> <div class="day-select-wrap">
-				    <div class="day-box" data-day="월">월</div>
-				    <div class="day-box" data-day="화">화</div>
-				    <div class="day-box" data-day="수">수</div>
-				    <div class="day-box" data-day="목">목</div>
-				    <div class="day-box" data-day="금">금</div>
-				    <div class="day-box" data-day="토">토</div>
-				    <div class="day-box" data-day="일">일</div>
-				</div>
-				</div>
-				
-				
-				<div class="day-input-wrap">
-				    <span class="form-title">활동 시간대</span> <div class="day-select-wrap">
-				    <div class="time-box" data-time="아침">
-				        <span class="time-label">아침</span>
-				        <span class="time-range">06 ~ 10시</span>
-				    </div>
-				    <div class="time-box" data-time="낮">
-				        <span class="time-label">낮</span>
-				        <span class="time-range">10 ~ 18시</span>
-				    </div>
-				    <div class="time-box" data-time="저녁">
-				        <span class="time-label">저녁</span>
-				        <span class="time-range">18 ~ 24시</span>
-				    </div>
-				    <div class="time-box" data-time="심야">
-				        <span class="time-label">심야</span>
-				        <span class="time-range">24 ~ 06시</span>
-				    </div>
-				     </div>
-				</div>
-				
-				<div class="input-wrap">
-					<span class="form-title">활동 지역</span><br> <select
-							name="activityRegion" id="activityRegion">
-							<option disabled hidden selected>활동 지역을 선택해 주세요.</option>
-							<option value="서울">서울특별시</option>
-					        <option value="부산">부산광역시</option>
-					        <option value="대구">대구광역시</option>
-					        <option value="인천">인천광역시</option>
-					        <option value="광주">광주광역시</option>
-					        <option value="대전">대전광역시</option>
-					        <option value="울산">울산광역시</option>
-					        <option value="세종">세종특별자치시</option>
-					        <option value="경기도">경기도</option>
-					        <option value="강원도">강원도</option>
-					        <option value="충청북도">충청북도</option>
-					        <option value="충청남도">충청남도</option>
-					        <option value="전라북도">전라북도</option>
-					        <option value="전라남도">전라남도</option>
-					        <option value="경상북도">경상북도</option>
-					        <option value="경상남도">경상남도</option>
-					        <option value="제주">제주특별자치도</option>
-						</select>
-				</div>
-				<div class="input-wrap">
-					<span class="form-title">구단 정원</span><br> <select
-							name="memberCount" id="memberCount">
-							<option disabled hidden selected>구단 정원을 선택해 주세요.</option>
-							<option value="5">5명</option>
-					        <option value="6">6명</option>
-					        <option value="7">7명</option>
-					        <option value="8">8명</option>
-					        <option value="9">9명</option>
-					        <option value="10">10명</option>
-					        <option value="11">11명</option>
-					        <option value="12">12명</option>
-					        <option value="13">13명</option>
-					        <option value="14">14명</option>
-					        <option value="15">15명</option>
-					        <option value="16">16명</option>
-					        <option value="17">17명</option>
-					        <option value="18">18명</option>
-					        <option value="19">19명</option>
-					        <option value="20">20명</option>
-					        <option value="21">21명</option>
-					        <option value="22">22명</option>
-					        <option value="23">23명</option>
-					        <option value="24">24명</option>
-					        <option value="25">25명</option>
-						</select>
-				</div>
-				
-				<div class="input-wrap">
-					<span class="form-title">종목</span>
+    <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
+    <div class="wrap">
+        <div id="enroll-wrap">
+            <form action="manager_enroll.me" class="enroll-form" method="post" enctype="multipart/form-data" >
+                <div class="input-wrap">
+                    <span class="form-title">이메일</span> <br>
+                    <input type="email" name="memEmail" placeholder="이메일을 입력해주세요.">
+                </div>
+                <div class="input-wrap">
+                    <span class="form-title">비밀번호</span><br>
+                    <input type="password" name="memPwd" placeholder="비밀번호를 입력해주세요.">
+                </div>
+                <div class="input-wrap">
+                    <span class="form-title">비밀번호 확인</span><br>
+                    <input type="password" name="pwdCheck" placeholder="비밀번호를 한 번 더 입력해주세요.">
+                </div>
+                <div class="input-wrap">
+                    <span class="form-title">이름</span><br>
+                    <input type="text" name="memName" placeholder="이름을 입력해주세요.">
+                </div>
+                <div class="input-wrap">
+                    <span class="form-title">성별</span><br>
+                    <select name="memGender" id="">
+                        <option disabled hidden selected>성별</option>
+                        <option value="M">남자</option>
+                        <option value="F">여자</option>
+                    </select>
+                </div>
+                <div class="input-wrap">
+                    <span class="form-title">생년월일</span><br>
+                    <div class="birth-wrap">
+                        <div class="year-wrap">
+                            <select name="year" id="year"></select>
+                        </div>
+                        <div class="month-wrap">
+                            <select name="month" id="month"></select>
+                        </div>
+                        <div class="day-wrap">
+                            <select name="day" id="day"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-wrap">
+                    <span class="form-title">핸드폰 번호</span><br>
+                    <div class="birth-wrap">
+                        <div class="year-wrap">
+                            <select name="phone1" id="phone1">
+                                <option value="010">010</option>
+                            </select>
+                        </div>
+                        <div class="month-wrap">
+                            <input type="number" name="phone2" id="phone2" maxlength="4">
+                        </div>
+                        <div class="day-wrap">
+                            <input type="number" name="phone3" id="phone3" maxlength="4">
+                        </div>
+                    </div>
+                </div>
+<%--                <div class="input-wrap">--%>
+<%--                    <span class="form-title">주소</span><br>--%>
+<%--                    <input type="text" name="memAdd" placeholder="주소를 입력해주세요.">--%>
+<%--                </div>--%>
+                <div class="input-wrap">
+                    <span class="form-title">주소</span> <br>
+                    <div class="address-container">
+                        <input type="text" class="zipcode" id="memberZipcode" name="memberZipcode" placeholder="우편번호">
+                        <button type="button" class="address-search-button" onclick="addSearch('memberZipcode','memberBaseAdd','memberDetailAdd')">주소 검색</button>
+                    </div>
+                    <input type="text" class="basic-address" id="memberBaseAdd" name="memberBaseAdd" placeholder="기본 주소">
+                    <input type="text" class="detail-address" id="memberDetailAdd" name="memberDetailAdd" placeholder="상세 주소">
+                </div>
+                <div class="split-bar"></div>
+                <div class="input-wrap">
                     <div class="category-checkBox-wrap">
                         <div class="category-checkBox">
-                            <input type="radio" name="category" id="soccer" value="soccer">
+                            <input type="checkbox" name="category" id="soccer" value="soccer">
                             <label for="soccer">축구</label>
                         </div>
                         <div class="category-checkBox">
-                            <input type="radio" name="category" id="futsal" value="futsal">
+                            <input type="checkbox" name="category" id="futsal" value="futsal">
                             <label for="futsal">풋살</label>
                         </div>
                         <div class="category-checkBox">
-                            <input type="radio" name="category" id="basketball" value="basketball">
+                            <input type="checkbox" name="category" id="basketball" value="basketball">
                             <label for="basketball">농구</label>
                         </div>
                         <div class="category-checkBox">
-                            <input type="radio" name="category" id="baseball" value="baseball">
+                            <input type="checkbox" name="category" id="baseball" value="baseball">
                             <label for="baseball">야구</label>
                         </div>
                     </div>
                 </div>
-				
-				<div class="input-wrap">
-					<span class="form-title">구단 소개</span> <br>
-					<textarea class="team-introduce"></textarea>
-				</div>
-				
+                <div class="input-wrap">
+                    <span class="form-title">구장명</span> <br>
+                    <input type="text" name="stadiumName" placeholder="구장명을 입력하세요.">
+                </div>
 
-				<div class="submit-btn">
-					<button type="submit">수정 완료</button>
-				</div>
-			</form>
-		</div>
-	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-		crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/teamBoard/teamModify.js"></script>
+                <div class="input-wrap">
+                    <span class="form-title">주소</span> <br>
+                    <div class="address-container">
+                        <input type="text" class="zipcode" id="zipcode" name="zipcode" placeholder="우편번호">
+                        <button type="button" class="address-search-button" onclick="addSearch('zipcode','baseAdd', 'detailAdd')">주소 검색</button>
+                    </div>
+                    <input type="text" class="basic-address" id="baseAdd" name="baseAdd" placeholder="기본 주소">
+                    <input type="text" class="detail-address" id="detailAdd" name="detailAdd" placeholder="상세 주소">
+                </div>
+
+                <div class="input-wrap">
+                    <span class="form-title">가격</span> <br>
+                    <input type="number" name="price" placeholder="한 타임의 가격을 입력하세요.">
+                </div>
+
+
+                <div class="input-wrap">
+                    <label>운영 시간</label>
+                    <div class="time-group">
+                        <input type="time" id="start-time" name="startTime" value="09:00">
+                        <span>~</span>
+                        <input type="time" id="end-time" name="endTime" value="18:00">
+                    </div>
+                </div>
+
+                <div class="input-wrap">
+                    <span class="form-title">편의 시설</span><br>
+                    <div class="category-checkBox-wrap">
+                        <div class="category-checkBox">
+                            <input type="checkbox" name="amenities" id="toilet" value="toilet">
+                            <label for="toilet">화장실</label>
+                        </div>
+                        <div class="category-checkBox">
+                            <input type="checkbox" name="amenities" id="drink" value="drink">
+                            <label for="drink">자판기</label>
+                        </div>
+                        <div class="category-checkBox">
+                            <input type="checkbox" name="amenities" id="parkingLot" value="parkingLot">
+                            <label for="parkingLot">주차장</label>
+                        </div>
+                        <div class="category-checkBox">
+                            <input type="checkbox" name="amenities" id="smoke" value="smoke">
+                            <label for="smoke">흡연실</label>
+                        </div>
+                        <div class="category-checkBox">
+                            <input type="checkbox" name="amenities" id="shower" value="shower">
+                            <label for="shower">샤워실</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-wrap">
+                    <span class="form-title">대여 물품</span><br>
+                    <div class="rental-checkBox-wrap">
+                        <div class="category-checkBox">
+                            <input type="checkbox" name="rental" id="ball" value="ball">
+                            <label for="ball">공</label>
+                        </div>
+                        <div class="category-checkBox">
+                            <input type="checkbox" name="rental" id="vest" value="vest">
+                            <label for="vest">조끼</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-wrap">
+                    <span class="form-title">구장 대표 이미지</span><br>
+                    <div class="image-upload-group">
+                        <input type="file" name="thumbnailImg" id="thumbnail">
+                    </div>
+                </div>
+
+                <div class="input-wrap">
+                    <span class="form-title">구장 상세 이미지</span><br>
+
+                    <div class="image-upload-group">
+                        <input type="file" name="detailImg" id="detail" multiple>
+                    </div>
+                </div>
+                <div class="split-bar"></div>
+                <div class="input-wrap">
+                    <input type="checkbox" name="entireAgreement" id="entire-agreement" class="agreement"> 전체 동의
+                    <div class="split-bar-agreement"></div>
+                    <input type="checkbox" name="termsOfUseAgreement" id="terms-of-use" class="agreement"> 이용약관 동의 (필수)
+                    <br>
+                    <input type="checkbox" name="privacyAgreement" id="privacy-agreement" class="agreement"> 개인정보 수집 및
+                    이용 동의 (필수)
+                </div>
+
+                <div class="submit-btn">
+                    <button type="submit" disabled class="none-clickable">회원가입</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    </div>
 </body>
 </html>

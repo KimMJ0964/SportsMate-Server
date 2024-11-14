@@ -27,6 +27,7 @@ public class Member {
     private String memPwd;
     private String memName;
     private String memGender;
+    private String memZipcode;
     private String memAdd;
     private String memBirth;
     private String memPhone;
@@ -34,15 +35,13 @@ public class Member {
     private Date memEnrollDate;
     private String memStatus;
 
-    private int memAge;
-    private String position;
-    
-    public Member(String memEmail, String memPwd, String memName, String memGender, String memAdd, String memBirth, String memPhone, String memStatus) {
+    public Member(String memEmail, String memPwd, String memName, String memGender, String memZipcode, String memAdd, String memBirth, String memPhone, String memStatus) {
         this.memEmail = memEmail;
         this.memPwd = memPwd;
         this.memName = memName;
         this.memGender = memGender;
-        this.memAdd = memAdd;
+        this.memZipcode = memZipcode;
+        this.memAdd = memAdd; 
         this.memBirth = memBirth;
         this.memPhone = memPhone;
         this.memStatus = memStatus;

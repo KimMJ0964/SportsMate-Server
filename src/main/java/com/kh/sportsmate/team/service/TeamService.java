@@ -1,4 +1,4 @@
-package com.kh.sportsmate.service;
+package com.kh.sportsmate.team.service;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -52,3 +52,4 @@ public interface TeamService {
 		// 댓글 삭제
 		int deleteReply(int cno);
 }
+

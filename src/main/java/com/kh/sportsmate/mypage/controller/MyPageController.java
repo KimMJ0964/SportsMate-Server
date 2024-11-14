@@ -20,8 +20,8 @@ import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.place.model.vo.PlaceReview;
-import com.kh.sportsmate.service.MemberService;
-import com.kh.sportsmate.service.MyPageService;
+import com.kh.sportsmate.mypage.service.MyPageService;
+import com.kh.sportsmate.mypage.service.MyPageService;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -29,12 +29,10 @@ import com.kh.sportsmate.team.model.vo.Team;
 @Controller
 public class MyPageController {
 	
-	private final MemberService memberService;
     private final MyPageService myPageService;
     
     @Autowired
-    public MyPageController(MemberService memberService, BCryptPasswordEncoder bCryptPasswordEncoder, MyPageService myPageService){
-        this.memberService = memberService;
+    public MyPageController( BCryptPasswordEncoder bCryptPasswordEncoder, MyPageService myPageService){
 		this.myPageService = myPageService;
     }
 	

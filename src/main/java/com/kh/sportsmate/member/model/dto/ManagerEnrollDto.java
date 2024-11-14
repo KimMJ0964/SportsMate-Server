@@ -6,14 +6,14 @@ import java.util.List;
 
 /**
  * packageName    : com.kh.sportsmate.member.model.dto
- * fileName       : MemberEnroll
+ * fileName       : ManagerEnrollDto
  * author         : jun
- * date           : 2024. 11. 7.
+ * date           : 2024. 11. 13.
  * description    :
  * ===========================================================
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
- * 2024. 11. 7.        jun       최초 생성
+ * 2024. 11. 13.        jun       최초 생성
  */
 @Getter
 @Setter
@@ -21,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class MemberEnrollDto {
+public class ManagerEnrollDto {
     private String memEmail;
     private String memPwd;
     private String memName;
@@ -35,12 +35,14 @@ public class MemberEnrollDto {
     private String memberZipcode; // 멤버 우편번호
     private String memberBaseAdd; // 멤버 기본 주소
     private String memberDetailAdd; // 멤버 상세 주소
-    private List<String> category;
-    private String soccerPosition;
-    private String soccerSkill;
-    private String futsalPosition;
-    private String futsalSkill;
-    private String basketballPosition;
-    private String basketballSkill;
-
+    private String category;
+    private String stadiumName;
+    private String zipcode;
+    private String baseAdd;
+    private String detailAdd;
+    private int price;
+    private String startTime;
+    private String endTime;
+    private List<String> amenities;
+    private List<String> rental;
 }

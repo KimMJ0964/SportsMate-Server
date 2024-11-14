@@ -1,4 +1,4 @@
-package com.kh.sportsmate.service;
+package com.kh.sportsmate.board.service;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
+import com.kh.sportsmate.board.service.BoardService;
 import com.kh.sportsmate.common.vo.PageInfo;
 
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.kh.sportsmate.service;
+package com.kh.sportsmate.team.service;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -116,3 +116,4 @@ public class TeamServiceImpl implements TeamService {
 		return 0;
 	}
 }
+

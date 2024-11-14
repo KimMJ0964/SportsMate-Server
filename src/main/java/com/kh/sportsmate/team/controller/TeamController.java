@@ -18,12 +18,15 @@ import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
-import com.kh.sportsmate.service.BoardService;
-import com.kh.sportsmate.service.TeamService;
+import com.kh.sportsmate.board.service.BoardService;
+import com.kh.sportsmate.team.service.TeamService;
+import com.kh.sportsmate.board.service.BoardService;
+import com.kh.sportsmate.team.service.TeamService;
 import com.kh.sportsmate.team.model.vo.Team;
 import com.kh.sportsmate.team.model.vo.TeamBoard;
 import com.kh.sportsmate.team.model.vo.TeamBoardComment;
 import com.kh.sportsmate.team.model.vo.TeamMember;
+import com.kh.sportsmate.team.service.TeamServiceImpl;
 
 @CrossOrigin
 @Controller
