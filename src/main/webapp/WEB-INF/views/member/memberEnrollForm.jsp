@@ -80,10 +80,10 @@
                             </select>
                         </div>
                         <div class="month-wrap">
-                            <input type="number" name="phone2" id="phone2" maxlength="4">
+                            <input type="number" name="phone2" id="phone2" oninput="this.value = this.value.slice(0, 4)">
                         </div>
                         <div class="day-wrap">
-                            <input type="number" name="phone3" id="phone3" maxlength="4">
+                            <input type="number" name="phone3" id="phone3" oninput="this.value = this.value.slice(0, 4)">
                         </div>
                     </div>
                 </div>
@@ -283,7 +283,7 @@
                 </div>
 
                 <div class="submit-btn">
-                    <button type="submit" class="none-clickable">회원가입</button>
+                    <button type="submit" id="submitBtn" class="none-clickable" >회원가입</button>
                 </div>
 
             </form>
