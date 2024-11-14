@@ -4,10 +4,14 @@ import com.kh.sportsmate.common.vo.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * packageName    : com.kh.sportsmate.common.template
@@ -35,6 +39,7 @@ public class Template {
         endPage = (endPage > maxPage) ? maxPage : endPage;
         return new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
     }
+
     public static String saveFile(MultipartFile upfile, HttpSession session, String path) {
         //파일원본명
         String originName = upfile.getOriginalFilename();
@@ -46,7 +51,7 @@ public class Template {
         String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
         //5자리 랜덤값
-        int randNum = (int)(Math.random() * 90000) + 10000;
+        int randNum = (int) (Math.random() * 90000) + 10000;
 
         String changeName = currentTime + "_" + randNum + ext;
 
@@ -60,5 +65,56 @@ public class Template {
         }
 
         return changeName;
+    }
+
+    // API에 GET 요청 보낸 후 응답을 받아오는 메서드
+    public static String get(String apiURL, Map<String, String> requestHeaders) {
+        HttpURLConnection conn = connect(apiURL);
+
+        try {
+            conn.setRequestMethod("GET"); // 요청 메서드 변경
+            for (Map.Entry<String, String> header : requestHeaders.entrySet()) { // map은 이터레이터를 상속받을 수없기 때문에(순서가 없음)
+                conn.setRequestProperty(header.getKey(), header.getValue());
+            }
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                return readBody(conn.getInputStream());
+            }
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("API요청을 통한 응답 실패 : " + e);
+        }
+    }
+
+    // API에 연결하기 위한 HttpURLConnection 객체 생성 후 반환
+    public static HttpURLConnection connect(String apiUrl) {
+
+        try {
+            URL url = new URL(apiUrl);
+            return (HttpURLConnection) url.openConnection(); // 요청 연결
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("API URL이 잘못되었습니다. : " + apiUrl, e);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("연결에 실패하였습니다. : " + apiUrl, e);
+        }
+    }
+
+    public static String readBody(InputStream bodyInput) {
+        String inputLine;
+        StringBuffer res;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(bodyInput))) {
+            res = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                res.append(inputLine);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("바디정보를 읽는데 실패하였습니다. ", e);
+        }
+        return res.toString();
     }
 }

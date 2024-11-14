@@ -1,5 +1,7 @@
 package com.kh.sportsmate.member.controller;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.common.template.Template;
@@ -7,17 +9,31 @@ import com.kh.sportsmate.member.model.dto.ManagerEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.service.MemberService;
+import jdk.nashorn.internal.parser.JSONParser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.kh.sportsmate.common.template.Template.get;
 
 /**
  * packageName    : com.kh.sportsmate.member.controller
@@ -31,10 +47,14 @@ import java.util.List;
  * 2024. 11. 5.        jun       최초 생성
  */
 @CrossOrigin
+@Slf4j
 @Controller
 public class MemberController {
     private final MemberService memberService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Value("${sns.naver.clientId}")
+    private String clientID;
 
     @Autowired
     public MemberController(MemberService memberService, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -153,4 +173,75 @@ public class MemberController {
             return "NNNNY";
         }
     }
+    @RequestMapping(value = "naver-login")
+    public String naverLoginCallback(String code, String state, HttpServletRequest request) throws Exception {
+        String redirectURL = URLEncoder.encode(request.getContextPath(), "UTF-8");
+//        String clientId = "5GKM2LrZ_OEPzmwL6z66";
+        String clientSecret = "fJLYqrhaRy";
+
+        String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+        apiURL += "client_id=" + this.clientID;
+        apiURL += "&client_secret=" + clientSecret;
+        apiURL += "&redirect_uri=" + redirectURL;
+        apiURL += "&code=" + code;
+        apiURL += "&state=" + state;
+        log.info("URL : {}",apiURL); // @Slf4j 어노테이션 추가시 이런식으로 로그 찍기 가능
+
+//        URL url = new URL(apiURL);
+//        HttpURLConnection con = (HttpURLConnection) url.openConnection(); // 요청 연결
+        HttpURLConnection con = Template.connect(apiURL); // 요청 연결
+        int responseCode = con.getResponseCode();
+        log.info("responseCode : {}",responseCode); // 응답 코드 로그 출력
+        BufferedReader br;
+        if(responseCode == 200){
+            br = new BufferedReader(new InputStreamReader(con.getInputStream())); // 한 줄씩 꺼낼 수 있다.
+        }else{ // 에러 발생
+            br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+        }
+
+        // 응답데이터 읽어오기
+
+        String inputLine;
+        StringBuffer res = new StringBuffer(); // String 보다 처리 방식이 빠름
+        while ((inputLine = br.readLine()) != null){
+            res.append(inputLine);
+        }
+        br.close();
+        if(responseCode == 200){
+            // 정상적으로 정보가 받아왔다면 출력
+            String result = res.toString();
+            log.info("result : {}", result);
+
+            // access_token 값 추출
+            // JSON Object로 가져온다.
+            JsonObject totalObj = JsonParser.parseString(result).getAsJsonObject();
+            String accessToken = totalObj.get("access_token").getAsString(); // 정보접근을 위한 토큰
+
+            String header = "Bearer " + accessToken;
+
+            String infoApiURL = "https://openapi.naver.com/v1/nid/me";
+            Map<String, String> requestHeaders = new HashMap<>();
+            requestHeaders.put("Authorization", header);
+            String responseBody = get(infoApiURL, requestHeaders);
+            JsonObject memberInfo = JsonParser.parseString(responseBody).getAsJsonObject();
+            log.info("memberInfo : {}",memberInfo);
+            memberInfo = memberInfo.getAsJsonObject("response");
+            log.info("result : {}", memberInfo);
+            // 받아온 email과 데이터베이스의 email을 비교하여 가입유무 판단한 후
+            // 가입되어있다면 로그인, 가입되어있지 않다면 회원가입창으로 해당정보를 담아서 보내주면 된다.
+            String birthYear = memberInfo.get("birthyear").getAsString();
+            String birthDay = memberInfo.get("birthday").getAsString().replace("-", ".");
+            String birth = birthYear.concat(".").concat(birthDay);
+            Member m = new Member();
+            m.setMemName(memberInfo.get("name").toString());
+            m.setMemEmail(memberInfo.get("email").toString());
+            m.setMemGender(memberInfo.get("gender").toString());
+            m.setMemPhone(memberInfo.get("mobile").toString());
+            m.setMemBirth(birth);
+
+            log.info("m : {}", m);
+        }
+        return "redirect:/";
+    }
+
 }

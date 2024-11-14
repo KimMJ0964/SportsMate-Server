@@ -337,5 +337,7 @@ log/
 
 src/main/resources/log4j.xml
 
+src/main/resources/app.properties
+
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,visualstudiocode,intellij,eclipse,react,java
