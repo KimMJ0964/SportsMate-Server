@@ -335,7 +335,10 @@ $RECYCLE.BIN/
 References/
 log/
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 src/main/resources/log4j.xml
 src/main/resources/*.properties
 
