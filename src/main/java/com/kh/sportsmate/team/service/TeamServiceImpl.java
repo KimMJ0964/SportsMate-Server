@@ -106,14 +106,12 @@ public class TeamServiceImpl implements TeamService {
 
 	@Override
 	public int writeReply(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return teamDao.writeReply(sqlSession, map);
 	}
 
 	@Override
 	public int deleteReply(int cno) {
-		// TODO Auto-generated method stub
-		return 0;
+		return teamDao.deleteReply(sqlSession, cno);
 	}
 }
 

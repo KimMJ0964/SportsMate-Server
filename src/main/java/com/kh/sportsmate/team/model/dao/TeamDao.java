@@ -78,4 +78,12 @@ public class TeamDao {
 
 	    return (ArrayList)sqlSession.selectList("teamMapper.searchBoard", map, rowBounds);
 	}
+	
+	public int writeReply(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.update("teamMapper.writeReply", map);
+	}
+	
+	public int deleteReply(SqlSessionTemplate sqlSession, int cno) {
+		return sqlSession.update("teamMapper.deleteReply", cno);
+	}
 }

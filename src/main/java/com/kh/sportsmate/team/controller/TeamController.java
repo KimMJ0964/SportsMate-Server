@@ -197,20 +197,20 @@ public class TeamController {
 
 	// 댓글 작성
 	@RequestMapping("writeReply.tm")
-	public String writeReply(int bno, String content, Model m, HttpSession session) {
+	public String writeReply(int bno, String comContent, Model m, HttpSession session) {
 		int memNo = 1;
 		Map<String, String> map = new HashMap<>();
 		map.put("bno", String.valueOf(bno));
 		map.put("memNo", String.valueOf(memNo));
-		map.put("content", content);
+		map.put("comContent", comContent);
 
 		int result = teamService.writeReply(map);
 
 		if (result > 0) { // 성공
-			return "redirect:detailMove.bd?bno=" + bno;
+			return "redirect:detailMoveBd.tm?bno=" + bno;
 		} else { // 실패
 			m.addAttribute("errorMsg", "댓글 작성 실패");
-			return "redirect:detailMove.bd?bno=" + bno;
+			return "redirect:detailMoveBd.tm?bno=" + bno;
 		}
 	}
 
@@ -220,10 +220,10 @@ public class TeamController {
 		int result = teamService.deleteReply(cno);
 
 		if (result > 0) { // 성공
-			return "redirect:detailMove.bd?bno=" + bno;
+			return "redirect:detailMoveBd.tm?bno=" + bno;
 		} else { // 실패
 			m.addAttribute("errorMsg", "댓글 작성 실패");
-			return "redirect:detailMove.bd?bno=" + bno;
+			return "redirect:detailMoveBd.tm?bno=" + bno;
 		}
 	}
 }

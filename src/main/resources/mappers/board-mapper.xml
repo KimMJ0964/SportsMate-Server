@@ -63,6 +63,7 @@
         SELECT COUNT(*)
         FROM BOARD_COMMENT
         WHERE REF_BOARD_NO = #{bno}
+        AND STATUS = 'Y'
     </select>
 	
 	<!-- 게시글 생성 -->
