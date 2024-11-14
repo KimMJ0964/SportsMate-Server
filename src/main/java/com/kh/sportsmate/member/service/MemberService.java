@@ -1,8 +1,12 @@
-package com.kh.sportsmate.service;
+package com.kh.sportsmate.member.service;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.member.model.dto.ManagerEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.vo.Member;
+
+import java.util.ArrayList;
 
 /**
  * packageName    : com.kh.sportsmate.service
@@ -18,4 +22,9 @@ import com.kh.sportsmate.member.model.vo.Member;
 public interface MemberService {
     int insertMember(MemberEnrollDto m, Profile profile);
     Member loginMember(Member m);
+
+    int insertManagerMember(ManagerEnrollDto m, ArrayList<StadiumAttachment> stadiumAttachmentImgs);
+
+    // email 중복 검사
+    int emailCheck(String email);
 }

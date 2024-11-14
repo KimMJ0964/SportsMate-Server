@@ -15,6 +15,7 @@
     <title>SportsMate - 회원가입</title>
 </head>
 <body>
+    <jsp:include page="../common/header.jsp" />
     <div class="wrap">
         <div class="select-wrap">
             <div class="user" onclick="location.href = 'memberEnrollForm.me'">

@@ -19,11 +19,13 @@
     <!--        <result column="MODIFY_DATE" property="modifyDate"/>-->
     <!--        <result column="STATUS" property="status"/>-->
     <!--    </resultMap>-->
+    <!-- Select -->
     <select id="loginMember" parameterType="Member" resultType="Member">
         select MEM_NO as memNo,
             MEM_EMAIL as memEmail,
             MEM_PWD as memPwd,
             MEM_NAME as memName,
+            MEM_ZIPCODE as memZipcode,
             MEM_ADD as memAdd,
             MEM_GENDER as memGender,
             MEM_PHONE as memPhone,
@@ -35,12 +37,18 @@
         where MEM_EMAIL = #{memEmail}
             and MEM_STATUS in('Y','M','A')
     </select>
+    <select id="selectEmail" parameterType="String" resultType="_int">
+        select count(*)
+        from MEMBER
+        WHERE MEM_EMAIL = #{email}
+    </select>
     <insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="memNo">
         INSERT INTO MEMBER(
         MEM_EMAIL,
         MEM_PWD,
         MEM_NAME,
         MEM_GENDER,
+        MEM_ZIPCODE,
         MEM_ADD,
         MEM_BIRTH,
         MEM_PHONE,
@@ -50,6 +58,7 @@
         #{memPwd},
         #{memName},
         #{memGender},
+        #{memZipcode},
         #{memAdd},
         #{memBirth},
         #{memPhone},
