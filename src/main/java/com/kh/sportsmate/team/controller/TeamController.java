@@ -244,4 +244,13 @@ public class TeamController {
     public String moveTeamMenu(){
         return "team/teamMenu";
     }
+	@GetMapping(value = "teamEnrollForm.tm")
+	public String moveTeamEnrollForm(){
+		return "team/teamEnrollForm";
+	}
+	@GetMapping(value = "memberRecruit.tm")
+	public String moveTeamRecruit(){
+		return "team/memberRecruitList";
+	}
+
 }

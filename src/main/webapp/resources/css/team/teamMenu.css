@@ -64,6 +64,9 @@
 }
 
 @media (min-width: 300px) and (max-width: 480px) {
+    .wrap{
+        min-height: 800px;
+    }
     .select-wrap img {
         width: 340px;
         height: 210px;

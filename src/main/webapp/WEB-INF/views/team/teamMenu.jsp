@@ -22,13 +22,13 @@
         <div class="select-wrap">
             <div class="btn-wrap">
                 <div class="btn-title">구단 창설</div>
-                <div class="user" onclick="location.href = 'memberEnrollForm.me'">
+                <div class="user" onclick="location.href = 'teamEnrollForm.tm'">
                     <img src="${pageContext.request.contextPath}/resources/images/team_create_btn.png" alt="">
                 </div>
             </div>
             <div class="btn-wrap">
                 <div class="btn-title">단원 모집</div>
-                <div class="manager" onclick="location.href = 'managerEnrollForm.me'">
+                <div class="manager" onclick="location.href = 'memberRecruit.tm'">
                     <img src="${pageContext.request.contextPath}/resources/images/team_ recruit_btn.png" alt="">
                 </div>
             </div>
@@ -37,3 +37,4 @@
     </div>
 </body>
 </html>
+단원 모집
