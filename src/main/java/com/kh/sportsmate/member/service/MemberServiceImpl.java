@@ -1,25 +1,27 @@
 package com.kh.sportsmate.member.service;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.member.model.dto.ManagerEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.vo.Category;
+import com.kh.sportsmate.member.model.vo.LoginLog;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * packageName    : com.kh.sportsmate.service
@@ -52,7 +54,15 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public Member loginMember(Member m) {
-        return memberDao.loginMember(sqlSession, m);
+    	int result = 1;
+    	Member loginUser = memberDao.loginMember(sqlSession,m);
+    	//로그인 로그 객체 추가
+    	LoginLog loginLog = new LoginLog();
+    	loginLog.setMemNo(loginUser.getMemNo());
+    	
+    	// 로그인 기록 추가
+    	result = memberDao.loginLog(sqlSession, loginLog);
+        return loginUser;
     }
 
     /**
