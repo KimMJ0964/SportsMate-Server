@@ -24,7 +24,8 @@
     <div class="wrap">
         <jsp:include page="../common/header.jsp"/>
         <div id="enroll-wrap">
-            <form action="#" class="enroll-form" method="post" enctype="multipart/form-data">
+            <form action="create.tm" class="enroll-form" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="memNo" value="${loginMember.memNo}">
                 <div class="user-profile-wrap">
                     <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt=""
                          id="profileImg">
@@ -32,7 +33,7 @@
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">구단명</span><br>
-                    <input type="text" name="memName" placeholder="구단명을 입력해주세요.">
+                    <input type="text" name="teamName" placeholder="구단명을 입력해주세요.">
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">활동 요일</span>
@@ -45,7 +46,7 @@
                         <div class="day-box" data-day="saturday">토</div>
                         <div class="day-box" data-day="sunday">일</div>
                     </div>
-                    <input type="hidden" name="selectedDays" id="selectedDays">
+                    <input type="hidden" name="activityDays" id="activityDays">
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">활동 시간대</span>
@@ -67,61 +68,61 @@
                             <span class="time-range">24 ~ 06시</span>
                         </div>
                     </div>
-                    <input type="hidden" name="selectedTimes">
+                    <input type="hidden" name="activityTime">
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">활동 지역</span><br>
-                    <select name="baseLocation" id="baseLocation">
+                    <select name="activityArea" id="activityArea">
                         <option disabled hidden selected>활동 지역을 선택하세요.</option>
-                        <option value="seoul">서울시 강남구</option>
-                        <option value="seoul">서울시 강북구</option>
-                        <option value="seoul">서울시 종로구</option>
-                        <option value="seoul">서울시 중구</option>
-                        <option value="seoul">서울시 용산구</option>
-                        <option value="seoul">서울시 성동구</option>
-                        <option value="seoul">서울시 광진구</option>
-                        <option value="seoul">서울시 동대문구</option>
-                        <option value="seoul">서울시 중랑구</option>
-                        <option value="seoul">서울시 성북구</option>
-                        <option value="seoul">서울시 도봉구</option>
-                        <option value="seoul">서울시 노원구</option>
-                        <option value="seoul">서울시 노원구</option>
-                        <option value="seoul">서울시 은평구</option>
-                        <option value="seoul">서울시 서대문구</option>
-                        <option value="seoul">서울시 마포구</option>
-                        <option value="seoul">서울시 양천구</option>
-                        <option value="seoul">서울시 구로구</option>
-                        <option value="seoul">서울시 금천구</option>
-                        <option value="seoul">서울시 영등포구</option>
-                        <option value="seoul">서울시 동작구</option>
-                        <option value="seoul">서울시 관악구</option>
-                        <option value="seoul">서울시 서초구</option>
-                        <option value="seoul">서울시 송파구</option>
-                        <option value="seoul">서울시 강동구</option>
+                        <option value="000-001">서울시 강남구</option>
+                        <option value="000-002">서울시 강북구</option>
+                        <option value="000-003">서울시 종로구</option>
+                        <option value="000-004">서울시 중구</option>
+                        <option value="000-005">서울시 용산구</option>
+                        <option value="000-006">서울시 성동구</option>
+                        <option value="000-007">서울시 광진구</option>
+                        <option value="000-008">서울시 동대문구</option>
+                        <option value="000-009">서울시 중랑구</option>
+                        <option value="000-010">서울시 성북구</option>
+                        <option value="000-011">서울시 도봉구</option>
+                        <option value="000-012">서울시 노원구</option>
+                        <option value="000-013">서울시 노원구</option>
+                        <option value="000-014">서울시 은평구</option>
+                        <option value="000-015">서울시 서대문구</option>
+                        <option value="000-016">서울시 마포구</option>
+                        <option value="000-017">서울시 양천구</option>
+                        <option value="000-018">서울시 구로구</option>
+                        <option value="000-019">서울시 금천구</option>
+                        <option value="000-020">서울시 영등포구</option>
+                        <option value="000-021">서울시 동작구</option>
+                        <option value="000-022">서울시 관악구</option>
+                        <option value="000-023">서울시 서초구</option>
+                        <option value="000-024">서울시 송파구</option>
+                        <option value="000-025">서울시 강동구</option>
                     </select>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">구단 정원</span><br>
-                    <select name="maxMember" id="maxMember">
+                    <select name="teamMaxPerson" id="teamMaxPerson">
                     </select>
                 </div>
                 <div class="split-bar"></div>
                 <div class="input-wrap">
                     <div class="category-checkBox-wrap">
                         <div class="category-checkBox">
-                            <input type="checkbox" name="category" id="soccer" value="soccer">
+                            <input type="checkbox" name="teamCategory" id="soccer" value="soccer">
                             <label for="soccer">축구</label>
                         </div>
                         <div class="category-checkBox">
-                            <input type="checkbox" name="category" id="futsal" value="futsal">
+                            <input type="checkbox" name="teamCategory" id="futsal" value="futsal">
                             <label for="futsal">풋살</label>
                         </div>
                         <div class="category-checkBox">
-                            <input type="checkbox" name="category" id="basketball" value="basketball">
+                            <input type="checkbox" name="teamCategory" id="basketball" value="basketball">
                             <label for="basketball">농구</label>
                         </div>
                         <div class="category-checkBox">
-                            <input type="checkbox" name="category" id="baseball" value="baseball">
+                            <input type="checkbox" name="teamCategory" id="baseball" value="baseball">
                             <label for="baseball">야구</label>
                         </div>
                     </div>

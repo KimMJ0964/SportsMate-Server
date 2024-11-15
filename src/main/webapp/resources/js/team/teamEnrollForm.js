@@ -37,7 +37,7 @@ const dayToggle = (event) => {
     }).get();
 
     // hidden input에 배열 값 설정 (쉼표로 구분된 문자열)
-    $('#selectedDays').val(selectedDays.join(','));
+    $('#activityDays').val(selectedDays.join(','));
 };
 const selectTime = (ev) => {
     // 모든 time-box에서 selected 클래스를 제거
@@ -49,18 +49,21 @@ const selectTime = (ev) => {
 
     // 선택된 시간의 data-time 값을 가져와 hidden input에 설정
     const selectedTime = target.data('time');
-    $('input[type=hidden][name=selectedTimes]').val(selectedTime);
+    // const selectedTime = target.attr('data-time'); // data-time 속성 가져오기
+    // console.log("Selected Time (attr):", selectedTime);
+    // console.log(selectedTime)
+    $('input[type=hidden][name=activityTime]').val(selectedTime);
 };
 const setMaxMember = ()=>{
-    $('#maxMember').append("<option disabled hidden selected>최대 구단 정원을 선택하세요.")
+    $('#teamMaxPerson').append("<option disabled hidden selected>최대 구단 정원을 선택하세요.")
     for(let i = 1; i<=30; i++){
-        $("#maxMember").append("<option value='" + i + "'>" + i + "</option>");
+        $("#teamMaxPerson").append("<option value='" + i + "'>" + i + "</option>");
     }
 }
 // 클릭된 체크박스를 제외하고 모든 체크박스를 해제
 const checkToRadio = (checkbox) => {
     // 클릭된 체크박스를 제외하고 다른 모든 체크박스를 해제
-    $(`input[type="checkbox"][name="category"]`).not(checkbox).prop('checked', false);
+    $(`input[type="checkbox"][name="teamCategory"]`).not(checkbox).prop('checked', false);
     // 클릭된 체크박스의 상태를 유지
     checkbox.prop('checked', true);
 };
