@@ -1,5 +1,8 @@
 let eventFlag;  // 전역 변수로 선언하여 이벤트 지연을 처리합니다.
-
+let isEmailValid = false;
+let areTermsChecked = false;
+let isPasswordConfirmed = false;
+let isPasswordConditionMet = false;
 $(document).ready(function () {
     toggleSubmit();
     $('#profileImg').on('click', profileUpload);
@@ -29,13 +32,10 @@ $(document).ready(function () {
     $('input[name="memPwd"]').on('keyup', checkPasswordCondition);
 
     // 비밀번호 일치 확인
-    $('input[name="memPwd"], input[name="pwdCheck"]').on('keyup', checkPwd);
+    $('input[name="pwdCheck"]').on('focusout', checkPwd);
 });
 
-let isEmailValid = false;
-let areTermsChecked = false;
-let isPasswordConfirmed = false;
-let isPasswordConditionMet = false;
+
 
 const profileUpload = () => {
     $('#userProfile').click();
@@ -55,9 +55,9 @@ const setDateSelectBox = () => {
     let now = new Date();
     let now_year = now.getFullYear();
 
-    $("#year").append("<option disabled hidden selected>1999 년</option>");
-    $("#month").append("<option disabled hidden selected>01 월</option>");
-    $("#day").append("<option disabled hidden selected>01 일</option>");
+    $("#year").append("<option disabled hidden selected>xxxx년</option>");
+    $("#month").append("<option disabled hidden selected>xx월</option>");
+    $("#day").append("<option disabled hidden selected>xx일</option>");
 
     for (var i = now_year; i >= 1950; i--) {
         $("#year").append("<option value='" + i + "'>" + i + " 년" + "</option>");
@@ -92,14 +92,17 @@ const updateEntireAgreementStatus = () => {
 };
 
 const toggleSubmit = () => {
-    const submitBtn = $('#enrollForm button[type="submit"]');
+    const submitBtn = $('#submitBtn');
     const isFormValid = isEmailValid && areTermsChecked && isPasswordConfirmed && isPasswordConditionMet;
+
+    console.log("Form Valid:", isFormValid);  // 상태 로그
+    console.log("Submit Button:", submitBtn); // 버튼 참조 로그
+    // isFormValid 조건에 따라 버튼의 disabled 상태와 클래스를 업데이트합니다.
     submitBtn.prop('disabled', !isFormValid);
 
     if (isFormValid) {
         submitBtn.addClass('clickable').removeClass('none-clickable');
     } else {
-
         submitBtn.addClass('none-clickable').removeClass('clickable');
     }
 };
