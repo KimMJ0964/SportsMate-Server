@@ -33,7 +33,7 @@
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">구단명</span><br>
-                    <input type="text" name="teamName" placeholder="구단명을 입력해주세요.">
+                    <input type="text" name="teamName" placeholder="구단명을 입력해주세요." required>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">활동 요일</span>
@@ -103,7 +103,7 @@
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">구단 정원</span><br>
-                    <select name="teamMaxPerson" id="teamMaxPerson">
+                    <select name="teamMaxPerson" id="teamMaxPerson" required>
                     </select>
                 </div>
                 <div class="split-bar"></div>

@@ -14,6 +14,8 @@
     <title>SportsMate - 단원 모집</title>
 </head>
 <body>
+    <div class="wrap">
 
+    </div>
 </body>
 </html>
