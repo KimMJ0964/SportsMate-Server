@@ -23,6 +23,7 @@
         <typeAlias type="com.kh.sportsmate.team.model.vo.Team" alias="Team"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoard" alias="TeamBoard"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamMember" alias="TeamMember"/>
+        <typeAlias type="com.kh.sportsmate.place.model.vo.PlaceReview" alias="PlaceReview"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoardComment" alias="TeamBoardComment"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.Recruit" alias="Recruit"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamActivityDays" alias="TeamActivityDays"/>
@@ -32,6 +33,12 @@
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
 
+    	<typeAlias type="com.kh.sportsmate.board.model.vo.BoardComment" alias="BoardComment"/>
+    	<typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
+        <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="Category"/>
+        <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="LoginLog"/>
+        <typeAlias type="com.kh.sportsmate.admin.model.dto.ChartDateDto" alias="ChartDateDto"/>
+        <typeAlias type="com.kh.sportsmate.admin.model.vo.MemberPenalty" alias="MemberPenalty"/>
         <!-- Attachment -->
         <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
         <!-- Stadium -->
@@ -45,6 +52,7 @@
         <mapper resource="mappers/board-mapper.xml"/>
         <mapper resource="mappers/team-mapper.xml"/>
         <mapper resource="mappers/member-mapper.xml"/>
+        <mapper resource="mappers/admin-mapper.xml"/>
         <mapper resource="mappers/place-mapper.xml"/>
         <mapper resource="mappers/match-mapper.xml"/>
         <mapper resource="mappers/stadium-mapper.xml"/>

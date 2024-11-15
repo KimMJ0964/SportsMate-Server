@@ -249,6 +249,12 @@ input[type="checkbox"] {
     margin-right: 10px;
 }
 
+#pagenation{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
 @media (max-width: 480px) {
     .result-container {
         max-width: 425px; /* 작은 화면에서는 최대 너비를 425px로 제한 */
