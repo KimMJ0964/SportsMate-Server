@@ -119,6 +119,22 @@
         </trim>
         )
     </insert>
+    <select id="selectLog" parameterType="LoginLog" resultType="LoginLog">
+        select MEM_NO as memNo,
+            LOGIN_DATE AS loginLog
+        from login_log
+        where MEM_NO = #{memNo} AND DATE_FORMAT(LOGIN_DATE, '%Y/%m/%d') = DATE_FORMAT(SYSDATE(), '%Y/%m/%d')
+    </select>
+    <insert id="insertLog" parameterType="LoginLog">
+    	insert into login_log(
+    	MEM_NO,
+    	LOGIN_DATE
+    	)
+    	VALUES(
+    	#{memNo},
+    	SYSDATE()
+    	)
+    </insert>
     
     <!-- 마이페이지 -->
     <!-- 내 정보 -->
