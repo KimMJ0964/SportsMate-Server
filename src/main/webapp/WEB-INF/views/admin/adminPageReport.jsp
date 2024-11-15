@@ -55,7 +55,9 @@
                         <div class="victory-container">
                             <div class="victory-row">
                                 <div class="team-info">
-                                    <form action="">
+                                    <form action="blockUser.me" method="post">
+                                        <input type="hidden" name="memNo" value="${report.memNo}">
+                                        <input type="hidden" name="pnNo" value="${report.pnNo}">
                                         <table>
                                             <tr>
                                                 <td>
@@ -67,10 +69,10 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <p><b>신고자:</b> 유저:${report.pnReporter}</p>
+                                                    <p><b>신고자:</b> 유저-${report.pnReporter}</p>
                                                 </td>
                                                 <td>
-                                                    <p><b>신고대상:</b> 유저:${report.memNo}</p>
+                                                    <p><b>신고대상:</b> 유저-${report.memNo}</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -81,7 +83,7 @@
                                         </table>
                                         <div class="report-btns">
                                             <button class="cancle-btn">거절</button>
-                                            <button class="report-btn">승인</button>
+                                            <button type="submit" class="report-btn">승인</button>
                                         </div>
                                     </form>
                                 </div>
@@ -165,9 +167,9 @@
                                         </li>
                                     </c:when>
                                     <c:when
-                                        test="${(pi.endPage / pi.boardLimit)  < pi.maxPage and (pi.endPage eq pi.maxPage)}">
+                                        test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
                                         <li class="page-item">
-                                            <a href="adminReport.me?category=${category}&cpage=${pi.endPage}"
+                                            <a href="adminReport.me?category=${category}&cpage=${pi.maxPage}"
                                                 class="page-link">
                                                 <span aria-hidden="true">&raquo;</span>
                                             </a>

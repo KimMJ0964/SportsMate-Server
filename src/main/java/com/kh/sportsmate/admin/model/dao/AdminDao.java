@@ -16,15 +16,19 @@ public class AdminDao {
 		return (ArrayList)sqlSession.selectList("adminMapper.drawChart");
 	}
 	
-	public int selectListCount(SqlSessionTemplate sqlSession){
-		return sqlSession.selectOne("adminMapper.selectListCount");
+	public int selectListCount(SqlSessionTemplate sqlSession, String category){
+		return sqlSession.selectOne("adminMapper.selectListCount", category);
 	}
 	
-	public ArrayList<MemberPenalty> selectList(SqlSessionTemplate sqlSession, PageInfo pi){
+	public ArrayList<MemberPenalty> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String category){
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("adminMapper.selectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectList", category, rowBounds);
+	}
+	
+	public int blockUser(SqlSessionTemplate sqlSession, MemberPenalty mp) {
+		return sqlSession.update("adminMapper.blockUser", mp);
 	}
 }

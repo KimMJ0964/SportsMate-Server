@@ -2,6 +2,8 @@ package com.kh.sportsmate.admin.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,14 +49,13 @@ public class AdminController {
 								String category,
 								Model model) {
 	    // category 값이 존재하면 모델에 추가
-	    if (category != null) {
-	        model.addAttribute("category", category);
-	    }
+		
+		model.addAttribute("category", category);
 	    
-		int reportCount = adminService.selectListCount();
+		int reportCount = adminService.selectListCount(category);
 		
 		PageInfo pi = Template.getPageInfo(reportCount, currentPage, 5, 5);
-		ArrayList<MemberPenalty> list = adminService.selectList(pi);
+		ArrayList<MemberPenalty> list = adminService.selectList(pi, category);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -62,8 +63,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "blockUser.me")
-	public String blockUser() {
-		return "admin/adminPageBlock";
+	public String blockUser(@RequestParam(value = "memNo", required = false) int memNo, @RequestParam(value = "pnNo", required = false) int pnNo, HttpServletRequest request) {
+		// 이전 페이지 URL 가져오기
+	    String referer = request.getHeader("Referer");
+	    
+	    MemberPenalty mp = new MemberPenalty();
+	    mp.setMemNo(memNo);
+	    mp.setPnNo(pnNo);
+	    
+	    int result = adminService.blockUser(mp);
+		return "redirect:" + referer;
 	}
 
 }

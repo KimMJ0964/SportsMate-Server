@@ -32,13 +32,19 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int selectListCount() {
-		return adminDao.selectListCount(sqlSession);
+	public int selectListCount(String category) {
+		return adminDao.selectListCount(sqlSession, category);
 	}
 
 	@Override
-	public ArrayList<MemberPenalty> selectList(PageInfo pi) {
-		return adminDao.selectList(sqlSession, pi);
+	public ArrayList<MemberPenalty> selectList(PageInfo pi, String category) {
+		return adminDao.selectList(sqlSession, pi, category);
+	}
+
+	@Transactional
+	@Override
+	public int blockUser(MemberPenalty mp) {
+		return adminDao.blockUser(sqlSession, mp);
 	}
 
 }

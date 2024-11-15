@@ -11,8 +11,11 @@ public interface AdminService {
 	ArrayList<ChartDateDto> drawChart();
 	
 	//신고 접수 총 갯수
-	int selectListCount();
+	int selectListCount(String category);
 	
 	//신고 접수 목록 가져오기
-	ArrayList<MemberPenalty> selectList(PageInfo pi);
+	ArrayList<MemberPenalty> selectList(PageInfo pi, String category);
+	
+	//유저 신고 접수
+	int blockUser(MemberPenalty mp);
 }

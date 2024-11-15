@@ -28,5 +28,6 @@ public class MemberPenalty {
 	private String pnComment;
 	private String pnType;
 	private String stadiumName;
+	private String pnStatus;
 	
 }
