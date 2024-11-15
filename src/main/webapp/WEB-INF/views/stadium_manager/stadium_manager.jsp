@@ -65,7 +65,9 @@
             </div>
 
             <!-- 로그아웃 버튼 -->
+            <form action="${pageContext.request.contextPath}/logout.me" method="post">
             <button class="logout-button">로그아웃</button>
+            </form>
  
 
         </div>
