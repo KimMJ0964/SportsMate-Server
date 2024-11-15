@@ -6,9 +6,12 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
-import com.kh.sportsmate.place.model.vo.PlaceReview;
+import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.member.model.vo.ProfileFile;
+import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -57,7 +60,7 @@ public class MyPageDao {
 	}
 	
 	// 리뷰 작성
-	public int insertPReview(SqlSessionTemplate sqlSession, PlaceReview pr) {
+	public int insertPReview(SqlSessionTemplate sqlSession, StadiumReview pr) {
 		return sqlSession.insert("placeMapper.insertPReview", pr);
 	}
 	
@@ -69,5 +72,15 @@ public class MyPageDao {
 	// 베스트 플레이어 선정 (투표자 기록)
 	public int bestPlayerVote(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.update("matchMapper.incrementVoteCount", map);
+	}
+	
+	// 내 프로필 사진
+	public Profile selectMyProfile(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.selectOne("memberMapper.selectMyProfile", memNo);
+	}
+	
+	// 마이페이지 수정 페이지 및 내 정보 출력
+	public Member myInfoList(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.selectOne("memberMapper.myInfoList", memNo);
 	}
 }

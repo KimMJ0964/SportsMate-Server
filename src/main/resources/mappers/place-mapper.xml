@@ -7,7 +7,7 @@
     
     <!-- 구장 리뷰 -->
     <insert id="insertPReview">
-    	INSERT INTO PLACE_REVIEW (
+    	INSERT INTO STADIUM_REVIEW (
 		    REVIEW_CONTENT,
 		    REVIEW_STAR,
 		    PLACE_NO,

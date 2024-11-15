@@ -61,10 +61,10 @@ function toggleHeight(event) {
 	    
 	    document.querySelectorAll('.bestplayer-btn').forEach(button => {
 	        button.addEventListener('click', function() {
-	            const placeNo = this.getAttribute('data-placeno');
+	            const stadiumNo = this.getAttribute('data-stadiumno');
 	            const matchNo = this.getAttribute('data-matchno');
 	            
-	            document.getElementById('modalPlaceNo').value = placeNo;
+	            document.getElementById('modalStadiumNo').value = stadiumNo;
 	            document.getElementById('modalMatchNo').value = matchNo;
 	        });
 	    });

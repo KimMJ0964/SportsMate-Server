@@ -134,6 +134,13 @@
         WHERE MEM_NO = #{memNo}
     </select>
     
+    <select id="selectMyProfile" resultType="Profile">
+    	SELECT CHANGE_NAME AS changeName,
+    			FILE_PATH AS filePath
+    	FROM PROFILE_FILE
+    	WHERE MEM_NO = #{memNo}
+    </select>
+    
     <!-- 내 구단 -->
    <select id="selectMyTeam" resultType="Team">
 	    SELECT 
@@ -190,7 +197,7 @@
 	    SELECT DISTINCT
 		    M.SCORE_A AS scoreA,
 		    M.SCORE_B AS scoreB,
-		    M.PLACE_NO AS placeNo,
+		    M.STADIUM_NO AS stadiumNo,
 		    M.MATCH_NO AS matchNo,
 		    A.TEAM_NAME AS teamAName,
 		    B.TEAM_NAME AS teamBName,
@@ -259,6 +266,29 @@
 		    CATEGORY c ON m.MEM_NO = c.MEM_NO
 		WHERE 
 		    tm.TEAM_NO = #{teamNo};
+    </select>
+    
+    <!-- 마이페이지 내 정보 출력 / 이메일, 이름, 성별, 생년월일, 휴대폰번호, 포지션 -->
+    <select id="myInfoList" resultType="Member">
+	    SELECT m.MEM_NO as memNo,
+	       m.MEM_EMAIL as memEmail,
+	       m.MEM_NAME as memName,
+	       m.MEM_ZIPCODE as memZipcode,
+	       m.MEM_ADD as memAdd,
+	       m.MEM_GENDER as memGender,
+	       m.MEM_PHONE as memPhone,
+	       m.MEM_BIRTH as memBirth,
+	       c.SOC_POSI as socPosi,
+	       c.SOC_ABILITY as socAbility,
+	       c.FOOT_POSI as footPosi,
+	       c.FOOT_ABILITY as footAbility,
+	       c.BASKET_POSI as basketPosi,
+	       c.BASKET_ABILITY as basketAbility,
+	       c.BASE_POSI as basePosi,
+	       c.BASE_ABILITY as baseAbility
+		FROM MEMBER m
+		JOIN CATEGORY c ON m.MEM_NO = c.MEM_NO
+		WHERE m.MEM_NO = #{memNo}
     </select>
     
 </mapper>

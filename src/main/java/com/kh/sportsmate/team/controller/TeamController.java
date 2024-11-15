@@ -18,6 +18,7 @@ import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.board.service.BoardService;
 import com.kh.sportsmate.team.service.TeamService;
 import com.kh.sportsmate.board.service.BoardService;
@@ -199,7 +200,8 @@ public class TeamController {
 	// 댓글 작성
 	@RequestMapping("writeReply.tm")
 	public String writeReply(int bno, String comContent, Model m, HttpSession session) {
-		int memNo = 1;
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
 		Map<String, String> map = new HashMap<>();
 		map.put("bno", String.valueOf(bno));
 		map.put("memNo", String.valueOf(memNo));

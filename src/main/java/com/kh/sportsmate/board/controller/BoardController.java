@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
+import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.board.service.BoardService;
 
 import java.util.ArrayList;
@@ -57,7 +59,9 @@ public class BoardController {
 		ArrayList<BoardComment> comment = boardService.commentList(bno); 
 		int commentCount = boardService.commentCount(bno);
 		int boardViewAdd = boardService.viewAdd(bno);
+		int likeCount = boardService.likeCount(bno);
 		
+		model.addAttribute("likeCount", likeCount);
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("comment", comment);
 		model.addAttribute("board", board);
@@ -66,8 +70,15 @@ public class BoardController {
 	
 	// 게시글 수정 페이지로 이동
 	@RequestMapping("modifyMove.bd")
-	public String mdBoardSelect(int mpage, Model model) {
+	public String mdBoardSelect(int mpage, Model model, HttpSession session) {
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
 		Board board = boardService.detailList(mpage);
+		
+		 if (board.getMemNo() != memNo) {
+			 session.setAttribute("alertMsg", "권한이 없습니다.");
+		        return "boardList.bd";
+		    }
 		
 		model.addAttribute("board", board);
 		return "board/boardModify";
@@ -76,8 +87,14 @@ public class BoardController {
 	// 게시글 생성
 	@PostMapping("create.bd")
 	public String insertBoard(Board b, HttpSession session, Model m) {
-		System.out.println(b);
-		int result = boardService.createBoard(b);
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
+		Map<String, String> map = new HashMap<>();
+		map.put("memNo", String.valueOf(memNo));
+		map.put("title", b.getTitle());
+		map.put("content", b.getContent());
+		map.put("type", b.getType());
+		int result = boardService.createBoard(map);
 		
 		if(result > 0) { //성공
 			session.setAttribute("alertMsg", "게시글 작성 성공");
@@ -143,7 +160,8 @@ public class BoardController {
 		// 댓글 작성
 		@RequestMapping("writeReply.bd")
 		public String writeReply(int bno, String content, Model m, HttpSession session) {
-			int memNo = 1;
+			Member loginMember = (Member) session.getAttribute("loginMember");
+			int memNo = loginMember.getMemNo();
 			Map<String, String> map = new HashMap<>();
 			map.put("bno", String.valueOf(bno));
 			map.put("memNo", String.valueOf(memNo));
@@ -161,7 +179,17 @@ public class BoardController {
 		
 		// 댓글 삭제
 		@RequestMapping("deleteComm.bd")
-		public String deleteReply(int cno, int bno, Model m) {
+		public String deleteReply(HttpSession session, int cno, int bno, Model m) {
+			Member loginMember = (Member) session.getAttribute("loginMember");
+			int memNo = loginMember.getMemNo();
+			
+		    BoardComment comment = boardService.getCommentById(cno);
+		    
+		    if (comment != null && comment.getMemNo() != memNo) {
+		    	session.setAttribute("alertMsg", "권한이 없습니다.");
+		        return "redirect:detailMove.bd?bno=" + bno;
+		    }
+			
 			int result = boardService.deleteReply(cno);
 			
 			if(result > 0) { //성공
@@ -169,6 +197,41 @@ public class BoardController {
 			} else { //실패
 				m.addAttribute("errorMsg", "댓글 작성 실패");
 				return "redirect:detailMove.bd?bno=" + bno;
+			}
+		}
+		
+		// 좋아요 버튼 클릭
+		@RequestMapping("boardLike.bd")
+		public String boardLike(HttpSession session, int bno) {
+			Member loginMember = (Member) session.getAttribute("loginMember");
+			
+			if (loginMember != null) {
+			    int memNo = loginMember.getMemNo();
+			    
+			    Map<String, Integer> map = new HashMap<>();
+			    
+			    map.put("memNo", memNo);
+			    map.put("bno", bno);
+			    
+			    BoardLike board = boardService.boardIsLike(map);
+			    
+				if (board == null) {
+					int boardLI = boardService.boardInsertLike(map);
+					session.setAttribute("alertMsg", "게시글에 좋아요를 눌렀습니다.");
+			        return "redirect:detailMove.bd?bno=" + bno;
+				} else if (board.getStatus().equals("N")) {
+					int boardLikeChange = boardService.boardToLike(map);
+					session.setAttribute("alertMsg", "게시글에 좋아요를 눌렀습니다.");
+			        return "redirect:detailMove.bd?bno=" + bno;
+				} else {
+					int boardLikeChange = boardService.boardToUnLike(map);
+					session.setAttribute("alertMsg", "게시글에 좋아요를 취소했습니다.");
+			        return "redirect:detailMove.bd?bno=" + bno;
+				}
+			    
+			} else {
+				session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
+		        return "redirect:detailMove.bd?bno=" + bno;
 			}
 		}
 }

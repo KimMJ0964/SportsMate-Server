@@ -43,7 +43,7 @@
 		<div class="myPage-container">
 			<!-- 사용자 프로필 -->
 			<div class="MyInfoContainer">
-				<img src="your-image-url.jpg" alt="User Profile" /> <br />
+				<img src="${filePath }" alt="User Profile" /> <br />
 				<div class="userInfo">
 					<p>이름 : ${myInfo.memName }</p>
 					<p>주소 : ${myInfo.memAdd }</p>
@@ -57,7 +57,8 @@
 					<p>점수 : ${myInfo.memRank }</p>
 				</div>
 				<div class="profile-buttons">
-					<Button class="modify-btn">프로필 수정</Button>
+					<Button class="modify-btn" onclick="location.href = 'modifyMyInfoMove.mp'">프로필 수정</Button>
+					<Button class="modify-btn">로그아웃</Button>
 					<Button class="secession-btn">회원 탈퇴</Button>
 				</div>
 			</div>
@@ -89,7 +90,7 @@
 								<p>${mm.teamBName }</p>
 							</div>
 							<img class="bestplayer-btn" src="resources/images/User_vote.png" style="cursor: pointer;"
-								data-bs-toggle="modal" data-bs-target="#exampleModal" data-placeno="${mm.placeNo}"
+								data-bs-toggle="modal" data-bs-target="#exampleModal" data-stadiumno="${mm.stadiumNo}"
 								data-matchno="${mm.matchNo}" data-atno="${mm.teamANo}" data-btno="${mm.teamBNo}">
 						</div>
 					</c:forEach>
@@ -159,7 +160,7 @@
 					
 							
 							<div class="modal-body">
-								<input type="hidden" id="modalPlaceNo" name="placeNo">
+								<input type="hidden" id="modalStadiumNo" name="stadiumNo">
 								<input type="hidden" id="modalMatchNo" name="matchNo">
 								<input type="hidden" id="bestMNo" name="bestMNo">
 								<label for="rating" style="font-weight: bold;">별점 선택:</label> <select

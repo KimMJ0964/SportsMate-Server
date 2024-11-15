@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
+import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.board.service.BoardService;
 import com.kh.sportsmate.common.vo.PageInfo;
 
@@ -58,8 +59,8 @@ public class BoardServiceImpl implements BoardService{
 	
 	// 게시글 생성
 	@Override
-	public int createBoard(Board b) {
-		return boardDao.createBoard(sqlSession, b);
+	public int createBoard(Map<String, String> map) {
+		return boardDao.createBoard(sqlSession, map);
 	}
 	
 	// 게시글 수정
@@ -94,5 +95,41 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int viewAdd(int bno) {
 		return boardDao.viewAdd(sqlSession, bno);
+	}
+	
+	// 댓글 주인 확인
+	@Override
+	public BoardComment getCommentById(int cno) {
+		return boardDao.getCommentById(sqlSession, cno);
+	}
+	
+	// 좋아요 확인
+	@Override
+	public BoardLike boardIsLike(Map<String, Integer> map) {
+		return boardDao.boardIsLike(sqlSession, map);
+	}
+	
+	// 좋아요 변경
+	@Override
+	public int boardToLike(Map<String, Integer> map) {
+		return boardDao.boardToLike(sqlSession, map);
+	}
+
+	// 좋아요 취소
+	@Override
+	public int boardToUnLike(Map<String, Integer> map) {
+		return boardDao.boardToUnLike(sqlSession, map);
+	}
+	
+	// 좋아요 삽입
+	@Override
+	public int boardInsertLike(Map<String, Integer> map) {
+		return boardDao.boardInsertLike(sqlSession, map);
+	}
+	
+	// 상세 페이지 좋아요 갯수
+	@Override
+	public int likeCount(int bno) {
+		return boardDao.likeCount(sqlSession, bno);
 	}
 }

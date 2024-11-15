@@ -10,17 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
 import com.kh.sportsmate.member.model.vo.Member;
-import com.kh.sportsmate.place.model.vo.PlaceReview;
-import com.kh.sportsmate.mypage.service.MyPageService;
+import com.kh.sportsmate.member.model.vo.ProfileFile;
+import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.mypage.service.MyPageService;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
@@ -38,11 +40,17 @@ public class MyPageController {
 	
 	/* 마이페이지 */
     @RequestMapping("myPageInfo.mp")
-    public String myPageSelect(Model model) {
-    	int memNo = 1;
+    public String myPageSelect(Model model, HttpSession session) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
     	
     	// 내 정보
     	MemberPosition myInfo = myPageService.selectMyInfo(memNo);
+    	
+    	// 내 프로필 사진
+    	Profile myProfile = myPageService.selectMyProfile(memNo);
+    	
+    	String filePath = myProfile.getFilePath() + myProfile.getChangeName();
     	
     	// 내 전적
     	ArrayList<Match> myMatch = myPageService.selectMyMatch(memNo); 
@@ -59,6 +67,7 @@ public class MyPageController {
     	// 내 구단 입단 명단
     	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
     	
+    	model.addAttribute("filePath", filePath);
     	model.addAttribute("myMatchWinCount", myMatchWinCount);
     	model.addAttribute("myMatchCount", myMatchCount);
     	model.addAttribute("myMatch", myMatch);
@@ -71,16 +80,17 @@ public class MyPageController {
     
     /* 베스트 플레이어 및 구장 별점 */
     @RequestMapping("myPageVote.mp")
-    public String myPageVote(HttpSession session, Model model, String reviewContent, double reviewStar, int placeNo, int matchNo, int bestMNo) {
-        int memNo = 1;
+    public String myPageVote(HttpSession session, Model model, String reviewContent, double reviewStar, int stadiumNo, int matchNo, int bestMNo) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
         
         System.out.println("리뷰 내용 : " + reviewContent);
         System.out.println("리뷰 별점 : " + reviewStar);
-        System.out.println("구장 번호 : " + placeNo);
+        System.out.println("구장 번호 : " + stadiumNo);
         System.out.println("매치 번호 : " + matchNo);
         System.out.println("최고의 플레이어 번호 : " + bestMNo);
         
-        PlaceReview pr = new PlaceReview(reviewContent, reviewStar, placeNo, memNo);
+        StadiumReview pr = new StadiumReview(reviewContent, reviewStar, stadiumNo, memNo);
         int reviewResult = myPageService.insertPReview(pr);
         
         MatchBest mb = new MatchBest(memNo, matchNo);
@@ -113,5 +123,17 @@ public class MyPageController {
         result.put("bTeamInfo", bTeamInfo);
         
         return result;
+    }
+    
+    @RequestMapping("modifyMyInfoMove.mp")
+    public String modifyMyInfo(Model m, HttpSession session) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
+		
+		Member member = myPageService.myInfoList(memNo);
+		
+		m.addAttribute("member", member);
+		
+		return "myPage/myPageModify";
     }
 }

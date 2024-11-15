@@ -35,6 +35,7 @@
 	           b.LIKE_COUNT AS likeCount,
 	           b.CONTENT AS content,
 	           b.BOARD_NO AS boardNo,
+	           b.MEM_NO AS memNo,
 	           b.TYPE AS type
 	    FROM BOARD b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
@@ -77,14 +78,14 @@
 		)
 		VALUES (
 		    #{title},
-		    1,
+		    #{memNo},
 		    #{content},
 		    #{type},
 		    NOW()
 		)
 	  </insert>
 	  
-	  <!-- 게시글 생성 -->
+	  <!-- 게시글 수정 -->
 	<update id="updateBoard">
 	    UPDATE BOARD
 	    SET 
@@ -152,4 +153,51 @@
 	    SET VIEW = VIEW + 1
 	    WHERE BOARD_NO = #{bno}
 	</update>
+	
+	<!-- 댓글 주인 확인 -->
+	<select id="getCommentById" resultType="BoardComment">
+		SELECT
+			MEM_NO AS memNo
+		FROM BOARD_COMMENT
+		WHERE COM_NO = #{cno}
+	</select>
+	
+	<!-- 좋아요 상태 확인 -->
+	<select id="boardIsLike" resultType="BoardLike">
+		SELECT
+			STATUS as status
+		FROM BOARD_LIKE
+		WHERE MEM_NO = #{memNo}
+		AND BOARD_NO = #{bno}
+	</select>
+	
+	<!-- 좋아요 변경 -->
+	<update id="boardToLike">
+		UPDATE BOARD_LIKE
+		SET STATUS = 'Y'
+		WHERE BOARD_NO = #{bno}
+		AND MEM_NO = #{memNo}
+	</update>
+	
+	<!-- 좋아요 취소 -->
+	<update id="boardToUnLike">
+		UPDATE BOARD_LIKE
+		SET STATUS = 'N'
+		WHERE BOARD_NO = #{bno}
+		AND MEM_NO = #{memNo}
+	</update>
+	
+	<!-- 좋아요 삽입 -->
+	<insert id="boardInsertLike">
+		INSERT INTO BOARD_LIKE (BOARD_NO, MEM_NO, STATUS)
+		VALUES (#{bno}, #{memNo}, 'Y')
+	</insert>
+	
+	<!-- 상세 페이지 좋아요 갯수 -->
+	<select id="likeCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD_LIKE
+		WHERE BOARD_NO = #{bno}
+		AND STATUS = 'Y'
+	</select>
 </mapper>

@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
+import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
 
 @Repository
@@ -36,8 +38,8 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.commentCount", bno);
 	}
 	
-	public int createBoard(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.insert("boardMapper.createBoard", b);
+	public int createBoard(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.insert("boardMapper.createBoard", map);
 	}
 	
 	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
@@ -65,5 +67,29 @@ public class BoardDao {
 	
 	public int viewAdd(SqlSessionTemplate sqlSession, int bno) {
 		return sqlSession.update("boardMapper.viewAdd", bno);
+	}
+	
+	public BoardComment getCommentById(SqlSessionTemplate sqlSession, int cno) {
+		return sqlSession.selectOne("boardMapper.getCommentById", cno);
+	}
+	
+	public BoardLike boardIsLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.selectOne("boardMapper.boardIsLike", map);
+	}
+	
+	public int boardToLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("boardMapper.boardToLike", map);
+	}
+	
+	public int boardToUnLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("boardMapper.boardToUnLike", map);
+	}
+	
+	public int boardInsertLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.insert("boardMapper.boardInsertLike", map);
+	}
+	
+	public int likeCount(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.selectOne("boardMapper.likeCount", bno);
 	}
 }

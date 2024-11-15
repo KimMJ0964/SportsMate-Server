@@ -41,8 +41,8 @@
                  <button class="bd-button"  onclick="location.href = 'modifyMove.bd?mpage=${board.boardNo}'">수정하기</button>
                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</button>
                  <div>
-				 	<img class="bd-like" src="${pageContext.request.contextPath}/resources/images/board_like.png"/>
-            		<div class="bd-like-count" style="text-align: center;">${board.likeCount }</div>
+				 	<img class="bd-like" src="${pageContext.request.contextPath}/resources/images/board_like.png" onclick="location.href = 'boardLike.bd?bno=${board.boardNo }'"/>
+            		<div class="bd-like-count" style="text-align: center;">${likeCount }</div>
             	</div>
             </div>
             <hr>

@@ -7,13 +7,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
 import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.mypage.model.dao.MyPageDao;
-import com.kh.sportsmate.place.model.vo.PlaceReview;
+import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -75,7 +78,7 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 	@Override
-	public int insertPReview(PlaceReview pr) {
+	public int insertPReview(StadiumReview pr) {
 		return mypageDao.insertPReview(sqlSession, pr);
 	}
 
@@ -87,6 +90,16 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public int bestPlayerVote(Map<String, Integer> map) {
 		return mypageDao.bestPlayerVote(sqlSession, map);
+	}
+
+	@Override
+	public Profile selectMyProfile(int memNo) {
+		return mypageDao.selectMyProfile(sqlSession, memNo);
+	}
+
+	@Override
+	public Member myInfoList(int memNo) {
+		return mypageDao.myInfoList(sqlSession, memNo);
 	}
 	
 

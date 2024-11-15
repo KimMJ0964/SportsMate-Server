@@ -35,7 +35,7 @@
         </div>
 
         <div class="search-bar">
-            <form action="" id="search-bar-form">
+            <form action="" class="search-bar-form">
                 <input type="text" placeholder="구장명을 입력하세요.">
                 <button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png"
                              class="search-btn"></button>
@@ -53,7 +53,7 @@
                 </c:when>
                 <c:when test="${loginMember.memStatus.equals('Y')}">
                     <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
-                         alt="" onclick="location.href = '${pageContext.request.contextPath}/myPage.me'">
+                         alt="" onclick="location.href = '${pageContext.request.contextPath}/myPageInfo.mp'">
                 </c:when>
                 <c:otherwise>
                     <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"

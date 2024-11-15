@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
+import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
 
 public interface BoardService {
@@ -27,7 +28,7 @@ public interface BoardService {
 	int viewAdd(int bno);
 	
 	// 게시글 생성
-	int createBoard(Board b);
+	int createBoard(Map<String, String> map);
 	
 	// 게시글 수정
 	int updateBoard(Board b);
@@ -43,4 +44,23 @@ public interface BoardService {
 	
 	// 댓글 삭제
 	int deleteReply(int cno);
+	
+	// 댓글 주인 확인
+	BoardComment getCommentById(int cno);
+	
+	// 좋아요인지 확인
+	BoardLike boardIsLike(Map<String, Integer> map);
+	
+	// 좋아요 변경
+	int boardToLike(Map<String, Integer> map);
+	
+	// 좋아요 취소
+	int boardToUnLike(Map<String, Integer> map);
+	
+	// 좋아요 생성
+	int boardInsertLike(Map<String, Integer> map);
+	
+	// 상세 페이지 좋아요 갯수
+	int likeCount(int bno);
+	
 }

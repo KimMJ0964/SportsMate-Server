@@ -3,10 +3,12 @@ package com.kh.sportsmate.mypage.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
 import com.kh.sportsmate.member.model.vo.Member;
-import com.kh.sportsmate.place.model.vo.PlaceReview;
+import com.kh.sportsmate.member.model.vo.ProfileFile;
+import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -17,6 +19,9 @@ public interface MyPageService {
     
     // 내 전적
     ArrayList<Match> selectMyMatch(int memNo);
+    
+    // 내 프로필 사진
+    Profile selectMyProfile(int memNo);
     
     // 내 전적 판 수
     int selectMyMatchCount(int memNo);
@@ -37,12 +42,15 @@ public interface MyPageService {
     ArrayList<MemberPosition> selectBTeamInfo(int teamBNo);
     
     // 구장 리뷰
-    int insertPReview(PlaceReview pr);
+    int insertPReview(StadiumReview pr);
     
     // 베스트 플레이어 선정
     int bestPlayerChoice(Map<String, Integer> map);
     
     // 베스트 플레이어 선정2
     int bestPlayerVote(Map<String, Integer> map);
+    
+    // 마이페이지 수정 페이지 이동 및 내 정보 출력
+    Member myInfoList(int memNo);
     
 }
