@@ -6,8 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>구장 디테일 페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/detail.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/detail/detail.css">
 </head>
 <body>
 <div class="wrap">
@@ -55,13 +56,26 @@
 			</div>
 			<!-- 여기서 부터 PC버전 -->
             <div class="info-box">
-                <h3>지역 날씨</h3>
+            	<div class="section_header">
+	               <div class="section_title">
+						<h3>지역 날씨</h3>
+	               </div>
+	            </div>
+	            <div class="scope"><img src="resources/images/weather.png" class="weather"></div>
+            </div>
+            
+            <div class="info-box">
+            	<div class="section_header">
+            		<div class="section_title">
+            			<h3>구장 정보</h3>
+            		</div>
+            	</div>
             </div>
 
             <div class="info-box">
 				<div class="section_header">
 					<div class="section_title">
-						<h3>구장 정보</h3>
+						<h3>편의 시설</h3>
 					</div>
 				</div>
 				<div class="section_body">
@@ -70,7 +84,7 @@
 							<li class="info_list">
 								<img src="" class="icon">
 								<div>
-									<p> 31x15m </p>
+									<p>흡연실</p>
 								</div>
 							</li>
 							<li class="info_list">
@@ -88,12 +102,6 @@
 							<li class="info_list">
 								<img src="" class="icon">
 								<div>
-									<p class="title_line">풋살화 대여</p>
-								</div>
-							</li>
-							<li class="info_list">
-								<img src="" class="icon">
-								<div>
 									<p class="title_line">음료 판매</p>
 								</div>
 							</li>
@@ -104,11 +112,44 @@
 								</div>
 							</li>
 						</ul>
+						<div class="stadInner section_body"></div>
 					</div>
-					<div class="stadInner">
+				</div>
+				<div class="section_header">
+					<div class="section_title">
+						<h3>물품 지원</h3>
+					</div>
+				</div>
+				<div class="section_body">
+					<div class="info_list_wrapper double">
+						<ul>
+							<li class="info_list">
+								<img src="" class="icon">
+								<div>
+									<p>공 대여</p>
+								</div>
+							</li>
+							<li class="info_list">
+								<img src="" class="icon">
+								<div>
+									<p class="title_line">풋살화 대여</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="info-box">
+				<div class="section_header">
+					<div class="section_title">
+						<h3>구장 특이사항</h3>
+					</div>
+				</div>
+				<div class="section_body">
+					<div class="stadInner" style="border: none;">
 						<div class="matchRule">
-							<h4>구장 특이사항</h4>
-							<pre class="txt2">
+							<pre class="tet2">
 								■ 찾아가는 길: 창동역 1번출구 → 좌측 도봉방면에서 1119번 또는 노원15번 탑승 → 신동아프라자 또는 신동아타워 하차 → 신동아프라자 건물 옥상
 								■ 흡연: 보조 구장 옆 흰색 천막 아래 흡연석에서만 흡연 가능
 								*흡연구역 외 절대 금연
@@ -124,7 +165,7 @@
 						</div>
 					</div>
 				</div>
-			</div>	
+			</div>
             	
             <div class="info-box">
                <div class="section_header">
@@ -279,7 +320,7 @@
 						</h1>
 						<div class="wtgTool">
 							<span class="stadium-info_address">서울특별시 송파구 풍납동 403-3</span>
-							<button onclick="showMap()" class="bt1">지도 보기</button>
+							<button onclick="showMap()" class="sm1">지도 보기</button>
 						</div>
 						<div style="margin-top: 10px; display: flex;">
 							<div class="scope"><img src="resources/images/star.png" class="star"><span>5/5</span></div>
@@ -303,7 +344,7 @@
 							<p class="match-apply_button-text">지금 신청하면<br>진행 확정이 빨라져요!</p>
 						</div>
 						<div class="btnWrap" style="width: 144px;">
-							<button type="button" class="btn letsplab">
+							<button type="button" class="btn letsplab" data-bs-toggle="modal" data-bs-target="#paymentModal">
 								<p>신청하기</p>
 							</button>
 						</div>
@@ -312,9 +353,59 @@
 			</div>
         </aside>
     </div>
-
+	<div class="chat-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    	<img src="chat-icon.png" alt="Chat Icon">
+    </div>
+    
+    <!-- 상담 쪽 모달 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<div class="modal-dialog" id="custom-modal">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">문의하기</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+					<form id="inquiry-form">
+	                    <div class="mb-3">
+	                        <label for="questionTitle" class="form-label">제목 <span class="text-danger">*</span></label>
+	                        <input type="text" class="form-control" id="questionTitle" placeholder="제목을 입력하세요" required>
+	                    </div>
+	                    <div class="mb-3">
+	                        <label for="questionContent" class="form-label">문의 내용 <span class="text-danger">*</span></label>
+	                        <textarea class="form-control" id="questionContent" rows="6" placeholder="문의 내용을 입력하세요" required></textarea>
+	                    </div>
+	                </form>
+				</div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	                <button type="submit" class="btn btn-primary" form="inquiry-form">질문 제출</button>
+	            </div>
+		    </div>
+		</div>
+	</div>
+	
+	<!-- 신청하기 쪽 모달 -->
+	<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">신청하기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            	<jsp:include page="/WEB-INF/views/modal/calendar.jsp" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">결제하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+	
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=043f5595cb50307eae5f33cc8943d0e6"></script>
     <script>
         var map;

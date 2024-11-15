@@ -66,7 +66,7 @@
 
         </div>
     </div>
-    <div class="search-bar-m">
+    <div class="search-bar-m" data-bs-toggle="modal" data-bs-target="#searchModal">
         <form action="" id="search-bar-form">
             <input type="text" placeholder="구장명을 입력하세요.">
             <button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png" class="search-btn">

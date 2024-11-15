@@ -1,17 +1,5 @@
 @charset "UTF-8";
-	.matching-wrap{
-	    max-width: 1200px;
-	    margin: auto;
-	    margin-bottom: 100px;
-	}
-/*진행중인매칭이미지*/
-    body{
-		    font-family: "Nanum Gothic", serif;
-		    font-weight: 400;
-		    font-style: normal;
-            margin: 0 auto;
-            box-sizing: border-box;
-        }
+		/*진행중인매칭이미지*/
         .matching-container {
         	margin-top: 40px;
             text-align: center;
@@ -36,9 +24,8 @@
             color: white;
             z-index: 1; /* 이미지 위로 텍스트가 나오도록 설정 */
         }
-        .matching-wrap img {
+        .matchingimg {
             width: 100%;
-    		height: 100px;
         }
         /*날짜 선택*/
         .weekday-selector {
@@ -46,7 +33,7 @@
             justify-content: space-around;
             margin: 0 auto;
             margin-bottom: 5px;
-            max-width: 400px;
+            /*max-width: 400px;*/
         }
         .day-box {
             display: flex;
@@ -57,8 +44,6 @@
             width: 50px;
             cursor: pointer;
             transition: background-color 0.3s;
-            background-color: white;
-            color: black;
         }
         .day-box.active {
             background-color: #0080ff;
@@ -73,10 +58,23 @@
             font-weight: bold;
             color: #333;
         }
+        .date.std {
+        	color: red;
+        }
+        .date.sd {
+        	color: blue;
+        }
         .day {
-            font-size: 12px;
+            font-size: 16px;
             color: #666;
         }
+        .day.std {
+        	color: red;
+        }
+        .day.sd {
+        	color: blue;
+        }
+        /*선택하기*/
         .choice {
             display: flex;
             justify-content: center;
@@ -85,112 +83,132 @@
         }
         /*지역선택*/
         .mt-region {
-            width: 81px;
+            width: 80px;
             height: 30px;
             border-radius: 14px;
             background-color: white;
             text-align: center;
+            border: 1px solid black;
         }
         /* 시작 시간 선택 */
         .mt-starttime {
-            width: 81px;
+            width: 90px;
             height: 30px;
             border-radius: 14px;
             background-color: white;
             text-align: center;
+            border: 1px solid black;
         }
         /* 끝 시간 선택 */
         .mt-endtime {
-            width: 81px;
+            width: 90px;
             height: 30px;
             border-radius: 14px;
             background-color: white;
             text-align: center;
+            border: 1px solid black;
         }
         /* 매칭 테이블 */
-        .tableContainer {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: center;
-        margin: 0 auto;
-        margin-bottom: 90px;
-        }
-
-        table {
-            width: 100%;
-            border: none;
-        }
-
-        td {
-            border-top: 1px solid black;
-            padding: 5px;
-        }
-
-        td:first-child {
-            font-size: 15px;
-            padding: 0px;
-        }
-
-        td:nth-child(2),
-        td:nth-child(3) {
-            font-size: 12px;
-        }
-
-        td:nth-child(3) {
-            font-size: 12px;
-            text-align: center;
-            display: flex;            /* 버튼을 중앙 정렬하기 위한 flex 설정 */
-            justify-content: center;   /* 가로 가운데 정렬 */
-            align-items: center;       /* 세로 가운데 정렬 */
-        }
-
-        .match-btn {
-            padding: 5px 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .match-btn:hover {
-            background-color: #0056b3;
-        }
-          /* 미디어 쿼리 */
-    @media (max-width: 768px) {
-        .mt-region, .mt-starttime, .mt-endtime {
-            width: 70px; /* 작은 화면에서 선택 박스 크기 줄이기 */
-            height: 28px;
-        }
-
-        .tableContainer {
-            margin-bottom: 50px; /* 작은 화면에서 테이블 여백 조정 */
-        }
-
-        td {
-            padding: 3px; /* 테이블 셀 패딩 줄이기 */
-        }
-
-        .date {
-            font-size: 14px; /* 작은 화면에서 날짜 폰트 크기 줄이기 */
-        }
-
-        .day {
-            font-size: 10px; /* 작은 화면에서 요일 폰트 크기 줄이기 */
-        }
-
-        .matching-write {
-            font-size: 18px; /* 작은 화면에서 매칭 텍스트 크기 줄이기 */
-        }
-    }
-
-    @media (min-width: 769px) {
-        .mt-region, .mt-starttime, .mt-endtime {
-            width: 100px; /* 큰 화면에서 선택 박스 크기 늘리기 */
-            height: 35px;
-        }
-
-        td {
-            padding: 7px; /* 테이블 셀 패딩 늘리기 */
-        }
-    }
+		.tableContainer {
+		    width: 100%;
+		    margin-top: 10px;
+		}
+		
+		.table-row {
+		    display: flex;  /* 행을 flex로 설정 */
+		    justify-content: space-between;  /* 셀들 간 간격을 공간으로 조정 */
+		    align-items: center;  /* 세로 정렬 */
+		    border-top: 1px solid black;
+		    padding: 10px 0;
+		}
+		
+		.table-cell {
+		    font-size: 14px;
+		    text-align: center;  /* 기본적으로 모든 셀을 가운데 정렬 */
+		}
+		
+		.time {
+		    text-align: left;  /* 시간은 왼쪽 정렬 */
+		    padding-left: 20px;
+		}
+		
+		.location {
+		    text-align: center;  /* 장소는 중앙 정렬 */
+		}
+		
+		.table-cell:nth-child(3) {
+		    padding-right: 20px;
+		}
+		
+		.match-btn {
+		    padding: 10px 20px;
+		    background-color: #007bff;
+		    color: white;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    font-size: 14px;
+		}
+		
+		.match-btn:hover {
+		    background-color: #0056b3;
+		}
+		
+		/* 중간 크기 화면 (481px ~ 1200px) */
+		@media (min-width: 481px) and (max-width: 1200px) {
+		    .inner-left, .inner-right {
+		        min-width: 480px;  /* 두 영역을 480px 이상으로 설정 */
+		    }
+		
+		    .category-wrap {
+		        display: flex;
+		        justify-content: space-between;  /* 항목을 양쪽으로 배치 */
+		        flex-wrap: wrap;  /* 항목들이 넘칠 경우 다음 줄로 배치 */
+		    }
+		
+		    .category {
+		        font-size: 18px;
+		        font-weight: 700;
+		        padding: 5px;
+		    }
+		
+		    .real-time-rank {
+		        border: none;
+		        border-radius: 8px;
+		        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+		    }
+		}
+		
+		/* 모바일 화면 (300px ~ 480px) */
+		@media (min-width: 300px) and (max-width: 480px) {
+		    .inner-left, .inner-right {
+		        margin: 0px 10px; /* 좌우 마진을 10px로 설정하여 간격을 좁힘 */
+		    }
+		
+		    .category-wrap {
+		        width: 100%;
+		        justify-content: space-between;  /* 항목을 좌우로 배치 */
+		    }
+		
+		    .category {
+		        font-size: 16px; /* 폰트 크기 조정 */
+		        font-weight: 700;
+		        padding: 5px;
+		    }
+		
+		    .real-time-rank {
+		        border: none;
+		        border-radius: 8px;
+		        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+		    }
+		    
+		    .matchingimg {
+		        width: 100%;  /* 모바일 화면에서 이미지를 380px로 고정 */
+		        height: 100%;
+		    }
+		
+		    .matching-write {
+		        font-size: 16px;  /* 텍스트 크기도 모바일에서 줄이기 */
+		    }
+		}
+		

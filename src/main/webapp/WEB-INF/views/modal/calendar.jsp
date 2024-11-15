@@ -92,6 +92,46 @@
         .active::before {
             background: #008aff;
         }
+        /* 미디어 쿼리 적용: 모바일 화면 (425px 이하) */
+		@media (max-width: 425px) {
+		    .wrapper {
+		        width: 100%;
+		        padding: 10px;
+		    }
+		
+		    .nav {
+		        margin-bottom: 20px;
+		    }
+		
+		    .current-date {
+		        font-size: 18px;
+		    }
+		
+		    .nav button {
+		        width: 30px;
+		        height: 30px;
+		        font-size: 24px;
+		    }
+		
+		    .weeks li {
+		        font-size: 12px;
+		        padding: 5px 0;
+		    }
+		
+		    .days li {
+		        font-size: 10px;
+		        margin-top: 15px;
+		    }
+		
+		    .days li::before {
+		        height: 25px;
+		        width: 25px;
+		    }
+		
+		    .days {
+		        margin-bottom: 15px;
+		    }
+		}
 </style>
 </head>
 <body>
@@ -116,50 +156,6 @@
             <ul class="days" id="days"></ul>
         </div>
     </div>
-
-    <script>
-        const daysContainer = document.getElementById('days');
-        const currentDateElement = document.getElementById('current-date');
-        const prevButton = document.getElementById('prev-button');
-        const nextButton = document.getElementById('next-button');
-
-        let currentDate = new Date();
-
-        function renderCalendar() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            currentDateElement.innerText = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
-
-            daysContainer.innerHTML = '';
-
-            const firstDayOfMonth = new Date(year, month, 1).getDay();
-            const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
-
-            for (let i = 0; i < firstDayOfMonth; i++) {
-                const li = document.createElement('li');
-                li.classList.add('inactive');
-                daysContainer.appendChild(li);
-            }
-
-            for (let date = 1; date <= lastDateOfMonth; date++) {
-                const li = document.createElement('li');
-                li.innerText = date;
-                daysContainer.appendChild(li);
-            }
-        }
-
-        prevButton.addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
-        });
-
-        nextButton.addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
-        });
-
-        renderCalendar();
-    </script>
-
+<script src="${pageContext.request.contextPath}/resources/js/modal/calendar.js"></script>
 </body>
 </html>
