@@ -8,8 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.sportsmate.board.model.dto.BoardMemberPanalty;
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
+import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
 
@@ -38,8 +40,9 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.commentCount", bno);
 	}
 	
-	public int createBoard(SqlSessionTemplate sqlSession, Map<String, String> map) {
-		return sqlSession.insert("boardMapper.createBoard", map);
+	public int createBoard(SqlSessionTemplate sqlSession, Board b) {
+		sqlSession.insert("boardMapper.createBoard", b);
+	    return b.getBoardNo();  // 생성된 BOARD_NO 반환
 	}
 	
 	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
@@ -92,4 +95,25 @@ public class BoardDao {
 	public int likeCount(SqlSessionTemplate sqlSession, int bno) {
 		return sqlSession.selectOne("boardMapper.likeCount", bno);
 	}
+	
+	public int boardReport(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.insert("boardMapper.boardReport", map);
+	}
+	
+	public int commentReport(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.insert("boardMapper.commentReport", map);
+	}
+	
+	public int saveBoardFile(SqlSessionTemplate sqlSession, BoardFile bf) {
+		return sqlSession.insert("boardMapper.saveBoardFile", bf);
+	}
+	
+	public BoardFile filedownloadLink(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.selectOne("boardMapper.filedownloadLink", bno);
+	}
+	
+	public int replyComment(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.insert("boardMapper.replyComment", map);
+	}
+			
 }

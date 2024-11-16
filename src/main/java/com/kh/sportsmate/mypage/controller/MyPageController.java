@@ -12,16 +12,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
+import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
+import com.kh.sportsmate.member.model.dto.MemberModifyDto;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
+import com.kh.sportsmate.member.service.MemberService;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.mypage.service.MyPageService;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -32,10 +38,14 @@ import com.kh.sportsmate.team.model.vo.Team;
 public class MyPageController {
 	
     private final MyPageService myPageService;
+    private final MemberService memberService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     
     @Autowired
-    public MyPageController( BCryptPasswordEncoder bCryptPasswordEncoder, MyPageService myPageService){
+    public MyPageController( BCryptPasswordEncoder bCryptPasswordEncoder, MyPageService myPageService, MemberService memberService){
 		this.myPageService = myPageService;
+		this.memberService = memberService;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 	
 	/* 마이페이지 */
@@ -52,6 +62,10 @@ public class MyPageController {
     	
     	String filePath = myProfile.getFilePath() + myProfile.getChangeName();
     	
+    	if(filePath != null) {
+    		model.addAttribute("filePath", filePath);
+    	}
+    	
     	// 내 전적
     	ArrayList<Match> myMatch = myPageService.selectMyMatch(memNo); 
     	
@@ -67,7 +81,6 @@ public class MyPageController {
     	// 내 구단 입단 명단
     	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
     	
-    	model.addAttribute("filePath", filePath);
     	model.addAttribute("myMatchWinCount", myMatchWinCount);
     	model.addAttribute("myMatchCount", myMatchCount);
     	model.addAttribute("myMatch", myMatch);
@@ -125,15 +138,100 @@ public class MyPageController {
         return result;
     }
     
+    // 내 정보 수정 페이지 이동
     @RequestMapping("modifyMyInfoMove.mp")
     public String modifyMyInfo(Model m, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
 		
-		Member member = myPageService.myInfoList(memNo);
+		MemberModifyDto member = myPageService.myInfoList(memNo);
 		
 		m.addAttribute("member", member);
 		
 		return "myPage/myPageModify";
+    }
+    
+    // 내 정보 수정 로직
+    @PostMapping(value = "modifyMyInfo.mp")
+    public String memberEnroll(MemberEnrollDto m, MultipartFile userProfile, HttpSession session) {
+        Profile profile = null;
+        Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
+        System.out.println("profile : " + userProfile);
+        m.setMemNo(memNo);
+        System.out.println(m);
+        String path = "resources/images/userProFile/";
+        String savePath = session.getServletContext().getRealPath(path);
+        if (!userProfile.getOriginalFilename().equals("")) {
+            String changeName = Template.saveFile(userProfile, session, path);
+            profile = new Profile(userProfile.getOriginalFilename(), changeName, savePath);
+        }
+        int result = myPageService.modifyMember(m, profile, session);
+
+        if (result > 0) {
+            session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
+            return "redirect:/";
+        } else {
+            session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
+            return "redirect:/";
+        }
+    }
+    
+    // 비밀번호 수정
+    @RequestMapping("modifyPwd.mp")
+    @ResponseBody
+    public String modifyPassword(String memPwd, String pwdCheck, String pwdModify, HttpSession session) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
+
+		System.out.println(memNo + " / " + memPwd + " / " + pwdCheck + " / " + pwdModify);
+        // 비밀번호 확인
+        if (!pwdCheck.equals(memPwd)) {
+        	session.setAttribute("alertMsg", "비밀번호가 다릅니다..");
+            return "redirect:/myPage/myPageModify";
+        }
+        
+        memPwd = "$2a$10$.dVxuTJ1tGjNxMVT377Im.rpfYvZEpcgWU7KRnF1ABN4Ym84JBTFC";
+        pwdModify = bCryptPasswordEncoder.encode(pwdModify);
+        
+        System.out.println("memPwd : " + memPwd);
+        System.out.println("pwdModify : " + pwdModify);
+        
+
+        // 새 비밀번호 변경
+        int isUpdated = myPageService.updatePassword(memNo, pwdModify);
+        if (isUpdated > 0) {
+        	session.setAttribute("alertMsg", "비밀번호 변경에 성공했습니다.");
+            return "redirect:/myPage/myPageModify";
+        } else {
+        	session.setAttribute("alertMsg", "비밀번호 변경에 실패했습니다.");
+            return "redirect:/myPage/myPageModify";
+        }
+    }
+    
+    // 로그아웃
+    @RequestMapping("logout.mp")
+    public String logOut(HttpSession session) {
+    	session.removeAttribute("loginMember");
+		
+		return "redirect:/";
+    }
+    
+    // 계정 탈퇴
+    @RequestMapping("accountCancel.mp")
+    public String accountCancel(HttpSession session) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
+		
+		int result = myPageService.accountCancel(memNo);
+		
+		if (result > 0) {
+			session.setAttribute("alertMsg", "회원 탈퇴에 성공했습니다.");
+			session.removeAttribute("loginMember");
+	    	return "redirect:/";
+        } else {
+        	session.setAttribute("alertMsg", "회원 탈퇴에 실패했습니다.");
+        	return "redirect:/";
+        }
     }
 }

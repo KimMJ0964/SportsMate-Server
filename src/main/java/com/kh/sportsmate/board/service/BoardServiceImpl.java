@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.sportsmate.board.model.dao.BoardDao;
+import com.kh.sportsmate.board.model.dto.BoardMemberPanalty;
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
+import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.board.service.BoardService;
 import com.kh.sportsmate.common.vo.PageInfo;
@@ -59,8 +61,8 @@ public class BoardServiceImpl implements BoardService{
 	
 	// 게시글 생성
 	@Override
-	public int createBoard(Map<String, String> map) {
-		return boardDao.createBoard(sqlSession, map);
+	public int createBoard(Board b) {
+		return boardDao.createBoard(sqlSession, b);
 	}
 	
 	// 게시글 수정
@@ -131,5 +133,35 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int likeCount(int bno) {
 		return boardDao.likeCount(sqlSession, bno);
+	}
+	
+	// 게시글 신고
+	@Override
+	public int boardReport(Map<String, String> map) {
+		return boardDao.boardReport(sqlSession, map);
+	}
+	
+	// 댓글 신고
+	@Override
+	public int commentReport(Map<String, String> map) {
+		return boardDao.commentReport(sqlSession, map);
+	}
+
+	// 파일 업로드
+	@Override
+	public int saveBoardFile(BoardFile bf) {
+		return boardDao.saveBoardFile(sqlSession, bf);
+	}
+
+	// 파일 다운로드
+	@Override
+	public BoardFile filedownloadLink(int bno) {
+		return boardDao.filedownloadLink(sqlSession, bno);
+	}
+
+	// 대댓글
+	@Override
+	public int replyComment(Map<String, String> map) {
+		return boardDao.replyComment(sqlSession, map);
 	}
 }

@@ -37,9 +37,9 @@
             </div>
             <!-- 5. 버튼들 -->
             <div class="bd-button-container">
-                <button class="bd-button">파일 다운로드</button>
+                <div class="bd-button"><a href="${downloadLink}" download>파일 다운로드</a></div>
                  <button class="bd-button"  onclick="location.href = 'modifyMove.bd?mpage=${board.boardNo}'">수정하기</button>
-                 <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</button>
+                 <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${board.boardNo}, 0, ${board.memNo })">신고하기</button>
                  <div>
 				 	<img class="bd-like" src="${pageContext.request.contextPath}/resources/images/board_like.png" onclick="location.href = 'boardLike.bd?bno=${board.boardNo }'"/>
             		<div class="bd-like-count" style="text-align: center;">${likeCount }</div>
@@ -75,8 +75,8 @@
 		            <hr>
 		            <div class="bd-button-container">
 		                <div class="bd-red-button" onclick="location.href = 'deleteComm.bd?cno=${comments.comNo}&bno=${board.boardNo }'">댓글 삭제</div>
-		                <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</div>
-		                <button class="bd-button" onclick="toggleReplyForm(event)">답글 작성</button>
+		                <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${board.boardNo}, ${comments.comNo}, ${comments.memNo})">신고하기</div>
+		                <button class="bd-button" data-bs-toggle="modal" data-bs-target="#commentModal" onclick="setCommentData(${comments.comNo}, ${board.boardNo})">답글 작성</button>
 		            </div>
 		
 		            <!-- 대댓글 (Replies) -->
@@ -92,8 +92,8 @@
                               <hr>
                               <div class="bd-button-container">
                                   <button class="bd-red-button">답글 삭제</button>
-                                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</button>
-                                  <button class="bd-button" onclick="toggleReplyForm(event)">답글 작성</button>
+                                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${board.boardNo}, ${reply.comNo}, ${comments.memNo})">신고하기</button>
+                                  <button class="bd-button" data-bs-toggle="modal" data-bs-target="#commentModal" onclick="setCommentData(${reply.comParentNo}, ${board.boardNo})">답글 작성</button>
                               </div>
                           </c:if>
                       </c:forEach>
@@ -111,19 +111,55 @@
 		        <h1 class="modal-title fs-5" id="exampleModalLabel">신고</h1>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
+		     <form method="post" action="boardReport.bd">
 		      <div class="modal-body">
 		        <div class="bd-report-title">
-		        	<h5>사유 / 대상아이디</h5>
+		        	<h5>사유</h5>
 		        </div>
 		        <br>
 		        <div class="bd-report-content">
-		        	<textarea class="bd-report-content-textarea" style="width: 100%; height: 300px;  border: 2px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
+		        	<textarea class="bd-report-content-textarea" id="report-content" name="pnContent" class="report-content" style="width: 100%; height: 300px;  border: 2px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
 		        </div>
 		      </div>
 		      <div class="modal-footer">
+		      	<!-- 숨겨진 input으로 boardNo와 comNo 값을 전달 -->
+                <input type="hidden" id="report-boardNo" name="boardNo">
+                <input type="hidden" id="report-comNo" name="comNo">
+                <input type="hidden" id="report-reporterNo" name="reporterNo">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-		        <button type="button" class="btn btn-primary">신고 완료</button>
+		        <button type="submit" class="btn btn-primary">신고 완료</button>
 		      </div>
+		       </form>
+		    </div>
+		  </div>
+		</div>
+		
+		<!-- 대댓글 모달 -->
+        <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">신고</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		     <form method="post" action="replyComment.bd">
+		      <div class="modal-body">
+		        <div class="bd-report-title">
+		        	<h5>답글</h5>
+		        </div>
+		        <br>
+		        <div class="bd-report-content">
+		        	<textarea class="bd-report-content-textarea" id="report-content" name="pnContent" class="report-content" style="width: 100%; height: 300px;  border: 2px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
+		        </div>
+		      </div>
+		      <div class="modal-footer">
+		      	<!-- 숨겨진 input으로 boardNo와 comNo 값을 전달 -->
+                <input type="hidden" id="comParentNo" name="comParentNo">
+                <input type="hidden" id="comment-boardNo" name="boardNo">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+		        <button type="submit" class="btn btn-primary">답글 완료</button>
+		      </div>
+		       </form>
 		    </div>
 		  </div>
 		</div>
@@ -131,7 +167,20 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/board/boardDetail.js"></script>
-   
+   	<script>
+    // 신고 버튼 클릭 시 모달에 boardNo와 comNo 값을 설정
+    function setReportData(boardNo, comNo, reporterNo) {
+        // 모달 내부의 boardNo와 comNo input 필드에 값 설정
+        document.getElementById("report-boardNo").value = boardNo;
+        document.getElementById("report-comNo").value = comNo;
+        document.getElementById("report-reporterNo").value = reporterNo;
+    }
+    
+    function setCommentData(comParentNo, boardNo) {
+    	document.getElementById("comParentNo").value = comParentNo;
+    	document.getElementById("comment-boardNo").value = boardNo;
+    }
+</script>
 
 </body>
 </html>

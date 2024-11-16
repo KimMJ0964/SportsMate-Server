@@ -3,8 +3,10 @@ package com.kh.sportsmate.board.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.kh.sportsmate.board.model.dto.BoardMemberPanalty;
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
+import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
 
@@ -28,7 +30,7 @@ public interface BoardService {
 	int viewAdd(int bno);
 	
 	// 게시글 생성
-	int createBoard(Map<String, String> map);
+	int createBoard(Board b);
 	
 	// 게시글 수정
 	int updateBoard(Board b);
@@ -63,4 +65,18 @@ public interface BoardService {
 	// 상세 페이지 좋아요 갯수
 	int likeCount(int bno);
 	
+	// 게시글 신고
+	int boardReport(Map<String, String> map);
+	
+	// 게시글 댓글 신고
+	int commentReport(Map<String, String> map);
+	
+	// 게시글 생성 파일 업로드
+	int saveBoardFile(BoardFile bf);
+	
+	// 상세 페이지 파일 다운로드
+	BoardFile filedownloadLink(int bno);
+	
+	// 대댓글 작성
+	int replyComment(Map<String, String> map);
 }

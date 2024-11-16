@@ -20,7 +20,7 @@ public class Team {
 	private String teamName;
 	private String teamExplan;
 	private int teamMaxPerson;
-	private String teamType;
+	private String teamCategory;
 	private String activityDays;
 	private String activityTime;
 	private String activityArea;

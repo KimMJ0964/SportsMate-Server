@@ -157,9 +157,11 @@ const checkPasswordCondition = (ev) => {
  window.onload = function(){
     	const phone = document.querySelector('#modify-phone-num').getAttribute('data-phone');
     	const birth = document.querySelector('#modify-birth-num').getAttribute('data-birth');
+    	const add = document.querySelector('#modify-add').getAttribute('data-add');
     	
 		const phoneParts = phone.split("-");
 		const birthParts = birth.split("-");
+		const addParts = add.split(".");
         
         document.getElementById('phone1').value = phoneParts[0];
         document.getElementById('phone2').value = phoneParts[1];
@@ -168,4 +170,8 @@ const checkPasswordCondition = (ev) => {
         document.getElementById('year').value = birthParts[0];
         document.getElementById('month').value = birthParts[1];
         document.getElementById('day').value = birthParts[2];
+        
+        document.getElementById('baseAdd').value = addParts[0];
+        document.getElementById('detailAdd').value = addParts[1];
+        
     }

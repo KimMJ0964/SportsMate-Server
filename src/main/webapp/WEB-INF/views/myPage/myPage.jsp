@@ -58,8 +58,8 @@
 				</div>
 				<div class="profile-buttons">
 					<Button class="modify-btn" onclick="location.href = 'modifyMyInfoMove.mp'">프로필 수정</Button>
-					<Button class="modify-btn">로그아웃</Button>
-					<Button class="secession-btn">회원 탈퇴</Button>
+					<Button class="modify-btn" onclick="location.href = 'logout.mp'">로그아웃</Button>
+					<Button class="secession-btn" onclick="location.href = 'accountCancel.mp'">회원 탈퇴</Button>
 				</div>
 			</div>
 
@@ -201,7 +201,7 @@
 								<!-- 야구 구단 -->
 								<div class="baseball">
 									<div class="club-head">
-										<p>${mt.teamType }</p>
+										<p>${mt.teamCategory }</p>
 										<div class="profile">
 											<div class="profile-img-container">
 												<div class="profile-circle"></div>
@@ -252,7 +252,7 @@
 								<!-- 야구 구단 -->
 								<div class="baseball">
 									<div class="club-head">
-										<p>${mt.teamType }</p>
+										<p>${mt.teamCategory }</p>
 										<div class="profile">
 											<div class="profile-img-container">
 												<div class="profile-circle"></div>
@@ -296,6 +296,39 @@
 			<div class="joinTeamPeopleContainer">
 			<i class="bi bi-caret-down-fill toggle-button" onclick="jointoggleHeight(event)"></i>
 				<div class="joinTitle">구단 입단 신청 목록</div>
+				<c:forEach var="mr" items="${myRecruit}">
+					<div class="joinBox">
+						<div class="joinProfile">
+							<img src="" alt="" /> <br />
+							<div class="profile-text">${mr.memName }</div>
+						</div>
+						<div class="profile team-name">
+							<img src="" alt="" /> <br />
+							<div class="profile-text">${mr.teamName }</div>
+						</div>
+						<div class="buttons">
+							<Button class="view-btn" data-bs-toggle="modal"
+								data-bs-target="#exampleModaltwo"
+								data-name="${mr.memName}"
+		                        data-age="${mr.memAge}"
+								data-gender="${mr.memGender}"
+								data-rank="${mr.memRank}"
+								data-abl="${mr.ability}"
+								data-posi="${mr.position}"
+								data-intro="${mr.introduce }"
+		                        	>입단자 정보</Button>
+							<Button class="approve-btn" onclick="location.href = 'approveJoin.tm?mno=${mr.memNo}&tno=${mr.teamNo }'">승인</Button>
+							<Button class="reject-btn" onclick="location.href = 'rejectJoin.tm?mno=${mr.memNo}'">거절</Button>
+						</div>
+					</div>
+					<br>
+				</c:forEach>
+			</div>
+			
+			<!-- 문의 리스트 -->
+			<div class="questionContainer">
+			<i class="bi bi-caret-down-fill toggle-button" onclick="jointoggleHeight(event)"></i>
+				<div class="joinTitle">내 문의 목록</div>
 				<c:forEach var="mr" items="${myRecruit}">
 					<div class="joinBox">
 						<div class="joinProfile">

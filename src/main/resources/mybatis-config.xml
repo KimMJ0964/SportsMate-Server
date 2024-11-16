@@ -15,6 +15,7 @@
 
         <!-- Member -->
          <typeAlias type="com.kh.sportsmate.member.model.dto.MemberPosition" alias="MemberPosition"/>
+         <typeAlias type="com.kh.sportsmate.member.model.dto.MemberModifyDto" alias="MemberModifyDto"/>
         <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
      	<typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.Recruit" alias="Recruit"/>
@@ -31,6 +32,8 @@
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
         <typeAlias type="com.kh.sportsmate.board.model.vo.BoardLike" alias="BoardLike"/>
     	<typeAlias type="com.kh.sportsmate.board.model.vo.BoardComment" alias="BoardComment"/>
+    	<typeAlias type="com.kh.sportsmate.board.model.dto.BoardMemberPanalty" alias="BoardMemberPanalty"/>
+    	<typeAlias type="com.kh.sportsmate.board.model.vo.BoardFile" alias="BoardFile"/>
     	<!-- Team -->
         <typeAlias type="com.kh.sportsmate.team.model.vo.Team" alias="Team"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoard" alias="TeamBoard"/>

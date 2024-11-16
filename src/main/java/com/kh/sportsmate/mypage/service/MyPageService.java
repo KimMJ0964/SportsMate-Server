@@ -3,8 +3,12 @@ package com.kh.sportsmate.mypage.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
+import com.kh.sportsmate.member.model.dto.MemberModifyDto;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
@@ -51,6 +55,18 @@ public interface MyPageService {
     int bestPlayerVote(Map<String, Integer> map);
     
     // 마이페이지 수정 페이지 이동 및 내 정보 출력
-    Member myInfoList(int memNo);
+    MemberModifyDto myInfoList(int memNo);
+    
+    // 내 정보 수정
+    int modifyMember(MemberEnrollDto m, Profile profile, HttpSession session);
+    
+    // 비밀번호 확인
+    boolean verifyOldPassword(int memNo, String memPwd);
+    
+    // 비밀번호 변경
+    int updatePassword(int memNo, String pwdModify);
+    
+    // 계정 탈퇴
+    int accountCancel(int memNo);
     
 }

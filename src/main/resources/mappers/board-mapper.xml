@@ -5,194 +5,197 @@
 
 <!-- !namespace : 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="boardMapper">
-    
-    <select id="selectListCount" resultType="_int">
-        SELECT COUNT(*)
-        FROM BOARD
-        WHERE STATUS = 'Y'
-    </select>
-    
-     <!-- 게시글 조회 -->
-	  <select id="selectList" resultType="Board">
-	    SELECT b.BOARD_NO AS boardNo,
-	           b.TITLE AS title,
-	           m.MEM_NAME AS memName,
-	           b.CREATE_DATE AS createDate,
-	           b.VIEW AS view,
-	           b.TYPE AS type
-	    FROM BOARD b
-	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
-	    WHERE b.STATUS = 'Y'
-	    ORDER BY b.BOARD_NO DESC
+
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS = 'Y'
 	</select>
-	
+
+	<!-- 게시글 조회 -->
+	<select id="selectList" resultType="Board">
+		SELECT b.BOARD_NO AS boardNo,
+		b.TITLE AS title,
+		m.MEM_NAME AS memName,
+		b.CREATE_DATE AS createDate,
+		b.VIEW AS view,
+		b.TYPE AS type
+		FROM BOARD b
+		JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+		WHERE b.STATUS = 'Y'
+		ORDER BY b.BOARD_NO DESC
+	</select>
+
 	<!-- 게시글 내용 가져오기 -->
 	<select id="detailList" resultType="Board">
-		 SELECT b.TITLE AS title,
-	           m.MEM_NAME AS memName,
-	           b.CREATE_DATE AS createDate,
-	           b.VIEW AS view,
-	           b.LIKE_COUNT AS likeCount,
-	           b.CONTENT AS content,
-	           b.BOARD_NO AS boardNo,
-	           b.MEM_NO AS memNo,
-	           b.TYPE AS type
-	    FROM BOARD b
-	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
-	    WHERE b.STATUS = 'Y'
-	    AND b.BOARD_NO = #{bno}
+		SELECT b.TITLE AS title,
+		m.MEM_NAME AS memName,
+		b.CREATE_DATE AS createDate,
+		b.VIEW AS view,
+		b.LIKE_COUNT AS likeCount,
+		b.CONTENT AS content,
+		b.BOARD_NO AS boardNo,
+		b.MEM_NO AS memNo,
+		b.TYPE AS type
+		FROM BOARD b
+		JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+		WHERE b.STATUS = 'Y'
+		AND b.BOARD_NO = #{bno}
 	</select>
-	
+
 	<!-- 댓글 내용 가져오기 -->
 	<select id="commentList" resultType="BoardComment">
 		SELECT b.COM_NO AS comNo,
-			   b.REF_BOARD_NO AS refBoardNo,
-			   m.MEM_NAME AS memName,
-			   b.COM_CREATE_DATE AS comCreateDate,
-			   b.COM_MODIFY_DATE AS comModifyDate,
-			   b.STATUS AS status,
-			   b.COM_PARENT_NO AS comParentNo,
-			   b.COM_CONTENT AS comContent
-		 FROM BOARD_COMMENT b
-	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
-	    WHERE REF_BOARD_NO = #{bno}
-	    AND b.STATUS = 'Y'
+		b.REF_BOARD_NO AS refBoardNo,
+		m.MEM_NAME AS memName,
+		b.COM_CREATE_DATE AS comCreateDate,
+		b.COM_MODIFY_DATE AS comModifyDate,
+		b.STATUS AS status,
+		b.COM_PARENT_NO AS comParentNo,
+		b.COM_CONTENT AS comContent,
+		b.MEM_NO AS memNo
+		FROM BOARD_COMMENT b
+		JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+		WHERE REF_BOARD_NO = #{bno}
+		AND b.STATUS = 'Y'
 	</select>
-	
+
 	<!-- 댓글 수 계산 -->
-    <select id="commentCount" resultType="_int">
-        SELECT COUNT(*)
-        FROM BOARD_COMMENT
-        WHERE REF_BOARD_NO = #{bno}
-        AND STATUS = 'Y'
-    </select>
-	
+	<select id="commentCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD_COMMENT
+		WHERE REF_BOARD_NO = #{bno}
+		AND STATUS = 'Y'
+	</select>
+
 	<!-- 게시글 생성 -->
-	<insert id="createBoard">
-	  	INSERT INTO BOARD (
-		    TITLE,
-		    MEM_NO,
-		    CONTENT,
-		    TYPE,
-		    CREATE_DATE
+	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">
+		INSERT INTO BOARD (
+		TITLE,
+		MEM_NO,
+		CONTENT,
+		TYPE,
+		CREATE_DATE
 		)
 		VALUES (
-		    #{title},
-		    #{memNo},
-		    #{content},
-		    #{type},
-		    NOW()
+		#{title},
+		#{memNo},
+		#{content},
+		#{type},
+		NOW()
 		)
-	  </insert>
-	  
-	  <!-- 게시글 수정 -->
+	</insert>
+
+	<!-- 게시글 수정 -->
 	<update id="updateBoard">
-	    UPDATE BOARD
-	    SET 
-	        TITLE = #{title},
-	        CONTENT = #{content},
-	        TYPE = #{type},
-	        CREATE_DATE = NOW()
-	    WHERE 
-	        BOARD_NO = #{boardNo} <!-- 보통 게시글 ID를 기준으로 수정 -->
+		UPDATE BOARD
+		SET
+		TITLE = #{title},
+		CONTENT = #{content},
+		TYPE = #{type},
+		CREATE_DATE = NOW()
+		WHERE
+		BOARD_NO = #{boardNo} <!-- 보통 게시글 ID를 기준으로 수정 -->
 	</update>
-	
+
 	<!-- 게시글 삭제 -->
 	<update id="deleteBoard">
-	    UPDATE BOARD
-	    SET STATUS = 'N'
-	    WHERE BOARD_NO = #{bno}
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = #{bno}
 	</update>
-	
-	 <!-- 게시글 검색 -->
-	  <select id="searchBoard" resultType="Board">
-	    SELECT b.BOARD_NO AS boardNo,
-	           b.TITLE AS title,
-	           m.MEM_NAME AS memName,
-	           b.CREATE_DATE AS createDate,
-	           b.VIEW AS view,
-	           b.TYPE AS type
-	    FROM BOARD b
-	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
-	    WHERE b.STATUS = 'Y'
-	    AND b.TYPE = #{category}
-	    AND b.TITLE LIKE CONCAT('%', #{keyword}, '%')
-	    ORDER BY b.BOARD_NO DESC
+
+	<!-- 게시글 검색 -->
+	<select id="searchBoard" resultType="Board">
+		SELECT b.BOARD_NO AS boardNo,
+		b.TITLE AS title,
+		m.MEM_NAME AS memName,
+		b.CREATE_DATE AS createDate,
+		b.VIEW AS view,
+		b.TYPE AS type
+		FROM BOARD b
+		JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+		WHERE b.STATUS = 'Y'
+		AND b.TYPE = #{category}
+		AND b.TITLE LIKE CONCAT('%', #{keyword}, '%')
+		ORDER BY b.BOARD_NO DESC
 	</select>
-	
+
 	<!-- 댓글 작성 -->
 	<insert id="writeReply">
 		INSERT INTO BOARD_COMMENT (
-		    REF_BOARD_NO,
-		    MEM_NO,
-		    COM_CREATE_DATE,
-		    STATUS,
-		    COM_CONTENT
+		REF_BOARD_NO,
+		MEM_NO,
+		COM_CREATE_DATE,
+		STATUS,
+		COM_CONTENT
 		)
 		VALUES (
-		    #{bno},
-		    #{memNo},
-		    NOW(),
-		    'Y',
-		    #{content}
+		#{bno},
+		#{memNo},
+		NOW(),
+		'Y',
+		#{content}
 		)
 	</insert>
-	
+
 	<!-- 댓글 삭제 -->
 	<update id="deleteReply">
 		UPDATE BOARD_COMMENT
-	    SET 
-	        STATUS = 'N'
-	    WHERE 
-	        COM_NO = #{cno}
+		SET
+		STATUS = 'N'
+		WHERE
+		COM_NO = #{cno}
 	</update>
-	
+
 	<!-- 조회수 증가 -->
 	<update id="viewAdd">
 		UPDATE BOARD
-	    SET VIEW = VIEW + 1
-	    WHERE BOARD_NO = #{bno}
+		SET VIEW = VIEW + 1
+		WHERE BOARD_NO = #{bno}
 	</update>
-	
+
 	<!-- 댓글 주인 확인 -->
 	<select id="getCommentById" resultType="BoardComment">
 		SELECT
-			MEM_NO AS memNo
+		MEM_NO AS memNo
 		FROM BOARD_COMMENT
 		WHERE COM_NO = #{cno}
 	</select>
-	
+
 	<!-- 좋아요 상태 확인 -->
 	<select id="boardIsLike" resultType="BoardLike">
 		SELECT
-			STATUS as status
+		STATUS as status
 		FROM BOARD_LIKE
 		WHERE MEM_NO = #{memNo}
 		AND BOARD_NO = #{bno}
 	</select>
-	
+
 	<!-- 좋아요 변경 -->
 	<update id="boardToLike">
 		UPDATE BOARD_LIKE
 		SET STATUS = 'Y'
-		WHERE BOARD_NO = #{bno}
+		WHERE BOARD_NO =
+		#{bno}
 		AND MEM_NO = #{memNo}
 	</update>
-	
+
 	<!-- 좋아요 취소 -->
 	<update id="boardToUnLike">
 		UPDATE BOARD_LIKE
 		SET STATUS = 'N'
-		WHERE BOARD_NO = #{bno}
+		WHERE BOARD_NO =
+		#{bno}
 		AND MEM_NO = #{memNo}
 	</update>
-	
+
 	<!-- 좋아요 삽입 -->
 	<insert id="boardInsertLike">
 		INSERT INTO BOARD_LIKE (BOARD_NO, MEM_NO, STATUS)
 		VALUES (#{bno}, #{memNo}, 'Y')
 	</insert>
-	
+
 	<!-- 상세 페이지 좋아요 갯수 -->
 	<select id="likeCount" resultType="_int">
 		SELECT COUNT(*)
@@ -200,4 +203,74 @@
 		WHERE BOARD_NO = #{bno}
 		AND STATUS = 'Y'
 	</select>
+
+	<!-- 게시글 신고 -->
+	<insert id="commentReport">
+		INSERT INTO member_penalty (
+		MEM_NO,
+		PN_CONTENT,
+		REP_DATE,
+		PN_REPORTER,
+		PN_COMMUNITY,
+		PN_COMMENT,
+		PN_TYPE
+		)
+		VALUES (
+		#{reporterNo},
+		#{pnContent},
+		NOW(),
+		#{memNo},
+		#{boardNo},
+		#{comNo},
+		CASE
+		WHEN #{comNo} = 0 THEN 'COMMUNITY'
+		ELSE 'COMMENT'
+		END
+		)
+	</insert>
+	
+	<!-- 게시글 생성 파일 업로드 -->
+	<insert id="saveBoardFile">
+	INSERT INTO BOARD_FILE (
+		REF_BOARD_NO,
+		ORIGIN_NAME,
+		CHANGE_NAME,
+		FILE_PATH,
+		STATUS
+	) VALUES (
+		#{refBoardNo},
+        #{originName},
+        #{changeName},
+        #{filePath},
+        'Y'
+	)
+	</insert>
+	
+	<!-- 파일 다운로드 -->
+	<select id="filedownloadLink" resultType="BoardFile">
+		SELECT FILE_PATH AS filePath,
+			   CHANGE_NAME AS changeName
+		FROM BOARD_FILE
+		WHERE REF_BOARD_NO = #{bno}
+	</select>
+	
+	<!-- 대댓글 -->
+	<insert id="replyComment">
+		INSERT INTO BOARD_COMMENT (
+			REF_BOARD_NO,
+			MEM_NO,
+			COM_CREATE_DATE,
+			STATUS,
+			COM_CONTENT,
+			COM_PARENT_NO
+		)
+		VALUES (
+			#{boardNo},
+			#{memNo},
+			NOW(),
+			'Y',
+			#{pnContent},
+			#{comNo}
+		)
+	</insert>
 </mapper>
