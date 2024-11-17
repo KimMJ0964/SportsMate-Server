@@ -19,7 +19,9 @@
     <div class="wrap">
         <jsp:include page="../common/header.jsp"/>
         <jsp:include page="../common/nav.jsp"/>
-        <div class="menu-title">구단 메뉴</div>
+        <div class="list-wrap">
+            <div id="title" class="menu-title">구단 메뉴</div>
+        </div>
         <div class="select-wrap">
             <div class="btn-wrap">
                 <div class="btn-title">구단 창설</div>
@@ -29,7 +31,7 @@
             </div>
             <div class="btn-wrap">
                 <div class="btn-title">단원 모집</div>
-                <div class="manager" onclick="location.href = 'memberRecruit.tm'">
+                <div class="manager" onclick="location.href = 'memberRecruit.tm?category=soccer&searchArea=all&filter=latest&page=1'">
                     <img src="${pageContext.request.contextPath}/resources/images/team_ recruit_btn.png" alt="">
                 </div>
             </div>
@@ -38,4 +40,3 @@
     </div>
 </body>
 </html>
-단원 모집

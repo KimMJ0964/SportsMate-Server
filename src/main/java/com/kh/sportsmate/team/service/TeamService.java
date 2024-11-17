@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.common.vo.PageInfo;
-import com.kh.sportsmate.team.model.dto.CreateTeamDto;
+import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 
 public interface TeamService {
@@ -53,5 +53,20 @@ public interface TeamService {
 
     // 구단 창설
     int insertTeam(CreateTeamDto t, Profile profile);
+
+    // 단원 모집 상태가 Y인 리스트 개수
+    int selectRecruitListCount(String category);
+
+    // 단원 모집 리스트 select
+    ArrayList<RecruitListDto> selectRecruitList(RecruitListQueryStringDto filter, PageInfo pi);
+
+    // 단원 모집 디테일 select
+    RecruitDetailDto selectRecruitDetail(int tno);
+
+    // 구단 가입 신청 insert
+    int insertRecruit(RecruitDto application);
+
+    // 지역명 select
+    String selectAreaName(String searchArea);
 }
 

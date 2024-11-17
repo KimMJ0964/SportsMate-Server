@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: jun
@@ -28,28 +29,54 @@
             <div id="title">단원모집</div>
             <div class="content-wrap">
                 <div class="team-logo-wrap">
-                    <img src="${pageContext.request.contextPath}/resources/images/team1.png" alt="">
+                    <c:choose>
+                        <c:when test="${detailInfo.teamProfileChangeName ne null}">
+                            <img src="${pageContext.request.contextPath}/resources/images/userProFile/${detailInfo.teamProfileChangeName}"
+                                 alt="">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png"/>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="team-info-wrap">
-                    <p>우리동네 FC</p>
+                    <p class="team-name">${detailInfo.teamName}</p>
                     <p class="memberCount"><img src="${pageContext.request.contextPath}/resources/images/userIcon.svg"
-                                                alt="">26</p>
-                    <p>서울 송파 , 아마추어 2</p>
+                                                alt="">${detailInfo.memberCount}</p>
+                    <p>${detailInfo.activityArea}</p>
                 </div>
             </div>
         </div>
         <div class="team-description-wrap">
-            <img src="${pageContext.request.contextPath}/resources/images/RecruitTemp.png" alt="">
-            <textarea name="" id="" cols="50" rows="10" readonly >안녕하세요 ! 풋살과 축구를 좋아하는 사람이라면 누구나 함께 할 수 있는 팀을 만들고 싶습니다! 팀원이 충원되기 전까지는 정기적인 매치 보다는 팀원들끼리 시간 조율을 통해 플랩 신청 후 같이 운동 하는 시간 만들겠습니다 ! ! 송파 축구장이 아니더라도 가능합니다 (송파 전 지역) 풋살과 축구에 열정과 관심이 조금이라도 있으신 분들은 편하게 가입신청 해주세요 ^^특히 ! 공차고 싶은 날인데 혼자서 참여하기 좀 그렇다 하시는 분, 타지역에서 오셔서 같이 공 찰 사람이 없는 분들은 빨리 가입하셔서 기존 회원분들이랑 같이 참여 할 수 있도록 해요 ! !인원이 더 모이면 자체전 및 타팀과의 팀매치 진행 예정입니다.</textarea>
+            <c:choose>
+                <c:when test="${detailInfo.thumbnailChangeName ne null}">
+                    <%-- 구단 미니홈피 베너 이미지 디렉터리로 수정 필요 --%>
+                    <img src="${pageContext.request.contextPath}/resources/images/userProFile/${detailInfo.teamProfileChangeName}"
+                         alt="">
+                </c:when>
+                <c:otherwise>
+                    <img src="${pageContext.request.contextPath}/resources/images/RecruitTemp.png" alt="">
+                </c:otherwise>
+            </c:choose>
+
+            <div>${detailInfo.teamDescription}</div>
         </div>
         <div class="btn-wrap">
-            <button type="button" id="back-list-btn">목록으로 가기</button>
-            <button type="button" id="apply-btn" data-bs-toggle="modal" data-bs-target="#myModal">신청하기</button>
+            <c:choose>
+                <c:when test="${loginMember != null}">
+                    <button type="button" id="back-list-btn" onclick="history.back()">목록으로 가기</button>
+                    <button type="button" id="apply-btn" data-bs-toggle="modal" data-bs-target="#applyNow">신청하기</button>
+                </c:when>
+                <c:otherwise>
+                    <button type="button" id="back-list-btn" onclick="history.back()">목록으로 가기</button>
+                </c:otherwise>
+            </c:choose>
+
         </div>
     </div>
     <!-- The Modal -->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
+    <div class="modal fade" id="applyNow">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -57,16 +84,39 @@
                     <h4 class="modal-title">가입 신청</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
                 <!-- Modal body -->
                 <div class="modal-body">
-                    Modal body..
+                    <form action="enroll.tm" method="post" class="modal-form">
+                        <input type="hidden" name="teamNo" value="${detailInfo.teamNo}">
+                        <input type="hidden" name="memNo" value="${loginMember.memNo}">
+                        <div class="content-wrap center">
+                            <div class="team-logo-wrap">
+                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/${detailInfo.teamProfileChangeName}"
+                                     alt="">
+                            </div>
+                            <div class="team-info-wrap">
+                                <p class="team-name">${detailInfo.teamName}</p>
+                                <p class="memberCount"><img
+                                        src="${pageContext.request.contextPath}/resources/images/userIcon.svg"
+                                        alt="">${detailInfo.memberCount}</p>
+                                <p>${detailInfo.activityArea}</p>
+                            </div>
+                        </div>
+                        <div id="apply-from-wrap">
+                            <textarea name="introduce" id="recruit" cols="30" rows="10"
+                                      placeholder="구단 가입 신청서를 작성해주세요."></textarea>
+                            <span>가입 신청시 회원가입시 작성된 정보가 함께 넘어갑니다.</span>
+                            <span>구단에게는 내 프로필이 공개되고, 신청을 수락하면 내 연락처를 볼 수 있습니다.</span>
+                            <span>원활한 소통을 위해 개인정보 제3자 제공에 동의합니다.</span>
+                            <button type="submit">가입 신청</button>
+                        </div>
+                    </form>
                 </div>
 
                 <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                </div>
+                <%--                <div class="modal-footer">--%>
+                <%--                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>--%>
+                <%--                </div>--%>
 
             </div>
         </div>

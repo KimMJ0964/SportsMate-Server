@@ -59,12 +59,16 @@
 .content-wrap > .team-logo-wrap > img{
     width: 69px;
     height: 69px;
+    border-radius: 50%;
 }
 .team-info-wrap{
     width: 80%;
     height: 70px;
     align-self: center;
-
+}
+.team-name{
+    font-weight: 800;
+    font-size: 18px;
 }
 
 .team-info-wrap > p:nth-child(1),
@@ -91,8 +95,8 @@
     max-width: 1200px;
     padding: 10px 0px 30px 0px;
 }
-.team-description-wrap textarea{
-    width: 100%;
+.team-description-wrap div{
+    width: 80%;
     margin: auto;
     resize: none;
 }
@@ -101,6 +105,7 @@
     margin: auto;
     display: flex;
     justify-content: space-around;
+    margin-bottom: 80px;
 }
 .btn-wrap button{
     width: 40%;
@@ -112,10 +117,62 @@
 #back-list-btn{
     background-color: #7e7e7e;
 }
+
+#apply-from-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#apply-from-wrap button{
+    width: 80%;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0076d9;
+    color: white;
+    margin: 40px 0px 20px 0px;
+}
+#apply-from-wrap textarea{
+    width: 80%;
+    margin: auto;
+    background-color: #F1F3F5;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 25px 0px 25px 0px;
+    resize: none;
+}
+#apply-from-wrap span{
+    font-size: 14px;
+}
 #apply-btn{
     background-color: #0076d9;
 }
 .modal-dialog{
-    top: 35%;
+    top: 200px;
+}
+.center{
+    justify-content: center;
+}
+
+@media (min-width: 481px) and (max-width: 1200px) {
+
+}
+
+@media (min-width: 300px) and (max-width: 480px) {
+    .wrap{
+        /*min-height: 1000px;*/
+    }
+    .team-description-wrap > img{
+        max-width: 315px;
+        padding: 10px 0px 30px 0px;
+    }
+    .modal-dialog {
+        top: 30px;
+        min-height: 100vh;
+    }
+    #back-list-btn{
+        font-size: 14px;
+    }
 
 }

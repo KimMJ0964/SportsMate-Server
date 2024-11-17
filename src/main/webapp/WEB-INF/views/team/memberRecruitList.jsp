@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: jun
@@ -11,25 +12,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/team/memberRecruitList.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/team/memberRecruitList.css">
     <title>SportsMate - 단원 모집</title>
 </head>
 <body>
     <div class="wrap">
-        <jsp:include page="../common/header.jsp" />
-        <jsp:include page="../common/nav.jsp" />
+        <jsp:include page="../common/header.jsp"/>
+        <jsp:include page="../common/nav.jsp"/>
         <div class="recruit-list-wrap">
             <div id="title">단원모집</div>
             <div class="category-wrap">
-                <span class="soccer">축구</span>
-                <span class="futsal">풋살</span>
-                <span class="basketball">농구</span>
-                <span class="baseball">야구</span>
+                <span id="soccer" class="soccer ${category == 'soccer' ? 'highlight' : ''}">축구</span>
+                <span id="futsal" class="futsal ${category == 'futsal' ? 'highlight' : ''}">풋살</span>
+                <span id="basketball" class="basketball ${category == 'basketball' ? 'highlight' : ''}">농구</span>
+                <span id="baseball" class="baseball ${category == 'baseball' ? 'highlight' : ''}">야구</span>
             </div>
             <div class="filter-wrap">
                 <select name="searchArea" id="searchArea">
-                    <option value="" disabled hidden selected>지역선택</option>
+                    <c:choose>
+                        <c:when test="${searchArea eq 'all'}">
+                            <option value="all">지역 전체</option>
+                        </c:when>
+                        <c:when test="${empty searchArea}">
+                            <option value="all" selected>지역 전체</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${searchArea}">${searchArea}</option>
+                            <option value="all">지역 전체</option>
+                        </c:otherwise>
+                    </c:choose>
                     <option value="000-001">서울시 강남구</option>
                     <option value="000-002">서울시 강북구</option>
                     <option value="000-003">서울시 종로구</option>
@@ -61,80 +76,133 @@
                 </select>
             </div>
             <div class="list-wrap">
-                <div class="content-wrap" onclick="location.href = 'recruit_detail.tm'">
-                    <div class="team-logo-wrap">
-                        <img src="${pageContext.request.contextPath}/resources/images/team1.png" alt="">
+                <c:if test="${empty RecruitList}">
+                    <span class="no-list">등록된 단원 모집이 없습니다.</span>
+                </c:if>
+                <c:forEach var="item" items="${RecruitList}">
+                    <%--                    <div class="content-wrap" onclick="location.href = 'recruit_detail.tm?tno=${item.teamNo}'">--%>
+                    <div class="content-wrap" onclick="clickDetailPate(${item.teamNo})">
+                        <div class="team-logo-wrap">
+                            <img src="${pageContext.request.contextPath}/resources/images/userProFile/${item.changeName}"
+                                 alt="">
+                        </div>
+                        <div class="team-info-wrap">
+                            <p id="team-name">${item.teamName}</p>
+                            <p class="memberCount"><img
+                                    src="${pageContext.request.contextPath}/resources/images/userIcon.svg"
+                                    alt="">${item.teamMemberCount}</p>
+                            <p>${item.activityArea}</p>
+                        </div>
                     </div>
-                    <div class="team-info-wrap">
-                        <p>우리동네 FC</p>
-                        <p class="memberCount"><img src="${pageContext.request.contextPath}/resources/images/userIcon.svg" alt="">26</p>
-                        <p>서울 송파 , 아마추어 2</p>
-                    </div>
-                </div>
-                <div class="content-wrap">
-                    <div class="team-logo-wrap">
-                        <img src="${pageContext.request.contextPath}/resources/images/team1.png" alt="">
-                    </div>
-                    <div class="team-info-wrap">
-                        <p>우리동네 FC</p>
-                        <p class="memberCount"><img src="${pageContext.request.contextPath}/resources/images/userIcon.svg" alt="">26</p>
-                        <p>서울 송파 , 아마추어 2</p>
-                    </div>
-                </div>
-                <div class="content-wrap">
-                    <div class="team-logo-wrap">
-                        <img src="${pageContext.request.contextPath}/resources/images/team1.png" alt="">
-                    </div>
-                    <div class="team-info-wrap">
-                        <p>우리동네 FC</p>
-                        <p class="memberCount"><img src="${pageContext.request.contextPath}/resources/images/userIcon.svg" alt="">26</p>
-                        <p>서울 송파 , 아마추어 2</p>
-                    </div>
-                </div>
-                <div class="content-wrap">
-                    <div class="team-logo-wrap">
-                        <img src="${pageContext.request.contextPath}/resources/images/team1.png" alt="">
-                    </div>
-                    <div class="team-info-wrap">
-                        <p>우리동네 FC</p>
-                        <p class="memberCount"><img src="${pageContext.request.contextPath}/resources/images/userIcon.svg" alt="">26</p>
-                        <p>서울 송파 , 아마추어 2</p>
-                    </div>
-                </div>
-                <div class="content-wrap">
-                    <div class="team-logo-wrap">
-                        <img src="${pageContext.request.contextPath}/resources/images/team1.png" alt="">
-                    </div>
-                    <div class="team-info-wrap">
-                        <p>우리동네 FC</p>
-                        <p class="memberCount"><img src="${pageContext.request.contextPath}/resources/images/userIcon.svg" alt="">26</p>
-                        <p>서울 송파 , 아마추어 2</p>
-                    </div>
-                </div>
-                <div class="content-wrap">
-                    <div class="team-logo-wrap">
-                        <img src="${pageContext.request.contextPath}/resources/images/team1.png" alt="">
-                    </div>
-                    <div class="team-info-wrap">
-                        <p>우리동네 FC</p>
-                        <p class="memberCount"><img src="${pageContext.request.contextPath}/resources/images/userIcon.svg" alt="">26</p>
-                        <p>서울 송파 , 아마추어 2</p>
-                    </div>
-                </div>
-                <div class="content-wrap">
-                    <div class="team-logo-wrap">
-                        <img src="${pageContext.request.contextPath}/resources/images/team1.png" alt="">
-                    </div>
-                    <div class="team-info-wrap">
-                        <p>우리동네 FC</p>
-                        <p class="memberCount"><img src="${pageContext.request.contextPath}/resources/images/userIcon.svg" alt="">26</p>
-                        <p>서울 송파 , 아마추어 2</p>
-                    </div>
-                </div>
+                </c:forEach>
 
             </div>
+            <div id="pagenation">
+                <nav>
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
+                                <li class="page-item">
+                                    <a href="adminReport.me?category=${category}&cpage=1"
+                                       class="page-link">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${pi.currentPage > 1}">
+                                <li class="page-item">
+                                    <a href="adminReport.me?category=${category}&cpage=${pi.currentPage - 1}"
+                                       class="page-link">
+                                        <span aria-hidden="true">&lt;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true">&lt;</span>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}" step="1">
+                            <c:choose>
+                                <c:when test="${page == pi.currentPage}">
+                                    <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link"
+                                                             href="adminReport.me?category=${category}&cpage=${page}">${page}</a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${pi.currentPage < pi.maxPage}">
+                                <li class="page-item">
+                                    <a href="adminReport.me?category=${category}&cpage=${pi.currentPage + 1}"
+                                       class="page-link">
+                                        <span aria-hidden="true">&gt;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true">&gt;</span>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${pi.currentPage eq pi.maxPage}">
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:when
+                                    test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
+                                <li class="page-item">
+                                    <a href="adminReport.me?category=${category}&cpage=${pi.maxPage}"
+                                       class="page-link">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
+                                <li class="page-item">
+                                    <a href="adminReport.me?category=${category}&cpage=${pi.endPage + 1}"
+                                       class="page-link">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </nav>
+            </div>
+
         </div>
-        <jsp:include page="../common/footer.jsp" />
+        <jsp:include page="../common/footer.jsp"/>
 
     </div>
 </body>

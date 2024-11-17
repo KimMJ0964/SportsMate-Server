@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
-import com.kh.sportsmate.team.model.dto.CreateTeamDto;
+import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -160,11 +160,49 @@ public class TeamServiceImpl implements TeamService {
             days.setTeamNo(team.getTeamNo());
             result2 = teamDao.insertActivityDays(sqlSession, days);
         }
-        if(profile != null){
+        if (profile != null) {
             profile.setTeamNo(team.getTeamNo());
             result3 = attachmentDao.insertProfile(sqlSession, profile);
         }
         return 0;
+    }
+
+    /**
+     * 카테고리에 따른 단원 모집 리스트 개수 조회
+     *
+     * @param category category(soccer, futsal, basketball, baseball)
+     * @return 리스트 개수
+     */
+    @Override
+    public int selectRecruitListCount(String category) {
+        return teamDao.selectRecruitListCount(sqlSession, category);
+    }
+
+    /**
+     * 필터에 맞는 단원 리스트 조회
+     *
+     * @param filter category(soccer, futsal, basketball, baseball), filter(latest, ), searchArea(000-0001)
+     * @param pi
+     * @return
+     */
+    @Override
+    public ArrayList<RecruitListDto> selectRecruitList(RecruitListQueryStringDto filter, PageInfo pi) {
+        return teamDao.selectRecruitList(sqlSession, filter, pi);
+    }
+
+    @Override
+    public RecruitDetailDto selectRecruitDetail(int tno) {
+        return teamDao.selectRecruitDetail(sqlSession, tno);
+    }
+
+    @Override
+    public int insertRecruit(RecruitDto application) {
+        return teamDao.insertRecruit(sqlSession,application);
+    }
+
+    @Override
+    public String selectAreaName(String searchArea) {
+        return teamDao.selectAreaName(sqlSession, searchArea);
     }
 }
 

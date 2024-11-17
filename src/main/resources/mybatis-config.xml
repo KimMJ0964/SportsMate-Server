@@ -27,6 +27,10 @@
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoardComment" alias="TeamBoardComment"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.Recruit" alias="Recruit"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamActivityDays" alias="TeamActivityDays"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitListQueryStringDto" alias="RecruitListQueryStringDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitListDto" alias="RecruitListDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitDetailDto" alias="RecruitDetailDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitDto" alias="RecruitDto"/>
         <!-- Match -->
         <typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
 
