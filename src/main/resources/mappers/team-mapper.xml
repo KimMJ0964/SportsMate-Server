@@ -5,7 +5,109 @@
 
 <!-- !namespace : 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="teamMapper">
-    
+<!-- ====================== SELECT ====================== -->
+	<!-- 카테고리별 단원 모집 리스트 카운트 -->
+	<select id="selectRecruitListCount" parameterType="String" resultType="_int">
+		SELECT COUNT(*)
+		from TEAM t
+		WHERE t.APPLICATION ='Y'
+		and TEAM_CATEGORY = #{category}
+	</select>
+	<!-- 단원 모집 리스트 -->
+	<select id="selectRecruitList" parameterType="RecruitListQueryStringDto" resultType="RecruitListDto">
+		SELECT
+			t.TEAM_NO as teamNo,
+			t.TEAM_NAME as teamName,
+<!--			t.ACTIVITY_AREA as activityArea,-->
+			a.AREA_NAME as activityArea,
+			pf.FILE_PATH as filePath,
+			pf.CHANGE_NAME as changeName,
+			COUNT(tm.MEM_NO) AS teamMemberCount
+		FROM
+		TEAM t
+		LEFT JOIN PROFILE_FILE pf ON (t.TEAM_NO = pf.TEAM_NO)
+		LEFT JOIN TEAM_MEMBER tm ON (t.TEAM_NO = tm.TEAM_NO) AND (tm.STATUS = 'Y')
+		JOIN AREA a ON (t.ACTIVITY_AREA = a.ACTIVITY_AREA)
+		WHERE
+			t.STATUS = 'Y'
+			AND t.APPLICATION = 'Y'
+			AND t.TEAM_CATEGORY = #{category}
+			<choose>
+				<when test="searchArea != 'all'">
+					and t.ACTIVITY_AREA LIKE #{searchArea}
+				</when>
+				<otherwise>
+					and t.ACTIVITY_AREA LIKE '%'
+				</otherwise>
+			</choose>
+		GROUP BY
+			t.TEAM_NO,
+			t.TEAM_DESCRIPTION,
+<!--			t.ACTIVITY_AREA,-->
+			a.AREA_NAME,
+			pf.FILE_PATH,
+			pf.CHANGE_NAME
+		ORDER BY
+			<choose>
+				<when test="filter == 'latest'">
+					t.TEAM_ENROLL_DATE DESC;
+				</when>
+				<otherwise>
+					<!-- 추가 정렬 조건 자리 -->
+				</otherwise>
+			</choose>
+	</select>
+	<!-- 단원 모집 디테일 페이지 -->
+	<select id="selectRecruitDetail" parameterType="_int" resultType="RecruitDetailDto">
+		SELECT
+			t.TEAM_NO as teamNo,
+			t.TEAM_NAME as teamName,
+			t.TEAM_CATEGORY as teamCategory,
+			COUNT(tm.MEM_NO) AS memberCount,
+<!--			t.ACTIVITY_AREA as activityArea,-->
+			a.AREA_NAME as activityArea,
+			t.TEAM_DESCRIPTION as teamDescription,
+			pf.CHANGE_NAME as teamProfileChangeName,
+			ti.CHANGE_NAME AS thumbnailChangeName
+		FROM
+			TEAM t
+		left JOIN PROFILE_FILE pf ON (t.TEAM_NO = pf.TEAM_NO)
+		LEFT JOIN TEAM_MEMBER tm ON (t.TEAM_NO = tm.TEAM_NO) AND (tm.STATUS = 'Y')
+		LEFT JOIN TEAM_IMG ti ON (t.TEAM_NO = ti.TEAM_NO)
+		JOIN AREA a ON (t.ACTIVITY_AREA = a.ACTIVITY_AREA)
+		WHERE
+			t.TEAM_NO = #{tno}
+		GROUP BY
+			t.TEAM_NAME,
+			t.TEAM_CATEGORY,
+<!--			t.ACTIVITY_AREA,-->
+			a.AREA_NAME,
+			t.TEAM_DESCRIPTION,
+			pf.CHANGE_NAME,
+			ti.CHANGE_NAME;
+	</select>
+	<!-- 지역명 반환 -->
+	<select id="selectAreaName" parameterType="String" resultType="String">
+		select AREA_NAME
+		from AREA
+		where ACTIVITY_AREA = #{searchArea}
+	</select>
+	<!-- 구단 가입 신청 -->
+	<insert id="insertRecruit" parameterType="RecruitDto">
+		insert into recruit(
+			team_no,
+			mem_no,
+			introduce
+		)values(
+			#{teamNo},
+			#{memNo},
+			#{introduce}
+		)
+	</insert>
+
+
+
+
     <select id="selectListCount" resultType="_int">
         SELECT COUNT(*)
         FROM TEAM_BOARD
@@ -194,4 +296,79 @@
 	    WHERE 
 	        COM_NO = #{cno}
 	</update>
+
+	<insert id="insertTeam" parameterType="Team" useGeneratedKeys="true" keyProperty="teamNo" >
+		insert into team(
+		MEM_NO,
+		TEAM_NAME,
+		TEAM_DESCRIPTION,
+		TEAM_MAX_PERSON,
+		TEAM_CATEGORY,
+		ACTIVITY_TIME,
+		ACTIVITY_AREA
+		) values(
+		#{memNo},
+		#{teamName},
+		#{teamDescription},
+		#{teamMaxPerson},
+		#{teamCategory},
+		#{activityTime},
+		#{activityArea}
+		)
+	</insert>
+	<insert id="insertActivityDays" parameterType="TeamActivityDays">
+		insert into TEAM_ACTIVITY_DAYS(
+		<trim suffixOverrides=",">
+			TEAM_NO,
+			<if test="monday == 'Y'">
+				MON,
+			</if>
+			<if test="tuesday == 'Y'">
+				TUES,
+			</if>
+			<if test="wednesday == 'Y'">
+				WEDNES,
+			</if>
+			<if test="thursday == 'Y'">
+				THURS,
+			</if>
+			<if test="friday == 'Y'">
+				FRI,
+			</if>
+			<if test="saturday == 'Y'">
+				SATUR,
+			</if>
+			<if test="sunday == 'Y'">
+				SUN,
+			</if>
+		</trim>
+	
+		)values(
+		<trim suffixOverrides=",">
+			#{teamNo},
+			<if test="monday == 'Y'">
+				#{monday},
+			</if>
+			<if test="tuesday == 'Y'">
+				#{tuesday},
+			</if>
+			<if test="wednesday == 'Y'">
+				#{wednesday},
+			</if>
+			<if test="thursday == 'Y'">
+				#{thursday},
+			</if>
+			<if test="friday == 'Y'">
+				#{friday},
+			</if>
+			<if test="saturday == 'Y'">
+				#{saturday},
+			</if>
+			<if test="sunday == 'Y'">
+				#{sunday}
+			</if>
+		</trim>
+		)
+	</insert>
+
 </mapper>
