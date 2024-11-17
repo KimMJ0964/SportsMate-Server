@@ -118,4 +118,12 @@ public class BoardDao {
 		return sqlSession.insert("boardMapper.replyComment", map);
 	}
 	
+	public BoardFile fileCheck(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.selectOne("boardMapper.fileCheck", bno);
+	}
+	
+	public int updateBoardFile(SqlSessionTemplate sqlSession, BoardFile bf) {
+		return sqlSession.update("boardMapper.updateBoardFile", bf);
+	}
+	
 }

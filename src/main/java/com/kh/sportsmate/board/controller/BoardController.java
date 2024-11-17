@@ -135,9 +135,33 @@ public class BoardController {
 
 	// 게시글 수정
 	@PostMapping("modify.bd")
-	public String updateBoard(Board b, HttpSession session, Model m, int bno) {
+	public String updateBoard(Board b, MultipartFile fileUpload, HttpSession session, Model m, int bno) {
 		b.setBoardNo(bno);
 		System.out.println(b);
+		BoardFile bf;
+		
+		BoardFile fCheck = boardService.fileCheck(bno);
+		
+		if(fCheck == null) {	// 파일 없다면 새로 생성
+			String path = "resources/boardFile/";
+			String filePath = session.getServletContext().getRealPath(path);
+			if (!fileUpload.getOriginalFilename().equals("")) {
+				String changeName = Template.saveFile(fileUpload, session, path);
+				bf = new BoardFile(b.getBoardNo(), fileUpload.getOriginalFilename(), changeName, path);
+				
+				int result2 = boardService.saveBoardFile(bf);
+			}
+		} else {	// 파일 있다면 수정
+			String path = "resources/boardFile/";
+			String filePath = session.getServletContext().getRealPath(path);
+			if (!fileUpload.getOriginalFilename().equals("")) {
+				String changeName = Template.saveFile(fileUpload, session, path);
+				bf = new BoardFile(b.getBoardNo(), fileUpload.getOriginalFilename(), changeName, path);
+				
+				int result2 = boardService.updateBoardFile(bf);
+			}
+		}
+		
 		int result = boardService.updateBoard(b);
 
 		if (result > 0) { // 성공

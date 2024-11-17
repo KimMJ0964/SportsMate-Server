@@ -81,4 +81,10 @@ public interface BoardService {
 	
 	// 대댓글 작성
 	int replyComment(Map<String, String> map);
+	
+	// 파일 있는지 확인
+	BoardFile fileCheck(int bno);
+	
+	// 게시글 수정 파일 업데이트
+	int updateBoardFile(BoardFile bf);
 }

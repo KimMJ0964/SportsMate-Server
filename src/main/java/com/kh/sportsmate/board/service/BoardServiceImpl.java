@@ -166,4 +166,16 @@ public class BoardServiceImpl implements BoardService{
 	public int replyComment(Map<String, String> map) {
 		return boardDao.replyComment(sqlSession, map);
 	}
+	
+	// 파일 있는지 확인
+	@Override
+	public BoardFile fileCheck(int bno) {
+		return boardDao.fileCheck(sqlSession, bno);
+	}
+	
+	// 파일 업데이트
+	@Override
+	public int updateBoardFile(BoardFile bf) {
+		return boardDao.updateBoardFile(sqlSession, bf);
+	}
 }

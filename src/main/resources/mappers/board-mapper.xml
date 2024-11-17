@@ -121,6 +121,13 @@
 		WHERE REF_BOARD_NO = #{bno}
 	</select>
 	
+	<!-- 파일 확인 -->
+	<select id="fileCheck" resultType="BoardFile">
+		SELECT * 
+		FROM BOARD_FILE 
+		WHERE REF_BOARD_NO = #{bno}
+	</select>
+	
 	<!-- INSERT -->
 	<!-- 게시글 생성 -->
 	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">
@@ -278,6 +285,18 @@
 		WHERE BOARD_NO =
 		#{bno}
 		AND MEM_NO = #{memNo}
+	</update>
+	
+	<!-- 파일 업데이트 -->
+	<update id="updateBoardFile">
+		UPDATE BOARD_FILE
+		SET 
+			ORIGIN_NAME = #{originName},
+			CHANGE_NAME = #{changeName},
+			FILE_PATH = #{filePath},
+			STATUS = 'Y'
+		WHERE 
+			REF_BOARD_NO = #{refBoardNo}
 	</update>
 	
 </mapper>

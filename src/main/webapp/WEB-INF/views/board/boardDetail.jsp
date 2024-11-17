@@ -157,15 +157,13 @@
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="exampleModalLabel">신고</h1>
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">답글</h1>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		     <form method="post" action="replyComment.bd">
 		      <div class="modal-body">
 		        <div class="bd-report-title">
-		        	<h5>답글</h5>
 		        </div>
-		        <br>
 		        <div class="bd-report-content">
 		        	<textarea class="bd-report-content-textarea" id="report-content" name="pnContent" class="report-content" style="width: 100%; height: 300px;  border: 2px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
 		        </div>
@@ -185,20 +183,5 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/board/boardDetail.js"></script>
-   	<script>
-    // 신고 버튼 클릭 시 모달에 boardNo와 comNo 값을 설정
-    function setReportData(boardNo, comNo, reporterNo) {
-        // 모달 내부의 boardNo와 comNo input 필드에 값 설정
-        document.getElementById("report-boardNo").value = boardNo;
-        document.getElementById("report-comNo").value = comNo;
-        document.getElementById("report-reporterNo").value = reporterNo;
-    }
-    
-    function setCommentData(comParentNo, boardNo) {
-    	document.getElementById("comParentNo").value = comParentNo;
-    	document.getElementById("comment-boardNo").value = boardNo;
-    }
-</script>
-
 </body>
 </html>
