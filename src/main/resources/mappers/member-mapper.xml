@@ -68,30 +68,30 @@
         #{memStatus}
         )
     </insert>
-    <insert id="insertProfile" parameterType="Profile">
-        INSERT into PROFILE_FILE(
-        <if test="memNo > 0">
-            mem_no,
-        </if>
-        <if test="teamNo > 0">
-            team_no,
-        </if>
-        ORIGIN_NAME,
-        CHANGE_NAME,
-        FILE_PATH
-        )
-        values(
-        <if test="memNo > 0">
-            #{memNo},
-        </if>
-        <if test="teamNo > 0">
-            #{teamNo},
-        </if>
-        #{originName},
-        #{changeName},
-        #{filePath}
-        )
-    </insert>
+<!--    <insert id="insertProfile" parameterType="Profile">-->
+<!--        INSERT into PROFILE_FILE(-->
+<!--        <if test="memNo > 0">-->
+<!--            mem_no,-->
+<!--        </if>-->
+<!--        <if test="teamNo > 0">-->
+<!--            team_no,-->
+<!--        </if>-->
+<!--        ORIGIN_NAME,-->
+<!--        CHANGE_NAME,-->
+<!--        FILE_PATH-->
+<!--        )-->
+<!--        values(-->
+<!--        <if test="memNo > 0">-->
+<!--            #{memNo},-->
+<!--        </if>-->
+<!--        <if test="teamNo > 0">-->
+<!--            #{teamNo},-->
+<!--        </if>-->
+<!--        #{originName},-->
+<!--        #{changeName},-->
+<!--        #{filePath}-->
+<!--        )-->
+<!--    </insert>-->
     <insert id="insertCategory" parameterType="Category">
         insert into category(
         <trim suffixOverrides=",">
@@ -118,6 +118,22 @@
             <if test="baseSkill != null">#{baseSkill}</if>
         </trim>
         )
+    </insert>
+    <select id="selectLog" parameterType="LoginLog" resultType="LoginLog">
+        select MEM_NO as memNo,
+            LOGIN_DATE AS loginLog
+        from login_log
+        where MEM_NO = #{memNo} AND DATE_FORMAT(LOGIN_DATE, '%Y/%m/%d') = DATE_FORMAT(SYSDATE(), '%Y/%m/%d')
+    </select>
+    <insert id="insertLog" parameterType="LoginLog">
+    	insert into login_log(
+    	MEM_NO,
+    	LOGIN_DATE
+    	)
+    	VALUES(
+    	#{memNo},
+    	SYSDATE()
+    	)
     </insert>
     
     <!-- 마이페이지 -->

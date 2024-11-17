@@ -34,32 +34,27 @@
             SportMate
         </div>
 
-        <div class="search-bar">
-            <form action="" class="search-bar-form">
-                <input type="text" placeholder="구장명을 입력하세요.">
-                <button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png"
-                             class="search-btn"></button>
-            </form>
-        </div>
-        <div class="user-icon">
-            <c:choose>
-                <c:when test="${loginMember.memStatus.equals('A')}">
-                    <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
-                         alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
-                </c:when>
-                <c:when test="${loginMember.memStatus.equals('M')}">
-                    <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
-                         alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
-                </c:when>
-                <c:when test="${loginMember.memStatus.equals('Y')}">
-                    <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
-                         alt="" onclick="location.href = '${pageContext.request.contextPath}/myPageInfo.mp'">
-                </c:when>
-                <c:otherwise>
-                    <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
-                         alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
-                </c:otherwise>
-            </c:choose>
+		<div class="search-bar">
+			<form action="" id="search-bar-form">
+				<input type="text" placeholder="구장명을 입력하세요.">
+				<button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png" class="search-btn"></button>
+			</form>
+		</div>
+		<div class="user-icon">
+			<c:choose>
+				<c:when test="${loginMember.memStatus.equals('A')}">
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/adminPage.me'">
+				</c:when>
+				<c:when test="${loginMember.memStatus.equals('M')}">
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+				</c:when>
+				<c:when test="${loginMember.memStatus.equals('Y')}">
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/myPage.me'">
+				</c:when>
+				<c:otherwise>
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+				</c:otherwise>
+			</c:choose>
 
         </div>
     </div>
