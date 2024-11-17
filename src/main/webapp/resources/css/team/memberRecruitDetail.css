@@ -1,0 +1,121 @@
+.wrap{
+    position: relative;
+}
+.menu-title{
+    height: 100px;
+    font-size: 25px;
+    font-weight: 800;
+    position: absolute;
+    left: 100px;
+    line-height: 100px;
+}
+.recruit-list-wrap{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+#title{
+    height: 100px;
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 100px;
+    align-self: start;
+}
+.category-wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-self: start;
+    gap: 20px;
+}
+.category-wrap span{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px;
+    cursor: pointer;
+}
+.category-wrap span:hover{
+    background-color: #d9d7d7;
+}
+.filter-wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 15px 0px;
+}
+.content-wrap{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.content-wrap > .team-logo-wrap{
+    width: 70px;
+    height: 69px;
+    align-self: center;
+}
+.content-wrap > .team-logo-wrap > img{
+    width: 69px;
+    height: 69px;
+}
+.team-info-wrap{
+    width: 80%;
+    height: 70px;
+    align-self: center;
+
+}
+
+.team-info-wrap > p:nth-child(1),
+.team-info-wrap > p:nth-child(3){
+    font-size: 14px;
+}
+.team-info-wrap > p:nth-child(1){
+    font-weight: 700;
+}
+.memberCount{
+    font-size: 12px;
+}
+
+.team-description-wrap{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+.team-description-wrap > img{
+    max-width: 1200px;
+    padding: 10px 0px 30px 0px;
+}
+.team-description-wrap textarea{
+    width: 100%;
+    margin: auto;
+    resize: none;
+}
+.btn-wrap{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+}
+.btn-wrap button{
+    width: 40%;
+    border: none;
+    border-radius: 8px;
+    height: 55px;
+    color: #ffffff;
+}
+#back-list-btn{
+    background-color: #7e7e7e;
+}
+#apply-btn{
+    background-color: #0076d9;
+}
+.modal-dialog{
+    top: 35%;
+
+}

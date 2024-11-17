@@ -269,4 +269,8 @@ public class TeamController {
 
 		return "redirect:/";
 	}
+	@GetMapping(value = "recruit_detail.tm")
+	public String moveRecruitDetail(){
+		return "team/memberRecruitDetail";
+	}
 }

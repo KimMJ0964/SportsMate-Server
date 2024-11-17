@@ -19,6 +19,7 @@
     <div class="wrap">
         <jsp:include page="../common/header.jsp"/>
         <jsp:include page="../common/nav.jsp"/>
+        <div class="menu-title">구단 메뉴</div>
         <div class="select-wrap">
             <div class="btn-wrap">
                 <div class="btn-title">구단 창설</div>
