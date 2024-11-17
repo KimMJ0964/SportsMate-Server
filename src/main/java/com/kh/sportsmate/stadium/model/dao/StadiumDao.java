@@ -33,6 +33,7 @@ public class StadiumDao {
     public int insetRental(SqlSessionTemplate sqlSession, Rental rental) {
         return sqlSession.insert("stadiumMapper.insetRental", rental);
     }
+
     public int insertStadiumAttachment(SqlSessionTemplate sqlSession, ArrayList<StadiumAttachment> stadiumAttachmentImgs){
         return sqlSession.insert("stadiumMapper.insertStadiumAttachment", stadiumAttachmentImgs);
     }
