@@ -38,11 +38,10 @@
                     <div class="profile-info">
                         <img src="${pageContext.request.contextPath}/resources/images/my-profile.png" alt="프로필 이미지">
                         <div class="profile-details">
-                            <strong>관리자</strong>
-                            <span>ganeljea@naver.com</span>
+                            <strong>${loginMember.memName}</strong>
+                            <span>${loginMember.memEmail}</span>
                         </div>
                     </div>
-                    <button>프로필 수정</button>
                 </div>
 
                 <!-- 메뉴 박스 -->
@@ -52,7 +51,7 @@
                         <div class="dash-1">
                             <fieldset>
                                 <legend>신고 접수</legend>
-                                <h4>1건</h4>
+                                <h4>${reportCount}건</h4>
                             </fieldset>
                         </div>
                         <div class="dash-2">
@@ -72,7 +71,7 @@
 
                 <div class="menu-box">
                     <h3>구장 관리자 메뉴</h3>
-                    <a href="adminReport.me?category=match&cpage=1" class="menu-item">
+                    <a href="adminReport.me?category=match" class="menu-item">
                         <img src="${pageContext.request.contextPath}/resources/images/report-match.png" alt="">경기 신고
                         관리</a>
 
@@ -84,7 +83,7 @@
                         <img src="${pageContext.request.contextPath}/resources/images/report-comment.png" alt="">댓글 신고
                         관리</a>
 
-                    <a href="blockUser.me" class="menu-item">
+                    <a href="blockList.me" class="menu-item">
                         <img src="${pageContext.request.contextPath}/resources/images/block-user.png" alt="">차단 유저
                         관리</a>
                 </div>

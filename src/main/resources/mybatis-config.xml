@@ -32,6 +32,7 @@
         <typeAlias type="com.kh.sportsmate.admin.model.vo.MemberPenalty" alias="MemberPenalty"/>
         <!-- Attachment -->
         <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
+        <typeAlias type="com.kh.sportsmate.admin.model.dto.BlockProfileDto" alias="BlockProfileDto"/>
         <!-- Stadium -->
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Stadium" alias="Stadium"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Amenities" alias="Amenities"/>

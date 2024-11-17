@@ -42,81 +42,27 @@
         </div>
 
         <div class="result-container">
-            <div class="victory-container">
-                <div class="victory-row">
-                    <div class="team-info">
-                        <img src="${pageContext.request.contextPath}/resources/images/my-profile.png" alt="경기 결과 로고" class="gameresult-logo">
-                        <form action="">
-                            <ul>
-                                <li><b>유저ID: </b>user01</li>
-                                <li><b>누적 패널티: </b>3회</li>
-                                <li><b>패널티 기간: </b>~xxxx.xx.xx</li>
-                                <li><b>패널티 사유: </b>게시글도배</li>
-                            </ul>
-                            <div class="report-btns">
-                                <button class="report-btn">차단해제</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        	<c:forEach var="b" items="${list}">
+	            <div class="victory-container">
+	                <div class="victory-row">
+	                    <div class="team-info">
+	                        <img src="${pageContext.request.contextPath}/resources/images/my-profile.png" alt="" class="gameresult-logo">
+	                        <form action="">
+	                            <ul>
+	                                <li><b>유저ID: </b>${b.memEmail}</li>
+	                                <li><b>누적 패널티: </b>${b.pnCount}</li>
+	                                <li><b>패널티 기간: </b>~${b.pnDate}</li>
+	                                <li><b>패널티 사유: </b>${b.pnContent}</li>
+	                            </ul>
+	                            <div class="report-btns">
+	                                <button class="report-btn">차단해제</button>
+	                            </div>
+	                        </form>
+	                    </div>
+	                </div>
+	            </div>
+            </c:forEach>
 
-            <div class="victory-container">
-                <div class="victory-row">
-                    <div class="team-info">
-                        <img src="${pageContext.request.contextPath}/resources/images/my-profile.png" alt="경기 결과 로고" class="gameresult-logo">
-                        <form action="">
-                            <ul>
-                                <li><b>유저ID: </b>user01</li>
-                                <li><b>누적 패널티: </b>3회</li>
-                                <li><b>패널티 기간: </b>~xxxx.xx.xx</li>
-                                <li><b>패널티 사유: </b>게시글도배</li>
-                            </ul>
-                            <div class="report-btns">
-                                <button class="report-btn">차단해제</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="victory-container">
-                <div class="victory-row">
-                    <div class="team-info">
-                        <img src="${pageContext.request.contextPath}/resources/images/my-profile.png" alt="경기 결과 로고" class="gameresult-logo">
-                        <form action="">
-                            <ul>
-                                <li><b>유저ID: </b>user01</li>
-                                <li><b>누적 패널티: </b>3회</li>
-                                <li><b>패널티 기간: </b>~xxxx.xx.xx</li>
-                                <li><b>패널티 사유: </b>게시글도배</li>
-                            </ul>
-                            <div class="report-btns">
-                                <button class="report-btn">차단해제</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="victory-container">
-                <div class="victory-row">
-                    <div class="team-info">
-                        <img src="${pageContext.request.contextPath}/resources/images/my-profile.png" alt="경기 결과 로고" class="gameresult-logo">
-                        <form action="">
-                            <ul>
-                                <li><b>유저ID: </b>user01</li>
-                                <li><b>누적 패널티: </b>3회</li>
-                                <li><b>패널티 기간: </b>~xxxx.xx.xx</li>
-                                <li><b>패널티 사유: </b>게시글도배</li>
-                            </ul>
-                            <div class="report-btns">
-                                <button class="report-btn">차단해제</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
             <!-- 등록 버튼 -->
             <button class="registration-button">뒤로가기</button>
         </div>
