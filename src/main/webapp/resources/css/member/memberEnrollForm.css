@@ -10,7 +10,7 @@
 }
 
 /* --------------- Header에 포함되어 있는 css ---------------*/
-#login-wrap {
+#enroll-wrap {
     /*width: 40%;*/
     width: 480px;
     height: 800px;
@@ -33,7 +33,11 @@
     width: 100%;
 }
 
-.enroll-form input[type='email'], input[type='password'], input[type='text'], select, input[type='number'] {
+.enroll-form input[type='email'],
+.enroll-form input[type='password'],
+.enroll-form input[type='text'],
+.enroll-form select,
+.enroll-form input[type='number']  {
     width: 100%;
     height: 50px;
     border: none;
@@ -41,6 +45,13 @@
     background-color: #F1F3F5;
     font-size: 16px;
     padding: 10px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.form-title{
+    font-size: 20px;
 }
 
 .year-wrap, .month-wrap, .day-wrap {
@@ -54,22 +65,14 @@
     justify-content: space-around;
 }
 
-/*.enroll-form button[type='submit'] {*/
-/*    width: 100%;*/
-/*    height: 65px;*/
-/*    border-radius: 8px;*/
-/*    border: none;*/
-/*    background-color: #307DFA;*/
-/*    color: white;*/
-/*    font-size: 20px;*/
-/*    font-weight: 700;*/
-/*}*/
+/* 회원가입 버튼 활성화/비활성화시 css */
 .none-clickable{
     width: 100%;
     height: 65px;
     border-radius: 8px;
     border: none;
     background-color: #8cb0ed;
+    /*background-color: #307DFA;*/
     color: #ffffff;
     font-size: 20px;
     font-weight: 700;
@@ -86,32 +89,73 @@
     cursor: pointer;
 }
 
-.find-info-wrap {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
+/*.find-info-wrap {*/
+/*    width: 100%;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: space-around;*/
+/*    align-items: center;*/
+/*}*/
 
-.find-info-wrap a {
-    text-decoration-line: none;
-    color: black;
-}
+/*.find-info-wrap a {*/
+/*    text-decoration-line: none;*/
+/*    color: black;*/
+/*}*/
 
-.find-info {
-    width: 50%;
-    text-align: center;
-}
+/*.find-info {*/
+/*    width: 50%;*/
+/*    text-align: center;*/
+/*}*/
 
-.enroll-member {
-    width: 50%;
-    text-align: center;
-}
+/*.enroll-member {*/
+/*    width: 50%;*/
+/*    text-align: center;*/
+/*}*/
 
 .split-bar {
     width: 100%;
     border-bottom: 2px solid lightgray;
+}
+/*------------- 주소 -------------*/
+.address-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.zipcode {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+}
+
+.address-search-button {
+    padding: 8px 12px;
+    background-color: #307DFA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.basic-address,
+.detail-address {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+}
+.red{
+    color: red;
+}
+.green{
+    color: green;
 }
 
 @media (min-width: 481px) and (max-width: 1200px) {
@@ -119,11 +163,15 @@
 }
 
 @media (min-width: 300px) and (max-width: 480px) {
-    #login-wrap {
+    #enroll-wrap {
         width: 80%;
     }
 
-    .enroll-form input[type='email'], input[type='password'], input[type='text'], select {
+
+    .enroll-form input[type='email'],
+    .enroll-form input[type='password'],
+    .enroll-form input[type='text'],
+    .enroll-form select {
         font-size: 14px;
 
     }
@@ -139,11 +187,12 @@
     width: 116px;
     height: 116px;
     border-radius: 50%;
-}
-
-#profileImg {
     cursor: pointer;
 }
+
+/*#profileImg {*/
+/* */
+/*}*/
 
 select option:nth-child(1) {
     color: #757575;
@@ -157,10 +206,13 @@ select option:nth-child(1) {
     margin: 30px 0px;
 }
 
-.category-checkBox > input[type=checkbox], label {
+.category-checkBox > input[type=checkbox] {
     width: 15px;
     height: 15px;
-    font-size: 20px;
+
+}
+.category-checkBox label{
+    font-size: 21px;
     padding: 0px 5px;
 }
 
@@ -218,7 +270,4 @@ select option:nth-child(1) {
 }
 #soccer-info, #futsal-info, #basketball-info, #baseball-info{
     display: none;
-}
-.submit-btn > button {
-
 }

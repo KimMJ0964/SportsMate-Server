@@ -16,6 +16,7 @@
 </head>
 <body>
     <div class="wrap">
+        <jsp:include page="../common/header.jsp" />
         <div class="select-wrap">
             <div class="user" onclick="location.href = 'memberEnrollForm.me'">
                 <img src="${pageContext.request.contextPath}/resources/images/user.png" alt=""><br>

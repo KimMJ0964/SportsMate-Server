@@ -1,0 +1,287 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrap {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* --------------- Header에 포함되어 있는 css ---------------*/
+#enroll-wrap {
+    width: 480px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: auto;
+}
+
+.enroll-form {
+    width: 100%;
+}
+
+.enroll-form > div {
+    margin: 20px 0px;
+}
+
+.email-wrap {
+    width: 100%;
+}
+
+.enroll-form input[type='email'],
+.enroll-form input[type='password'],
+.enroll-form input[type='text'],
+.enroll-form select,
+.enroll-form input[type='number'] {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    background-color: #F1F3F5;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.year-wrap, .month-wrap, .day-wrap {
+    width: 30%;
+    height: 50px;
+}
+
+.birth-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.none-clickable {
+    width: 100%;
+    height: 65px;
+    border-radius: 8px;
+    border: none;
+    background-color: #8cb0ed;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.clickable {
+    width: 100%;
+    height: 65px;
+    border-radius: 8px;
+    border: none;
+    background-color: #307DFA;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+
+.enroll-member {
+    width: 50%;
+    text-align: center;
+}
+
+.split-bar {
+    width: 100%;
+    border-bottom: 2px solid lightgray;
+}
+
+
+/*--------------------------------------------------------*/
+.input-wrap input[type="time"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.image-upload-group {
+    display: flex;
+    align-items: center;
+    background-color: #F1F3F5;
+    border-radius: 8px;
+    width: 100%;
+    height: 50px;
+}
+
+.image-upload-group > input[type='file'] {
+    width: 100%;
+    padding: 10px;
+}
+
+
+select option:nth-child(1) {
+    color: #757575;
+}
+
+.category-checkBox-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 15px 0px;
+}
+
+.rental-checkBox-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+    margin: 15px 0px;
+    padding: 0px 11px;
+}
+
+.category-checkBox > input[type=checkbox] {
+    width: 15px;
+    height: 15px;
+
+}
+
+.category-checkBox label {
+    font-size: 18px;
+    padding: 0px 5px;
+}
+
+.category-name {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.description-skill-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    margin: 10px 0px;
+    padding: 10px 10px;
+}
+
+.description-skill-wrap div {
+    padding: 3px 0px;
+}
+
+.split-bar-agreement {
+    width: 100%;
+    border-bottom: 2px solid lightgray;
+    margin: 3px 0px 6px 0px !important;
+}
+
+.agreement {
+    width: 15px;
+    height: 15px;
+    padding: 0px 5px;
+}
+
+#soccer-info > div, span {
+    margin: 20px 0px;
+}
+
+#futsal-info > div, span {
+    margin: 20px 0px;
+
+}
+
+#basketball-info > div, span {
+    margin: 20px 0px;
+
+}
+
+#baseball-info > div, span {
+    margin: 20px 0px;
+
+}
+
+#soccer-info, #futsal-info, #basketball-info, #baseball-info {
+    display: none;
+}
+
+/*------------- 주소 -------------*/
+.address-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.zipcode {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+}
+
+.address-search-button {
+    padding: 8px 12px;
+    background-color: #307DFA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.basic-address,
+.detail-address {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+}
+
+.form-title {
+    font-size: 20px;
+}
+
+.time-group {
+    display: flex;
+    align-items: center;
+}
+
+.time-group span {
+    margin: 0 5px;
+}
+
+@media (min-width: 481px) and (max-width: 1200px) {
+    .category-checkBox label {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 480px) {
+    #enroll-wrap {
+        width: 80%;
+    }
+
+    .enroll-form input[type='email'], input[type='password'], input[type='text'], select {
+        font-size: 14px;
+    }
+
+    .category-checkBox label {
+        font-size: 15px;
+    }
+
+    .category-checkBox > input[type=checkbox] {
+        width: 13px;
+        height: 13px;
+    }
+
+    .rental-checkBox-wrap {
+        padding: 0px 2px;
+    }
+}

@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
-body {
-		margin: 0 auto;
-		box-sizing: border-box;
-		font-family: 'Noto Sans KR', sans-serif; /* 나눔고딕 설정 */
-	}
+/*body {*/
+/*		margin: 0 auto;*/
+/*		box-sizing: border-box;*/
+/*		font-family: 'Noto Sans KR', sans-serif; !* 나눔고딕 설정 *!*/
+/*	}*/
 	
 	.footer {
 		display: block;
