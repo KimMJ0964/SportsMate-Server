@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.board.model.dto.BoardMemberPanalty;
+import com.kh.sportsmate.board.model.dto.CommentInfo;
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
 import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.board.service.BoardService;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.member.model.vo.ProfileFile;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,7 +51,7 @@ public class BoardServiceImpl implements BoardService{
 
 	// 댓글 가져오기
 	@Override
-	public ArrayList<BoardComment> commentList(int bno) {
+	public ArrayList<CommentInfo> commentList(int bno) {
 		return boardDao.commentList(sqlSession, bno);
 	}
 	

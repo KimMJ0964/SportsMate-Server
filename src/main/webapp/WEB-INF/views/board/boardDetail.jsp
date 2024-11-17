@@ -68,10 +68,19 @@
 				 <c:if test="${comments.comParentNo == 0}">    
 		        <div class="bd-one-comment-container">
 		            <div class="bd-comment-info">
-		                <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/board_like.png" />
+		                <img class="bd-comment-profile-img" src="${comments.filePath}${comments.changeName}" />
 		                <div class="bd-name">${comments.memName}</div>
 		            </div>
-		            <div class="bd-comment-content">${comments.comContent}</div>
+		            <div class="bd-comment-content">
+					    <c:choose>
+					        <c:when test="${comments.status == 'N'}">
+					            <span class="deleted-comment">삭제된 댓글입니다.</span>
+					        </c:when>
+					        <c:otherwise>
+					            ${comments.comContent}
+					        </c:otherwise>
+					    </c:choose>
+					</div>
 		            <hr>
 		            <div class="bd-button-container">
 		                <div class="bd-red-button" onclick="location.href = 'deleteComm.bd?cno=${comments.comNo}&bno=${board.boardNo }'">댓글 삭제</div>
@@ -85,13 +94,22 @@
                           <!-- Check if this is a reply to the current parent comment -->
                           <c:if test="${reply.comParentNo == comments.comNo}">
                               <div class="bd-reply">
-                                  <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/Logo.png" />
+                                  <img class="bd-comment-profile-img" src="${reply.filePath}${reply.changeName}" />
                                   <div class="bd-name">${reply.memName}</div>
                               </div>
-                              <div class="bd-comment-content">${reply.comContent}</div>
+                              <div class="bd-comment-content">
+							    <c:choose>
+							        <c:when test="${reply.status == 'N'}">
+							            <span class="deleted-comment">삭제된 댓글입니다.</span>
+							        </c:when>
+							        <c:otherwise>
+							            ${reply.comContent}
+							        </c:otherwise>
+							    </c:choose>
+							</div>
                               <hr>
                               <div class="bd-button-container">
-                                  <button class="bd-red-button">답글 삭제</button>
+                                  <button class="bd-red-button" onclick="location.href = 'deleteComm.bd?cno=${reply.comNo}&bno=${board.boardNo }'">답글 삭제</button>
                                   <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${board.boardNo}, ${reply.comNo}, ${comments.memNo})">신고하기</button>
                                   <button class="bd-button" data-bs-toggle="modal" data-bs-target="#commentModal" onclick="setCommentData(${reply.comParentNo}, ${board.boardNo})">답글 작성</button>
                               </div>

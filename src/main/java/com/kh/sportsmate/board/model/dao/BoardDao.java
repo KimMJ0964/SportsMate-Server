@@ -9,11 +9,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.sportsmate.board.model.dto.BoardMemberPanalty;
+import com.kh.sportsmate.board.model.dto.CommentInfo;
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
 import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.member.model.vo.ProfileFile;
 
 @Repository
 public class BoardDao {
@@ -32,7 +34,7 @@ public class BoardDao {
 		return (Board) sqlSession.selectOne("boardMapper.detailList", bno);
 	}
 	
-	public ArrayList<BoardComment> commentList(SqlSessionTemplate sqlSession, int bno) {
+	public ArrayList<CommentInfo> commentList(SqlSessionTemplate sqlSession, int bno) {
 		return (ArrayList) sqlSession.selectList("boardMapper.commentList", bno);
 	}
 	
@@ -115,5 +117,5 @@ public class BoardDao {
 	public int replyComment(SqlSessionTemplate sqlSession, Map<String, String> map) {
 		return sqlSession.insert("boardMapper.replyComment", map);
 	}
-			
+	
 }

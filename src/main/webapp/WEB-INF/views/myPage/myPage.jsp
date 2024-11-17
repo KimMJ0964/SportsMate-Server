@@ -113,10 +113,10 @@
 								<div class="my-bestplayer-vote">
 									<!-- a팀 -->
 									<div class="my-bestplayer-vote-a">
-										<div>
+										<div class="aTeam-name">
 											<img
 												src="${pageContext.request.contextPath}/resources/images/Logo.png"
-												style="width: 60px;"> <span>a팀</span>
+												style="width: 60px;"> <span></span>
 										</div>
 										<br>
 										<table class="modal-ateam-table"
@@ -128,10 +128,10 @@
 									<hr style="height: 3px; background-color: black;">
 									<!-- B팀 -->
 									<div class="my-bestplayer-vote-b">
-										<div>
+										<div class="bTeam-name">
 											<img
 												src="${pageContext.request.contextPath}/resources/images/Logo.png"
-												style="width: 60px;"> <span>b팀</span>
+												style="width: 60px;"> <span></span>
 										</div>
 										<br>
 										<table class="modal-bteam-table"
@@ -327,35 +327,28 @@
 			
 			<!-- 문의 리스트 -->
 			<div class="questionContainer">
-			<i class="bi bi-caret-down-fill toggle-button" onclick="jointoggleHeight(event)"></i>
+			<i class="bi bi-caret-down-fill toggle-button" onclick="qnatoggleHeight(event)"></i>
 				<div class="joinTitle">내 문의 목록</div>
-				<c:forEach var="mr" items="${myRecruit}">
-					<div class="joinBox">
-						<div class="joinProfile">
-							<img src="" alt="" /> <br />
-							<div class="profile-text">${mr.memName }</div>
-						</div>
-						<div class="profile team-name">
-							<img src="" alt="" /> <br />
-							<div class="profile-text">${mr.teamName }</div>
-						</div>
-						<div class="buttons">
-							<Button class="view-btn" data-bs-toggle="modal"
-								data-bs-target="#exampleModaltwo"
-								data-name="${mr.memName}"
-		                        data-age="${mr.memAge}"
-								data-gender="${mr.memGender}"
-								data-rank="${mr.memRank}"
-								data-abl="${mr.ability}"
-								data-posi="${mr.position}"
-								data-intro="${mr.introduce }"
-		                        	>입단자 정보</Button>
-							<Button class="approve-btn" onclick="location.href = 'approveJoin.tm?mno=${mr.memNo}&tno=${mr.teamNo }'">승인</Button>
-							<Button class="reject-btn" onclick="location.href = 'rejectJoin.tm?mno=${mr.memNo}'">거절</Button>
-						</div>
-					</div>
-					<br>
-				</c:forEach>
+				<div class="joinBox">
+					<table class="mypage-qna-table">
+					    <thead class="mypage-qna-thead">
+					        <tr class="mypage-qna-header-row">
+					            <th class="mypage-qna-header">문의 제목</th>
+					            <th class="mypage-qna-header">질문</th>
+					            <th class="mypage-qna-header">문답</th>
+					        </tr>
+					    </thead>
+					    <tbody class="mypage-qna-tbody">
+					        <c:forEach var="mq" items="${myQna}">
+					            <tr class="mypage-qna-row">
+					                <td class="mypage-qna-cell">${mq.matchQTitle}</td>
+					                <td class="mypage-qna-cell">${mq.matchQDetail}</td>
+					                <td class="mypage-qna-cell">${mq.matchA}</td>
+					            </tr>
+					        </c:forEach>
+					    </tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
@@ -422,9 +415,21 @@
 	                teamBNo: teamBNo
 	            },
 	            success: function(response) {
+	            	console.log(response);
 	                const aTeamInfo = response.aTeamInfo;
 	                const bTeamInfo = response.bTeamInfo;
+	                const aTeamName = response.aTeamInfo[0]?.teamName || 'Unknown A Team';
+	                const bTeamName = response.bTeamInfo[0]?.teamName || 'Unknown B Team';
 
+	                console.log('A팀 이름:', aTeamName); // A팀 이름 출력
+	                console.log('B팀 이름:', bTeamName); // B팀 이름 출력
+
+	                // a팀 이름 삽입
+	                $('.aTeam-name span').text(aTeamName);
+
+	                // b팀 이름 삽입
+	                $('.bTeam-name span').text(bTeamName);
+	                
 	                // a팀 멤버 정보 출력
 	                let aTeamHtml = '';
 	                aTeamInfo.forEach(member => {

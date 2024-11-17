@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.match.model.vo.MatchBest;
+import com.kh.sportsmate.match.model.vo.MatchQna;
 import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
@@ -149,13 +151,23 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 	@Override
-	public int updatePassword(int memNo, String pwdModify) {
-		return mypageDao.updatePassword(sqlSession, memNo, pwdModify);
+	public int updatePassword( Map<String, String> map) {
+		return mypageDao.updatePassword(sqlSession, map);
 	}
 
 	@Override
 	public int accountCancel(int memNo) {
 		return mypageDao.accountCancel(sqlSession, memNo);
+	}
+
+	@Override
+	public ArrayList<MatchQna> selectMyQna(int memNo) {
+		return mypageDao.selectMyQna(sqlSession, memNo);
+	}
+
+	@Override
+	public MatchBest checkReview(Map<String, Integer> map) {
+		return mypageDao.checkReview(sqlSession, map);
 	}
 	
 

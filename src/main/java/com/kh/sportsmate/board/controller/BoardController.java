@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.dto.BoardMemberPanalty;
+import com.kh.sportsmate.board.model.dto.CommentInfo;
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
 import com.kh.sportsmate.board.model.vo.BoardFile;
@@ -18,6 +19,7 @@ import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.board.service.BoardService;
 
 import java.util.ArrayList;
@@ -60,16 +62,16 @@ public class BoardController {
 	@RequestMapping("detailMove.bd")
 	public String detailList(int bno, Model model) {
 		Board board = boardService.detailList(bno);
-		ArrayList<BoardComment> comment = boardService.commentList(bno);
+		ArrayList<CommentInfo> comment = boardService.commentList(bno);
 		int commentCount = boardService.commentCount(bno);
 		int boardViewAdd = boardService.viewAdd(bno);
 		int likeCount = boardService.likeCount(bno);
 		BoardFile bf = boardService.filedownloadLink(bno);
+		
 		if(bf != null) {
 			String downloadLink = bf.getFilePath() + bf.getChangeName();
 			model.addAttribute("downloadLink", downloadLink);
 		}
-		System.out.println(bf);
 		
 		model.addAttribute("likeCount", likeCount);
 		model.addAttribute("commentCount", commentCount);
@@ -82,6 +84,12 @@ public class BoardController {
 	@RequestMapping("modifyMove.bd")
 	public String mdBoardSelect(int mpage, Model model, HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		if (loginMember == null ) {
+			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
+			return "boardList.bd";
+		}
+		
 		int memNo = loginMember.getMemNo();
 		Board board = boardService.detailList(mpage);
 
@@ -180,7 +188,15 @@ public class BoardController {
 	@RequestMapping("writeReply.bd")
 	public String writeReply(int bno, String content, Model m, HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		if (loginMember == null ) {
+			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
+			return "redirect:detailMove.bd?bno=" + bno;
+		}
+		
 		int memNo = loginMember.getMemNo();
+		
+		
 		Map<String, String> map = new HashMap<>();
 		map.put("bno", String.valueOf(bno));
 		map.put("memNo", String.valueOf(memNo));
@@ -200,6 +216,12 @@ public class BoardController {
 	@RequestMapping("deleteComm.bd")
 	public String deleteReply(HttpSession session, int cno, int bno, Model m) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		if (loginMember == null ) {
+			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
+			return "redirect:detailMove.bd?bno=" + bno;
+		}
+		
 		int memNo = loginMember.getMemNo();
 
 		BoardComment comment = boardService.getCommentById(cno);

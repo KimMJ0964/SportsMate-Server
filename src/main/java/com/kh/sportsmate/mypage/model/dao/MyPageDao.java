@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.match.model.vo.MatchBest;
+import com.kh.sportsmate.match.model.vo.MatchQna;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
@@ -65,7 +67,7 @@ public class MyPageDao {
 
 	// 리뷰 작성
 	public int insertPReview(SqlSessionTemplate sqlSession, StadiumReview pr) {
-		return sqlSession.insert("placeMapper.insertPReview", pr);
+		return sqlSession.insert("stadiumMapper.insertPReview", pr);
 	}
 
 	// 베스트 플레이어 선정 (투표자 기록)
@@ -112,15 +114,22 @@ public class MyPageDao {
 	}
 	
 	// 비밀번호 변경
-	public int updatePassword(SqlSessionTemplate sqlSession, int memNo, String pwdModify) {
-		Map<String, String> map = new HashMap<>();
-		map.put("memNo", String.valueOf(memNo));
-		map.put("memNo", pwdModify);
-		return sqlSession.selectOne("memberMapper.updatePassword", map);
+	public int updatePassword(SqlSessionTemplate sqlSession,  Map<String, String> map) {
+		return sqlSession.update("memberMapper.updatePassword", map);
 	}
 	
 	// 게정 탈퇴
 	public int accountCancel(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.update("memberMapper.accountCancel", memNo);
+	}
+	
+	// 내 문의
+	public ArrayList<MatchQna> selectMyQna(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList) sqlSession.selectList("memberMapper.selectMyQna", memNo);
+	}
+	
+	// 리뷰 체크
+	public MatchBest checkReview(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.selectOne("memberMapper.checkReview", map);
 	}
 }

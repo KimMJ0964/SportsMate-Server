@@ -122,6 +122,7 @@
     
     <!-- 마이페이지 -->
     <!-- 내 정보 -->
+    <!-- SELECT -->
      <select id="selectMyInfo" resultType="MemberPosition">
         SELECT MEM_NO as memNo,
         	   MEM_NAME as memName,
@@ -245,13 +246,34 @@
 	
 	<!-- 내 전적 이긴 횟수 -->
 	<select id="selectMyMatchWinCount" resultType="_int">
-		SELECT COUNT(DISTINCT M.MATCH_NO) AS higher_score_matches
-		FROM `MATCH` M
-		JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
-		JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
-		WHERE 
-		    (TA.MEM_NO = #{memNo} AND M.SCORE_A > M.SCORE_B)
-		    OR (TB.MEM_NO = #{memNo} AND M.SCORE_B > M.SCORE_A);
+		SELECT COUNT(*)
+		FROM (
+		    SELECT DISTINCT
+		        M.SCORE_A AS scoreA,
+		        M.SCORE_B AS scoreB,
+		        M.STADIUM_NO AS stadiumNo,
+		        M.MATCH_NO AS matchNo,
+		        A.TEAM_NAME AS teamAName,
+		        B.TEAM_NAME AS teamBName,
+		        M.TEAM_A_NO AS teamANo,
+		        M.TEAM_B_NO AS teamBNo
+		    FROM `MATCH` M
+		    JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
+		    JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
+		    JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
+		    JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
+		    WHERE (TA.MEM_NO = #{memNo} OR TB.MEM_NO = #{memNo})
+		      AND M.MATCH_NO IN (
+		          SELECT DISTINCT MATCH_NO
+		          FROM MATCH_BEST
+		          WHERE MEM_NO = #{memNo}
+		      )
+		       AND (
+			      (TA.MEM_NO = #{memNo} AND M.SCORE_A > M.SCORE_B)  -- A팀에 속한 경우, A팀이 더 높은 점수
+			      OR
+			      (TB.MEM_NO = #{memNo} AND M.SCORE_B > M.SCORE_A)  -- B팀에 속한 경우, B팀이 더 높은 점수
+			  )
+		) AS higher_score_matches;
 	</select>
     
     <!-- a팀 정보  #{teamANo} -->
@@ -259,6 +281,7 @@
 	    SELECT 
 		    m.MEM_NO as memNo, 
 		    m.MEM_NAME as memName,
+		    t.TEAM_NAME as teamName,
 		    CASE 
 		        WHEN t.TEAM_CATEGORY = '축구' THEN c.SOC_POSI
 		        WHEN t.TEAM_CATEGORY = '풋살' THEN c.FOOT_POSI
@@ -301,6 +324,32 @@
 		WHERE m.MEM_NO = #{memNo}
     </select>
     
+    <!-- 비밀번호 확인 -->
+	<select id="verifyOldPassword" resultType="String">
+        SELECT MEM_PWD
+        FROM MEMBER
+        WHERE MEM_NO = #{memNo}
+        AND MEM_PWD = #{MEM_PWD}
+    </select>
+    
+    <!-- 내 문의 -->
+    <select id="selectMyQna" resultType="MatchQna">
+	    SELECT MATCH_Q_TITLE AS matchQTitle,
+	    	   MATCH_Q_DETAIL AS matchQDetail,
+	    	   MATCH_A AS matchA
+	   	FROM MATCH_QNA
+	   	WHERE Q_MEM_NO = #{memNo}
+    </select>
+    
+    <!-- 리뷰 체크 -->
+    <select id="checkReview" resultType="MatchBest">
+    	SELECT VOTE_STATUS AS voteStatus
+    	FROM MATCH_BEST
+    	WHERE MATCH_NO = #{matchNo}
+    	AND MEM_NO = #{memNo}
+    </select>
+    
+    <!-- UPDATE -->
     <!-- 내 정보 수정 -->
     <update id="modifyMember" parameterType="Member">
 	    UPDATE MEMBER
@@ -347,18 +396,10 @@
 	    WHERE MEM_NO = #{memNo}
 	</update>
 	
-	<!-- 비밀번호 확인 -->
-	<select id="verifyOldPassword" resultType="String">
-        SELECT MEM_PWD
-        FROM MEMBER
-        WHERE MEM_NO = #{memNo}
-        AND MEM_PWD = #{MEM_PWD}
-    </select>
-    
     <!-- 비밀변경 수정 -->
     <update id="updatePassword">
 	    UPDATE MEMBER
-	    SET MEM_PWD = #{pwdModify}
+	    SET MEM_PWD = #{encodedNewPassword}
 	    WHERE MEM_NO = #{memNo}
     </update>
     
@@ -368,4 +409,5 @@
 	    SET MEM_STATUS = 'N'
 	    WHERE MEM_NO = #{memNo}
     </update>
+    
 </mapper>

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.match.model.vo.MatchBest;
+import com.kh.sportsmate.match.model.vo.MatchQna;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
@@ -64,9 +66,14 @@ public interface MyPageService {
     boolean verifyOldPassword(int memNo, String memPwd);
     
     // 비밀번호 변경
-    int updatePassword(int memNo, String pwdModify);
+    int updatePassword( Map<String, String> map);
     
     // 계정 탈퇴
     int accountCancel(int memNo);
     
+    // 내 문의
+    ArrayList<MatchQna> selectMyQna(int memNo);
+    
+    // 리뷰 체크
+    MatchBest checkReview(Map<String, Integer> map);
 }

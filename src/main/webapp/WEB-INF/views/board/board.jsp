@@ -98,7 +98,7 @@
 			            	</c:choose>
 			            
 			            </ul>
-        </div>
+        			</div>
 				</div>
 				
 				<div class="board-app-table-container"> <!-- 앱일 때 출력 -->
@@ -118,6 +118,34 @@
 				    
 			               </c:forEach>
 				    </table>
+				    
+				    <div class="board-pagination">
+			            <ul class="pagination">
+			            
+			            	<c:choose>
+			            		<c:when test="${ pi.currentPage eq 1 }">
+			            			<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+			            		</c:when>
+			            		<c:otherwise>
+			            			<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${pi.currentPage - 1}">이전</a></li>
+			            		</c:otherwise>
+			            	</c:choose>
+			
+							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+								<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${p}">${p}</a></li>
+							</c:forEach>
+			                
+			              <c:choose>
+			            		<c:when test="${ pi.currentPage eq pi.maxPage }">
+			            			<li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
+			            		</c:when>
+			            		<c:otherwise>
+			            			<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${pi.currentPage + 1}">다음</a></li>
+			            		</c:otherwise>
+			            	</c:choose>
+			            
+			            </ul>
+        			</div>
 				</div>
 				
 				<!-- 글쓰기 버튼 -->

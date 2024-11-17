@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.kh.sportsmate.board.model.dto.BoardMemberPanalty;
+import com.kh.sportsmate.board.model.dto.CommentInfo;
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.board.model.vo.BoardComment;
 import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.member.model.vo.ProfileFile;
 
 public interface BoardService {
 	//게시글 총 갯수 가져오기
@@ -21,7 +23,7 @@ public interface BoardService {
 	Board detailList(int bno);
 	
 	// 댓글 가져오기
-	ArrayList<BoardComment> commentList(int bno);
+	ArrayList<CommentInfo> commentList(int bno);
 	
 	// 댓글 수 구하기
 	int commentCount(int bno);

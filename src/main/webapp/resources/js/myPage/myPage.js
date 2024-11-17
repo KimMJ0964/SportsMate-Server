@@ -33,6 +33,14 @@ function toggleHeight(event) {
 	    container.style.height = currentHeight === '50px' ? 'max-content' : '50px';
 	}
 	
+	function qnatoggleHeight(event) {
+	    const container = event.target.closest('.questionContainer');
+	    const currentHeight = container.style.height;
+
+	    // Toggle height between '50px' and 'max-content'
+	    container.style.height = currentHeight === '50px' ? 'max-content' : '50px';
+	}
+	
  const viewButtons = document.querySelectorAll('.view-btn');
 	 
 	    viewButtons.forEach(button => {

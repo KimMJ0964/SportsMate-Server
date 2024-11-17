@@ -487,6 +487,38 @@
     }
 	
 	
+	.mypage-qna-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #d3d3d3; /* 연한 회색 테두리 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* 테이블 헤더 스타일 */
+.mypage-qna-header {
+    background-color: #f9f9f9;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #d3d3d3; /* 연한 회색 테두리 */
+    font-weight: bold;
+}
+
+/* 테이블 본문 스타일 */
+.mypage-qna-cell {
+    padding: 10px;
+    border: 1px solid #d3d3d3; /* 연한 회색 테두리 */
+    text-align: left;
+}
+
+/* 행 스타일 */
+.mypage-qna-row:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.mypage-qna-row:hover {
+    background-color: #f1f1f1;
+}
+	
 	@media (max-width: 480px) {
 		.MyInfoContainer {
 			width: 90%;
