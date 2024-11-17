@@ -114,7 +114,7 @@ public class BoardController {
 		System.out.println("게시글 생성" + boardNo);
 		if (boardNo > 0) { // 성공
 			
-			String path = "resources/boardFile/";
+			String path = "resources/images/boardFile/";
 	        String filePath = session.getServletContext().getRealPath(path);
 	        if (!fileUpload.getOriginalFilename().equals("")) {
 	            String changeName = Template.saveFile(fileUpload, session, path);
@@ -152,7 +152,7 @@ public class BoardController {
 				int result2 = boardService.saveBoardFile(bf);
 			}
 		} else {	// 파일 있다면 수정
-			String path = "resources/boardFile/";
+			String path = "resources/images/boardFile/";
 			String filePath = session.getServletContext().getRealPath(path);
 			if (!fileUpload.getOriginalFilename().equals("")) {
 				String changeName = Template.saveFile(fileUpload, session, path);
