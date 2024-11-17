@@ -212,4 +212,22 @@
         </trim>
         )
     </insert>
+    
+    <!-- 구장 리뷰 -->
+    <insert id="insertPReview">
+    	INSERT INTO STADIUM_REVIEW (
+		    REVIEW_CONTENT,
+		    REVIEW_STAR,
+		    STADIUM_NO,
+		    MEM_NO,
+		    REVIEW_DATE
+		)
+		VALUES (
+		    #{reviewContent},
+		    #{reviewStar},
+		    #{stadiumNo},
+		    #{memNo},
+		    NOW()
+		)
+    </insert>
 </mapper>

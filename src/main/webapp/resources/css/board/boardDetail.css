@@ -152,7 +152,11 @@ body {
         	height: 32px;
         	margin-right: 7px;
         }
-
+		
+		.deleted-comment {
+	        color: gray; /* 회색 텍스트 */
+	        text-decoration: line-through; /* 취소선 */
+	    }
         @media (max-width: 480px) {
             .bd-content-container {
                 width: 90%;
