@@ -28,7 +28,7 @@
 	
 }
 
-#search-bar-form{
+.search-bar-form{
 	border: 1px solid #1D87FA;
 	display: flex;
     justify-content: space-between;

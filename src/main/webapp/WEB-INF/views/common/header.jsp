@@ -49,7 +49,7 @@
 					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
 				</c:when>
 				<c:when test="${loginMember.memStatus.equals('Y')}">
-					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/myPage.me'">
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/myPageInfo.mp'">
 				</c:when>
 				<c:otherwise>
 					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
