@@ -161,7 +161,7 @@ const checkPasswordCondition = (ev) => {
     	
 		const phoneParts = phone.split("-");
 		const birthParts = birth.split("-");
-		const addParts = add.split(".");
+		const addParts = add.split(",");
         
         document.getElementById('phone1').value = phoneParts[0];
         document.getElementById('phone2').value = phoneParts[1];

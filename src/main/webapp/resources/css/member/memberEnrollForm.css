@@ -32,7 +32,10 @@
 .email-wrap {
     width: 100%;
 }
-
+.profile-description{
+    display: inline-block;
+    padding: 15px 0px;
+}
 .enroll-form input[type='email'],
 .enroll-form input[type='password'],
 .enroll-form input[type='text'],
