@@ -16,7 +16,7 @@ public interface TeamService {
 	ArrayList<TeamBoard> selectList(PageInfo pi, int teamNo);
 	
 	// 팀 목록 가져오기
-	ArrayList<TeamMember> selectMemberList(int teamNo);
+	ArrayList<TeamMemberInfo> selectMemberList(int teamNo);
 	
 	// 게시글 내용 가져오기
 	TeamBoard detailList(int bno);

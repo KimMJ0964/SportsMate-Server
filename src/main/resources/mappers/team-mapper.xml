@@ -131,7 +131,7 @@
 	</select>
 	
 	<!-- 구단 인원 목록 -->
-	<select id="selectMemberList" resultType="TeamMember">
+	<select id="selectMemberList" resultType="TeamMemberInfo">
 	    SELECT TM.MEM_NO as memNo,
 	           TM.MEM_ENROLL_DATE as memEnrollDate,
 	           TM.STATUS as status,

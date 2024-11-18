@@ -1,4 +1,4 @@
-package com.kh.sportsmate.team.model.vo;
+package com.kh.sportsmate.team.model.dto;
 
 import java.sql.Date;
 
@@ -15,9 +15,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class TeamMember {
+public class TeamMemberInfo {
 	private int teamNo;
 	private int memNo;
 	private String status;
 	private Date memEnrollDate;
+	
+	private String ability;
+	private String position;
+	private String memName;
 }
