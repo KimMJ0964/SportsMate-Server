@@ -7,7 +7,7 @@ $(document).ready(function () {
     $('.time-box').on('click',selectTime);
     setMaxMember();
     // 종목 체크박스 클릭 시 해당 체크박스 외 나머지 체크 해제
-    $(`input[type="checkbox"][name="category"]`).on('click', function() {
+    $(`input[type="checkbox"][name="teamCategory"]`).on('click', function() {
         checkToRadio($(this));
     });
 });
