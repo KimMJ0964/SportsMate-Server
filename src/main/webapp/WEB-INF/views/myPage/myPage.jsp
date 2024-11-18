@@ -46,7 +46,14 @@
 		<div class="myPage-container">
 			<!-- 사용자 프로필 -->
 			<div class="MyInfoContainer">
-				<img src="${filePath }" alt="User Profile" /> <br />
+				<c:choose>
+				    <c:when test="${not empty filePath}">
+				        <img src="${pageContext.request.contextPath}/resources/images/userProFile/${filePath}" class="mypage-profile-img" alt="User Profile" />
+				    </c:when>
+				    <c:otherwise>
+				        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" style="width: 150px;"/>
+				    </c:otherwise>
+				</c:choose><br>
 				<div class="userInfo">
 					<p>이름 : ${myInfo.memName }</p>
 					<p>주소 : ${myInfo.memAdd }</p>
@@ -59,6 +66,7 @@
 					</p>
 					<p>나이 : ${myInfo.memAge }</p>
 					<p>점수 : ${myInfo.memRank }</p>
+					<br>
 				</div>
 				<div class="profile-buttons">
 					<Button class="modify-btn"
