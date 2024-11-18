@@ -9,18 +9,13 @@ import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.sportsmate.board.model.vo.Board;
-import com.kh.sportsmate.board.model.vo.BoardComment;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.team.model.dao.TeamDao;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -44,7 +39,7 @@ public class TeamServiceImpl implements TeamService {
 
  	// 구단 멤버 가져오기
  	@Override
- 	public ArrayList<TeamMember> selectMemberList(int teamNo) {
+ 	public ArrayList<TeamMemberDto> selectMemberList(int teamNo) {
  		return teamDao.selectMemberList(sqlSession, teamNo);
  	}
 
@@ -170,7 +165,10 @@ public class TeamServiceImpl implements TeamService {
             profile.setTeamNo(team.getTeamNo());
             result3 = attachmentDao.insertProfile(sqlSession, profile);
         }
-        return 0;
+		// 구단장 팀원에 추가
+		TeamMember teamMember = new TeamMember(team.getTeamNo(), team.getMemNo());
+		int result4 = teamDao.insertTeamMember(sqlSession, teamMember);
+        return result1 * result2 * result3 * result4;
     }
 
     /**

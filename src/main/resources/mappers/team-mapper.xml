@@ -104,7 +104,16 @@
 			#{introduce}
 		)
 	</insert>
-
+	<!-- 구단장 teamMember insert -->
+	<insert id="insertTeamMember" parameterType="TeamMember">
+		insert into TEAM_MEMBER(
+		TEAM_NO,
+		MEM_NO
+		)values(
+			#{teamNo},
+			#{memNo}
+		)
+	</insert>
 
 
 
@@ -131,7 +140,7 @@
 	</select>
 	
 	<!-- 구단 인원 목록 -->
-	<select id="selectMemberList" resultType="TeamMember">
+	<select id="selectMemberList" resultType="TeamMemberInfo">
 	    SELECT TM.MEM_NO as memNo,
 	           TM.MEM_ENROLL_DATE as memEnrollDate,
 	           TM.STATUS as status,

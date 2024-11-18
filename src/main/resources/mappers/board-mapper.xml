@@ -197,7 +197,7 @@
 	</insert>
 	
 	<!-- 게시글 생성 파일 업로드 -->
-	<insert id="saveBoardFile">
+	<insert id="saveBoardFile" parameterType="BoardFile">
 	INSERT INTO BOARD_FILE (
 		REF_BOARD_NO,
 		ORIGIN_NAME,
