@@ -48,4 +48,14 @@ public class stadiumController {
     public String gameresult() {
         return "stadium_manager/game_result";
     }
+	
+    @RequestMapping("/list")
+    public String showStadiumList() {
+        return "stadium/listPage";
+    }
+    
+    @RequestMapping("/detail")
+    public String showStadiumdatil() {
+        return "stadium/detail";
+    }
 }

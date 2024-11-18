@@ -1,104 +1,104 @@
 @charset "UTF-8";
 
 .header-div{
-	width: 100%;
+    width: 100%;
     height: 60px;
     display: flex;
     align-items: center;
 }
 
 .logo-div img {
-	width: 40px;
-	height: 40px;
-	margin-left: 5px;
-	margin-right: 5px;
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .user-icon img{
-	width: 30px;
-	height: 30px;
-	float: right;
-	margin-right: 20px;
-	cursor: pointer;
+    width: 30px;
+    height: 30px;
+    float: right;
+    margin-right: 20px;
+    cursor: pointer;
 }
 
 .search-btn{
-	width: 25px !important;
-	height: 25px !important;
-	
+    width: 25px !important;
+    height: 25px !important;
+
 }
 
-.search-bar-form{
-	border: 1px solid #1D87FA;
-	display: flex;
+#search-bar-form{
+    border: 1px solid #1D87FA;
+    display: flex;
     justify-content: space-between;
-	align-items: center;
+    align-items: center;
     width: 100%;
     height: 40px;
     border-radius: 8px;
 }
 
 #search-bar-form input{
-	padding: 10px;
-	width: calc(100% - 25px);
-	height: 100%;
-	border-radius: 8px;
-	font-size: 14px;
-	border: none;
+    padding: 10px;
+    width: calc(100% - 25px);
+    height: 100%;
+    border-radius: 8px;
+    font-size: 14px;
+    border: none;
 }
 
 #search-bar-form input:focus{
-	outline-style: none;
+    outline-style: none;
 }
 
 #search-bar-form button{
-	width: 25px;
-	height: 100%;
-	border: none;
+    width: 25px;
+    height: 100%;
+    border: none;
     background-color: white;
     border-radius: 8px;
     padding: 0;
 }
 
 .logo-div{
-	font-family: "Bebas Neue", serif;
-	font-weight: 400;
-	font-style: normal;
-	width: 30%;
-	font-size: 25px;
-	cursor: pointer;
+    font-family: "Bebas Neue", serif;
+    font-weight: 400;
+    font-style: normal;
+    width: 30%;
+    font-size: 25px;
+    cursor: pointer;
 }
 
 .search-bar{
-	width: 40%;
+    width: 40%;
 }
 
 .user-icon{
-	width: 30%;
+    width: 30%;
 }
 
 
 .search-bar-m{
-	display: none;
+    display: none;
 }
 
 @media (max-width: 480px){
-	.logo-div{
-		width: 50%;
-	}
-	
-	.search-bar{
-		display: none;
-	}
-	
-	.user-icon{
-		width: 50%;
-	}
+    .logo-div{
+        width: 50%;
+    }
 
-	.search-bar-m{
-		display: flex;
-		justify-content: center;
-		width: 80%;
-		margin: 0 auto;
-	}
+    .search-bar{
+        display: none;
+    }
+
+    .user-icon{
+        width: 50%;
+    }
+
+    .search-bar-m{
+        display: flex;
+        justify-content: center;
+        width: 80%;
+        margin: 0 auto;
+    }
 }

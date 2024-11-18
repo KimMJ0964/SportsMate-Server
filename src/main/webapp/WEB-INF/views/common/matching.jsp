@@ -6,15 +6,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/default.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/matching.css">
 </head>
 <body>
-    <div class="matching-wrap">
+    <div class="wrap">
         <div class="matching-container">
             <div class="matching-img">
                 <div class="matching-img-box">
                     <div class="matching-write">현재 진행중인 매칭</div>
-                    <img src="${pageContext.request.contextPath}/resources/images/matching.png" alt="매칭 이미지" />
+                    <img src="${pageContext.request.contextPath}/resources/images/matching.png" alt="매칭 이미지" class="matchingimg" />
                 </div>
             </div>
         </div>
@@ -40,8 +41,12 @@
                 <span class="day">금</span>
             </div>
             <div class="day-box inactive" onclick="toggleDay(this)">
-                <span class="date">26</span>
-                <span class="day">토</span>
+                <span class="date std">26</span>
+                <span class="day std">토</span>
+            </div>
+            <div class="day-box inactive" onclick="toggleDay(this)">
+                <span class="date sd">27</span>
+                <span class="day sd">일</span>
             </div>
         </div>
         <div class="choice">
@@ -85,39 +90,34 @@
             </div>
         </div>
         <div class="tableContainer">
-            <table>
-                <tr>
-                    <td>18 : 00</td>
-                    <td>서울 영등포 EA SPORTS FC(더에프필드) B구장</td>
-                    <td><button class="match-btn">매칭하기</button></td>
-                </tr>
-                <tr>
-                    <td>19 : 00</td>
-                    <td>부산 해운대 EA SPORTS FC(더에프필드) A구장</td>
-                    <td><button class="match-btn">매칭하기</button></td>
-                </tr>
-                <tr>
-                    <td>20 : 00</td>
-                    <td>대구 동구 EA SPORTS FC(더에프필드) C구장</td>
-                    <td><button class="match-btn">매칭하기</button></td>
-                </tr>
-                <tr>
-                    <td>21 : 00</td>
-                    <td>인천 남동 EA SPORTS FC(더에프필드) D구장</td>
-                    <td><button class="match-btn">매칭하기</button></td>
-                </tr>
-                <tr>
-                    <td>22 : 00</td>
-                    <td>광주 서구 EA SPORTS FC(더에프필드) E구장</td>
-                    <td><button class="match-btn">매칭하기</button></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
+		    <div class="table-row">
+		        <div class="table-cell time">18 : 00</div>
+		        <div class="table-cell location">서울 영등포 EA SPORTS FC B구장</div>
+		        <div class="table-cell"><button class="match-btn">매칭하기</button></div>
+		    </div>
+		    <div class="table-row">
+		        <div class="table-cell time">19 : 00</div>
+		        <div class="table-cell location">부산 해운대 EA SPORTS FC A구장</div>
+		        <div class="table-cell"><button class="match-btn">매칭하기</button></div>
+		    </div>
+		    <div class="table-row">
+		        <div class="table-cell time">20 : 00</div>
+		        <div class="table-cell location">대구 동구 EA SPORTS FC C구장</div>
+		        <div class="table-cell"><button class="match-btn">매칭하기</button></div>
+		    </div>
+		    <div class="table-row">
+		        <div class="table-cell time">21 : 00</div>
+		        <div class="table-cell location">인천 남동 EA SPORTS FC D구장</div>
+		        <div class="table-cell"><button class="match-btn">매칭하기</button></div>
+		    </div>
+		    <div class="table-row">
+		        <div class="table-cell time">22 : 00</div>
+		        <div class="table-cell location">광주 서구 EA SPORTS FC E구장</div>
+		        <div class="table-cell"><button class="match-btn">매칭하기</button></div>
+		    </div>
+		    <div class="table-row">
+		    </div>
+		</div>
     </div>
     <script>
         function toggleDay(element) {
