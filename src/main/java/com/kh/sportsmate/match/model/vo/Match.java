@@ -12,7 +12,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class Match {
 	private int matchNo;
-	private int placeNo;
+	private int stadiumNo;
 	private int teamANo;
 	private int teamBNo;
 	private int scoreA;

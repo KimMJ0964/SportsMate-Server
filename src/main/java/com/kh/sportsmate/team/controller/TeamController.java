@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.team.service.TeamService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,12 +79,13 @@ public class TeamController {
         return "teamBoard/teamBoardCreate";
     }
 
-    // 게시글 상세 페이지로 이동
-    @RequestMapping("detailMoveBd.tm")
-    public String detailList(int bno, Model model) {
-        TeamBoard teamBoard = teamService.detailList(bno);
-        ArrayList<TeamBoardComment> comment = teamService.commentList(bno);
-        int commentCount = teamService.commentCount(bno);
+	// 게시글 상세 페이지로 이동
+	@RequestMapping("detailMoveBd.tm")
+	public String detailList(int bno, Model model) {
+		TeamBoard teamBoard = teamService.detailList(bno);
+		ArrayList<TeamBoardComment> comment = teamService.commentList(bno);
+		int commentCount = teamService.commentCount(bno);
+		int boardViewAdd = teamService.viewAdd(bno);
 
         model.addAttribute("commentCount", commentCount);
         model.addAttribute("comment", comment);
@@ -204,37 +206,38 @@ public class TeamController {
         return "teamBoard/teamHome";
     }
 
-    // 댓글 작성
-    @RequestMapping("writeReply.tm")
-    public String writeReply(int bno, String content, Model m, HttpSession session) {
-        int memNo = 1;
-        Map<String, String> map = new HashMap<>();
-        map.put("bno", String.valueOf(bno));
-        map.put("memNo", String.valueOf(memNo));
-        map.put("content", content);
-
+	// 댓글 작성
+	@RequestMapping("writeReply.tm")
+	public String writeReply(int bno, String comContent, Model m, HttpSession session) {
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
+		Map<String, String> map = new HashMap<>();
+		map.put("bno", String.valueOf(bno));
+		map.put("memNo", String.valueOf(memNo));
+		map.put("comContent", comContent);
         int result = teamService.writeReply(map);
 
-        if (result > 0) { // 성공
-            return "redirect:detailMove.bd?bno=" + bno;
-        } else { // 실패
-            m.addAttribute("errorMsg", "댓글 작성 실패");
-            return "redirect:detailMove.bd?bno=" + bno;
-        }
-    }
+		if (result > 0) { // 성공
+			return "redirect:detailMoveBd.tm?bno=" + bno;
+		} else { // 실패
+			m.addAttribute("errorMsg", "댓글 작성 실패");
+			return "redirect:detailMoveBd.tm?bno=" + bno;
+		}
+	}
 
     // 댓글 삭제
     @RequestMapping("deleteComm.tm")
     public String deleteReply(int cno, int bno, int tno, Model m) {
         int result = teamService.deleteReply(cno);
 
-        if (result > 0) { // 성공
-            return "redirect:detailMove.bd?bno=" + bno;
-        } else { // 실패
-            m.addAttribute("errorMsg", "댓글 작성 실패");
-            return "redirect:detailMove.bd?bno=" + bno;
-        }
-    }
+		if (result > 0) { // 성공
+			return "redirect:detailMoveBd.tm?bno=" + bno;
+		} else { // 실패
+			m.addAttribute("errorMsg", "댓글 작성 실패");
+			return "redirect:detailMoveBd.tm?bno=" + bno;
+		}
+	}
+
     // 구단 메뉴로 이동
     @GetMapping(value = "teamMenu.tm")
     public String moveTeamMenu() {

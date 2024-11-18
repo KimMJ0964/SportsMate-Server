@@ -51,7 +51,7 @@
         <div class="bd-comment-container">
 	        <form method="post" action="writeReply.tm?bno=${teamBoard.boardNo}">
 	            <div class="bd-comment-section">
-	                <textarea class="bd-comment-textarea" rows="3" style="resize: none; width: 100%;"></textarea>
+	                <textarea class="bd-comment-textarea" rows="3" style="resize: none; width: 100%;" name="comContent" id="comContent"></textarea>
 	                <button class="bd-button" style="float: right;">댓글 작성 완료</button>
 	            </div>
 	        </form>
