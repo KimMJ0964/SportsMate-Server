@@ -108,6 +108,16 @@
 	    WHERE m.MEM_NO = #{memNo}		
     </update>
     
+    <!-- 차단 해제하기 -->
+    <update id="unblockUser" parameterType="_int">
+		UPDATE MEMBER m
+		JOIN MEMBER_PENALTY mp ON m.MEM_NO = mp.MEM_NO
+		SET
+			m.MEM_STATUS = 'Y',
+			mp.PN_DATE = NULL
+		WHERE m.MEM_NO = #{memNo}	
+    </update>
+    
     <!-- =============================delete============================= -->
     
     <delete id="blockCancle" parameterType="_int">
