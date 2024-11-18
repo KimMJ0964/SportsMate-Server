@@ -103,7 +103,7 @@
 <section class="video-grid">
         <div class="video-priview">
             <div class="thumbnail-row">
-            	<a href="detail">
+            	<a href="detail.st">
                 	<img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
                 </a>
             </div>

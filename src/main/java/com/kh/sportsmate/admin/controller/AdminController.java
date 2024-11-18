@@ -34,7 +34,9 @@ public class AdminController {
 	@RequestMapping(value = "adminPage.me")
     public String loginForm(Model model) {
 		int reportCount = adminService.selectAllListCount();
+		int blockCount = adminService.selectBlockListCount();
 		
+		model.addAttribute("blockCount", blockCount);
 		model.addAttribute("reportCount", reportCount);
         return "admin/adminPage";
     }
@@ -105,7 +107,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "unblockUser.me")
 	public String unblockUser() {
-		
+		return null;
 	}
 
 }

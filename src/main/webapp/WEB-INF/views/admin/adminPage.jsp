@@ -57,7 +57,7 @@
                         <div class="dash-2">
                             <fieldset>
                                 <legend>차단 유저</legend>
-                                <h4>10명</h4>
+                                <h4>${blockCount}명</h4>
                             </fieldset>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                 </div>
 
                 <!-- 로그아웃 버튼 -->
-                <button class="logout-button">로그아웃</button>
+                <button class="logout-button" onclick="location.href = '${pageContext.request.contextPath}/logout.me'">로그아웃</button>
 
 
             </div>

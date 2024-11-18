@@ -64,6 +64,110 @@
 	            </div>
             </c:forEach>
 
+
+            <div id="pagenation">
+                <nav>
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
+                                <li class="page-item">
+                                    <a href="blockList.me?cpage=1"
+                                        class="page-link">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${pi.currentPage > 1}">
+                                <li class="page-item">
+                                    <a href="blockList.me?cpage=${pi.currentPage - 1}"
+                                        class="page-link">
+                                        <span aria-hidden="true">&lt;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true">&lt;</span>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}" step="1">
+                            <c:choose>
+                                <c:when test="${page == pi.currentPage}">
+                                    <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link"
+                                            href="blockList.me?cpage=${page}">${page}</a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${pi.currentPage < pi.maxPage}">
+                                <li class="page-item">
+                                    <a href="blockList.me?cpage=${pi.currentPage + 1}"
+                                        class="page-link">
+                                        <span aria-hidden="true">&gt;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true">&gt;</span>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${pi.currentPage eq pi.maxPage}">
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:when
+                                test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
+                                <li class="page-item">
+                                    <a href="blockList.me?cpage=${pi.maxPage}"
+                                        class="page-link">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
+                                <li class="page-item">
+                                    <a href="blockList.me?cpage=${pi.endPage + 1}"
+                                        class="page-link">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </nav>
+            </div>
             <!-- 등록 버튼 -->
             <button class="registration-button" onclick="location.href='adminPage.me'">뒤로가기</button>
         </div>
