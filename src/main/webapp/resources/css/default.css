@@ -29,5 +29,6 @@ a:visited {color: #333;}
 
 .wrap{
     max-width: 1200px;
+    width: 100%;
     margin: auto;
 }
