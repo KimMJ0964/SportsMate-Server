@@ -120,4 +120,7 @@ public class TeamDao {
     public String selectAreaName(SqlSessionTemplate sqlSession, String searchArea) {
         return sqlSession.selectOne("teamMapper.selectAreaName",searchArea);
     }
+    public int insertTeamMember(SqlSessionTemplate sqlSession, TeamMember teamMember){
+        return sqlSession.insert("teamMapper.insertTeamMember", teamMember);
+    }
 }

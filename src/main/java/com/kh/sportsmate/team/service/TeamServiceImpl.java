@@ -170,7 +170,10 @@ public class TeamServiceImpl implements TeamService {
             profile.setTeamNo(team.getTeamNo());
             result3 = attachmentDao.insertProfile(sqlSession, profile);
         }
-        return 0;
+		// 구단장 팀원에 추가
+		TeamMember teamMember = new TeamMember(team.getTeamNo(), team.getMemNo());
+		int result4 = teamDao.insertTeamMember(sqlSession, teamMember);
+        return result1 * result2 * result3 * result4;
     }
 
     /**
