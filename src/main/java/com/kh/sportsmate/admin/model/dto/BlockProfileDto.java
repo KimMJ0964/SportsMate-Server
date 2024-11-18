@@ -1,6 +1,8 @@
-package com.kh.sportsmate.admin.model.vo;
+package com.kh.sportsmate.admin.model.dto;
 
 import java.sql.Date;
+
+import com.kh.sportsmate.Attachment.model.vo.Profile;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -15,19 +17,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class MemberPenalty {
+public class BlockProfileDto {
 	private int pnNo;
 	private int memNo;
-	private String pnContent;
+	private String memEmail;
 	private Date pnDate;
-	private Date repDate;
 	private int pnCount;
-	private String pnReporter;
-	private String pnGround;
-	private String pnCommunity;
-	private String pnComment;
-	private String pnType;
-	private String stadiumName;
-	private String pnStatus;
-	
+	private String pnContent;
+	private String originName;
+    private String changeName;
+    private String filePath;
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.sportsmate.admin.model.dao.AdminDao;
+import com.kh.sportsmate.admin.model.dto.BlockProfileDto;
 import com.kh.sportsmate.admin.model.dto.ChartDateDto;
 import com.kh.sportsmate.admin.model.vo.MemberPenalty;
 import com.kh.sportsmate.common.vo.PageInfo;
@@ -32,13 +33,40 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int selectListCount() {
-		return adminDao.selectListCount(sqlSession);
+	public int selectListCount(String category) {
+		return adminDao.selectListCount(sqlSession, category);
+	}
+	
+	@Override
+	public int selectAllListCount() {
+		return adminDao.selectAllListCount(sqlSession);
 	}
 
 	@Override
-	public ArrayList<MemberPenalty> selectList(PageInfo pi) {
-		return adminDao.selectList(sqlSession, pi);
+	public ArrayList<MemberPenalty> selectList(PageInfo pi, String category) {
+		return adminDao.selectList(sqlSession, pi, category);
+	}
+
+	@Transactional
+	@Override
+	public int blockUser(MemberPenalty mp) {
+		return adminDao.blockUser(sqlSession, mp);
+	}
+
+	@Transactional
+	@Override
+	public int blockCancle(int pnNo) {
+		return adminDao.blockCancle(sqlSession, pnNo);
+	}
+
+	@Override
+	public int selectBlockListCount() {
+		return adminDao.selectBlockListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<BlockProfileDto> selectBlockList(PageInfo pi) {
+		return adminDao.selectBlockList(sqlSession, pi);
 	}
 
 }

@@ -59,9 +59,9 @@ public class TeamController {
 
         PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 10);
         ArrayList<TeamBoard> list = teamService.selectList(pi, tno);
-        ArrayList<TeamMemberInfo> memberList = teamService.selectMemberList(tno);
+        ArrayList<TeamMemberDto> memberList = teamService.selectMemberList(tno);
 
-        for (TeamMemberInfo teamMember : memberList) {
+        for (TeamMemberDto teamMember : memberList) {
             System.out.println(teamMember);
         }
 
@@ -196,7 +196,7 @@ public class TeamController {
         map.put("keyword", keyword);
         map.put("tno", String.valueOf(tno));
         ArrayList<TeamBoard> list = teamService.searchBoard(pi, map);
-        ArrayList<TeamMemberInfo> memberList = teamService.selectMemberList(tno);
+        ArrayList<TeamMemberDto> memberList = teamService.selectMemberList(tno);
 
         m.addAttribute("list", list);
         m.addAttribute("pi", pi);

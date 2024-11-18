@@ -2,6 +2,8 @@ package com.kh.sportsmate.admin.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.kh.sportsmate.admin.model.dto.BlockProfileDto;
 import com.kh.sportsmate.admin.model.dto.ChartDateDto;
 import com.kh.sportsmate.admin.model.vo.MemberPenalty;
 import com.kh.sportsmate.admin.service.AdminService;
@@ -29,7 +32,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "adminPage.me")
-    public String loginForm() {
+    public String loginForm(Model model) {
+		int reportCount = adminService.selectAllListCount();
+		int blockCount = adminService.selectBlockListCount();
+		
+		model.addAttribute("blockCount", blockCount);
+		model.addAttribute("reportCount", reportCount);
         return "admin/adminPage";
     }
 
@@ -47,14 +55,13 @@ public class AdminController {
 								String category,
 								Model model) {
 	    // category 값이 존재하면 모델에 추가
-	    if (category != null) {
-	        model.addAttribute("category", category);
-	    }
+		
+		model.addAttribute("category", category);
 	    
-		int reportCount = adminService.selectListCount();
+		int reportCount = adminService.selectListCount(category);
 		
 		PageInfo pi = Template.getPageInfo(reportCount, currentPage, 5, 5);
-		ArrayList<MemberPenalty> list = adminService.selectList(pi);
+		ArrayList<MemberPenalty> list = adminService.selectList(pi, category);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -62,8 +69,50 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "blockUser.me")
-	public String blockUser() {
+	public String blockUser(@RequestParam(value = "memNo", required = false) int memNo, @RequestParam(value = "pnNo", required = false) int pnNo, HttpServletRequest request) {
+		// 이전 페이지 URL 가져오기
+	    String referer = request.getHeader("Referer");
+	    
+	    MemberPenalty mp = new MemberPenalty();
+	    mp.setMemNo(memNo);
+	    mp.setPnNo(pnNo);
+	    
+	    int result = adminService.blockUser(mp);
+		return "redirect:" + referer;
+	}
+	
+	@RequestMapping(value = "blockCancle.me")
+	public String blockCancle(@RequestParam(value = "pnNo", required = false) int pnNo, HttpServletRequest request) {
+		// 이전 페이지 URL 가져오기
+	    String referer = request.getHeader("Referer");
+	    
+	    int result = adminService.blockCancle(pnNo);
+	    
+	    return "redirect:" + referer;
+	}
+	
+	@RequestMapping(value = "blockList.me")
+	public String blockList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
+		
+		int blockCount = adminService.selectBlockListCount();
+		
+		PageInfo pi = Template.getPageInfo(blockCount, currentPage, 5, 5);
+		ArrayList<BlockProfileDto> list = adminService.selectBlockList(pi);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		System.out.println(list);
 		return "admin/adminPageBlock";
+	}
+	
+	@RequestMapping(value = "unblockUser.me")
+	public String unblockUser(@RequestParam(value = "memNo", required = false) int memNo, HttpServletRequest request) {
+		// 이전 페이지 URL 가져오기
+	    String referer = request.getHeader("Referer");
+	    
+	    MemberPenalty mp = new MemberPenalty();
+		
+		return null;
 	}
 
 }

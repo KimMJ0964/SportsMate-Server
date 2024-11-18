@@ -64,12 +64,16 @@ public class MemberServiceImpl implements MemberService {
     public Member loginMember(Member m) {
     	int result = 1;
     	Member loginUser = memberDao.loginMember(sqlSession,m);
-    	//로그인 로그 객체 추가
-    	LoginLog loginLog = new LoginLog();
-    	loginLog.setMemNo(loginUser.getMemNo());
+    	
+    	if(loginUser != null) {
+    		//로그인 로그 객체 추가
+        	LoginLog loginLog = new LoginLog();
+        	loginLog.setMemNo(loginUser.getMemNo());
 
-    	// 로그인 기록 추가
-    	result = memberDao.loginLog(sqlSession, loginLog);
+        	// 로그인 기록 추가
+        	result = memberDao.loginLog(sqlSession, loginLog);
+    	}
+
         return loginUser;
     }
 
