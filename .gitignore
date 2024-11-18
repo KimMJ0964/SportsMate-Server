@@ -337,9 +337,9 @@ log/
 
 src/main/resources/log4j.xml
 src/main/resources/*.properties
-
-# End of https://www.toptal.com/developers/gitignore/api/windows,macos,visualstudiocode,intellij,eclipse,react,java
-
 src/main/webapp/resources/images/stadiumFile/
 src/main/webapp/resources/images/userProFile/
 src/main/webapp/resources/images/boardFile/
+
+
+# End of https://www.toptal.com/developers/gitignore/api/windows,macos,visualstudiocode,intellij,eclipse,react,java
