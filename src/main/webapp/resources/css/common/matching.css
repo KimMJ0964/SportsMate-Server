@@ -180,7 +180,7 @@
 		}
 		
 		/* 모바일 화면 (300px ~ 480px) */
-		@media (min-width: 300px) and (max-width: 480px) {
+		@media (max-width: 480px) {
 		    .inner-left, .inner-right {
 		        margin: 0px 10px; /* 좌우 마진을 10px로 설정하여 간격을 좁힘 */
 		    }

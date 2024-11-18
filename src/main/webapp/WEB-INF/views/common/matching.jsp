@@ -92,27 +92,27 @@
         <div class="tableContainer">
 		    <div class="table-row">
 		        <div class="table-cell time">18 : 00</div>
-		        <div class="table-cell location">서울 영등포 EA SPORTS FC(더에프필드) B구장</div>
+		        <div class="table-cell location">서울 영등포 EA SPORTS FC B구장</div>
 		        <div class="table-cell"><button class="match-btn">매칭하기</button></div>
 		    </div>
 		    <div class="table-row">
 		        <div class="table-cell time">19 : 00</div>
-		        <div class="table-cell location">부산 해운대 EA SPORTS FC(더에프필드) A구장</div>
+		        <div class="table-cell location">부산 해운대 EA SPORTS FC A구장</div>
 		        <div class="table-cell"><button class="match-btn">매칭하기</button></div>
 		    </div>
 		    <div class="table-row">
 		        <div class="table-cell time">20 : 00</div>
-		        <div class="table-cell location">대구 동구 EA SPORTS FC(더에프필드) C구장</div>
+		        <div class="table-cell location">대구 동구 EA SPORTS FC C구장</div>
 		        <div class="table-cell"><button class="match-btn">매칭하기</button></div>
 		    </div>
 		    <div class="table-row">
 		        <div class="table-cell time">21 : 00</div>
-		        <div class="table-cell location">인천 남동 EA SPORTS FC(더에프필드) D구장</div>
+		        <div class="table-cell location">인천 남동 EA SPORTS FC D구장</div>
 		        <div class="table-cell"><button class="match-btn">매칭하기</button></div>
 		    </div>
 		    <div class="table-row">
 		        <div class="table-cell time">22 : 00</div>
-		        <div class="table-cell location">광주 서구 EA SPORTS FC(더에프필드) E구장</div>
+		        <div class="table-cell location">광주 서구 EA SPORTS FC E구장</div>
 		        <div class="table-cell"><button class="match-btn">매칭하기</button></div>
 		    </div>
 		    <div class="table-row">

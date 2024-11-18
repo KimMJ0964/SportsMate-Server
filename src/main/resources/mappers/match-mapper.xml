@@ -5,6 +5,7 @@
 
 <mapper namespace="matchMapper">
     
+    <!-- UPDATE -->
     <!-- 베스트 플레이어 선정   #{memNo} #{matchNo} #{bestMNo} -->
     <update id="updateVoteStatus">
 	    UPDATE MATCH_BEST

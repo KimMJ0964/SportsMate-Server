@@ -40,8 +40,7 @@
         <div class="search-bar" data-bs-toggle="modal" data-bs-target="#searchModal">
             <form action="" id="search-bar-form">
                 <input type="text" placeholder="구장명을 입력하세요.">
-                <button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png"
-                             class="search-btn"></button>
+                <button><img src="${pageContext.request.contextPath}/resources/images/search-btn.png" class="search-btn"></button>
             </form>
         </div>
         <div class="user-icon">
@@ -88,7 +87,7 @@
                         <div class="row-group">
                             <!-- 구장명 검색 (80%) -->
                             <div class="search-group">
-                                <img src="검색_아이콘_URL" alt="검색 아이콘" class="icon">
+                                <img src="${pageContext.request.contextPath}/resources/images/search-btn.png" alt="검색 아이콘" class="icon">
                                 <input type="text" class="form-control" placeholder="구장명을 입력해주세요." aria-label="구장명">
                             </div>
 
@@ -107,13 +106,13 @@
                         <div class="row-group">
                             <!-- 날짜 선택 -->
                             <div class="date-time-group" id="date-selector" style="cursor: pointer;">
-                                <img src="달력_아이콘_URL" alt="달력 아이콘" class="icon">
+                                <img src="${pageContext.request.contextPath}/resources/images/calendar.png" alt="달력 아이콘" class="icon">
                                 <span id="selected-date">날짜를 선택하세요</span>
                             </div>
 
                             <!-- 시간 선택 -->
                             <div class="date-time-group">
-                                <img src="시간_아이콘_URL" alt="시간 아이콘" class="icon">
+                                <img src="${pageContext.request.contextPath}/resources/images/time.png" alt="시간 아이콘" class="icon">
                                 <select class="form-select">
                                     <option>07:00 ~ 11:00</option>
                                     <option>11:00 ~ 15:00</option>
@@ -125,7 +124,7 @@
 
                         <!-- 달력 내용 연결 -->
                         <div class="calendar-container" id="calendar-container">
-                        <jsp:include page="/WEB-INF/views/modal/calendar.jsp" />
+                        <jsp:include page="/WEB-INF/views/common/calendar_header.jsp" />
                         </div>
                     </div>
                 </div>

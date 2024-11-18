@@ -1,7 +1,6 @@
 @charset "UTF-8";
-.modal-dialog {
+		.modal-dialog {
             max-width: 1200px;
-            width: 100%;
         }
         .modal-content {
             padding: 20px;
