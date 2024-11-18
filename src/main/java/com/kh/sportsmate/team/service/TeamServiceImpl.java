@@ -166,7 +166,7 @@ public class TeamServiceImpl implements TeamService {
             result3 = attachmentDao.insertProfile(sqlSession, profile);
         }
 		// 구단장 팀원에 추가
-		TeamMember teamMember = new TeamMember(team.getTeamNo(), team.getMemNo());
+		TeamMember teamMember = new TeamMember(team.getMemNo(), team.getTeamNo());
 		int result4 = teamDao.insertTeamMember(sqlSession, teamMember);
         return result1 * result2 * result3 * result4;
     }
