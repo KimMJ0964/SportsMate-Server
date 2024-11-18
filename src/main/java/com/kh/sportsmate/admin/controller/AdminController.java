@@ -106,7 +106,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "unblockUser.me")
-	public String unblockUser() {
+	public String unblockUser(@RequestParam(value = "memNo", required = false) int memNo, HttpServletRequest request) {
+		// 이전 페이지 URL 가져오기
+	    String referer = request.getHeader("Referer");
+	    
+	    MemberPenalty mp = new MemberPenalty();
+		
 		return null;
 	}
 

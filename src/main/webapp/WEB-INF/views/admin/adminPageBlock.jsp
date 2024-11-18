@@ -48,7 +48,8 @@
 	                <div class="victory-row">
 	                    <div class="team-info">
 	                        <img src="${pageContext.request.contextPath}/resources/images/my-profile.png" alt="" class="gameresult-logo">
-	                        <form action="">
+	                        <form action="unblockUser.me">
+                                <input type="hidden" value="${b.memNo}">
 	                            <ul>
 	                                <li><b>유저ID: </b>${b.memEmail}</li>
 	                                <li><b>누적 패널티: </b>${b.pnCount}</li>
