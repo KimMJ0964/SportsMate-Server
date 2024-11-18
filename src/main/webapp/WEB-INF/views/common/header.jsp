@@ -20,6 +20,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/common/header.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/common/modal.css" rel="stylesheet" >
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <style>
     </style>
 </head>
@@ -71,6 +72,7 @@
             </button>
         </form>
     </div>
+    <%--
    	<!-- 모달 창 -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -132,7 +134,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>

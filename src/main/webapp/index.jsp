@@ -14,6 +14,5 @@
 </head>
 <body>
 	<jsp:forward page="WEB-INF/views/main.jsp"></jsp:forward>
-	<%--<jsp:forward page="WEB-INF/views/stadium/listPage.jsp"></jsp:forward>--%>
 </body>
 </html>
