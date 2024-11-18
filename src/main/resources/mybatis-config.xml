@@ -11,6 +11,8 @@
     </settings>
 
     <typeAliases>
+		<!-- Team -->
+		<typeAlias type="com.kh.sportsmate.team.model.vo.Team" alias="Team"/>
         <!-- common -->
 
         <!-- Member -->

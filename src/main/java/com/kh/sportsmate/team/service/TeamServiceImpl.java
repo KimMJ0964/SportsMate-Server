@@ -209,6 +209,6 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public String selectAreaName(String searchArea) {
         return teamDao.selectAreaName(sqlSession, searchArea);
-    }
+    }   
 }
 
