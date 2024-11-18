@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class TeamMemberInfo {
+public class TeamMemberDto {
 	private int teamNo;
 	private int memNo;
 	private String status;
