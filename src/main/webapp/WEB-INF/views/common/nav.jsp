@@ -13,7 +13,11 @@
 <body>
  
     <div class="nav-bar"> 
+<<<<<<< HEAD
         <a href="list.me" class="nav-item">
+=======
+        <a href="list.st" class="nav-item">
+>>>>>>> ee39910d0ce79f60b4b511473823d8195e5dff28
             <img src="${pageContext.request.contextPath}/resources/images/grount-btn.png" 
                  alt="구장검색">구장</a>
 
@@ -21,7 +25,7 @@
             <img src="${pageContext.request.contextPath}/resources/images/team-btn.png"
                  alt="구단메뉴">구단메뉴</a>
 
-        <a href="#" class="nav-item">
+        <a href="${pageContext.request.contextPath}" class="nav-item">
             <img src="${pageContext.request.contextPath}/resources/images/home-btn.png"
                  alt="홈">홈</a>
 
