@@ -289,7 +289,11 @@ public class TeamController {
             profile = new Profile(userProfile.getOriginalFilename(), changeName, savePath);
         }
         int result = teamService.insertTeam(t, profile);
-
+        if(result > 0 ){
+            session.setAttribute("alertMsg", "구단 창설이 성공적으로 완료되었습니다.");
+        }else {
+            session.setAttribute("alertMsg", "구단 창설에 실패하였습니다. 다시 시도해주세요.");
+        }
 
         return "redirect:/";
     }

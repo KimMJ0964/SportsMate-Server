@@ -27,4 +27,7 @@ public interface AdminService {
 	
 	//차단유저 목록 가져오기
 	ArrayList<BlockProfileDto> selectBlockList(PageInfo pi);
+	
+	//차단해제
+	int unblockUser(int memNo);
 }

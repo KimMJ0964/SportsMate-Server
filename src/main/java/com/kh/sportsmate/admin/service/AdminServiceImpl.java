@@ -64,9 +64,16 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.selectBlockListCount(sqlSession);
 	}
 
+	@Transactional
 	@Override
 	public ArrayList<BlockProfileDto> selectBlockList(PageInfo pi) {
 		return adminDao.selectBlockList(sqlSession, pi);
+	}
+
+	@Transactional
+	@Override
+	public int unblockUser(int memNo) {
+		return adminDao.unblockUser(sqlSession, memNo);
 	}
 
 }
