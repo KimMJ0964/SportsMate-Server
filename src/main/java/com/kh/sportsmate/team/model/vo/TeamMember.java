@@ -20,4 +20,9 @@ public class TeamMember {
 	private int memNo;
 	private String status;
 	private Date memEnrollDate;
+
+	public TeamMember(int memNo, int teamNo) {
+		this.memNo = memNo;
+		this.teamNo = teamNo;
+	}
 }

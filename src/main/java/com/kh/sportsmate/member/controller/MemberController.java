@@ -117,7 +117,7 @@ public class MemberController {
 
     }
     
-    @PostMapping("/logout.me")
+    @RequestMapping("/logout.me")
     public String logout(HttpSession session) {
         // 세션 초기화
         session.invalidate();

@@ -111,7 +111,7 @@ const emailCheck = (ev) => {
     clearTimeout(eventFlag);
     const str = ev.target.value;
     if (str.trim().length >= 5) {
-        eventFlag = setTimeout(() => selectEmail({ email: str }, handleEmailCheckResult), 1000);
+        eventFlag = setTimeout(() => selectEmail({ email: str }, handleEmailCheckResult), 500);
     }
 };
 

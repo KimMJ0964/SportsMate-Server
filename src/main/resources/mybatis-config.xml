@@ -45,7 +45,7 @@
         <typeAlias type="com.kh.sportsmate.team.model.vo.Team" alias="Team"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoard" alias="TeamBoard"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamMember" alias="TeamMember"/>
-        <typeAlias type="com.kh.sportsmate.team.model.dto.TeamMemberInfo" alias="TeamMemberInfo"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.TeamMemberDto" alias="TeamMemberInfo"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoardComment" alias="TeamBoardComment"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.Recruit" alias="Recruit"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamActivityDays" alias="TeamActivityDays"/>
@@ -57,6 +57,24 @@
      	<typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
      	<typeAlias type="com.kh.sportsmate.match.model.vo.MatchBest" alias="MatchBest"/>
      	<typeAlias type="com.kh.sportsmate.match.model.vo.MatchQna" alias="MatchQna"/>
+        <typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
+
+        <!-- Board -->
+        <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
+
+    	<typeAlias type="com.kh.sportsmate.board.model.vo.BoardComment" alias="BoardComment"/>
+    	<typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
+        <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="Category"/>
+        <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="LoginLog"/>
+        <typeAlias type="com.kh.sportsmate.admin.model.dto.ChartDateDto" alias="ChartDateDto"/>
+        <typeAlias type="com.kh.sportsmate.admin.model.vo.MemberPenalty" alias="MemberPenalty"/>
+        <!-- Attachment -->
+        <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
+        <typeAlias type="com.kh.sportsmate.admin.model.dto.BlockProfileDto" alias="BlockProfileDto"/>
+        <!-- Stadium -->
+        <typeAlias type="com.kh.sportsmate.stadium.model.vo.Stadium" alias="Stadium"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.vo.Amenities" alias="Amenities"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.vo.Rental" alias="Rental"/>
     </typeAliases>
 
 

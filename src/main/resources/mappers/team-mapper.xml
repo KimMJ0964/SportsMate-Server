@@ -104,7 +104,16 @@
 			#{introduce}
 		)
 	</insert>
-
+	<!-- 구단장 teamMember insert -->
+	<insert id="insertTeamMember" parameterType="TeamMember">
+		insert into TEAM_MEMBER(
+		TEAM_NO,
+		MEM_NO
+		)values(
+			#{teamNo},
+			#{memNo}
+		)
+	</insert>
 
 
 
