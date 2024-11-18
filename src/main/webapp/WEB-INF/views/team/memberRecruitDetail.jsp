@@ -24,6 +24,7 @@
 <body>
     <div class="wrap">
         <jsp:include page="../common/header.jsp"/>
+        <br>
         <jsp:include page="../common/nav.jsp"/>
         <div class="recruit-list-wrap">
             <div id="title">단원모집</div>

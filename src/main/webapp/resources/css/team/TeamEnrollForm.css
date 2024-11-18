@@ -179,6 +179,7 @@ select option:nth-child(1) {
 }
 #teamDescription{
     background-color: #F1F3F5;
+    border-radius: 8px;
     width: 100%;
     padding: 10px;
 }
