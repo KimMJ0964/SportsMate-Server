@@ -183,12 +183,12 @@ body {
     }
     
     @media (max-width: 480px) {
-		.board-banner, .board-table-container, .board-pagination {
+		.board-banner, .board-table-container{
 			display: none;
 		}
 		
 		
-		.board-app-banner, .board-app-table-container, .board-plus-btn, .board-minus-btn {
+		.board-app-banner, .board-app-table-container{
 			display: block;
 		}
 		

@@ -1,4 +1,4 @@
-package com.kh.sportsmate.place.model.vo;
+package com.kh.sportsmate.stadium.model.vo;
 
 import lombok.*;
 import java.sql.Date;
@@ -9,18 +9,18 @@ import java.sql.Date;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class PlaceReview {
+public class StadiumReview {
 	private int reviewNo;
-	private int placeNo;
+	private int stadiumNo;
 	private int memNo;
 	private double reviewStar;
 	private String reviewContent;
 	private Date reviewDate;
 	
-	public PlaceReview(String reviewContent, double reviewStar, int placeNo, int memNo) {
+	public StadiumReview(String reviewContent, double reviewStar, int stadiumNo, int memNo) {
 		this.reviewContent = reviewContent;
 		this.reviewStar = reviewStar;
-		this.placeNo = placeNo;
+		this.stadiumNo = stadiumNo;
 		this.memNo = memNo;
 	}
 }

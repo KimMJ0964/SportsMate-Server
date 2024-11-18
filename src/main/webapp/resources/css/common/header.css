@@ -28,7 +28,7 @@
 	
 }
 
-#search-bar-form{
+.search-bar-form{
 	border: 1px solid #1D87FA;
 	display: flex;
     justify-content: space-between;
@@ -44,6 +44,7 @@
 	height: 100%;
 	border-radius: 8px;
 	font-size: 14px;
+	border: none;
 }
 
 #search-bar-form input:focus{
