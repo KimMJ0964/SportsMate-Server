@@ -91,7 +91,7 @@
 								<span>${mm.teamAName }</span>
 								<p>${mm.teamAName }</p>
 							</div>
-							<div class="score">${mm.scoreA}: ${mm.scoreB}</div>
+							<div class="score">${mm.scoreA} : ${mm.scoreB}</div>
 							<div class="team blue">
 								<span>${mm.teamBName }</span>
 								<p>${mm.teamBName }</p>

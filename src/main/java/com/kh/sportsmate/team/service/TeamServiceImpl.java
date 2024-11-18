@@ -44,7 +44,7 @@ public class TeamServiceImpl implements TeamService {
 
  	// 구단 멤버 가져오기
  	@Override
- 	public ArrayList<TeamMember> selectMemberList(int teamNo) {
+ 	public ArrayList<TeamMemberInfo> selectMemberList(int teamNo) {
  		return teamDao.selectMemberList(sqlSession, teamNo);
  	}
 

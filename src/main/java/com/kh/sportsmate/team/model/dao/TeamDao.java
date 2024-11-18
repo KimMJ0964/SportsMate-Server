@@ -9,6 +9,7 @@ import com.kh.sportsmate.team.model.dto.RecruitDetailDto;
 import com.kh.sportsmate.team.model.dto.RecruitDto;
 import com.kh.sportsmate.team.model.dto.RecruitListDto;
 import com.kh.sportsmate.team.model.dto.RecruitListQueryStringDto;
+import com.kh.sportsmate.team.model.dto.TeamMemberInfo;
 import com.kh.sportsmate.team.model.vo.*;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -34,7 +35,7 @@ public class TeamDao {
         return (ArrayList) sqlSession.selectList("teamMapper.selectList", params, rowBounds);
     }
 
-    public ArrayList<TeamMember> selectMemberList(SqlSessionTemplate sqlSession, int teamNo) {
+    public ArrayList<TeamMemberInfo> selectMemberList(SqlSessionTemplate sqlSession, int teamNo) {
         return (ArrayList) sqlSession.selectList("teamMapper.selectMemberList", teamNo);
     }
 
