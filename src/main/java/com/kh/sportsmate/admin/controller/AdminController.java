@@ -34,7 +34,9 @@ public class AdminController {
 	@RequestMapping(value = "adminPage.me")
     public String loginForm(Model model) {
 		int reportCount = adminService.selectAllListCount();
+		int blockCount = adminService.selectBlockListCount();
 		
+		model.addAttribute("blockCount", blockCount);
 		model.addAttribute("reportCount", reportCount);
         return "admin/adminPage";
     }
@@ -101,6 +103,16 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		System.out.println(list);
 		return "admin/adminPageBlock";
+	}
+	
+	@RequestMapping(value = "unblockUser.me")
+	public String unblockUser(@RequestParam(value = "memNo", required = false) int memNo, HttpServletRequest request) {
+		// 이전 페이지 URL 가져오기
+	    String referer = request.getHeader("Referer");
+	    
+	    int unblock = adminService.unblockUser(memNo);
+		
+		return "redirect:" + referer;
 	}
 
 }

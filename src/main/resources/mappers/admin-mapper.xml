@@ -59,6 +59,7 @@
 		WHERE MEM_STATUS = 'B'
     </select>
 
+	<!-- 차단유저 리스트 가져오기 -->
     <select id="selectBlockList" resultType="BlockProfileDto">
 		SELECT 
 		    MIN(mp.PN_NO) AS pnNo,
@@ -80,35 +81,12 @@
 		    m.MEM_STATUS = 'B'
 		GROUP BY 
 		    m.MEM_NO;
-
-
     </select>
     
     <!-- =============================update============================= -->
     
     <!-- 신고 접수하기 -->
     <update id="blockUser" parameterType="MemberPenalty">
-		<!-- UPDATE MEMBER m
-		JOIN MEMBER_PENALTY mp ON m.MEM_NO = mp.MEM_NO
-		SET 
-		    mp.PN_COUNT = mp.PN_COUNT + 1,
-		    mp.PN_DATE = CASE 
-		                    WHEN mp.PN_COUNT + 1 = 3 THEN DATE_ADD(CURDATE(), INTERVAL 7 DAY)
-		                    WHEN mp.PN_COUNT + 1 = 6 THEN DATE_ADD(CURDATE(), INTERVAL 1 MONTH)
-		                    WHEN mp.PN_COUNT + 1 = 9 THEN DATE_ADD(CURDATE(), INTERVAL 100 YEAR)
-		                    ELSE mp.PN_DATE
-		                 END,
-		    m.MEM_STATUS = CASE
-		                        WHEN mp.PN_COUNT + 1 IN (3, 6, 9) AND m.MEM_STATUS != 'B' THEN 'B'
-		                        ELSE m.MEM_STATUS
-		                      END
-		WHERE m.MEM_NO = #{memNo}
-		
-		UPDATE MEMBER_PENALTY
-		SET
-			PN_STATUS = 'Y'
-		WHERE PN_NO = #{pnNo} -->
-		
 	    UPDATE MEMBER m
 	    JOIN MEMBER_PENALTY mp ON m.MEM_NO = mp.MEM_NO
 	    SET 
@@ -128,6 +106,16 @@
 	                            ELSE mp.PN_STATUS
 	                        END
 	    WHERE m.MEM_NO = #{memNo}		
+    </update>
+    
+    <!-- 차단 해제하기 -->
+    <update id="unblockUser" parameterType="_int">
+		UPDATE MEMBER m
+		JOIN MEMBER_PENALTY mp ON m.MEM_NO = mp.MEM_NO
+		SET
+			m.MEM_STATUS = 'Y',
+			mp.PN_DATE = NULL
+		WHERE m.MEM_NO = #{memNo}	
     </update>
     
     <!-- =============================delete============================= -->

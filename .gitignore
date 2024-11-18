@@ -340,6 +340,10 @@ src/main/resources/*.properties
 src/main/webapp/resources/images/stadiumFile/
 src/main/webapp/resources/images/userProFile/
 src/main/webapp/resources/images/boardFile/
+<<<<<<< HEAD
 
+=======
+src/main/webapp/resources/images/stadiumFile/
+>>>>>>> 666759a632739fdbb9ab67266d2a9baa4ab3fd20
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,visualstudiocode,intellij,eclipse,react,java

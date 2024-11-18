@@ -7,6 +7,8 @@ import com.kh.sportsmate.member.model.dto.ManagerEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.service.MemberService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,7 @@ import java.util.List;
 @CrossOrigin
 @Controller
 public class MemberController {
+    private static final Logger log = LoggerFactory.getLogger(MemberController.class);
     private final MemberService memberService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -93,6 +96,7 @@ public class MemberController {
     @PostMapping("login.me")
     public String loginMember(Member m, HttpSession session, String saveId, HttpServletResponse response) {
         Member loginMember = memberService.loginMember(m);
+        log.info("로그인 멤버 정보 : {}",loginMember);
         if (loginMember == null) {
             session.setAttribute("alertMsg", "일치하는 아이디를 찾을 수 없습니다.");
             return "redirect:/loginForm.me";
@@ -111,6 +115,15 @@ public class MemberController {
             return "redirect:/";
         }
 
+    }
+    
+    @RequestMapping("/logout.me")
+    public String logout(HttpSession session) {
+        // 세션 초기화
+        session.invalidate();
+        
+        // 로그아웃 후 메인 페이지로 리다이렉트
+        return "redirect:/";
     }
 
     @PostMapping(value = "manager_enroll.me")
