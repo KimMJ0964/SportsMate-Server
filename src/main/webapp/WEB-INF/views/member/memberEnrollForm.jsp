@@ -171,9 +171,10 @@
                         <span class="form-title">포지션</span><br>
                         <select name="futsalPosition" id="futsalPosition">
                             <option disabled hidden selected>포지션을 선택해 주세요.</option>
-                            <option value="ST">ST</option>
-                            <option value="DF">DF</option>
-                            <option value="GK">GK</option>
+                            <option value="PIVO">PIVO</option>
+                            <option value="ALA">ALA</option>
+                            <option value="FIXO">FIXO</option>
+                            <option value="GOLEIRO">GOLEIRO</option>
                         </select>
                     </div>
                     <div class="input-wrap">
@@ -209,9 +210,11 @@
                         <span class="form-title">포지션</span><br>
                         <select name="basketballPosition" id="basketballPosition">
                             <option disabled hidden selected>포지션을 선택해 주세요.</option>
-                            <option value="ST">ST</option>
-                            <option value="DF">DF</option>
-                            <option value="GK">GK</option>
+                            <option value="PF">PF(파워 포워드)</option>
+                            <option value="SF">SF(스몰 포워드)</option>
+                            <option value="C">C(센터)</option>
+                            <option value="PG">PG(포인트 가드)</option>
+                            <option value="SG">SG(슈팅 가드)</option>
                         </select>
                     </div>
                     <div class="input-wrap">
@@ -247,9 +250,14 @@
                         <span class="form-title">포지션</span><br>
                         <select name="baseballPosition" id="baseballPosition">
                             <option disabled hidden selected>포지션을 선택해 주세요.</option>
-                            <option value="ST">ST</option>
-                            <option value="DF">DF</option>
-                            <option value="GK">GK</option>
+                            <option value="P">P(투수)</option>
+                            <option value="C">C(포수)</option>
+                            <option value="1B">1B(1루수)</option>
+                            <option value="2B">2B(2루수)</option>
+                            <option value="3B">3B(3루수)</option>
+                            <option value="SS">SS(유격수)</option>
+                            <option value="LF">LF(좌익수)</option>
+                            <option value="CF">CF(중견수)</option>
                         </select>
                     </div>
                     <div class="input-wrap">
