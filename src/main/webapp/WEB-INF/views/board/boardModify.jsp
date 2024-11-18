@@ -35,7 +35,7 @@
 					
 					<div class="bcm-upload-file">
 						<label class="bcm-custom-upload-btn" for="fileUpload">파일 선택</label>
-						<input type="file" id="fileUpload">
+						<input type="file" id="fileUpload" name="fileUpload">
 					</div>
 				</div>
 				

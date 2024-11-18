@@ -33,6 +33,14 @@ function toggleHeight(event) {
 	    container.style.height = currentHeight === '50px' ? 'max-content' : '50px';
 	}
 	
+	function qnatoggleHeight(event) {
+	    const container = event.target.closest('.questionContainer');
+	    const currentHeight = container.style.height;
+
+	    // Toggle height between '50px' and 'max-content'
+	    container.style.height = currentHeight === '50px' ? 'max-content' : '50px';
+	}
+	
  const viewButtons = document.querySelectorAll('.view-btn');
 	 
 	    viewButtons.forEach(button => {
@@ -61,10 +69,10 @@ function toggleHeight(event) {
 	    
 	    document.querySelectorAll('.bestplayer-btn').forEach(button => {
 	        button.addEventListener('click', function() {
-	            const placeNo = this.getAttribute('data-placeno');
+	            const stadiumNo = this.getAttribute('data-stadiumno');
 	            const matchNo = this.getAttribute('data-matchno');
 	            
-	            document.getElementById('modalPlaceNo').value = placeNo;
+	            document.getElementById('modalStadiumNo').value = stadiumNo;
 	            document.getElementById('modalMatchNo').value = matchNo;
 	        });
 	    });

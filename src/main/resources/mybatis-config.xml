@@ -14,19 +14,16 @@
         <!-- common -->
 
         <!-- Member -->
-         <typeAlias type="com.kh.sportsmate.member.model.dto.MemberPosition" alias="MemberPosition"/>
-        <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
-     	<typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
-        <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
-        <typeAlias type="com.kh.sportsmate.team.model.vo.Team" alias="Team"/>
-        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoard" alias="TeamBoard"/>
-        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamMember" alias="TeamMember"/>
-        <typeAlias type="com.kh.sportsmate.place.model.vo.PlaceReview" alias="PlaceReview"/>
-        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoardComment" alias="TeamBoardComment"/>
-        <typeAlias type="com.kh.sportsmate.team.model.vo.Recruit" alias="Recruit"/>
-    	<typeAlias type="com.kh.sportsmate.board.model.vo.BoardComment" alias="BoardComment"/>
     	<typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
+        <typeAlias type="com.kh.sportsmate.member.model.dto.MemberModifyDto" alias="MemberModifyDto"/>
+        <typeAlias type="com.kh.sportsmate.member.model.dto.MemberPosition" alias="MemberPosition"/>
         <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="Category"/>
+        <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="LoginLog"/>
+        <typeAlias type="com.kh.sportsmate.admin.model.dto.ChartDateDto" alias="ChartDateDto"/>
+        <typeAlias type="com.kh.sportsmate.admin.model.vo.MemberPenalty" alias="MemberPenalty"/>
+        <!-- Match -->
+        <typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
+
         <!-- Attachment -->
         <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
         <!-- Stadium -->
@@ -34,6 +31,29 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Amenities" alias="Amenities"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Rental" alias="Rental"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Schedule" alias="Schedule"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumReview" alias="StadiumReview"/>
+        <!-- Board -->
+        <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
+        <typeAlias type="com.kh.sportsmate.board.model.vo.BoardLike" alias="BoardLike"/>
+    	<typeAlias type="com.kh.sportsmate.board.model.vo.BoardComment" alias="BoardComment"/>
+    	<typeAlias type="com.kh.sportsmate.board.model.dto.BoardMemberPanalty" alias="BoardMemberPanalty"/>
+    	<typeAlias type="com.kh.sportsmate.board.model.vo.BoardFile" alias="BoardFile"/>
+    	<typeAlias type="com.kh.sportsmate.board.model.dto.CommentInfo" alias="CommentInfo"/>
+    	<!-- Team -->
+        <typeAlias type="com.kh.sportsmate.team.model.vo.Team" alias="Team"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoard" alias="TeamBoard"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamMember" alias="TeamMember"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoardComment" alias="TeamBoardComment"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.Recruit" alias="Recruit"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamActivityDays" alias="TeamActivityDays"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitListQueryStringDto" alias="RecruitListQueryStringDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitListDto" alias="RecruitListDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitDetailDto" alias="RecruitDetailDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitDto" alias="RecruitDto"/>
+        <!-- Match -->
+     	<typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
+     	<typeAlias type="com.kh.sportsmate.match.model.vo.MatchBest" alias="MatchBest"/>
+     	<typeAlias type="com.kh.sportsmate.match.model.vo.MatchQna" alias="MatchQna"/>
     </typeAliases>
 
 
@@ -41,9 +61,10 @@
         <mapper resource="mappers/board-mapper.xml"/>
         <mapper resource="mappers/team-mapper.xml"/>
         <mapper resource="mappers/member-mapper.xml"/>
-        <mapper resource="mappers/place-mapper.xml"/>
+        <mapper resource="mappers/admin-mapper.xml"/>
         <mapper resource="mappers/match-mapper.xml"/>
         <mapper resource="mappers/stadium-mapper.xml"/>
+        <mapper resource="mappers/attachment-mapper.xml"/>
     </mappers>
 
 

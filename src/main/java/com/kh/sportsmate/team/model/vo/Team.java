@@ -17,10 +17,11 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Team {
 	private int teamNo;
+	private int memNo;
 	private String teamName;
-	private String teamExplan;
+	private String teamDescription;
 	private int teamMaxPerson;
-	private String teamType;
+	private String teamCategory;
 	private String activityDays;
 	private String activityTime;
 	private String activityArea;
@@ -28,9 +29,18 @@ public class Team {
 	private double score;
 	private int teamPoint;
 	private Date teamEnrollDate;
-	private String application;
-	private int memNo;
+	private String application; // 모집 여부
 	
 	private String memName;
 	private int teamMemberCount;
+
+	public Team(String teamName, int memNo, String teamDescription, int teamMaxPerson, String teamCategory, String activityTime, String activityArea) {
+		this.teamName = teamName;
+		this.memNo = memNo;
+		this.teamDescription = teamDescription;
+		this.teamMaxPerson = teamMaxPerson;
+		this.teamCategory = teamCategory;
+		this.activityTime = activityTime;
+		this.activityArea = activityArea;
+	}
 }
