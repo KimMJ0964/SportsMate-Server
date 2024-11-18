@@ -9,7 +9,7 @@
     margin: auto;
 }
 
-/* --------------- Header에 포함되어 있는 css ---------------*/
+/* --------------- Header�뿉 �룷�븿�릺�뼱 �엳�뒗 css ---------------*/
 #enroll-wrap {
     /*width: 40%;*/
     width: 480px;
@@ -116,7 +116,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     border-bottom: 2px solid lightgray;
 }
-/*------------- 주소 -------------*/
+/*------------- 二쇱냼 -------------*/
 .address-container {
     display: flex;
     gap: 10px;

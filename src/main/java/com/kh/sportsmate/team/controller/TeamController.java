@@ -315,4 +315,11 @@ public class TeamController {
         int result = teamService.insertRecruit(application);
         return "redirect:/";
     }
+    
+    // 랭킹페이지
+    @RequestMapping("/ranking.tm")
+    public String showStadiumList() {
+        return "ranking/ranking";
+    }
+
 }
