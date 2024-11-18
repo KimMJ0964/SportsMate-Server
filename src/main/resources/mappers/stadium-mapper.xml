@@ -212,4 +212,13 @@
         </trim>
         )
     </insert>
+    <!-- 경기 예정 -->
+    <select id="stadiumSchedule" resultType="Schedule">
+    	SELECT MATCH
+    		S.MEM_NO AS memNo,
+    		S.RESERV_START AS reservStart,
+    		S.RESERV_END AS reservEnd
+    	FROM TEAM T
+    	JOIN MEM NO ON T.MEM_NO = S.TEAM_NO
+    </select>
 </mapper>
