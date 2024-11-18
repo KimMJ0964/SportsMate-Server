@@ -2,9 +2,9 @@
 
 .header-div{
 	width: 100%;
-    height: 60px;
-    display: flex;
-    align-items: center;
+	height: 60px;
+	display: flex;
+	align-items: center;
 }
 
 .logo-div img {
@@ -25,17 +25,17 @@
 .search-btn{
 	width: 25px !important;
 	height: 25px !important;
-	
+
 }
 
-.search-bar-form{
+#search-bar-form{
 	border: 1px solid #1D87FA;
 	display: flex;
-    justify-content: space-between;
+	justify-content: space-between;
 	align-items: center;
-    width: 100%;
-    height: 40px;
-    border-radius: 8px;
+	width: 100%;
+	height: 40px;
+	border-radius: 8px;
 }
 
 #search-bar-form input{
@@ -55,9 +55,9 @@
 	width: 25px;
 	height: 100%;
 	border: none;
-    background-color: white;
-    border-radius: 8px;
-    padding: 0;
+	background-color: white;
+	border-radius: 8px;
+	padding: 0;
 }
 
 .logo-div{
@@ -86,11 +86,11 @@
 	.logo-div{
 		width: 50%;
 	}
-	
+
 	.search-bar{
 		display: none;
 	}
-	
+
 	.user-icon{
 		width: 50%;
 	}
