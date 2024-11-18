@@ -108,7 +108,7 @@
                 </a>
             </div>
             <div class="video-info-grid" >
-                <div class="video-info"><
+                <div class="video-info">
                 	<p class="vider-author">서울 강남구 테헤란로</p>
                 	<p class="vider-title">서울 강남구 KH체육관</p>
                 	<p class="vider-state">풋살 2024-10-28</p>
