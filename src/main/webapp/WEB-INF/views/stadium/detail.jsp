@@ -44,7 +44,7 @@
 					<div class="match-info_fee">
 						<div class="matchFee">
 							<div>
-								<span class="matchFee_money">200.000원</span>
+								<span class="matchFee_money">200,000원</span>
 								<span> / 2시간</span>
 							</div>
 							<div>
@@ -75,7 +75,7 @@
 						<div class="matchRule">
 							<pre class="tet2">
 								■ 주소 : 서울특별시 송파구 풍납동 403-3
-								■ 가격 : 200.000원
+								■ 가격 : 200,000원
 								■ 구장 운영 시간 : 09:00 ~ 24:00
 							</pre>
 						</div>
@@ -351,7 +351,7 @@
 					<div class="match-info_fee">
 						<div class="matchFee">
 							<div>
-								<span class="matchFee_money">200.000원</span>
+								<span class="matchFee_money">200,000원</span>
 								<span> / 2시간</span>
 							</div>
 							<div>
