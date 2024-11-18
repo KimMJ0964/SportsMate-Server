@@ -75,7 +75,7 @@
     <%--
    	<!-- 모달 창 -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" id="">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">검색</h5>
