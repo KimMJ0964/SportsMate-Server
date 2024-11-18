@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.kh.sportsmate.admin.model.dto.BlockProfileDto;
 import com.kh.sportsmate.admin.model.dto.ChartDateDto;
 import com.kh.sportsmate.admin.model.vo.MemberPenalty;
 import com.kh.sportsmate.admin.service.AdminService;
@@ -31,7 +32,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "adminPage.me")
-    public String loginForm() {
+    public String loginForm(Model model) {
+		int reportCount = adminService.selectAllListCount();
+		
+		model.addAttribute("reportCount", reportCount);
         return "admin/adminPage";
     }
 
@@ -73,6 +77,30 @@ public class AdminController {
 	    
 	    int result = adminService.blockUser(mp);
 		return "redirect:" + referer;
+	}
+	
+	@RequestMapping(value = "blockCancle.me")
+	public String blockCancle(@RequestParam(value = "pnNo", required = false) int pnNo, HttpServletRequest request) {
+		// 이전 페이지 URL 가져오기
+	    String referer = request.getHeader("Referer");
+	    
+	    int result = adminService.blockCancle(pnNo);
+	    
+	    return "redirect:" + referer;
+	}
+	
+	@RequestMapping(value = "blockList.me")
+	public String blockList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
+		
+		int blockCount = adminService.selectBlockListCount();
+		
+		PageInfo pi = Template.getPageInfo(blockCount, currentPage, 5, 5);
+		ArrayList<BlockProfileDto> list = adminService.selectBlockList(pi);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		System.out.println(list);
+		return "admin/adminPageBlock";
 	}
 
 }

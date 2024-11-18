@@ -23,12 +23,18 @@
     <select id="selectListCount" parameterType="String" resultType="_int">
         SELECT COUNT(*)
 		FROM member_penalty
-		WHERE PN_DATE IS NULL AND PN_TYPE = #{category}
+		WHERE PN_STATUS = 'N' AND PN_TYPE = #{category}
+    </select>
+    
+    <select id="selectAllListCount" resultType="_int">
+        SELECT COUNT(*)
+		FROM member_penalty
+		WHERE PN_STATUS = 'N'
     </select>
     
     <!-- 신고접수 리스트 가져오기 -->
     <select id="selectList" parameterType="String" resultType="MemberPenalty">
-        SELECT PN_NO AS pnNo,
+        SELECT  PN_NO AS pnNo,
         		M.MEM_NO AS memNo,
 		        PN_CONTENT AS pnContent,
 		        PN_DATE AS pnDate,
@@ -46,11 +52,43 @@
 		WHERE PN_STATUS = 'N' AND PN_TYPE = #{category}
     </select>
     
+    <!-- 차단유저 수 조회 -->
+    <select id="selectBlockListCount" resultType="_int">
+        SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEM_STATUS = 'B'
+    </select>
+
+    <select id="selectBlockList" resultType="BlockProfileDto">
+		SELECT 
+		    MIN(mp.PN_NO) AS pnNo,
+		    m.MEM_NO AS memNo,
+		    m.MEM_EMAIL AS memEmail,
+		    MIN(mp.PN_DATE) AS pnDate,
+		    MIN(mp.PN_COUNT) AS pnCount,
+		    GROUP_CONCAT(mp.PN_CONTENT SEPARATOR ', ') AS pnContent,
+		    MIN(pf.ORIGIN_NAME) AS originName,
+		    MIN(pf.CHANGE_NAME) AS changeName,
+		    MIN(pf.FILE_PATH) AS filePath
+		FROM 
+		    MEMBER m
+		LEFT JOIN 
+		    MEMBER_PENALTY mp ON m.MEM_NO = mp.MEM_NO
+		LEFT JOIN 
+		    PROFILE_FILE pf ON m.MEM_NO = pf.MEM_NO
+		WHERE 
+		    m.MEM_STATUS = 'B'
+		GROUP BY 
+		    m.MEM_NO;
+
+
+    </select>
+    
     <!-- =============================update============================= -->
     
     <!-- 신고 접수하기 -->
-    <update id="blockUser" parameterType="_int">
-		UPDATE MEMBER m
+    <update id="blockUser" parameterType="MemberPenalty">
+		<!-- UPDATE MEMBER m
 		JOIN MEMBER_PENALTY mp ON m.MEM_NO = mp.MEM_NO
 		SET 
 		    mp.PN_COUNT = mp.PN_COUNT + 1,
@@ -58,7 +96,7 @@
 		                    WHEN mp.PN_COUNT + 1 = 3 THEN DATE_ADD(CURDATE(), INTERVAL 7 DAY)
 		                    WHEN mp.PN_COUNT + 1 = 6 THEN DATE_ADD(CURDATE(), INTERVAL 1 MONTH)
 		                    WHEN mp.PN_COUNT + 1 = 9 THEN DATE_ADD(CURDATE(), INTERVAL 100 YEAR)
-		                    ELSE mp.PN_DATE  -- 그 외에는 PN_DATE를 변경하지 않음
+		                    ELSE mp.PN_DATE
 		                 END,
 		    m.MEM_STATUS = CASE
 		                        WHEN mp.PN_COUNT + 1 IN (3, 6, 9) AND m.MEM_STATUS != 'B' THEN 'B'
@@ -69,11 +107,33 @@
 		UPDATE MEMBER_PENALTY
 		SET
 			PN_STATUS = 'Y'
-		WHERE PN_NO = #{PN_NO}
+		WHERE PN_NO = #{pnNo} -->
 		
-		UPDATE MEMBER_PENALTY
-		SET
-			PN_STATUS = 'Y'
-		WHERE MEM_NO = #{MEM_NO}
+	    UPDATE MEMBER m
+	    JOIN MEMBER_PENALTY mp ON m.MEM_NO = mp.MEM_NO
+	    SET 
+	        mp.PN_COUNT = mp.PN_COUNT + 1,
+	        mp.PN_DATE = CASE 
+	                        WHEN mp.PN_COUNT + 1 = 3 THEN DATE_ADD(CURDATE(), INTERVAL 7 DAY)
+	                        WHEN mp.PN_COUNT + 1 = 6 THEN DATE_ADD(CURDATE(), INTERVAL 1 MONTH)
+	                        WHEN mp.PN_COUNT + 1 = 9 THEN DATE_ADD(CURDATE(), INTERVAL 100 YEAR)
+	                        ELSE mp.PN_DATE
+	                     END,
+	        m.MEM_STATUS = CASE
+	                            WHEN mp.PN_COUNT + 1 IN (3, 6, 9) AND m.MEM_STATUS != 'B' THEN 'B'
+	                            ELSE m.MEM_STATUS
+	                        END,
+	        mp.PN_STATUS = CASE
+	                            WHEN mp.PN_NO = #{pnNo} THEN 'Y'
+	                            ELSE mp.PN_STATUS
+	                        END
+	    WHERE m.MEM_NO = #{memNo}		
     </update>
+    
+    <!-- =============================delete============================= -->
+    
+    <delete id="blockCancle" parameterType="_int">
+    	DELETE FROM MEMBER_PENALTY
+    	WHERE PN_NO = #{pnNo}
+    </delete>
 </mapper>

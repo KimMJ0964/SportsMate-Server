@@ -82,7 +82,7 @@
                                             </tr>
                                         </table>
                                         <div class="report-btns">
-                                            <button class="cancle-btn">거절</button>
+                                            <button class="cancle-btn" onclick="location.href='blockCancle.me?pnNo=${report.pnNo}'; return false;">거절</button>
                                             <button type="submit" class="report-btn">승인</button>
                                         </div>
                                     </form>
@@ -196,7 +196,7 @@
                     </div>
 
                     <!-- 등록 버튼 -->
-                    <button class="registration-button">뒤로가기</button>
+                    <button class="registration-button" onclick="location.href='adminPage.me'">뒤로가기</button>
                 </div>
 
                 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
