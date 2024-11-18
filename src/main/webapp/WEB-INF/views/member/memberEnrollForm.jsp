@@ -27,7 +27,8 @@
             <form action="member_enroll.me" class="enroll-form" method="post" enctype="multipart/form-data">
                 <div class="user-profile-wrap">
                     <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="" id="profileImg">
-                    <input type="file" name="userProfile" id="userProfile" style="display: none">
+                    <input type="file" name="userProfile" id="userProfile" style="display: none"><br>
+                    <span class="profile-description">* 프로필 사진을 추가해주세요.</span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">이메일</span> <br>
