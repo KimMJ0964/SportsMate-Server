@@ -33,7 +33,6 @@
                  onclick="location.href = '/'">
             SportMate
         </div>
-
 		<div class="search-bar">
 			<form action="" id="search-bar-form">
 				<input type="text" placeholder="구장명을 입력하세요.">
@@ -46,7 +45,7 @@
 					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/adminPage.me'">
 				</c:when>
 				<c:when test="${loginMember.memStatus.equals('M')}">
-					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/managermypage.me'">
 				</c:when>
 				<c:when test="${loginMember.memStatus.equals('Y')}">
 					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/myPageInfo.mp'">
@@ -55,7 +54,6 @@
 					<img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img" alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
 				</c:otherwise>
 			</c:choose>
-
         </div>
     </div>
     <div class="search-bar-m">
