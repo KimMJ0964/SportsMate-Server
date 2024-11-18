@@ -321,4 +321,5 @@ public class TeamController {
     public String showStadiumList() {
         return "ranking/ranking";
     }
+
 }

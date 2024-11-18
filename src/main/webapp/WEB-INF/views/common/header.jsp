@@ -62,7 +62,6 @@
                          alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
                 </c:otherwise>
             </c:choose>
-
         </div>
     </div>
     <div class="search-bar-m" data-bs-toggle="modal" data-bs-target="#searchModal">
