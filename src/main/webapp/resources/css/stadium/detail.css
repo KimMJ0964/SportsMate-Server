@@ -5,10 +5,8 @@
             height: 500px; /* 이미지와 같은 높이 */
             position: relative; /* 자식 요소의 절대 위치를 설정하기 위함 */
         }
-        img {
-            width: 1200px;
-            height: 500px;
-            object-fit: cover;
+        .icon {
+        	padding-left: 10px;
         }
         /* 별점 이미지 */
         .star {

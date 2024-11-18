@@ -13,7 +13,7 @@
 <body>
  
     <div class="nav-bar"> 
-        <a href="stadium/list" class="nav-item">
+        <a href="list.me" class="nav-item">
             <img src="${pageContext.request.contextPath}/resources/images/grount-btn.png" 
                  alt="구장검색">구장</a>
 
