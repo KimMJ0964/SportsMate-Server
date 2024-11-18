@@ -112,6 +112,15 @@ public class MemberController {
         }
 
     }
+    
+    @PostMapping("/logout.me")
+    public String logout(HttpSession session) {
+        // 세션 초기화
+        session.invalidate();
+        
+        // 로그아웃 후 메인 페이지로 리다이렉트
+        return "redirect:/";
+    }
 
     @PostMapping(value = "manager_enroll.me")
     public String managerEnroll(ManagerEnrollDto m, MultipartFile thumbnailImg, List<MultipartFile> detailImg, HttpSession session) {
