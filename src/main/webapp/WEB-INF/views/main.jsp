@@ -14,8 +14,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
         <!-- font -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap"
             rel="stylesheet">
     </head>
@@ -23,11 +21,11 @@
     <body>
         <div class="wrap">
 
-            <jsp:include page="common/header.jsp" />
+            <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
             <br>
 
-            <jsp:include page="common/nav.jsp" />
+            <jsp:include page="/WEB-INF/views/common/nav.jsp" />
 
             <!-- Carousel -->
             <div id="demo" class="carousel slide" data-bs-ride="carousel">
@@ -282,9 +280,9 @@
                 </div>
             </div>
 
-			<jsp:include page="common/matching.jsp" />
+			<jsp:include page="/WEB-INF/views/common/matching.jsp" />
 			
-            <jsp:include page="common/footer.jsp" />
+            <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
         </div>
     </body>

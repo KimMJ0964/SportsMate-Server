@@ -13,23 +13,23 @@
 <body>
  
     <div class="nav-bar"> 
-        <a href="#" class="nav-item">
+        <a href="list.st" class="nav-item">
             <img src="${pageContext.request.contextPath}/resources/images/grount-btn.png" 
                  alt="구장검색">구장</a>
 
-        <a href="#" class="nav-item">
+        <a href="teamMenu.tm" class="nav-item">
             <img src="${pageContext.request.contextPath}/resources/images/team-btn.png"
                  alt="구단메뉴">구단메뉴</a>
 
-        <a href="#" class="nav-item">
+        <a href="${pageContext.request.contextPath}" class="nav-item">
             <img src="${pageContext.request.contextPath}/resources/images/home-btn.png"
                  alt="홈">홈</a>
 
-        <a href="#" class="nav-item">
+        <a href="boardList.bd" class="nav-item">
             <img src="${pageContext.request.contextPath}/resources/images/community-btn.png"
                  alt="커뮤니티">커뮤니티</a>
 
-        <a href="#" class="nav-item">
+        <a href="ranking.tm" class="nav-item">
             <img src="${pageContext.request.contextPath}/resources/images/rank-btn.png"
                  alt="랭킹">랭킹</a>
     </div>

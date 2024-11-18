@@ -17,28 +17,33 @@
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
             crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/resources/js/member/memberEnrollForm.js"></script>
-    <title>Title</title>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <title>SportsMate - 회원가입</title>
 </head>
 <body>
     <div class="wrap">
-        <div id="login-wrap">
+        <jsp:include page="../common/header.jsp"/>
+        <div id="enroll-wrap">
             <form action="member_enroll.me" class="enroll-form" method="post" enctype="multipart/form-data">
                 <div class="user-profile-wrap">
-                    <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt=""
-                         id="profileImg">
-                    <input type="file" name="userProfile" id="userProfile" style="display: none">
+                    <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="" id="profileImg">
+                    <input type="file" name="userProfile" id="userProfile" style="display: none"><br>
+                    <span class="profile-description">* 프로필 사진을 추가해주세요.</span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">이메일</span> <br>
                     <input type="email" name="memEmail" placeholder="이메일을 입력해주세요.">
+                    <span id="emailCheckResult" class="hide"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">비밀번호</span><br>
                     <input type="password" name="memPwd" placeholder="비밀번호를 입력해주세요.">
+                    <span id="checkPwdCondition"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">비밀번호 확인</span><br>
                     <input type="password" name="pwdCheck" placeholder="비밀번호를 한 번 더 입력해주세요.">
+                    <span id="checkPwdResult"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">이름</span><br>
@@ -75,16 +80,25 @@
                             </select>
                         </div>
                         <div class="month-wrap">
-                            <input type="number" name="phone2" id="phone2" maxlength="4">
+                            <input type="number" name="phone2" id="phone2"
+                                   oninput="this.value = this.value.slice(0, 4)">
                         </div>
                         <div class="day-wrap">
-                            <input type="number" name="phone3" id="phone3" maxlength="4">
+                            <input type="number" name="phone3" id="phone3"
+                                   oninput="this.value = this.value.slice(0, 4)">
                         </div>
                     </div>
                 </div>
                 <div class="input-wrap">
-                    <span class="form-title">주소</span><br>
-                    <input type="text" name="memAdd" placeholder="주소를 입력해주세요.">
+                    <span class="form-title">주소</span> <br>
+                    <div class="address-container">
+                        <input type="text" class="zipcode" id="zipcode" name="memberZipcode" placeholder="우편번호">
+                        <button type="button" class="address-search-button"
+                                onclick="addSearch('zipcode','baseAdd', 'detailAdd')">주소 검색
+                        </button>
+                    </div>
+                    <input type="text" class="basic-address" id="baseAdd" name="memberBaseAdd" placeholder="기본 주소">
+                    <input type="text" class="detail-address" id="detailAdd" name="memberDetailAdd" placeholder="상세 주소">
                 </div>
                 <div class="split-bar"></div>
                 <div class="input-wrap">
@@ -157,9 +171,10 @@
                         <span class="form-title">포지션</span><br>
                         <select name="futsalPosition" id="futsalPosition">
                             <option disabled hidden selected>포지션을 선택해 주세요.</option>
-                            <option value="ST">ST</option>
-                            <option value="DF">DF</option>
-                            <option value="GK">GK</option>
+                            <option value="PIVO">PIVO</option>
+                            <option value="ALA">ALA</option>
+                            <option value="FIXO">FIXO</option>
+                            <option value="GOLEIRO">GOLEIRO</option>
                         </select>
                     </div>
                     <div class="input-wrap">
@@ -195,9 +210,11 @@
                         <span class="form-title">포지션</span><br>
                         <select name="basketballPosition" id="basketballPosition">
                             <option disabled hidden selected>포지션을 선택해 주세요.</option>
-                            <option value="ST">ST</option>
-                            <option value="DF">DF</option>
-                            <option value="GK">GK</option>
+                            <option value="PF">PF(파워 포워드)</option>
+                            <option value="SF">SF(스몰 포워드)</option>
+                            <option value="C">C(센터)</option>
+                            <option value="PG">PG(포인트 가드)</option>
+                            <option value="SG">SG(슈팅 가드)</option>
                         </select>
                     </div>
                     <div class="input-wrap">
@@ -233,9 +250,14 @@
                         <span class="form-title">포지션</span><br>
                         <select name="baseballPosition" id="baseballPosition">
                             <option disabled hidden selected>포지션을 선택해 주세요.</option>
-                            <option value="ST">ST</option>
-                            <option value="DF">DF</option>
-                            <option value="GK">GK</option>
+                            <option value="P">P(투수)</option>
+                            <option value="C">C(포수)</option>
+                            <option value="1B">1B(1루수)</option>
+                            <option value="2B">2B(2루수)</option>
+                            <option value="3B">3B(3루수)</option>
+                            <option value="SS">SS(유격수)</option>
+                            <option value="LF">LF(좌익수)</option>
+                            <option value="CF">CF(중견수)</option>
                         </select>
                     </div>
                     <div class="input-wrap">
@@ -269,11 +291,12 @@
                     <div class="split-bar-agreement"></div>
                     <input type="checkbox" name="termsOfUseAgreement" id="terms-of-use" class="agreement"> 이용약관 동의 (필수)
                     <br>
-                    <input type="checkbox" name="privacyAgreement" id="privacy-agreement" class="agreement"> 개인정보 수집 및 이용 동의 (필수)
+                    <input type="checkbox" name="privacyAgreement" id="privacy-agreement" class="agreement"> 개인정보 수집 및
+                    이용 동의 (필수)
                 </div>
 
                 <div class="submit-btn">
-                    <button type="submit" disabled class="none-clickable">회원가입</button>
+                    <button type="submit" id="submitBtn" class="none-clickable">회원가입</button>
                 </div>
 
             </form>

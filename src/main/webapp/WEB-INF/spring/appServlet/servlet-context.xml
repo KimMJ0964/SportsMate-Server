@@ -11,25 +11,26 @@
     <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
     <!-- Enables the Spring MVC @Controller programming model -->
-    <annotation-driven />
+    <annotation-driven/>
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-    <resources mapping="/resources/**" location="/resources/" />
+    <resources mapping="/resources/**" location="/resources/"/>
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <beans:property name="prefix" value="/WEB-INF/views/" />
-        <beans:property name="suffix" value=".jsp" />
+        <beans:property name="prefix" value="/WEB-INF/views/"/>
+        <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
 
-    <context:component-scan base-package="com.kh" />
+    <context:component-scan base-package="com.kh"/>
     <aop:aspectj-autoproxy/>
 
-    <!-- <interceptors>
-         <interceptor>
-             <mapping path="적용url"/>
-             <beans:bean class="적용인터셉터클레스" id="아이디" />
-         </interceptor>
-     </interceptors> -->
+
+    <interceptors>
+        <interceptor>
+            <mapping path="/teamEnrollForm.tm"/> <!-- 구단 창설 폼으로 이동 -->
+            <beans:bean class="com.kh.sportsmate.common.intercepter.loginIntercepter" id="loginIntercepter"/>
+        </interceptor>
+    </interceptors>
 
 </beans:beans>

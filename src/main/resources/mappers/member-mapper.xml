@@ -19,11 +19,16 @@
     <!--        <result column="MODIFY_DATE" property="modifyDate"/>-->
     <!--        <result column="STATUS" property="status"/>-->
     <!--    </resultMap>-->
+    
+   
+    
+    <!-- Select -->
     <select id="loginMember" parameterType="Member" resultType="Member">
         select MEM_NO as memNo,
             MEM_EMAIL as memEmail,
             MEM_PWD as memPwd,
             MEM_NAME as memName,
+            MEM_ZIPCODE as memZipcode,
             MEM_ADD as memAdd,
             MEM_GENDER as memGender,
             MEM_PHONE as memPhone,
@@ -35,12 +40,18 @@
         where MEM_EMAIL = #{memEmail}
             and MEM_STATUS in('Y','M','A')
     </select>
+    <select id="selectEmail" parameterType="String" resultType="_int">
+        select count(*)
+        from MEMBER
+        WHERE MEM_EMAIL = #{email}
+    </select>
     <insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="memNo">
         INSERT INTO MEMBER(
         MEM_EMAIL,
         MEM_PWD,
         MEM_NAME,
         MEM_GENDER,
+        MEM_ZIPCODE,
         MEM_ADD,
         MEM_BIRTH,
         MEM_PHONE,
@@ -50,36 +61,37 @@
         #{memPwd},
         #{memName},
         #{memGender},
+        #{memZipcode},
         #{memAdd},
         #{memBirth},
         #{memPhone},
         #{memStatus}
         )
     </insert>
-    <insert id="insertProfile" parameterType="Profile">
-        INSERT into PROFILE_FILE(
-        <if test="memNo > 0">
-            mem_no,
-        </if>
-        <if test="teamNo > 0">
-            team_no,
-        </if>
-        ORIGIN_NAME,
-        CHANGE_NAME,
-        FILE_PATH
-        )
-        values(
-        <if test="memNo > 0">
-            #{memNo},
-        </if>
-        <if test="teamNo > 0">
-            #{teamNo},
-        </if>
-        #{originName},
-        #{changeName},
-        #{filePath}
-        )
-    </insert>
+<!--    <insert id="insertProfile" parameterType="Profile">-->
+<!--        INSERT into PROFILE_FILE(-->
+<!--        <if test="memNo > 0">-->
+<!--            mem_no,-->
+<!--        </if>-->
+<!--        <if test="teamNo > 0">-->
+<!--            team_no,-->
+<!--        </if>-->
+<!--        ORIGIN_NAME,-->
+<!--        CHANGE_NAME,-->
+<!--        FILE_PATH-->
+<!--        )-->
+<!--        values(-->
+<!--        <if test="memNo > 0">-->
+<!--            #{memNo},-->
+<!--        </if>-->
+<!--        <if test="teamNo > 0">-->
+<!--            #{teamNo},-->
+<!--        </if>-->
+<!--        #{originName},-->
+<!--        #{changeName},-->
+<!--        #{filePath}-->
+<!--        )-->
+<!--    </insert>-->
     <insert id="insertCategory" parameterType="Category">
         insert into category(
         <trim suffixOverrides=",">
@@ -107,4 +119,311 @@
         </trim>
         )
     </insert>
+    <select id="selectLog" parameterType="LoginLog" resultType="LoginLog">
+        select MEM_NO as memNo,
+            LOGIN_DATE AS loginLog
+        from login_log
+        where MEM_NO = #{memNo} AND DATE_FORMAT(LOGIN_DATE, '%Y/%m/%d') = DATE_FORMAT(SYSDATE(), '%Y/%m/%d')
+    </select>
+    <insert id="insertLog" parameterType="LoginLog">
+    	insert into login_log(
+    	MEM_NO,
+    	LOGIN_DATE
+    	)
+    	VALUES(
+    	#{memNo},
+    	SYSDATE()
+    	)
+    </insert>
+    
+    <!-- 마이페이지 -->
+    <!-- 내 정보 -->
+    <!-- SELECT -->
+     <select id="selectMyInfo" resultType="MemberPosition">
+        SELECT MEM_NO as memNo,
+        	   MEM_NAME as memName,
+        	   MEM_ADD as memAdd,
+        	   MEM_GENDER as memGender,
+        	   MEM_RANK as memRank,
+        	   MEM_BIRTH as memBirth,
+           		TIMESTAMPDIFF(YEAR, MEM_BIRTH, CURDATE()) as memAge
+        FROM MEMBER
+        WHERE MEM_NO = #{memNo}
+    </select>
+    
+    <select id="selectMyProfile" resultType="Profile">
+    	SELECT CHANGE_NAME AS changeName,
+    			FILE_PATH AS filePath
+    	FROM PROFILE_FILE
+    	WHERE MEM_NO = #{memNo}
+    </select>
+    
+    <!-- 내 구단 -->
+   <select id="selectMyTeam" resultType="Team">
+	    SELECT 
+	        T.TEAM_NO as teamNo,
+	        T.TEAM_NAME as teamName,
+	        T.TEAM_MAX_PERSON as teamMaxPerson,
+	        T.SCORE as score,
+	        T.TEAM_POINT as teamPoint,
+	        T.TEAM_ENROLL_DATE as teamEnrollDate,
+	        TM.MEM_NO as memNo,
+	        T.TEAM_CATEGORY as teamCategory,
+	        M.MEM_NAME as memName,
+	        (SELECT COUNT(*) FROM TEAM_MEMBER TM2 WHERE TM2.TEAM_NO = T.TEAM_NO) as teamMemberCount
+	    FROM TEAM T
+	    JOIN TEAM_MEMBER TM ON T.TEAM_NO = TM.TEAM_NO
+	    JOIN MEMBER M ON T.MEM_NO = M.MEM_NO
+	    WHERE TM.MEM_NO = #{memNo};
+	</select>
+    
+    <!-- 내 구단 입단 명단자 -->
+    <!-- 해당 종목의 레벨과 포지션 가지고 있어야 조회가능 -->
+    <select id="selectMyRecruit" resultType="Recruit">
+	    SELECT 
+	        R.MEM_NO as memNo,
+	        R.INTRODUCE as introduce,
+	        T.TEAM_NAME as teamName,
+	        T.TEAM_NO as teamNo,
+	        M.MEM_NAME as memName,  <!-- MEMBER 테이블에서 MEM_NAME을 추가 -->
+	        M.MEM_BIRTH as memBirth,
+	        M.MEM_GENDER as memGender,
+	        M.MEM_RANK as memRank,
+	        TIMESTAMPDIFF(YEAR, M.MEM_BIRTH, CURDATE()) as memAge,
+	        CASE 
+	               WHEN T.TEAM_CATEGORY = '축구' THEN c.SOC_POSI
+	               WHEN T.TEAM_CATEGORY = '농구' THEN c.BASKET_POSI
+	               WHEN T.TEAM_CATEGORY = '풋살' THEN c.FOOT_POSI
+	               WHEN T.TEAM_CATEGORY = '야구' THEN c.BASE_POSI
+	           END AS position,
+	           CASE 
+	               WHEN T.TEAM_CATEGORY = '축구' THEN c.SOC_ABILITY
+	               WHEN T.TEAM_CATEGORY = '농구' THEN c.BASKET_ABILITY
+	               WHEN T.TEAM_CATEGORY = '풋살' THEN c.FOOT_ABILITY
+	               WHEN T.TEAM_CATEGORY = '야구' THEN c.BASE_ABILITY
+	           END AS ability
+	    FROM TEAM T
+	    JOIN RECRUIT R ON T.TEAM_NO = R.TEAM_NO
+	    JOIN MEMBER M ON R.MEM_NO = M.MEM_NO  <!-- RECRUIT와 MEMBER 테이블을 MEM_NO를 기준으로 JOIN -->
+	    JOIN CATEGORY c ON M.MEM_NO = c.MEM_NO 
+	    WHERE T.MEM_NO = #{memNo};
+	</select>
+    
+    <!-- 내 전적 -->
+    <select id="selectMyMatch" resultType="Match">
+	    SELECT DISTINCT
+		    M.SCORE_A AS scoreA,
+		    M.SCORE_B AS scoreB,
+		    M.STADIUM_NO AS stadiumNo,
+		    M.MATCH_NO AS matchNo,
+		    A.TEAM_NAME AS teamAName,
+		    B.TEAM_NAME AS teamBName,
+		    M.TEAM_A_NO AS teamANo,
+		    M.TEAM_B_NO AS teamBNo
+		FROM `MATCH` M
+		JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
+		JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
+		JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
+		JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
+		WHERE (TA.MEM_NO = #{memNo} OR TB.MEM_NO = #{memNo})
+		  AND M.MATCH_NO IN (
+		      SELECT DISTINCT MATCH_NO
+		      FROM MATCH_BEST
+		      WHERE MEM_NO = #{memNo}
+		  );
+	</select>
+	
+	<!-- 내 전적 판 수 -->
+	<select id="selectMyMatchCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT DISTINCT
+		        M.SCORE_A AS scoreA,
+		        M.SCORE_B AS scoreB,
+		        M.STADIUM_NO AS stadiumNo,
+		        M.MATCH_NO AS matchNo,
+		        A.TEAM_NAME AS teamAName,
+		        B.TEAM_NAME AS teamBName,
+		        M.TEAM_A_NO AS teamANo,
+		        M.TEAM_B_NO AS teamBNo
+		    FROM `MATCH` M
+		    JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
+		    JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
+		    JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
+		    JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
+		    WHERE (TA.MEM_NO = #{memNo} OR TB.MEM_NO = #{memNo})
+		      AND M.MATCH_NO IN (
+		          SELECT DISTINCT MATCH_NO
+		          FROM MATCH_BEST
+		          WHERE MEM_NO = #{memNo}
+		      )
+		) AS match_count;
+	</select>
+	
+	<!-- 내 전적 이긴 횟수 -->
+	<select id="selectMyMatchWinCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+		    SELECT DISTINCT
+		        M.SCORE_A AS scoreA,
+		        M.SCORE_B AS scoreB,
+		        M.STADIUM_NO AS stadiumNo,
+		        M.MATCH_NO AS matchNo,
+		        A.TEAM_NAME AS teamAName,
+		        B.TEAM_NAME AS teamBName,
+		        M.TEAM_A_NO AS teamANo,
+		        M.TEAM_B_NO AS teamBNo
+		    FROM `MATCH` M
+		    JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
+		    JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
+		    JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
+		    JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
+		    WHERE (TA.MEM_NO = #{memNo} OR TB.MEM_NO = #{memNo})
+		      AND M.MATCH_NO IN (
+		          SELECT DISTINCT MATCH_NO
+		          FROM MATCH_BEST
+		          WHERE MEM_NO = #{memNo}
+		      )
+		       AND (
+			      (TA.MEM_NO = #{memNo} AND M.SCORE_A > M.SCORE_B)  -- A팀에 속한 경우, A팀이 더 높은 점수
+			      OR
+			      (TB.MEM_NO = #{memNo} AND M.SCORE_B > M.SCORE_A)  -- B팀에 속한 경우, B팀이 더 높은 점수
+			  )
+		) AS higher_score_matches;
+	</select>
+    
+    <!-- a팀 정보  #{teamANo} -->
+    <select id="selectTeamInfo" resultType="MemberPosition">
+	    SELECT 
+		    m.MEM_NO as memNo, 
+		    m.MEM_NAME as memName,
+		    t.TEAM_NAME as teamName,
+		    CASE 
+		        WHEN t.TEAM_CATEGORY = '축구' THEN c.SOC_POSI
+		        WHEN t.TEAM_CATEGORY = '풋살' THEN c.FOOT_POSI
+		        WHEN t.TEAM_CATEGORY = '농구' THEN c.BASKET_POSI
+		        WHEN t.TEAM_CATEGORY = '야구' THEN c.BASE_POSI
+		        ELSE '포지션 없음'
+		    END AS position
+		FROM 
+		    MEMBER m
+		JOIN 
+		    TEAM_MEMBER tm ON m.MEM_NO = tm.MEM_NO
+		JOIN 
+		    TEAM t ON tm.TEAM_NO = t.TEAM_NO
+		LEFT JOIN 
+		    CATEGORY c ON m.MEM_NO = c.MEM_NO
+		WHERE 
+		    tm.TEAM_NO = #{teamNo};
+    </select>
+    
+    <!-- 마이페이지 내 정보 출력 / 이메일, 이름, 성별, 생년월일, 휴대폰번호, 포지션 -->
+    <select id="myInfoList" resultType="MemberModifyDto">
+	    SELECT m.MEM_NO as memNo,
+	       m.MEM_EMAIL as memEmail,
+	       m.MEM_NAME as memName,
+	       m.MEM_ZIPCODE as memZipcode,
+	       m.MEM_ADD as memAdd,
+	       m.MEM_GENDER as memGender,
+	       m.MEM_PHONE as memPhone,
+	       m.MEM_BIRTH as memBirth,
+	       c.SOC_POSI as socPosi,
+	       c.SOC_ABILITY as socAbility,
+	       c.FOOT_POSI as footPosi,
+	       c.FOOT_ABILITY as footAbility,
+	       c.BASKET_POSI as basketPosi,
+	       c.BASKET_ABILITY as basketAbility,
+	       c.BASE_POSI as basePosi,
+	       c.BASE_ABILITY as baseAbility
+		FROM MEMBER m
+		JOIN CATEGORY c ON m.MEM_NO = c.MEM_NO
+		WHERE m.MEM_NO = #{memNo}
+    </select>
+    
+    <!-- 비밀번호 확인 -->
+	<select id="verifyOldPassword" resultType="String">
+        SELECT MEM_PWD
+        FROM MEMBER
+        WHERE MEM_NO = #{memNo}
+        AND MEM_PWD = #{MEM_PWD}
+    </select>
+    
+    <!-- 내 문의 -->
+    <select id="selectMyQna" resultType="MatchQna">
+	    SELECT MATCH_Q_TITLE AS matchQTitle,
+	    	   MATCH_Q_DETAIL AS matchQDetail,
+	    	   MATCH_A AS matchA
+	   	FROM MATCH_QNA
+	   	WHERE Q_MEM_NO = #{memNo}
+    </select>
+    
+    <!-- 리뷰 체크 -->
+    <select id="checkReview" resultType="MatchBest">
+    	SELECT VOTE_STATUS AS voteStatus
+    	FROM MATCH_BEST
+    	WHERE MATCH_NO = #{matchNo}
+    	AND MEM_NO = #{memNo}
+    </select>
+    
+    <!-- UPDATE -->
+    <!-- 내 정보 수정 -->
+    <update id="modifyMember" parameterType="Member">
+	    UPDATE MEMBER
+	    SET 
+	        MEM_EMAIL = #{memEmail},
+	        MEM_NAME = #{memName},
+	        MEM_GENDER = #{memGender},
+	        MEM_ZIPCODE = #{memZipcode},
+	        MEM_ADD = #{memAdd},
+	        MEM_BIRTH = #{memBirth},
+	        MEM_PHONE = #{memPhone},
+	        MEM_STATUS = #{memStatus}
+	    WHERE MEM_NO = #{memNo}
+	</update>
+	
+	<update id="modifyProfile" parameterType="Profile">
+	    UPDATE PROFILE_FILE
+	    <set>
+	        <if test="memNo > 0">
+	            MEM_NO = #{memNo},
+	        </if>
+	        <if test="teamNo > 0">
+	            TEAM_NO = #{teamNo},
+	        </if>
+	        ORIGIN_NAME = #{originName},
+	        CHANGE_NAME = #{changeName},
+	        FILE_PATH = #{filePath}
+	    </set>
+	    WHERE MEM_NO = #{memNo} <!-- 반드시 Primary Key에 해당하는 조건 추가 -->
+	</update>
+	
+	<update id="modifyCategory" parameterType="Category">
+	    UPDATE CATEGORY
+	    <set>
+	        <if test="socPosition != null">SOC_POSI = #{socPosition},</if>
+	        <if test="socSkill != null">SOC_ABILITY = #{socSkill},</if>
+	        <if test="futPosition != null">FOOT_POSI = #{futPosition},</if>
+	        <if test="futSkill != null">FOOT_ABILITY = #{futSkill},</if>
+	        <if test="basketPosition != null">BASKET_POSI = #{basketPosition},</if>
+	        <if test="basketSkill != null">BASKET_ABILITY = #{basketSkill},</if>
+	        <if test="basePosition != null">BASE_POSI = #{basePosition},</if>
+	        <if test="baseSkill != null">BASE_ABILITY = #{baseSkill}</if>
+	    </set>
+	    WHERE MEM_NO = #{memNo}
+	</update>
+	
+    <!-- 비밀변경 수정 -->
+    <update id="updatePassword">
+	    UPDATE MEMBER
+	    SET MEM_PWD = #{encodedNewPassword}
+	    WHERE MEM_NO = #{memNo}
+    </update>
+    
+    <!-- 계정 탈퇴 -->
+    <update id="accountCancel">
+    	UPDATE MEMBER
+	    SET MEM_STATUS = 'N'
+	    WHERE MEM_NO = #{memNo}
+    </update>
+    
 </mapper>
