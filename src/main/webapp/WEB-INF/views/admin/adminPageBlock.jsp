@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -64,7 +65,7 @@
             </c:forEach>
 
             <!-- 등록 버튼 -->
-            <button class="registration-button">뒤로가기</button>
+            <button class="registration-button" onclick="location.href='adminPage.me'">뒤로가기</button>
         </div>
 
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -102,5 +102,10 @@ public class AdminController {
 		System.out.println(list);
 		return "admin/adminPageBlock";
 	}
+	
+	@RequestMapping(value = "unblockUser.me")
+	public String unblockUser() {
+		
+	}
 
 }
