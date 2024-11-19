@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.kh.sportsmate.member.model.vo.Member" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +39,10 @@
             <!-- 5. 버튼들 -->
             <div class="bd-button-container">
                 <div class="bd-button"><a href="${downloadLink}" style="color:white;" download>파일 다운로드</a></div>
-                 <button class="bd-button"  onclick="location.href = 'modifyMove.bd?mpage=${board.boardNo}'">수정하기</button>
+                	
+                 <c:if test="${loginMember != null && loginMember.memNo == board.memNo}">
+					    <button class="bd-button" onclick="location.href = 'modifyMove.bd?mpage=${board.boardNo}'">수정하기</button>
+					</c:if>
                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${board.boardNo}, 0, ${board.memNo })">신고하기</button>
                  <div>
 				 	<img class="bd-like" src="${pageContext.request.contextPath}/resources/images/board_like.png" onclick="location.href = 'boardLike.bd?bno=${board.boardNo }'"/>

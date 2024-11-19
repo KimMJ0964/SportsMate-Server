@@ -49,7 +49,7 @@
 				<div class="bcm-content-container">
 					<hr>
 					<div class="bcm-content-textarea">
-						<textarea id="summernote" name="content" id="content"></textarea>
+						<textarea id="summernote" name="content"></textarea>
 					</div>
 				</div>
 				
@@ -66,6 +66,8 @@
 	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-bs5.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/board/boardCreate.js"></script>
 	<script>
+
+	
 	</script>
 	
 </body>

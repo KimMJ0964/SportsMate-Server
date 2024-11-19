@@ -63,7 +63,8 @@ public class BoardController {
 
 	// 게시글 상세 페이지로 이동
 	@RequestMapping("detailMove.bd")
-	public String detailList(int bno, Model model) {
+	public String detailList(int bno, Model model, HttpSession session) {
+		Member loginMember = (Member) session.getAttribute("loginMember");
 		Board board = boardService.detailList(bno);
 		ArrayList<CommentInfo> comment = boardService.commentList(bno);
 		int commentCount = boardService.commentCount(bno);
@@ -80,6 +81,7 @@ public class BoardController {
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("comment", comment);
 		model.addAttribute("board", board);
+		model.addAttribute("loginMember", loginMember);
 		return "board/boardDetail";
 	}
 

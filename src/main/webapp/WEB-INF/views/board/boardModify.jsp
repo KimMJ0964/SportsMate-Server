@@ -7,6 +7,9 @@
 <title>게시글 수정</title>
 <link href="${pageContext.request.contextPath}/resources/css/board/boardCM.css?after" rel="stylesheet" >
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <!-- include summernote css/js-->
+<link href="${pageContext.request.contextPath}/resources/summernote/summernote-bs5.css" rel="stylesheet">
 </head>
 <body>
 	<div class="wrap">
@@ -43,7 +46,7 @@
 				<div class="bcm-content-container">
 					<hr>
 					<div class="bcm-content-textarea">
-						<textarea placeholder="내용을 입력하세요" name="content">${board.content }</textarea>
+						<textarea id="summernote" name="content">${board.content }</textarea>
 					</div>
 				</div>
 				
@@ -57,5 +60,7 @@
 		</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
+	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-bs5.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/board/boardCreate.js"></script>
 </body>
 </html>
