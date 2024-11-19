@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  * 2024. 11. 17.        jun       최초 생성
  */
 @Component
-public class loginIntercepter implements HandlerInterceptor {
+public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
