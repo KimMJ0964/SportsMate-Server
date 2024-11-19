@@ -251,14 +251,12 @@
 			    TEAM_NO,
 			    MEM_NO,
 			    STATUS,
-			    MEM_ENROLL_DATE,
-			    APPROVE
+			    MEM_ENROLL_DATE
 			)
 			VALUES (
 			    #{tno},
 			    #{mno},
 			    'Y',
-			    NOW(),
 			    NOW()
 			)
 	</insert>

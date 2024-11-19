@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.match.model.vo.Match;
@@ -38,6 +39,9 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	@Autowired
 	private final MyPageDao mypageDao;
+	
+	@Autowired
+	private final AttachmentDao attachmentDao;
 	
 	// 내 정보
 	@Override
@@ -129,6 +133,9 @@ public class MyPageServiceImpl implements MyPageService{
         if (profile != null) {
             profile.setMemNo(processedMember.getMemNo());
             result2 = mypageDao.modifyProfile(sqlSession, profile);
+            if(result2 == 0) {
+            	result2 = attachmentDao.insertProfile(sqlSession, profile);
+            }
         }
 
         // 종목 관련 내용을 담을 객체

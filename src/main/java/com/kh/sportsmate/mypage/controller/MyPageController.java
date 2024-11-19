@@ -256,9 +256,22 @@ public class MyPageController {
     
     // 계정 탈퇴
     @RequestMapping("accountCancel.mp")
-    public String accountCancel(HttpSession session) {
+    public String accountCancel(HttpSession session, String memPwd, String pwdCheck) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
+		
+		// 비밀번호 확인: 입력한 기존 비밀번호와 재입력된 비밀번호 비교
+	    if (!pwdCheck.equals(memPwd)) {
+	        session.setAttribute("alertMsg", "비밀번호와 재입력한 비밀번호가 다릅니다.");
+	        return "myPage/myPageModify";
+	    }
+
+	    // 1. 기존 비밀번호와 저장된 암호화된 비밀번호 비교
+	    String storedPassword = loginMember.getMemPwd(); // 저장된 암호화된 비밀번호
+	    if (!bCryptPasswordEncoder.matches(memPwd, storedPassword)) {
+	        session.setAttribute("alertMsg", "기존 비밀번호가 일치하지 않습니다.");
+	        return "myPage/myPageModify";
+	    }
 		
 		int result = myPageService.accountCancel(memNo);
 		

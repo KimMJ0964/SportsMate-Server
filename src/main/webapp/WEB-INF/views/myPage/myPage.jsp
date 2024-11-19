@@ -72,9 +72,8 @@
 					<Button class="modify-btn"
 						onclick="location.href = 'modifyMyInfoMove.mp'">프로필 수정</Button>
 					<Button class="modify-btn" onclick="location.href = 'logout.mp'">로그아웃</Button>
-					<Button class="secession-btn"
-						onclick="location.href = 'accountCancel.mp'">회원 탈퇴</Button>
 				</div>
+				<br>
 			</div>
 
 			<!-- 내 전적 -->
@@ -221,7 +220,12 @@
 										<!-- 야구 구단 -->
 										<div class="baseball">
 											<div class="club-head">
-												<p>${mt.teamCategory }</p>
+												    <c:choose>
+												        <c:when test="${mt.teamCategory == 'futsal'}"><p>풋살</p></c:when>
+												        <c:when test="${mt.teamCategory == 'baseball'}"><p>야구</p></c:when>
+												        <c:when test="${mt.teamCategory == 'soccer'}"><p>축구</p></c:when>
+												        <c:when test="${mt.teamCategory == 'basketball'}"><p>농구</p></c:when>
+												    </c:choose>
 												<div class="profile">
 													<div class="profile-img-container">
 														<div class="profile-circle"></div>
@@ -276,7 +280,12 @@
 									<!-- 야구 구단 -->
 									<div class="baseball">
 										<div class="club-head">
-											<p>${mt.teamCategory }</p>
+											<c:choose>
+												        <c:when test="${mt.teamCategory == 'futsal'}"><p>풋살</p></c:when>
+												        <c:when test="${mt.teamCategory == 'baseball'}"><p>야구</p></c:when>
+												        <c:when test="${mt.teamCategory == 'soccer'}"><p>축구</p></c:when>
+												        <c:when test="${mt.teamCategory == 'basketball'}"><p>농구</p></c:when>
+												    </c:choose>
 											<div class="profile">
 												<div class="profile-img-container">
 													<div class="profile-circle"></div>
@@ -370,7 +379,18 @@
 								<tr class="mypage-qna-row">
 									<td class="mypage-qna-cell">${mq.matchQTitle}</td>
 									<td class="mypage-qna-cell">${mq.matchQDetail}</td>
-									<td class="mypage-qna-cell">${mq.matchA}</td>
+									<td class="mypage-qna-cell">
+									    <c:choose>
+									        <c:when test="${not empty mq.matchA}">
+									            <img src="${pageContext.request.contextPath}/resources/images/qnaCheck.png" alt="Checked" data-bs-toggle="modal" class="qnaImage" 
+													data-bs-target="#qnaAnswerModal" data-content="${mq.matchA}"/>
+									        </c:when>
+									        <c:otherwise>
+									            <img src="${pageContext.request.contextPath}/resources/images/qnaUnCheck.png" alt="Unchecked" data-bs-toggle="modal" class="qnaImage" 
+													data-bs-target="#qnaAnswerModal" data-content="아직 문의에 대한 답변이 작성되지 않았습니다."/>
+									        </c:otherwise>
+									    </c:choose>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -432,6 +452,29 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="qnaAnswerModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">문의 답변</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="qnaAnswerContent">
+						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	</div>
 	<!-- myPage-container 끝 -->
 	<!-- warp 끝 -->
@@ -526,6 +569,20 @@
 	        
 	        document.getElementById('bestMNo').value = bestMNo;
 	    }
+	    
+	    document.addEventListener("DOMContentLoaded", function() {
+	        // 모든 이미지에 클릭 이벤트 추가
+	        const images = document.querySelectorAll(".qnaImage");
+	        const answerContentDiv = document.querySelector(".qnaAnswerContent");
+
+	        images.forEach(image => {
+	            image.addEventListener("click", function() {
+	                // 이미지의 data-content 값을 가져와 모달의 qnaAnswerContent div에 출력
+	                const content = image.getAttribute("data-content");
+	                answerContentDiv.textContent = content;
+	            });
+	        });
+	    });
 	</script>
 </body>
 </html>

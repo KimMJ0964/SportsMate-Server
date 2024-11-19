@@ -8,6 +8,9 @@
 <title>게시글 생성</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/board/boardCM.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <!-- include summernote css/js-->
+    <link href="${pageContext.request.contextPath}/resources/summernote/summernote-bs5.css" rel="stylesheet">
 <style>
 </style>
 </head>
@@ -46,9 +49,10 @@
 				<div class="bcm-content-container">
 					<hr>
 					<div class="bcm-content-textarea">
-						<textarea placeholder="내용을 입력하세요" id="content" name="content"></textarea>
+						<textarea id="summernote" name="content" id="content"></textarea>
 					</div>
 				</div>
+				
 				
 				<!-- 버튼 -->
 				<div class="bcm-button-content">
@@ -59,6 +63,10 @@
 		</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
+	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-bs5.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/board/boardCreate.js"></script>
+	<script>
+	</script>
 	
 </body>
 </html>

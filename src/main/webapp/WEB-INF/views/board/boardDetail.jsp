@@ -76,6 +76,9 @@
 					        <c:when test="${comments.status == 'N'}">
 					            <span class="deleted-comment">삭제된 댓글입니다.</span>
 					        </c:when>
+					        <c:when test="${comments.status == 'B'}">
+					            <span class="deleted-comment">관리자에 의해 삭제된 댓글입니다.</span>
+					        </c:when>
 					        <c:otherwise>
 					            ${comments.comContent}
 					        </c:otherwise>
@@ -101,6 +104,9 @@
 							    <c:choose>
 							        <c:when test="${reply.status == 'N'}">
 							            <span class="deleted-comment">삭제된 댓글입니다.</span>
+							        </c:when>
+							        <c:when test="${reply.status == 'B'}">
+							            <span class="deleted-comment">관리자에 의해 삭제된 댓글입니다.</span>
 							        </c:when>
 							        <c:otherwise>
 							            ${reply.comContent}

@@ -191,16 +191,16 @@
 	        M.MEM_RANK as memRank,
 	        TIMESTAMPDIFF(YEAR, M.MEM_BIRTH, CURDATE()) as memAge,
 	        CASE 
-	               WHEN T.TEAM_CATEGORY = '축구' THEN c.SOC_POSI
-	               WHEN T.TEAM_CATEGORY = '농구' THEN c.BASKET_POSI
-	               WHEN T.TEAM_CATEGORY = '풋살' THEN c.FOOT_POSI
-	               WHEN T.TEAM_CATEGORY = '야구' THEN c.BASE_POSI
+	               WHEN T.TEAM_CATEGORY = 'soccer' THEN c.SOC_POSI
+	               WHEN T.TEAM_CATEGORY = 'basketball' THEN c.BASKET_POSI
+	               WHEN T.TEAM_CATEGORY = 'futsal' THEN c.FOOT_POSI
+	               WHEN T.TEAM_CATEGORY = 'baseball' THEN c.BASE_POSI
 	           END AS position,
 	           CASE 
-	               WHEN T.TEAM_CATEGORY = '축구' THEN c.SOC_ABILITY
-	               WHEN T.TEAM_CATEGORY = '농구' THEN c.BASKET_ABILITY
-	               WHEN T.TEAM_CATEGORY = '풋살' THEN c.FOOT_ABILITY
-	               WHEN T.TEAM_CATEGORY = '야구' THEN c.BASE_ABILITY
+	               WHEN T.TEAM_CATEGORY = 'soccer' THEN c.SOC_ABILITY
+	               WHEN T.TEAM_CATEGORY = 'basketball' THEN c.BASKET_ABILITY
+	               WHEN T.TEAM_CATEGORY = 'futsal' THEN c.FOOT_ABILITY
+	               WHEN T.TEAM_CATEGORY = 'baseball' THEN c.BASE_ABILITY
 	           END AS ability
 	    FROM TEAM T
 	    JOIN RECRUIT R ON T.TEAM_NO = R.TEAM_NO
@@ -299,10 +299,10 @@
 		    m.MEM_NAME as memName,
 		    t.TEAM_NAME as teamName,
 		    CASE 
-		        WHEN t.TEAM_CATEGORY = '축구' THEN c.SOC_POSI
-		        WHEN t.TEAM_CATEGORY = '풋살' THEN c.FOOT_POSI
-		        WHEN t.TEAM_CATEGORY = '농구' THEN c.BASKET_POSI
-		        WHEN t.TEAM_CATEGORY = '야구' THEN c.BASE_POSI
+		        WHEN t.TEAM_CATEGORY = 'soccer' THEN c.SOC_POSI
+		        WHEN t.TEAM_CATEGORY = 'futsal' THEN c.FOOT_POSI
+		        WHEN t.TEAM_CATEGORY = 'basketball' THEN c.BASKET_POSI
+		        WHEN t.TEAM_CATEGORY = 'baseball' THEN c.BASE_POSI
 		        ELSE '포지션 없음'
 		    END AS position
 		FROM 
