@@ -11,19 +11,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/enrollSelectForm.css">
     <title>SportsMate - 회원가입</title>
 </head>
-<body>
+<body data-context-path="${pageContext.request.contextPath}">
     <div class="wrap">
         <jsp:include page="../common/header.jsp" />
+        <br>
+        <jsp:include page="../common/nav.jsp"/>
         <div class="select-wrap">
-            <div class="user" onclick="location.href = 'memberEnrollForm.me'">
+            <div class="user" data-hover-src="user_hover.png" data-default-src="user.png" onclick="location.href = 'memberEnrollForm.me'">
                 <img src="${pageContext.request.contextPath}/resources/images/user.png" alt=""><br>
                 <span>사용자 회원가입</span>
-                <p>구단의 가입하거나 구단을 창설하여 플레이 해보세요!</p>
+                <p>구단의 가입하거나 구단을 창설하여 플레이</p>
             </div>
-            <div class="manager" onclick="location.href = 'managerEnrollForm.me'">
+            <div class="manager" data-hover-src="manager_hover.png" data-default-src="manager.png" onclick="location.href = 'managerEnrollForm.me'">
                 <img src="${pageContext.request.contextPath}/resources/images/manager.png" alt=""> <br>
                 <span>구장 관리자 회원가입</span>
                 <p>구장을 저희 서비스에 등록 및 관리하실 수 있습니다.</p>

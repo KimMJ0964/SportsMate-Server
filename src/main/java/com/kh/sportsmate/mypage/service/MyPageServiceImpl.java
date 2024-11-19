@@ -117,7 +117,7 @@ public class MyPageServiceImpl implements MyPageService{
 		int result1 = 0;
         int result2 = 1;
         int result3 = 0;
-        String memAdd = m.getMemberBaseAdd() + " " + m.getMemberDetailAdd();
+        String memAdd = m.getMemberBaseAdd() + " , " + m.getMemberDetailAdd();
         String memBirth = m.getYear() + "." + m.getMonth() + "." + m.getDay(); // 생년월일 concatenate
         String memPhone = m.getPhone1() + "-" + m.getPhone2() + "-" + m.getPhone3(); // 전화번호
         Member processedMember = new Member(m.getMemEmail(), m.getMemPwd(), m.getMemName(),

@@ -154,24 +154,23 @@ const checkPasswordCondition = (ev) => {
     }
 };
 
- window.onload = function(){
-    	const phone = document.querySelector('#modify-phone-num').getAttribute('data-phone');
-    	const birth = document.querySelector('#modify-birth-num').getAttribute('data-birth');
-    	const add = document.querySelector('#modify-add').getAttribute('data-add');
-    	
-		const phoneParts = phone.split("-");
-		const birthParts = birth.split("-");
-		const addParts = add.split(".");
-        
-        document.getElementById('phone1').value = phoneParts[0];
-        document.getElementById('phone2').value = phoneParts[1];
-        document.getElementById('phone3').value = phoneParts[2];
-        
-        document.getElementById('year').value = birthParts[0];
-        document.getElementById('month').value = birthParts[1];
-        document.getElementById('day').value = birthParts[2];
-        
-        document.getElementById('baseAdd').value = addParts[0];
-        document.getElementById('detailAdd').value = addParts[1];
-        
-    }
+window.onload = function() {
+    const phone = document.querySelector('#modify-phone-num').getAttribute('data-phone');
+    const birth = document.querySelector('#modify-birth-num').getAttribute('data-birth');
+    const add = document.querySelector('#modify-add').getAttribute('data-add');
+	
+    const phoneParts = phone.split("-");
+    const birthParts = birth.split("-");
+    const addParts = add.split(",").map(part => part.trim()); // 공백 제거 추가
+
+    document.getElementById('phone1').value = phoneParts[0];
+    document.getElementById('phone2').value = phoneParts[1];
+    document.getElementById('phone3').value = phoneParts[2];
+
+    document.getElementById('year').value = birthParts[0];
+    document.getElementById('month').value = birthParts[1];
+    document.getElementById('day').value = birthParts[2];
+
+    document.getElementById('baseAdd').value = addParts[0] || ''; // 값이 없을 경우 대비
+    document.getElementById('detailAdd').value = addParts[1] || ''; // 값이 없을 경우 대비
+};

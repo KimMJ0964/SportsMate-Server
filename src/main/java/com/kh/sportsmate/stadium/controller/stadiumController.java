@@ -49,12 +49,12 @@ public class stadiumController {
         return "stadium_manager/game_result";
     }
 	
-    @RequestMapping("/list")
+    @RequestMapping("/list.st")
     public String showStadiumList() {
         return "stadium/listPage";
     }
     
-    @RequestMapping("/detail")
+    @RequestMapping("/detail.st")
     public String showStadiumdatil() {
         return "stadium/detail";
     }

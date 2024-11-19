@@ -37,7 +37,7 @@
             </div>
             <!-- 5. 버튼들 -->
             <div class="bd-button-container">
-                <div class="bd-button"><a href="${downloadLink}" download>파일 다운로드</a></div>
+                <div class="bd-button"><a href="${downloadLink}" style="color:white;" download>파일 다운로드</a></div>
                  <button class="bd-button"  onclick="location.href = 'modifyMove.bd?mpage=${board.boardNo}'">수정하기</button>
                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${board.boardNo}, 0, ${board.memNo })">신고하기</button>
                  <div>

@@ -22,6 +22,7 @@
 <body>
     <div class="wrap">
         <jsp:include page="../common/header.jsp"/>
+        <br>
         <jsp:include page="../common/nav.jsp"/>
         <div class="recruit-list-wrap">
             <div id="title">단원모집</div>
@@ -83,8 +84,16 @@
                     <%--                    <div class="content-wrap" onclick="location.href = 'recruit_detail.tm?tno=${item.teamNo}'">--%>
                     <div class="content-wrap" onclick="clickDetailPate(${item.teamNo})">
                         <div class="team-logo-wrap">
-                            <img src="${pageContext.request.contextPath}/resources/images/userProFile/${item.changeName}"
-                                 alt="">
+                            <c:choose>
+                                <c:when test="${item.changeName eq null}">
+                                    <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png"
+                                         alt="">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="${pageContext.request.contextPath}/resources/images/userProFile/${item.changeName}"
+                                         alt="">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div class="team-info-wrap">
                             <p id="team-name">${item.teamName}</p>

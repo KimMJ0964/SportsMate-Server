@@ -18,6 +18,7 @@
 <body>
     <div class="wrap">
         <jsp:include page="../common/header.jsp"/>
+        <br>
         <jsp:include page="../common/nav.jsp"/>
         <div class="list-wrap">
             <div id="title" class="menu-title">구단 메뉴</div>
