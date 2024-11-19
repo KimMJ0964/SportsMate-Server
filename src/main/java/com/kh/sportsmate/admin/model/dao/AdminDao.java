@@ -52,4 +52,8 @@ public class AdminDao {
 		
 		return (ArrayList)sqlSession.selectList("adminMapper.selectBlockList", null, rowBounds);
 	}
+	
+	public int unblockUser(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.update("adminMapper.unblockUser", memNo);
+	}
 }

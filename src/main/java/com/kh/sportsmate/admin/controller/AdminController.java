@@ -110,9 +110,9 @@ public class AdminController {
 		// 이전 페이지 URL 가져오기
 	    String referer = request.getHeader("Referer");
 	    
-	    MemberPenalty mp = new MemberPenalty();
+	    int unblock = adminService.unblockUser(memNo);
 		
-		return null;
+		return "redirect:" + referer;
 	}
 
 }

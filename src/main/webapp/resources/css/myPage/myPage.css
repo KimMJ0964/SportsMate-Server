@@ -17,7 +17,7 @@
 	
 	/* 내 프로필 */
 	.MyInfoContainer {
-		width: 35%;
+		width: 60%;
 		padding: 10px;
 		border-radius: 5px;
 		background-color: white;
@@ -26,6 +26,11 @@
 		flex-direction: column;
 		align-items: center; /* 가운데 정렬 */
 		justify-content: center; /* 세로 가운데 정렬 */
+	}
+	
+	.mypage-profile-img {
+		border-radius: 50%;
+		width: 175px;
 	}
 	
 	MyInfoContainer img {

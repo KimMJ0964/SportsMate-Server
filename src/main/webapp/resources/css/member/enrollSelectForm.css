@@ -34,12 +34,7 @@
     align-items: center;
     cursor: pointer;
 }
-.user:hover{
+.user:hover, .manager:hover {
     background-color: #0076d9;
     color: white;
 }
-.manager:hover{
-    background-color: #0076d9;
-    color: white;
-}
-
