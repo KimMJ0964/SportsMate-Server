@@ -1,0 +1,118 @@
+@charset "UTF-8";
+   .row {
+	    display: flex;
+	    align-items: center;
+	    border-top: 1px solid #ddd;
+	    padding: 4px 0;
+	}
+	
+	.cell {
+	    flex: 1; /* 셀을 균등하게 배분 */
+	    text-align: center;
+	}
+	
+	.left {
+	    display: flex;
+	    align-items: center;
+	    justify-content: flex-start; /* 왼쪽 정렬 */
+	    margin-left: 20px;
+	}
+	
+	.left span {
+	    display: inline-block;
+	    width: 20px;
+	    text-align: center;
+	}
+	
+	.left img {
+	    margin-left: 20px; /* 이미지와 숫자 사이의 간격 */
+	}
+	
+	.center {
+	    text-align: center; /* 가운데 정렬 */
+	}
+	
+	.right {
+	    text-align: right; /* 오른쪽 정렬 */
+	    margin-right: 20px;
+	}
+	
+	.point {
+	    font-size: 0.8em;
+	    color: #888;
+	}
+	
+	.divider {
+	    height: 1px; /* 줄의 두께 */
+	    background-color: #ddd; /* 줄의 색상 */
+	    margin: 0; /* 위아래 간격 */
+	}
+
+    /* 페이지네이션 */
+    .board-pagination {
+       display: flex;
+       justify-content: center;
+       margin: 20px 0;
+    }
+   
+   .board-page-btn {
+       border-style: none;
+       color: #1D87FA;
+       background-color: white;
+       padding: 8px 12px;
+       margin: 0 5px;
+       border-radius: 5px;
+       cursor: pointer;
+       font-size: 16px;
+    }
+   
+   .board-page-btn:hover {
+       background-color: #1D87FA;
+       color: white;
+    }
+	/* 종목 선택 css */
+	.sport-button-container {
+        display: flex;
+	    justify-content: center; /* 중앙 정렬 */
+	    width: 300px;
+	    height: 40px;
+	    border: 1px solid #333;
+	    border-radius: 15px;
+	    margin: 20px auto; /* 위아래 여백 */
+	    padding: 5px; /* 내부 여백 추가 */
+    }
+    
+    .sport-btn {
+        border: none;
+	    background-color: white;
+	    padding: 0; /* padding을 0으로 설정하여 버튼 크기 조정 */
+	    width: 60px; /* 버튼 너비 */
+	    height: 30px; /* 버튼 높이 */
+	    border-radius: 15px;
+	    margin: 0 5px; /* 버튼 사이 간격 */
+	    cursor: pointer;
+	    transition: background-color 0.3s
+    }
+
+    .sport-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+    .sport-btn.active {
+        background-color: #1D87FA;
+        color: white;
+    }
+    /* 글 사이즈 */
+    .size {
+    	display: flex;
+	    justify-content: center;
+	    font-weight: bold;
+    }
+    /* 이미지 css */
+    img {
+    	margin: 20px;
+    }
+    
+    hr {
+    	background-color: black;
+    }

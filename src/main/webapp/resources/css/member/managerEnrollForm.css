@@ -256,6 +256,16 @@ select option:nth-child(1) {
 .time-group span {
     margin: 0 5px;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.red{
+    color: red;
+}
+.green{
+    color: green;
+}
 
 @media (min-width: 481px) and (max-width: 1200px) {
     .category-checkBox label {

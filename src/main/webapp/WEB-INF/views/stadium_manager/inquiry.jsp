@@ -127,7 +127,7 @@
                 </div>
             </div>
             <!-- 등록 버튼 -->
-        <button class="registration-button">뒤로가기</button>
+        <button class="registration-button" onclick="location.href = 'managermypage.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/managermypage.me'">뒤로가기</button>
         </div>
 
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />

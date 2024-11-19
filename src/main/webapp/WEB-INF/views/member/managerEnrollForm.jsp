@@ -29,22 +29,25 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <div class="wrap">
+        <jsp:include page="/WEB-INF/views/common/header.jsp"/>
         <div id="enroll-wrap">
             <form action="manager_enroll.me" class="enroll-form" method="post" enctype="multipart/form-data" >
                 <div class="input-wrap">
                     <span class="form-title">이메일</span> <br>
                     <input type="email" name="memEmail" placeholder="이메일을 입력해주세요.">
+                    <span id="emailCheckResult" class="hide"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">비밀번호</span><br>
                     <input type="password" name="memPwd" placeholder="비밀번호를 입력해주세요.">
+                    <span id="checkPwdCondition"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">비밀번호 확인</span><br>
                     <input type="password" name="pwdCheck" placeholder="비밀번호를 한 번 더 입력해주세요.">
+                    <span id="checkPwdResult"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">이름</span><br>
@@ -81,10 +84,10 @@
                             </select>
                         </div>
                         <div class="month-wrap">
-                            <input type="number" name="phone2" id="phone2" maxlength="4">
+                            <input type="number" name="phone2" id="phone2" oninput="this.value = this.value.slice(0, 4)" >
                         </div>
                         <div class="day-wrap">
-                            <input type="number" name="phone3" id="phone3" maxlength="4">
+                            <input type="number" name="phone3" id="phone3" oninput="this.value = this.value.slice(0, 4)">
                         </div>
                     </div>
                 </div>
@@ -217,7 +220,7 @@
                 </div>
 
                 <div class="submit-btn">
-                    <button type="submit" disabled class="none-clickable">회원가입</button>
+                    <button type="submit" id="submitBtn" disabled class="none-clickable">회원가입</button>
                 </div>
 
             </form>

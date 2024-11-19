@@ -111,7 +111,7 @@ const emailCheck = (ev) => {
     clearTimeout(eventFlag);
     const str = ev.target.value;
     if (str.trim().length >= 5) {
-        eventFlag = setTimeout(() => selectEmail({ email: str }, handleEmailCheckResult), 1000);
+        eventFlag = setTimeout(() => selectEmail({ email: str }, handleEmailCheckResult), 500);
     }
 };
 
@@ -185,7 +185,6 @@ const checkPasswordCondition = (ev) => {
         }, 500);
     }
 };
-
 function addSearch(zipcodeId, baseAddId, detailAddId){
     new daum.Postcode({
         oncomplete: function (data) {
@@ -204,4 +203,3 @@ function addSearch(zipcodeId, baseAddId, detailAddId){
         }
     }).open();
 }
-

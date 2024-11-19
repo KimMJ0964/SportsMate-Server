@@ -94,6 +94,7 @@
     text-align: center; /* 텍스트 중앙 정렬 */
     cursor: pointer; /* 마우스 포인터 설정 */
     margin-top: 20px; /* 상단 여백 */
+    margin-bottom: 21%;
 }
 
 /* 미디어 쿼리: 화면 너비가 480px 이하일 때 적용 */

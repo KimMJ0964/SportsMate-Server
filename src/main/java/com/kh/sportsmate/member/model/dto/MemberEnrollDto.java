@@ -22,6 +22,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 public class MemberEnrollDto {
+	private int memNo;
     private String memEmail;
     private String memPwd;
     private String memName;
@@ -42,5 +43,4 @@ public class MemberEnrollDto {
     private String futsalSkill;
     private String basketballPosition;
     private String basketballSkill;
-
 }
