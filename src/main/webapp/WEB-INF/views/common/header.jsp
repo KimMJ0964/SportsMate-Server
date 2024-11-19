@@ -18,6 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/common/header.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common/modal.css">
     <style>
     </style>
 </head>
@@ -70,20 +71,67 @@
         </form>
     </div>
    	<!-- 검색 창 모달 -->
-   	<div class="modal fade" id="find">
+   	<div class="modal fade" id="find" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    		<div class="modal-dialog modal-lg">
    			<div class="modal-content">
    				
    				<!-- Modal Header -->
    				<div>
    					<div class="modal-header">
-   						<h4 class="modal-title">검색 하기</h4>
+   						<h4 class="modal-title">구장 찾기</h4>
    						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
    					</div>
    					<!-- Modal body -->
    					<div class="modal-body">
    						<form action="" method="post" class="modal-form">
-   							
+							<!-- 검색창 박스 -->
+                            <div class="input-box">
+                                <!-- 첫번째 줄 : 구장명 검색 및 종류 선택 -->
+                                <div class="row-group">
+                                    <!-- 구장명 검색(80%) -->
+                                    <div class="search-group">
+                                        <img src="" alt="검색아이콘" class="icon">
+                                        <input type="text" class="form-control" placeholder="구장명을 입력해주세요.">
+                                    </div>
+                                    <!-- 스포츠 종류 선택(20%) -->
+                                    <div class="type-select-group">
+                                        <select class="form-select">
+                                            <option>축구</option>
+                                            <option>풋살</option>
+                                            <option>야구</option>
+                                            <option>농구</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- 두번째 줄 : 날짜 선택 및 시간 선택 -->
+                                <div class="row-group">
+                                    <!-- 날짜 선택 -->
+                                    <div class="date-time-group" id="date-selector" style="cursor: pointer;">
+                                        <img src="" alt="달력아이콘" class="icon">
+                                        <span id="selected-date">날짜를 선택하세요.</span>
+                                    </div>
+                                    <!-- 시간 선택 -->
+                                    <div class="date-time-group">
+                                        <!-- 날짜 선택 -->
+                                        <img src="" alt="시간 아이콘" class="icon">
+                                        <select class="form-select">
+                                            <option>시간을 선택해주세요.</option>
+                                            <option>08:00 ~ 10:00</option>
+                                            <option>10:00 ~ 12:00</option>
+                                            <option>12:00 ~ 14:00</option>
+                                            <option>14:00 ~ 16:00</option>
+                                            <option>16:00 ~ 18:00</option>
+                                            <option>18:00 ~ 20:00</option>
+                                            <option>20:00 ~ 22:00</option>
+                                            <option>22:00 ~ 24:00</option>
+                                        </select>
+                                    </div>
+                                    <!-- 달력 내용 연결 -->
+                                    <div class="calendar-container" id="calendar-container">
+                                        <jsp:include page="/WEB-INF/views/common/calendar_header.jsp" />
+                                    </div>
+                                </div>
+                            </div>	
    						</form>
    					</div>
    				</div>

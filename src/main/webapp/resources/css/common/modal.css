@@ -1,50 +1,73 @@
 @charset "UTF-8";
-		.modal-dialog {
-            max-width: 1200px;
-        }
-        .modal-content {
-            padding: 20px;
-        }
-        .input-box {
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .row-group {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .row-group:last-child {
-            border-bottom: none;
-        }
-        .search-group, .type-select-group, .date-time-group {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-right: 1px solid #e0e0e0;
-        }
-        .search-group {
-            width: 80%;
-        }
-        .type-select-group {
-            width: 20%;
-        }
-        .date-time-group {
-            flex: 1;
-            width: 50%; /* 50% 너비로 설정 */
-        }
-        .row-group > div:last-child {
-            border-right: none;
-        }
-        .icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
-        }
-        .calendar-container {
-            display: none; /* 초기에는 숨김 */
-            justify-content: center;
-        }
-        
-		
+/* (필요시 사용)
+.modal-dialog {
+    top: 200px;
+}
+*/
+
+/* (필요시 사용)
+.modal-content {
+    padding: 20px;
+}
+*/
+
+/* div 창 */
+.input-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+/* 위쪽 창 */
+.row-group {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0;
+}
+.row-group:last-child {
+    border-bottom: none;
+}
+.search-group, .type-select-group, .date-time-group {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-right: 1px solid #e0e0e0;
+}
+.search-group {
+    width: 80%;
+}
+.type-select-group {
+    width: 20%;
+}
+.date-time-group {
+    flex: 1;
+    width: 50%; /* 50% 너비로 설정 */
+}
+.row-group > div:last-child {
+    border-right: none;
+}
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+.calendar-container {
+    display: none; /* 초기에는 숨김 */
+    justify-content: center;
+}
+
+.form-select {
+    text-align: center;
+    text-align-last: center;
+}
+
+@media (min-width: 481px) and (max-width: 1200px) {
+
+}
+
+@media (min-width: 300px) and (max-width: 480px) {
+    .search-group {
+        width: 70%;
+    }
+    .type-select-group {
+        width: 30%;
+    }
+}
