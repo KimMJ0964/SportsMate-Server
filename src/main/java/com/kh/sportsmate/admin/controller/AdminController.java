@@ -69,13 +69,20 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "blockUser.me")
-	public String blockUser(@RequestParam(value = "memNo", required = false) int memNo, @RequestParam(value = "pnNo", required = false) int pnNo, HttpServletRequest request) {
+	public String blockUser(@RequestParam(value = "memNo", required = false) int memNo, @RequestParam(value = "pnNo", required = false) int pnNo,
+							@RequestParam(value = "pnGround", required = false) String pnGround,
+							@RequestParam(value = "pnCommunity", required = false) String pnCommunity,
+							@RequestParam(value = "pnComment", required = false) String pnComment,
+							HttpServletRequest request) {
 		// 이전 페이지 URL 가져오기
 	    String referer = request.getHeader("Referer");
 	    
 	    MemberPenalty mp = new MemberPenalty();
 	    mp.setMemNo(memNo);
 	    mp.setPnNo(pnNo);
+	    mp.setPnGround(pnGround);
+	    mp.setPnCommunity(pnCommunity);
+	    mp.setPnComment(pnComment);
 	    
 	    int result = adminService.blockUser(mp);
 		return "redirect:" + referer;
