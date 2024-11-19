@@ -367,7 +367,7 @@
 						</div>
 						<div class="btnWrap" style="width: 144px;">
 							<button type="button" class="btn letsplab" data-bs-toggle="modal" data-bs-target="#paymentModal">
-								<p>신청하기</p>
+								<p style="color: white">신청하기</p>
 							</button>
 						</div>
 					</div>

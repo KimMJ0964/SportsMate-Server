@@ -1,417 +1,423 @@
 @charset "UTF-8";
-		/* 구장 이미지 & 지도 API 사이즈 CSS */
-    	.image-container, .map-container {
-            width: 1200px; /* 이미지와 같은 너비 */
-            height: 500px; /* 이미지와 같은 높이 */
-            position: relative; /* 자식 요소의 절대 위치를 설정하기 위함 */
-        }
-        #stadiumImage {
-        	width: 100%;
-            height: 100%; /* 이미지와 동일한 크기 */
-            position: absolute; /* 부모 요소 안에서 절대 위치 설정 */
-            top: 0;
-            left: 0;
-        }
-        /* 편의 시설 icon */
-        .icon {
-        	padding-left: 10px;
-        }
-        /* 별점 이미지 */
-        .star {
-        	width: 20px;
-        	height: 20px;
-        	margin: 2px;
-        }
-        /* (예시)날씨 이미지 */
-        .weather {
-        	width: 100%;
-        	height: 150px;
-        }
-        /* 칸 나누기 CSS */
-        .container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 20px;
-        }
-        .main-content {
-            flex: 3;
-            width: 70%;
-            padding-right: 20px;
-        }
-        .sidebar {
-            flex: 2;
-		    width: 30%; /* 사이드바가 차지할 비율 */
-		    max-width: 350px; /* 사이드바의 최대 너비 제한 */
-        }
-        .info-box {
-            border: 1px solid black;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            margin-top: 0; /* 위쪽 여백 제거 */
-        }
-        .info-section {
-            display: flex;
-            justify-content: space-between; /* 왼쪽과 오른쪽 정렬 */
-        }
-        /* 카카오map */
-        #map {
-        	display: none; /* 초기 상태에서 지도 숨김 */
-        	width: 100%;
-            height: 100%; /* 이미지와 동일한 크기 */
-            position: absolute; /* 부모 요소 안에서 절대 위치 설정 */
-            top: 0;
-            left: 0;
-        }
-        /* 구장 정보 */
-        .section_header{
-        	padding: 20px;
-        }
-        .section_title {
-        	display: flex;
-        	align-items: center;
-        	justify-content: space-between;
-        	position: relative;
-        }
-        .section_body {
-        	padding: 0px 20px 0px 20px;
-        }
-        .info_list_wrapper {
-        	margin-bottom: 10px;
-        }
-        .info_list_wrapper.double ul li {
-        	width: 48%;
-        	display: inline-flex;
-        	align-items: center;
-        }
-        .info_list_wrapper .info_list {
-        	padding: 10px 0px;
-        	display: flex;
-        }
-        .info_list_wrapper .info_list .title_line {
-        	font-size:16px;
-        	padding-bottom: 5px;
-        	text-decoration-line: line-through;
-        	color: #c4cdd4;
-        }
-        .stadInner {
-        	border-top: 1px solid #d9e0e6;
-        	padding-top: 10px;
-        }
-        .stadInner .matchRule:first-child {
-        	margin-top: 0;
-        }
-        .stadInner .matchRule {
-        	margin-top: 20px;
-        }
-        .stadInner pre {
-        	white-space: pre-line;
-        	word-break: keep-all;
-        	font-size: 18px;
-        	line-height: 22px;
-        	overflow: auto;
-        }
-        .txt2 {
-	        font-family: "Nanum Gothic", serif;
-		    font-weight: 400;
-		    font-style: normal;
-        }
-        pre {
-        	font-size: 1.1cm;
-        	white-space: pre-wrap;
-		    word-wrap: break-word;
-		    word-break: keep-all;
-		    overflow: auto;
-        }
-        /* 매치 진행 방식 */
-        .section_title--arrow {
-        	cursor: pointer;
-        }
-        .stadInner .matchRule:first-child {
-        	margin-top: 0;
-        }
-        .stadInner .matchRule h4 {
-        	font-size: 14px;
-        	margin-bottom: 5px;
-        }
-        .stadInner .matchRule table {
-        	border-radius: 10px;
-        	border-style: hidden;
-        	box-shadow: 0 0 0 1px #9eaab3;
-        	width: 100%;
-        	margin-top: 10px;
-        }
-        .stadInner .matchRule table, th, td {
-        	border: 1px solid #9eaab3;
-        	border-collapse: collapse;
-        	font-size: 14px;
-        }
-        table {
-        	display: table;
-        	border-collapse: separate;
-		    border-spacing: 2px;
-		    border-color: gray;
-        }
-        /* 사이드바쪽 CSS */
-        /*
-        .section-pc {
-        	padding: 30px 20px;
-        }
-        */
-        .matchTime {
-        	font-weight: 700;
-        	font-size: 16px;
-        	line-height: 150%;
-        	margin-right: 3px;
-        	margin-bottom: 3px;
-        }
-        .matchPlace {
-        	padding-bottom: 10px;
-        }
-        .matchPlace h1 {
-        	margin-right: 3px;
-        }
-        .w700h {
-        	color: #1570ff;
-        	font-weight: 700;
-        }
-        .txtH {
-        	font-size: 24px;
-        }
-        .stadium-info_address {
-        	font-size: 14px;
-        	line-height: 120%;
-        	margin-right: 4px;
-        }
-        .matchPlace .match-data {
-        	font-size: 12px;
-        	display: inline-flex;
-        	align-items: center;
-        	margin-right: 8px;
-        }
-        .match-info_fee {
-        	border-top: 1px solid #eeeeee;
-        }
-        .match-info_fee > div {
-        	margin-bottom: 10px;
-        }
-        .matchFee {
-        	margin-top: 15px;
-        	color: #727f88;
-        	font-size: 18px;
-        }
-        .matchFee span {
-        	font-size: 12px;
-        }
-        .matchFee_money {
-        	font-size: 18px !important;
-        	color: #282b33;
-        	font-weight: 700;
-        }
-        .matchFee .desc {
-        	color: #282b33;
-        	font-size: 12px;
-        	margin-top: 5px;
-        }
-        .match-apply_wrap {
-        	position: sticky;
-        	bottom: 0;
-        	width: 100%;
-        	z-index: 10;
-        }
-        .match-apply_button {
-	        display: flex;
-		    background-color: #ffffff;
-		    align-items: center;
-		    justify-content: space-between;
-        }
-        .match_apply_button-text {
-        	font-size: 13px;
-        	line-height: 150%;
-        }
-        .match-apply_wrap .btnWrap {
-        	margin: 0;
-        	display: flex;
-        	justify-content: space-between;
-        	margin-left: auto;
-        }
-        .btnWrap {
-        	margin-top: 20px;
-        }
-        .match-apply__wrap .btnWrap button {
-        	margin: 0;
-		    border-radius: 10px;
-		    padding: 12px;
-        }
-        .btn {
-		    width: 100%;
-		    background-color: #3540a5;
-		    color: white;
-		    border-radius: 6px;
-		    padding: 15px 10px;
-		    cursor: pointer;
-		    transition: background-color 0.3s ease-out;
-		    display: block;
-		    text-align: center;
-		}
-		.btn.letsplab {
-		    background-color: #1570ff; /* 특수 색상만 따로 정의 */
-		    padding: 20px;
-		    border-radius: 16px;
-		}
-		.sm1 {
-			font-size: 14px;
-			line-height: 120%;
-			color: #727f88;
-			text-decoration: underline;
-		}
-		/* 상담쪽 CSS*/
-		.chat-button {
-		    position: fixed;
-		    bottom: 20px;
-		    right: 150px;
-		    width: 60px;
-		    height: 60px;
-		    border-radius: 50%;
-		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    cursor: pointer;
-		    z-index: 1;
-		    background-color: white;
-		    margin-bottom: 10px;
-		}
-		
-		.chat-button img {
-		    width: 50%;
-		    height: 50%;
-		}
-		
-		/* 상담 쪽 모달 CSS*/
-		.modal-body {
-		    background-color: white; /* 연한 배경 */
-		    padding: 20px;
-		    border-radius: 5px;
-		}
-		
-		.form-label {
-		    font-weight: bold; /* 레이블 강조 */
-		}
-		
-		.form-control {
-		    border: 1px solid #ced4da; /* 입력 필드 테두리 */
-		    border-radius: 4px; /* 필드 모서리 둥글게 */
-		    padding: 10px;
-		    background-color: #ffffff;
-		}
-		
-		textarea.form-control {
-		    resize: none; /* 텍스트 영역 크기 조정 비활성화 */
-		}
-		
-		.text-danger {
-		    color: red; /* 필수 항목 표시 색상 */
-		}
-		
-		.modal-footer {
-		    border-top: 1px solid #dee2e6;
-		    padding-top: 10px;
-		}
-		
-		/* 기본적으로 .mobile-only 요소 숨김 (PC 화면에서 숨김) */
-		.mobile-only {
-		    display: none;
-		}
-		
-		/* 신청하기 모달 CSS */
-		.calendar {
-			justify-content: center;
-		}
-		
-		/* 리뷰 CSS */
-		.review {
-	      width: 100%;
-	      max-width: 800px;
-	      margin: 0 auto;
-	    }
-	    .review-item {
-	      display: flex;
-	      align-items: center;
-	      justify-content: space-between;
-	      border-bottom: 1px solid #ddd;
-	      padding: 10px 0;
-	    }
-	    .number {
-	      flex: 1;
-	      text-align: left;
-	    }
-	    .content {
-	      flex: 2;
-	      text-align: center;
-	    }
-	    .author, .date-rating {
-	      flex: 1;
-	      text-align: right;
-	      display: flex;
-	      align-items: center;
-	      justify-content: flex-end;
-	    }
-	    .rating-icon {
-	      margin-left: 5px;
-	      width: 16px; /* 아이콘 크기 */
-	      height: 16px;
-	    }	
-		/* 화면 크기가 480px 이하일 때만 표시 (모바일 전용) */
-		@media (max-width: 480px) {
-		    .mobile-only {
-		        display: block; /* 모바일에서 표시 */
-		    }
-		    .pc-only {
-		    	display: none;
-		    }
-		    .sidebar {
-		        display: none; /* 모바일에서 .section-pc 숨김 */
-		    }
-		
-		    /* 모바일용 스타일 조정 */
-		    .wrap {
-		        max-width: 480px;
-		        margin: 0 auto;
-		    }
-		    
-		    .image-container, .map-container {
-		        width: 100%;
-		        height: auto; /* 비율에 맞게 높이 조정 */
-		    }
-		    .icon {
-		        width: 100%;
-		        height: auto;
-		    }
-		
-		    .info-box {
-		        padding: 10px;
-		        margin-bottom: 15px;
-		    }
-		    
-		    .sidebar {
-		        width: 100%;
-		        max-width: none;
-		        padding: 10px;
-		    }
-		    
-		    .main-content {
-		    	padding-right: 0;
-		    }
-		}
-		
-		/* 화면 크기가 481px 이상일 때 (PC 전용) */
-		@media (min-width: 481px) {
-		    .mobile-only {
-		        display: none; /* PC에서 .mobile-only 숨김 */
-		    }
-		    .sidebar {
-		        display: block; /* PC에서 .section-pc 표시 */
-		    }
-		}		
+/* 구장 이미지 & 지도 API 사이즈 CSS */
+.image-container, .map-container {
+	width: 1200px; /* 이미지와 같은 너비 */
+	height: 500px; /* 이미지와 같은 높이 */
+	position: relative; /* 자식 요소의 절대 위치를 설정하기 위함 */
+}
+#stadiumImage {
+	width: 100%;
+	height: 100%; /* 이미지와 동일한 크기 */
+	position: absolute; /* 부모 요소 안에서 절대 위치 설정 */
+	top: 0;
+	left: 0;
+}
+/* 편의 시설 icon */
+.icon {
+	padding-left: 10px;
+}
+/* 별점 이미지 */
+.star {
+	width: 20px;
+	height: 20px;
+	margin: 2px;
+}
+/* (예시)날씨 이미지 */
+.weather {
+	width: 100%;
+	height: 150px;
+}
+/* 칸 나누기 CSS */
+.container {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+	gap: 20px;
+}
+.main-content {
+	flex: 3;
+	width: 70%;
+	padding-right: 20px;
+}
+.sidebar {
+	flex: 2;
+	width: 30%; /* 사이드바가 차지할 비율 */
+	max-width: 350px; /* 사이드바의 최대 너비 제한 */
+}
+.info-box {
+	border: 1px solid black;
+	border-radius: 8px;
+	padding: 15px;
+	margin-bottom: 20px;
+	margin-top: 0; /* 위쪽 여백 제거 */
+}
+.info-section {
+	display: flex;
+	justify-content: space-between; /* 왼쪽과 오른쪽 정렬 */
+}
+/* 카카오map */
+#map {
+	display: none; /* 초기 상태에서 지도 숨김 */
+	width: 100%;
+	height: 100%; /* 이미지와 동일한 크기 */
+	position: absolute; /* 부모 요소 안에서 절대 위치 설정 */
+	top: 0;
+	left: 0;
+}
+/* 구장 정보 */
+.section_header{
+	padding: 10px;
+}
+.section_title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+}
+.section_body {
+	padding: 0px 20px 0px 20px;
+}
+.info_list_wrapper {
+	margin-bottom: 10px;
+}
+.info_list_wrapper.double ul li {
+	width: 48%;
+	display: inline-flex;
+	align-items: center;
+}
+.info_list_wrapper .info_list {
+	padding: 10px 0px;
+	display: flex;
+}
+.info_list_wrapper .info_list .title_line {
+	font-size:16px;
+	padding-bottom: 5px;
+	text-decoration-line: line-through;
+	color: #c4cdd4;
+}
+.stadInner {
+	border-top: 1px solid #d9e0e6;
+	padding-top: 10px;
+}
+.stadInner .matchRule:first-child {
+	margin-top: 0;
+}
+.stadInner .matchRule {
+	margin-top: 20px;
+}
+.stadInner pre {
+	white-space: pre-line;
+	word-break: keep-all;
+	font-size: 18px;
+	line-height: 22px;
+	overflow: auto;
+}
+.txt2 {
+	font-family: "Nanum Gothic", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+pre {
+	font-size: 1.1cm;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	word-break: keep-all;
+	overflow: auto;
+}
+/* 매치 진행 방식 */
+.section_title--arrow {
+	cursor: pointer;
+}
+.stadInner .matchRule:first-child {
+	margin-top: 0;
+}
+.stadInner .matchRule h4 {
+	font-size: 16px;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+.stadInner .matchRule table {
+	border-radius: 10px;
+	border-style: hidden;
+	box-shadow: 0 0 0 1px #9eaab3;
+	width: 100%;
+	margin-top: 10px;
+}
+.stadInner .matchRule table, th, td {
+	border: 1px solid #9eaab3;
+	border-collapse: collapse;
+	font-size: 14px;
+	border: none;
+}
+table {
+	display: table;
+	border-collapse: separate;
+	border-spacing: 2px;
+	border-color: gray;
+}
+/* 사이드바쪽 CSS */
+/*
+.section-pc {
+    padding: 30px 20px;
+}
+*/
+.matchTime {
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 150%;
+	margin-right: 3px;
+	margin-bottom: 3px;
+}
+.matchPlace {
+	padding-bottom: 10px;
+}
+.matchPlace h1 {
+	margin-right: 3px;
+}
+.w700h {
+	color: #1570ff;
+	font-weight: 700;
+}
+.txtH {
+	font-size: 24px;
+}
+.stadium-info_address {
+	font-size: 14px;
+	line-height: 120%;
+	margin-right: 4px;
+}
+.matchPlace .match-data {
+	font-size: 12px;
+	display: inline-flex;
+	align-items: center;
+	margin-right: 8px;
+}
+.match-info_fee {
+	border-top: 1px solid #eeeeee;
+}
+.match-info_fee > div {
+	margin-bottom: 10px;
+}
+.matchFee {
+	margin-top: 15px;
+	color: #727f88;
+	font-size: 18px;
+}
+.matchFee span {
+	font-size: 12px;
+}
+.matchFee_money {
+	font-size: 18px !important;
+	color: #282b33;
+	font-weight: 700;
+}
+.matchFee .desc {
+	color: #282b33;
+	font-size: 12px;
+	margin-top: 5px;
+}
+.match-apply_wrap {
+	position: sticky;
+	bottom: 0;
+	width: 100%;
+	z-index: 10;
+}
+.match-apply_button {
+	display: flex;
+	background-color: #ffffff;
+	align-items: center;
+	justify-content: space-between;
+}
+.match_apply_button-text {
+	font-size: 13px;
+	line-height: 150%;
+}
+.match-apply_wrap .btnWrap {
+	margin: 0;
+	display: flex;
+	justify-content: space-between;
+	margin-left: auto;
+}
+.btnWrap {
+	margin-top: 20px;
+}
+.match-apply__wrap .btnWrap button {
+	margin: 0;
+	border-radius: 10px;
+	padding: 12px;
+}
+.btn {
+	width: 100%;
+	background-color: #3540a5;
+	color: white;
+	border-radius: 6px;
+	padding: 15px 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease-out;
+	display: block;
+	text-align: center;
+}
+.btn.letsplab {
+	background-color: #1570ff; /* 특수 색상만 따로 정의 */
+	padding: 20px;
+	border-radius: 16px;
+}
+.sm1 {
+	font-size: 14px;
+	line-height: 120%;
+	color: #727f88;
+	text-decoration: underline;
+}
+/* 상담쪽 CSS*/
+.chat-button {
+	position: fixed;
+	bottom: 20px;
+	right: 150px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	z-index: 1;
+	background-color: white;
+	margin-bottom: 10px;
+}
+
+.chat-button img {
+	width: 50%;
+	height: 50%;
+}
+
+/* 상담 쪽 모달 CSS*/
+.modal-body {
+	background-color: white; /* 연한 배경 */
+	padding: 20px;
+	border-radius: 5px;
+}
+
+.form-label {
+	font-weight: bold; /* 레이블 강조 */
+}
+
+.form-control {
+	border: 1px solid #ced4da; /* 입력 필드 테두리 */
+	border-radius: 4px; /* 필드 모서리 둥글게 */
+	padding: 10px;
+	background-color: #ffffff;
+}
+
+textarea.form-control {
+	resize: none; /* 텍스트 영역 크기 조정 비활성화 */
+}
+
+.text-danger {
+	color: red; /* 필수 항목 표시 색상 */
+}
+
+.modal-footer {
+	border-top: 1px solid #dee2e6;
+	padding-top: 10px;
+}
+
+/* 기본적으로 .mobile-only 요소 숨김 (PC 화면에서 숨김) */
+.mobile-only {
+	display: none;
+}
+
+/* 신청하기 모달 CSS */
+.calendar {
+	justify-content: center;
+}
+
+/* 리뷰 CSS */
+.review {
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
+}
+.review-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
+}
+.number {
+	flex: 1;
+	text-align: left;
+}
+.content {
+	flex: 2;
+	text-align: center;
+}
+.author, .date-rating {
+	flex: 1;
+	text-align: right;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.rating-icon {
+	margin-left: 5px;
+	width: 16px; /* 아이콘 크기 */
+	height: 16px;
+}
+/* 화면 크기가 480px 이하일 때만 표시 (모바일 전용) */
+@media (max-width: 480px) {
+	.mobile-only {
+		display: block; /* 모바일에서 표시 */
+	}
+	.pc-only {
+		display: none;
+	}
+	.sidebar {
+		display: none; /* 모바일에서 .section-pc 숨김 */
+	}
+
+	/* 모바일용 스타일 조정 */
+	.wrap {
+		width: 480px;
+		margin: 0 auto;
+	}
+
+	.image-container, .map-container {
+		width: 100%;
+		height: 250px; /* 비율에 맞게 높이 조정 */
+	}
+	.icon {
+		width: 30px;
+		height: 20px;
+	}
+
+	.info-box {
+		padding: 10px;
+		margin: 10px;
+	}
+
+	.sidebar {
+		width: 100%;
+		max-width: none;
+		padding: 10px;
+	}
+
+	.main-content {
+		padding-right: 0;
+	}
+
+	.chat-button {
+		margin: 10px;
+	}
+}
+
+/* 화면 크기가 481px 이상일 때 (PC 전용) */
+@media (min-width: 481px) {
+	.mobile-only {
+		display: none; /* PC에서 .mobile-only 숨김 */
+	}
+	.sidebar {
+		display: block; /* PC에서 .section-pc 표시 */
+	}
+}

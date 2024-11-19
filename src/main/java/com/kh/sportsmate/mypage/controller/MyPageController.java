@@ -62,7 +62,7 @@ public class MyPageController {
     	Profile myProfile = myPageService.selectMyProfile(memNo);
     	
     	if(myProfile != null) {
-    		String filePath = myProfile.getFilePath() + myProfile.getChangeName();
+    		String filePath = myProfile.getChangeName();
     		model.addAttribute("filePath", filePath);
     	}
     	
@@ -159,7 +159,17 @@ public class MyPageController {
 		
 		MemberModifyDto member = myPageService.myInfoList(memNo);
 		
+		String birthNum = member.getMemBirth();
+		
+		String[] birthParts = birthNum.split("-");
+		String birthOne = birthParts[0];
+		String birthTwo = birthParts[1];
+		String birthThree = birthParts[2];
+		
 		m.addAttribute("member", member);
+		m.addAttribute("birthOne", birthOne);
+	    m.addAttribute("birthTwo", birthTwo);
+	    m.addAttribute("birthThree", birthThree);
 		
 		return "myPage/myPageModify";
     }
@@ -182,10 +192,10 @@ public class MyPageController {
         int result = myPageService.modifyMember(m, profile, session);
 
         if (result > 0) {
-            session.setAttribute("alertMsg", "성공적으로 회원가입이 완료되었습니다.");
+            session.setAttribute("alertMsg", "내 정보 수정이 완료되었습니다.");
             return "redirect:/";
         } else {
-            session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
+            session.setAttribute("alertMsg", "내 정보 수정에 실패했습니다.");
             return "redirect:/";
         }
     }

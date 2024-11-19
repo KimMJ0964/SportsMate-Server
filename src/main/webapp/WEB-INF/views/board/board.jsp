@@ -60,7 +60,7 @@
 			            </thead>
 			            <tbody>
 			               <c:forEach var="b" items="${list}">
-			               		<tr onclick="location.href = 'detailMove.bd?bno=${b.boardNo}'">
+			               		<tr onclick="location.href = 'detailMove.bd?bno=${b.boardNo}'" style="cursor: pointer;">
 			               			<td>${b.boardNo}</td>
 			               			<td>${b.title}</td>
 			               			<td>${b.memName}</td>

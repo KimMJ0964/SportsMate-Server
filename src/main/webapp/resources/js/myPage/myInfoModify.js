@@ -158,7 +158,7 @@ window.onload = function() {
     const phone = document.querySelector('#modify-phone-num').getAttribute('data-phone');
     const birth = document.querySelector('#modify-birth-num').getAttribute('data-birth');
     const add = document.querySelector('#modify-add').getAttribute('data-add');
-
+	
     const phoneParts = phone.split("-");
     const birthParts = birth.split("-");
     const addParts = add.split(",").map(part => part.trim()); // 공백 제거 추가
