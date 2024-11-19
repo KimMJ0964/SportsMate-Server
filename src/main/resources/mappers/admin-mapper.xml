@@ -108,6 +108,17 @@
 	    WHERE m.MEM_NO = #{memNo}		
     </update>
     
+    <update id="blockUserDuplicate" parameterType="MemberPenalty">
+    	UPDATE MEMBER_PENALTY
+		SET PN_STATUS = 'Y'
+		WHERE MEM_NO = #{memNo}
+		AND (
+		    (PN_GROUND IS NOT NULL AND PN_GROUND = #{pnGround})
+		    OR (PN_COMMUNITY IS NOT NULL AND PN_COMMUNITY = #{pnCommunity})
+		    OR (PN_COMMENT IS NOT NULL AND PN_COMMENT = #{pnComment})
+		)
+    </update>
+    
     <!-- 차단 해제하기 -->
     <update id="unblockUser" parameterType="_int">
 		UPDATE MEMBER m
