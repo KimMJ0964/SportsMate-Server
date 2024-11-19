@@ -23,13 +23,12 @@
         <jsp:include page="../common/nav.jsp"/>
         <div class="select-wrap">
             <div class="user" data-hover-src="user_hover.png" data-default-src="user.png" onclick="location.href = 'memberEnrollForm.me'">
-                <img src="${pageContext.request.contextPath}${pageContext.request.contextPath}/resources/images/user.png" alt=""><br>
+                <img src="${pageContext.request.contextPath}/resources/images/user.png" alt=""><br>
                 <span>사용자 회원가입</span>
-                <p>구단의 가입하거나 구단을 창설하여 </p>
-                <p>플레이 해보세요!</p>
+                <p>구단의 가입하거나 구단을 창설하여 플레이</p>
             </div>
             <div class="manager" data-hover-src="manager_hover.png" data-default-src="manager.png" onclick="location.href = 'managerEnrollForm.me'">
-                <img src="${pageContext.request.contextPath}/resources/images/manager_hover.png" alt=""> <br>
+                <img src="${pageContext.request.contextPath}/resources/images/manager.png" alt=""> <br>
                 <span>구장 관리자 회원가입</span>
                 <p>구장을 저희 서비스에 등록 및 관리하실 수 있습니다.</p>
             </div>
