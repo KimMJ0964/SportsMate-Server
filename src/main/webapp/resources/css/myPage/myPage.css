@@ -95,7 +95,7 @@
 	.AllCountBox, .VictoryCountBox {
 		flex: 1;
 		padding: 10px;
-		border: 4px solid #307DFA;
+		border: 2px solid #85b3ff;
 		border-radius: 5px;
 		text-align: center;
 		margin: 0 5px;
