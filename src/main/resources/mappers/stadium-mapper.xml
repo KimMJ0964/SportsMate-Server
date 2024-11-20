@@ -249,8 +249,8 @@
 	FROM STADIUM
 	WHERE 
     	STADIUM_NAME = #{stadiumName}
-    AND STADIUM_CATEGORY = #{sportType}
-    AND STADIUM_START_TIME = #{selectedDate}
-    AND STADIUM_END_TIME = #{selectedTime}
+    AND STADIUM_CATEGORY = #{stadiumCategory}
+    AND STADIUM_START_TIME = #{stadiumStartTime}
+    AND STADIUM_END_TIME = #{stadiumEndTime}
     </select>
 </mapper>

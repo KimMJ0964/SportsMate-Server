@@ -78,13 +78,13 @@ public class stadiumController {
     }
     
     @RequestMapping("searchStadium.st")
-    public String searchResults(String stadiumName, String sportType, Time selectedDate, Time selectedTime, Model model) {
-    	Stadium sd = new Stadium(stadiumName, sportType, selectedDate, selectedTime);
+    public String searchResults(String stadiumName, String stadiumCategory, Time stadiumStartTime, Time stadiumEndTime, Model model) {
+    	Stadium sd = new Stadium(stadiumName, stadiumCategory, stadiumStartTime, stadiumEndTime);
     	System.out.println(sd);
     	System.out.println(stadiumName);
-    	System.out.println(sportType);
-    	System.out.println(selectedDate);
-    	System.out.println(selectedTime);
+    	System.out.println(stadiumCategory);
+    	System.out.println(stadiumStartTime);
+    	System.out.println(stadiumEndTime);
 		List<Stadium> results = stadiumService.findStadiums(sd);
 		
 		model.addAttribute("results", results);

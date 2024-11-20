@@ -95,7 +95,7 @@
                                     </div>
                                     <!-- 스포츠 종류 선택(20%) -->
                                     <div class="type-select-group">
-                                        <select class="form-select">
+                                        <select class="form-select" name="stadiumCategory">
                                             <option value="축구">축구</option>
                                             <option value="풋살">풋살</option>
                                             <option value="야구">야구</option>
@@ -106,24 +106,34 @@
                                 <!-- 두번째 줄 : 날짜 선택 및 시간 선택 -->
                                 <div class="row-group">
                                     <!-- 날짜 선택 -->
-                                    <div class="date-time-group" id="date-selector" style="cursor: pointer;">
+                                    <div class="date-group" id="date-selector" style="cursor: pointer;">
                                         <img src="${pageContext.request.contextPath}/resources/images/calendar.png" alt="달력아이콘" class="icon">
                                         <span id="selected-date">날짜를 선택하세요.</span>
                                     </div>
                                     <!-- 시간 선택 -->
-                                    <div class="date-time-group">
-                                        <!-- 날짜 선택 -->
+                                    <div class="time-group">
                                         <img src="${pageContext.request.contextPath}/resources/images/time.png" alt="시간 아이콘" class="icon">
-                                        <select class="form-select">
+                                        <select class="form-select" name="stadiumStartTime">
                                             <option>시간을 선택해주세요.</option>
-                                            <option>08:00 ~ 10:00</option>
-                                            <option>10:00 ~ 12:00</option>
-                                            <option>12:00 ~ 14:00</option>
-                                            <option>14:00 ~ 16:00</option>
-                                            <option>16:00 ~ 18:00</option>
-                                            <option>18:00 ~ 20:00</option>
-                                            <option>20:00 ~ 22:00</option>
-                                            <option>22:00 ~ 24:00</option>
+                                            <option value="08:00:00">08:00</option>
+                                            <option value="10:00:00">10:00</option>
+                                            <option value="12:00:00">12:00</option>
+                                            <option value="14:00:00">14:00</option>
+                                            <option value="16:00:00">16:00</option>
+                                            <option value="18:00:00">18:00</option>
+                                            <option value="20:00:00">20:00</option>
+                                            <option value="22:00:00">22:00</option>
+                                        </select>
+                                        <select class="form-select" name="stadiumEndTime">
+                                        	<option>시간을 선택해주세요.</option>
+                                            <option value="10:00:00">10:00</option>
+                                            <option value="12:00:00">12:00</option>
+                                            <option value="14:00:00">14:00</option>
+                                            <option value="16:00:00">16:00</option>
+                                            <option value="18:00:00">18:00</option>
+                                            <option value="20:00:00">20:00</option>
+                                            <option value="22:00:00">22:00</option>
+                                            <option value="24:00:00">24:00</option>
                                         </select>
                                     </div>
                                 </div>
@@ -133,8 +143,8 @@
                                  </div>
                             </div>
                             <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">검색하기</button>
-                </div>	
+                    			<button type="submit" class="btn btn-primary">검색하기</button>
+                			</div>	
    						</form>
    					</div>
    				</div>
