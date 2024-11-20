@@ -91,7 +91,7 @@
                                     <!-- 구장명 검색(80%) -->
                                     <div class="search-group">
                                         <img src="${pageContext.request.contextPath}/resources/images/search-btn.png" alt="검색아이콘" class="icon">
-                                        <input type="text" class="form-control" placeholder="구장명을 입력해주세요.">
+                                        <input type="text" class="form-control" placeholder="구장명을 입력해주세요." name="stadiumName">
                                     </div>
                                     <!-- 스포츠 종류 선택(20%) -->
                                     <div class="type-select-group">
@@ -131,13 +131,13 @@
                                  <div class="calendar hidden" id="calendar-container">
                                  	<jsp:include page="/WEB-INF/views/common/calendar_header.jsp" />
                                  </div>
-                            </div>	
+                            </div>
+                            <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">검색하기</button>
+                </div>	
    						</form>
    					</div>
    				</div>
-   				<div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">검색하기</button>
-                </div>
    			</div>
    		</div>
    	</div>
