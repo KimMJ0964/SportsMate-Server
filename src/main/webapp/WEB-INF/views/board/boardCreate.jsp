@@ -24,7 +24,7 @@
 			<form method="post" action="create.bd" enctype="multipart/form-data">
 				<div class="bcm-title-container">
 					<h3>제목</h3>
-					<input placeholder="  제목을 입력하시오." id="title" name="title">
+					<input placeholder="  제목을 입력하시오." id="title" name="title" required="required">
 				</div>
 				
 				<!-- 파일 업로드 / 종류 -->
@@ -49,7 +49,7 @@
 				<div class="bcm-content-container">
 					<hr>
 					<div class="bcm-content-textarea">
-						<textarea id="summernote" name="content"></textarea>
+						<textarea id="summernote" name="content" required="required"></textarea>
 					</div>
 				</div>
 				

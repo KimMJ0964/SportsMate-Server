@@ -2,12 +2,17 @@ package com.kh.sportsmate.team.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.board.model.vo.BoardFile;
+import com.kh.sportsmate.board.model.vo.BoardLike;
+import com.kh.sportsmate.board.service.BoardService;
 import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
@@ -43,10 +49,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class TeamController {
 
     private final TeamService teamService;
+    
+    private final BoardService boardService;
 
     @Autowired
-    public TeamController(TeamService teamService) {
+    public TeamController(TeamService teamService, BoardService boardService) {
         this.teamService = teamService;
+        this.boardService = boardService;
     }
 
     // 구단 메인 페이지 : 게시글, 페이지네이션, 팀원 목록
@@ -81,15 +90,25 @@ public class TeamController {
 
 	// 게시글 상세 페이지로 이동
 	@RequestMapping("detailMoveBd.tm")
-	public String detailList(int bno, Model model) {
+	public String detailList(int bno, Model model, HttpSession session) {
+		Member loginMember = (Member) session.getAttribute("loginMember");
 		TeamBoard teamBoard = teamService.detailList(bno);
 		ArrayList<TeamBoardComment> comment = teamService.commentList(bno);
 		int commentCount = teamService.commentCount(bno);
 		int boardViewAdd = teamService.viewAdd(bno);
-
+		int likeCount = teamService.likeCount(bno);
+		BoardFile bf = teamService.filedownloadLink(bno);
+		
+		if(bf != null) {
+			String downloadLink = bf.getFilePath() + bf.getChangeName();
+			model.addAttribute("downloadLink", downloadLink);
+		}
+		
+		model.addAttribute("likeCount", likeCount);
         model.addAttribute("commentCount", commentCount);
         model.addAttribute("comment", comment);
         model.addAttribute("teamBoard", teamBoard);
+        model.addAttribute("loginMember", loginMember);
         return "teamBoard/teamBoardDetail";
     }
 
@@ -104,35 +123,75 @@ public class TeamController {
 
     // 게시글 생성
     @PostMapping("createBd.tm")
-    public String insertBoard(TeamBoard b, HttpSession session, Model m, int tno) {
-        b.setTeamNo(tno);
+    public String insertBoard(TeamBoard b, MultipartFile fileUpload, HttpSession session, Model m, int tno) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
+		BoardFile bf;
+    	
+    	b.setTeamNo(tno);
+    	b.setMemNo(memNo);
         int result = teamService.createBoard(b);
 
         if (result > 0) { // 성공
+        	
+        	String path = "resources/images/boardFile/";
+	        String filePath = session.getServletContext().getRealPath(path);
+	        
+	        if (!fileUpload.getOriginalFilename().equals("")) {
+	            String changeName = Template.saveFile(fileUpload, session, path);
+	            bf = new BoardFile(result, fileUpload.getOriginalFilename(), changeName, path);
+	            
+	            int result2 = teamService.saveBoardFile(bf);
+	        }
+        	
             session.setAttribute("alertMsg", "게시글 작성 성공");
             return "redirect:boardList.tm?tno=" + tno;
         } else { // 실패
             System.out.println("일반 게시글 생성 실패");
-            m.addAttribute("errorMsg", "게시글 작성 실패");
-            return "main";
+            m.addAttribute("alertMsg", "게시글 작성 실패");
+            return "redirect:boardList.tm?tno=" + tno;
         }
 
     }
 
     // 게시글 수정
     @PostMapping("modify.tm")
-    public String updateBoard(TeamBoard b, HttpSession session, Model m, int bno, int tno) {
+    public String updateBoard(TeamBoard b, MultipartFile fileUpload, HttpSession session, Model m, int bno, int tno) {
         b.setBoardNo(bno);
         System.out.println(b);
+        BoardFile bf;
+		
+		BoardFile fCheck = boardService.fileCheck(bno);
+		
+		if(fCheck == null) {	// 파일 없다면 새로 생성
+			String path = "resources/boardFile/";
+			String filePath = session.getServletContext().getRealPath(path);
+			if (!fileUpload.getOriginalFilename().equals("")) {
+				String changeName = Template.saveFile(fileUpload, session, path);
+				bf = new BoardFile(b.getBoardNo(), fileUpload.getOriginalFilename(), changeName, path);
+				
+				int result2 = boardService.saveBoardFile(bf);
+			}
+		} else {	// 파일 있다면 수정
+			String path = "resources/images/boardFile/";
+			String filePath = session.getServletContext().getRealPath(path);
+			if (!fileUpload.getOriginalFilename().equals("")) {
+				String changeName = Template.saveFile(fileUpload, session, path);
+				bf = new BoardFile(b.getBoardNo(), fileUpload.getOriginalFilename(), changeName, path);
+				
+				int result2 = boardService.updateBoardFile(bf);
+			}
+		}
+		
         int result = teamService.updateBoard(b);
 
         if (result > 0) { // 성공
-            session.setAttribute("alertMsg", "게시글 작성 성공");
+            session.setAttribute("alertMsg", "게시글 수정 성공");
             return "redirect:boardList.tm?tno=" + tno;
         } else { // 실패
             System.out.println("일반 게시글 생성 실패");
-            m.addAttribute("errorMsg", "게시글 작성 실패");
-            return "main";
+            session.setAttribute("alertMsg", "게시글 수정 실패");
+            return "redirect:boardList.tm?tno=" + tno;
         }
 
     }
@@ -147,8 +206,8 @@ public class TeamController {
             return "redirect:boardList.tm?tno=" + tno;
         } else { // 실패
             System.out.println("일반 게시글 생성 실패");
-            m.addAttribute("errorMsg", "게시글 삭제 실패");
-            return "main";
+            session.setAttribute("alertMsg", "게시글 삭제 실패");
+            return "redirect:boardList.tm?tno=" + tno;
         }
     }
 
@@ -237,6 +296,118 @@ public class TeamController {
 			return "redirect:detailMoveBd.tm?bno=" + bno;
 		}
 	}
+    
+    // 좋아요 버튼 클릭
+ 	@RequestMapping("boardLike.tm")
+ 	public String boardLike(HttpSession session, int bno) {
+ 		Member loginMember = (Member) session.getAttribute("loginMember");
+
+ 		if (loginMember != null) {
+ 			int memNo = loginMember.getMemNo();
+
+ 			Map<String, Integer> map = new HashMap<>();
+
+ 			map.put("memNo", memNo);
+ 			map.put("bno", bno);
+
+ 			BoardLike board = teamService.boardIsLike(map);
+
+ 			if (board == null) {
+ 				int boardLI = teamService.boardInsertLike(map);
+ 				session.setAttribute("alertMsg", "게시글에 좋아요를 눌렀습니다.");
+ 				return "redirect:detailMoveBd.tm?bno=" + bno;
+ 			} else if (board.getStatus().equals("N")) {
+ 				int boardLikeChange = teamService.boardToLike(map);
+ 				session.setAttribute("alertMsg", "게시글에 좋아요를 눌렀습니다.");
+ 				return "redirect:detailMoveBd.tm?bno=" + bno;
+ 			} else {
+ 				int boardLikeChange = teamService.boardToUnLike(map);
+ 				session.setAttribute("alertMsg", "게시글에 좋아요를 취소했습니다.");
+ 				return "redirect:detailMoveBd.tm?bno=" + bno;
+ 			}
+
+ 		} else {
+ 			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
+ 			return "redirect:detailMove.bd?bno=" + bno;
+ 		}
+ 	}
+
+ 	// 게시글 신고
+ 	@RequestMapping("boardReport.tm")
+ 	public String boardReport(HttpSession session, String pnContent, int boardNo, int comNo, int reporterNo) {
+ 		Member loginMember = (Member) session.getAttribute("loginMember");
+
+ 		System.out.println(pnContent + " / " + boardNo + " / " + comNo + " / " + reporterNo);
+ 		if (loginMember != null) {
+ 			int memNo = loginMember.getMemNo();
+ 			
+ 			 String comNoValue = (comNo == 0) ? null : String.valueOf(comNo);
+ 		     String boardNoValue = (comNo == 0) ? String.valueOf(boardNo) : null;
+
+ 		     Map<String, String> map = new HashMap<>();
+ 		     map.put("pnContent", pnContent);
+ 		     map.put("memNo", String.valueOf(memNo));
+ 		     map.put("boardNo", boardNoValue);
+ 		     map.put("comNo", comNoValue);
+ 		     map.put("reporterNo", String.valueOf(reporterNo));
+
+ 			int result1 = boardService.commentReport(map);
+
+ 			session.setAttribute("alertMsg", "신고 작성이 되었습니다.");
+ 			return "redirect:detailMoveBd.tm?bno=" + boardNo;
+
+ 		} else {
+ 			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
+ 			return "redirect:detailMoveBd.tm?bno=" + boardNo;
+ 		}
+ 	}
+ 	
+ 	// 대댓글 작성
+ 	@RequestMapping("replyComment.tm")
+ 	public String replyComment(HttpSession session, int comParentNo, String pnContent, int boardNo) {
+ 		Member loginMember = (Member) session.getAttribute("loginMember");
+
+ 		if (loginMember != null) {
+ 			int memNo = loginMember.getMemNo();
+
+ 			Map<String, String> map = new HashMap<>();
+ 			map.put("pnContent", pnContent);
+ 			map.put("memNo", String.valueOf(memNo));
+ 			map.put("boardNo", String.valueOf(boardNo));
+ 			map.put("comNo", String.valueOf(comParentNo));
+
+ 			int result1 = teamService.replyComment(map);
+
+ 			return "redirect:detailMoveBd.tm?bno=" + boardNo;
+
+ 		} else {
+ 			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
+ 			return "redirect:detailMoveBd.tm?bno=" + boardNo;
+ 		}
+ 	}
+ 	
+ 	// 구단 관리 페이지로 이동
+    @GetMapping(value = "teamManagement.tm")
+    public String moveTeamManagement(int tno, Model m) {
+    	m.addAttribute("tno", tno);
+        return "teamBoard/teamManagement";
+    }
+    
+    // 구단 정보 수정 페이지로 이동
+    @GetMapping(value = "teamModify.tm")
+    public String moveTeamModify(int tno, Model m) {
+        return "teamBoard/teamModify";
+    }
+    
+    // 구단 멤버 관리 페이지로 이동
+    @GetMapping(value = "teamMemberModify.tm")
+    public String moveTeamMemberModify(int tno, Model m) {
+    	ArrayList<TeamMemberDto> memberList = teamService.selectMemberList(tno);
+    	
+    	m.addAttribute("memberList", memberList);
+        return "teamBoard/teamMemberModify";
+    }
+    
 
     // 구단 메뉴로 이동
     @GetMapping(value = "teamMenu.tm")

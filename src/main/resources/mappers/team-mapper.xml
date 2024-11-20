@@ -140,13 +140,30 @@
 	</select>
 	
 	<!-- 구단 인원 목록 -->
-	<select id="selectMemberList" resultType="TeamMemberInfo">
+	<select id="selectMemberList" resultType="TeamMemberDto">
 	    SELECT TM.MEM_NO as memNo,
 	           TM.MEM_ENROLL_DATE as memEnrollDate,
 	           TM.STATUS as status,
-	           M.MEM_NAME as memName
+	           M.MEM_NAME as memName,
+	           M.MEM_BIRTH as memBirth,
+	           CASE 
+	               WHEN T.TEAM_CATEGORY = 'soccer' THEN C.SOC_POSI
+	               WHEN T.TEAM_CATEGORY = 'futsal' THEN C.FOOT_POSI
+	               WHEN T.TEAM_CATEGORY = 'baseball' THEN C.BASE_POSI
+	               WHEN T.TEAM_CATEGORY = 'basketball' THEN C.BASKET_POSI
+	               ELSE NULL
+	           END AS position,
+	           CASE 
+	               WHEN T.TEAM_CATEGORY = 'soccer' THEN C.SOC_ABILITY
+	               WHEN T.TEAM_CATEGORY = 'futsal' THEN C.FOOT_ABILITY
+	               WHEN T.TEAM_CATEGORY = 'baseball' THEN C.BASE_ABILITY
+	               WHEN T.TEAM_CATEGORY = 'basketball' THEN C.BASKET_ABILITY
+	               ELSE NULL
+	           END AS ability
 	    FROM TEAM_MEMBER TM
 	    JOIN MEMBER M ON TM.MEM_NO = M.MEM_NO
+	    JOIN TEAM T ON TM.TEAM_NO = T.TEAM_NO
+	    LEFT JOIN CATEGORY C ON TM.MEM_NO = C.MEM_NO
 	    WHERE TM.TEAM_NO = #{teamNo}
 	</select>
 	
@@ -160,7 +177,8 @@
 	           b.CONTENT AS content,
 	           b.BOARD_NO AS boardNo,
 	           b.TYPE AS type,
-	           b.TEAM_NO AS teamNo
+	           b.TEAM_NO AS teamNo,
+	           b.MEM_NO AS memNo
 	    FROM TEAM_BOARD b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 	    WHERE b.STATUS = 'Y'
@@ -180,7 +198,6 @@
 		 FROM TEAM_BOARD_COMMENT b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 	    WHERE REF_TEAM_BOARD_NO = #{bno}
-	    AND b.STATUS = 'Y'
 	</select>
 	
 	<!-- 댓글 수 계산 -->
@@ -190,9 +207,34 @@
         WHERE REF_TEAM_BOARD_NO = #{bno}
         AND STATUS = 'Y'
     </select>
+    
+    <!-- 상세 페이지 좋아요 갯수 -->
+	<select id="likeCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM TEAM_BOARD_LIKE
+		WHERE BOARD_NO = #{bno}
+		AND STATUS = 'Y'
+	</select>
+	
+	<!-- 파일 다운로드 -->
+	<select id="filedownloadLink" resultType="BoardFile">
+		SELECT FILE_PATH AS filePath,
+			   CHANGE_NAME AS changeName
+		FROM BOARD_FILE
+		WHERE REF_TEAM_BOARD_NO = #{bno}
+	</select>
+	
+	<!-- 좋아요 상태 확인 -->
+	<select id="boardIsLike" resultType="BoardLike">
+		SELECT
+		STATUS as status
+		FROM TEAM_BOARD_LIKE
+		WHERE MEM_NO = #{memNo}
+		AND BOARD_NO = #{bno}
+	</select>
 	
 	<!-- 게시글 생성 -->
-	<insert id="createBoard">
+	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">
 	  	INSERT INTO TEAM_BOARD (
 		    TITLE,
 		    MEM_NO,
@@ -203,7 +245,7 @@
 		)
 		VALUES (
 		    #{title},
-		    1,
+		    #{memNo},
 		    #{content},
 		    #{type},
 		    NOW(),
@@ -229,6 +271,24 @@
 	    UPDATE TEAM_BOARD
 	    SET STATUS = 'N'
 	    WHERE BOARD_NO = #{bno}
+	</update>
+	
+	<!-- 좋아요 변경 -->
+	<update id="boardToLike">
+		UPDATE TEAM_BOARD_LIKE
+		SET STATUS = 'Y'
+		WHERE BOARD_NO =
+		#{bno}
+		AND MEM_NO = #{memNo}
+	</update>
+
+	<!-- 좋아요 취소 -->
+	<update id="boardToUnLike">
+		UPDATE TEAM_BOARD_LIKE
+		SET STATUS = 'N'
+		WHERE BOARD_NO =
+		#{bno}
+		AND MEM_NO = #{memNo}
 	</update>
 	
 	<!-- 입단자 거절 -->
@@ -294,6 +354,49 @@
 		    'Y',
 		    #{comContent}
 		)
+	</insert>
+	
+	<!-- 좋아요 삽입 -->
+	<insert id="boardInsertLike">
+		INSERT INTO TEAM_BOARD_LIKE (BOARD_NO, MEM_NO, STATUS)
+		VALUES (#{bno}, #{memNo}, 'Y')
+	</insert>
+	
+	<!-- 대댓글 -->
+	<insert id="replyComment">
+		INSERT INTO TEAM_BOARD_COMMENT (
+			REF_TEAM_BOARD_NO,
+			MEM_NO,
+			COM_CREATE_DATE,
+			STATUS,
+			COM_CONTENT,
+			COM_PARENT_NO
+		)
+		VALUES (
+			#{boardNo},
+			#{memNo},
+			NOW(),
+			'Y',
+			#{pnContent},
+			#{comNo}
+		)
+	</insert>
+	
+	<!-- 게시글 생성 파일 업로드 -->
+	<insert id="saveBoardFile" parameterType="BoardFile">
+	INSERT INTO BOARD_FILE (
+		REF_TEAM_BOARD_NO,
+		ORIGIN_NAME,
+		CHANGE_NAME,
+		FILE_PATH,
+		STATUS
+	) VALUES (
+		#{refBoardNo},
+        #{originName},
+        #{changeName},
+        #{filePath},
+        'Y'
+	)
 	</insert>
 	
 	<!-- 댓글 삭제 -->

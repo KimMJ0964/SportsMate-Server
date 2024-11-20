@@ -14,6 +14,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.sportsmate.board.model.vo.BoardFile;
+import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
 
 @Repository
@@ -49,7 +51,8 @@ public class TeamDao {
     }
 
     public int createBoard(SqlSessionTemplate sqlSession, TeamBoard b) {
-        return sqlSession.insert("teamMapper.createBoard", b);
+    	sqlSession.insert("teamMapper.createBoard", b);
+	    return b.getBoardNo();
     }
 
     public int updateBoard(SqlSessionTemplate sqlSession, TeamBoard b) {
@@ -121,4 +124,36 @@ public class TeamDao {
     public int insertTeamMember(SqlSessionTemplate sqlSession, TeamMember teamMember){
         return sqlSession.insert("teamMapper.insertTeamMember", teamMember);
     }
+    
+    public int likeCount(SqlSessionTemplate sqlSession, int bno) {
+    	return sqlSession.selectOne("teamMapper.likeCount", bno);
+    }
+    
+    public BoardFile filedownloadLink(SqlSessionTemplate sqlSession, int bno) {
+    	return sqlSession.selectOne("teamMapper.filedownloadLink", bno);
+    }
+    
+    public BoardLike boardIsLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.selectOne("teamMapper.boardIsLike", map);
+	}
+	
+	public int boardToLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("teamMapper.boardToLike", map);
+	}
+	
+	public int boardToUnLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("teamMapper.boardToUnLike", map);
+	}
+	
+	public int boardInsertLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.insert("teamMapper.boardInsertLike", map);
+	}
+	
+	public int replyComment(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.insert("teamMapper.replyComment", map);
+	}
+	
+	public int saveBoardFile(SqlSessionTemplate sqlSession, BoardFile bf) {
+		return sqlSession.insert("teamMapper.saveBoardFile", bf);
+	}
 }

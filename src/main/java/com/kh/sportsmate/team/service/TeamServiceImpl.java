@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.board.model.vo.BoardFile;
+import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -207,6 +209,54 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public String selectAreaName(String searchArea) {
         return teamDao.selectAreaName(sqlSession, searchArea);
-    }   
+    }
+    
+    // 상세 게시글 좋아요 갯수
+	@Override
+	public int likeCount(int bno) {
+		return teamDao.likeCount(sqlSession, bno);
+	}
+	
+	// 상세 게시글 페이지 파일 다운로드
+	@Override
+	public BoardFile filedownloadLink(int bno) {
+		return teamDao.filedownloadLink(sqlSession, bno);
+	}
+	
+	// 좋아요 확인
+	@Override
+	public BoardLike boardIsLike(Map<String, Integer> map) {
+		return teamDao.boardIsLike(sqlSession, map);
+	}
+		
+	// 좋아요 변경
+	@Override
+	public int boardToLike(Map<String, Integer> map) {
+		return teamDao.boardToLike(sqlSession, map);
+	}
+
+	// 좋아요 취소
+	@Override
+	public int boardToUnLike(Map<String, Integer> map) {
+		return teamDao.boardToUnLike(sqlSession, map);
+	}
+		
+	// 좋아요 삽입
+	@Override
+	public int boardInsertLike(Map<String, Integer> map) {
+		return teamDao.boardInsertLike(sqlSession, map);
+	}
+	
+	// 대댓글
+	@Override
+	public int replyComment(Map<String, String> map) {
+		return teamDao.replyComment(sqlSession, map);
+	}
+	
+	// 파일 업로드
+	@Override
+	public int saveBoardFile(BoardFile bf) {
+		return teamDao.saveBoardFile(sqlSession, bf);
+	}
 }
 

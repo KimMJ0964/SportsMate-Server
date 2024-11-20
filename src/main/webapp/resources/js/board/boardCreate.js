@@ -30,10 +30,11 @@ $(function(){
 					console.log("파일 : " + file)
 				}
 				
-				insertFile(fd, function(nameList){
+				insertImage(fd, function(nameList){
+					console.log(nameList)
 					for(let name of nameList){
 						console.log("INSERTFILE FUNCTION");
-						$("#summernote").summernote("insertImage", "/resources/images/boardFile/" + name);
+						$("#summernote").summernote("insertImage", "/SportsMate/resources/images/boardFile/" + name);
 					}
 				})
 			}
