@@ -37,4 +37,8 @@ public class StadiumDao {
     public int insertStadiumAttachment(SqlSessionTemplate sqlSession, ArrayList<StadiumAttachment> stadiumAttachmentImgs){
         return sqlSession.insert("stadiumMapper.insertStadiumAttachment", stadiumAttachmentImgs);
     }
+    
+    public List<Stadium> findStadiums(SqlSessionTemplate sqlSession, Stadium sd) {
+    	return sqlSession.selectList("stadiumMapper.findStadiums", sd);
+    }
 }

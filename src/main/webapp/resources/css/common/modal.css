@@ -49,14 +49,27 @@
     height: 20px;
     margin-right: 8px;
 }
-.calendar-container {
-    display: none; /* 초기에는 숨김 */
-    justify-content: center;
-}
-
 .form-select {
     text-align: center;
     text-align-last: center;
+}
+
+.dallyeog {
+    margin-top: 20px; /* 날짜 선택 필드와 캘린더 사이 간격 */
+    border: 1px solid #e0e0e0; /* 캘린더에 경계선 추가 */
+    border-radius: 8px; /* 모서리를 둥글게 */
+    padding: 15px; /* 내부 여백 */
+    background: #fff; /* 캘린더 배경 흰색 */
+}
+
+/* 달력 설정 */
+.hidden {
+	display: none;
+}
+
+.calendar-wrapper {
+	display: flex;
+	justify-content: center;
 }
 
 @media (min-width: 481px) and (max-width: 1200px) {

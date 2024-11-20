@@ -1,45 +1,95 @@
-/**
- * 
- */
+const currentDate = document.querySelector(".current-date"),
+daysTag = document.querySelector(".days");
+prevNextIcon = document.querySelectorAll("#prev, #next");
 
-const daysContainer = document.getElementById('days');
-const currentDateElement = document.getElementById('current-date');
-const prevButton = document.getElementById('prev-button');
-const nextButton = document.getElementById('next-button');
+let date = new Date(),
+currYear = date.getFullYear(),
+currMonth = date.getMonth();
 
-let currentDate = new Date();
+const months = [  
+    "1월","2월","3월","4월","5월","6월",
+    "7월","8월","9월","10월","11월","12월"
+];
 
-function renderCalendar() {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    currentDateElement.innerText = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+const renderCalendar = () => {
+    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),
+    lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(),
+    lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(),
+    lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
+    let liTag = "";
 
-    daysContainer.innerHTML = '';
-
-    const firstDayOfMonth = new Date(year, month, 1).getDay();
-    const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
-
-    for (let i = 0; i < firstDayOfMonth; i++) {
-        const li = document.createElement('li');
-        li.classList.add('inactive');
-        daysContainer.appendChild(li);
+    for (let i = firstDayofMonth; i > 0; i--) {
+        liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
     }
 
-    for (let date = 1; date <= lastDateOfMonth; date++) {
-        const li = document.createElement('li'); 
-        li.innerText = date;
-        daysContainer.appendChild(li);
+    for (let i = 1; i <= lastDateofMonth; i++) {
+        /*let isToday = i === date.getDate() && currMonth === new Date().getMonth()
+                        && currYear === new Date().getFullYear() ? "active" : ""; (오늘날짜 강조(필요시 사용))*/ 
+
+        let isPast = currYear === date.getFullYear() && currMonth === date.getMonth() 
+                && i < date.getDate() ? "past" : "";
+
+        let dayOfWeek = new Date(currYear, currMonth, i).getDay();
+        let isSaturday = !isPast && dayOfWeek === 6 ? "saturday" : ""; // 토요일
+        let isSunday = !isPast && dayOfWeek === 0 ? "sunday" : ""; // 일요일
+
+        liTag += `<li class="${isPast} ${isSaturday} ${isSunday}" data-date="${currYear}-${currMonth + 1}-${i}">${i}</li>`;
     }
+
+    for (let i = lastDayofMonth; i < 6; i++) {
+        liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
+    }
+
+
+    currentDate.innerText = `${currYear} ${months[currMonth]}`;
+    daysTag.innerHTML = liTag;
+
+    // 날짜 클릭 이벤트 추가
+    document.querySelectorAll(".days li").forEach(day => {
+        if (!day.classList.contains("past") && !day.classList.contains("inactive")) {
+            day.addEventListener("click", () => {
+                alert(`선택한 날짜: ${day.dataset.date}`)
+            })
+        }
+    })
 }
-
-prevButton.addEventListener('click', () => {
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    renderCalendar();
-});
-
-nextButton.addEventListener('click', () => {
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    renderCalendar();
-});
-
 renderCalendar();
+
+prevNextIcon.forEach(icon => {
+    icon.addEventListener("click", () => {
+        if (icon.id === "prev" && (currYear === date.getFullYear() && currMonth <= date.getMonth())) {
+            // (현재 기준 달) 이전으로 못 가게 막음
+            alert("더 이전으로 이동할 수 없습니다.")
+            return;
+        }
+
+        currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+
+        if (currMonth < 0) {
+            currMonth = 11;
+            currYear -= 1;
+        }
+
+        if (currMonth > 11) {
+            currMonth = 0;
+            currYear += 1;
+        }
+
+        // 조건 수정: 11월 이전으로는 이동 제한
+        if (currYear === date.getFullYear() && currMonth < date.getMonth()) {
+            alert("더 이전으로 이동할 수 없습니다.");
+            currMonth = date.getMonth(); // 제한 월로 되돌림
+            currYear = date.getFullYear();
+            return;
+        }
+
+        if(currMonth < 0 || currMonth > 11) {
+            date = new Date(currYear, currMonth);
+            currYear = date.getFullYear();
+            currMonth = date.getMonth();
+        } else {
+            date = new Date();
+        }
+        renderCalendar();
+    });
+});

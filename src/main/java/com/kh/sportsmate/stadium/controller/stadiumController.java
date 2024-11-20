@@ -1,13 +1,31 @@
 package com.kh.sportsmate.stadium.controller;
 
+import java.sql.Time;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.sportsmate.member.service.MemberService;
+import com.kh.sportsmate.mypage.service.MyPageService;
+import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.service.StadiumService;
+
 @CrossOrigin
 @Controller
 public class stadiumController {
+	
+	private final StadiumService stadiumService;
+    
+    @Autowired
+    public stadiumController( StadiumService stadiumService){
+    	this.stadiumService = stadiumService;
+    }
 	
 	@GetMapping(value = "managermypage.me")
     public String managermypage(String select) {
@@ -58,4 +76,14 @@ public class stadiumController {
     public String showStadiumdatil() {
         return "stadium/detail";
     }
+    
+    @GetMapping("searchStadium.st")
+    public String searchResults(String stadiumName, String sportType, Time selectedDate, Time selectedTime, Model model) {
+    	Stadium sd = new Stadium(stadiumName, sportType, selectedDate, selectedTime);
+    	System.out.println(sd);
+		List<Stadium> results = stadiumService.findStadiums(sd);
+		
+		model.addAttribute("results", results);
+		return "stadium/listPage"; // 검색 결과 페이지
+	}
 }

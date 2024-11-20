@@ -239,4 +239,18 @@
 		    NOW()
 		)
     </insert>
+    
+    <select id="findStadiums" resultType="Stadium">
+    SELECT STADIUM_NO as stadiumNo,
+	   STADIUM_ADDRESS as stadiumAddress,
+	   STADIUM_NAME as stadiumName,
+	   STADIUM_SCORE as stadiumScore,
+	   STADIUM_CATEGORY as stadiumCategory
+	FROM STADIUM
+	WHERE 
+    	STADIUM_NAME = #{stadiumName}
+    AND STADIUM_CATEGORY = #{sportType}
+    AND STADIUM_START_TIME = #{selectedDate}
+    AND STADIUM_END_TIME = #{selectedTime}
+    </select>
 </mapper>
