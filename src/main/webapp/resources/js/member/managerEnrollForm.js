@@ -3,13 +3,17 @@ let isEmailValid = false;
 let areTermsChecked = false;
 let isPasswordConfirmed = false;
 let isPasswordConditionMet = false;
+
+// 인증번호 만료 타이머
+let timerId = null; // 타이머 ID를 전역에서 관리
+
 $(document).ready(function () {
     toggleSubmit();
     $('#profileImg').on('click', profileUpload);
     setDateSelectBox();
 
     // 종목 체크박스 클릭 시 해당 체크박스 외 나머지 체크 해제
-    $(`input[type="checkbox"][name="category"]`).on('click', function() {
+    $(`input[type="checkbox"][name="category"]`).on('click', function () {
         checkToRadio($(this));
     });
 
@@ -109,8 +113,8 @@ const toggleSubmit = () => {
 const emailCheck = (ev) => {
     clearTimeout(eventFlag);
     const str = ev.target.value;
-    if (str.trim().length >= 5) {
-        eventFlag = setTimeout(() => selectEmail({ email: str }, handleEmailCheckResult), 500);
+    if (str.trim().length >= 10) {
+        eventFlag = setTimeout(() => selectEmail({email: str}, handleEmailCheckResult), 500);
     }
 };
 
@@ -184,7 +188,104 @@ const checkPasswordCondition = (ev) => {
         }, 500);
     }
 };
-function addSearch(zipcodeId, baseAddId, detailAddId){
+
+// 인증번호 전송 버튼 클릭 -> AJAX 요청
+const authCodeSendBtnClick = () => {
+    const email = $('.email').val().trim();
+    if (!email) {
+        alert("이메일을 입력해주세요.")
+        return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("유효한 이메일을 입력해주세요.");
+        return;
+    }
+
+    const data = {email};
+    sendEmail(data, (res) => {
+        console.log(res);
+        $('#check-auth-code-container').addClass('check-auth-code-container-expose').removeClass('check-auth-code-container-hide');
+        authTimer(new Date(Date.now() + (5 * 1000 * 60)))
+    });
+};
+// 이메일 인증 AJAX
+const sendEmail = (data, callback) => {
+    $.ajax({
+        url: "sendMail.mi",
+        method: "POST",
+        data,
+        success: (res) => callback(res),
+        error: (res) => console.log("인증번호 이메일 전송 AJAX 요청 실패"),
+    });
+};
+
+// 인증번호 만료 타이머
+const authTimer = (endTime, timeout) => {
+    if (timerId) {
+        clearInterval(timerId); // 기존 타이머 정리
+    }
+
+    timerId = setInterval(() => {
+        const now = Date.now();
+        const end = endTime.getTime();
+        const timeLeft = end - now;
+
+        if (timeLeft > 0) {
+            const minutes = Math.floor(timeLeft / 1000 / 60); // 남은 분
+            const seconds = Math.floor((timeLeft / 1000) % 60); // 남은 초
+
+            // 두 자리 형식으로 변환
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+
+            // #timer에 업데이트
+            $('#timer').text(`${formattedMinutes}:${formattedSeconds}`);
+        } else {
+            $('#timer').text('00:00'); // 시간 종료 시 00:00 표시
+            clearInterval(timerId); // 타이머 종료
+            timerId = null; // 타이머 ID 초기화
+        }
+    }, timeout);
+};
+// 인증번호 확인 버튼 클릭 -> AJAX 요청
+const authCodeCheckBtnClick = () => {
+    const email = $('.email').val().trim(); // email 값 추출
+    const authCode = $('#auth-code').val().trim(); // 인증번호 값 추출
+    const data = {
+        email: email,
+        inputAuthCode: authCode,
+    };
+    checkAuthCode(data, (res) => {
+        console.log(res)
+        if (res === "NNNNY") {
+            // input readonly 속성 추가
+            $('input[type=email][name=memEmail]').prop('readonly', true);
+            $('#auth-code').prop('readonly', true);
+            $('.email-auth-btn').prop('disabled', true);
+            $('#auth-code-btn').prop('disabled', true);
+            clearInterval(timerId);
+            $('#timer').text('인증 완료');
+            $('#timer').addClass('green');
+            $('#send-mail-btn').addClass('email-auth-btn-disabled').removeClass('email-auth-btn');
+            $('#auth-code-btn').addClass('email-auth-btn-disabled').removeClass('email-auth-btn');
+        } else {
+            $('#timer').text('인증 실패');
+        }
+    });
+}
+// 인증번호 확인 AJAX
+const checkAuthCode = (data, callback) => {
+    $.ajax({
+        url: "checkAuthCode.mi",
+        method: "POST",
+        data,
+        success: (res) => callback(res),
+        error: () => console.log("인증번호 확인 AJAX 요청 실패"),
+    });
+}
+
+function addSearch(zipcodeId, baseAddId, detailAddId) {
     new daum.Postcode({
         oncomplete: function (data) {
             let addr = ''; // 주소 변수

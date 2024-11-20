@@ -1,6 +1,7 @@
 package com.kh.sportsmate.common.template;
 
 import com.kh.sportsmate.common.vo.PageInfo;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -116,5 +117,10 @@ public class Template {
             throw new RuntimeException("바디정보를 읽는데 실패하였습니다. ", e);
         }
         return res.toString();
+    }
+
+    // 인증 코드 생성
+    public static String creatAuthCode() {
+        return String.valueOf((int)(Math.random() * (900000)) + 100000);
     }
 }
