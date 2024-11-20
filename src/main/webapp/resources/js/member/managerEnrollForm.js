@@ -3,6 +3,7 @@ let isEmailValid = false;
 let areTermsChecked = false;
 let isPasswordConfirmed = false;
 let isPasswordConditionMet = false;
+let isPassEmailAuth = false;
 
 // 인증번호 만료 타이머
 let timerId = null; // 타이머 ID를 전역에서 관리
@@ -97,6 +98,7 @@ const updateEntireAgreementStatus = () => {
 const toggleSubmit = () => {
     const submitBtn = $('#submitBtn');
     const isFormValid = isEmailValid && areTermsChecked && isPasswordConfirmed && isPasswordConditionMet;
+    // isPassEmailAuth
 
     console.log("Form Valid:", isFormValid);  // 상태 로그
     console.log("Submit Button:", submitBtn); // 버튼 참조 로그
@@ -269,8 +271,11 @@ const authCodeCheckBtnClick = () => {
             $('#timer').addClass('green');
             $('#send-mail-btn').addClass('email-auth-btn-disabled').removeClass('email-auth-btn');
             $('#auth-code-btn').addClass('email-auth-btn-disabled').removeClass('email-auth-btn');
+
+            // isPassEmailAuth = true;
         } else {
             $('#timer').text('인증 실패');
+            // isPassEmailAuth = false
         }
     });
 }
