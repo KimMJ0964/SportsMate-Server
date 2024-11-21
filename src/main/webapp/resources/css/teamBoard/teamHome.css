@@ -33,9 +33,31 @@
 .teamcomu-member {
 	background-color: white;
 	padding: 15px;
-	height: 440px;
+	height: 380px;
 	overflow-y: auto;
 	border: 2px solid #ddd;
+}
+
+.teamcomu-teamOut {
+	background-color: white;
+	padding: 14px;
+	height: 50px;
+	text-align: center;
+	border: 2px solid #ddd;
+	
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teamcomu-teamOutBtn {
+	border: 2px solid #bfbfbf;
+	background-color: white;
+	color: red;
+	font-weight: bold;
+	border-radius: 8px;
+	width: 80%;
+	height: 33px;
 }
 
 .teamcomu-member::-webkit-scrollbar {

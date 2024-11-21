@@ -97,5 +97,17 @@ public interface TeamService {
  	
  	// 팀 게시글 파일 업로드
  	int saveBoardFile(BoardFile bf);
+ 	
+ 	// 구단 탈퇴
+ 	int teamOut(Team team);
+ 	
+ 	// 구단 수정 페이지 내 구단 정보 가져오기
+ 	TeamInfoDto teamInfo(int tno);
+ 	
+ 	// 구단 인원 수 가져오는 쿼리
+ 	int numOfTeamPerson(int tno);
+ 	
+ 	// 구단 수정
+ 	int modifyTeam(TeamInfoDto t, Profile profile);
 }
 

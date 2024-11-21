@@ -48,5 +48,30 @@
 		#{filePath}
 		)
 	</insert>
+	
+	<!-- Update -->
+	<update id="modifyProfile" parameterType="Profile">
+	    UPDATE PROFILE_FILE
+	    <set>
+	        <if test="originName != null">
+	            ORIGIN_NAME = #{originName},
+	        </if>
+	        <if test="changeName != null">
+	            CHANGE_NAME = #{changeName},
+	        </if>
+	        <if test="filePath != null">
+	            FILE_PATH = #{filePath},
+	        </if>
+	    </set>
+	    <where>
+	        <if test="memNo > 0">
+	            MEM_NO = #{memNo} AND
+	        </if>
+	        <if test="teamNo > 0">
+	            TEAM_NO = #{teamNo} AND
+	        </if>
+	        1 = 1  <!-- 항상 참이 되도록 조건을 추가 -->
+	    </where>
+	</update>
     
 </mapper>

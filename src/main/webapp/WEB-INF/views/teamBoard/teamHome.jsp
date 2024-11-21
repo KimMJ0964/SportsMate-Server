@@ -129,6 +129,11 @@
 						</table>
 					</c:forEach>
 				</div>
+				
+				<!-- 팀 탈퇴 -->
+				<div class="teamcomu-teamOut">
+					<button class="teamcomu-teamOutBtn" onclick="confirmTeamOut(${tno})">구단 탈퇴</button>
+				</div>
 
 				<div class="teamcomu-app-board-container">
 					<div class="board-app-table-container">
@@ -152,7 +157,6 @@
 
 							</table>
 						</c:forEach>
-
 					</div>
 					
 					<!-- 페이지네이션 -->
@@ -390,6 +394,7 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	<script src="${pageContext.request.contextPath}/resources/js/teamBoard/teamHome.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

@@ -142,6 +142,7 @@
 	<!-- 구단 인원 목록 -->
 	<select id="selectMemberList" resultType="TeamMemberDto">
 	    SELECT TM.MEM_NO as memNo,
+	    	   TM.TEAM_NO as teamNo,
 	           TM.MEM_ENROLL_DATE as memEnrollDate,
 	           TM.STATUS as status,
 	           M.MEM_NAME as memName,
@@ -165,6 +166,7 @@
 	    JOIN TEAM T ON TM.TEAM_NO = T.TEAM_NO
 	    LEFT JOIN CATEGORY C ON TM.MEM_NO = C.MEM_NO
 	    WHERE TM.TEAM_NO = #{teamNo}
+	    AND TM.STATUS = 'Y'
 	</select>
 	
 	<!-- 게시글 내용 가져오기 -->
@@ -231,6 +233,42 @@
 		FROM TEAM_BOARD_LIKE
 		WHERE MEM_NO = #{memNo}
 		AND BOARD_NO = #{bno}
+	</select>
+	
+	<!-- 구단 수정 페이지 정보 가져오기 -->
+	<select id="teamInfo" resultType="TeamInfoDto">
+		SELECT 
+		    t.TEAM_NO AS teamNo,
+		    t.MEM_NO AS memNo,
+		    t.TEAM_NAME AS teamName,
+		    t.TEAM_DESCRIPTION AS teamDescription,
+		    t.TEAM_MAX_PERSON AS teamMaxPerson,
+		    t.TEAM_CATEGORY AS teamCategory,
+		    t.ACTIVITY_TIME AS activityTime,
+		    t.ACTIVITY_AREA AS activityArea,
+		    t.STATUS AS status,
+		    t.SCORE AS score,
+		    t.TEAM_POINT AS teamPoint,
+		    t.TEAM_ENROLL_DATE AS teamEnrollDate,
+		    t.APPLICATION AS application,
+		    ta.MON AS monday,
+		    ta.TUES AS tuesday,
+		    ta.WEDNES AS wednesday,
+		    ta.THURS AS thursday,
+		    ta.FRI AS friday,
+		    ta.SATUR AS saturday,
+		    ta.SUN AS sunday
+		FROM TEAM t
+		JOIN TEAM_ACTIVITY_DAYS ta ON t.TEAM_NO = ta.TEAM_NO
+		WHERE t.TEAM_NO = ${tno};
+	</select>
+	
+	<!-- 구단 수정 게시판 구단 인원 수 계산 -->
+	<select id="numOfTeamPerson" resultType="_int">
+		SELECT COUNT(*)
+		FROM TEAM_MEMBER
+		WHERE TEAM_NO = #{tno}
+		AND STATUS = 'Y'
 	</select>
 	
 	<!-- 게시글 생성 -->
@@ -413,6 +451,76 @@
 		UPDATE TEAM_BOARD
 	    SET VIEW = VIEW + 1
 	    WHERE BOARD_NO = #{bno}
+	</update>
+	
+	<update id="teamOut">
+	    UPDATE TEAM_MEMBER
+	    SET STATUS = 'N'
+	    WHERE TEAM_NO = #{teamNo}
+	    AND MEM_NO = #{memNo}
+	    AND MEM_NO NOT IN (SELECT MEM_NO FROM TEAM WHERE TEAM_NO = #{teamNo} AND MEM_NO = #{memNo});
+	</update>
+	
+	<!-- 구단 정보 변경 -->
+	<update id="modifyTeam">
+		UPDATE team
+			SET 
+			    TEAM_DESCRIPTION = #{teamDescription},
+			    TEAM_MAX_PERSON = #{teamMaxPerson},
+			    ACTIVITY_TIME = #{activityTime},
+			    ACTIVITY_AREA = #{activityArea},
+			    APPLICATION = #{application}
+			WHERE TEAM_NO = #{teamNo};
+	</update>
+
+	<!-- 활동 요일 변경 -->
+	<update id="modifyActivityDays">
+	    UPDATE TEAM_ACTIVITY_DAYS
+	    <set>
+	        <if test="monday == 'Y'">
+	            MON = #{monday},
+	        </if>
+	        <if test="monday != 'Y'">
+	            MON = 'N',
+	        </if>
+	        <if test="tuesday == 'Y'">
+	            TUES = #{tuesday},
+	        </if>
+	        <if test="tuesday != 'Y'">
+	            TUES = 'N',
+	        </if>
+	        <if test="wednesday == 'Y'">
+	            WEDNES = #{wednesday},
+	        </if>
+	        <if test="wednesday != 'Y'">
+	            WEDNES = 'N',
+	        </if>
+	        <if test="thursday == 'Y'">
+	            THURS = #{thursday},
+	        </if>
+	        <if test="thursday != 'Y'">
+	            THURS = 'N',
+	        </if>
+	        <if test="friday == 'Y'">
+	            FRI = #{friday},
+	        </if>
+	        <if test="friday != 'Y'">
+	            FRI = 'N',
+	        </if>
+	        <if test="saturday == 'Y'">
+	            SATUR = #{saturday},
+	        </if>
+	        <if test="saturday != 'Y'">
+	            SATUR = 'N',
+	        </if>
+	        <if test="sunday == 'Y'">
+	            SUN = #{sunday}
+	        </if>
+	        <if test="sunday != 'Y'">
+	            SUN = 'N'
+	        </if>
+	    </set>
+	    WHERE TEAM_NO = #{teamNo};
 	</update>
 
 	<insert id="insertTeam" parameterType="Team" useGeneratedKeys="true" keyProperty="teamNo" >

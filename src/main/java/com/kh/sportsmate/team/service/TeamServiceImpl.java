@@ -258,5 +258,78 @@ public class TeamServiceImpl implements TeamService {
 	public int saveBoardFile(BoardFile bf) {
 		return teamDao.saveBoardFile(sqlSession, bf);
 	}
+
+	// 구단 탈퇴
+	@Override
+	public int teamOut(Team team) {
+		return teamDao.teamOut(sqlSession, team);
+	}
+
+	@Override
+	public TeamInfoDto teamInfo(int tno) {
+		return teamDao.teamInfo(sqlSession, tno);
+	}
+	
+	// 구단 인원 수
+	@Override
+	public int numOfTeamPerson(int tno) {
+		return teamDao.numOfTeamPerson(sqlSession, tno);
+	}
+	
+	// 구단 정보 수정
+	@Transactional
+	@Override
+	public int modifyTeam(TeamInfoDto t, Profile profile) {
+		int result2 = 1;
+        int result3 = 1;
+        System.out.println("구단 변경 프로필 : " + profile);
+        // Team 객체 생성
+        Team team = new Team(t.getTeamName(), t.getMemNo(), t.getTeamDescription(), t.getTeamMaxPerson(),
+                t.getTeamCategory(), t.getActivityTime(), t.getActivityArea(), t.getTeamNo(), t.getApplication());
+        int result1 = teamDao.modifyTeam(sqlSession, team);
+        // TeamActivityDays 객체 생성
+        TeamActivityDays days = new TeamActivityDays();
+        days.setTeamNo(t.getTeamNo());
+        if (!t.getActivityDays().isEmpty()) {
+            for (Object day : t.getActivityDays()) {
+                log.info("day : {}", day);
+                switch (day.toString()) {
+                    case "monday":
+                        days.setMonday('Y');
+                        break;
+                    case "tuesday":
+                        days.setTuesday('Y');
+                        break;
+                    case "wednesday":
+                        days.setWednesday('Y');
+                        break;
+                    case "thursday":
+                        days.setThursday('Y');
+                        break;
+                    case "friday":
+                        days.setFriday('Y');
+                        break;
+                    case "saturday":
+                        days.setSaturday('Y');
+                        break;
+                    case "sunday":
+                        days.setSunday('Y');
+                        break;
+                }
+            }
+            days.setTeamNo(team.getTeamNo());
+            result2 = teamDao.modifyActivityDays(sqlSession, days);
+        }
+        if (profile != null) {
+        	// 프로필이 있는지 확인
+        	profile.setTeamNo(t.getTeamNo());
+        	
+        	result3 = attachmentDao.modifyProfile(sqlSession, profile);
+        	if (result3 < 1) {
+        		result3 = attachmentDao.insertProfile(sqlSession, profile);
+        	}
+        }
+        return result1 * result2 * result3;
+	}
 }
 

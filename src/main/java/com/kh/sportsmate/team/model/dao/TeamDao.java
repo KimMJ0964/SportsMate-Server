@@ -8,6 +8,7 @@ import com.kh.sportsmate.team.model.dto.RecruitDetailDto;
 import com.kh.sportsmate.team.model.dto.RecruitDto;
 import com.kh.sportsmate.team.model.dto.RecruitListDto;
 import com.kh.sportsmate.team.model.dto.RecruitListQueryStringDto;
+import com.kh.sportsmate.team.model.dto.TeamInfoDto;
 import com.kh.sportsmate.team.model.dto.TeamMemberDto;
 import com.kh.sportsmate.team.model.vo.*;
 import org.apache.ibatis.session.RowBounds;
@@ -156,4 +157,24 @@ public class TeamDao {
 	public int saveBoardFile(SqlSessionTemplate sqlSession, BoardFile bf) {
 		return sqlSession.insert("teamMapper.saveBoardFile", bf);
 	}
+	
+	public int teamOut(SqlSessionTemplate sqlSession, Team team) {
+		return sqlSession.update("teamMapper.teamOut", team);
+	}
+	
+	public TeamInfoDto teamInfo(SqlSessionTemplate sqlSession, int tno) {
+		return sqlSession.selectOne("teamMapper.teamInfo", tno);
+	}
+	
+	public int numOfTeamPerson(SqlSessionTemplate sqlSession, int tno) {
+		return sqlSession.selectOne("teamMapper.numOfTeamPerson", tno);
+	}
+	
+	public int modifyTeam(SqlSessionTemplate sqlSession, Team t) {
+        return sqlSession.update("teamMapper.modifyTeam", t);
+    }
+
+    public int modifyActivityDays(SqlSessionTemplate sqlSession, TeamActivityDays days) {
+        return sqlSession.update("teamMapper.modifyActivityDays", days);
+    }
 }

@@ -53,6 +53,7 @@
         <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitListDto" alias="RecruitListDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitDetailDto" alias="RecruitDetailDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitDto" alias="RecruitDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.TeamInfoDto" alias="TeamInfoDto"/>
         <!-- Match -->
      	<typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
      	<typeAlias type="com.kh.sportsmate.match.model.vo.MatchBest" alias="MatchBest"/>

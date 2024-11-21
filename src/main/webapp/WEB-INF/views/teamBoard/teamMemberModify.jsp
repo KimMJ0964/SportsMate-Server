@@ -43,7 +43,7 @@
 							<p class="memberCount">${ml.position } / ${ml.ability }</p>
 							<p><img src="${pageContext.request.contextPath}/resources/images/birth.png" alt="" style="width: 30px;">${ml.memBirth }</p>
 						</div>
-						<div class="team-delete-wrap" onclick="history.back()">
+						<div class="team-delete-wrap" onclick="confirmTeamOut(${ml.teamNo}, ${ml.memNo})">
 							<img class="team-delete-wrap-img" src="${pageContext.request.contextPath}/resources/images/teamX.png" alt="" style="width: 35px;">
 						</div>
 					</div>
@@ -53,5 +53,6 @@
 		<jsp:include page="../common/footer.jsp" />
 
 	</div>
+	<script src="${pageContext.request.contextPath}/resources/js/teamBoard/teamMemberModify.js"></script>
 </body>
 </html>

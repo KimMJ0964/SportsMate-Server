@@ -396,6 +396,10 @@ public class TeamController {
     // 구단 정보 수정 페이지로 이동
     @GetMapping(value = "teamModify.tm")
     public String moveTeamModify(int tno, Model m) {
+    	TeamInfoDto teamInfo = teamService.teamInfo(tno);
+    	System.out.println("내 구단 정보 : " + teamInfo);
+    	m.addAttribute("teamInfo", teamInfo);
+    	
         return "teamBoard/teamModify";
     }
     
@@ -407,6 +411,94 @@ public class TeamController {
     	m.addAttribute("memberList", memberList);
         return "teamBoard/teamMemberModify";
     }
+    
+    // 구단 탈퇴
+    @RequestMapping("teamSelfOut.tm")
+    public String teamSelfOut(int tno, HttpSession session) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+    	int memNo = loginMember.getMemNo();
+    	
+    	int teamNo = tno;
+    	
+    	Team team = new Team(memNo, teamNo);
+    	
+    	int result = teamService.teamOut(team);
+ 		
+ 		if(result > 0) {
+ 			session.setAttribute("alertMsg", "구단 탈퇴를 성공했습니다.");
+ 			return "main";
+		} else {
+			session.setAttribute("alertMsg", "구단 탈퇴를 실패했습니다.");
+			return "main";
+		}
+    }
+    
+    // 구단 단원 강퇴
+    @RequestMapping("teamOut.tm")
+    public String teamOut(int memNo, int tno, HttpSession session, Model m) {
+    	int teamNo = tno;
+    	
+    	Team team = new Team(memNo, teamNo);
+    	
+    	int result = teamService.teamOut(team);
+ 		
+ 		if(result > 0) {
+ 			session.setAttribute("alertMsg", "구단 단원의 강퇴을 성공했습니다.");
+ 			m.addAttribute("tno", tno);
+ 			return "teamBoard/teamManagement";
+		} else {
+			session.setAttribute("alertMsg", "구단 단원의 강퇴을 실패했습니다.");
+			m.addAttribute("tno", tno);
+			return "teamBoard/teamManagement";
+		}
+    }
+    
+    // 구단 수정
+    @RequestMapping("teamInfoModify.tm")
+    public String modifyTeam(TeamInfoDto t, MultipartFile userProfile, HttpSession session, int tno, Model model) {
+        log.info("t : {}", t);
+        if(t.getApplication() == null || t.getApplication().isEmpty()) {
+        	t.setApplication("N");  // 체크박스가 선택되지 않으면 "N"으로 설정
+        } else {
+            t.setApplication("Y");  // 체크박스가 선택되면 "Y"로 설정
+        }
+        
+        System.out.println(t.getApplication());
+        
+        model.addAttribute("tno", tno);
+        int maxPerson = t.getTeamMaxPerson();
+        
+        // 인원 수 확인해서 최대 인원 수가 현재 인원수보다 낮으면 수정 실패
+        int teamNum = teamService.numOfTeamPerson(tno);
+        
+        System.out.println("구단 인원 수 : " + teamNum);
+        System.out.println("입력한 최대 인원 수 : " + maxPerson);
+        
+	    if (teamNum > maxPerson) {
+	    	session.setAttribute("alertMsg", "최대 인원 수가 현재 인원 수보다 적습니다.");
+	    	 return "redirect:boardList.tm?tno=" + tno;
+	    }
+        
+        // 구단 프로필 이미지 처리
+        Profile profile = null;
+        String path = "resources/images/userProFile/";
+        String savePath = session.getServletContext().getRealPath(path);
+        if (!userProfile.getOriginalFilename().equals("")) {
+            String changeName = Template.saveFile(userProfile, session, path);
+            profile = new Profile(userProfile.getOriginalFilename(), changeName, savePath);
+        }
+        t.setTeamNo(tno);
+        int result = teamService.modifyTeam(t, profile);
+        if(result > 0 ){
+            session.setAttribute("alertMsg", "구단 정보 수정이 성공적으로 완료되었습니다.");
+        }else {
+            session.setAttribute("alertMsg", "구단 정보 수정에 실패하였습니다. 다시 시도해주세요.");
+        }
+        
+        return "redirect:boardList.tm?tno=" + tno;
+    }
+    
+    /*===================================================================================================================================*/
     
 
     // 구단 메뉴로 이동
