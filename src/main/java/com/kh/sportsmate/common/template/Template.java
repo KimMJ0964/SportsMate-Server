@@ -1,13 +1,18 @@
 package com.kh.sportsmate.common.template;
 
-import com.kh.sportsmate.common.vo.PageInfo;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.kh.sportsmate.common.vo.PageInfo;
 
 /**
  * packageName    : com.kh.sportsmate.common.template
@@ -60,5 +65,17 @@ public class Template {
         }
 
         return changeName;
+    }
+    //카카오페이 관련 템플릿
+    public static void addAttribute(String name, Object value) {
+        Objects.requireNonNull(RequestContextHolder.getRequestAttributes()).setAttribute(name, value, RequestAttributes.SCOPE_SESSION);
+    }
+
+    public static String getStringAttributeValue(String name) {
+        return String.valueOf(getAttribute(name));
+    }
+
+    public static Object getAttribute(String name) {
+        return Objects.requireNonNull(RequestContextHolder.getRequestAttributes()).getAttribute(name, RequestAttributes.SCOPE_SESSION);
     }
 }

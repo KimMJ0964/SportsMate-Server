@@ -23,7 +23,7 @@ import com.kh.sportsmate.common.vo.PageInfo;
 @CrossOrigin
 @Controller
 public class AdminController {
-	private final AdminService  adminService;
+	private final AdminService adminService;
 
 	@Autowired
 	public AdminController(AdminService adminService) {
