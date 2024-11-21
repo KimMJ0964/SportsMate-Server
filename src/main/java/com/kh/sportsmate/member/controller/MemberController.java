@@ -4,14 +4,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.common.mail.service.MailService;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.member.model.dto.ManagerEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import jdk.nashorn.internal.parser.JSONParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,15 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.kh.sportsmate.common.template.Template.createTmpPwd;
 import static com.kh.sportsmate.common.template.Template.get;
 
 /**
@@ -51,21 +51,21 @@ import static com.kh.sportsmate.common.template.Template.get;
 @CrossOrigin
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class MemberController {
     private static final Logger log = LoggerFactory.getLogger(MemberController.class);
+    @Autowired
     private final MemberService memberService;
+    @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    @Autowired
+    private final MailService mailService;
     @Value("${sns.naver.clientId}")
     private String clientID;
     @Value("${sns.naver.clientSecret}")
     private String clientSecret;
 
-    @Autowired
-    public MemberController(MemberService memberService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.memberService = memberService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+
 
     /***
      * 관리자, 일반 사용자 회원가입 선택 폼으로 포워딩
@@ -331,13 +331,49 @@ public class MemberController {
         return "member/searchInfoForm";
     }
 
+    /**
+     * Email 찾기
+     * @param memInfo 기본 정보(memName, memBirth)
+     * @param session
+     * @param request
+     * @return
+     */
     @PostMapping(value = "searchId.me")
-    public String searchId() {
-        return "redirect:/";
+    public String searchId(MemberEnrollDto memInfo,HttpSession session, HttpServletRequest request) {
+        String email = memberService.searchEmail(memInfo);
+        if(email != null){
+            request.setAttribute("resultHeader", "이메일 찾기");
+            request.setAttribute("description","조회하신 이메일");
+            request.setAttribute("body",email);
+            return "member/searchResult";
+        }else{
+            session.setAttribute("alertMsg","가입된 회원이 존재하지 않습니다.");
+            return "redirect:/searchInfo.me";
+        }
     }
 
+    /**
+     * 임시 비밀번호 발급
+     * @param memInfo 기본 정보(memEmail, memName)
+     * @param session
+     * @param request
+     * @return
+     */
     @PostMapping(value = "searchPwd.me")
-    public String searchPwd() {
-        return "redirect:/";
+    public String searchPwd(MemberEnrollDto memInfo, HttpSession session,HttpServletRequest request) {
+        String tempPwd = createTmpPwd();
+        String encPwd = bCryptPasswordEncoder.encode(tempPwd); // 비밀번호 암호화
+        memInfo.setMemPwd(encPwd);
+        int result = memberService.updatePwd(memInfo);
+        if(result > 0){
+            boolean success = mailService.tmpPwdIssue(tempPwd, memInfo.getMemEmail());
+        }else{
+            session.setAttribute("alertMsg","임시 비밀번호 발급에 실패했습니다. 다시 시도해주세요.");
+            return "redirect:/searchInfo.me";
+        }
+        request.setAttribute("resultHeader", "임시 비밀번호 발급 되었습니다.");
+        request.setAttribute("description","이메일을 확인해주세요.");
+        request.setAttribute("body","발급된 임시 비밀번호는 꼭 수정해주세요.");
+        return "member/searchResult";
     }
 }
