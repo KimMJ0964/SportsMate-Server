@@ -20,24 +20,14 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class Category {
-    private int memNo;
-    private String socPosition;
-    private String socSkill;
-    private String futPosition;
-    private String futSkill;
-    private String basketPosition;
-    private String basketSkill;
-    private String basePosition;
-    private String baseSkill;
+    private int memNo;              // 사용자 식별 번호
+    private String socPosition;     // 축구 포지션
+    private String socSkill;        // 축구 실력
+    private String futPosition;     // 풋살 포지션
+    private String futSkill;        // 풋살 실력
+    private String basketPosition;  // 농구 포지션
+    private String basketSkill;     // 농구 실력
+    private String basePosition;    // 야구 포지션
+    private String baseSkill;       // 야구 실력
 
-    public Category(String socPosition, String socSkill, String futPosition, String futSkill, String basketPosition, String basketSkill, String basePosition, String baseSkill) {
-        this.socPosition = socPosition;
-        this.socSkill = socSkill;
-        this.futPosition = futPosition;
-        this.futSkill = futSkill;
-        this.basketPosition = basketPosition;
-        this.basketSkill = basketSkill;
-        this.basePosition = basePosition;
-        this.baseSkill = baseSkill;
-    }
 }

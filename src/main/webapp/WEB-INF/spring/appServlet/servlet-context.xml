@@ -11,8 +11,8 @@
     <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
     <!-- Enables the Spring MVC @Controller programming model -->
-    <annotation-driven/>
-
+    <annotation-driven />
+    <context:property-placeholder location="classpath:*.properties" file-encoding="UTF-8"/>
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <resources mapping="/resources/**" location="/resources/"/>
 
@@ -31,15 +31,15 @@
             <mapping path="/teamEnrollForm.tm"/> <!-- 구단 창설 폼으로 이동 -->
             <beans:bean class="com.kh.sportsmate.common.intercepter.LoginInterceptor" id="LoginIntercepter"/>
         </interceptor>
-        
+
         <!-- 관리자 관련 -->
         <interceptor>
-            <mapping path="/adminPage.me"/> 
-            <mapping path="/adminReport.me"/> 
-            <mapping path="/blockList.me"/> 
-            <mapping path="/blockUser.me"/> 
-            <mapping path="/blockCancle.me"/> 
-            <mapping path="/unblockUser.me"/> 
+            <mapping path="/adminPage.me"/>
+            <mapping path="/adminReport.me"/>
+            <mapping path="/blockList.me"/>
+            <mapping path="/blockUser.me"/>
+            <mapping path="/blockCancle.me"/>
+            <mapping path="/unblockUser.me"/>
             <beans:bean class="com.kh.sportsmate.common.intercepter.AdminInterceptor" id="AdminIntercepter"/>
         </interceptor>
     </interceptors>
