@@ -64,12 +64,16 @@ public class MemberServiceImpl implements MemberService {
     public Member loginMember(Member m) {
     	int result = 1;
     	Member loginUser = memberDao.loginMember(sqlSession,m);
-    	//로그인 로그 객체 추가
-    	LoginLog loginLog = new LoginLog();
-    	loginLog.setMemNo(loginUser.getMemNo());
+    	
+    	if(loginUser != null) {
+    		//로그인 로그 객체 추가
+        	LoginLog loginLog = new LoginLog();
+        	loginLog.setMemNo(loginUser.getMemNo());
 
-    	// 로그인 기록 추가
-    	result = memberDao.loginLog(sqlSession, loginLog);
+        	// 로그인 기록 추가
+        	result = memberDao.loginLog(sqlSession, loginLog);
+    	}
+
         return loginUser;
     }
 
@@ -85,7 +89,7 @@ public class MemberServiceImpl implements MemberService {
         int result1 = 0;
         int result2 = 1;
         int result3 = 0;
-        String memAdd = m.getMemberBaseAdd() + " " + m.getMemberDetailAdd();
+        String memAdd = m.getMemberBaseAdd() + " , " + m.getMemberDetailAdd();
         String memBirth = m.getYear() + "." + m.getMonth() + "." + m.getDay(); // 생년월일 concatenate
         String memPhone = m.getPhone1() + "-" + m.getPhone2() + "-" + m.getPhone3(); // 전화번호
         Member processedMember = new Member(m.getMemEmail(), m.getMemPwd(), m.getMemName(),
@@ -101,7 +105,8 @@ public class MemberServiceImpl implements MemberService {
         // 종목 관련 내용을 담을 객체
         Category c = new Category(processedMember.getMemNo(),
                 m.getSoccerPosition(), m.getSoccerSkill(), m.getFutsalPosition(),
-                m.getFutsalSkill(), m.getBasketballPosition(), m.getBasketballSkill(), m.getBasketballPosition(), m.getBasketballSkill());
+                m.getFutsalSkill(), m.getBasketballPosition(), m.getBasketballSkill(),
+                m.getBaseballPosition(), m.getBaseballSkill());
         System.out.println(c);
         result3 = memberDao.insertCategory(sqlSession, c);
         return result1 * result2 * result3;

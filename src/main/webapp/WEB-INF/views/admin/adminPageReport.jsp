@@ -39,9 +39,9 @@
                         <div class="gamersult-row">
                             <div class="team-info">
                                 <img src="${pageContext.request.contextPath}/resources/images/report-match.png"
-                                    alt="경기 결과 로고" class="gameresult-logo">
+                                    alt="신고접수" class="gameresult-logo">
                                 <div class="team-details">
-                                    <h4 class="head-name">경기 신고 관리</h4>
+                                    <h4 class="head-name">신고 관리</h4>
                                 </div>
                             </div>
                             <div class="checkbox-container">
@@ -51,54 +51,144 @@
                 </div>
 
                 <div class="result-container">
-                    <c:forEach var="report" items="${list}">
-                        <div class="victory-container">
-                            <div class="victory-row">
-                                <div class="team-info">
-                                    <form action="blockUser.me" method="post">
-                                        <input type="hidden" name="memNo" value="${report.memNo}">
-                                        <input type="hidden" name="pnNo" value="${report.pnNo}">
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <p><b>경기장:</b> ${report.stadiumName}</p>
-                                                </td>
-                                                <td>
-                                                    <p><b>신고일:</b> ${report.repDate}</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p><b>신고자:</b> 유저-${report.pnReporter}</p>
-                                                </td>
-                                                <td>
-                                                    <p><b>신고대상:</b> 유저-${report.memNo}</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <p><b>신고사유:</b> ${report.pnContent}</p>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <div class="report-btns">
-                                            <button class="cancle-btn" onclick="location.href='blockCancle.me?pnNo=${report.pnNo}'; return false;">거절</button>
-                                            <button type="submit" class="report-btn">승인</button>
+                    <c:choose>
+                        <c:when test="${category != null and category eq 'match'}">
+                            <c:forEach var="report" items="${list}">
+                                <div class="victory-container">
+                                    <div class="victory-row">
+                                        <div class="team-info">
+                                            <form action="blockUser.me" method="post">
+                                                <input type="hidden" name="memNo" value="${report.memNo}">
+                                                <input type="hidden" name="pnNo" value="${report.pnNo}">
+                                                <input type="hidden" name="pnGround" value="${report.pnGround}">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <p><b>경기장:</b> ${report.stadiumName}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p><b>신고일:</b> ${report.repDate}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p><b>신고자:</b> 유저-${report.pnReporter}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p><b>신고대상:</b> 유저-${report.memNo}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <p><b>신고사유:</b> ${report.pnContent}</p>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <div class="report-btns">
+                                                    <button class="cancle-btn"
+                                                        onclick="location.href='blockCancle.me?pnNo=${report.pnNo}'; return false;">거절</button>
+                                                    <button type="submit" class="report-btn">승인</button>
+                                                </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-
+                            </c:forEach>
+                        </c:when>
+                        <c:when test="${category != null and category eq 'community'}">
+                            <c:forEach var="report" items="${list}">
+                                <div class="victory-container">
+                                    <div class="victory-row">
+                                        <div class="team-info">
+                                            <form action="blockUser.me" method="post">
+                                                <input type="hidden" name="memNo" value="${report.memNo}">
+                                                <input type="hidden" name="pnNo" value="${report.pnNo}">
+                                                <input type="hidden" name="pnCommunity" value="${report.pnCommunity}">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <p><b>게시글번호:</b> ${report.pnCommunity}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p><b>신고일:</b> ${report.repDate}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p><b>신고자:</b> 유저-${report.pnReporter}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p><b>신고대상:</b> 유저-${report.memNo}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <p><b>신고사유:</b> ${report.pnContent}</p>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <div class="report-btns">
+                                                    <button class="cancle-btn"
+                                                        onclick="location.href='blockCancle.me?pnNo=${report.pnNo}'; return false;">거절</button>
+                                                    <button type="submit" class="report-btn">승인</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:when>
+                        <c:when test="${category != null and category eq 'comment'}">
+                            <c:forEach var="report" items="${list}">
+                                <div class="victory-container">
+                                    <div class="victory-row">
+                                        <div class="team-info">
+                                            <form action="blockUser.me" method="post">
+                                                <input type="hidden" name="memNo" value="${report.memNo}">
+                                                <input type="hidden" name="pnNo" value="${report.pnNo}">
+                                                <input type="hidden" name="pnComment" value="${report.pnComment}">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <p><b>댓글번호:</b> ${report.pnComment}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p><b>신고일:</b> ${report.repDate}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p><b>신고자:</b> 유저-${report.pnReporter}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p><b>신고대상:</b> 유저-${report.memNo}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <p><b>신고사유:</b> ${report.pnContent}</p>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <div class="report-btns">
+                                                    <button class="cancle-btn"
+                                                        onclick="location.href='blockCancle.me?pnNo=${report.pnNo}'; return false;">거절</button>
+                                                    <button type="submit" class="report-btn">승인</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:when>
+                    </c:choose>
                     <div id="pagenation">
                         <nav>
                             <ul class="pagination">
                                 <c:choose>
                                     <c:when test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
                                         <li class="page-item">
-                                            <a href="adminReport.me?category=${category}&cpage=1"
-                                                class="page-link">
+                                            <a href="adminReport.me?category=${category}&cpage=1" class="page-link">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
                                         </li>
@@ -166,8 +256,7 @@
                                             </a>
                                         </li>
                                     </c:when>
-                                    <c:when
-                                        test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
+                                    <c:when test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
                                         <li class="page-item">
                                             <a href="adminReport.me?category=${category}&cpage=${pi.maxPage}"
                                                 class="page-link">

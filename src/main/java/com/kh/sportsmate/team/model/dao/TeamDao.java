@@ -4,18 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.team.model.dto.RecruitDetailDto;
 import com.kh.sportsmate.team.model.dto.RecruitDto;
 import com.kh.sportsmate.team.model.dto.RecruitListDto;
 import com.kh.sportsmate.team.model.dto.RecruitListQueryStringDto;
+import com.kh.sportsmate.team.model.dto.TeamMemberDto;
 import com.kh.sportsmate.team.model.vo.*;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.sportsmate.board.model.vo.Board;
-import com.kh.sportsmate.board.model.vo.BoardComment;
 import com.kh.sportsmate.common.vo.PageInfo;
 
 @Repository
@@ -34,7 +32,7 @@ public class TeamDao {
         return (ArrayList) sqlSession.selectList("teamMapper.selectList", params, rowBounds);
     }
 
-    public ArrayList<TeamMember> selectMemberList(SqlSessionTemplate sqlSession, int teamNo) {
+    public ArrayList<TeamMemberDto> selectMemberList(SqlSessionTemplate sqlSession, int teamNo) {
         return (ArrayList) sqlSession.selectList("teamMapper.selectMemberList", teamNo);
     }
 
@@ -80,6 +78,18 @@ public class TeamDao {
 
         return (ArrayList) sqlSession.selectList("teamMapper.searchBoard", map, rowBounds);
     }
+    
+    public int writeReply(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.update("teamMapper.writeReply", map);
+	}
+	
+	public int deleteReply(SqlSessionTemplate sqlSession, int cno) {
+		return sqlSession.update("teamMapper.deleteReply", cno);
+	}
+	
+	public int viewAdd(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.update("teamMapper.viewAdd", bno);
+	}
 
     public int insertTeam(SqlSessionTemplate sqlSession, Team t) {
         return sqlSession.insert("teamMapper.insertTeam", t);
@@ -107,5 +117,8 @@ public class TeamDao {
     }
     public String selectAreaName(SqlSessionTemplate sqlSession, String searchArea) {
         return sqlSession.selectOne("teamMapper.selectAreaName",searchArea);
+    }
+    public int insertTeamMember(SqlSessionTemplate sqlSession, TeamMember teamMember){
+        return sqlSession.insert("teamMapper.insertTeamMember", teamMember);
     }
 }

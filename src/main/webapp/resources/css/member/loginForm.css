@@ -78,7 +78,13 @@
     width: 100%;
     border-bottom: 2px solid lightgray;
 }
+.sns-login-img{
 
+}
+.sns-login-btn{
+    border: none;
+    border-radius: 8px;
+}
 @media (min-width: 481px) and (max-width: 1200px) {
 
 }
@@ -89,5 +95,8 @@
     }
     .search-bar-m{
         display: none !important;
+    }
+    .sns-login-img{
+        width: 344px;
     }
 }

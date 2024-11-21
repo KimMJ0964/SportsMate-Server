@@ -57,7 +57,7 @@
                         <div class="dash-2">
                             <fieldset>
                                 <legend>차단 유저</legend>
-                                <h4>10명</h4>
+                                <h4>${blockCount}명</h4>
                             </fieldset>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="menu-box">
-                    <h3>구장 관리자 메뉴</h3>
+                    <h3>사이트 관리자 메뉴</h3>
                     <a href="adminReport.me?category=match" class="menu-item">
                         <img src="${pageContext.request.contextPath}/resources/images/report-match.png" alt="">경기 신고
                         관리</a>
@@ -89,7 +89,7 @@
                 </div>
 
                 <!-- 로그아웃 버튼 -->
-                <button class="logout-button">로그아웃</button>
+                <button class="logout-button" onclick="location.href = '${pageContext.request.contextPath}/logout.me'">로그아웃</button>
 
 
             </div>

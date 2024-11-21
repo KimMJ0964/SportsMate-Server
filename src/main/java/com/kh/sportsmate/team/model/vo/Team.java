@@ -22,6 +22,7 @@ public class Team {
 	private String teamDescription;
 	private int teamMaxPerson;
 	private String teamCategory;
+	private String activityDays;
 	private String activityTime;
 	private String activityArea;
 	private String status;
@@ -29,6 +30,9 @@ public class Team {
 	private int teamPoint;
 	private Date teamEnrollDate;
 	private String application; // 모집 여부
+	
+	private String memName;
+	private int teamMemberCount;
 
 	public Team(String teamName, int memNo, String teamDescription, int teamMaxPerson, String teamCategory, String activityTime, String activityArea) {
 		this.teamName = teamName;

@@ -104,7 +104,16 @@
 			#{introduce}
 		)
 	</insert>
-
+	<!-- 구단장 teamMember insert -->
+	<insert id="insertTeamMember" parameterType="TeamMember">
+		insert into TEAM_MEMBER(
+		TEAM_NO,
+		MEM_NO
+		)values(
+			#{teamNo},
+			#{memNo}
+		)
+	</insert>
 
 
 
@@ -131,7 +140,7 @@
 	</select>
 	
 	<!-- 구단 인원 목록 -->
-	<select id="selectMemberList" resultType="TeamMember">
+	<select id="selectMemberList" resultType="TeamMemberInfo">
 	    SELECT TM.MEM_NO as memNo,
 	           TM.MEM_ENROLL_DATE as memEnrollDate,
 	           TM.STATUS as status,
@@ -179,6 +188,7 @@
         SELECT COUNT(*)
         FROM TEAM_BOARD_COMMENT
         WHERE REF_TEAM_BOARD_NO = #{bno}
+        AND STATUS = 'Y'
     </select>
 	
 	<!-- 게시글 생성 -->
@@ -284,7 +294,7 @@
 		    #{memNo},
 		    NOW(),
 		    'Y',
-		    #{content}
+		    #{comContent}
 		)
 	</insert>
 	
@@ -295,6 +305,13 @@
 	        STATUS = 'N'
 	    WHERE 
 	        COM_NO = #{cno}
+	</update>
+	
+	<!-- 조회수 증가 -->
+	<update id="viewAdd">
+		UPDATE TEAM_BOARD
+	    SET VIEW = VIEW + 1
+	    WHERE BOARD_NO = #{bno}
 	</update>
 
 	<insert id="insertTeam" parameterType="Team" useGeneratedKeys="true" keyProperty="teamNo" >

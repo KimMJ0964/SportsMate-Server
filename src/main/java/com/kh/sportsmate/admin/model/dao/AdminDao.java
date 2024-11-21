@@ -34,7 +34,10 @@ public class AdminDao {
 	}
 	
 	public int blockUser(SqlSessionTemplate sqlSession, MemberPenalty mp) {
-		return sqlSession.update("adminMapper.blockUser", mp);
+		int result1 = sqlSession.update("adminMapper.blockUser", mp);
+		int result2 = sqlSession.update("adminMapper.blockUserDuplicate", mp);
+		
+		return result1 + result2;
 	}
 	
 	public int blockCancle(SqlSessionTemplate sqlSession, int pnNo) {
@@ -51,5 +54,9 @@ public class AdminDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("adminMapper.selectBlockList", null, rowBounds);
+	}
+	
+	public int unblockUser(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.update("adminMapper.unblockUser", memNo);
 	}
 }

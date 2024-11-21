@@ -24,4 +24,5 @@ public class MemberPosition {
     private String memStatus;
     private int memAge;
     private String position;
+    private String teamName;
 }
