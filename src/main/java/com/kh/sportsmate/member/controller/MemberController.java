@@ -78,6 +78,7 @@ public class MemberController {
 
     /**
      * 사용자 회원가입 폼 이동
+     *
      * @return
      */
     @RequestMapping(value = "memberEnrollForm.me")
@@ -87,6 +88,7 @@ public class MemberController {
 
     /**
      * 관리자 회원가입 폼 이동
+     *
      * @return
      */
     @RequestMapping(value = "managerEnrollForm.me")
@@ -96,6 +98,7 @@ public class MemberController {
 
     /**
      * 로그인 폼 이동
+     *
      * @return
      */
     @RequestMapping(value = "loginForm.me")
@@ -105,11 +108,12 @@ public class MemberController {
 
     /**
      * 사용자 회원가입
-     * @param m 기본 정보(memEmail, memPwd, memName, memGender, year, month, day, phone1~3, memberZipcode, memberBaseAdd,
-     *          memberDetailAdd, category, soccerPosition, soccerSkill, futsalPosition, futsalSkill, basketballPosition,
-     *          basketballSkill, baseballPosition, baseballSkill)
+     *
+     * @param m           기본 정보(memEmail, memPwd, memName, memGender, year, month, day, phone1~3, memberZipcode, memberBaseAdd,
+     *                    memberDetailAdd, category, soccerPosition, soccerSkill, futsalPosition, futsalSkill, basketballPosition,
+     *                    basketballSkill, baseballPosition, baseballSkill)
      * @param userProfile 프로필 이미지
-     * @param session Path를 얻기 위해 필요한 세션 객체
+     * @param session     Path를 얻기 위해 필요한 세션 객체
      * @return 메인페이지로 리다이렉트
      */
     @PostMapping(value = "member_enroll.me")
@@ -138,16 +142,17 @@ public class MemberController {
 
     /**
      * 로그인
-     * @param m 이메일, 비밀번호
-     * @param session 세션ID 저장을 위한 객체
-     * @param saveId 이메일 저장(쿠키)
+     *
+     * @param m        이메일, 비밀번호
+     * @param session  세션ID 저장을 위한 객체
+     * @param saveId   이메일 저장(쿠키)
      * @param response 쿠키에 저장하기 위한 객체
      * @return
      */
     @PostMapping("login.me")
     public String loginMember(Member m, HttpSession session, String saveId, HttpServletResponse response) {
         Member loginMember = memberService.loginMember(m);
-        log.info("로그인 멤버 정보 : {}",loginMember);
+        log.info("로그인 멤버 정보 : {}", loginMember);
         if (loginMember == null) {
             session.setAttribute("alertMsg", "일치하는 아이디를 찾을 수 없습니다.");
             return "redirect:/loginForm.me";
@@ -170,6 +175,7 @@ public class MemberController {
 
     /**
      * 세션ID 만료
+     *
      * @param session
      * @return
      */
@@ -184,6 +190,7 @@ public class MemberController {
 
     /**
      * 구장 관리자 회원가입
+     *
      * @param m
      * @param thumbnailImg
      * @param detailImg
@@ -222,6 +229,7 @@ public class MemberController {
 
     /**
      * 이메일 중복 확인 AJAX
+     *
      * @param email 입력된 이메일
      * @return
      */
@@ -238,6 +246,7 @@ public class MemberController {
 
     /**
      * 네이버 로그인(Oauth2.0)
+     *
      * @param code
      * @param state
      * @param request
@@ -253,17 +262,17 @@ public class MemberController {
         apiURL += "&redirect_uri=" + redirectURL;
         apiURL += "&code=" + code;
         apiURL += "&state=" + state;
-        log.info("URL : {}",apiURL); // @Slf4j 어노테이션 추가시 이런식으로 로그 찍기 가능
+        log.info("URL : {}", apiURL); // @Slf4j 어노테이션 추가시 이런식으로 로그 찍기 가능
 
 //        URL url = new URL(apiURL);
 //        HttpURLConnection con = (HttpURLConnection) url.openConnection(); // 요청 연결
         HttpURLConnection con = Template.connect(apiURL); // 요청 연결
         int responseCode = con.getResponseCode();
-        log.info("responseCode : {}",responseCode); // 응답 코드 로그 출력
+        log.info("responseCode : {}", responseCode); // 응답 코드 로그 출력
         BufferedReader br;
-        if(responseCode == 200){
+        if (responseCode == 200) {
             br = new BufferedReader(new InputStreamReader(con.getInputStream())); // 한 줄씩 꺼낼 수 있다.
-        }else{ // 에러 발생
+        } else { // 에러 발생
             br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
         }
 
@@ -271,11 +280,11 @@ public class MemberController {
 
         String inputLine;
         StringBuffer res = new StringBuffer(); // String 보다 처리 방식이 빠름
-        while ((inputLine = br.readLine()) != null){
+        while ((inputLine = br.readLine()) != null) {
             res.append(inputLine);
         }
         br.close();
-        if(responseCode == 200){
+        if (responseCode == 200) {
             // 정상적으로 정보가 받아왔다면 출력
             String result = res.toString();
             log.info("result : {}", result);
@@ -292,7 +301,7 @@ public class MemberController {
             requestHeaders.put("Authorization", header);
             String responseBody = get(infoApiURL, requestHeaders);
             JsonObject memberInfo = JsonParser.parseString(responseBody).getAsJsonObject();
-            log.info("memberInfo : {}",memberInfo);
+            log.info("memberInfo : {}", memberInfo);
             memberInfo = memberInfo.getAsJsonObject("response");
             log.info("result : {}", memberInfo);
             // 받아온 email과 데이터베이스의 email을 비교하여 가입유무 판단한 후
@@ -312,4 +321,23 @@ public class MemberController {
         return "redirect:/";
     }
 
+    /**
+     * 아이디 | 비밀번호 찾기 뷰 이동
+     *
+     * @return
+     */
+    @GetMapping(value = "searchInfo.me")
+    public String moveSearchInfo() {
+        return "member/searchInfoForm";
+    }
+
+    @PostMapping(value = "searchId.me")
+    public String searchId() {
+        return "redirect:/";
+    }
+
+    @PostMapping(value = "searchPwd.me")
+    public String searchPwd() {
+        return "redirect:/";
+    }
 }
