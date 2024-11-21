@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nanum+Gothic&display=swap"
         rel="stylesheet">
 
+    <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/stadium_info.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 
@@ -37,93 +38,88 @@
                 </div>
             </div>
         </div>
+      sdvsdavsdv :   ${stadium}
         <div class="category-container">
             <div class="form-group">
                 <label>종목 선택</label>
                 <div class="sport-options">
-                    <label><input type="checkbox"> 축구</label>
-                    <label><input type="checkbox"> 풋살</label>
-                    <label><input type="checkbox"> 농구</label>
-                    <label><input type="checkbox"> 야구</label>
+                    <label><input type="checkbox" name="category" value="soccer" ${stadium.stadiumCategory.contains('soccer') ? 'checked' : ''}> 축구</label>
+                    <label><input type="checkbox" name="category" value="futsal" ${stadium.stadiumCategory.contains('futsal') ? 'checked' : ''}> 풋살</label>
+                    <label><input type="checkbox" name="category" value="basketball" ${stadium.stadiumCategory.contains('basketball') ? 'checked' : ''}> 농구</label>
+                    <label><input type="checkbox" name="category" value="baseball" ${stadium.stadiumCategory.contains('baseball') ? 'checked' : ''}> 야구</label>
                 </div>
             </div>
         </div>
-        
 
         <div class="stadiuminfo-container">
             <div class="form-group">
                 <label for="stadium-name">구장명</label>
-                <input type="text" id="stadium-name" placeholder="구장명을 입력하세요.">
+                <input type="text" id="stadium-name" name="stadiumName" value="${stadium.stadiumName}" placeholder="구장명을 입력하세요.">
             </div>
             
             <div class="form-group">
                 <label for="address">주소</label>
                 <div class="address-container">
-                    <input type="text" class="zipcode" placeholder="우편번호">
-                    <button type="button" class="address-search-button">주소 검색</button>
+                    <input type="text" class="zipcode" id="memberZipcode" name="memberZipcode" value="${stadium.stadiumZipcode}">
+                    <button type="button" class="address-search-button" onclick="addSearch('memberZipcode','memberBaseAdd','memberDetailAdd')">주소 검색</button>
                 </div>
-                <input type="text" class="basic-address" placeholder="기본 주소">
-                <input type="text" class="detail-address" placeholder="상세 주소">
+                <input type="text" class="basic-address" id="memberBaseAdd" value="${stadium.stadiumAdd}" readonly>
+                <input type="text" class="detail-address" id="memberDetailAdd" value="">
             </div>
             
             <div class="form-group">
                 <label for="price">가격</label>
-                <input type="text" id="price" placeholder="가격을 입력하세요.">
+                <input type="text" id="price" name="stadiumPrice" value="${stadium.stadiumPrice}">
             </div>
             
             <div class="form-group">
                 <label>운영 시간</label>
                 <div class="time-group">
-                    <input type="time" id="start-time" value="09:00">
+                    <input type="time" id="start-time" name="stadiumStartTime" value="${stadium.stadiumStartTime}">
                     <span>~</span>
-                    <input type="time" id="end-time" value="09:00">
+                    <input type="time" id="end-time" name="stadiumEndTime" value="${stadium.stadiumEndTime}">
                 </div>
             </div> 
             
             <div class="form-group">
                 <label>편의 시설</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox"> 화장실</label>
-                    <label><input type="checkbox"> 자판기</label>
-                    <label><input type="checkbox"> 주차장</label>
-                    <label><input type="checkbox"> 흡연실</label>
+                    <label><input type="checkbox" name="amenities" value="toilet" ${stadium.amenities.contains('toilet') ? 'checked' : ''}> 화장실</label>
+                    <label><input type="checkbox" name="amenities" value="drink" ${stadium.amenities.contains('drink') ? 'checked' : ''}> 자판기</label>
+                    <label><input type="checkbox" name="amenities" value="parking" ${stadium.amenities.contains('parking') ? 'checked' : ''}> 주차장</label>
+                    <label><input type="checkbox" name="amenities" value="smoke" ${stadium.amenities.contains('smoke') ? 'checked' : ''}> 흡연실</label>
                 </div>
             </div>
             
             <div class="form-group">
                 <label>대여 시스템</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox"> 공</label>
-                    <label><input type="checkbox"> 조끼</label>
+                    <label><input type="checkbox" name="rental" value="ball" ${stadium.rental.contains('ball') ? 'checked' : ''}> 공</label>
+                    <label><input type="checkbox" name="rental" value="vest" ${stadium.rental.contains('vest') ? 'checked' : ''}> 조끼</label>
                 </div>
             </div>
             
             <div class="form-group">
                 <label>구장 대표 이미지</label>
                 <div class="image-upload-group">
-                    <button class="image-button">대표 이미지</button>
-                    <span>Thumbnail.png</span>
+                    <input type="file" name="thumbnailImg" id="thumbnail">
                 </div>
             </div>
             
             <div class="form-group">
                 <label>구장 상세 이미지</label>
                 <div class="image-upload-group">
-                    <button class="image-button">상세 이미지</button>
-                    <span>Detail.png</span>
+                    <input type="file" name="detailImg" id="detail" multiple>
                 </div>
             </div>
 
             <div class="info-btn">
                 <button class="registration-button">수정하기</button>
-                <button class="registration-button">탈퇴하기</button>
+                <button class="registration-button" onclick="confirmDelete()">탈퇴하기</button>
             </div>
         </div>
-        
-        <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </div>
-
-    <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/stadium_info.js"></script>
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 </body>
 </html>

@@ -5,6 +5,7 @@ import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -36,5 +37,13 @@ public class StadiumDao {
     }
     public int insertStadiumAttachment(SqlSessionTemplate sqlSession, ArrayList<StadiumAttachment> stadiumAttachmentImgs){
         return sqlSession.insert("stadiumMapper.insertStadiumAttachment", stadiumAttachmentImgs);
+    }
+    
+    @Autowired
+    private SqlSessionTemplate sqlSession;
+
+    // 관리자 소유의 구장 정보 조회
+    public Stadium selectStadiumByManager(int memNo) {
+        return sqlSession.selectOne("stadiumMapper.selectStadiumByManager", memNo);
     }
 }

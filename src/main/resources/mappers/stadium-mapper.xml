@@ -239,4 +239,23 @@
 		    NOW()
 		)
     </insert>
+    
+    <!-- 관리자 소유의 구장 정보 -->
+    <select id="selectStadiumByManager" parameterType="int" resultType="Stadium">
+    SELECT 
+        STADIUM_NO AS stadiumNo,
+        MEM_NO AS memNo,
+        STADIUM_NAME AS stadiumName,
+        STADIUM_ADDRESS AS stadiumAdd,
+        STADIUM_ZIPCODE AS stadiumZipcode,
+        STADIUM_PRICE AS stadiumPrice,
+        STADIUM_CATEGORY AS stadiumCategory,
+        STADIUM_START_TIME AS stadiumStartTime,
+        STADIUM_END_TIME AS stadiumEndTime,
+        STATUS AS status
+    FROM 
+        STADIUM
+    WHERE 
+        MEM_NO = #{memNo}
+</select>
 </mapper>
