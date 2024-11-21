@@ -240,6 +240,7 @@
 		)
     </insert>
     
+    <!-- 구장 찾기 검색 모달 -->
     <select id="findStadiums" resultType="Stadium">
     SELECT STADIUM_NO as stadiumNo,
 	   STADIUM_ADDRESS as stadiumAddress,

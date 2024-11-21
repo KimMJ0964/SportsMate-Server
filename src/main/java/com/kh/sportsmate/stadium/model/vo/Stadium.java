@@ -56,10 +56,4 @@ public class Stadium {
         this.stadiumPrice = stadiumPrice;
     }
     
-    public Stadium(String stadiumName, String stadiumCategory, Time stadiumStartTime, Time stadiumEndTime) {
-    	this.stadiumName = stadiumName;
-    	this.stadiumCategory = stadiumCategory;
-    	this.stadiumStartTime = stadiumStartTime;
-    	this.stadiumEndTime = stadiumEndTime;
-    }
 }

@@ -1,6 +1,7 @@
 package com.kh.sportsmate.stadium.model.dao;
 
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
@@ -38,7 +39,7 @@ public class StadiumDao {
         return sqlSession.insert("stadiumMapper.insertStadiumAttachment", stadiumAttachmentImgs);
     }
     
-    public List<Stadium> findStadiums(SqlSessionTemplate sqlSession, Stadium sd) {
+    public List<StadiumSearch> findStadiums(SqlSessionTemplate sqlSession, StadiumSearch sd) {
     	return sqlSession.selectList("stadiumMapper.findStadiums", sd);
     }
 }

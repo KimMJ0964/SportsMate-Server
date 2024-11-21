@@ -77,10 +77,6 @@
             background-color: #0080ff;
             color: white;
         }
-        .day-box.inactive {
-            background-color: white;
-            color: black;
-        }
         .date {
             font-size: 16px;
             font-weight: bold;
@@ -102,6 +98,11 @@
         .day.sd {
         	color: blue;
         }
+        .page-item.active .page-link {
+	    	background-color: #007bff; /* 파란색 배경 */
+	    	color: #fff; /* 흰색 텍스트 */
+	    	border-color: #007bff; /* 테두리도 파란색 */
+		}
         /*선택하기*/
         .choice {
             display: flex;

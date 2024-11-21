@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,36 +30,9 @@
 
 <hr class="line">
 
-        <div class="weekday-selector">
-            <div class="day-box inactive" onclick="toggleDay(this)">
-                <span class="date">21</span>
-                <span class="day">월</span>
-            </div>
-            <div class="day-box inactive" onclick="toggleDay(this)">
-                <span class="date">22</span>
-                <span class="day">화</span>
-            </div>
-            <div class="day-box inactive" onclick="toggleDay(this)">
-                <span class="date">23</span>
-                <span class="day">수</span>
-            </div>
-            <div class="day-box inactive" onclick="toggleDay(this)">
-                <span class="date">24</span>
-                <span class="day">목</span>
-            </div>
-            <div class="day-box inactive" onclick="toggleDay(this)">
-                <span class="date">25</span>
-                <span class="day">금</span>
-            </div>
-            <div class="day-box inactive" onclick="toggleDay(this)">
-                <span class="date std">26</span>
-                <span class="day std">토</span>
-            </div>
-            <div class="day-box inactive" onclick="toggleDay(this)">
-                <span class="date sd">27</span>
-                <span class="day sd">일</span>
-            </div>
-        </div>
+        <div class="weekday-selector" id="weekdaySelector" name="selectedDate" data-date="${selectedDate }"></div>
+        
+        
         <div class="choice">
             <div class="mt-region-container">
                 <select class="mt-region">
@@ -250,5 +224,6 @@
     </section>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </div>
+<script src="${pageContext.request.contextPath}/resources/js/stadium/listPage.js"></script>
 </body>
 </html>

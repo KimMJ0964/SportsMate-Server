@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.sportsmate.member.service.MemberService;
 import com.kh.sportsmate.mypage.service.MyPageService;
+import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 import com.kh.sportsmate.stadium.service.StadiumService;
 
@@ -78,15 +79,11 @@ public class stadiumController {
     }
     
     @RequestMapping("searchStadium.st")
-    public String searchResults(String stadiumName, String stadiumCategory, Time stadiumStartTime, Time stadiumEndTime, Model model) {
-    	Stadium sd = new Stadium(stadiumName, stadiumCategory, stadiumStartTime, stadiumEndTime);
-    	System.out.println(sd);
-    	System.out.println(stadiumName);
-    	System.out.println(stadiumCategory);
-    	System.out.println(stadiumStartTime);
-    	System.out.println(stadiumEndTime);
-		List<Stadium> results = stadiumService.findStadiums(sd);
+    public String searchResults(String stadiumName, String stadiumCategory, Time stadiumStartTime, Time stadiumEndTime, String selectedDate, Model model) {
+    	StadiumSearch sd = new StadiumSearch(stadiumName, stadiumCategory, stadiumStartTime, stadiumEndTime, selectedDate);
+		List<StadiumSearch> results = stadiumService.findStadiums(sd);
 		
+		model.addAttribute("selectedDate", selectedDate);
 		model.addAttribute("results", results);
 		return "stadium/listPage"; // 검색 결과 페이지
 	}

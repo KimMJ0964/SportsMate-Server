@@ -109,6 +109,8 @@
                                     <div class="date-group" id="date-selector" style="cursor: pointer;">
                                         <img src="${pageContext.request.contextPath}/resources/images/calendar.png" alt="달력아이콘" class="icon">
                                         <span id="selected-date">날짜를 선택하세요.</span>
+                                        <!-- 선택한 날짜를 숨겨진 input에 저장 -->
+                                        <input type="hidden" name="selectedDate" id="selectedDate">
                                     </div>
                                     <!-- 시간 선택 -->
                                     <div class="time-group">

@@ -48,6 +48,20 @@ const renderCalendar = () => {
     document.querySelectorAll(".days li").forEach(day => {
         if (!day.classList.contains("past") && !day.classList.contains("inactive")) {
             day.addEventListener("click", () => {
+            	const selectedDate = day.dataset.date; // 선택된 날짜
+
+	            // Hidden input에 선택된 날짜를 저장
+	            const hiddenDateInput = document.getElementById("selectedDate");
+	            if (hiddenDateInput) {
+	                hiddenDateInput.value = selectedDate;
+	            }
+	
+	            // 화면에 선택된 날짜를 표시
+	            const displayDate = document.getElementById("selected-date");
+	            if (displayDate) {
+	                displayDate.textContent = selectedDate;
+	            }
+	            
                 alert(`선택한 날짜: ${day.dataset.date}`)
             })
         }
