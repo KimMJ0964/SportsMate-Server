@@ -59,7 +59,7 @@ public class MatchController {
         // 카카오 결제 요청하기
         ApproveResponseDto approveResponse = matchService.payApprove(tid, pgToken);
         model.addAttribute("ar", approveResponse);
-        log.info("총 금액: " + approveResponse.getTotal());
+        log.info("총 금액: " + approveResponse.getAmount().getTotal());
         return "kakaoPaySuccess";
     }
 }
