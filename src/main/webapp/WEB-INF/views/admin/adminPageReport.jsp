@@ -60,6 +60,7 @@
                                             <form action="blockUser.me" method="post">
                                                 <input type="hidden" name="memNo" value="${report.memNo}">
                                                 <input type="hidden" name="pnNo" value="${report.pnNo}">
+                                                <input type="hidden" name="pnGround" value="${report.pnGround}">
                                                 <table>
                                                     <tr>
                                                         <td>
@@ -102,6 +103,7 @@
                                             <form action="blockUser.me" method="post">
                                                 <input type="hidden" name="memNo" value="${report.memNo}">
                                                 <input type="hidden" name="pnNo" value="${report.pnNo}">
+                                                <input type="hidden" name="pnCommunity" value="${report.pnCommunity}">
                                                 <table>
                                                     <tr>
                                                         <td>
@@ -144,6 +146,7 @@
                                             <form action="blockUser.me" method="post">
                                                 <input type="hidden" name="memNo" value="${report.memNo}">
                                                 <input type="hidden" name="pnNo" value="${report.pnNo}">
+                                                <input type="hidden" name="pnComment" value="${report.pnComment}">
                                                 <table>
                                                     <tr>
                                                         <td>

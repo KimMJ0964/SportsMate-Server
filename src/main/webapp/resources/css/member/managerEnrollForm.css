@@ -93,7 +93,54 @@
     width: 100%;
     border-bottom: 2px solid lightgray;
 }
-
+.email-container{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.check-auth-code-container-hide{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+    display: none;
+}
+.check-auth-code-container-expose{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+}
+.email{
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+}
+.email-auth-btn{
+    padding: 8px 12px;
+    background-color: #307DFA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.email-auth-btn-disabled{
+    background-color: #91b1e9;
+    padding: 8px 12px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#timer{
+    line-height: 40px;
+}
+#auth-code{
+    width: 50%;
+    padding: 8px;
+    border-radius: 8px;
+    height: 40px;
+}
 
 /*--------------------------------------------------------*/
 .input-wrap input[type="time"] {
