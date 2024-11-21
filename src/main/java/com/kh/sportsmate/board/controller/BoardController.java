@@ -335,6 +335,7 @@ public class BoardController {
 		}
 	}
 	
+	// 대댓글
 	@RequestMapping("replyComment.bd")
 	public String replyComment(HttpSession session, int comParentNo, String pnContent, int boardNo) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
