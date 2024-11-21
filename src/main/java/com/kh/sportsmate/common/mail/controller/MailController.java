@@ -24,6 +24,11 @@ public class MailController {
     @Autowired
     private final MailService mailService;
 
+    /**
+     * 인증번호 이메일 전송
+     * @param email 인증 대상 이메일
+     * @return 전송 여부
+     */
     @PostMapping(value = "sendMail.mi")
     public String emailAuth(@RequestParam(value = "email") String email){
         boolean result = mailService.sendAuthCodeMail(email);
@@ -34,6 +39,13 @@ public class MailController {
         }
 
     }
+
+    /**
+     * 인증번호 확인
+     * @param email 인증 대상 이메일
+     * @param inputAuthCode 입력한 인증번호
+     * @return 일증번호 일치 여부
+     */
     @PostMapping(value = "checkAuthCode.mi")
     public String checkAuthCode(@RequestParam(value = "email") String email, @RequestParam(value = "inputAuthCode") String inputAuthCode){
         if(mailService.checkAuthCode(email,inputAuthCode)){

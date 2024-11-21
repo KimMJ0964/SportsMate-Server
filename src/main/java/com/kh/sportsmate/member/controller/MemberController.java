@@ -58,6 +58,8 @@ public class MemberController {
 
     @Value("${sns.naver.clientId}")
     private String clientID;
+    @Value("${sns.naver.clientSecret}")
+    private String clientSecret;
 
     @Autowired
     public MemberController(MemberService memberService, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -74,21 +76,42 @@ public class MemberController {
         return "member/enrollSelectForm";
     }
 
+    /**
+     * 사용자 회원가입 폼 이동
+     * @return
+     */
     @RequestMapping(value = "memberEnrollForm.me")
     public String memberEnrollForm() {
         return "member/memberEnrollForm";
     }
 
+    /**
+     * 관리자 회원가입 폼 이동
+     * @return
+     */
     @RequestMapping(value = "managerEnrollForm.me")
     public String managerEnrollForm() {
         return "member/managerEnrollForm";
     }
 
+    /**
+     * 로그인 폼 이동
+     * @return
+     */
     @RequestMapping(value = "loginForm.me")
     public String loginForm() {
         return "member/loginForm";
     }
 
+    /**
+     * 사용자 회원가입
+     * @param m 기본 정보(memEmail, memPwd, memName, memGender, year, month, day, phone1~3, memberZipcode, memberBaseAdd,
+     *          memberDetailAdd, category, soccerPosition, soccerSkill, futsalPosition, futsalSkill, basketballPosition,
+     *          basketballSkill, baseballPosition, baseballSkill)
+     * @param userProfile 프로필 이미지
+     * @param session Path를 얻기 위해 필요한 세션 객체
+     * @return 메인페이지로 리다이렉트
+     */
     @PostMapping(value = "member_enroll.me")
     public String memberEnroll(MemberEnrollDto m, MultipartFile userProfile, HttpSession session) {
         Profile profile = null;
@@ -113,6 +136,14 @@ public class MemberController {
         }
     }
 
+    /**
+     * 로그인
+     * @param m 이메일, 비밀번호
+     * @param session 세션ID 저장을 위한 객체
+     * @param saveId 이메일 저장(쿠키)
+     * @param response 쿠키에 저장하기 위한 객체
+     * @return
+     */
     @PostMapping("login.me")
     public String loginMember(Member m, HttpSession session, String saveId, HttpServletResponse response) {
         Member loginMember = memberService.loginMember(m);
@@ -137,6 +168,11 @@ public class MemberController {
 
     }
 
+    /**
+     * 세션ID 만료
+     * @param session
+     * @return
+     */
     @RequestMapping("/logout.me")
     public String logout(HttpSession session) {
         // 세션 초기화
@@ -146,6 +182,14 @@ public class MemberController {
         return "redirect:/";
     }
 
+    /**
+     * 구장 관리자 회원가입
+     * @param m
+     * @param thumbnailImg
+     * @param detailImg
+     * @param session
+     * @return
+     */
     @PostMapping(value = "manager_enroll.me")
     public String managerEnroll(ManagerEnrollDto m, MultipartFile thumbnailImg, List<MultipartFile> detailImg, HttpSession session) {
         System.out.println(m);
@@ -176,9 +220,14 @@ public class MemberController {
         }
     }
 
+    /**
+     * 이메일 중복 확인 AJAX
+     * @param email 입력된 이메일
+     * @return
+     */
     @ResponseBody
     @GetMapping(value = "emailCheck.me")
-    public String emailCheck(String email, HttpServletResponse response) {
+    public String emailCheck(String email) {
         int result = memberService.emailCheck(email);
         if (result > 0) {
             return "NNNNN";
@@ -186,12 +235,18 @@ public class MemberController {
             return "NNNNY";
         }
     }
+
+    /**
+     * 네이버 로그인(Oauth2.0)
+     * @param code
+     * @param state
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "naver-login")
     public String naverLoginCallback(String code, String state, HttpServletRequest request) throws Exception {
         String redirectURL = URLEncoder.encode(request.getContextPath(), "UTF-8");
-//        String clientId = "5GKM2LrZ_OEPzmwL6z66";
-        String clientSecret = "fJLYqrhaRy";
-
         String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
         apiURL += "client_id=" + this.clientID;
         apiURL += "&client_secret=" + clientSecret;
@@ -252,7 +307,7 @@ public class MemberController {
             m.setMemPhone(memberInfo.get("mobile").toString());
             m.setMemBirth(birth);
 
-            log.info("m : {}", m);
+            log.info("네이버 회원 정보 : {}", m);
         }
         return "redirect:/";
     }
