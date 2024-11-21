@@ -30,7 +30,9 @@
 
 <hr class="line">
 
-        <div class="weekday-selector" id="weekdaySelector" name="selectedDate" data-date="${selectedDate }"></div>
+        <!-- 서버에서 activeDate 전달 -->
+		<input type="hidden" id="active-date" value="${selectedDate}" />
+		<div class="weekday-selector" id="weekdaySelector"></div>
         
         
         <div class="choice">

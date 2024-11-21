@@ -48,25 +48,22 @@ const renderCalendar = () => {
     document.querySelectorAll(".days li").forEach(day => {
         if (!day.classList.contains("past") && !day.classList.contains("inactive")) {
             day.addEventListener("click", () => {
-            	const selectedDate = day.dataset.date; // 선택된 날짜
-
-	            // Hidden input에 선택된 날짜를 저장
-	            const hiddenDateInput = document.getElementById("selectedDate");
-	            if (hiddenDateInput) {
-	                hiddenDateInput.value = selectedDate;
-	            }
-	
-	            // 화면에 선택된 날짜를 표시
-	            const displayDate = document.getElementById("selected-date");
-	            if (displayDate) {
-	                displayDate.textContent = selectedDate;
-	            }
-	            
-                alert(`선택한 날짜: ${day.dataset.date}`)
-            })
+                const selectedDate = day.dataset.date; // 선택된 날짜
+                const displayDate = document.getElementById("selected-date");
+                const hiddenInput = document.getElementById("hidden-selected-date"); // 숨겨진 input
+                
+                if (displayDate) {
+                    displayDate.textContent = selectedDate; // 화면에 날짜 표시
+                }
+                
+                if (hiddenInput) {
+                	hiddenInput.value = selectedDate; // 숨겨진 input 업데이트
+                }
+                alert(`선택한 날짜: ${selectedDate}`);
+            });
         }
-    })
-}
+    });
+};
 renderCalendar();
 
 prevNextIcon.forEach(icon => {
