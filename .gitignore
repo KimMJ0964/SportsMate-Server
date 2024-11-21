@@ -336,6 +336,9 @@ References/
 log/
 
 src/main/resources/log4j.xml
+
+src/main/resources/app.properties
+
 src/main/resources/*.properties
 src/main/webapp/resources/images/stadiumFile/
 src/main/webapp/resources/images/userProFile/

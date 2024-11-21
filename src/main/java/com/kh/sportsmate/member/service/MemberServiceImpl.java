@@ -105,7 +105,8 @@ public class MemberServiceImpl implements MemberService {
         // 종목 관련 내용을 담을 객체
         Category c = new Category(processedMember.getMemNo(),
                 m.getSoccerPosition(), m.getSoccerSkill(), m.getFutsalPosition(),
-                m.getFutsalSkill(), m.getBasketballPosition(), m.getBasketballSkill(), m.getBasketballPosition(), m.getBasketballSkill());
+                m.getFutsalSkill(), m.getBasketballPosition(), m.getBasketballSkill(),
+                m.getBaseballPosition(), m.getBaseballSkill());
         System.out.println(c);
         result3 = memberDao.insertCategory(sqlSession, c);
         return result1 * result2 * result3;
