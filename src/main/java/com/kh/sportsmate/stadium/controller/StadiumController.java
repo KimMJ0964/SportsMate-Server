@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 import com.kh.sportsmate.stadium.service.StadiumService;
 
@@ -69,9 +70,9 @@ public class StadiumController {
     }
 
     /**
-     * 구장 수정/삭제 페이지 로드
+     * 관리자가 소유한 단일 구장 조회
      * @param session - 로그인한 관리자의 세션 정보
-     * @param model - JSP에 전달할 구장 정보를 담는 객체
+     * @param model - JSP에 전달할 구장 정보
      * @return stadium_manager/stadium_info.jsp
      */
     @RequestMapping(value = "stadiuminfo.me")
@@ -85,16 +86,8 @@ public class StadiumController {
         }
 
         // 관리자의 MEM_NO로 구장 정보 가져오기
-        Stadium stadium = stadiumService.getStadiumByManager(loginMember.getMemNo());
-        if (stadium != null) {
-            model.addAttribute("stadium", stadium);
-        } else {
-            // 기본 값이나 에러 처리
-        }
-
-        // 구장 정보가 없어도 JSP로 이동 (stadium이 null일 수 있음)
+        StadiumDto stadium = stadiumService.getStadiumByManager(loginMember.getMemNo());
         model.addAttribute("stadium", stadium);
-        System.out.println(stadium);
 
         // stadium_info.jsp로 이동
         return "stadium_manager/stadium_info";

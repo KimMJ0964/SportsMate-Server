@@ -241,21 +241,40 @@
     </insert>
     
     <!-- 관리자 소유의 구장 정보 -->
-    <select id="selectStadiumByManager" parameterType="int" resultType="Stadium">
+    <select id="selectOneStadiumByManager" parameterType="int" resultType="StadiumDto">
     SELECT 
-        STADIUM_NO AS stadiumNo,
-        MEM_NO AS memNo,
-        STADIUM_NAME AS stadiumName,
-        STADIUM_ADDRESS AS stadiumAdd,
-        STADIUM_ZIPCODE AS stadiumZipcode,
-        STADIUM_PRICE AS stadiumPrice,
-        STADIUM_CATEGORY AS stadiumCategory,
-        STADIUM_START_TIME AS stadiumStartTime,
-        STADIUM_END_TIME AS stadiumEndTime,
-        STATUS AS status
-    FROM 
-        STADIUM
-    WHERE 
-        MEM_NO = #{memNo}
+	    s.STADIUM_NO AS stadiumNo,
+	    s.MEM_NO AS memNo,
+	    s.STADIUM_NAME AS stadiumName,
+	    s.STADIUM_ADDRESS AS stadiumAdd,
+	    s.STADIUM_ZIPCODE AS stadiumZipcode,
+	    s.STADIUM_PRICE AS stadiumPrice,
+	    s.STADIUM_CATEGORY AS stadiumCategory,
+	    s.STADIUM_START_TIME AS stadiumStartTime,
+	    s.STADIUM_END_TIME AS stadiumEndTime,
+	    s.STATUS AS status,
+	    sa.TOILET AS toilet,
+	    sa.SHOWER AS shower,
+	    sa.SMOKE AS smoke,
+	    sa.PARK AS park,
+	    sa.DRINK AS drink,
+	    si.ORIGIN_NAME AS originName,
+	    si.CHANGE_NAME AS changeName,
+	    si.FILE_PATH AS filePath,
+	    si.STATUS AS imgStatus,
+	    si.FILE_TYPE AS fileType,
+	    sr.BALL AS ball,
+	    sr.VEST AS vest
+	FROM 
+	    STADIUM s
+	LEFT JOIN 
+	    STADIUM_AM sa ON s.STADIUM_NO = sa.STADIUM_NO
+	LEFT JOIN 
+	    STADIUM_IMG si ON s.STADIUM_NO = si.STADIUM_NO
+	LEFT JOIN 
+	    STADIUM_RENTAL sr ON s.STADIUM_NO = sr.STADIUM_NO
+	WHERE 
+	    s.MEM_NO = #{memNo}
+	LIMIT 1;
 </select>
 </mapper>

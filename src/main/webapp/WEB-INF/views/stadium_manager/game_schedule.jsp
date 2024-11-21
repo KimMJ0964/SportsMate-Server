@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-                <div class="vsdetail-container" data-bs-toggle="modal" data-bs-target="#schedulemodal">
+                <div class="vsdetail-container">
                     <div class="team-match">
                         <div class="gamelist-info">
                             <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
@@ -61,35 +61,108 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="vsdetail-container">
+                    <div class="team-match">
+                        <div class="gamelist-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
+                            <div class="team-info">
+                                <p class="team-name">우리동네 FC</p>
+                                <p class="team-level">아마추어2</p>
+                            </div>
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="gamelist-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
+                            <div class="team-info">
+                                <p class="team-name">남의동네 FC</p>
+                                <p class="team-level">아마추어3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- The Modal -->
-        <div class="modal" id="schedulemodal">
-            <div class="modal-dialog">
-            <div class="modal-content">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title">예정 매치</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-  
-        <!-- Modal body -->
-        <div class="modal-body">
-            
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
-        </div>
-  
-      </div>
-    </div>
-  </div>
+                <div class="vsdetail-container">
+                    <div class="team-match">
+                        <div class="gamelist-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
+                            <div class="team-info">
+                                <p class="team-name">우리동네 FC</p>
+                                <p class="team-level">아마추어2</p>
+                            </div>
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="gamelist-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
+                            <div class="team-info">
+                                <p class="team-name">남의동네 FC</p>
+                                <p class="team-level">아마추어3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vsdetail-container">
+                    <div class="team-match">
+                        <div class="gamelist-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
+                            <div class="team-info">
+                                <p class="team-name">우리동네 FC</p>
+                                <p class="team-level">아마추어2</p>
+                            </div>
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="gamelist-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
+                            <div class="team-info">
+                                <p class="team-name">남의동네 FC</p>
+                                <p class="team-level">아마추어3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+                <div class="vsdetail-container">
+                    <div class="team-match">
+                        <div class="gamelist-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
+                            <div class="team-info">
+                                <p class="team-name">우리동네 FC</p>
+                                <p class="team-level">아마추어2</p>
+                            </div>
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="gamelist-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
+                            <div class="team-info">
+                                <p class="team-name">남의동네 FC</p>
+                                <p class="team-level">아마추어3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vsdetailLast-container">
+                    <div class="team-match">
+                        <div class="gamelist-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
+                            <div class="team-info">
+                                <p class="team-name">우리동네 FC</p>
+                                <p class="team-level">아마추어2</p>
+                            </div>
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="gamelist-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
+                            <div class="team-info">
+                                <p class="team-name">남의동네 FC</p>
+                                <p class="team-level">아마추어3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-                  
             <!-- 뒤로가기 버튼 -->
             <button class="gamelistback-button" onclick="location.href = 'managermypage.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/managermypage.me'">뒤로가기</button>
         </div>

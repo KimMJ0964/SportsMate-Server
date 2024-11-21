@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +26,7 @@
 
         <br>
 
-        <jsp:include page="/WEB-INF/views/common/nav.jsp" />
-
+        <jsp:include page="/WEB-INF/views/common/nav.jsp" /> 
         <div class="stadiuminfo-container">
             <div class="headname-container">
                 <div class="stadiuminfo-row">
@@ -43,10 +44,17 @@
             <div class="form-group">
                 <label>종목 선택</label>
                 <div class="sport-options">
-                    <label><input type="checkbox" name="category" value="soccer" ${stadium.stadiumCategory.contains('soccer') ? 'checked' : ''}> 축구</label>
-                    <label><input type="checkbox" name="category" value="futsal" ${stadium.stadiumCategory.contains('futsal') ? 'checked' : ''}> 풋살</label>
-                    <label><input type="checkbox" name="category" value="basketball" ${stadium.stadiumCategory.contains('basketball') ? 'checked' : ''}> 농구</label>
-                    <label><input type="checkbox" name="category" value="baseball" ${stadium.stadiumCategory.contains('baseball') ? 'checked' : ''}> 야구</label>
+                    <label>
+					    <input 
+					        type="checkbox" 
+					        name="category" 
+					        value="soccer" 
+					        disabled 
+					        ${stadium.stadiumCategory eq 'soccer' ? 'checked' : ''}> 축구
+					</label>
+                    <label><input type="checkbox" name="category" value="futsal" disabled ${stadium.stadiumCategory.contains('futsal') ? 'checked' : ''}> 풋살</label>
+                    <label><input type="checkbox" name="category" value="basketball" disabled ${stadium.stadiumCategory.contains('basketball') ? 'checked' : ''}> 농구</label>
+                    <label><input type="checkbox" name="category" value="baseball" disabled ${stadium.stadiumCategory.contains('baseball') ? 'checked' : ''}> 야구</label>
                 </div>
             </div>
         </div>
@@ -83,21 +91,66 @@
             
             <div class="form-group">
                 <label>편의 시설</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="amenities" value="toilet" ${stadium.amenities.contains('toilet') ? 'checked' : ''}> 화장실</label>
-                    <label><input type="checkbox" name="amenities" value="drink" ${stadium.amenities.contains('drink') ? 'checked' : ''}> 자판기</label>
-                    <label><input type="checkbox" name="amenities" value="parking" ${stadium.amenities.contains('parking') ? 'checked' : ''}> 주차장</label>
-                    <label><input type="checkbox" name="amenities" value="smoke" ${stadium.amenities.contains('smoke') ? 'checked' : ''}> 흡연실</label>
+                <div class="checkbox-group"> 
+                    <label><input type="checkbox" class="good" name="amenities" value="toilet"> 화장실</label>
+                    <label><input type="checkbox" class="good" name="amenities" value="drink"> 자판기</label>
+                    <label><input type="checkbox" class="good" name="amenities" value="park"> 주차장</label>
+                    <label><input type="checkbox" class="good" name="amenities" value="smoke"> 흡연실</label>
+                    <label><input type="checkbox" class="good" name="amenities" value="shower"> 샤워장</label>
                 </div>
             </div>
             
             <div class="form-group">
                 <label>대여 시스템</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" name="rental" value="ball" ${stadium.rental.contains('ball') ? 'checked' : ''}> 공</label>
-                    <label><input type="checkbox" name="rental" value="vest" ${stadium.rental.contains('vest') ? 'checked' : ''}> 조끼</label>
+                    <label><input type="checkbox" class="good" name="rental" value="ball"> 공</label>
+                    <label><input type="checkbox" class="good" name="rental" value="vest"> 조끼</label>
                 </div>
             </div>
+
+            <script>
+                let toilet = '${stadium.toilet}'; // 화장실 여부
+                let drink = '${stadium.drink}'; // 자판기 여부
+                let park = '${stadium.park}';  // 주차장 여부
+                let smoke = '${stadium.smoke}'; // 흡연실 여부
+                let shower = '${stadium.shower}'; // 흡연실 여부
+                let ball = '${stadium.ball}'; // 공 대여 여부
+                let vest = '${stadium.vest}'; // 조끼 대여 여부
+            
+                // 콘솔에 데이터 출력
+                console.log('toilet:', toilet);
+                console.log('drink:', drink);
+                console.log('park:', park);
+                console.log('smoke:', smoke);
+                console.log('shower:', shower);
+                console.log('ball:', ball);
+                console.log('vest:', vest);
+            
+                function updateCheckboxes() {
+                    // 체크박스들을 가져옴
+                    const checkboxes = document.querySelectorAll('input[class="good"]');
+            
+                    checkboxes.forEach((checkbox) => {
+                        const value = checkbox.value; // 체크박스의 value 값
+            
+                        // 각 조건에 따라 체크박스를 설정
+                        if (
+                            (value === 'toilet' && toilet === 'Y') || // 화장실
+                            (value === 'drink' && drink === 'Y') || // 자판기
+                            (value === 'park' && park === 'Y') || // 주차장
+                            (value === 'smoke' && smoke === 'Y') || // 흡연실
+                            (value === 'shower' && shower === 'Y') || // 샤워장
+                            (value === 'ball' && ball === 'Y') || // 공 대여
+                            (value === 'vest' && vest === 'Y') // 조끼 대여
+                        ) {
+                            checkbox.checked = true; // true면 체크
+                        } else {
+                            checkbox.checked = false; // false면 체크 x
+                        }
+                    });
+                }
+                document.addEventListener('DOMContentLoaded', updateCheckboxes);
+            </script>
             
             <div class="form-group">
                 <label>구장 대표 이미지</label>
@@ -109,7 +162,7 @@
             <div class="form-group">
                 <label>구장 상세 이미지</label>
                 <div class="image-upload-group">
-                    <input type="file" name="detailImg" id="detail" multiple>
+                    <input type="file" name="detailImg" id="detail"  multiple>
                 </div>
             </div>
 

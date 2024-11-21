@@ -1,6 +1,7 @@
 package com.kh.sportsmate.stadium.model.dao;
 
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
@@ -24,6 +25,9 @@ import java.util.List;
  */
 @Repository
 public class StadiumDao {
+	@Autowired
+    private SqlSessionTemplate sqlSession;
+	
     public int insertStadium(SqlSessionTemplate sqlSession, Stadium stadiumInfo){
         return sqlSession.insert("stadiumMapper.insertStadium", stadiumInfo);
     }
@@ -39,11 +43,14 @@ public class StadiumDao {
         return sqlSession.insert("stadiumMapper.insertStadiumAttachment", stadiumAttachmentImgs);
     }
     
-    @Autowired
-    private SqlSessionTemplate sqlSession;
-
-    // 관리자 소유의 구장 정보 조회
-    public Stadium selectStadiumByManager(int memNo) {
-        return sqlSession.selectOne("stadiumMapper.selectStadiumByManager", memNo);
+ // 관리자가 소유한 모든 구장 조회
+    public List<Stadium> selectStadiumByManager(int memNo) {
+        return sqlSession.selectList("stadiumMapper.selectStadiumByManager", memNo);
     }
+
+    // 관리자가 소유한 단일 구장 조회
+    public StadiumDto selectOneStadiumByManager(int memNo) {
+        return sqlSession.selectOne("stadiumMapper.selectOneStadiumByManager", memNo);
+    }
+
 }
