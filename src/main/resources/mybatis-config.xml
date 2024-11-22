@@ -16,7 +16,7 @@
         <!-- Member -->
     	<typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
         <typeAlias type="com.kh.sportsmate.member.model.dto.MemberModifyDto" alias="MemberModifyDto"/>
-        <typeAlias type="com.kh.sportsmate.member.model.dto.MemberPosition" alias="MemberPosition"/>
+        <typeAlias type="com.kh.sportsmate.member.model.dto.MemberPositionDto" alias="MemberPositionDto"/>
         <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="Category"/>
         <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="LoginLog"/>
         <typeAlias type="com.kh.sportsmate.admin.model.dto.ChartDateDto" alias="ChartDateDto"/>
@@ -47,6 +47,7 @@
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamMember" alias="TeamMember"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamMemberDto" alias="TeamMemberDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoardComment" alias="TeamBoardComment"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.TeamBoardCommentDto" alias="TeamBoardCommentDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.Recruit" alias="Recruit"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamActivityDays" alias="TeamActivityDays"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitListQueryStringDto" alias="RecruitListQueryStringDto"/>
@@ -54,6 +55,8 @@
         <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitDetailDto" alias="RecruitDetailDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitDto" alias="RecruitDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamInfoDto" alias="TeamInfoDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.MyTeamDto" alias="MyTeamDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.MyRecruitDto" alias="MyRecruitDto"/>
         <!-- Match -->
      	<typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
      	<typeAlias type="com.kh.sportsmate.match.model.vo.MatchBest" alias="MatchBest"/>

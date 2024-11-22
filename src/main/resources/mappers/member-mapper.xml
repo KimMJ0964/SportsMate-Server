@@ -114,9 +114,7 @@
     </insert>
     
     <!-- 마이페이지 -->
-    <!-- 내 정보 -->
-    <!-- SELECT -->
-     <select id="selectMyInfo" resultType="MemberPosition">
+     <select id="selectMyInfo" resultType="MemberPositionDto">
         SELECT MEM_NO as memNo,
         	   MEM_NAME as memName,
         	   MEM_ADD as memAdd,
@@ -128,6 +126,7 @@
         WHERE MEM_NO = #{memNo}
     </select>
     
+    <!-- 내 정보 -->
     <select id="selectMyProfile" resultType="Profile">
     	SELECT CHANGE_NAME AS changeName,
     			FILE_PATH AS filePath
@@ -136,55 +135,73 @@
     </select>
     
     <!-- 내 구단 -->
-   <select id="selectMyTeam" resultType="Team">
+  <select id="selectMyTeam" resultType="MyTeamDto">
 	    SELECT 
-	        T.TEAM_NO as teamNo,
-	        T.TEAM_NAME as teamName,
-	        T.TEAM_MAX_PERSON as teamMaxPerson,
-	        T.SCORE as score,
-	        T.TEAM_POINT as teamPoint,
-	        T.TEAM_ENROLL_DATE as teamEnrollDate,
-	        TM.MEM_NO as memNo,
-	        T.TEAM_CATEGORY as teamCategory,
-	        M.MEM_NAME as memName,
-	        (SELECT COUNT(*) FROM TEAM_MEMBER TM2 WHERE TM2.TEAM_NO = T.TEAM_NO) as teamMemberCount
-	    FROM TEAM T
-	    JOIN TEAM_MEMBER TM ON T.TEAM_NO = TM.TEAM_NO
-	    JOIN MEMBER M ON T.MEM_NO = M.MEM_NO
-	    WHERE TM.MEM_NO = #{memNo}
-	    AND TM.STATUS = 'Y';
+	        T.TEAM_NO AS teamNo,
+	        T.TEAM_NAME AS teamName,
+	        T.TEAM_MAX_PERSON AS teamMaxPerson,
+	        T.SCORE AS score,
+	        T.TEAM_POINT AS teamPoint,
+	        T.TEAM_ENROLL_DATE AS teamEnrollDate,
+	        TM.MEM_NO AS memNo,
+	        T.TEAM_CATEGORY AS teamCategory,
+	        M.MEM_NAME AS memName,
+	        (SELECT COUNT(*) FROM TEAM_MEMBER TM2 WHERE TM2.TEAM_NO = T.TEAM_NO) AS teamMemberCount,
+	        PF.CHANGE_NAME AS teamProfile
+	    FROM 
+	        TEAM T
+	    JOIN 
+	        TEAM_MEMBER TM ON T.TEAM_NO = TM.TEAM_NO
+	    JOIN 
+	        MEMBER M ON T.MEM_NO = M.MEM_NO
+	    LEFT JOIN 
+	        PROFILE_FILE PF ON T.TEAM_NO = PF.TEAM_NO
+	    WHERE 
+	        TM.MEM_NO = #{memNo}
+	        AND TM.STATUS = 'Y';
 	</select>
     
     <!-- 내 구단 입단 명단자 -->
     <!-- 해당 종목의 레벨과 포지션 가지고 있어야 조회가능 -->
-    <select id="selectMyRecruit" resultType="Recruit">
+    <select id="selectMyRecruit" resultType="MyRecruitDto">
 	    SELECT 
-	        R.MEM_NO as memNo,
-	        R.INTRODUCE as introduce,
-	        T.TEAM_NAME as teamName,
-	        T.TEAM_NO as teamNo,
-	        M.MEM_NAME as memName,  <!-- MEMBER 테이블에서 MEM_NAME을 추가 -->
-	        M.MEM_BIRTH as memBirth,
-	        M.MEM_GENDER as memGender,
-	        M.MEM_RANK as memRank,
-	        TIMESTAMPDIFF(YEAR, M.MEM_BIRTH, CURDATE()) as memAge,
+	        R.MEM_NO AS memNo,
+	        R.INTRODUCE AS introduce,
+	        T.TEAM_NAME AS teamName,
+	        T.TEAM_NO AS teamNo,
+	        M.MEM_NAME AS memName,
+	        M.MEM_BIRTH AS memBirth,
+	        M.MEM_GENDER AS memGender,
+	        M.MEM_RANK AS memRank,
+	        TIMESTAMPDIFF(YEAR, M.MEM_BIRTH, CURDATE()) AS memAge,
 	        CASE 
-	               WHEN T.TEAM_CATEGORY = 'soccer' THEN c.SOC_POSI
-	               WHEN T.TEAM_CATEGORY = 'basketball' THEN c.BASKET_POSI
-	               WHEN T.TEAM_CATEGORY = 'futsal' THEN c.FOOT_POSI
-	               WHEN T.TEAM_CATEGORY = 'baseball' THEN c.BASE_POSI
-	           END AS position,
-	           CASE 
-	               WHEN T.TEAM_CATEGORY = 'soccer' THEN c.SOC_ABILITY
-	               WHEN T.TEAM_CATEGORY = 'basketball' THEN c.BASKET_ABILITY
-	               WHEN T.TEAM_CATEGORY = 'futsal' THEN c.FOOT_ABILITY
-	               WHEN T.TEAM_CATEGORY = 'baseball' THEN c.BASE_ABILITY
-	           END AS ability
-	    FROM TEAM T
-	    JOIN RECRUIT R ON T.TEAM_NO = R.TEAM_NO
-	    JOIN MEMBER M ON R.MEM_NO = M.MEM_NO  <!-- RECRUIT와 MEMBER 테이블을 MEM_NO를 기준으로 JOIN -->
-	    JOIN CATEGORY c ON M.MEM_NO = c.MEM_NO 
-	    WHERE T.MEM_NO = #{memNo};
+	            WHEN T.TEAM_CATEGORY = 'soccer' THEN C.SOC_POSI
+	            WHEN T.TEAM_CATEGORY = 'basketball' THEN C.BASKET_POSI
+	            WHEN T.TEAM_CATEGORY = 'futsal' THEN C.FOOT_POSI
+	            WHEN T.TEAM_CATEGORY = 'baseball' THEN C.BASE_POSI
+	        END AS position,
+	        CASE 
+	            WHEN T.TEAM_CATEGORY = 'soccer' THEN C.SOC_ABILITY
+	            WHEN T.TEAM_CATEGORY = 'basketball' THEN C.BASKET_ABILITY
+	            WHEN T.TEAM_CATEGORY = 'futsal' THEN C.FOOT_ABILITY
+	            WHEN T.TEAM_CATEGORY = 'baseball' THEN C.BASE_ABILITY
+	        END AS ability,
+	        MPF.CHANGE_NAME AS memberProfile,
+	        TPF.CHANGE_NAME AS teamProfile
+	    FROM 
+	        TEAM T
+	    JOIN 
+	        RECRUIT R ON T.TEAM_NO = R.TEAM_NO
+	    JOIN 
+	        MEMBER M ON R.MEM_NO = M.MEM_NO
+	    JOIN 
+	        CATEGORY C ON M.MEM_NO = C.MEM_NO
+	    LEFT JOIN 
+	        PROFILE_FILE MPF ON M.MEM_NO = MPF.MEM_NO
+	    LEFT JOIN 
+	        PROFILE_FILE TPF ON T.TEAM_NO = TPF.TEAM_NO
+	    WHERE 
+	        T.MEM_NO = #{memNo};
 	</select>
     
     <!-- 내 전적 -->
@@ -274,30 +291,36 @@
 		) AS higher_score_matches;
 	</select>
     
-    <!-- a팀 정보  #{teamANo} -->
-    <select id="selectTeamInfo" resultType="MemberPosition">
+    <!-- 팀 정보  #{teamANo, teamBNo} -->
+   <select id="selectTeamInfo" resultType="MemberPositionDto">
 	    SELECT 
-		    m.MEM_NO as memNo, 
-		    m.MEM_NAME as memName,
-		    t.TEAM_NAME as teamName,
-		    CASE 
-		        WHEN t.TEAM_CATEGORY = 'soccer' THEN c.SOC_POSI
-		        WHEN t.TEAM_CATEGORY = 'futsal' THEN c.FOOT_POSI
-		        WHEN t.TEAM_CATEGORY = 'basketball' THEN c.BASKET_POSI
-		        WHEN t.TEAM_CATEGORY = 'baseball' THEN c.BASE_POSI
-		        ELSE '포지션 없음'
-		    END AS position
-		FROM 
-		    MEMBER m
-		JOIN 
-		    TEAM_MEMBER tm ON m.MEM_NO = tm.MEM_NO
-		JOIN 
-		    TEAM t ON tm.TEAM_NO = t.TEAM_NO
-		LEFT JOIN 
-		    CATEGORY c ON m.MEM_NO = c.MEM_NO
-		WHERE 
-		    tm.TEAM_NO = #{teamNo};
-    </select>
+	        m.MEM_NO AS memNo, 
+	        m.MEM_NAME AS memName,
+	        t.TEAM_NAME AS teamName,
+	        CASE 
+	            WHEN t.TEAM_CATEGORY = 'soccer' THEN c.SOC_POSI
+	            WHEN t.TEAM_CATEGORY = 'futsal' THEN c.FOOT_POSI
+	            WHEN t.TEAM_CATEGORY = 'basketball' THEN c.BASKET_POSI
+	            WHEN t.TEAM_CATEGORY = 'baseball' THEN c.BASE_POSI
+	            ELSE '포지션 없음'
+	        END AS position,
+	        pfTeam.CHANGE_NAME AS teamProfile,
+	        pfMember.CHANGE_NAME AS memberProfile
+	    FROM 
+	        MEMBER m
+	    JOIN 
+	        TEAM_MEMBER tm ON m.MEM_NO = tm.MEM_NO
+	    JOIN 
+	        TEAM t ON tm.TEAM_NO = t.TEAM_NO
+	    LEFT JOIN 
+	        CATEGORY c ON m.MEM_NO = c.MEM_NO
+	    LEFT JOIN 
+	        PROFILE_FILE pfTeam ON t.TEAM_NO = pfTeam.TEAM_NO
+	    LEFT JOIN 
+	        PROFILE_FILE pfMember ON m.MEM_NO = pfMember.MEM_NO
+	    WHERE 
+	        tm.TEAM_NO = #{teamNo};
+	</select>
     
     <!-- 마이페이지 내 정보 출력 / 이메일, 이름, 성별, 생년월일, 휴대폰번호, 포지션 -->
     <select id="myInfoList" resultType="MemberModifyDto">

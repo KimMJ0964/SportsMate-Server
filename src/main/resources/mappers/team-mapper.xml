@@ -185,7 +185,7 @@
 	</select>
 	
 	<!-- 댓글 내용 가져오기 -->
-	<select id="commentList" resultType="TeamBoardComment">
+	<select id="commentList" resultType="TeamBoardCommentDto">
 		SELECT b.COM_NO AS comNo,
 			   b.REF_TEAM_BOARD_NO AS refTeamBoardNo,
 			   m.MEM_NAME AS memName,
@@ -193,9 +193,11 @@
 			   b.COM_MODIFY_DATE AS comModifyDate,
 			   b.STATUS AS status,
 			   b.COM_PARENT_NO AS comParentNo,
+	     	   p.CHANGE_NAME AS changeName,
 			   b.COM_CONTENT AS comContent
-		 FROM TEAM_BOARD_COMMENT b
+		FROM TEAM_BOARD_COMMENT b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
+		LEFT JOIN PROFILE_FILE p ON b.MEM_NO = p.MEM_NO
 	    WHERE REF_TEAM_BOARD_NO = #{bno}
 	</select>
 	

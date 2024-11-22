@@ -95,12 +95,26 @@
 					<c:forEach var="mm" items="${myMatch}">
 						<div class="match-info">
 							<div class="team red">
-								<span><img src="${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamAProfile }}" class="mypage-profile-img" alt="User Profile" /></span>
+								<img src="<c:choose>
+						            <c:when test='${mm.teamAProfile != null}'>
+						                ${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamAProfile}
+						            </c:when>
+						            <c:otherwise>
+						                ${pageContext.request.contextPath}/resources/images/user_default_profile.png
+						            </c:otherwise>
+						         </c:choose>"  class="mypage-match-profile-img" alt="User Profile"/>
 								<p>${mm.teamAName }</p>
 							</div>
 							<div class="score">${mm.scoreA} : ${mm.scoreB}</div>
 							<div class="team blue">
-								<span><img src="${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamBProfile }}" class="mypage-profile-img" alt="User Profile" /></span>
+								<img src="<c:choose>
+						            <c:when test='${mm.teamBProfile != null}'>
+						                ${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamBProfile}
+						            </c:when>
+						            <c:otherwise>
+						                ${pageContext.request.contextPath}/resources/images/user_default_profile.png
+						            </c:otherwise>
+						         </c:choose>"  class="mypage-match-profile-img" alt="User Profile"/>
 								<p>${mm.teamBName }</p>
 							</div>
 							<img class="bestplayer-btn" src="resources/images/User_vote.png"
@@ -130,9 +144,7 @@
 									<!-- a팀 -->
 									<div class="my-bestplayer-vote-a">
 										<div class="aTeam-name">
-											<img
-												src="${pageContext.request.contextPath}/resources/images/Logo.png"
-												style="width: 60px;"> <span></span>
+											<span style="font-size: 24px; font-weight: bold;"></span>
 										</div>
 										<br>
 										<table class="modal-ateam-table"
@@ -145,9 +157,7 @@
 									<!-- B팀 -->
 									<div class="my-bestplayer-vote-b">
 										<div class="bTeam-name">
-											<img
-												src="${pageContext.request.contextPath}/resources/images/Logo.png"
-												style="width: 60px;"> <span></span>
+											<span style="font-size: 24px; font-weight: bold;"></span>
 										</div>
 										<br>
 										<table class="modal-bteam-table"
@@ -228,7 +238,7 @@
 												    </c:choose>
 												<div class="profile">
 													<div class="profile-img-container">
-														<div class="profile-circle"></div>
+														<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mt.teamProfile }" class="profile-circle" alt="User Profile"/>
 													</div>
 													<p class="profile-name">${mt.teamName }</p>
 													<div class="star-rating">
@@ -288,7 +298,7 @@
 												    </c:choose>
 											<div class="profile">
 												<div class="profile-img-container">
-													<div class="profile-circle"></div>
+													<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mt.teamProfile }" class="profile-circle" alt="User Profile"/>
 												</div>
 												<p class="profile-name">${mt.teamName }</p>
 												<div class="star-rating">
@@ -336,11 +346,22 @@
 				<c:forEach var="mr" items="${myRecruit}">
 					<div class="joinBox">
 						<div class="joinProfile">
-							<img src="" alt="" /> <br />
+							<img 
+						        src="<c:choose>
+						                <c:when test='${not empty mr.memberProfile}'>
+						                    ${pageContext.request.contextPath}/resources/images/userProFile/${mr.memberProfile}
+						                </c:when>
+						                <c:otherwise>
+						                    ${pageContext.request.contextPath}/resources/images/user_default_profile.png
+						                </c:otherwise>
+						             </c:choose>" 
+						        alt="" 
+						        style="width: 50px; height: 50px;"
+						    />  <br />
 							<div class="profile-text">${mr.memName }</div>
 						</div>
 						<div class="profile team-name">
-							<img src="" alt="" /> <br />
+							<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mr.teamProfile }" alt="" style="width: 60px; height: 60px;"/> <br />
 							<div class="profile-text">${mr.teamName }</div>
 						</div>
 						<div class="buttons">
@@ -348,7 +369,8 @@
 								data-bs-target="#exampleModaltwo" data-name="${mr.memName}"
 								data-age="${mr.memAge}" data-gender="${mr.memGender}"
 								data-rank="${mr.memRank}" data-abl="${mr.ability}"
-								data-posi="${mr.position}" data-intro="${mr.introduce }">입단자
+								data-posi="${mr.position}" data-intro="${mr.introduce }"
+								data-profile="${mr.memberProfile }" data-context="${pageContext.request.contextPath}">입단자
 								정보</Button>
 							<Button class="approve-btn"
 								onclick="location.href = 'approveJoin.tm?mno=${mr.memNo}&tno=${mr.teamNo }'">승인</Button>
@@ -414,8 +436,8 @@
 				</div>
 				<div class="modal-body">
 					<div class="my-modal-join-profile-img">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/Logo.png"
+						<img id="my-modal-join-profile-image"
+							src=""
 							style="width: 120px;">
 					</div>
 					<br>
@@ -503,10 +525,15 @@
 	                const bTeamInfo = response.bTeamInfo;
 	                const aTeamName = response.aTeamInfo[0]?.teamName || 'Unknown A Team';
 	                const bTeamName = response.bTeamInfo[0]?.teamName || 'Unknown B Team';
+	                const aTeamProfile = response.aTeamInfo[0]?.teamProfile || 'Unknown A Team Img';
+	                const bTeamProfile = response.bTeamInfo[0]?.teamProfile || 'Unknown B Team Img';
 
 	                console.log('A팀 이름:', aTeamName); // A팀 이름 출력
 	                console.log('B팀 이름:', bTeamName); // B팀 이름 출력
-
+					
+	                console.log('A팀 프로필 이미지:', aTeamProfile); // A팀 이름 출력
+	                console.log('B팀 프로필 이미지:', bTeamProfile); // B팀 이름 출력
+	                
 	                // a팀 이름 삽입
 	                $('.aTeam-name span').text(aTeamName);
 
@@ -517,16 +544,29 @@
 	                let aTeamHtml = '';
 	                aTeamInfo.forEach(member => {
 	                	console.log(member)
-	                    aTeamHtml += `
-	                        <tr>
-	                            <td><div class="modal-ateam-table-img">
-	                                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" style="width: 50px;">
-	                            </div></td>
-	                            <td><div class="modal-ateam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
-	                            <td><div class="modal-ateam-table-vote-btn">
-	                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
-	                            </div></td>
-	                        </tr>`;
+	                	if (member.memberProfile) {
+		                    aTeamHtml += `
+		                        <tr>
+		                            <td><div class="modal-ateam-table-img">
+		                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/` + member.memberProfile + `" style="width: 50px; border-radius: 50px;">
+		                            </div></td>
+		                            <td><div class="modal-ateam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
+		                            <td><div class="modal-ateam-table-vote-btn">
+		                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
+		                            </div></td>
+		                        </tr>`;
+		                } else {
+		                	aTeamHtml += `
+		                        <tr>
+		                            <td><div class="modal-ateam-table-img">
+		                                <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" style="width: 50px; border-radius: 50px;">
+		                            </div></td>
+		                            <td><div class="modal-ateam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
+		                            <td><div class="modal-ateam-table-vote-btn">
+		                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
+		                            </div></td>
+		                        </tr>`;
+		                }
 	                });
 	                $(".modal-ateam-table").html(aTeamHtml);
 
@@ -534,16 +574,29 @@
 	                let bTeamHtml = '';
 	                bTeamInfo.forEach(member => {
 	                	console.log(member)
-	                    bTeamHtml += `
-	                        <tr>
-	                            <td><div class="modal-bteam-table-img">
-	                                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" style="width: 50px;" data-bestmno="a팀">
-	                            </div></td>
-	                            <td><div class="modal-bteam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
-	                            <td><div class="modal-bteam-table-vote-btn">
-	                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
-	                            </div></td>
-	                        </tr>`;
+	                   if (member.memberProfile) {
+		                    bTeamHtml += `
+		                        <tr>
+		                            <td><div class="modal-bteam-table-img">
+		                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/` + member.memberProfile + `" style="width: 50px; border-radius: 50px;">
+		                            </div></td>
+		                            <td><div class="modal-bteam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
+		                            <td><div class="modal-bteam-table-vote-btn">
+		                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
+		                            </div></td>
+		                        </tr>`;
+		                } else {
+		                	bTeamHtml += `
+		                        <tr>
+		                            <td><div class="modal-bteam-table-img">
+		                                <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" style="width: 50px; border-radius: 50px;">
+		                            </div></td>
+		                            <td><div class="modal-bteam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
+		                            <td><div class="modal-bteam-table-vote-btn">
+		                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
+		                            </div></td>
+		                        </tr>`;
+		                }
 	                });
 	                $(".modal-bteam-table").html(bTeamHtml);
 	            },

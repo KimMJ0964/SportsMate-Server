@@ -1,4 +1,4 @@
-package com.kh.sportsmate.team.model.vo;
+package com.kh.sportsmate.team.model.dto;
 
 import java.sql.Date;
 
@@ -15,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class TeamBoardComment {
+public class TeamBoardCommentDto {
 	private int comNo;
 	private int refTeamBoardNo;
 	private int memNo;
@@ -24,4 +24,8 @@ public class TeamBoardComment {
 	private String status;
 	private int comParentNo;
 	private String comContent;
+	
+	/* 조인 */
+	private String memName;
+	private String changeName;
 }

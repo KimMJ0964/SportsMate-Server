@@ -26,12 +26,13 @@ import com.kh.sportsmate.match.model.vo.MatchQna;
 import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
-import com.kh.sportsmate.member.model.dto.MemberPosition;
+import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.member.service.MemberService;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.mypage.service.MyPageService;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -57,7 +58,7 @@ public class MyPageController {
 		int memNo = loginMember.getMemNo();
     	
     	// 내 정보
-    	MemberPosition myInfo = myPageService.selectMyInfo(memNo);
+    	MemberPositionDto myInfo = myPageService.selectMyInfo(memNo);
     	
     	// 내 프로필 사진
     	Profile myProfile = myPageService.selectMyProfile(memNo);
@@ -77,7 +78,7 @@ public class MyPageController {
     	int myMatchWinCount = myPageService.selectMyMatchWinCount(memNo);
     	
     	// 내 구단
-    	ArrayList<Team> myTeam = myPageService.selectMyTeam(memNo);
+    	ArrayList<MyTeamDto> myTeam = myPageService.selectMyTeam(memNo);
     	
     	// 내 구단 입단 명단
     	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
@@ -141,8 +142,8 @@ public class MyPageController {
     @RequestMapping("getTeamInfo.mp")
     @ResponseBody
     public Map<String, Object> getTeamInfo(@RequestParam int teamANo, @RequestParam int teamBNo) {
-        ArrayList<MemberPosition> aTeamInfo = myPageService.selectATeamInfo(teamANo);
-        ArrayList<MemberPosition> bTeamInfo = myPageService.selectBTeamInfo(teamBNo);
+        ArrayList<MemberPositionDto> aTeamInfo = myPageService.selectATeamInfo(teamANo);
+        ArrayList<MemberPositionDto> bTeamInfo = myPageService.selectBTeamInfo(teamBNo);
         
         // 데이터를 Map에 담아 JSON 형식으로 반환
         Map<String, Object> result = new HashMap<>();

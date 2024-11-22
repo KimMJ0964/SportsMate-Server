@@ -19,13 +19,14 @@ import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
-import com.kh.sportsmate.member.model.dto.MemberPosition;
+import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.mypage.model.dao.MyPageDao;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -46,13 +47,13 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	// 내 정보
 	@Override
-	public MemberPosition selectMyInfo(int memNo) {
+	public MemberPositionDto selectMyInfo(int memNo) {
 		return mypageDao.selectMyInfo(sqlSession, memNo);
 	}
 	
 	// 내 구단
 	@Override
-	public ArrayList<Team> selectMyTeam(int memNo) {
+	public ArrayList<MyTeamDto> selectMyTeam(int memNo) {
 		return mypageDao.selectMyTeam(sqlSession, memNo);
 	}
 
@@ -80,12 +81,12 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 	@Override
-	public ArrayList<MemberPosition> selectATeamInfo(int teamANo) {
+	public ArrayList<MemberPositionDto> selectATeamInfo(int teamANo) {
 		return mypageDao.selectATeamInfo(sqlSession, teamANo);
 	}
 
 	@Override
-	public ArrayList<MemberPosition> selectBTeamInfo(int teamBNo) {
+	public ArrayList<MemberPositionDto> selectBTeamInfo(int teamBNo) {
 		return mypageDao.selectBTeamInfo(sqlSession, teamBNo);
 	}
 

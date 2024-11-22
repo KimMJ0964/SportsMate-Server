@@ -72,7 +72,14 @@
 				 <c:if test="${comments.comParentNo == 0}">    
 		        <div class="bd-one-comment-container">
 		            <div class="bd-comment-info">
-		                <img class="bd-comment-profile-img" src="${comments.filePath}${comments.changeName}" />
+		                <c:choose>
+									    <c:when test="${not empty comments.changeName}">
+									        <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/userProFile/${comments.changeName}" />
+									     </c:when>
+							    <c:otherwise>
+									    <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" />
+								</c:otherwise>
+							</c:choose>
 		                <div class="bd-name">${comments.memName}</div>
 		            </div>
 		            <div class="bd-comment-content">
@@ -101,7 +108,14 @@
                           <!-- Check if this is a reply to the current parent comment -->
                           <c:if test="${reply.comParentNo == comments.comNo}">
                               <div class="bd-reply">
-                                  <img class="bd-comment-profile-img" src="${reply.filePath}${reply.changeName}" />
+                                  <c:choose>
+									        <c:when test="${not empty reply.changeName}">
+									           <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/userProFile/${reply.changeName}" />
+									        </c:when>
+									        <c:otherwise>
+									           <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" />
+									        </c:otherwise>
+									</c:choose>
                                   <div class="bd-name">${reply.memName}</div>
                               </div>
                               <div class="bd-comment-content">

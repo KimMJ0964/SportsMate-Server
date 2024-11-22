@@ -53,7 +53,17 @@ function toggleHeight(event) {
 	            const abl = this.getAttribute('data-abl');
 	            const posi = this.getAttribute('data-posi');
 	            const intro = this.getAttribute('data-intro');
-	            
+	            const profile = this.getAttribute('data-profile');
+	            const context = this.getAttribute('data-context');
+				
+	            if (!profile) {
+		            console.log("프로필명이 없습니다");
+					document.getElementById('my-modal-join-profile-image').src = context + "/resources/images/user_default_profile.png";
+		        } else {
+		            console.log("프로필명 : " + profile);
+		            document.getElementById('my-modal-join-profile-image').src = context + "/resources/images/userProFile/" + profile;
+       			}
+	      		      
 	            const genderText = gender === 'M' ? '남자' : gender === 'F' ? '여자' : gender;
 	            
 	            // 모달 내용 업데이트
