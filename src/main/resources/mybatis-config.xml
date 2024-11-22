@@ -11,8 +11,6 @@
     </settings>
 
     <typeAliases>
-		<!-- Team -->
-		<typeAlias type="com.kh.sportsmate.team.model.vo.Team" alias="Team"/>
         <!-- common -->
 
         <!-- Member -->
@@ -23,6 +21,8 @@
         <typeAlias type="com.kh.sportsmate.member.model.vo.Category" alias="LoginLog"/>
         <typeAlias type="com.kh.sportsmate.admin.model.dto.ChartDateDto" alias="ChartDateDto"/>
         <typeAlias type="com.kh.sportsmate.admin.model.vo.MemberPenalty" alias="MemberPenalty"/>
+        <typeAlias type="com.kh.sportsmate.member.model.dto.MemberEnrollDto" alias="MemberEnrollDto"/>
+
         <!-- Match -->
         <typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
 

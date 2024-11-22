@@ -1,5 +1,7 @@
 package com.kh.sportsmate.common.mail.service;
 
+import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
+
 /**
  * packageName    : com.kh.sportsmate.common.mail.service
  * fileName       : MailService
@@ -18,4 +20,5 @@ public interface MailService {
     // 인증번호 검증
     boolean checkAuthCode(String email, String inputAuthCode);
 
+    boolean tmpPwdIssue(String encPwd, String email);
 }

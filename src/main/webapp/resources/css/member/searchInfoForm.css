@@ -1,0 +1,69 @@
+#enroll-wrap {
+    /*width: 40%;*/
+    width: 480px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: auto;
+}
+.enroll-form {
+    width: 100%;
+}
+.enroll-form > div {
+    margin: 20px 0px;
+}
+.form-title{
+    font-size: 20px;
+}
+.birth-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.year-wrap, .month-wrap, .day-wrap {
+    width: 30%;
+    height: 50px;
+}
+.enroll-form input[type='text'],
+.enroll-form input[type='email'],
+.enroll-form input[type='number'],
+.enroll-form select {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    background-color: #F1F3F5;
+    font-size: 16px;
+    padding: 10px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.split-bar {
+    width: 100%;
+    border-bottom: 2px solid lightgray;
+}
+select option:nth-child(1) {
+    color: #757575;
+}
+.title{
+    font-size: 23px;
+    font-weight: 700;
+    align-self: flex-start;
+    margin: 20px 0px 10px 0px;
+}
+.submit-btn{
+    width: 100%;
+    height: 65px;
+    border-radius: 8px;
+    border: none;
+    background-color: #307DFA;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+}
