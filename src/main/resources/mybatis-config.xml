@@ -59,6 +59,7 @@
      	<typeAlias type="com.kh.sportsmate.match.model.vo.MatchBest" alias="MatchBest"/>
      	<typeAlias type="com.kh.sportsmate.match.model.vo.MatchQna" alias="MatchQna"/>
         <typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
+        <typeAlias type="com.kh.sportsmate.match.model.dto.MyMatch" alias="MyMatch"/>
 
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>

@@ -1,4 +1,4 @@
-package com.kh.sportsmate.match.model.vo;
+package com.kh.sportsmate.match.model.dto;
 
 import java.sql.Date;
 
@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Match {
+public class MyMatch {
 	private int matchNo;
 	private int stadiumNo;
 	private int teamANo;
@@ -21,4 +21,11 @@ public class Match {
 	private Date reservStart;
 	private Date reservEnd;
 	private Date accessDate;
+	
+	private String teamAName;
+	private String teamBName;
+	private int matchCount;
+	private int winCount;
+	private String teamAProfile;
+	private String teamBProfile;
 }

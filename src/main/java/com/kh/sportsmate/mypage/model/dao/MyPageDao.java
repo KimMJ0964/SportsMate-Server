@@ -11,6 +11,7 @@ import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
@@ -41,7 +42,7 @@ public class MyPageDao {
 	}
 
 	// 내 전적
-	public ArrayList<Match> selectMyMatch(SqlSessionTemplate sqlSession, int memNo) {
+	public ArrayList<MyMatch> selectMyMatch(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyMatch", memNo);
 	}
 

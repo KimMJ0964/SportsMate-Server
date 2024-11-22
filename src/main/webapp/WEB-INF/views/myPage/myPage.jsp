@@ -95,12 +95,12 @@
 					<c:forEach var="mm" items="${myMatch}">
 						<div class="match-info">
 							<div class="team red">
-								<span>${mm.teamAName }</span>
+								<span><img src="${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamAProfile }}" class="mypage-profile-img" alt="User Profile" /></span>
 								<p>${mm.teamAName }</p>
 							</div>
 							<div class="score">${mm.scoreA} : ${mm.scoreB}</div>
 							<div class="team blue">
-								<span>${mm.teamBName }</span>
+								<span><img src="${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamBProfile }}" class="mypage-profile-img" alt="User Profile" /></span>
 								<p>${mm.teamBName }</p>
 							</div>
 							<img class="bestplayer-btn" src="resources/images/User_vote.png"

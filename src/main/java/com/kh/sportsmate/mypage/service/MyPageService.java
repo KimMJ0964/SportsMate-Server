@@ -9,6 +9,7 @@ import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
 import com.kh.sportsmate.member.model.dto.MemberPosition;
@@ -24,7 +25,7 @@ public interface MyPageService {
     MemberPosition selectMyInfo(int memNo);
     
     // 내 전적
-    ArrayList<Match> selectMyMatch(int memNo);
+    ArrayList<MyMatch> selectMyMatch(int memNo);
     
     // 내 프로필 사진
     Profile selectMyProfile(int memNo);
