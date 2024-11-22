@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -119,8 +120,42 @@ public class Template {
         return res.toString();
     }
 
-    // 인증 코드 생성
+    // 인증 코드 생성(6자리)
     public static String creatAuthCode() {
         return String.valueOf((int)(Math.random() * (900000)) + 100000);
+    }
+
+    /**
+     * 임시 비밀번호 생성
+     * @return 임시 비밀번호
+     */
+    public static String createTmpPwd(){
+        // 사용 가능한 문자
+        String upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lowerLetters = "abcdefghijklmnopqrstuvwxyz";
+        String digits = "0123456789";
+        String specialLetters = "!@#$%^&*";
+        String allChars = upperLetters + lowerLetters + digits + specialLetters;
+
+        SecureRandom rand = new SecureRandom();
+        StringBuilder pwd = new StringBuilder();
+
+        pwd.append(upperLetters.charAt(rand.nextInt(upperLetters.length())));
+        pwd.append(lowerLetters.charAt(rand.nextInt(lowerLetters.length())));
+        pwd.append(digits.charAt(rand.nextInt(digits.length())));
+        pwd.append(specialLetters.charAt(rand.nextInt(specialLetters.length())));
+
+        for (int i = 0; i < 6; i++) {
+            pwd.append(allChars.charAt(rand.nextInt(allChars.length())));
+        }
+        char[] chars = pwd.toString().toCharArray();
+        for (int i = chars.length -1; i > 0; i--) {
+            int j = rand.nextInt(i + 1);
+            // Swap characters
+            char temp = chars[i];
+            chars[i] = chars[j];
+            chars[j] = temp;
+        }
+        return new String(chars);
     }
 }

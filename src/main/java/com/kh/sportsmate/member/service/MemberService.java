@@ -31,4 +31,10 @@ public interface MemberService {
 
     // email 중복 검사
     int emailCheck(String email);
+
+    // email 찾기
+    String searchEmail(MemberEnrollDto memInfo);
+
+    // 임시 비밀번호로 비밀번호 수정
+    int updatePwd(MemberEnrollDto memInfo);
 }
