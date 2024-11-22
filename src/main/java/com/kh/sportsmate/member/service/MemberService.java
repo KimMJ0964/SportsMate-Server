@@ -20,11 +20,21 @@ import java.util.ArrayList;
  * 2024. 11. 7.        jun       최초 생성
  */
 public interface MemberService {
-    int insertMember(MemberEnrollDto m, Profile profile);
+    // 로그인
     Member loginMember(Member m);
 
+    // 사용자 회원가입
+    int insertMember(MemberEnrollDto m, Profile profile);
+
+    // 구장 관리자 회원가입
     int insertManagerMember(ManagerEnrollDto m, ArrayList<StadiumAttachment> stadiumAttachmentImgs);
 
     // email 중복 검사
     int emailCheck(String email);
+
+    // email 찾기
+    String searchEmail(MemberEnrollDto memInfo);
+
+    // 임시 비밀번호로 비밀번호 수정
+    int updatePwd(MemberEnrollDto memInfo);
 }

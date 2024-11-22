@@ -1,6 +1,7 @@
 package com.kh.sportsmate.member.service;
 
 import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
+
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,34 +54,38 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService {
+    private static final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
     private final SqlSessionTemplate sqlSession;
     private final MemberDao memberDao;
     private final StadiumDao stadiumDao;
     private final AttachmentDao attachmentDao;
+
     /**
      * 로그인한 멤버 정보 (R)
+     *
      * @param m
      * @return
      */
     @Override
     public Member loginMember(Member m) {
-    	int result = 1;
-    	Member loginUser = memberDao.loginMember(sqlSession,m);
-    	
-    	if(loginUser != null) {
-    		//로그인 로그 객체 추가
-        	LoginLog loginLog = new LoginLog();
-        	loginLog.setMemNo(loginUser.getMemNo());
+        int result = 1;
+        Member loginUser = memberDao.loginMember(sqlSession, m);
 
-        	// 로그인 기록 추가
-        	result = memberDao.loginLog(sqlSession, loginLog);
-    	}
+        if (loginUser != null) {
+            //로그인 로그 객체 추가
+            LoginLog loginLog = new LoginLog();
+            loginLog.setMemNo(loginUser.getMemNo());
+
+            // 로그인 기록 추가
+            result = memberDao.loginLog(sqlSession, loginLog);
+        }
 
         return loginUser;
     }
 
     /**
      * 일반 사용자 회원가입
+     *
      * @param m
      * @param profile
      * @return
@@ -93,7 +100,7 @@ public class MemberServiceImpl implements MemberService {
         String memBirth = m.getYear() + "." + m.getMonth() + "." + m.getDay(); // 생년월일 concatenate
         String memPhone = m.getPhone1() + "-" + m.getPhone2() + "-" + m.getPhone3(); // 전화번호
         Member processedMember = new Member(m.getMemEmail(), m.getMemPwd(), m.getMemName(),
-                m.getMemGender(), m.getMemberZipcode(),memAdd, memBirth, memPhone, "Y");
+                m.getMemGender(), m.getMemberZipcode(), memAdd, memBirth, memPhone, "Y");
         result1 = memberDao.insertMember(sqlSession, processedMember);
 
         System.out.println("memNo : " + processedMember.getMemNo());
@@ -105,7 +112,8 @@ public class MemberServiceImpl implements MemberService {
         // 종목 관련 내용을 담을 객체
         Category c = new Category(processedMember.getMemNo(),
                 m.getSoccerPosition(), m.getSoccerSkill(), m.getFutsalPosition(),
-                m.getFutsalSkill(), m.getBasketballPosition(), m.getBasketballSkill(), m.getBasketballPosition(), m.getBasketballSkill());
+                m.getFutsalSkill(), m.getBasketballPosition(), m.getBasketballSkill(),
+                m.getBaseballPosition(), m.getBaseballSkill());
         System.out.println(c);
         result3 = memberDao.insertCategory(sqlSession, c);
         return result1 * result2 * result3;
@@ -113,6 +121,7 @@ public class MemberServiceImpl implements MemberService {
 
     /**
      * 구장 관리자 회원가입 및 구장 등록
+     *
      * @param m
      * @param stadiumAttachmentImgs
      * @return
@@ -134,7 +143,7 @@ public class MemberServiceImpl implements MemberService {
 
         // 멤버 객체 생성
         Member processedMember = new Member(m.getMemEmail(), m.getMemPwd(), m.getMemName(),
-                m.getMemGender(),m.getMemberZipcode() ,memAdd, memBirth, memPhone, "M");
+                m.getMemGender(), m.getMemberZipcode(), memAdd, memBirth, memPhone, "M");
         result1 = memberDao.insertMember(sqlSession, processedMember);
 
         // 구장 객체 생성
@@ -208,8 +217,48 @@ public class MemberServiceImpl implements MemberService {
         return result1 * result2 * result3 * result4 * result5;
     }
 
+    /**
+     * 이메일 중복 확인
+     * @param email
+     * @return
+     */
     @Override
     public int emailCheck(String email) {
         return memberDao.selectEmail(sqlSession, email);
+    }
+
+    /**
+     * 이메일 찾기
+     * @param memInfo 기본 정보(memName, memBirth)
+     * @return
+     */
+    @Override
+    public String searchEmail(MemberEnrollDto memInfo) {
+        String memBirth = memInfo.getYear() + "." + memInfo.getMonth() + "." + memInfo.getDay(); // 생년월일 concatenate
+        Member m = new Member();
+        m.setMemName(memInfo.getMemName());
+        m.setMemBirth(memBirth);
+        String email = memberDao.searchEmail(sqlSession, m);
+        if(email != null){
+            int atIndex = email.indexOf('@');
+            String id = email.substring(0, atIndex);
+            String domain = email.substring(atIndex);
+            int middle = id.length() / 2;
+            String maskedEmail = id.substring(0, middle -1) + "**" + id.substring(middle + 1)
+                    + domain;
+            log.info("마스킹 이메일 : {}",maskedEmail);
+            return maskedEmail;
+        }
+        return null;
+    }
+
+    /**
+     * 임시 비밀번호로 비밀번호 수정
+     * @param memInfo 기본 정보(memEmail, memName)
+     * @return Update 성공 여부
+     */
+    @Override
+    public int updatePwd(MemberEnrollDto memInfo) {
+        return memberDao.updatePwd(sqlSession,memInfo);
     }
 }
