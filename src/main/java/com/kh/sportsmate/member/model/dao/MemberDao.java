@@ -1,5 +1,6 @@
 package com.kh.sportsmate.member.model.dao;
 
+import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -43,9 +44,6 @@ public class MemberDao {
      * @param profile
      * @return
      */
-//    public int insertProfile(SqlSessionTemplate sqlSession, Profile profile){
-//        return sqlSession.insert("memberMapper.insertProfile", profile);
-//    }
 
     /***
      * 종목 입력 정보 Insert
@@ -69,5 +67,11 @@ public class MemberDao {
     
     public int selectEmail(SqlSessionTemplate sqlSession, String email){
         return sqlSession.selectOne("memberMapper.selectEmail", email);
+    }
+    public String searchEmail(SqlSessionTemplate sqlSession, Member m){
+        return sqlSession.selectOne("memberMapper.searchEmail", m);
+    }
+    public int updatePwd(SqlSessionTemplate sqlSession, MemberEnrollDto memInfo){
+        return sqlSession.update("memberMapper.updatePwd", memInfo);
     }
 }

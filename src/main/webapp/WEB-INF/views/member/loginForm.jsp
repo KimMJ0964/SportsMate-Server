@@ -33,7 +33,7 @@
                 </div>
                 <div class="find-info-wrap">
                     <div class="find-info">
-                        <a href="#">아이디/비밀번호 찾기</a>
+                        <a href="searchInfo.me">아이디/비밀번호 찾기</a>
                     </div>
                     <div class="enroll-member">
                         <a href="enrollSelect.me">회원가입</a>

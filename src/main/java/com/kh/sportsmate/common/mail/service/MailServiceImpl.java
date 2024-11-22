@@ -2,6 +2,7 @@ package com.kh.sportsmate.common.mail.service;
 
 import com.kh.sportsmate.common.redis.service.RedisService;
 import com.kh.sportsmate.common.template.Template;
+import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -79,5 +80,36 @@ public class MailServiceImpl implements MailService{
             return true;
         }
         return false;
+    }
+
+    /**
+     * 임시 비밀번호 이메일 전송
+     * @param encPwd 임시 비밀번호
+     * @param email 임시 비밀번호 발급 대상 이메일
+     * @return 전송 성공/실패 여부
+     */
+    @Override
+    public boolean tmpPwdIssue(String encPwd, String email) {
+        try {
+            MimeMessage message = sender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
+
+            helper.setSubject("SportsMate 이메일 인증");
+            helper.setTo(email);
+
+            // HTML 내용 설정
+            String body = "<h3>발급된 임시 비밀번호 입니다.</h3>";
+            body += "<h1>" + encPwd + "</h1>";
+            body += "<h5>발급된 임시 비밀번호를 꼭 수정해주시기 바랍니다.</h5>";
+            body += "<h3>감사합니다.</h3>";
+
+            helper.setText(body, true); // true로 설정하면 HTML로 처리
+
+            sender.send(message);
+            return true;
+        } catch (MailException | MessagingException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
