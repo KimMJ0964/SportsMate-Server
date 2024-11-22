@@ -18,7 +18,6 @@
 		SELECT
 			t.TEAM_NO as teamNo,
 			t.TEAM_NAME as teamName,
-<!--			t.ACTIVITY_AREA as activityArea,-->
 			a.AREA_NAME as activityArea,
 			pf.FILE_PATH as filePath,
 			pf.CHANGE_NAME as changeName,
@@ -43,7 +42,6 @@
 		GROUP BY
 			t.TEAM_NO,
 			t.TEAM_DESCRIPTION,
-<!--			t.ACTIVITY_AREA,-->
 			a.AREA_NAME,
 			pf.FILE_PATH,
 			pf.CHANGE_NAME
@@ -64,7 +62,6 @@
 			t.TEAM_NAME as teamName,
 			t.TEAM_CATEGORY as teamCategory,
 			COUNT(tm.MEM_NO) AS memberCount,
-<!--			t.ACTIVITY_AREA as activityArea,-->
 			a.AREA_NAME as activityArea,
 			t.TEAM_DESCRIPTION as teamDescription,
 			pf.CHANGE_NAME as teamProfileChangeName,

@@ -5,46 +5,34 @@
 
 <!-- !namespace : 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="memberMapper">
-    <!--    <resultMap id="memberResultSet" type="Member">-->
-    <!--        &lt;!&ndash;        <result column="테이블 컬럼명" property="객체의 필드"/>&ndash;&gt;-->
-    <!--        <result column="user_ID" property="userId"/>-->
-    <!--        <result column="USER_PWD" property="userPwd"/>-->
-    <!--        <result column="USER_NAME" property="userName"/>-->
-    <!--        <result column="EMAIL" property="email"/>-->
-    <!--        <result column="AGE" property="age"/>-->
-    <!--        <result column="GENDER" property="gender"/>-->
-    <!--        <result column="PHONE" property="phone"/>-->
-    <!--        <result column="ADDRESS" property="address"/>-->
-    <!--        <result column="ENROLL_DATE" property="enrollDate"/>-->
-    <!--        <result column="MODIFY_DATE" property="modifyDate"/>-->
-    <!--        <result column="STATUS" property="status"/>-->
-    <!--    </resultMap>-->
-    
-   
-    
-    <!-- Select -->
+
+    <!-- SELECT -->
+    <!-- 로그인 -->
     <select id="loginMember" parameterType="Member" resultType="Member">
         select MEM_NO as memNo,
-            MEM_EMAIL as memEmail,
-            MEM_PWD as memPwd,
-            MEM_NAME as memName,
-            MEM_ZIPCODE as memZipcode,
-            MEM_ADD as memAdd,
-            MEM_GENDER as memGender,
-            MEM_PHONE as memPhone,
-            MEM_STATUS as memStatus,
-            MEM_RANK as memRank,
-            MEM_ENROLL_DATE as memEnrollDate,
-            MEM_BIRTH as memBirth
+        MEM_EMAIL as memEmail,
+        MEM_PWD as memPwd,
+        MEM_NAME as memName,
+        MEM_ZIPCODE as memZipcode,
+        MEM_ADD as memAdd,
+        MEM_GENDER as memGender,
+        MEM_PHONE as memPhone,
+        MEM_STATUS as memStatus,
+        MEM_RANK as memRank,
+        MEM_ENROLL_DATE as memEnrollDate,
+        MEM_BIRTH as memBirth
         from member
         where MEM_EMAIL = #{memEmail}
-            and MEM_STATUS in('Y','M','A')
+        and MEM_STATUS in('Y','M','A')
     </select>
+    <!-- 이메일 중복 검사 -->
     <select id="selectEmail" parameterType="String" resultType="_int">
         select count(*)
         from MEMBER
         WHERE MEM_EMAIL = #{email}
     </select>
+
+    <!-- 사용자 회원가입 -->
     <insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="memNo">
         INSERT INTO MEMBER(
         MEM_EMAIL,
@@ -68,30 +56,17 @@
         #{memStatus}
         )
     </insert>
-<!--    <insert id="insertProfile" parameterType="Profile">-->
-<!--        INSERT into PROFILE_FILE(-->
-<!--        <if test="memNo > 0">-->
-<!--            mem_no,-->
-<!--        </if>-->
-<!--        <if test="teamNo > 0">-->
-<!--            team_no,-->
-<!--        </if>-->
-<!--        ORIGIN_NAME,-->
-<!--        CHANGE_NAME,-->
-<!--        FILE_PATH-->
-<!--        )-->
-<!--        values(-->
-<!--        <if test="memNo > 0">-->
-<!--            #{memNo},-->
-<!--        </if>-->
-<!--        <if test="teamNo > 0">-->
-<!--            #{teamNo},-->
-<!--        </if>-->
-<!--        #{originName},-->
-<!--        #{changeName},-->
-<!--        #{filePath}-->
-<!--        )-->
-<!--    </insert>-->
+    
+    <!-- 이메일 찾기 -->
+    <select id="searchEmail" parameterType="Member" resultType="String">
+        select mem_email
+        from member
+        where mem_name = #{memName}
+        and mem_birth = #{memBirth}
+    </select>
+
+    <!-- INSERT -->
+    <!-- 사용자 포지션, 실력 생성 -->
     <insert id="insertCategory" parameterType="Category">
         insert into category(
         <trim suffixOverrides=",">
@@ -119,21 +94,23 @@
         </trim>
         )
     </insert>
+
     <select id="selectLog" parameterType="LoginLog" resultType="LoginLog">
         select MEM_NO as memNo,
-            LOGIN_DATE AS loginLog
+        LOGIN_DATE AS loginLog
         from login_log
         where MEM_NO = #{memNo} AND DATE_FORMAT(LOGIN_DATE, '%Y/%m/%d') = DATE_FORMAT(SYSDATE(), '%Y/%m/%d')
     </select>
+
     <insert id="insertLog" parameterType="LoginLog">
-    	insert into login_log(
-    	MEM_NO,
-    	LOGIN_DATE
-    	)
-    	VALUES(
-    	#{memNo},
-    	SYSDATE()
-    	)
+        insert into login_log(
+        MEM_NO,
+        LOGIN_DATE
+        )
+        VALUES(
+        #{memNo},
+        SYSDATE()
+        )
     </insert>
     
     <!-- 마이페이지 -->
@@ -370,65 +347,73 @@
     	AND MEM_NO = #{memNo}
     </select>
     
+
     <!-- UPDATE -->
     <!-- 내 정보 수정 -->
     <update id="modifyMember" parameterType="Member">
-	    UPDATE MEMBER
-	    SET 
-	        MEM_EMAIL = #{memEmail},
-	        MEM_NAME = #{memName},
-	        MEM_GENDER = #{memGender},
-	        MEM_ZIPCODE = #{memZipcode},
-	        MEM_ADD = #{memAdd},
-	        MEM_BIRTH = #{memBirth},
-	        MEM_PHONE = #{memPhone},
-	        MEM_STATUS = #{memStatus}
-	    WHERE MEM_NO = #{memNo}
-	</update>
-	
-	<update id="modifyProfile" parameterType="Profile">
-	    UPDATE PROFILE_FILE
-	    <set>
-	        <if test="memNo > 0">
-	            MEM_NO = #{memNo},
-	        </if>
-	        <if test="teamNo > 0">
-	            TEAM_NO = #{teamNo},
-	        </if>
-	        ORIGIN_NAME = #{originName},
-	        CHANGE_NAME = #{changeName},
-	        FILE_PATH = #{filePath}
-	    </set>
-	    WHERE MEM_NO = #{memNo} <!-- 반드시 Primary Key에 해당하는 조건 추가 -->
-	</update>
-	
-	<update id="modifyCategory" parameterType="Category">
-	    UPDATE CATEGORY
-	    <set>
-	        <if test="socPosition != null">SOC_POSI = #{socPosition},</if>
-	        <if test="socSkill != null">SOC_ABILITY = #{socSkill},</if>
-	        <if test="futPosition != null">FOOT_POSI = #{futPosition},</if>
-	        <if test="futSkill != null">FOOT_ABILITY = #{futSkill},</if>
-	        <if test="basketPosition != null">BASKET_POSI = #{basketPosition},</if>
-	        <if test="basketSkill != null">BASKET_ABILITY = #{basketSkill},</if>
-	        <if test="basePosition != null">BASE_POSI = #{basePosition},</if>
-	        <if test="baseSkill != null">BASE_ABILITY = #{baseSkill}</if>
-	    </set>
-	    WHERE MEM_NO = #{memNo}
-	</update>
-	
+        UPDATE MEMBER
+        SET
+        MEM_EMAIL = #{memEmail},
+        MEM_NAME = #{memName},
+        MEM_GENDER = #{memGender},
+        MEM_ZIPCODE = #{memZipcode},
+        MEM_ADD = #{memAdd},
+        MEM_BIRTH = #{memBirth},
+        MEM_PHONE = #{memPhone},
+        MEM_STATUS = #{memStatus}
+        WHERE MEM_NO = #{memNo}
+    </update>
+
+    <update id="modifyProfile" parameterType="Profile">
+        UPDATE PROFILE_FILE
+        <set>
+            <if test="memNo > 0">
+                MEM_NO = #{memNo},
+            </if>
+            <if test="teamNo > 0">
+                TEAM_NO = #{teamNo},
+            </if>
+            ORIGIN_NAME = #{originName},
+            CHANGE_NAME = #{changeName},
+            FILE_PATH = #{filePath}
+        </set>
+        WHERE MEM_NO = #{memNo} <!-- 반드시 Primary Key에 해당하는 조건 추가 -->
+    </update>
+
+    <update id="modifyCategory" parameterType="Category">
+        UPDATE CATEGORY
+        <set>
+            <if test="socPosition != null">SOC_POSI = #{socPosition},</if>
+            <if test="socSkill != null">SOC_ABILITY = #{socSkill},</if>
+            <if test="futPosition != null">FOOT_POSI = #{futPosition},</if>
+            <if test="futSkill != null">FOOT_ABILITY = #{futSkill},</if>
+            <if test="basketPosition != null">BASKET_POSI = #{basketPosition},</if>
+            <if test="basketSkill != null">BASKET_ABILITY = #{basketSkill},</if>
+            <if test="basePosition != null">BASE_POSI = #{basePosition},</if>
+            <if test="baseSkill != null">BASE_ABILITY = #{baseSkill}</if>
+        </set>
+        WHERE MEM_NO = #{memNo}
+    </update>
+
     <!-- 비밀변경 수정 -->
     <update id="updatePassword">
-	    UPDATE MEMBER
-	    SET MEM_PWD = #{encodedNewPassword}
-	    WHERE MEM_NO = #{memNo}
+        UPDATE MEMBER
+        SET MEM_PWD = #{encodedNewPassword}
+        WHERE MEM_NO = #{memNo}
     </update>
-    
+
     <!-- 계정 탈퇴 -->
     <update id="accountCancel">
-    	UPDATE MEMBER
-	    SET MEM_STATUS = 'N'
-	    WHERE MEM_NO = #{memNo}
+        UPDATE MEMBER
+        SET MEM_STATUS = 'N'
+        WHERE MEM_NO = #{memNo}
     </update>
-    
+
+    <!-- 임시 비밀번호 저장 -->
+    <update id="updatePwd" parameterType="MemberEnrollDto">
+        UPDATE MEMBER
+        SET MEM_PWD = #{memPwd}
+        WHERE MEM_EMAIL = #{memEmail}
+        and MEM_NAME = #{memName}
+    </update>
 </mapper>
