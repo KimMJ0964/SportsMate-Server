@@ -29,12 +29,16 @@ public class StadiumSearch {
     private String status; // 구장 상태
     private String selectedDate; // 날짜 가져오기
 
-    public StadiumSearch(String stadiumName, String stadiumCategory, Time stadiumStartTime, Time stadiumEndTime, String selectedDate) {
+    public StadiumSearch(String stadiumName, String stadiumAdd, double stadiumScore, String stadiumCategory, 
+    		Time stadiumStartTime, Time stadiumEndTime, String selectedDate, String status) {
     	this.stadiumName = stadiumName;
+    	this.stadiumAdd = stadiumAdd;
+    	this.stadiumScore = stadiumScore;
     	this.stadiumCategory = stadiumCategory;
     	this.stadiumStartTime = stadiumStartTime;
     	this.stadiumEndTime = stadiumEndTime;
     	this.selectedDate = selectedDate;
+    	this.status = status;
     }
 
 }

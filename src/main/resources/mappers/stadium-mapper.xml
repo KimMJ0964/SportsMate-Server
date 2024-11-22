@@ -246,9 +246,11 @@
 	   STADIUM_ADDRESS as stadiumAddress,
 	   STADIUM_NAME as stadiumName,
 	   STADIUM_SCORE as stadiumScore,
-	   STADIUM_CATEGORY as stadiumCategory
+	   STADIUM_CATEGORY as stadiumCategory,
+	   STADIUM_START_TIME as stadiumStartTime,
+       STADIUM_END_TIME as stadiumEndTime
 	FROM STADIUM
-	WHERE 
+	WHERE STATUS = 'Y' <!-- 구장 상태 활성화 조건 -->
     	STADIUM_NAME = #{stadiumName}
     AND STADIUM_CATEGORY = #{stadiumCategory}
     AND STADIUM_START_TIME = #{stadiumStartTime}

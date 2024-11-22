@@ -96,6 +96,7 @@
                                     <!-- 스포츠 종류 선택(20%) -->
                                     <div class="type-select-group">
                                         <select class="form-select" name="stadiumCategory">
+                                        	<option value="전체">전체</option>
                                             <option value="축구">축구</option>
                                             <option value="풋살">풋살</option>
                                             <option value="야구">야구</option>
@@ -117,25 +118,25 @@
                                         <img src="${pageContext.request.contextPath}/resources/images/time.png" alt="시간 아이콘" class="icon">
                                         <select class="form-select" name="stadiumStartTime">
                                             <option>시간을 선택해주세요.</option>
-                                            <option value="08:00:00">08:00</option>
-                                            <option value="10:00:00">10:00</option>
-                                            <option value="12:00:00">12:00</option>
-                                            <option value="14:00:00">14:00</option>
-                                            <option value="16:00:00">16:00</option>
-                                            <option value="18:00:00">18:00</option>
-                                            <option value="20:00:00">20:00</option>
-                                            <option value="22:00:00">22:00</option>
+                                            <option value="08:00:00" ${stadiumStartTime == '08:00:00' ? 'selected' : ''}>08:00</option>
+                                            <option value="10:00:00" ${stadiumStartTime == '10:00:00' ? 'selected' : ''}>10:00</option>
+                                            <option value="12:00:00" ${stadiumStartTime == '12:00:00' ? 'selected' : ''}>12:00</option>
+                                            <option value="14:00:00" ${stadiumStartTime == '14:00:00' ? 'selected' : ''}>14:00</option>
+                                            <option value="16:00:00" ${stadiumStartTime == '16:00:00' ? 'selected' : ''}>16:00</option>
+                                            <option value="18:00:00" ${stadiumStartTime == '18:00:00' ? 'selected' : ''}>18:00</option>
+                                            <option value="20:00:00" ${stadiumStartTime == '20:00:00' ? 'selected' : ''}>20:00</option>
+                                            <option value="22:00:00" ${stadiumStartTime == '22:00:00' ? 'selected' : ''}>22:00</option>
                                         </select>
                                         <select class="form-select" name="stadiumEndTime">
                                         	<option>시간을 선택해주세요.</option>
-                                            <option value="10:00:00">10:00</option>
-                                            <option value="12:00:00">12:00</option>
-                                            <option value="14:00:00">14:00</option>
-                                            <option value="16:00:00">16:00</option>
-                                            <option value="18:00:00">18:00</option>
-                                            <option value="20:00:00">20:00</option>
-                                            <option value="22:00:00">22:00</option>
-                                            <option value="24:00:00">24:00</option>
+                                            <option value="10:00:00" ${stadiumEndTime == '10:00:00' ? 'selected' : ''}>10:00</option>
+                                            <option value="12:00:00" ${stadiumEndTime == '12:00:00' ? 'selected' : ''}>12:00</option>
+                                            <option value="14:00:00" ${stadiumEndTime == '14:00:00' ? 'selected' : ''}>14:00</option>
+                                            <option value="16:00:00" ${stadiumEndTime == '16:00:00' ? 'selected' : ''}>16:00</option>
+                                            <option value="18:00:00" ${stadiumEndTime == '18:00:00' ? 'selected' : ''}>18:00</option>
+                                            <option value="20:00:00" ${stadiumEndTime == '20:00:00' ? 'selected' : ''}>20:00</option>
+                                            <option value="22:00:00" ${stadiumEndTime == '22:00:00' ? 'selected' : ''}>22:00</option>
+                                            <option value="24:00:00" ${stadiumEndTime == '24:00:00' ? 'selected' : ''}>24:00</option>
                                         </select>
                                     </div>
                                 </div>

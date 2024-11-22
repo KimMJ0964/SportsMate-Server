@@ -37,7 +37,7 @@
         
         <div class="choice">
             <div class="mt-region-container">
-                <select class="mt-region">
+                <select class="mt-region" name="city">
                     <option value="전체">전체</option>
                     <option value="서울">서울</option>
                     <option value="부산">부산</option>
@@ -49,29 +49,32 @@
                     <option value="세종">세종</option>
                 </select>
             </div>
+            
             <div class="mt-start-container">
-                <select class="mt-starttime">
-                    <option value="00 : 00">00 : 00</option>
-                    <option value="02 : 00">02 : 00</option>
-                    <option value="04 : 00">04 : 00</option>
-                    <option value="06 : 00">06 : 00</option>
-                    <option value="08 : 00">08 : 00</option>
-                    <option value="10 : 00">10 : 00</option>
-                    <option value="12 : 00">12 : 00</option>
-                    <option value="14 : 00">14 : 00</option>
+                <select class="mt-starttime" name="stadiumStartTime">
+					<option>시간을 선택해주세요.</option>
+                    <option value="08:00:00" ${stadiumStartTime == '08:00:00' ? 'selected' : ''}>08:00</option>
+                    <option value="10:00:00" ${stadiumStartTime == '10:00:00' ? 'selected' : ''}>10:00</option>
+                    <option value="12:00:00" ${stadiumStartTime == '12:00:00' ? 'selected' : ''}>12:00</option>
+                    <option value="14:00:00" ${stadiumStartTime == '14:00:00' ? 'selected' : ''}>14:00</option>
+                    <option value="16:00:00" ${stadiumStartTime == '16:00:00' ? 'selected' : ''}>16:00</option>
+                    <option value="18:00:00" ${stadiumStartTime == '18:00:00' ? 'selected' : ''}>18:00</option>
+                    <option value="20:00:00" ${stadiumStartTime == '20:00:00' ? 'selected' : ''}>20:00</option>
+                    <option value="22:00:00" ${stadiumStartTime == '22:00:00' ? 'selected' : ''}>22:00</option>
                 </select>
             </div>
             <p>~</p>
             <div class="mt-end-container">
-                <select class="mt-endtime">
-                    <option value="00 : 00">00 : 00</option>
-                    <option value="02 : 00">02 : 00</option>
-                    <option value="04 : 00">04 : 00</option>
-                    <option value="06 : 00">06 : 00</option>
-                    <option value="08 : 00">08 : 00</option>
-                    <option value="10 : 00">10 : 00</option>
-                    <option value="12 : 00">12 : 00</option>
-                    <option value="14 : 00">14 : 00</option>
+                <select class="mt-endtime" name="stadiumEndTime">
+                	<option>시간을 선택해주세요.</option>
+                    <option value="10:00:00" ${stadiumEndTime == '10:00:00' ? 'selected' : ''}>10:00</option>
+                    <option value="12:00:00" ${stadiumEndTime == '12:00:00' ? 'selected' : ''}>12:00</option>
+                    <option value="14:00:00" ${stadiumEndTime == '14:00:00' ? 'selected' : ''}>14:00</option>
+                    <option value="16:00:00" ${stadiumEndTime == '16:00:00' ? 'selected' : ''}>16:00</option>
+                    <option value="18:00:00" ${stadiumEndTime == '18:00:00' ? 'selected' : ''}>18:00</option>
+                    <option value="20:00:00" ${stadiumEndTime == '20:00:00' ? 'selected' : ''}>20:00</option>
+                    <option value="22:00:00" ${stadiumEndTime == '22:00:00' ? 'selected' : ''}>22:00</option>
+                    <option value="24:00:00" ${stadiumEndTime == '24:00:00' ? 'selected' : ''}>24:00</option>
                 </select>
             </div>
         </div>
