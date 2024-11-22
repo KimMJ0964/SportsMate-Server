@@ -25,4 +25,5 @@ public class TeamMemberDto {
 	private String ability;
 	private String position;
 	private String memName;
+	private Date memBirth;
 }
