@@ -131,7 +131,7 @@ body {
         background-color: #fafafa;
     }
     
-    .board-pagination {
+    .pagination {
 	    display: flex;
 	    justify-content: center;
 	    margin: 20px 0;

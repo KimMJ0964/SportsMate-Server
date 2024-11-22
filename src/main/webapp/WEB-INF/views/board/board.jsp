@@ -11,6 +11,8 @@
 	rel="stylesheet">
 <link href="resources/css/board/board.css" rel="stylesheet" >
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 </style>
 </head>
@@ -72,33 +74,107 @@
 			        </table>
 			        
 			        <!-- 페이지네이션 -->
-				    <div class="board-pagination">
-			            <ul class="pagination">
-			            
-			            	<c:choose>
-			            		<c:when test="${ pi.currentPage eq 1 }">
-			            			<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-			            		</c:when>
-			            		<c:otherwise>
-			            			<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${pi.currentPage - 1}">이전</a></li>
-			            		</c:otherwise>
-			            	</c:choose>
-			
-							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-								<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${p}">${p}</a></li>
-							</c:forEach>
-			                
-			              <c:choose>
-			            		<c:when test="${ pi.currentPage eq pi.maxPage }">
-			            			<li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
-			            		</c:when>
-			            		<c:otherwise>
-			            			<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${pi.currentPage + 1}">다음</a></li>
-			            		</c:otherwise>
-			            	</c:choose>
-			            
-			            </ul>
-        			</div>
+				    <div id="pagenation">
+                        <nav>
+                            <ul class="pagination">
+                                <c:choose>
+                                    <c:when test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
+                                        <li class="page-item">
+                                            <a href="boardList.bd?cpage=1" class="page-link">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${pi.currentPage > 1}">
+                                        <li class="page-item">
+                                            <a href="boardList.bd?cpage=${pi.currentPage - 1}"
+                                                class="page-link">
+                                                <span aria-hidden="true">&lt;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&lt;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}" step="1">
+                                    <c:choose>
+                                        <c:when test="${page == pi.currentPage}">
+                                            <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="boardList.bd?cpage=${page}">${page}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${pi.currentPage < pi.maxPage}">
+                                        <li class="page-item">
+                                            <a href="boardList.bd?cpage=${pi.currentPage + 1}"
+                                                class="page-link">
+                                                <span aria-hidden="true">&gt;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&gt;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${pi.currentPage eq pi.maxPage}">
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:when test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
+                                        <li class="page-item">
+                                            <a href="boardList.bd?cpage=${pi.maxPage}"
+                                                class="page-link">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
+                                        <li class="page-item">
+                                            <a href="boardList.bd?cpage=${pi.currentPage + 1}"
+                                                class="page-link">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </nav>
+                    </div>
 				</div>
 				
 				<div class="board-app-table-container"> <!-- 앱일 때 출력 -->

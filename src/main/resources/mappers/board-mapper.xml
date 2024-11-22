@@ -174,25 +174,25 @@
 	<!-- 게시글 신고 -->
 	<insert id="commentReport">
 		INSERT INTO member_penalty (
-		MEM_NO,
-		PN_CONTENT,
-		REP_DATE,
-		PN_REPORTER,
-		PN_COMMUNITY,
-		PN_COMMENT,
-		PN_TYPE
+			MEM_NO,
+			PN_CONTENT,
+			REP_DATE,
+			PN_REPORTER,
+			PN_COMMUNITY,
+			PN_COMMENT,
+			PN_TYPE
 		)
 		VALUES (
-		#{reporterNo},
-		#{pnContent},
-		NOW(),
-		#{memNo},
-		#{boardNo},
-		#{comNo},
-		CASE
-		WHEN #{comNo} = 0 THEN 'COMMUNITY'
-		ELSE 'COMMENT'
-		END
+				#{reporterNo},
+				#{pnContent},
+				NOW(),
+				#{memNo},
+				#{boardNo},
+				#{comNo},
+			CASE
+				WHEN #{comNo} IS NULL THEN 'COMMUNITY'
+       			ELSE 'COMMENT'
+			END
 		)
 	</insert>
 	

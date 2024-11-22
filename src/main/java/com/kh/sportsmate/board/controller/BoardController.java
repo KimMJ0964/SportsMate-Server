@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.dto.BoardMemberPanalty;
 import com.kh.sportsmate.board.model.dto.CommentInfo;
@@ -24,6 +26,7 @@ import com.kh.sportsmate.board.service.BoardService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -60,7 +63,8 @@ public class BoardController {
 
 	// 게시글 상세 페이지로 이동
 	@RequestMapping("detailMove.bd")
-	public String detailList(int bno, Model model) {
+	public String detailList(int bno, Model model, HttpSession session) {
+		Member loginMember = (Member) session.getAttribute("loginMember");
 		Board board = boardService.detailList(bno);
 		ArrayList<CommentInfo> comment = boardService.commentList(bno);
 		int commentCount = boardService.commentCount(bno);
@@ -77,6 +81,7 @@ public class BoardController {
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("comment", comment);
 		model.addAttribute("board", board);
+		model.addAttribute("loginMember", loginMember);
 		return "board/boardDetail";
 	}
 
@@ -308,13 +313,16 @@ public class BoardController {
 		System.out.println(pnContent + " / " + boardNo + " / " + comNo + " / " + reporterNo);
 		if (loginMember != null) {
 			int memNo = loginMember.getMemNo();
+			
+			 String comNoValue = (comNo == 0) ? null : String.valueOf(comNo);
+		     String boardNoValue = (comNo == 0) ? String.valueOf(boardNo) : null;
 
-			Map<String, String> map = new HashMap<>();
-			map.put("pnContent", pnContent);
-			map.put("memNo", String.valueOf(memNo));
-			map.put("boardNo", String.valueOf(boardNo));
-			map.put("comNo", String.valueOf(comNo));
-			map.put("reporterNo", String.valueOf(reporterNo));
+		     Map<String, String> map = new HashMap<>();
+		     map.put("pnContent", pnContent);
+		     map.put("memNo", String.valueOf(memNo));
+		     map.put("boardNo", boardNoValue);
+		     map.put("comNo", comNoValue);
+		     map.put("reporterNo", String.valueOf(reporterNo));
 
 			int result1 = boardService.commentReport(map);
 
@@ -327,6 +335,7 @@ public class BoardController {
 		}
 	}
 	
+	// 대댓글
 	@RequestMapping("replyComment.bd")
 	public String replyComment(HttpSession session, int comParentNo, String pnContent, int boardNo) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -348,5 +357,22 @@ public class BoardController {
 			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
 			return "redirect:detailMove.bd?bno=" + boardNo;
 		}
+	}
+	
+	/**
+	 * SummerNote ajax 파일 요청
+	 */
+	@ResponseBody
+	@PostMapping("uploadFileSum.bd")
+	public String upload(List<MultipartFile> fileList, HttpSession session) {
+		System.out.println(fileList);
+		
+		List<String> changeNameList = new ArrayList<>();
+		for(MultipartFile f : fileList) {
+			changeNameList.add( Template.saveFile(f, session, "/resources/images/boardFile/"));
+			System.out.println("썸머노트 : " + changeNameList);
+		}
+		
+		return new Gson().toJson(changeNameList);
 	}
 }
