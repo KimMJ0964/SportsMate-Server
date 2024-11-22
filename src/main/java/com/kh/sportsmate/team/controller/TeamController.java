@@ -334,10 +334,10 @@ public class TeamController {
 
  	// 게시글 신고
  	@RequestMapping("boardReport.tm")
- 	public String boardReport(HttpSession session, String pnContent, int boardNo, int comNo, int reporterNo) {
+ 	public String boardReport(HttpSession session, String pnContent, int boardNo, int comNo, int reporterNo, int teamNo) {
  		Member loginMember = (Member) session.getAttribute("loginMember");
 
- 		System.out.println(pnContent + " / " + boardNo + " / " + comNo + " / " + reporterNo);
+ 		System.out.println(pnContent + " / " + boardNo + " / " + comNo + " / " + reporterNo + "teamNo : " + teamNo);
  		if (loginMember != null) {
  			int memNo = loginMember.getMemNo();
  			
@@ -350,7 +350,8 @@ public class TeamController {
  		     map.put("boardNo", boardNoValue);
  		     map.put("comNo", comNoValue);
  		     map.put("reporterNo", String.valueOf(reporterNo));
-
+ 		     map.put("teamNo", String.valueOf(teamNo));
+ 		     
  			int result1 = boardService.commentReport(map);
 
  			session.setAttribute("alertMsg", "신고 작성이 되었습니다.");

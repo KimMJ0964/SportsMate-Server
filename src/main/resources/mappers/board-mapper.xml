@@ -180,7 +180,8 @@
 			PN_REPORTER,
 			PN_COMMUNITY,
 			PN_COMMENT,
-			PN_TYPE
+			PN_TYPE,
+			PN_TEAM
 		)
 		VALUES (
 				#{reporterNo},
@@ -192,7 +193,8 @@
 			CASE
 				WHEN #{comNo} IS NULL THEN 'COMMUNITY'
        			ELSE 'COMMENT'
-			END
+			END,
+			#{teamNo}
 		)
 	</insert>
 	
