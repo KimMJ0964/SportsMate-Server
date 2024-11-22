@@ -83,6 +83,10 @@
                         <img src="${pageContext.request.contextPath}/resources/images/report-comment.png" alt="">댓글 신고
                         관리</a>
 
+                    <a href="adminReport.me?category=team" class="menu-item">
+                        <img src="${pageContext.request.contextPath}/resources/images/report-comment.png" alt="">팀 게시판 신고
+                        관리</a>
+
                     <a href="blockList.me" class="menu-item">
                         <img src="${pageContext.request.contextPath}/resources/images/block-user.png" alt="">차단 유저
                         관리</a>
