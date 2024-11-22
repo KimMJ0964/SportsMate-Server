@@ -277,4 +277,57 @@
 	    s.MEM_NO = #{memNo}
 	LIMIT 1;
 </select>
+
+<!-- 구장 정보 수정 -->
+    <update id="updateStadium" parameterType="StadiumDto">
+        UPDATE STADIUM
+        SET 
+            STADIUM_NAME = #{stadiumName},
+            STADIUM_ADDRESS = 
+				<if test="stadiumAdd != null and stadiumAdd != ''">
+                #{stadiumAdd}
+            	</if>,
+            STADIUM_ZIPCODE = #{stadiumZipcode},
+            STADIUM_PRICE = #{stadiumPrice},
+            STADIUM_CATEGORY = #{stadiumCategory},
+            STADIUM_START_TIME = #{stadiumStartTime},
+            STADIUM_END_TIME = #{stadiumEndTime}
+        WHERE STADIUM_NO = #{stadiumNo}
+    </update>
+
+    <!-- 편의시설 정보 수정 -->
+    <update id="updateAmenities" parameterType="Amenities">
+        UPDATE STADIUM_AM
+        SET 
+            TOILET = #{toilet},
+            SHOWER = #{shower},
+            SMOKE = #{smoke},
+            PARK = #{park},
+            DRINK = #{drink}
+        WHERE STADIUM_NO = #{stadiumNo}
+    </update>
+
+    <!-- 대여 시스템 정보 수정 -->
+    <update id="updateRental" parameterType="Rental">
+        UPDATE STADIUM_RENTAL
+        SET 
+            BALL = #{ball},
+            VEST = #{vest}
+        WHERE STADIUM_NO = #{stadiumNo}
+    </update>
+
+
+<!-- 구장 이미지  -->
+<select id="selectStadiumImages" parameterType="int" resultType="StadiumDto">
+    SELECT 
+        si.STADIUM_NO AS stadiumNo,
+        si.ORIGIN_NAME AS originName,
+        si.CHANGE_NAME AS changeName,
+        si.FILE_PATH AS filePath,
+        si.FILE_TYPE AS fileType
+    FROM 
+        STADIUM_IMG si
+    WHERE 
+        si.STADIUM_NO = #{memNo} AND si.FILE_TYPE = 1
+</select>
 </mapper>

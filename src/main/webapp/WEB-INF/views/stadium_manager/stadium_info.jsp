@@ -40,18 +40,13 @@
             </div>
         </div>
       sdvsdavsdv :   ${stadium}
+      <form action="${pageContext.request.contextPath}/updateStadium.me" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="stadiumNo" value="${stadium.stadiumNo}">
         <div class="category-container">
             <div class="form-group">
                 <label>종목 선택</label>
                 <div class="sport-options">
-                    <label>
-					    <input 
-					        type="checkbox" 
-					        name="category" 
-					        value="soccer" 
-					        disabled 
-					        ${stadium.stadiumCategory eq 'soccer' ? 'checked' : ''}> 축구
-					</label>
+                    <label><input type="checkbox" name="category" value="soccer" disabled ${stadium.stadiumCategory.contains('soccer') ? 'checked' : ''}> 축구</label>
                     <label><input type="checkbox" name="category" value="futsal" disabled ${stadium.stadiumCategory.contains('futsal') ? 'checked' : ''}> 풋살</label>
                     <label><input type="checkbox" name="category" value="basketball" disabled ${stadium.stadiumCategory.contains('basketball') ? 'checked' : ''}> 농구</label>
                     <label><input type="checkbox" name="category" value="baseball" disabled ${stadium.stadiumCategory.contains('baseball') ? 'checked' : ''}> 야구</label>
@@ -62,7 +57,7 @@
         <div class="stadiuminfo-container">
             <div class="form-group">
                 <label for="stadium-name">구장명</label>
-                <input type="text" id="stadium-name" name="stadiumName" value="${stadium.stadiumName}" placeholder="구장명을 입력하세요.">
+                <input type="text" id="stadium-name" name="stadiumName" value="${stadium.stadiumName}">
             </div>
             
             <div class="form-group">
@@ -71,8 +66,8 @@
                     <input type="text" class="zipcode" id="memberZipcode" name="memberZipcode" value="${stadium.stadiumZipcode}">
                     <button type="button" class="address-search-button" onclick="addSearch('memberZipcode','memberBaseAdd','memberDetailAdd')">주소 검색</button>
                 </div>
-                <input type="text" class="basic-address" id="memberBaseAdd" value="${stadium.stadiumAdd}" readonly>
-                <input type="text" class="detail-address" id="memberDetailAdd" value="">
+                <input type="text" class="basic-address" id="memberBaseAdd" name="stadiumAdd" value="${stadium.stadiumAdd}" readonly>
+                <input type="text" class="detail-address" id="memberDetailAdd" value="${stadium.stadiumAdd}">
             </div>
             
             <div class="form-group">
@@ -132,7 +127,7 @@
             
                     checkboxes.forEach((checkbox) => {
                         const value = checkbox.value; // 체크박스의 value 값
-            
+      
                         // 각 조건에 따라 체크박스를 설정
                         if (
                             (value === 'toilet' && toilet === 'Y') || // 화장실
@@ -155,22 +150,29 @@
             <div class="form-group">
                 <label>구장 대표 이미지</label>
                 <div class="image-upload-group">
-                    <input type="file" name="thumbnailImg" id="thumbnail">
+                    <c:if test="${stadium.fileType == 0}">
+                        <img src="${stadium.filePath}/${stadium.changeName}" alt="구장 대표 이미지" class="preview-image">
+                    </c:if>
+                    <input type="file" name="thumbnailImg" id="thumbnail" value="${stadium.originName}">
                 </div>
             </div>
             
             <div class="form-group">
                 <label>구장 상세 이미지</label>
                 <div class="image-upload-group">
+                    <c:forEach var="image" items="${stadiumImages}">
+                        <img src="${image.filePath}/${image.changeName}" alt="${image.originName}" class="detail-img">
+                    </c:forEach>
                     <input type="file" name="detailImg" id="detail"  multiple>
                 </div>
             </div>
 
             <div class="info-btn">
-                <button class="registration-button">수정하기</button>
+                <button class="registration-button" onclick="confirmEdit()">수정하기</button>
                 <button class="registration-button" onclick="confirmDelete()">탈퇴하기</button>
             </div>
         </div>
+    </form>
     </div>
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 

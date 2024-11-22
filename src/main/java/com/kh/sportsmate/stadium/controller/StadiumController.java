@@ -1,30 +1,27 @@
 package com.kh.sportsmate.stadium.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
+import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.stadium.model.dto.StadiumDto;
+import com.kh.sportsmate.stadium.model.vo.Amenities;
+import com.kh.sportsmate.stadium.model.vo.Rental;
+import com.kh.sportsmate.stadium.service.StadiumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import com.kh.sportsmate.member.model.vo.Member;
-import com.kh.sportsmate.stadium.model.dto.StadiumDto;
-import com.kh.sportsmate.stadium.model.vo.Stadium;
-import com.kh.sportsmate.stadium.service.StadiumService;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @CrossOrigin
 @Controller
 public class StadiumController {
 
     @Autowired
-    private StadiumService stadiumService; // 서비스 주입
+    private StadiumService stadiumService;
 
     @GetMapping(value = "managermypage.me")
-    public String managermypage(String select) {
+    public String managermypage() {
         return "stadium_manager/stadium_manager";
     }
 
@@ -43,15 +40,9 @@ public class StadiumController {
         return "stadium_manager/rental_approval";
     }
 
-
     @RequestMapping(value = "inquiry.me")
     public String inquiry() {
         return "stadium_manager/inquiry";
-    }
-
-    @RequestMapping(value = "managermypage.me")
-    public String managermypage() {
-        return "stadium_manager/stadium_manager";
     }
 
     @RequestMapping(value = "gameresult.me")
@@ -65,7 +56,7 @@ public class StadiumController {
     }
 
     @RequestMapping("/detail.st")
-    public String showStadiumdatil() {
+    public String showStadiumDetail() {
         return "stadium/detail";
     }
 
@@ -77,19 +68,50 @@ public class StadiumController {
      */
     @RequestMapping(value = "stadiuminfo.me")
     public String stadiumInfo(HttpSession session, Model model) {
-        // 세션에서 로그인한 회원 정보 가져오기
         Member loginMember = (Member) session.getAttribute("loginMember");
-
-        // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
         if (loginMember == null) {
             return "redirect:/loginForm.me";
         }
 
-        // 관리자의 MEM_NO로 구장 정보 가져오기
+        // 관리자의 구장 정보 가져오기
         StadiumDto stadium = stadiumService.getStadiumByManager(loginMember.getMemNo());
-        model.addAttribute("stadium", stadium);
+        List<StadiumDto> stadiumImages = stadiumService.getStadiumImagesByManager(loginMember.getMemNo());
 
-        // stadium_info.jsp로 이동
+        model.addAttribute("stadium", stadium);
+        model.addAttribute("stadiumImages", stadiumImages);
+
         return "stadium_manager/stadium_info";
+    }
+
+    /**
+     * 구장 정보 수정 처리
+     * @param session - 로그인 세션
+     * @param stadiumDto - 폼에서 전달받은 수정된 구장 정보
+     * @param amenities - 폼에서 전달받은 편의시설 정보
+     * @param rental - 폼에서 전달받은 대여 정보
+     * @return redirect:/stadiuminfo.me
+     */
+    @PostMapping(value = "/updateStadium.me")
+    public String updateStadium(HttpSession session, 
+                                 @ModelAttribute StadiumDto stadiumDto, 
+                                 @ModelAttribute Amenities amenities, 
+                                 @ModelAttribute Rental rental) {
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        if (loginMember == null) {
+            return "redirect:/loginForm.me";
+        }
+
+        // 업데이트를 위해 필요한 정보 설정
+        stadiumDto.setMemNo(loginMember.getMemNo());
+        amenities.setStadiumNo(stadiumDto.getStadiumNo());
+        rental.setStadiumNo(stadiumDto.getStadiumNo());
+
+        boolean isUpdated = stadiumService.updateStadium(stadiumDto, amenities, rental);
+
+        if (isUpdated) {
+            return "redirect:/stadiuminfo.me";
+        } else {
+            return "redirect:/errorPage.me";
+        }
     }
 }
