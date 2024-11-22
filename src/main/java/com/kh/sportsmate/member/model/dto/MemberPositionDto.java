@@ -10,7 +10,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class MemberPosition {
+public class MemberPositionDto {
 	private int memNo;
     private String memEmail;
     private String memPwd;
@@ -25,4 +25,6 @@ public class MemberPosition {
     private int memAge;
     private String position;
     private String teamName;
+    private String teamProfile;
+    private String memberProfile;
 }

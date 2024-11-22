@@ -9,21 +9,24 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
-import com.kh.sportsmate.member.model.dto.MemberPosition;
+import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.mypage.model.dao.MyPageDao;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -39,15 +42,18 @@ public class MyPageServiceImpl implements MyPageService{
 	@Autowired
 	private final MyPageDao mypageDao;
 	
+	@Autowired
+	private final AttachmentDao attachmentDao;
+	
 	// 내 정보
 	@Override
-	public MemberPosition selectMyInfo(int memNo) {
+	public MemberPositionDto selectMyInfo(int memNo) {
 		return mypageDao.selectMyInfo(sqlSession, memNo);
 	}
 	
 	// 내 구단
 	@Override
-	public ArrayList<Team> selectMyTeam(int memNo) {
+	public ArrayList<MyTeamDto> selectMyTeam(int memNo) {
 		return mypageDao.selectMyTeam(sqlSession, memNo);
 	}
 
@@ -59,7 +65,7 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	// 내 전적
 	@Override
-	public ArrayList<Match> selectMyMatch(int memNo) {
+	public ArrayList<MyMatch> selectMyMatch(int memNo) {
 		return mypageDao.selectMyMatch(sqlSession, memNo);
 	}
 
@@ -75,12 +81,12 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 	@Override
-	public ArrayList<MemberPosition> selectATeamInfo(int teamANo) {
+	public ArrayList<MemberPositionDto> selectATeamInfo(int teamANo) {
 		return mypageDao.selectATeamInfo(sqlSession, teamANo);
 	}
 
 	@Override
-	public ArrayList<MemberPosition> selectBTeamInfo(int teamBNo) {
+	public ArrayList<MemberPositionDto> selectBTeamInfo(int teamBNo) {
 		return mypageDao.selectBTeamInfo(sqlSession, teamBNo);
 	}
 
@@ -129,6 +135,9 @@ public class MyPageServiceImpl implements MyPageService{
         if (profile != null) {
             profile.setMemNo(processedMember.getMemNo());
             result2 = mypageDao.modifyProfile(sqlSession, profile);
+            if(result2 == 0) {
+            	result2 = attachmentDao.insertProfile(sqlSession, profile);
+            }
         }
 
         // 종목 관련 내용을 담을 객체

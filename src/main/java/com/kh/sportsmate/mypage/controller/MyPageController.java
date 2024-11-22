@@ -23,14 +23,16 @@ import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
-import com.kh.sportsmate.member.model.dto.MemberPosition;
+import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.member.service.MemberService;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.mypage.service.MyPageService;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -56,7 +58,7 @@ public class MyPageController {
 		int memNo = loginMember.getMemNo();
     	
     	// 내 정보
-    	MemberPosition myInfo = myPageService.selectMyInfo(memNo);
+    	MemberPositionDto myInfo = myPageService.selectMyInfo(memNo);
     	
     	// 내 프로필 사진
     	Profile myProfile = myPageService.selectMyProfile(memNo);
@@ -67,7 +69,7 @@ public class MyPageController {
     	}
     	
     	// 내 전적
-    	ArrayList<Match> myMatch = myPageService.selectMyMatch(memNo); 
+    	ArrayList<MyMatch> myMatch = myPageService.selectMyMatch(memNo); 
     	
     	// 내 전적 판 수
     	int myMatchCount = myPageService.selectMyMatchCount(memNo);
@@ -76,7 +78,7 @@ public class MyPageController {
     	int myMatchWinCount = myPageService.selectMyMatchWinCount(memNo);
     	
     	// 내 구단
-    	ArrayList<Team> myTeam = myPageService.selectMyTeam(memNo);
+    	ArrayList<MyTeamDto> myTeam = myPageService.selectMyTeam(memNo);
     	
     	// 내 구단 입단 명단
     	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
@@ -140,8 +142,8 @@ public class MyPageController {
     @RequestMapping("getTeamInfo.mp")
     @ResponseBody
     public Map<String, Object> getTeamInfo(@RequestParam int teamANo, @RequestParam int teamBNo) {
-        ArrayList<MemberPosition> aTeamInfo = myPageService.selectATeamInfo(teamANo);
-        ArrayList<MemberPosition> bTeamInfo = myPageService.selectBTeamInfo(teamBNo);
+        ArrayList<MemberPositionDto> aTeamInfo = myPageService.selectATeamInfo(teamANo);
+        ArrayList<MemberPositionDto> bTeamInfo = myPageService.selectBTeamInfo(teamBNo);
         
         // 데이터를 Map에 담아 JSON 형식으로 반환
         Map<String, Object> result = new HashMap<>();
@@ -256,9 +258,22 @@ public class MyPageController {
     
     // 계정 탈퇴
     @RequestMapping("accountCancel.mp")
-    public String accountCancel(HttpSession session) {
+    public String accountCancel(HttpSession session, String memPwd, String pwdCheck) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
+		
+		// 비밀번호 확인: 입력한 기존 비밀번호와 재입력된 비밀번호 비교
+	    if (!pwdCheck.equals(memPwd)) {
+	        session.setAttribute("alertMsg", "비밀번호와 재입력한 비밀번호가 다릅니다.");
+	        return "myPage/myPageModify";
+	    }
+
+	    // 1. 기존 비밀번호와 저장된 암호화된 비밀번호 비교
+	    String storedPassword = loginMember.getMemPwd(); // 저장된 암호화된 비밀번호
+	    if (!bCryptPasswordEncoder.matches(memPwd, storedPassword)) {
+	        session.setAttribute("alertMsg", "기존 비밀번호가 일치하지 않습니다.");
+	        return "myPage/myPageModify";
+	    }
 		
 		int result = myPageService.accountCancel(memNo);
 		

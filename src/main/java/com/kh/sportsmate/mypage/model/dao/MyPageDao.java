@@ -11,13 +11,15 @@ import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
-import com.kh.sportsmate.member.model.dto.MemberPosition;
+import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -26,12 +28,12 @@ public class MyPageDao {
 	/* 마이페이지 */
 
 	// 내 정보
-	public MemberPosition selectMyInfo(SqlSessionTemplate sqlSession, int memNo) {
+	public MemberPositionDto selectMyInfo(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.selectOne("memberMapper.selectMyInfo", memNo);
 	}
 
 	// 내 구단
-	public ArrayList<Team> selectMyTeam(SqlSessionTemplate sqlSession, int memNo) {
+	public ArrayList<MyTeamDto> selectMyTeam(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyTeam", memNo);
 	}
 
@@ -41,7 +43,7 @@ public class MyPageDao {
 	}
 
 	// 내 전적
-	public ArrayList<Match> selectMyMatch(SqlSessionTemplate sqlSession, int memNo) {
+	public ArrayList<MyMatch> selectMyMatch(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyMatch", memNo);
 	}
 
@@ -56,12 +58,12 @@ public class MyPageDao {
 	}
 
 	// a팀 정보
-	public ArrayList<MemberPosition> selectATeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
+	public ArrayList<MemberPositionDto> selectATeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
 	}
 
 	// b팀 정보
-	public ArrayList<MemberPosition> selectBTeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
+	public ArrayList<MemberPositionDto> selectBTeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
 	}
 
