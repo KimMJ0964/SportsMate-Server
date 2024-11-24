@@ -42,7 +42,14 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 
-	// 게시글 목록 페이지 : 게시글, 페이지네이션
+	/**
+     * 게시글 목록 페이지 : 게시글, 페이지네이션
+     *
+     * @param cpage (defaultValue= 1) 페이지
+     * @param currentPage
+     * @param model
+     * @return
+     */
 	@RequestMapping("boardList.bd")
 	public String selectList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
 		int boardCount = boardService.selectListCount();
@@ -55,13 +62,24 @@ public class BoardController {
 		return "board/board";
 	}
 
-	// 게시글 생성 페이지 이동
+	/**
+     * 게시글 생성 페이지 이동
+     *
+     * @return
+     */
 	@RequestMapping("createMove.bd")
 	public String enrollForm() {
 		return "board/boardCreate";
 	}
 
-	// 게시글 상세 페이지로 이동
+	/**
+     * 게시글 상세 페이지로 이동
+     *
+     * @param bno
+     * @param model
+     * @param session
+     * @return
+     */
 	@RequestMapping("detailMove.bd")
 	public String detailList(int bno, Model model, HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -85,7 +103,14 @@ public class BoardController {
 		return "board/boardDetail";
 	}
 
-	// 게시글 수정 페이지로 이동
+	/**
+     * 게시글 수정 페이지로 이동
+     *
+     * @param bno
+     * @param model
+     * @param session
+     * @return
+     */
 	@RequestMapping("modifyMove.bd")
 	public String mdBoardSelect(int mpage, Model model, HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -107,7 +132,15 @@ public class BoardController {
 		return "board/boardModify";
 	}
 
-	// 게시글 생성
+	/**
+     * 게시글 생성
+     *
+     * @param b (제목, 내용, 종류)
+     * @param fileUpload
+     * @param session
+     * @param m
+     * @return
+     */
 	@PostMapping("create.bd")
 	public String insertBoard(Board b, MultipartFile fileUpload, HttpSession session, Model m) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -138,7 +171,17 @@ public class BoardController {
 
 	}
 
-	// 게시글 수정
+	/**
+     * 게시글 수정
+     *
+     * @param b (제목, 내용, 종류)
+     * @param fileUpload
+     * @param model
+     * @param session
+     * @param m
+     * @param bno
+     * @return
+     */
 	@PostMapping("modify.bd")
 	public String updateBoard(Board b, MultipartFile fileUpload, HttpSession session, Model m, int bno) {
 		b.setBoardNo(bno);
@@ -180,7 +223,14 @@ public class BoardController {
 
 	}
 
-	// 게시글 삭제
+	/**
+     * 게시글 삭제
+     *
+     * @param session
+     * @param m
+     * @param bno
+     * @return
+     */
 	@RequestMapping("delete.bd")
 	public String deleteBoard(Model m, HttpSession session, int bno) {
 		System.out.println(bno);
@@ -195,7 +245,14 @@ public class BoardController {
 		}
 	}
 
-	// 게시글 검색
+	/**
+     * 게시글 검색
+     *
+     * @param cpage (defaultValue = 1)
+     * @param m
+     * @param currentPage
+     * @return
+     */
 	@RequestMapping("search.bd")
 	public String searchBoard(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model m,
 			String category, String keyword) {
@@ -213,7 +270,15 @@ public class BoardController {
 		return "board/board";
 	}
 
-	// 댓글 작성
+	/**
+     * 댓글 작성
+     *
+     * @param content
+     * @param session
+     * @param m
+     * @param bno
+     * @return
+     */
 	@RequestMapping("writeReply.bd")
 	public String writeReply(int bno, String content, Model m, HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -241,7 +306,15 @@ public class BoardController {
 		}
 	}
 
-	// 댓글 삭제
+	/**
+     * 댓글 삭제
+     *
+     * @param cno
+     * @param session
+     * @param m
+     * @param bno
+     * @return
+     */
 	@RequestMapping("deleteComm.bd")
 	public String deleteReply(HttpSession session, int cno, int bno, Model m) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -270,7 +343,13 @@ public class BoardController {
 		}
 	}
 
-	// 좋아요 버튼 클릭
+	/**
+     * 좋아요 버튼 클릭
+     *
+     * @param session
+     * @param bno
+     * @return
+     */
 	@RequestMapping("boardLike.bd")
 	public String boardLike(HttpSession session, int bno) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -305,7 +384,17 @@ public class BoardController {
 		}
 	}
 
-	// 게시글 신고
+	/**
+     * 게시글 신고
+     *
+     * @param session
+     * @param m
+     * @param pnContent
+     * @param boardNo
+     * @param comNo
+     * @param reporterNo
+     * @return
+     */
 	@RequestMapping("boardReport.bd")
 	public String boardReport(HttpSession session, String pnContent, int boardNo, int comNo, int reporterNo) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -335,7 +424,15 @@ public class BoardController {
 		}
 	}
 	
-	// 대댓글
+	/**
+     * 대댓글 작성
+     *
+     * @param content
+     * @param session
+     * @param pnContent
+     * @param bno
+     * @return
+     */
 	@RequestMapping("replyComment.bd")
 	public String replyComment(HttpSession session, int comParentNo, String pnContent, int boardNo) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -360,8 +457,12 @@ public class BoardController {
 	}
 	
 	/**
-	 * SummerNote ajax 파일 요청
-	 */
+     * summernote ajax 요청
+     *
+     * @param fileList
+     * @param session
+     * @return
+     */
 	@ResponseBody
 	@PostMapping("uploadFileSum.bd")
 	public String upload(List<MultipartFile> fileList, HttpSession session) {

@@ -109,5 +109,20 @@ public interface TeamService {
  	
  	// 구단 수정
  	int modifyTeam(TeamInfoDto t, Profile profile);
+ 	
+ 	// 투표 생성
+ 	int createVote(TeamVote teamVote);
+ 	
+ 	// 진행중인 투표
+ 	TeamVote voting(int tno);
+ 	
+ 	// 진행완료된 투표
+ 	ArrayList<TeamVoteDetailDto> voteList(int tno);
+ 	
+ 	// 투표 선택
+ 	int choseVote(Map<String, Integer> map);
+ 	
+ 	// 투표 종료
+ 	int voteComplete(int vno);
 }
 

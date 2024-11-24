@@ -194,7 +194,8 @@
 			   b.STATUS AS status,
 			   b.COM_PARENT_NO AS comParentNo,
 	     	   p.CHANGE_NAME AS changeName,
-			   b.COM_CONTENT AS comContent
+			   b.COM_CONTENT AS comContent,
+			   b.MEM_NO AS memNo
 		FROM TEAM_BOARD_COMMENT b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 		LEFT JOIN PROFILE_FILE p ON b.MEM_NO = p.MEM_NO
@@ -270,6 +271,63 @@
 		AND STATUS = 'Y'
 	</select>
 	
+	<!-- 진행중인 투표 -->
+	<select id="voting" resultType="TeamVote">
+		SELECT VOTE_NO as voteNo,
+			   TEAM_NO as teamNo,
+			   STATUS as status,
+			   VOTE_TITLE as voteTitle,
+			   VOTE_ONE as voteOne,
+			   VOTE_TWO as voteTwo,
+			   VOTE_THREE as voteThree,
+			   VOTE_FOUR as voteFour,
+			   VOTE_FIVE as voteFive
+		FROM TEAM_VOTE
+		WHERE TEAM_NO = #{tno}
+		AND STATUS = 'N'
+	</select>
+	
+	<!-- 진행완료된 투표 -->
+	<select id="voteList" resultType="TeamVoteDetailDto">
+		SELECT 
+		    VOTE_NO AS voteNo,
+		    VOTE_TITLE AS voteTitle,
+		    VOTE_CONTENT AS voteContent,
+		    SELECT_COUNT AS selectCount
+		FROM (
+		    SELECT 
+		        TV.VOTE_NO,
+		        TV.VOTE_TITLE,
+		        CASE TVD.CHECK
+		            WHEN 1 THEN TV.VOTE_ONE
+		            WHEN 2 THEN TV.VOTE_TWO
+		            WHEN 3 THEN TV.VOTE_THREE
+		            WHEN 4 THEN TV.VOTE_FOUR
+		            WHEN 5 THEN TV.VOTE_FIVE
+		        END AS VOTE_CONTENT,
+		        COUNT(*) AS SELECT_COUNT
+		    FROM 
+		        TEAM_VOTE TV
+		    JOIN 
+		        TEAM_VOTE_DETAIL TVD ON TV.VOTE_NO = TVD.VOTE_NO
+		    WHERE 
+		        TV.TEAM_NO = #{voteNo}
+		        AND TV.STATUS = 'Y'
+		    GROUP BY 
+		        TV.VOTE_NO, 
+		        TV.VOTE_TITLE,
+		        TVD.CHECK,
+		        CASE TVD.CHECK
+		            WHEN 1 THEN TV.VOTE_ONE
+		            WHEN 2 THEN TV.VOTE_TWO
+		            WHEN 3 THEN TV.VOTE_THREE
+		            WHEN 4 THEN TV.VOTE_FOUR
+		            WHEN 5 THEN TV.VOTE_FIVE
+		        END
+		) AS VOTE_RESULTS
+		ORDER BY SELECT_COUNT ASC;
+	</select>
+	
 	<!-- 게시글 생성 -->
 	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">
 	  	INSERT INTO TEAM_BOARD (
@@ -326,6 +384,20 @@
 		WHERE BOARD_NO =
 		#{bno}
 		AND MEM_NO = #{memNo}
+	</update>
+	
+	<!-- 투표 선택 -->
+	<update id="choseVote">
+		UPDATE TEAM_VOTE_DETAIL
+	    SET `CHECK` = #{voteOption}
+	    WHERE VOTE_NO = #{vno} AND MEM_NO = #{memNo};
+	</update>
+	
+	<!-- 투표 종료 -->
+	<update id="voteComplete">
+		UPDATE TEAM_VOTE
+		SET STATUS = 'Y'
+		WHERE VOTE_NO = #{vno}
 	</update>
 	
 	<!-- 입단자 거절 -->
@@ -594,6 +666,35 @@
 			</if>
 		</trim>
 		)
+	</insert>
+	
+	<!-- 투표 생성 -->
+	<insert id="insertVote" useGeneratedKeys="true" keyProperty="voteNo">
+		INSERT INTO `TEAM_VOTE` (`TEAM_NO`, `STATUS`, `VOTE_TITLE`, `VOTE_ONE`, `VOTE_TWO`, `VOTE_THREE`, `VOTE_FOUR`, `VOTE_FIVE`)
+		SELECT #{teamNo}, 'N', #{voteTitle}, #{voteOne}, #{voteTwo}, #{voteThree}, #{voteFour}, #{voteFive}
+		FROM DUAL
+		WHERE NOT EXISTS (
+		    SELECT 1
+		    FROM `TEAM_VOTE`
+		    WHERE `TEAM_NO` = #{teamNo} AND `STATUS` = 'N'
+		);
+	</insert>
+	
+	<!-- 투표 생성 (Detail) -->
+	<insert id="insertVoteDetail">
+		INSERT INTO `TEAM_VOTE_DETAIL` (`VOTE_NO`, `MEM_NO`, `CHECK`)
+		SELECT
+		    TV.VOTE_NO,
+		    TM.MEM_NO,
+		    0
+		FROM
+		    TEAM_MEMBER TM
+		JOIN
+		    TEAM_VOTE TV
+		ON
+		    TM.TEAM_NO = TV.TEAM_NO
+		WHERE
+		    TV.VOTE_NO = #{voteNo};
 	</insert>
 
 </mapper>

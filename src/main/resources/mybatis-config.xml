@@ -45,9 +45,11 @@
         <typeAlias type="com.kh.sportsmate.team.model.vo.Team" alias="Team"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoard" alias="TeamBoard"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamMember" alias="TeamMember"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamVote" alias="TeamVote"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamMemberDto" alias="TeamMemberDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoardComment" alias="TeamBoardComment"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamBoardCommentDto" alias="TeamBoardCommentDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.TeamVoteDetailDto" alias="TeamVoteDetailDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.Recruit" alias="Recruit"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamActivityDays" alias="TeamActivityDays"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.RecruitListQueryStringDto" alias="RecruitListQueryStringDto"/>

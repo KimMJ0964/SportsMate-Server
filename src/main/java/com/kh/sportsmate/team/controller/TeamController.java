@@ -58,7 +58,15 @@ public class TeamController {
         this.boardService = boardService;
     }
 
-    // 구단 메인 페이지 : 게시글, 페이지네이션, 팀원 목록
+    /**
+     * 구단 메인 페이지 : 게시글, 페이지네이션, 팀원 목록
+     *
+     * @RequestParam cape (defaultValue = 1)
+     * @param model
+     * @param currentPage
+     * @param tno
+     * @return
+     */
     @RequestMapping("boardList.tm")
     public String selectList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model, int tno) {
         // 임의의 팀 번호 값
@@ -69,11 +77,15 @@ public class TeamController {
         PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 10);
         ArrayList<TeamBoard> list = teamService.selectList(pi, tno);
         ArrayList<TeamMemberDto> memberList = teamService.selectMemberList(tno);
+        TeamVote voting = teamService.voting(tno);
+        ArrayList<TeamVoteDetailDto> voteList = teamService.voteList(tno);
 
         for (TeamMemberDto teamMember : memberList) {
             System.out.println(teamMember);
         }
-
+        
+        model.addAttribute("voting", voting);
+        model.addAttribute("voteList", voteList);
         model.addAttribute("tno", tno);
         model.addAttribute("list", list);
         model.addAttribute("pi", pi);
@@ -81,14 +93,27 @@ public class TeamController {
         return "teamBoard/teamHome";
     }
 
-    // 게시글 생성 페이지 이동
+    /**
+     * 게시글 생성 페이지 이동
+     *
+     * @param m
+     * @param tno
+     * @return
+     */
     @RequestMapping("createMoveBd.tm")
     public String enrollForm(Model m, int tno) {
         m.addAttribute("tno", tno);
         return "teamBoard/teamBoardCreate";
     }
 
-	// 게시글 상세 페이지로 이동
+    /**
+     * 게시글 상세 페이지 이동
+     *
+     * @param bno
+     * @param model
+     * @param session
+     * @return
+     */
 	@RequestMapping("detailMoveBd.tm")
 	public String detailList(int bno, Model model, HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -112,7 +137,13 @@ public class TeamController {
         return "teamBoard/teamBoardDetail";
     }
 
-    // 게시글 수정 페이지로 이동
+	/**
+     * 게시글 수정 페이지 이동
+     *
+     * @param mpage
+     * @param model
+     * @return
+     */
     @RequestMapping("modifyMoveBd.tm")
     public String mdBoardSelect(int mpage, Model model) {
         TeamBoard teamBoard = teamService.detailList(mpage);
@@ -121,7 +152,16 @@ public class TeamController {
         return "teamBoard/teamBoardModify";
     }
 
-    // 게시글 생성
+    /**
+     * 게시글 생성
+     *
+     * @param b
+     * @param fileUpload
+     * @param session
+     * @param m
+     * @param tno
+     * @return
+     */
     @PostMapping("createBd.tm")
     public String insertBoard(TeamBoard b, MultipartFile fileUpload, HttpSession session, Model m, int tno) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -154,7 +194,17 @@ public class TeamController {
 
     }
 
-    // 게시글 수정
+    /**
+     * 게시글 수정
+     *
+     * @param b
+     * @param fileUpload
+     * @param session
+     * @param m
+     * @param bno
+     * @param tno
+     * @return
+     */
     @PostMapping("modify.tm")
     public String updateBoard(TeamBoard b, MultipartFile fileUpload, HttpSession session, Model m, int bno, int tno) {
         b.setBoardNo(bno);
@@ -196,7 +246,15 @@ public class TeamController {
 
     }
 
-    // 게시글 삭제
+    /**
+    * 게시글 삭제
+    *
+    * @param m
+    * @param session
+    * @param bno
+    * @param tno
+    * @return
+    */
     @RequestMapping("delete.tm")
     public String deleteBoard(Model m, HttpSession session, int bno, int tno) {
         System.out.println(bno);
@@ -211,7 +269,15 @@ public class TeamController {
         }
     }
 
-    // 구단 입단 신청 허락
+    /**
+     * 구단 입단 신청 허락
+     *
+     * @param m
+     * @param session
+     * @param mno
+     * @param tno
+     * @return
+     */
     @RequestMapping("approveJoin.tm")
     public String approveJoin(Model m, HttpSession session, int mno, int tno) {
         Map<String, Integer> nos = new HashMap<>();
@@ -229,7 +295,14 @@ public class TeamController {
         }
     }
 
-    // 구단 입단 신청 거절
+    /**
+     * 구단 입단 신청 거절
+     *
+     * @param m
+     * @param session
+     * @param mno
+     * @return
+     */
     @RequestMapping("rejectJoin.tm")
     public String rejectJoin(Model m, HttpSession session, int mno) {
         int result = teamService.rejectJoin(mno);
@@ -242,7 +315,17 @@ public class TeamController {
         }
     }
 
-    // 게시글 검색
+    /**
+     * 게시글 검색
+     *
+     * @RequestParam cpage (defaultValue = 1)
+     * @param currentPage
+     * @param m
+     * @param category
+     * @param keyword
+     * @param tno
+     * @return
+     */
     @RequestMapping("searchBoard.tm")
     public String searchBoard(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model m,
                               String category, String keyword, int tno) {
@@ -265,7 +348,15 @@ public class TeamController {
         return "teamBoard/teamHome";
     }
 
-	// 댓글 작성
+    /**
+     * 댓글 작성
+     *
+     * @param bno
+     * @param comContent
+     * @param m
+     * @param session
+     * @return
+     */
 	@RequestMapping("writeReply.tm")
 	public String writeReply(int bno, String comContent, Model m, HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -284,7 +375,15 @@ public class TeamController {
 		}
 	}
 
-    // 댓글 삭제
+	/**
+	    * 댓글 삭제
+	    *
+	    * @param cno
+	    * @param bno
+	    * @param tno
+	    * @param m
+	    * @return
+	    */
     @RequestMapping("deleteComm.tm")
     public String deleteReply(int cno, int bno, int tno, Model m) {
         int result = teamService.deleteReply(cno);
@@ -297,7 +396,13 @@ public class TeamController {
 		}
 	}
     
-    // 좋아요 버튼 클릭
+    /**
+     * 좋아요 버튼 클릭
+     *
+     * @param session
+     * @param bno
+     * @return
+     */
  	@RequestMapping("boardLike.tm")
  	public String boardLike(HttpSession session, int bno) {
  		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -332,7 +437,17 @@ public class TeamController {
  		}
  	}
 
- 	// 게시글 신고
+ 	/**
+     * 게시글 신고
+     *
+     * @param session
+     * @param pnContent
+     * @param boardNo
+     * @param comNo
+     * @param reporterNo
+     * @param teamNo
+     * @return
+     */
  	@RequestMapping("boardReport.tm")
  	public String boardReport(HttpSession session, String pnContent, int boardNo, int comNo, int reporterNo, int teamNo) {
  		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -363,7 +478,15 @@ public class TeamController {
  		}
  	}
  	
- 	// 대댓글 작성
+ 	/**
+     * 대댓글 작성
+     *
+     * @param session
+     * @param comParentNo
+     * @param pnContent
+     * @param boardNo
+     * @return
+     */
  	@RequestMapping("replyComment.tm")
  	public String replyComment(HttpSession session, int comParentNo, String pnContent, int boardNo) {
  		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -387,14 +510,26 @@ public class TeamController {
  		}
  	}
  	
- 	// 구단 관리 페이지로 이동
+ 	/**
+     * 구단 관리자 페이지로 이동
+     *
+     * @param m
+     * @param tno
+     * @return
+     */
     @GetMapping(value = "teamManagement.tm")
     public String moveTeamManagement(int tno, Model m) {
     	m.addAttribute("tno", tno);
         return "teamBoard/teamManagement";
     }
     
-    // 구단 정보 수정 페이지로 이동
+    /**
+     * 구단 정보 수정 페이지 이동
+     *
+     * @param m
+     * @param tno
+     * @return
+     */
     @GetMapping(value = "teamModify.tm")
     public String moveTeamModify(int tno, Model m) {
     	TeamInfoDto teamInfo = teamService.teamInfo(tno);
@@ -404,7 +539,13 @@ public class TeamController {
         return "teamBoard/teamModify";
     }
     
-    // 구단 멤버 관리 페이지로 이동
+    /**
+     * 구단 멤버 관리 페이지 이동
+     *
+     * @param m
+     * @param tno
+     * @return
+     */
     @GetMapping(value = "teamMemberModify.tm")
     public String moveTeamMemberModify(int tno, Model m) {
     	ArrayList<TeamMemberDto> memberList = teamService.selectMemberList(tno);
@@ -413,7 +554,13 @@ public class TeamController {
         return "teamBoard/teamMemberModify";
     }
     
-    // 구단 탈퇴
+    /**
+     * 구단 탈퇴
+     *
+     * @param session
+     * @param tno
+     * @return
+     */
     @RequestMapping("teamSelfOut.tm")
     public String teamSelfOut(int tno, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -434,7 +581,15 @@ public class TeamController {
 		}
     }
     
-    // 구단 단원 강퇴
+    /**
+     * 구단 단원 탈퇴
+     *
+     * @param memNo
+     * @param session
+     * @param tno
+     * @param m
+     * @return
+     */
     @RequestMapping("teamOut.tm")
     public String teamOut(int memNo, int tno, HttpSession session, Model m) {
     	int teamNo = tno;
@@ -454,7 +609,16 @@ public class TeamController {
 		}
     }
     
-    // 구단 수정
+    /**
+     * 구단 수정
+     *
+     * @param t
+     * @param userProfile
+     * @param session
+     * @param tno
+     * @param model
+     * @return
+     */
     @RequestMapping("teamInfoModify.tm")
     public String modifyTeam(TeamInfoDto t, MultipartFile userProfile, HttpSession session, int tno, Model model) {
         log.info("t : {}", t);
@@ -497,6 +661,78 @@ public class TeamController {
         }
         
         return "redirect:boardList.tm?tno=" + tno;
+    }
+    
+    /**
+     * 투표 작성
+     *
+     * @param t
+     * @param userProfile
+     * @param session
+     * @param tno
+     * @param model
+     * @return
+     */
+    @RequestMapping("createVote.tm")
+    public String createVote(TeamVote teamVote) {
+    	System.out.println("투표 팀 번호 : " + teamVote);
+    	int result = teamService.createVote(teamVote);
+    	return "redirect:boardList.tm?tno=" + teamVote.getTeamNo();
+    }
+    
+    /**
+     * 투표 내기
+     * 
+     * @param tno
+     * @param voteOption
+     * @param vno
+     * @param session
+     * @return
+     */
+    @RequestMapping("voting.tm")
+    public String voting(int tno, int voteOption, int vno, HttpSession session) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+    	int memNo = loginMember.getMemNo();
+    	System.out.println("투표 팀 번호 : " + tno + " / 투표 고른 선택지 : " + voteOption + " / 투표 번호 : " + vno );
+    	
+    	Map<String, Integer> map = new HashMap<>();
+    	map.put("memNo", memNo);
+		map.put("voteOption", voteOption);
+		map.put("vno", vno);
+		
+		int result = teamService.choseVote(map);
+		
+		if(result > 0 ){
+            session.setAttribute("alertMsg", "투표가 성공적으로 완료되었습니다.");
+        }else {
+            session.setAttribute("alertMsg", "투표가 실패하였습니다. 다시 시도해주세요.");
+        }
+    	
+    	return "redirect:boardList.tm?tno=" + tno;
+    }
+    
+    /**
+     * 투표 종료
+     * 
+     * @param vno
+     * @param tno
+     * @param session
+     * @return
+     */
+    @RequestMapping("voteComplete.tm")
+    public String voteComplete(int vno, int tno, HttpSession session) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+    	int memNo = loginMember.getMemNo();
+		
+		int result = teamService.voteComplete(vno);
+		
+		if(result > 0 ){
+            session.setAttribute("alertMsg", "투표가 성공적으로 종료되었습니다.");
+        }else {
+            session.setAttribute("alertMsg", "투표 종료의 실패하였습니다. 다시 시도해주세요.");
+        }
+    	
+    	return "redirect:boardList.tm?tno=" + tno;
     }
     
     /*===================================================================================================================================*/

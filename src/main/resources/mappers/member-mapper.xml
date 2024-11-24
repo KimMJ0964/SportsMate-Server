@@ -386,7 +386,8 @@
         MEM_STATUS = #{memStatus}
         WHERE MEM_NO = #{memNo}
     </update>
-
+	
+	<!-- 프로필 수정 -->
     <update id="modifyProfile" parameterType="Profile">
         UPDATE PROFILE_FILE
         <set>
@@ -402,7 +403,8 @@
         </set>
         WHERE MEM_NO = #{memNo} <!-- 반드시 Primary Key에 해당하는 조건 추가 -->
     </update>
-
+	
+	<!-- 내 종목 수정 -->
     <update id="modifyCategory" parameterType="Category">
         UPDATE CATEGORY
         <set>

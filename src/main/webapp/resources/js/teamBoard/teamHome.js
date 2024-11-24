@@ -8,3 +8,10 @@ function confirmTeamOut(tno) {
             alert("구단 탈퇴가 취소되었습니다.");
         }
     }
+  
+function selectOnlyOne(checkbox) {
+    const checkboxes = document.getElementsByName('voteOption');
+    checkboxes.forEach((cb) => {
+        if (cb !== checkbox) cb.checked = false;
+    });
+}

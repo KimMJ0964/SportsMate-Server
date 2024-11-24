@@ -54,7 +54,8 @@
 								src="${pageContext.request.contextPath}/resources/images/team_board_join.png">
 							<div class="teamcomu-center-word">모집</div>
 						</div>
-						<div class="teamcomu-work-modify" onclick="location.href = 'teamManagement.tm?tno=${tno}'">
+						<div class="teamcomu-work-modify"
+							onclick="location.href = 'teamManagement.tm?tno=${tno}'">
 							<img class="teamcomu-wrok-modify-img"
 								src="${pageContext.request.contextPath}/resources/images/team_board_modify.png">
 							<div class="teamcomu-center-word">관리</div>
@@ -67,45 +68,120 @@
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
+							<!-- 모달 헤더 -->
 							<div class="modal-header">
 								<p class="modal-title fs-5" id="exampleModalLabel">투표</p>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
+								<!-- 진행중인 투표 -->
+								<form id="ongoingVoteForm" action="voting.tm" method="post">
+									 <input type="hidden" id="tno" name="tno" value="${tno}" />
+									 <input type="hidden" id="tno" name="vno" value="${voting.voteNo}" />
+									<div class="bd-report-title">
+										<h4>진행중인 투표</h4>
+											<hr>
+											<div>
+												<p>투표 제목: ${voting.voteTitle }</p>
+												<div>
+													<input type="checkbox" id="option1" name="voteOption" value="1" onclick="selectOnlyOne(this)" />
+													<label for="option1">${voting.voteOne }</label>
+												</div>
+												<div>
+													<input type="checkbox" id="option2" name="voteOption" value="2" onclick="selectOnlyOne(this)" />
+													<label for="option2">${voting.voteTwo }</label>
+												</div>
+												<div>
+													<input type="checkbox" id="option3" name="voteOption" value="3" onclick="selectOnlyOne(this)" />
+													<label for="option3">${voting.voteThree }</label>
+												</div>
+												<div>
+													<input type="checkbox" id="option4" name="voteOption" value="4" onclick="selectOnlyOne(this)" />
+													<label for="option4">${voting.voteFour }</label>
+												</div>
+												<div>
+													<input type="checkbox" id="option5" name="voteOption" value="5" onclick="selectOnlyOne(this)" />
+													<label for="option5">${voting.voteFive }</label>
+												</div>
+											</div>
+										<button type="submit" class="btn btn-primary mt-3">투표
+											제출</button>
+									</div>
+								</form>
+								<br />
+								<!-- 투표 생성 -->
+								<form id="createVoteForm" action="createVote.tm" method="post">
+									 <input type="hidden" id="teamNo" name="teamNo" value="${tno}" />
+									<div class="bd-report-title">
+										<h4>투표 생성</h4>
+										<hr>
+										<div>
+											<label for="voteTitle">투표 제목:</label> <input type="text"
+												id="voteTitle" name="voteTitle" class="form-control"
+												placeholder="투표 제목 입력" required />
+											<div class="mt-3">
+												<label for="optionInput1">옵션 1:</label> <input type="text"
+													id="voteOne" name="voteOne" class="form-control"
+													placeholder="옵션 이름 입력" />
+											</div>
+											<div class="mt-2">
+												<label for="optionInput2">옵션 2:</label> <input type="text"
+													id="voteTwo" name="voteTwo" class="form-control"
+													placeholder="옵션 이름 입력" />
+											</div>
+											<div class="mt-2">
+												<label for="optionInput3">옵션 3:</label> <input type="text"
+													id="voteThree" name="voteThree" class="form-control"
+													placeholder="옵션 이름 입력" />
+											</div>
+											<div class="mt-2">
+												<label for="optionInput4">옵션 4:</label> <input type="text"
+													id="voteFour" name="voteFour" class="form-control"
+													placeholder="옵션 이름 입력" />
+											</div>
+											<div class="mt-2">
+												<label for="optionInput5">옵션 5:</label> <input type="text"
+													id="voteFive" name="voteFive" class="form-control"
+													placeholder="옵션 이름 입력" />
+											</div>
+										</div>
+										<button type="submit" class="btn btn-primary mt-3">투표
+											생성</button>
+									</div>
+								</form>
+								<br />
+								<!-- 지금까지 투표 -->
 								<div class="bd-report-title">
-									<h6>현재 비밀번호</h6>
-								</div>
-								<div class="bd-report-content">
-									<input type="password" class="mp-modal-input-form before"
-										placeholder="현재 비밀번호를 입력하세요.">
-								</div>
-								<br>
-								<div class="bd-report-title">
-									<h6>비밀번호 재입력</h6>
-								</div>
-								<div class="bd-report-content">
-									<input type="password" class="mp-modal-input-form reBefore"
-										placeholder="현재 비밀번호를 다시 입력하세요.">
-								</div>
-								<br>
-								<div class="bd-report-title">
-									<h6>비밀번호 변경</h6>
-								</div>
-								<div class="bd-report-content">
-									<input type="password" class="mp-modal-input-form after"
-										placeholder="변경할 비밀번호를 입력하세요.">
+									<h4>지금까지 투표</h4>
+									<hr>
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>투표 제목</th>
+												<th>최종 결과</th>
+											</tr>
+										</thead>
+										<tbody>
+										 <c:forEach var="vl" items="${voteList}">
+						               		<tr>
+						               			<td>${vl.voteTitle}</td>
+						               			<td>${vl.voteContent}</td>
+						               		</tr>
+						               	  </c:forEach>
+										</tbody>
+									</table>
 								</div>
 							</div>
+							<!-- 모달 푸터 -->
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">닫기</button>
-								<button type="button" class="btn btn-primary">수정 완료</button>
+								<button type="button" class="btn btn-secondary" onclick="location.href = 'voteComplete.tm?vno=${voting.voteNo}&tno=${tno}'">투표 완료</button>
 							</div>
 						</div>
 					</div>
 				</div>
-
 
 				<div class="teamcomu-member">
 					<h4 class="teamcomu-title-name">팀원 목록</h4>
@@ -120,8 +196,7 @@
 									${ml.memName }</td>
 							</tr>
 							<tr>
-								<td class="teamcomu-table-position">포지션 :
-									${ml.position }</td>
+								<td class="teamcomu-table-position">포지션 : ${ml.position }</td>
 							</tr>
 							<tr>
 								<td class="teamcomu-table-point">숙련도 : ${ml.ability }</td>
@@ -129,10 +204,11 @@
 						</table>
 					</c:forEach>
 				</div>
-				
+
 				<!-- 팀 탈퇴 -->
 				<div class="teamcomu-teamOut">
-					<button class="teamcomu-teamOutBtn" onclick="confirmTeamOut(${tno})">구단 탈퇴</button>
+					<button class="teamcomu-teamOutBtn"
+						onclick="confirmTeamOut(${tno})">구단 탈퇴</button>
 				</div>
 
 				<div class="teamcomu-app-board-container">
@@ -158,94 +234,95 @@
 							</table>
 						</c:forEach>
 					</div>
-					
-					<!-- 페이지네이션 -->
-						<div id="pagenation">
-							<nav>
-								<ul class="pagination">
-									<c:choose>
-										<c:when
-											test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
-											<li class="page-item"><a href="boardList.tm?cpage=1&tno=${tno }"
-												class="page-link"> <span aria-hidden="true">&laquo;</span>
-											</a></li>
-										</c:when>
-										<c:otherwise>
-											<li class="page-item disabled"><a href="#"
-												class="page-link"> <span aria-hidden="true">&laquo;</span>
-											</a></li>
-										</c:otherwise>
-									</c:choose>
-									<c:choose>
-										<c:when test="${pi.currentPage > 1}">
-											<li class="page-item"><a
-												href="boardList.tm?cpage=${pi.currentPage - 1}&tno=${tno }"
-												class="page-link"> <span aria-hidden="true">&lt;</span>
-											</a></li>
-										</c:when>
-										<c:otherwise>
-											<li class="page-item disabled"><a href="#"
-												class="page-link"> <span aria-hidden="true">&lt;</span>
-											</a></li>
-										</c:otherwise>
-									</c:choose>
 
-									<c:forEach var="page" begin="${pi.startPage}"
-										end="${pi.endPage}" step="1">
-										<c:choose>
-											<c:when test="${page == pi.currentPage}">
-												<li class="page-item active"><a class="page-link"
-													href="#">${page}</a></li>
-											</c:when>
-											<c:otherwise>
-												<li class="page-item"><a class="page-link"
-													href="boardList.tm?cpage=${page}&tno=${tno }">${page}</a></li>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
+					<!-- 페이지네이션 -->
+					<div id="pagenation">
+						<nav>
+							<ul class="pagination">
+								<c:choose>
+									<c:when
+										test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
+										<li class="page-item"><a
+											href="boardList.tm?cpage=1&tno=${tno }" class="page-link">
+												<span aria-hidden="true">&laquo;</span>
+										</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item disabled"><a href="#"
+											class="page-link"> <span aria-hidden="true">&laquo;</span>
+										</a></li>
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${pi.currentPage > 1}">
+										<li class="page-item"><a
+											href="boardList.tm?cpage=${pi.currentPage - 1}&tno=${tno }"
+											class="page-link"> <span aria-hidden="true">&lt;</span>
+										</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item disabled"><a href="#"
+											class="page-link"> <span aria-hidden="true">&lt;</span>
+										</a></li>
+									</c:otherwise>
+								</c:choose>
+
+								<c:forEach var="page" begin="${pi.startPage}"
+									end="${pi.endPage}" step="1">
 									<c:choose>
-										<c:when test="${pi.currentPage < pi.maxPage}">
-											<li class="page-item"><a
-												href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
-												class="page-link"> <span aria-hidden="true">&gt;</span>
-											</a></li>
+										<c:when test="${page == pi.currentPage}">
+											<li class="page-item active"><a class="page-link"
+												href="#">${page}</a></li>
 										</c:when>
 										<c:otherwise>
-											<li class="page-item disabled"><a href="#"
-												class="page-link"> <span aria-hidden="true">&gt;</span>
-											</a></li>
+											<li class="page-item"><a class="page-link"
+												href="boardList.tm?cpage=${page}&tno=${tno }">${page}</a></li>
 										</c:otherwise>
 									</c:choose>
-									<c:choose>
-										<c:when test="${pi.currentPage eq pi.maxPage}">
-											<li class="page-item disabled"><a href="#"
-												class="page-link"> <span aria-hidden="true">&raquo;</span>
-											</a></li>
-										</c:when>
-										<c:when
-											test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
-											<li class="page-item"><a
-												href="boardList.tm?cpage=${pi.maxPage}&tno=${tno }" class="page-link">
-													<span aria-hidden="true">&raquo;</span>
-											</a></li>
-										</c:when>
-										<c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
-											<li class="page-item"><a
-												href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
-												class="page-link"> <span aria-hidden="true">&raquo;</span>
-											</a></li>
-										</c:when>
-										<c:otherwise>
-											<li class="page-item disabled"><a href="#"
-												class="page-link"> <span aria-hidden="true">&raquo;</span>
-											</a></li>
-										</c:otherwise>
-									</c:choose>
-								</ul>
-							</nav>
-						</div>
-					
-					
+								</c:forEach>
+								<c:choose>
+									<c:when test="${pi.currentPage < pi.maxPage}">
+										<li class="page-item"><a
+											href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
+											class="page-link"> <span aria-hidden="true">&gt;</span>
+										</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item disabled"><a href="#"
+											class="page-link"> <span aria-hidden="true">&gt;</span>
+										</a></li>
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${pi.currentPage eq pi.maxPage}">
+										<li class="page-item disabled"><a href="#"
+											class="page-link"> <span aria-hidden="true">&raquo;</span>
+										</a></li>
+									</c:when>
+									<c:when
+										test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
+										<li class="page-item"><a
+											href="boardList.tm?cpage=${pi.maxPage}&tno=${tno }"
+											class="page-link"> <span aria-hidden="true">&raquo;</span>
+										</a></li>
+									</c:when>
+									<c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
+										<li class="page-item"><a
+											href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
+											class="page-link"> <span aria-hidden="true">&raquo;</span>
+										</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item disabled"><a href="#"
+											class="page-link"> <span aria-hidden="true">&raquo;</span>
+										</a></li>
+									</c:otherwise>
+								</c:choose>
+							</ul>
+						</nav>
+					</div>
+
+
 					<!-- 글쓰기 버튼 -->
 					<div class="board-createMove-btn-container">
 						<Button class="board-app-createMove-btn">글쓰기</Button>
@@ -304,8 +381,9 @@
 									<c:choose>
 										<c:when
 											test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
-											<li class="page-item"><a href="boardList.tm?cpage=1&tno=${tno }"
-												class="page-link"> <span aria-hidden="true">&laquo;</span>
+											<li class="page-item"><a
+												href="boardList.tm?cpage=1&tno=${tno }" class="page-link">
+													<span aria-hidden="true">&laquo;</span>
 											</a></li>
 										</c:when>
 										<c:otherwise>
@@ -363,8 +441,8 @@
 										<c:when
 											test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
 											<li class="page-item"><a
-												href="boardList.tm?cpage=${pi.maxPage}&tno=${tno }" class="page-link">
-													<span aria-hidden="true">&raquo;</span>
+												href="boardList.tm?cpage=${pi.maxPage}&tno=${tno }"
+												class="page-link"> <span aria-hidden="true">&raquo;</span>
 											</a></li>
 										</c:when>
 										<c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
@@ -394,7 +472,8 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-	<script src="${pageContext.request.contextPath}/resources/js/teamBoard/teamHome.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/teamBoard/teamHome.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
