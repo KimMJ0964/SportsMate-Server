@@ -142,3 +142,26 @@
         .line { 
         border: 1px solid black;
         }
+        
+        /* 페이지네이션 */
+	    .board-pagination {
+	       display: flex;
+	       justify-content: center;
+	       margin: 20px 0;
+	    }
+	   
+	   .board-page-btn {
+	       border-style: none;
+	       color: #1D87FA;
+	       background-color: white;
+	       padding: 8px 12px;
+	       margin: 0 5px;
+	       border-radius: 5px;
+	       cursor: pointer;
+	       font-size: 16px;
+	    }
+	   
+	   .board-page-btn:hover {
+	       background-color: #1D87FA;
+	       color: white;
+	    }

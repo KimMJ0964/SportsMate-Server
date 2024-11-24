@@ -37,21 +37,21 @@
         
         <div class="choice">
             <div class="mt-region-container">
-                <select class="mt-region" name="city">
-                    <option value="전체">전체</option>
-                    <option value="서울">서울</option>
-                    <option value="부산">부산</option>
-                    <option value="대구">대구</option>
-                    <option value="인천">인천</option>
-                    <option value="광주">광주</option>
-                    <option value="대전">대전</option>
-                    <option value="울산">울산</option>
-                    <option value="세종">세종</option>
+                <select class="mt-region" name="stadiumAddress" onchange="updateResults()">
+                    <option value="전체" ${stadiumAddress == '전체' ? 'selected' : ''}>전체</option>
+                    <option value="서울" ${stadiumAddress == '서울' ? 'selected' : ''}>서울</option>
+                    <option value="부산" ${stadiumAddress == '부산' ? 'selected' : ''}>부산</option>
+                    <option value="대구" ${stadiumAddress == '대구' ? 'selected' : ''}>대구</option>
+                    <option value="인천" ${stadiumAddress == '인천' ? 'selected' : ''}>인천</option>
+                    <option value="광주" ${stadiumAddress == '광주' ? 'selected' : ''}>광주</option>
+                    <option value="대전" ${stadiumAddress == '대전' ? 'selected' : ''}>대전</option>
+                    <option value="울산" ${stadiumAddress == '울산' ? 'selected' : ''}>울산</option>
+                    <option value="세종" ${stadiumAddress == '세종' ? 'selected' : ''}>세종</option>
                 </select>
             </div>
             
             <div class="mt-start-container">
-                <select class="mt-starttime" name="stadiumStartTime">
+                <select class="mt-starttime" name="stadiumStartTime" onchange="updateResults()">
 					<option>시간을 선택해주세요.</option>
                     <option value="08:00:00" ${stadiumStartTime == '08:00:00' ? 'selected' : ''}>08:00</option>
                     <option value="10:00:00" ${stadiumStartTime == '10:00:00' ? 'selected' : ''}>10:00</option>
@@ -65,7 +65,7 @@
             </div>
             <p>~</p>
             <div class="mt-end-container">
-                <select class="mt-endtime" name="stadiumEndTime">
+                <select class="mt-endtime" name="stadiumEndTime" onchange="updateResults()">
                 	<option>시간을 선택해주세요.</option>
                     <option value="10:00:00" ${stadiumEndTime == '10:00:00' ? 'selected' : ''}>10:00</option>
                     <option value="12:00:00" ${stadiumEndTime == '12:00:00' ? 'selected' : ''}>12:00</option>
@@ -80,6 +80,7 @@
         </div>
 
 <section class="video-grid">
+	<c:forEach var="StadiumSearch" items="${results}">
         <div class="video-priview">
             <div class="thumbnail-row">
             	<a href="detail.st">
@@ -88,147 +89,27 @@
             </div>
             <div class="video-info-grid" >
                 <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
+                	<p class="vider-author">${StadiumSearch.stadiumAddress}</p>
+                	<p class="vider-title">${StadiumSearch.stadiumName}</p>
+                	<p class="vider-state">${StadiumSearch.stadiumCategory} ${StadiumSearch.selectedDate}</p>
                 </div>
             </div>
         </div>
-                <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
+	</c:forEach>
+</section>
+<div class="board-pagination">
+            <button class="board-page-btn">&laquo;</button>
+            <button class="board-page-btn">1</button>
+            <button class="board-page-btn">2</button>
+            <button class="board-page-btn">3</button>
+            <button class="board-page-btn">4</button>
+            <button class="board-page-btn">5</button>
+            <button class="board-page-btn">&raquo;</button>
         </div>
-                <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
-        </div>
-                <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
-        </div>
-        <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
-        </div>
-                <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
-        </div>
-                <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
-        </div>
-                <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
-        </div>
-        <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
-        </div>
-                <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
-        </div>
-                <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
-        </div>
-                <div class="video-priview">
-            <div class="thumbnail-row">
-                <img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
-            </div>
-            <div class="video-info-grid">
-                <div class="video-info">
-                	<p class="vider-author">서울 강남구 테헤란로</p>
-                	<p class="vider-title">서울 강남구 KH체육관</p>
-                	<p class="vider-state">풋살 2024-10-28</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </div>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/listPage.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stadium/Re-request.js"></script>
 </body>
 </html>

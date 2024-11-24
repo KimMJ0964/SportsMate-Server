@@ -88,12 +88,25 @@
                             <div class="input-box">
                                 <!-- 첫번째 줄 : 구장명 검색 및 종류 선택 -->
                                 <div class="row-group">
-                                    <!-- 구장명 검색(80%) -->
+                                    <!-- 구장명 검색 -->
                                     <div class="search-group">
                                         <img src="${pageContext.request.contextPath}/resources/images/search-btn.png" alt="검색아이콘" class="icon">
                                         <input type="text" class="form-control" placeholder="구장명을 입력해주세요." name="stadiumName">
                                     </div>
-                                    <!-- 스포츠 종류 선택(20%) -->
+                                    <div class="type-select-group">
+                                    	<select class="form-select" name="stadiumAddress">
+                                        	<option value="전체" ${stadiumAddress == '전체' ? 'selected' : ''}>전체</option>
+						                    <option value="서울" ${stadiumAddress == '서울' ? 'selected' : ''}>서울</option>
+						                    <option value="부산" ${stadiumAddress == '부산' ? 'selected' : ''}>부산</option>
+						                    <option value="대구" ${stadiumAddress == '대구' ? 'selected' : ''}>대구</option>
+						                    <option value="인천" ${stadiumAddress == '인천' ? 'selected' : ''}>인천</option>
+						                    <option value="광주" ${stadiumAddress == '광주' ? 'selected' : ''}>광주</option>
+						                    <option value="대전" ${stadiumAddress == '대전' ? 'selected' : ''}>대전</option>
+						                    <option value="울산" ${stadiumAddress == '울산' ? 'selected' : ''}>울산</option>
+						                    <option value="세종" ${stadiumAddress == '세종' ? 'selected' : ''}>세종</option>
+                                        </select>
+                                    </div>
+                                    <!-- 스포츠 종류 선택 -->
                                     <div class="type-select-group">
                                         <select class="form-select" name="stadiumCategory">
                                         	<option value="전체">전체</option>

@@ -75,13 +75,14 @@ public class stadiumController {
     }
     
     @RequestMapping("searchStadium.st")
-    public String searchResults(String stadiumName, String stadiumAdd, double stadiumScore, String stadiumCategory, 
-    		Time stadiumStartTime, Time stadiumEndTime, String selectedDate, String status, Model model) {
-    	StadiumSearch sd = new StadiumSearch(stadiumName, stadiumAdd, stadiumScore, stadiumCategory, stadiumStartTime, stadiumEndTime, status, selectedDate);
+    public String searchResults(String stadiumName, String stadiumAddress, String stadiumCategory, 
+    		Time stadiumStartTime, Time stadiumEndTime, String selectedDate, Model model) {
+    	StadiumSearch sd = new StadiumSearch(stadiumName, stadiumAddress, stadiumCategory, stadiumStartTime, stadiumEndTime, selectedDate);
 		List<StadiumSearch> results = stadiumService.findStadiums(sd);
 		
-		model.addAttribute("stadiumName", stadiumName);
-		model.addAttribute("stadiumCategory", stadiumCategory);
+		model.addAttribute("stadiumName", stadiumName); // 구장 이름
+		model.addAttribute("stadiumAddress", stadiumAddress); // 구장 주소
+		model.addAttribute("stadiumCategory", stadiumCategory); // 종목 선택
 		model.addAttribute("stadiumStartTime", stadiumStartTime); // 시작 시간
 		model.addAttribute("stadiumEndTime", stadiumEndTime); // 끝 시간
 		model.addAttribute("selectedDate", selectedDate); // 선택한 날짜
