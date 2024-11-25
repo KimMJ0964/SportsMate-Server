@@ -100,23 +100,58 @@
 													<div style="margin-left: 20px;">
 														<p><b>투표 제목: ${voting.voteTitle }</b></p>
 														<div>
-															<input type="checkbox" id="option1" name="voteOption" value="1" onclick="selectOnlyOne(this)" />
+															<c:choose>
+															    <c:when test="${not empty voting.voteOne}">
+															    	<input type="checkbox" id="option1" name="voteOption" value="1" onclick="selectOnlyOne(this)" />
+															    </c:when>
+															    <c:otherwise>
+																	<input type="checkbox" id="option1" name="voteOption" value="1" onclick="selectOnlyOne(this)" disabled/>
+															    </c:otherwise>
+															</c:choose>
 															<label for="option1">${voting.voteOne }</label>
 														</div>
 														<div>
-															<input type="checkbox" id="option2" name="voteOption" value="2" onclick="selectOnlyOne(this)" />
+															<c:choose>
+															    <c:when test="${not empty voting.voteTwo}">
+															    	<input type="checkbox" id="option2" name="voteOption" value="2" onclick="selectOnlyOne(this)" />
+															    </c:when>
+															    <c:otherwise>
+																	<input type="checkbox" id="option2" name="voteOption" value="2" onclick="selectOnlyOne(this)" disabled/>
+															    </c:otherwise>
+															</c:choose>
 															<label for="option2">${voting.voteTwo }</label>
 														</div>
 														<div>
-															<input type="checkbox" id="option3" name="voteOption" value="3" onclick="selectOnlyOne(this)" />
+															<c:choose>
+															    <c:when test="${not empty voting.voteThree}">
+															    	<input type="checkbox" id="option3" name="voteOption" value="3" onclick="selectOnlyOne(this)" />
+															    </c:when>
+															    <c:otherwise>
+																	<input type="checkbox" id="option3" name="voteOption" value="3" onclick="selectOnlyOne(this)" disabled/>
+															    </c:otherwise>
+															</c:choose>
 															<label for="option3">${voting.voteThree }</label>
 														</div>
 														<div>
-															<input type="checkbox" id="option4" name="voteOption" value="4" onclick="selectOnlyOne(this)" />
+															<c:choose>
+															    <c:when test="${not empty voting.voteFour}">
+															    	<input type="checkbox" id="option4" name="voteOption" value="4" onclick="selectOnlyOne(this)" />
+															    </c:when>
+															    <c:otherwise>
+																	<input type="checkbox" id="option4" name="voteOption" value="4" onclick="selectOnlyOne(this)" disabled/>
+															    </c:otherwise>
+															</c:choose>
 															<label for="option4">${voting.voteFour }</label>
 														</div>
 														<div>
-															<input type="checkbox" id="option5" name="voteOption" value="5" onclick="selectOnlyOne(this)" />
+															<c:choose>
+															    <c:when test="${not empty voting.voteFive}">
+															    	<input type="checkbox" id="option5" name="voteOption" value="5" onclick="selectOnlyOne(this)" />
+															    </c:when>
+															    <c:otherwise>
+																	<input type="checkbox" id="option5" name="voteOption" value="5" onclick="selectOnlyOne(this)" disabled/>
+															    </c:otherwise>
+															</c:choose>
 															<label for="option5">${voting.voteFive }</label>
 														</div>
 													</div>
