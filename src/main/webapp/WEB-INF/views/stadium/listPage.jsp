@@ -32,7 +32,9 @@
 
         <!-- 서버에서 activeDate 전달 -->
 		<input type="hidden" id="active-date" value="${selectedDate}" />
-		<div class="weekday-selector" id="weekdaySelector"></div>
+		<div class="weekday-selector">
+			<div id="weekdaySelector"></div>
+		</div>
         
 	<form id="searchForm" action="searchStadium.st" method="get">
         <div class="choice">
@@ -52,27 +54,31 @@
             <div class="mt-start-container">
                 <select class="mt-starttime" name="stadiumStartTime" onchange="document.getElementById('searchForm').submit()">
 					<option value="" disabled selected>시간을 선택해주세요.</option>
+                    <option value="05:00:00" ${stadiumStartTime == '05:00:00' ? 'selected' : ''}>05:00</option>
+                    <option value="06:00:00" ${stadiumStartTime == '06:00:00' ? 'selected' : ''}>06:00</option>
+                    <option value="07:00:00" ${stadiumStartTime == '07:00:00' ? 'selected' : ''}>07:00</option>
                     <option value="08:00:00" ${stadiumStartTime == '08:00:00' ? 'selected' : ''}>08:00</option>
+                    <option value="09:00:00" ${stadiumStartTime == '09:00:00' ? 'selected' : ''}>09:00</option>
                     <option value="10:00:00" ${stadiumStartTime == '10:00:00' ? 'selected' : ''}>10:00</option>
+                    <option value="11:00:00" ${stadiumStartTime == '11:00:00' ? 'selected' : ''}>11:00</option>
                     <option value="12:00:00" ${stadiumStartTime == '12:00:00' ? 'selected' : ''}>12:00</option>
-                    <option value="14:00:00" ${stadiumStartTime == '14:00:00' ? 'selected' : ''}>14:00</option>
-                    <option value="16:00:00" ${stadiumStartTime == '16:00:00' ? 'selected' : ''}>16:00</option>
-                    <option value="18:00:00" ${stadiumStartTime == '18:00:00' ? 'selected' : ''}>18:00</option>
-                    <option value="20:00:00" ${stadiumStartTime == '20:00:00' ? 'selected' : ''}>20:00</option>
-                    <option value="22:00:00" ${stadiumStartTime == '22:00:00' ? 'selected' : ''}>22:00</option>
                 </select>
             </div>
             <p>~</p>
             <div class="mt-end-container">
                 <select class="mt-endtime" name="stadiumEndTime" onchange="document.getElementById('searchForm').submit()">
                 	<option value="" disabled selected>시간을 선택해주세요.</option>
-                    <option value="10:00:00" ${stadiumEndTime == '10:00:00' ? 'selected' : ''}>10:00</option>
-                    <option value="12:00:00" ${stadiumEndTime == '12:00:00' ? 'selected' : ''}>12:00</option>
+                    <option value="13:00:00" ${stadiumEndTime == '13:00:00' ? 'selected' : ''}>13:00</option>
                     <option value="14:00:00" ${stadiumEndTime == '14:00:00' ? 'selected' : ''}>14:00</option>
+                    <option value="15:00:00" ${stadiumEndTime == '15:00:00' ? 'selected' : ''}>15:00</option>
                     <option value="16:00:00" ${stadiumEndTime == '16:00:00' ? 'selected' : ''}>16:00</option>
+                    <option value="17:00:00" ${stadiumEndTime == '17:00:00' ? 'selected' : ''}>17:00</option>
                     <option value="18:00:00" ${stadiumEndTime == '18:00:00' ? 'selected' : ''}>18:00</option>
+                    <option value="19:00:00" ${stadiumEndTime == '19:00:00' ? 'selected' : ''}>19:00</option>
                     <option value="20:00:00" ${stadiumEndTime == '20:00:00' ? 'selected' : ''}>20:00</option>
+                    <option value="21:00:00" ${stadiumEndTime == '21:00:00' ? 'selected' : ''}>21:00</option>
                     <option value="22:00:00" ${stadiumEndTime == '22:00:00' ? 'selected' : ''}>22:00</option>
+                    <option value="23:00:00" ${stadiumEndTime == '23:00:00' ? 'selected' : ''}>23:00</option>
                     <option value="24:00:00" ${stadiumEndTime == '24:00:00' ? 'selected' : ''}>24:00</option>
                 </select>
             </div>

@@ -50,50 +50,77 @@
 		    color: #555; /* 색상 변경 */
 		}
 		
-		/*날짜 선택*/
-        .weekday-selector {
-            display: flex;
-            justify-content: space-around;
-            margin: 0 auto;
-            margin-bottom: 5px;
-            /*max-width: 400px;*/
-        }
-        .day-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
-            border-radius: 20px;
-            width: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .day-box.active {
-            background-color: #0080ff;
-            color: white;
-        }
-        .date {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-        .date.std {
-        	color: red;
-        }
-        .date.sd {
-        	color: blue;
-        }
-        .day {
-            font-size: 16px;
-            color: #666;
-        }
-        .day.std {
-        	color: red;
-        }
-        .day.sd {
-        	color: blue;
-        }
-        .page-item.active .page-link {
+		/* 부모 컨테이너: 슬라이드 밖의 내용을 숨김 */
+		.weekday-selector {
+		    overflow: hidden; /* 슬라이더 밖의 요소 숨기기 */
+		    width: 100%;
+		    position: relative;
+		    display: flex;
+		    justify-content: center;
+		}
+		
+		/* 슬라이드 전체 컨텐츠: 두 주차를 모두 포함 */
+		#weekdaySelector {
+		    display: flex;
+		    transition: transform 0.3s ease-in-out; /* 슬라이드 이동 애니메이션 */
+		    width: 200%; /* 두 주차의 전체 너비 */
+		    transform: translateX(0); /* 초기 위치: 첫 번째 주만 보이도록 설정 */
+		    cursor: grab;
+		}
+		
+		#weekdaySelector.grabbing {
+		    cursor: grabbing;
+		}
+		
+		/* 날짜 박스 */
+		.day-box {
+		    flex: 1 0 calc(100% / 7); /* 날짜 박스 크기를 7등분 */
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    padding: 10px;
+		    border-radius: 20px;
+		    width: 50px;
+		    cursor: pointer;
+		    transition: background-color 0.3s;
+		}
+		
+		/* 활성화 상태 */
+		.day-box.active {
+		    background-color: #0080ff;
+		    color: white;
+		    transform: scale(1.1); /* 활성화 상태에서 확대 효과 */
+		}
+		
+		/* 날짜 스타일 */
+		.date {
+		    font-size: 16px;
+		    font-weight: bold;
+		    color: #333;
+		}
+		
+		.date.std {
+		    color: red; /* 토요일 색상 */
+		}
+		
+		.date.sd {
+		    color: blue; /* 일요일 색상 */
+		}
+		
+		/* 요일 스타일 */
+		.day {
+		    font-size: 16px;
+		    color: #666;
+		}
+		
+		.day.std {
+		    color: red;
+		}
+		
+		.day.sd {
+		    color: blue;
+		}
+		.page-item.active .page-link {
 	    	background-color: #007bff; /* 파란색 배경 */
 	    	color: #fff; /* 흰색 텍스트 */
 	    	border-color: #007bff; /* 테두리도 파란색 */
@@ -143,28 +170,6 @@
         }
         
         /* 페이지네이션 */
-	    .board-pagination {
-	       display: flex;
-	       justify-content: center;
-	       margin: 20px 0;
-	    }
-	   
-	   .board-page-btn {
-	       border-style: none;
-	       color: #1D87FA;
-	       background-color: white;
-	       padding: 8px 12px;
-	       margin: 0 5px;
-	       border-radius: 5px;
-	       cursor: pointer;
-	       font-size: 16px;
-	    }
-	   
-	   .board-page-btn:hover {
-	       background-color: #1D87FA;
-	       color: white;
-	    }
-	    
 	    #pagenation{
 		    display: flex;
 		    justify-content: center;
