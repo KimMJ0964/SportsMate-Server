@@ -295,7 +295,6 @@
 		width: 53px;
 		height: 53px;
 		border-radius: 50%; /* 원형으로 만들기 */
-		background-color: #007bff; /* 원하는 색상으로 변경 */
 		display: inline-block; /* 프로필과 이름을 가로로 정렬 */
 	}
 	

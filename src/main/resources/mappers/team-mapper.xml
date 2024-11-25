@@ -157,11 +157,13 @@
 	               WHEN T.TEAM_CATEGORY = 'baseball' THEN C.BASE_ABILITY
 	               WHEN T.TEAM_CATEGORY = 'basketball' THEN C.BASKET_ABILITY
 	               ELSE NULL
-	           END AS ability
+	           END AS ability,
+	           PF.CHANGE_NAME as changeName
 	    FROM TEAM_MEMBER TM
 	    JOIN MEMBER M ON TM.MEM_NO = M.MEM_NO
 	    JOIN TEAM T ON TM.TEAM_NO = T.TEAM_NO
 	    LEFT JOIN CATEGORY C ON TM.MEM_NO = C.MEM_NO
+	    LEFT JOIN PROFILE_FILE PF ON TM.MEM_NO = PF.MEM_NO
 	    WHERE TM.TEAM_NO = #{teamNo}
 	    AND TM.STATUS = 'Y'
 	</select>
@@ -313,6 +315,7 @@
 		    WHERE 
 		        TV.TEAM_NO = #{voteNo}
 		        AND TV.STATUS = 'Y'
+		        AND TVD.CHECK != 0
 		    GROUP BY 
 		        TV.VOTE_NO, 
 		        TV.VOTE_TITLE,
@@ -326,6 +329,28 @@
 		        END
 		) AS VOTE_RESULTS
 		ORDER BY SELECT_COUNT ASC;
+	</select>
+	
+	<!-- 구단장 번호 가져오기 -->
+	<select id="leaderNo" resultType="_int">
+		SELECT MEM_NO as memNo
+		FROM TEAM
+		WHERE TEAM_NO = #{tno}
+	</select>
+	
+	<!-- 구단 배너 -->
+	<select id="teamBanner" resultType="Profile">
+		SELECT CHANGE_NAME as changeName
+		FROM PROFILE_FILE
+		WHERE TEAM_NO = #{tno}
+	</select>
+	
+	<!-- 본인 팀인지 확인 -->
+	<select id="checkTeamMember" resultType="Integer">
+		SELECT TEAM_NO as teamNo
+		FROM TEAM_MEMBER
+		WHERE TEAM_NO = #{tno}
+		AND MEM_NO = #{memNo}
 	</select>
 	
 	<!-- 게시글 생성 -->

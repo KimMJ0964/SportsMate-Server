@@ -28,9 +28,15 @@
 
 		<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 
-		<div class="board-banner" style="background-color: #D9D9D9;">
-			<img
-				src="${pageContext.request.contextPath}/resources/images/team_board_banner.png" />
+		<div class="board-banner">
+			<c:choose>
+			    <c:when test="${teamBanner == null}">
+			        <img src="${pageContext.request.contextPath}/resources/images/team_board_banner.png" />
+			    </c:when>
+			    <c:otherwise>
+			        <img src="${pageContext.request.contextPath}/resources/images/userProFile/${teamBanner.changeName}" alt="팀 배너 이미지" />
+			    </c:otherwise>
+			</c:choose>
 			<div class="banner-text">구단 미니 홈피</div>
 		</div>
 
@@ -49,24 +55,32 @@
 								src="${pageContext.request.contextPath}/resources/images/team_board_vote.png">
 							<div class="teamcomu-center-word">투표</div>
 						</div>
-						<div class="teamcomu-work-join">
-							<img class="teamcomu-wrok-join-img"
-								src="${pageContext.request.contextPath}/resources/images/team_board_join.png">
-							<div class="teamcomu-center-word">모집</div>
+						<div class="teamcomu-work-vote-desktop" data-bs-toggle="modal"
+							data-bs-target="#voteModalDeskTop">
+							<img class="teamcomu-wrok-vote-img"
+								src="${pageContext.request.contextPath}/resources/images/team_board_vote.png">
+							<div class="teamcomu-center-word">투표</div>
 						</div>
-						<div class="teamcomu-work-modify"
-							onclick="location.href = 'teamManagement.tm?tno=${tno}'">
-							<img class="teamcomu-wrok-modify-img"
-								src="${pageContext.request.contextPath}/resources/images/team_board_modify.png">
-							<div class="teamcomu-center-word">관리</div>
-						</div>
+						<c:if test="${memNo != null && memNo == leaderNo}">
+							<div class="teamcomu-work-join">
+								<img class="teamcomu-wrok-join-img"
+									src="${pageContext.request.contextPath}/resources/images/team_board_join.png">
+								<div class="teamcomu-center-word">모집</div>
+							</div>
+							<div class="teamcomu-work-modify"
+								onclick="location.href = 'teamManagement.tm?tno=${tno}'">
+								<img class="teamcomu-wrok-modify-img"
+									src="${pageContext.request.contextPath}/resources/images/team_board_modify.png">
+								<div class="teamcomu-center-word">관리</div>
+							</div>
+						</c:if>
 					</div>
 				</div>
 
-				<!-- 모달 -->
-				<div class="modal fade" id="voteModal" tabindex="-1"
+				<!-- 데스크탑 투표 모달 -->
+				<div class="modal fade" id="voteModalDeskTop" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
+					<div class="modal-dialog modal-xl">
 						<div class="modal-content">
 							<!-- 모달 헤더 -->
 							<div class="modal-header">
@@ -76,39 +90,66 @@
 							</div>
 							<div class="modal-body">
 								<!-- 진행중인 투표 -->
-								<form id="ongoingVoteForm" action="voting.tm" method="post">
-									 <input type="hidden" id="tno" name="tno" value="${tno}" />
-									 <input type="hidden" id="tno" name="vno" value="${voting.voteNo}" />
+								<div class="vote-desktop-topContainer">
 									<div class="bd-report-title">
-										<h4>진행중인 투표</h4>
-											<hr>
-											<div>
-												<p>투표 제목: ${voting.voteTitle }</p>
-												<div>
-													<input type="checkbox" id="option1" name="voteOption" value="1" onclick="selectOnlyOne(this)" />
-													<label for="option1">${voting.voteOne }</label>
+										<form id="ongoingVoteForm" action="voting.tm" method="post">
+											 <input type="hidden" id="tno" name="tno" value="${tno}" />
+											 <input type="hidden" id="tno" name="vno" value="${voting.voteNo}" />
+												<h4 style="text-align:center;">진행중인 투표</h4>
+													<hr>
+													<div style="margin-left: 20px;">
+														<p><b>투표 제목: ${voting.voteTitle }</b></p>
+														<div>
+															<input type="checkbox" id="option1" name="voteOption" value="1" onclick="selectOnlyOne(this)" />
+															<label for="option1">${voting.voteOne }</label>
+														</div>
+														<div>
+															<input type="checkbox" id="option2" name="voteOption" value="2" onclick="selectOnlyOne(this)" />
+															<label for="option2">${voting.voteTwo }</label>
+														</div>
+														<div>
+															<input type="checkbox" id="option3" name="voteOption" value="3" onclick="selectOnlyOne(this)" />
+															<label for="option3">${voting.voteThree }</label>
+														</div>
+														<div>
+															<input type="checkbox" id="option4" name="voteOption" value="4" onclick="selectOnlyOne(this)" />
+															<label for="option4">${voting.voteFour }</label>
+														</div>
+														<div>
+															<input type="checkbox" id="option5" name="voteOption" value="5" onclick="selectOnlyOne(this)" />
+															<label for="option5">${voting.voteFive }</label>
+														</div>
+													</div>
+												<div class="vote-desktop-btn" style="text-align: center;">
+													<button type="submit" class="btn btn-primary mt-3">투표 제출</button>
 												</div>
-												<div>
-													<input type="checkbox" id="option2" name="voteOption" value="2" onclick="selectOnlyOne(this)" />
-													<label for="option2">${voting.voteTwo }</label>
-												</div>
-												<div>
-													<input type="checkbox" id="option3" name="voteOption" value="3" onclick="selectOnlyOne(this)" />
-													<label for="option3">${voting.voteThree }</label>
-												</div>
-												<div>
-													<input type="checkbox" id="option4" name="voteOption" value="4" onclick="selectOnlyOne(this)" />
-													<label for="option4">${voting.voteFour }</label>
-												</div>
-												<div>
-													<input type="checkbox" id="option5" name="voteOption" value="5" onclick="selectOnlyOne(this)" />
-													<label for="option5">${voting.voteFive }</label>
-												</div>
-											</div>
-										<button type="submit" class="btn btn-primary mt-3">투표
-											제출</button>
+										</form>
 									</div>
-								</form>
+									<!-- 지금까지 투표 -->
+									<div class="bd-report-title">
+										<h4 style="text-align:center;">지금까지 투표</h4>
+										<hr>
+										<table class="table table-bordered">
+											<thead style="text-align: center;">
+												<tr>
+													<th>투표 제목</th>
+													<th>최종 결과</th>
+												</tr>
+											</thead>
+											<tbody>
+											 <c:forEach var="vl" items="${voteList}">
+							               		<tr>
+							               			<td>${vl.voteTitle}</td>
+							               			<td>${vl.voteContent}</td>
+							               		</tr>
+							               	  </c:forEach>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<br>
+								<br>
+								<c:if test="${memNo != null && memNo == leaderNo}">
 								<br />
 								<!-- 투표 생성 -->
 								<form id="createVoteForm" action="createVote.tm" method="post">
@@ -150,13 +191,116 @@
 											생성</button>
 									</div>
 								</form>
+								</c:if>
+							</div>
+							<!-- 모달 푸터 -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">닫기</button>
+								<c:if test="${memNo != null && memNo == leaderNo}">
+									<button type="button" class="btn btn-secondary" onclick="location.href = 'voteComplete.tm?vno=${voting.voteNo}&tno=${tno}'">투표 완료</button>
+								</c:if>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 모바일 투표 모달 -->
+				<div class="modal fade" id="voteModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<!-- 모달 헤더 -->
+							<div class="modal-header">
+								<p class="modal-title fs-5" id="exampleModalLabel">투표</p>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<!-- 진행중인 투표 -->
+								<form id="ongoingVoteForm" action="voting.tm" method="post">
+									 <input type="hidden" id="tno" name="tno" value="${tno}" />
+									 <input type="hidden" id="tno" name="vno" value="${voting.voteNo}" />
+									<div class="bd-report-title">
+										<h4>진행중인 투표</h4>
+											<hr>
+											<div>
+												<p><b>투표 제목: ${voting.voteTitle }</b></p>
+												<div>
+													<input type="checkbox" id="option1" name="voteOption" value="1" onclick="selectOnlyOne(this)" />
+													<label for="option1">${voting.voteOne }</label>
+												</div>
+												<div>
+													<input type="checkbox" id="option2" name="voteOption" value="2" onclick="selectOnlyOne(this)" />
+													<label for="option2">${voting.voteTwo }</label>
+												</div>
+												<div>
+													<input type="checkbox" id="option3" name="voteOption" value="3" onclick="selectOnlyOne(this)" />
+													<label for="option3">${voting.voteThree }</label>
+												</div>
+												<div>
+													<input type="checkbox" id="option4" name="voteOption" value="4" onclick="selectOnlyOne(this)" />
+													<label for="option4">${voting.voteFour }</label>
+												</div>
+												<div>
+													<input type="checkbox" id="option5" name="voteOption" value="5" onclick="selectOnlyOne(this)" />
+													<label for="option5">${voting.voteFive }</label>
+												</div>
+											</div>
+										<button type="submit" class="btn btn-primary mt-3">투표
+											제출</button>
+									</div>
+								</form>
+								 <c:if test="${memNo != null && memNo == leaderNo}">
+								<br />
+								<!-- 투표 생성 -->
+								<form id="createVoteForm" action="createVote.tm" method="post">
+									 <input type="hidden" id="teamNo" name="teamNo" value="${tno}" />
+									<div class="bd-report-title">
+										<h4>투표 생성</h4>
+										<hr>
+										<div>
+											<label for="voteTitle">투표 제목:</label> <input type="text"
+												id="voteTitle" name="voteTitle" class="form-control"
+												placeholder="투표 제목 입력" required />
+											<div class="mt-3">
+												<label for="optionInput1">옵션 1:</label> <input type="text"
+													id="voteOne" name="voteOne" class="form-control"
+													placeholder="옵션 이름 입력" />
+											</div>
+											<div class="mt-2">
+												<label for="optionInput2">옵션 2:</label> <input type="text"
+													id="voteTwo" name="voteTwo" class="form-control"
+													placeholder="옵션 이름 입력" />
+											</div>
+											<div class="mt-2">
+												<label for="optionInput3">옵션 3:</label> <input type="text"
+													id="voteThree" name="voteThree" class="form-control"
+													placeholder="옵션 이름 입력" />
+											</div>
+											<div class="mt-2">
+												<label for="optionInput4">옵션 4:</label> <input type="text"
+													id="voteFour" name="voteFour" class="form-control"
+													placeholder="옵션 이름 입력" />
+											</div>
+											<div class="mt-2">
+												<label for="optionInput5">옵션 5:</label> <input type="text"
+													id="voteFive" name="voteFive" class="form-control"
+													placeholder="옵션 이름 입력" />
+											</div>
+										</div>
+										<button type="submit" class="btn btn-primary mt-3">투표
+											생성</button>
+									</div>
+								</form>
+								</c:if>
 								<br />
 								<!-- 지금까지 투표 -->
 								<div class="bd-report-title">
 									<h4>지금까지 투표</h4>
 									<hr>
 									<table class="table table-bordered">
-										<thead>
+										<thead style="text-align: center;">
 											<tr>
 												<th>투표 제목</th>
 												<th>최종 결과</th>
@@ -177,20 +321,29 @@
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">닫기</button>
-								<button type="button" class="btn btn-secondary" onclick="location.href = 'voteComplete.tm?vno=${voting.voteNo}&tno=${tno}'">투표 완료</button>
+								<c:if test="${memNo != null && memNo == leaderNo}">
+									<button type="button" class="btn btn-secondary" onclick="location.href = 'voteComplete.tm?vno=${voting.voteNo}&tno=${tno}'">투표 완료</button>
+								</c:if>
 							</div>
 						</div>
 					</div>
 				</div>
+				
 
 				<div class="teamcomu-member">
 					<h4 class="teamcomu-title-name">팀원 목록</h4>
 					<c:forEach var="ml" items="${memberList}">
 						<table class="teamcomu-table">
 							<tr>
-								<td rowspan="3" class="teamcomu-table-profile"><img
-									class="teamcomu-table-profile-img"
-									src="${pageContext.request.contextPath}/resources/images/team_board_modify.png">
+								<td rowspan="3" class="teamcomu-table-profile">
+									<c:choose>
+									    <c:when test="${ml.changeName == null}">
+									        <img class="teamcomu-table-profile-img" src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" />
+									    </c:when>
+									    <c:otherwise>
+									        <img class="teamcomu-table-profile-img" src="${pageContext.request.contextPath}/resources/images/userProFile/${ml.changeName}" alt="팀 배너 이미지" />
+									    </c:otherwise>
+									</c:choose>
 								</td>
 								<td class="teamcomu-table-name" style="width: 100%;">이름 :
 									${ml.memName }</td>

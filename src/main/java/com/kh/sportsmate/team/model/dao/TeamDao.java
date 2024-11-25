@@ -16,6 +16,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
@@ -402,5 +403,32 @@ public class TeamDao {
      */
     public int voteComplete(SqlSessionTemplate sqlSession, int vno) {
     	return sqlSession.update("teamMapper.voteComplete", vno);
+    }
+    
+    /**
+     * 구단정 번호 Select
+     * @param sqlSession
+     * @param tno
+     */
+    public int leaderNo(SqlSessionTemplate sqlSession, int tno) {
+    	return sqlSession.selectOne("teamMapper.leaderNo", tno);
+    }
+    
+    /**
+     * 구장 배너
+     * @param sqlSession
+     * @param tno
+     */
+    public Profile teamBanner(SqlSessionTemplate sqlSession, int tno) {
+    	return sqlSession.selectOne("teamMapper.teamBanner", tno);
+    }
+    
+    /**
+     * 본인 팀인지 확인
+     * @param sqlSession
+     * @param map
+     */
+    public Integer checkTeamMember(SqlSessionTemplate sqlSession, Map<String, String> map) {
+    	return sqlSession.selectOne("teamMapper.checkTeamMember", map);
     }
 }

@@ -276,4 +276,13 @@ public class BoardDao {
 		return sqlSession.update("boardMapper.updateBoardFile", bf);
 	}
 	
+	/**
+	 * 게시글 주인 확인 Select
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 */
+	public Integer checkBoardMember(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.selectOne("boardMapper.checkBoardMember", map);
+	}
 }

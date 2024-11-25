@@ -35,12 +35,16 @@
             <mapping path="/boardLike.bd" />
             <mapping path="/boardReport.bd" />
             <mapping path="/replyComment.bd" />
-            <mapping path="/createMoveBd.tm" />
-            <mapping path="/writeReply.tm" />
-            <mapping path="/deleteComm.tm" />
-            <mapping path="/boardLike.tm" />
-            <mapping path="/boardReport.tm" />
             <beans:bean class="com.kh.sportsmate.common.intercepter.LoginInterceptor" id="LoginIntercepter"/>
+        </interceptor>
+        
+        <!-- 구단 미니 홈피 관련 -->
+        <interceptor>
+            <mapping path="/boardList.tm" />
+            <mapping path="/createBd.tm" />
+            <mapping path="/searchBoard.tm" />
+            <mapping path="/voting.tm"/>
+            <beans:bean class="com.kh.sportsmate.common.intercepter.TeamBoardInterceptor" id="TeamBoardInterceptor"/>
         </interceptor>
 
         <!-- 관리자 관련 -->

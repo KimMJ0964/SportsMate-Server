@@ -301,4 +301,14 @@ public class BoardServiceImpl implements BoardService{
 	public int updateBoardFile(BoardFile bf) {
 		return boardDao.updateBoardFile(sqlSession, bf);
 	}
+	
+	/**
+	 * 게시판 주인 확인
+	 * 
+	 * @param map
+	 */
+	@Override
+	public Integer checkBoardMember(Map<String, String> map) {
+		return boardDao.checkBoardMember(sqlSession, map);
+	}
 }

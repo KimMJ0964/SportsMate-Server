@@ -124,5 +124,14 @@ public interface TeamService {
  	
  	// 투표 종료
  	int voteComplete(int vno);
+ 	
+ 	// 구단장 번호
+ 	int leaderNo(int tno);
+ 	
+ 	// 구단 배너
+ 	Profile teamBanner(int tno);
+ 	
+ 	// 본인 팀인지 체크
+ 	Integer checkTeamMember(Map<String, String> map);
 }
 

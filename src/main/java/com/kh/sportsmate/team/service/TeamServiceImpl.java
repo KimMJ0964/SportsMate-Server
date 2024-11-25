@@ -460,8 +460,6 @@ public class TeamServiceImpl implements TeamService {
             result2 = teamDao.modifyActivityDays(sqlSession, days);
         }
         if (profile != null) {
-        	// 프로필이 있는지 확인
-        	profile.setTeamNo(t.getTeamNo());
         	
         	result3 = attachmentDao.modifyProfile(sqlSession, profile);
         	if (result3 < 1) {
@@ -533,6 +531,36 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public int voteComplete(int vno) {
 		return teamDao.voteComplete(sqlSession, vno);
+	}
+	
+	/**
+	 * 구단장 번호
+	 * @param tno
+	 * @return
+	 */
+	@Override
+	public int leaderNo(int tno) {
+		return teamDao.leaderNo(sqlSession, tno);
+	}
+	
+	/**
+	 * 구단 배너
+	 * @param tno
+	 * @return
+	 */
+	@Override
+	public Profile teamBanner(int tno) {
+		return teamDao.teamBanner(sqlSession, tno);
+	}
+	
+	/**
+	 * 본인 팀인지 체크
+	 * @param map
+	 * @return
+	 */
+	@Override
+	public Integer checkTeamMember(Map<String, String> map) {
+		return teamDao.checkTeamMember(sqlSession, map);
 	}
 }
 

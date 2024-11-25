@@ -238,7 +238,14 @@
 												    </c:choose>
 												<div class="profile">
 													<div class="profile-img-container">
-														<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mt.teamProfile }" class="profile-circle" alt="User Profile"/>
+														<c:choose>
+														    <c:when test="${not empty mt.teamProfile}">
+																<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mt.teamProfile }" class="profile-circle" alt="User Profile"/>
+														    </c:when>
+														    <c:otherwise>
+														        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" class="profile-circle"/>
+														    </c:otherwise>
+														</c:choose>
 													</div>
 													<p class="profile-name">${mt.teamName }</p>
 													<div class="star-rating">
@@ -298,7 +305,14 @@
 												    </c:choose>
 											<div class="profile">
 												<div class="profile-img-container">
-													<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mt.teamProfile }" class="profile-circle" alt="User Profile"/>
+													<c:choose>
+														    <c:when test="${not empty mt.teamProfile}">
+																<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mt.teamProfile }" class="profile-circle" alt="User Profile"/>
+														    </c:when>
+														    <c:otherwise>
+														        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" class="profile-circle"/>
+														    </c:otherwise>
+														</c:choose>
 												</div>
 												<p class="profile-name">${mt.teamName }</p>
 												<div class="star-rating">

@@ -65,25 +65,42 @@ public class TeamController {
      * @param model
      * @param currentPage
      * @param tno
+     * @param session
      * @return
      */
     @RequestMapping("boardList.tm")
-    public String selectList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model, int tno) {
-        // 임의의 팀 번호 값
-
+    public String selectList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model, int tno, HttpSession session) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+    	int memNo = loginMember.getMemNo();
+    	
         System.out.println(tno + "번 구단 미니 홈피");
         int boardCount = teamService.selectListCount(tno);
-
+        
+        // 페이지네이션
         PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 10);
+        // 팀 게시판
         ArrayList<TeamBoard> list = teamService.selectList(pi, tno);
+        // 팀 단원 정보
         ArrayList<TeamMemberDto> memberList = teamService.selectMemberList(tno);
+        // 투표
         TeamVote voting = teamService.voting(tno);
+        // 투표 내용
         ArrayList<TeamVoteDetailDto> voteList = teamService.voteList(tno);
-
+        // 구단장 번호
+        int leaderNo = teamService.leaderNo(tno);
+        // 구단 배너
+        Profile teamBanner = teamService.teamBanner(tno);
+        
+        if(teamBanner != null) {
+        	model.addAttribute("teamBanner", teamBanner);
+        }
+        
         for (TeamMemberDto teamMember : memberList) {
             System.out.println(teamMember);
         }
         
+        model.addAttribute("leaderNo", leaderNo);
+        model.addAttribute("memNo", memNo);
         model.addAttribute("voting", voting);
         model.addAttribute("voteList", voteList);
         model.addAttribute("tno", tno);
@@ -650,7 +667,7 @@ public class TeamController {
         String savePath = session.getServletContext().getRealPath(path);
         if (!userProfile.getOriginalFilename().equals("")) {
             String changeName = Template.saveFile(userProfile, session, path);
-            profile = new Profile(userProfile.getOriginalFilename(), changeName, savePath);
+            profile = new Profile(userProfile.getOriginalFilename(), changeName, savePath, tno);
         }
         t.setTeamNo(tno);
         int result = teamService.modifyTeam(t, profile);
