@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * packageName    : com.kh.sportsmate.stadium.model.dao
@@ -39,7 +40,11 @@ public class StadiumDao {
         return sqlSession.insert("stadiumMapper.insertStadiumAttachment", stadiumAttachmentImgs);
     }
     
-    public List<StadiumSearch> findStadiums(SqlSessionTemplate sqlSession, StadiumSearch sd) {
-    	return sqlSession.selectList("stadiumMapper.findStadiums", sd);
+    public int getSearchResultCount(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+        return sqlSession.selectOne("stadiumMapper.getSearchResultCount", params);
+    }
+
+    public List<StadiumSearch> getPaginatedStadiums(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+        return sqlSession.selectList("stadiumMapper.getPaginatedStadiums", params);
     }
 }

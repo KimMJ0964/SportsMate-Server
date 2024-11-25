@@ -130,7 +130,7 @@
                                     <div class="time-group">
                                         <img src="${pageContext.request.contextPath}/resources/images/time.png" alt="시간 아이콘" class="icon">
                                         <select class="form-select" name="stadiumStartTime">
-                                            <option>시간을 선택해주세요.</option>
+                                            <option value="" disabled selected>시간을 선택해주세요.</option>
                                             <option value="08:00:00" ${stadiumStartTime == '08:00:00' ? 'selected' : ''}>08:00</option>
                                             <option value="10:00:00" ${stadiumStartTime == '10:00:00' ? 'selected' : ''}>10:00</option>
                                             <option value="12:00:00" ${stadiumStartTime == '12:00:00' ? 'selected' : ''}>12:00</option>
@@ -141,7 +141,7 @@
                                             <option value="22:00:00" ${stadiumStartTime == '22:00:00' ? 'selected' : ''}>22:00</option>
                                         </select>
                                         <select class="form-select" name="stadiumEndTime">
-                                        	<option>시간을 선택해주세요.</option>
+                                        	<option value="" disabled selected>시간을 선택해주세요.</option>
                                             <option value="10:00:00" ${stadiumEndTime == '10:00:00' ? 'selected' : ''}>10:00</option>
                                             <option value="12:00:00" ${stadiumEndTime == '12:00:00' ? 'selected' : ''}>12:00</option>
                                             <option value="14:00:00" ${stadiumEndTime == '14:00:00' ? 'selected' : ''}>14:00</option>

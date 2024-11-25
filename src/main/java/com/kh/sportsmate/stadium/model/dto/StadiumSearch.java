@@ -24,13 +24,13 @@ public class StadiumSearch {
     private double stadiumScore; // 구장 평점
     private int stadiumPrice; // 구장 한 세션 이용요금
     private String stadiumCategory; // 구장 종목
-    private Time stadiumStartTime; // 구장 운영 시작 시간
-    private Time stadiumEndTime; // 구장 운영 종료 시간
+    private String stadiumStartTime; // 구장 운영 시작 시간
+    private String stadiumEndTime; // 구장 운영 종료 시간
     private String status; // 구장 상태
     private String selectedDate; // 날짜 가져오기
 
     public StadiumSearch(String stadiumName, String stadiumAddress, String stadiumCategory, 
-    		Time stadiumStartTime, Time stadiumEndTime, String selectedDate) {
+    		String stadiumStartTime, String stadiumEndTime, String selectedDate) {
     	this.stadiumName = stadiumName;
     	this.stadiumAddress = stadiumAddress;
     	this.stadiumCategory = stadiumCategory;

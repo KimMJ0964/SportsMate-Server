@@ -240,28 +240,13 @@
 		)
     </insert>
     
-    <!-- 구장 찾기 검색 모달 -->
-    <select id="findStadiums" resultType="StadiumSearch">
-    SELECT 
-        STADIUM_NO as stadiumNo,
-        STADIUM_ADDRESS as stadiumAddress,
-        STADIUM_NAME as stadiumName,
-        STADIUM_CATEGORY as stadiumCategory,
-        STADIUM_START_TIME as stadiumStartTime,
-        STADIUM_END_TIME as stadiumEndTime
+   <select id="getSearchResultCount" parameterType="map" resultType="int">
+    SELECT COUNT(*) 
     FROM STADIUM
     WHERE STATUS = 'Y'
-    <!-- 필수 조건 -->
     <if test="stadiumName != null and stadiumName != ''">
-        AND (
-            STADIUM_NAME LIKE CONCAT('%', #{stadiumName}, '%')
-            OR STADIUM_NAME LIKE '%축구장%'
-            OR STADIUM_NAME LIKE '%풋살장%'
-            OR STADIUM_NAME LIKE '%야구장%'
-            OR STADIUM_NAME LIKE '%농구장%'
-        )
+        AND STADIUM_NAME LIKE CONCAT('%', #{stadiumName}, '%')
     </if>
-    <!-- 선택 조건 -->
     <if test="stadiumAddress != null and stadiumAddress != ''">
         AND STADIUM_ADDRESS LIKE CONCAT('%', #{stadiumAddress}, '%')
     </if>
@@ -274,6 +259,33 @@
     <if test="stadiumEndTime != null">
         AND STADIUM_END_TIME &lt;= #{stadiumEndTime}
     </if>
-    
-    </select>
+</select>
+<select id="getPaginatedStadiums" parameterType="map" resultType="StadiumSearch">
+    SELECT 
+        STADIUM_NO as stadiumNo,
+        STADIUM_ADDRESS as stadiumAddress,
+        STADIUM_NAME as stadiumName,
+        STADIUM_CATEGORY as stadiumCategory,
+        STADIUM_START_TIME as stadiumStartTime,
+        STADIUM_END_TIME as stadiumEndTime
+    FROM STADIUM
+    WHERE STATUS = 'Y'
+    <if test="stadiumName != null and stadiumName != ''">
+        AND STADIUM_NAME LIKE CONCAT('%', #{stadiumName}, '%')
+    </if>
+    <if test="stadiumAddress != null and stadiumAddress != ''">
+        AND STADIUM_ADDRESS LIKE CONCAT('%', #{stadiumAddress}, '%')
+    </if>
+    <if test="stadiumCategory != null and stadiumCategory != ''">
+        AND STADIUM_CATEGORY = #{stadiumCategory}
+    </if>
+    <if test="stadiumStartTime != null">
+        AND STADIUM_START_TIME &gt;= #{stadiumStartTime}
+    </if>
+    <if test="stadiumEndTime != null">
+        AND STADIUM_END_TIME &lt;= #{stadiumEndTime}
+    </if>
+    LIMIT #{startRow}, #{boardLimit}
+</select>
+
 </mapper>

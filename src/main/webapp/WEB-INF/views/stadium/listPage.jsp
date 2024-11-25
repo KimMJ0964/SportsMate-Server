@@ -34,10 +34,10 @@
 		<input type="hidden" id="active-date" value="${selectedDate}" />
 		<div class="weekday-selector" id="weekdaySelector"></div>
         
-        
+	<form id="searchForm" action="searchStadium.st" method="get">
         <div class="choice">
             <div class="mt-region-container">
-                <select class="mt-region" name="stadiumAddress" onchange="updateResults()">
+                <select class="mt-region" name="stadiumAddress" onchange="document.getElementById('searchForm').submit()">
                     <option value="전체" ${stadiumAddress == '전체' ? 'selected' : ''}>전체</option>
                     <option value="서울" ${stadiumAddress == '서울' ? 'selected' : ''}>서울</option>
                     <option value="부산" ${stadiumAddress == '부산' ? 'selected' : ''}>부산</option>
@@ -49,10 +49,9 @@
                     <option value="세종" ${stadiumAddress == '세종' ? 'selected' : ''}>세종</option>
                 </select>
             </div>
-            
             <div class="mt-start-container">
-                <select class="mt-starttime" name="stadiumStartTime" onchange="updateResults()">
-					<option>시간을 선택해주세요.</option>
+                <select class="mt-starttime" name="stadiumStartTime" onchange="document.getElementById('searchForm').submit()">
+					<option value="" disabled selected>시간을 선택해주세요.</option>
                     <option value="08:00:00" ${stadiumStartTime == '08:00:00' ? 'selected' : ''}>08:00</option>
                     <option value="10:00:00" ${stadiumStartTime == '10:00:00' ? 'selected' : ''}>10:00</option>
                     <option value="12:00:00" ${stadiumStartTime == '12:00:00' ? 'selected' : ''}>12:00</option>
@@ -65,8 +64,8 @@
             </div>
             <p>~</p>
             <div class="mt-end-container">
-                <select class="mt-endtime" name="stadiumEndTime" onchange="updateResults()">
-                	<option>시간을 선택해주세요.</option>
+                <select class="mt-endtime" name="stadiumEndTime" onchange="document.getElementById('searchForm').submit()">
+                	<option value="" disabled selected>시간을 선택해주세요.</option>
                     <option value="10:00:00" ${stadiumEndTime == '10:00:00' ? 'selected' : ''}>10:00</option>
                     <option value="12:00:00" ${stadiumEndTime == '12:00:00' ? 'selected' : ''}>12:00</option>
                     <option value="14:00:00" ${stadiumEndTime == '14:00:00' ? 'selected' : ''}>14:00</option>
@@ -78,15 +77,14 @@
                 </select>
             </div>
         </div>
-
+	</form>
+	
 <section class="video-grid">
 	<c:forEach var="StadiumSearch" items="${results}">
         <div class="video-priview">
-            <div class="thumbnail-row">
             	<a href="detail.st">
                 	<img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
                 </a>
-            </div>
             <div class="video-info-grid" >
                 <div class="video-info">
                 	<p class="vider-author">${StadiumSearch.stadiumAddress}</p>
@@ -97,15 +95,107 @@
         </div>
 	</c:forEach>
 </section>
-<div class="board-pagination">
-            <button class="board-page-btn">&laquo;</button>
-            <button class="board-page-btn">1</button>
-            <button class="board-page-btn">2</button>
-            <button class="board-page-btn">3</button>
-            <button class="board-page-btn">4</button>
-            <button class="board-page-btn">5</button>
-            <button class="board-page-btn">&raquo;</button>
-        </div>
+                    <div id="pagenation">
+                        <nav>
+                            <ul class="pagination">
+                                <c:choose>
+                                    <c:when test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
+                                        <li class="page-item">
+                                            <a href="searchStadium.st?category=${category}&cpage=1" class="page-link">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${pi.currentPage > 1}">
+                                        <li class="page-item">
+                                            <a href="searchStadium.st?category=${category}&cpage=${pi.currentPage - 1}"
+                                                class="page-link">
+                                                <span aria-hidden="true">&lt;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&lt;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}" step="1">
+                                    <c:choose>
+                                        <c:when test="${page == pi.currentPage}">
+                                            <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="searchStadium.st?category=${category}&cpage=${page}">${page}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${pi.currentPage < pi.maxPage}">
+                                        <li class="page-item">
+                                            <a href="searchStadium.st?category=${category}&cpage=${pi.currentPage + 1}"
+                                                class="page-link">
+                                                <span aria-hidden="true">&gt;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&gt;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${pi.currentPage eq pi.maxPage}">
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:when test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
+                                        <li class="page-item">
+                                            <a href="searchStadium.st?category=${category}&cpage=${pi.maxPage}"
+                                                class="page-link">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
+                                        <li class="page-item">
+                                            <a href="searchStadium.st?category=${category}&cpage=${pi.endPage + 1}"
+                                                class="page-link">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </nav>
+                    </div>
         
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </div>

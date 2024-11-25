@@ -25,12 +25,7 @@
 		        padding-bottom:0px;
 		    }
 		}
-		
-		.thumbnail-row{
-		    margin-bottom: 8px;
-		    position: relative;
-		}
-		
+				
 		.thumbnail{
 		    width: 100%;
 		    height: 200px;
@@ -103,6 +98,10 @@
 	    	color: #fff; /* 흰색 텍스트 */
 	    	border-color: #007bff; /* 테두리도 파란색 */
 		}
+		.day-box.active .date, 
+		.day-box.active .day {
+		    color: white; /* 활성화 상태에서 흰색 글씨 */
+		}
         /*선택하기*/
         .choice {
             display: flex;
@@ -165,3 +164,10 @@
 	       background-color: #1D87FA;
 	       color: white;
 	    }
+	    
+	    #pagenation{
+		    display: flex;
+		    justify-content: center;
+		    margin-bottom: 30px;
+		    margin-top: 30px;
+		}
