@@ -28,3 +28,4 @@ function setCommentData(comParentNo, boardNo) {
     document.getElementById("comParentNo").value = comParentNo;
     document.getElementById("comment-boardNo").value = boardNo;
 }
+

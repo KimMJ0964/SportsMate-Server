@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.kh.sportsmate.member.model.vo.Member" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +39,10 @@
             <!-- 5. 버튼들 -->
             <div class="bd-button-container">
                 <div class="bd-button"><a href="${downloadLink}" style="color:white;" download>파일 다운로드</a></div>
-                 <button class="bd-button"  onclick="location.href = 'modifyMove.bd?mpage=${board.boardNo}'">수정하기</button>
+                	
+                 <c:if test="${loginMember != null && loginMember.memNo == board.memNo}">
+					    <button class="bd-button" onclick="location.href = 'modifyMove.bd?mpage=${board.boardNo}'">수정하기</button>
+					</c:if>
                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${board.boardNo}, 0, ${board.memNo })">신고하기</button>
                  <div>
 				 	<img class="bd-like" src="${pageContext.request.contextPath}/resources/images/board_like.png" onclick="location.href = 'boardLike.bd?bno=${board.boardNo }'"/>
@@ -68,13 +72,23 @@
 				 <c:if test="${comments.comParentNo == 0}">    
 		        <div class="bd-one-comment-container">
 		            <div class="bd-comment-info">
-		                <img class="bd-comment-profile-img" src="${comments.filePath}${comments.changeName}" />
+		                <c:choose>
+									    <c:when test="${not empty comments.changeName}">
+									        <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/userProFile/${comments.changeName}" />
+									     </c:when>
+							    <c:otherwise>
+									    <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" />
+								</c:otherwise>
+							</c:choose>
 		                <div class="bd-name">${comments.memName}</div>
 		            </div>
 		            <div class="bd-comment-content">
 					    <c:choose>
 					        <c:when test="${comments.status == 'N'}">
 					            <span class="deleted-comment">삭제된 댓글입니다.</span>
+					        </c:when>
+					        <c:when test="${comments.status == 'B'}">
+					            <span class="deleted-comment">관리자에 의해 삭제된 댓글입니다.</span>
 					        </c:when>
 					        <c:otherwise>
 					            ${comments.comContent}
@@ -94,13 +108,23 @@
                           <!-- Check if this is a reply to the current parent comment -->
                           <c:if test="${reply.comParentNo == comments.comNo}">
                               <div class="bd-reply">
-                                  <img class="bd-comment-profile-img" src="${reply.filePath}${reply.changeName}" />
+                                  <c:choose>
+									        <c:when test="${not empty reply.changeName}">
+									           <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/userProFile/${reply.changeName}" />
+									        </c:when>
+									        <c:otherwise>
+									           <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" />
+									        </c:otherwise>
+									</c:choose>
                                   <div class="bd-name">${reply.memName}</div>
                               </div>
                               <div class="bd-comment-content">
 							    <c:choose>
 							        <c:when test="${reply.status == 'N'}">
 							            <span class="deleted-comment">삭제된 댓글입니다.</span>
+							        </c:when>
+							        <c:when test="${reply.status == 'B'}">
+							            <span class="deleted-comment">관리자에 의해 삭제된 댓글입니다.</span>
 							        </c:when>
 							        <c:otherwise>
 							            ${reply.comContent}

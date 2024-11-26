@@ -181,6 +181,49 @@
                                 </div>
                             </c:forEach>
                         </c:when>
+                        <c:when test="${category != null and category eq 'team'}">
+                            <c:forEach var="report" items="${list}">
+                                <div class="victory-container">
+                                    <div class="victory-row">
+                                        <div class="team-info">
+                                            <form action="blockUser.me" method="post">
+                                                <input type="hidden" name="memNo" value="${report.memNo}">
+                                                <input type="hidden" name="pnNo" value="${report.pnNo}">
+                                                <input type="hidden" name="pnTeam" value="${report.pnTeam}">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <p><b>팀게시판번호:</b> ${report.pnTeam}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p><b>신고일:</b> ${report.repDate}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p><b>신고자:</b> 유저-${report.pnReporter}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p><b>신고대상:</b> 유저-${report.memNo}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <p><b>신고사유:</b> ${report.pnContent}</p>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <div class="report-btns">
+                                                    <button class="cancle-btn"
+                                                        onclick="location.href='blockCancle.me?pnNo=${report.pnNo}'; return false;">거절</button>
+                                                    <button type="submit" class="report-btn">승인</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:when>
                     </c:choose>
                     <div id="pagenation">
                         <nav>

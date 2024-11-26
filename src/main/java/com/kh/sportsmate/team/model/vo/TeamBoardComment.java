@@ -24,7 +24,4 @@ public class TeamBoardComment {
 	private String status;
 	private int comParentNo;
 	private String comContent;
-	
-	/* 조인 */
-	private String memName;
 }

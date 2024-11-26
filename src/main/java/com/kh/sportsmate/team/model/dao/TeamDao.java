@@ -8,12 +8,15 @@ import com.kh.sportsmate.team.model.dto.RecruitDetailDto;
 import com.kh.sportsmate.team.model.dto.RecruitDto;
 import com.kh.sportsmate.team.model.dto.RecruitListDto;
 import com.kh.sportsmate.team.model.dto.RecruitListQueryStringDto;
+import com.kh.sportsmate.team.model.dto.TeamInfoDto;
 import com.kh.sportsmate.team.model.dto.TeamMemberDto;
 import com.kh.sportsmate.team.model.vo.*;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.sportsmate.board.model.vo.BoardFile;
+import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
 
 @Repository
@@ -49,7 +52,8 @@ public class TeamDao {
     }
 
     public int createBoard(SqlSessionTemplate sqlSession, TeamBoard b) {
-        return sqlSession.insert("teamMapper.createBoard", b);
+    	sqlSession.insert("teamMapper.createBoard", b);
+	    return b.getBoardNo();
     }
 
     public int updateBoard(SqlSessionTemplate sqlSession, TeamBoard b) {
@@ -120,5 +124,57 @@ public class TeamDao {
     }
     public int insertTeamMember(SqlSessionTemplate sqlSession, TeamMember teamMember){
         return sqlSession.insert("teamMapper.insertTeamMember", teamMember);
+    }
+    
+    public int likeCount(SqlSessionTemplate sqlSession, int bno) {
+    	return sqlSession.selectOne("teamMapper.likeCount", bno);
+    }
+    
+    public BoardFile filedownloadLink(SqlSessionTemplate sqlSession, int bno) {
+    	return sqlSession.selectOne("teamMapper.filedownloadLink", bno);
+    }
+    
+    public BoardLike boardIsLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.selectOne("teamMapper.boardIsLike", map);
+	}
+	
+	public int boardToLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("teamMapper.boardToLike", map);
+	}
+	
+	public int boardToUnLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("teamMapper.boardToUnLike", map);
+	}
+	
+	public int boardInsertLike(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.insert("teamMapper.boardInsertLike", map);
+	}
+	
+	public int replyComment(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.insert("teamMapper.replyComment", map);
+	}
+	
+	public int saveBoardFile(SqlSessionTemplate sqlSession, BoardFile bf) {
+		return sqlSession.insert("teamMapper.saveBoardFile", bf);
+	}
+	
+	public int teamOut(SqlSessionTemplate sqlSession, Team team) {
+		return sqlSession.update("teamMapper.teamOut", team);
+	}
+	
+	public TeamInfoDto teamInfo(SqlSessionTemplate sqlSession, int tno) {
+		return sqlSession.selectOne("teamMapper.teamInfo", tno);
+	}
+	
+	public int numOfTeamPerson(SqlSessionTemplate sqlSession, int tno) {
+		return sqlSession.selectOne("teamMapper.numOfTeamPerson", tno);
+	}
+	
+	public int modifyTeam(SqlSessionTemplate sqlSession, Team t) {
+        return sqlSession.update("teamMapper.modifyTeam", t);
+    }
+
+    public int modifyActivityDays(SqlSessionTemplate sqlSession, TeamActivityDays days) {
+        return sqlSession.update("teamMapper.modifyActivityDays", days);
     }
 }

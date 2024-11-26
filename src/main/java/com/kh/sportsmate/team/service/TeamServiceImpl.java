@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.board.model.vo.BoardFile;
+import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -207,6 +209,127 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public String selectAreaName(String searchArea) {
         return teamDao.selectAreaName(sqlSession, searchArea);
-    }   
+    }
+    
+    // 상세 게시글 좋아요 갯수
+	@Override
+	public int likeCount(int bno) {
+		return teamDao.likeCount(sqlSession, bno);
+	}
+	
+	// 상세 게시글 페이지 파일 다운로드
+	@Override
+	public BoardFile filedownloadLink(int bno) {
+		return teamDao.filedownloadLink(sqlSession, bno);
+	}
+	
+	// 좋아요 확인
+	@Override
+	public BoardLike boardIsLike(Map<String, Integer> map) {
+		return teamDao.boardIsLike(sqlSession, map);
+	}
+		
+	// 좋아요 변경
+	@Override
+	public int boardToLike(Map<String, Integer> map) {
+		return teamDao.boardToLike(sqlSession, map);
+	}
+
+	// 좋아요 취소
+	@Override
+	public int boardToUnLike(Map<String, Integer> map) {
+		return teamDao.boardToUnLike(sqlSession, map);
+	}
+		
+	// 좋아요 삽입
+	@Override
+	public int boardInsertLike(Map<String, Integer> map) {
+		return teamDao.boardInsertLike(sqlSession, map);
+	}
+	
+	// 대댓글
+	@Override
+	public int replyComment(Map<String, String> map) {
+		return teamDao.replyComment(sqlSession, map);
+	}
+	
+	// 파일 업로드
+	@Override
+	public int saveBoardFile(BoardFile bf) {
+		return teamDao.saveBoardFile(sqlSession, bf);
+	}
+
+	// 구단 탈퇴
+	@Override
+	public int teamOut(Team team) {
+		return teamDao.teamOut(sqlSession, team);
+	}
+
+	@Override
+	public TeamInfoDto teamInfo(int tno) {
+		return teamDao.teamInfo(sqlSession, tno);
+	}
+	
+	// 구단 인원 수
+	@Override
+	public int numOfTeamPerson(int tno) {
+		return teamDao.numOfTeamPerson(sqlSession, tno);
+	}
+	
+	// 구단 정보 수정
+	@Transactional
+	@Override
+	public int modifyTeam(TeamInfoDto t, Profile profile) {
+		int result2 = 1;
+        int result3 = 1;
+        System.out.println("구단 변경 프로필 : " + profile);
+        // Team 객체 생성
+        Team team = new Team(t.getTeamName(), t.getMemNo(), t.getTeamDescription(), t.getTeamMaxPerson(),
+                t.getTeamCategory(), t.getActivityTime(), t.getActivityArea(), t.getTeamNo(), t.getApplication());
+        int result1 = teamDao.modifyTeam(sqlSession, team);
+        // TeamActivityDays 객체 생성
+        TeamActivityDays days = new TeamActivityDays();
+        days.setTeamNo(t.getTeamNo());
+        if (!t.getActivityDays().isEmpty()) {
+            for (Object day : t.getActivityDays()) {
+                log.info("day : {}", day);
+                switch (day.toString()) {
+                    case "monday":
+                        days.setMonday('Y');
+                        break;
+                    case "tuesday":
+                        days.setTuesday('Y');
+                        break;
+                    case "wednesday":
+                        days.setWednesday('Y');
+                        break;
+                    case "thursday":
+                        days.setThursday('Y');
+                        break;
+                    case "friday":
+                        days.setFriday('Y');
+                        break;
+                    case "saturday":
+                        days.setSaturday('Y');
+                        break;
+                    case "sunday":
+                        days.setSunday('Y');
+                        break;
+                }
+            }
+            days.setTeamNo(team.getTeamNo());
+            result2 = teamDao.modifyActivityDays(sqlSession, days);
+        }
+        if (profile != null) {
+        	// 프로필이 있는지 확인
+        	profile.setTeamNo(t.getTeamNo());
+        	
+        	result3 = attachmentDao.modifyProfile(sqlSession, profile);
+        	if (result3 < 1) {
+        		result3 = attachmentDao.insertProfile(sqlSession, profile);
+        	}
+        }
+        return result1 * result2 * result3;
+	}
 }
 

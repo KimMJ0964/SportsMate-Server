@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.board.model.vo.BoardFile;
+import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
@@ -71,5 +73,41 @@ public interface TeamService {
 
     // 지역명 select
     String selectAreaName(String searchArea);
+    
+    // 상세 페이지 좋아요 갯수
+    int likeCount(int bno);
+    
+    // 상세 페이지 파일 다운로드
+ 	BoardFile filedownloadLink(int bno);
+ 	
+ 	// 좋아요인지 확인
+ 	BoardLike boardIsLike(Map<String, Integer> map);
+ 	
+ 	// 좋아요 변경
+ 	int boardToLike(Map<String, Integer> map);
+ 	
+ 	// 좋아요 취소
+ 	int boardToUnLike(Map<String, Integer> map);
+ 	
+ 	// 좋아요 생성
+ 	int boardInsertLike(Map<String, Integer> map);
+ 	
+ 	// 대댓글 작성
+ 	int replyComment(Map<String, String> map);
+ 	
+ 	// 팀 게시글 파일 업로드
+ 	int saveBoardFile(BoardFile bf);
+ 	
+ 	// 구단 탈퇴
+ 	int teamOut(Team team);
+ 	
+ 	// 구단 수정 페이지 내 구단 정보 가져오기
+ 	TeamInfoDto teamInfo(int tno);
+ 	
+ 	// 구단 인원 수 가져오는 쿼리
+ 	int numOfTeamPerson(int tno);
+ 	
+ 	// 구단 수정
+ 	int modifyTeam(TeamInfoDto t, Profile profile);
 }
 

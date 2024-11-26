@@ -33,9 +33,31 @@
 .teamcomu-member {
 	background-color: white;
 	padding: 15px;
-	height: 440px;
+	height: 380px;
 	overflow-y: auto;
 	border: 2px solid #ddd;
+}
+
+.teamcomu-teamOut {
+	background-color: white;
+	padding: 14px;
+	height: 50px;
+	text-align: center;
+	border: 2px solid #ddd;
+	
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teamcomu-teamOutBtn {
+	border: 2px solid #bfbfbf;
+	background-color: white;
+	color: red;
+	font-weight: bold;
+	border-radius: 8px;
+	width: 80%;
+	height: 33px;
 }
 
 .teamcomu-member::-webkit-scrollbar {
@@ -92,9 +114,11 @@
 	border-bottom: 2px solid #D9D9D9; /* 맨 아래에 가로선 추가 */
 }
 
-.board-app-createMove-btn {
+.teamcomu-app-board-container {
 	display: none;
 }
+
+
 
 @media (max-width: 430px) {
 
@@ -122,6 +146,10 @@
     	cursor: pointer;
     	background-color: #007bff;
 		display: block;
+}
+
+.teamcomu-app-board-container {
+	display: block;	
 }
   
 }
