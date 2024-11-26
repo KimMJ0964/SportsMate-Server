@@ -346,14 +346,15 @@ public class TeamController {
     @RequestMapping("searchBoard.tm")
     public String searchBoard(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model m,
                               String category, String keyword, int tno) {
-        System.out.println(category + "/" + keyword + "/" + tno);
-        int boardCount = teamService.selectListCount(tno);
+    	
+    	Map<String, String> map = new HashMap<>();
+    	map.put("category", category);
+    	map.put("keyword", keyword);
+    	map.put("tno", String.valueOf(tno));
+    	
+    	int boardCount = teamService.searchListCount(map);
         PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 10);
 
-        Map<String, String> map = new HashMap<>();
-        map.put("category", category);
-        map.put("keyword", keyword);
-        map.put("tno", String.valueOf(tno));
         ArrayList<TeamBoard> list = teamService.searchBoard(pi, map);
         ArrayList<TeamMemberDto> memberList = teamService.selectMemberList(tno);
 

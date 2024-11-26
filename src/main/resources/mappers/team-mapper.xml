@@ -112,13 +112,22 @@
 		)
 	</insert>
 
-
-
+	<!-- 구단 게시글 갯수 -->
     <select id="selectListCount" resultType="_int">
         SELECT COUNT(*)
         FROM TEAM_BOARD
         WHERE STATUS = 'Y'
         AND TEAM_NO = #{teamNo}
+    </select>
+    
+    <!-- 구단 게시글 검색 갯수 -->
+    <select id="searchListCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM TEAM_BOARD
+        WHERE STATUS = 'Y'
+        AND TEAM_NO = #{tno}
+        AND TYPE = #{category}
+		AND TITLE LIKE CONCAT('%', #{keyword}, '%')
     </select>
     
      <!-- 구단 게시글 조회 -->

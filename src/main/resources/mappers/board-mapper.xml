@@ -136,6 +136,15 @@
 		AND MEM_NO = #{memNo}
 	</select>
 	
+	<!-- 게시글 검색 수 -->
+	<select id="searchListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND TYPE = #{category}
+		AND TITLE LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	
 	<!-- INSERT -->
 	<!-- 게시글 생성 -->
 	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">

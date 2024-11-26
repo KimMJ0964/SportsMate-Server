@@ -562,5 +562,15 @@ public class TeamServiceImpl implements TeamService {
 	public Integer checkTeamMember(Map<String, String> map) {
 		return teamDao.checkTeamMember(sqlSession, map);
 	}
+	
+	/**
+	 * 구단 미니 홈피 게시글 검색
+	 * @param map
+	 * @return
+	 */
+	@Override
+	public int searchListCount(Map<String, String> map) {
+		return teamDao.searchListCount(sqlSession, map);
+	}
 }
 

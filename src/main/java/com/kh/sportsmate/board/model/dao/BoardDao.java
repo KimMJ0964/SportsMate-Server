@@ -285,4 +285,13 @@ public class BoardDao {
 	public Integer checkBoardMember(SqlSessionTemplate sqlSession, Map<String, String> map) {
 		return sqlSession.selectOne("boardMapper.checkBoardMember", map);
 	}
+	
+	/**
+	 * 게시글 검색 수 Select
+	 * @param sqlSession
+	 * @return
+	 */
+	public int searchListCount(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.selectOne("boardMapper.searchListCount", map);
+	}
 }

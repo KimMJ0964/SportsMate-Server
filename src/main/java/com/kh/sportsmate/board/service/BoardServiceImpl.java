@@ -306,9 +306,20 @@ public class BoardServiceImpl implements BoardService{
 	 * 게시판 주인 확인
 	 * 
 	 * @param map
+	 * @return
 	 */
 	@Override
 	public Integer checkBoardMember(Map<String, String> map) {
 		return boardDao.checkBoardMember(sqlSession, map);
+	}
+	
+	/**
+	 * 게시판 검색 수
+	 * 
+	 * @return
+	 */
+	@Override
+	public int searchListCount(Map<String, String> map) {
+		return boardDao.searchListCount(sqlSession, map);
 	}
 }

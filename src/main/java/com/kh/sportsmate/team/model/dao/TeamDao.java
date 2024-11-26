@@ -431,4 +431,13 @@ public class TeamDao {
     public Integer checkTeamMember(SqlSessionTemplate sqlSession, Map<String, String> map) {
     	return sqlSession.selectOne("teamMapper.checkTeamMember", map);
     }
+    
+    /**
+     * 구단 미니 홈피 게시글 섬색
+     * @param sqlSession
+     * @param map
+     */
+    public int searchListCount(SqlSessionTemplate sqlSession, Map<String, String> map) {
+    	return sqlSession.selectOne("teamMapper.searchListCount", map);
+    }
 }

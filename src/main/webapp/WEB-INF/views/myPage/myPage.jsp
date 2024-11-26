@@ -27,13 +27,6 @@
 	href="${pageContext.request.contextPath}/resources/css/default.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/myPage/myPage.css?after">
-<style>
-@media ( max-width : 480px) {
-	.joinTeamPeopleContainer {
-		overflow-y: hidden;
-	}
-}
-</style>
 </head>
 <body>
 
@@ -51,7 +44,7 @@
 				        <img src="${pageContext.request.contextPath}/resources/images/userProFile/${filePath}" class="mypage-profile-img" alt="User Profile" />
 				    </c:when>
 				    <c:otherwise>
-				        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" style="width: 150px;"/>
+				        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" class="mypage-profile-img" />
 				    </c:otherwise>
 				</c:choose><br>
 				<div class="userInfo">
@@ -519,137 +512,6 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/myPage/myPage.js"></script>
-	<script>	    
-	    $(document).on('click', '.bestplayer-btn', function() {
-	        var teamANo = $(this).data('atno');
-	        var teamBNo = $(this).data('btno');
-	        
-	        $.ajax({
-	            url: 'getTeamInfo.mp', // 서버에서 팀 정보를 받아올 URL
-	            type: 'GET',
-	            data: {
-	                teamANo: teamANo,
-	                teamBNo: teamBNo
-	            },
-	            success: function(response) {
-	            	console.log(response);
-	                const aTeamInfo = response.aTeamInfo;
-	                const bTeamInfo = response.bTeamInfo;
-	                const aTeamName = response.aTeamInfo[0]?.teamName || 'Unknown A Team';
-	                const bTeamName = response.bTeamInfo[0]?.teamName || 'Unknown B Team';
-	                const aTeamProfile = response.aTeamInfo[0]?.teamProfile || 'Unknown A Team Img';
-	                const bTeamProfile = response.bTeamInfo[0]?.teamProfile || 'Unknown B Team Img';
-
-	                console.log('A팀 이름:', aTeamName); // A팀 이름 출력
-	                console.log('B팀 이름:', bTeamName); // B팀 이름 출력
-					
-	                console.log('A팀 프로필 이미지:', aTeamProfile); // A팀 이름 출력
-	                console.log('B팀 프로필 이미지:', bTeamProfile); // B팀 이름 출력
-	                
-	                // a팀 이름 삽입
-	                $('.aTeam-name span').text(aTeamName);
-
-	                // b팀 이름 삽입
-	                $('.bTeam-name span').text(bTeamName);
-	                
-	                // a팀 멤버 정보 출력
-	                let aTeamHtml = '';
-	                aTeamInfo.forEach(member => {
-	                	console.log(member)
-	                	if (member.memberProfile) {
-		                    aTeamHtml += `
-		                        <tr>
-		                            <td><div class="modal-ateam-table-img">
-		                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/` + member.memberProfile + `" style="width: 50px; border-radius: 50px;">
-		                            </div></td>
-		                            <td><div class="modal-ateam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
-		                            <td><div class="modal-ateam-table-vote-btn">
-		                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
-		                            </div></td>
-		                        </tr>`;
-		                } else {
-		                	aTeamHtml += `
-		                        <tr>
-		                            <td><div class="modal-ateam-table-img">
-		                                <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" style="width: 50px; border-radius: 50px;">
-		                            </div></td>
-		                            <td><div class="modal-ateam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
-		                            <td><div class="modal-ateam-table-vote-btn">
-		                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
-		                            </div></td>
-		                        </tr>`;
-		                }
-	                });
-	                $(".modal-ateam-table").html(aTeamHtml);
-
-	                // b팀 멤버 정보 출력
-	                let bTeamHtml = '';
-	                bTeamInfo.forEach(member => {
-	                	console.log(member)
-	                   if (member.memberProfile) {
-		                    bTeamHtml += `
-		                        <tr>
-		                            <td><div class="modal-bteam-table-img">
-		                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/` + member.memberProfile + `" style="width: 50px; border-radius: 50px;">
-		                            </div></td>
-		                            <td><div class="modal-bteam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
-		                            <td><div class="modal-bteam-table-vote-btn">
-		                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
-		                            </div></td>
-		                        </tr>`;
-		                } else {
-		                	bTeamHtml += `
-		                        <tr>
-		                            <td><div class="modal-bteam-table-img">
-		                                <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" style="width: 50px; border-radius: 50px;">
-		                            </div></td>
-		                            <td><div class="modal-bteam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
-		                            <td><div class="modal-bteam-table-vote-btn">
-		                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
-		                            </div></td>
-		                        </tr>`;
-		                }
-	                });
-	                $(".modal-bteam-table").html(bTeamHtml);
-	            },
-	            error: function() {
-	                alert("팀 정보를 불러오는 데 실패했습니다.");
-	            }
-	        });
-	    });
-	    
-	 // 이미지 클릭 시 상태 변경
-	    $(document).on('click', '.vote-btn', function() {
-	        // 모든 이미지를 원래대로 설정
-	        $('.vote-btn').each(function() {
-	            $(this).attr('src', `${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png`);
-	        });
-	        
-	        // 클릭한 이미지만 my_check_vote.png로 변경
-	        $(this).attr('src', `${pageContext.request.contextPath}/resources/images/my_check_vote.png`);
-	    });
-	 
-	    function updateBestMNo(imgElement) {
-	        const bestMNo = imgElement.getAttribute('data-bestmno');
-	        
-	        document.getElementById('bestMNo').value = bestMNo;
-	    }
-	    
-	    document.addEventListener("DOMContentLoaded", function() {
-	        // 모든 이미지에 클릭 이벤트 추가
-	        const images = document.querySelectorAll(".qnaImage");
-	        const answerContentDiv = document.querySelector(".qnaAnswerContent");
-
-	        images.forEach(image => {
-	            image.addEventListener("click", function() {
-	                // 이미지의 data-content 값을 가져와 모달의 qnaAnswerContent div에 출력
-	                const content = image.getAttribute("data-content");
-	                answerContentDiv.textContent = content;
-	            });
-	        });
-	    });
-	</script>
+	<script src="${pageContext.request.contextPath}/resources/js/myPage/myPage.js"></script>
 </body>
 </html>

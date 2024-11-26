@@ -30,12 +30,15 @@
 
 		<div class="board-banner">
 			<c:choose>
-			    <c:when test="${teamBanner == null}">
-			        <img src="${pageContext.request.contextPath}/resources/images/team_board_banner.png" />
-			    </c:when>
-			    <c:otherwise>
-			        <img src="${pageContext.request.contextPath}/resources/images/userProFile/${teamBanner.changeName}" alt="팀 배너 이미지" />
-			    </c:otherwise>
+				<c:when test="${teamBanner == null}">
+					<img
+						src="${pageContext.request.contextPath}/resources/images/team_board_banner.png" />
+				</c:when>
+				<c:otherwise>
+					<img
+						src="${pageContext.request.contextPath}/resources/images/userProFile/${teamBanner.changeName}"
+						alt="팀 배너 이미지" />
+				</c:otherwise>
 			</c:choose>
 			<div class="banner-text">구단 미니 홈피</div>
 		</div>
@@ -93,76 +96,89 @@
 								<div class="vote-desktop-topContainer">
 									<div class="bd-report-title">
 										<form id="ongoingVoteForm" action="voting.tm" method="post">
-											 <input type="hidden" id="tno" name="tno" value="${tno}" />
-											 <input type="hidden" id="tno" name="vno" value="${voting.voteNo}" />
-												<h4 style="text-align:center;">진행중인 투표</h4>
-													<hr>
-													<div style="margin-left: 20px;">
-														<p><b>투표 제목: ${voting.voteTitle }</b></p>
-														<div>
-															<c:choose>
-															    <c:when test="${not empty voting.voteOne}">
-															    	<input type="checkbox" id="option1" name="voteOption" value="1" onclick="selectOnlyOne(this)" />
-															    </c:when>
-															    <c:otherwise>
-																	<input type="checkbox" id="option1" name="voteOption" value="1" onclick="selectOnlyOne(this)" disabled/>
-															    </c:otherwise>
-															</c:choose>
-															<label for="option1">${voting.voteOne }</label>
-														</div>
-														<div>
-															<c:choose>
-															    <c:when test="${not empty voting.voteTwo}">
-															    	<input type="checkbox" id="option2" name="voteOption" value="2" onclick="selectOnlyOne(this)" />
-															    </c:when>
-															    <c:otherwise>
-																	<input type="checkbox" id="option2" name="voteOption" value="2" onclick="selectOnlyOne(this)" disabled/>
-															    </c:otherwise>
-															</c:choose>
-															<label for="option2">${voting.voteTwo }</label>
-														</div>
-														<div>
-															<c:choose>
-															    <c:when test="${not empty voting.voteThree}">
-															    	<input type="checkbox" id="option3" name="voteOption" value="3" onclick="selectOnlyOne(this)" />
-															    </c:when>
-															    <c:otherwise>
-																	<input type="checkbox" id="option3" name="voteOption" value="3" onclick="selectOnlyOne(this)" disabled/>
-															    </c:otherwise>
-															</c:choose>
-															<label for="option3">${voting.voteThree }</label>
-														</div>
-														<div>
-															<c:choose>
-															    <c:when test="${not empty voting.voteFour}">
-															    	<input type="checkbox" id="option4" name="voteOption" value="4" onclick="selectOnlyOne(this)" />
-															    </c:when>
-															    <c:otherwise>
-																	<input type="checkbox" id="option4" name="voteOption" value="4" onclick="selectOnlyOne(this)" disabled/>
-															    </c:otherwise>
-															</c:choose>
-															<label for="option4">${voting.voteFour }</label>
-														</div>
-														<div>
-															<c:choose>
-															    <c:when test="${not empty voting.voteFive}">
-															    	<input type="checkbox" id="option5" name="voteOption" value="5" onclick="selectOnlyOne(this)" />
-															    </c:when>
-															    <c:otherwise>
-																	<input type="checkbox" id="option5" name="voteOption" value="5" onclick="selectOnlyOne(this)" disabled/>
-															    </c:otherwise>
-															</c:choose>
-															<label for="option5">${voting.voteFive }</label>
-														</div>
-													</div>
-												<div class="vote-desktop-btn" style="text-align: center;">
-													<button type="submit" class="btn btn-primary mt-3">투표 제출</button>
+											<input type="hidden" id="tno" name="tno" value="${tno}" /> <input
+												type="hidden" id="tno" name="vno" value="${voting.voteNo}" />
+											<h4 style="text-align: center;">진행중인 투표</h4>
+											<hr>
+											<div style="margin-left: 20px;">
+												<p>
+													<b>투표 제목: ${voting.voteTitle }</b>
+												</p>
+												<div>
+													<c:choose>
+														<c:when test="${not empty voting.voteOne}">
+															<input type="checkbox" id="option1" name="voteOption"
+																value="1" onclick="selectOnlyOne(this)" />
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox" id="option1" name="voteOption"
+																value="1" onclick="selectOnlyOne(this)" disabled />
+														</c:otherwise>
+													</c:choose>
+													<label for="option1">${voting.voteOne }</label>
 												</div>
+												<div>
+													<c:choose>
+														<c:when test="${not empty voting.voteTwo}">
+															<input type="checkbox" id="option2" name="voteOption"
+																value="2" onclick="selectOnlyOne(this)" />
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox" id="option2" name="voteOption"
+																value="2" onclick="selectOnlyOne(this)" disabled />
+														</c:otherwise>
+													</c:choose>
+													<label for="option2">${voting.voteTwo }</label>
+												</div>
+												<div>
+													<c:choose>
+														<c:when test="${not empty voting.voteThree}">
+															<input type="checkbox" id="option3" name="voteOption"
+																value="3" onclick="selectOnlyOne(this)" />
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox" id="option3" name="voteOption"
+																value="3" onclick="selectOnlyOne(this)" disabled />
+														</c:otherwise>
+													</c:choose>
+													<label for="option3">${voting.voteThree }</label>
+												</div>
+												<div>
+													<c:choose>
+														<c:when test="${not empty voting.voteFour}">
+															<input type="checkbox" id="option4" name="voteOption"
+																value="4" onclick="selectOnlyOne(this)" />
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox" id="option4" name="voteOption"
+																value="4" onclick="selectOnlyOne(this)" disabled />
+														</c:otherwise>
+													</c:choose>
+													<label for="option4">${voting.voteFour }</label>
+												</div>
+												<div>
+													<c:choose>
+														<c:when test="${not empty voting.voteFive}">
+															<input type="checkbox" id="option5" name="voteOption"
+																value="5" onclick="selectOnlyOne(this)" />
+														</c:when>
+														<c:otherwise>
+															<input type="checkbox" id="option5" name="voteOption"
+																value="5" onclick="selectOnlyOne(this)" disabled />
+														</c:otherwise>
+													</c:choose>
+													<label for="option5">${voting.voteFive }</label>
+												</div>
+											</div>
+											<div class="vote-desktop-btn" style="text-align: center;">
+												<button type="submit" class="btn btn-primary mt-3">투표
+													제출</button>
+											</div>
 										</form>
 									</div>
 									<!-- 지금까지 투표 -->
 									<div class="bd-report-title">
-										<h4 style="text-align:center;">지금까지 투표</h4>
+										<h4 style="text-align: center;">지금까지 투표</h4>
 										<hr>
 										<table class="table table-bordered">
 											<thead style="text-align: center;">
@@ -172,60 +188,59 @@
 												</tr>
 											</thead>
 											<tbody>
-											 <c:forEach var="vl" items="${voteList}">
-							               		<tr>
-							               			<td>${vl.voteTitle}</td>
-							               			<td>${vl.voteContent}</td>
-							               		</tr>
-							               	  </c:forEach>
+												<c:forEach var="vl" items="${voteList}">
+													<tr>
+														<td>${vl.voteTitle}</td>
+														<td>${vl.voteContent}</td>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
 									</div>
 								</div>
-								<br>
-								<br>
+								<br> <br>
 								<c:if test="${memNo != null && memNo == leaderNo}">
-								<br />
-								<!-- 투표 생성 -->
-								<form id="createVoteForm" action="createVote.tm" method="post">
-									 <input type="hidden" id="teamNo" name="teamNo" value="${tno}" />
-									<div class="bd-report-title">
-										<h4>투표 생성</h4>
-										<hr>
-										<div>
-											<label for="voteTitle">투표 제목:</label> <input type="text"
-												id="voteTitle" name="voteTitle" class="form-control"
-												placeholder="투표 제목 입력" required />
-											<div class="mt-3">
-												<label for="optionInput1">옵션 1:</label> <input type="text"
-													id="voteOne" name="voteOne" class="form-control"
-													placeholder="옵션 이름 입력" />
+									<br />
+									<!-- 투표 생성 -->
+									<form id="createVoteForm" action="createVote.tm" method="post">
+										<input type="hidden" id="teamNo" name="teamNo" value="${tno}" />
+										<div class="bd-report-title">
+											<h4>투표 생성</h4>
+											<hr>
+											<div>
+												<label for="voteTitle">투표 제목:</label> <input type="text"
+													id="voteTitle" name="voteTitle" class="form-control"
+													placeholder="투표 제목 입력" required />
+												<div class="mt-3">
+													<label for="optionInput1">옵션 1:</label> <input type="text"
+														id="voteOne" name="voteOne" class="form-control"
+														placeholder="옵션 이름 입력" />
+												</div>
+												<div class="mt-2">
+													<label for="optionInput2">옵션 2:</label> <input type="text"
+														id="voteTwo" name="voteTwo" class="form-control"
+														placeholder="옵션 이름 입력" />
+												</div>
+												<div class="mt-2">
+													<label for="optionInput3">옵션 3:</label> <input type="text"
+														id="voteThree" name="voteThree" class="form-control"
+														placeholder="옵션 이름 입력" />
+												</div>
+												<div class="mt-2">
+													<label for="optionInput4">옵션 4:</label> <input type="text"
+														id="voteFour" name="voteFour" class="form-control"
+														placeholder="옵션 이름 입력" />
+												</div>
+												<div class="mt-2">
+													<label for="optionInput5">옵션 5:</label> <input type="text"
+														id="voteFive" name="voteFive" class="form-control"
+														placeholder="옵션 이름 입력" />
+												</div>
 											</div>
-											<div class="mt-2">
-												<label for="optionInput2">옵션 2:</label> <input type="text"
-													id="voteTwo" name="voteTwo" class="form-control"
-													placeholder="옵션 이름 입력" />
-											</div>
-											<div class="mt-2">
-												<label for="optionInput3">옵션 3:</label> <input type="text"
-													id="voteThree" name="voteThree" class="form-control"
-													placeholder="옵션 이름 입력" />
-											</div>
-											<div class="mt-2">
-												<label for="optionInput4">옵션 4:</label> <input type="text"
-													id="voteFour" name="voteFour" class="form-control"
-													placeholder="옵션 이름 입력" />
-											</div>
-											<div class="mt-2">
-												<label for="optionInput5">옵션 5:</label> <input type="text"
-													id="voteFive" name="voteFive" class="form-control"
-													placeholder="옵션 이름 입력" />
-											</div>
+											<button type="submit" class="btn btn-primary mt-3">투표
+												생성</button>
 										</div>
-										<button type="submit" class="btn btn-primary mt-3">투표
-											생성</button>
-									</div>
-								</form>
+									</form>
 								</c:if>
 							</div>
 							<!-- 모달 푸터 -->
@@ -233,13 +248,15 @@
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">닫기</button>
 								<c:if test="${memNo != null && memNo == leaderNo}">
-									<button type="button" class="btn btn-secondary" onclick="location.href = 'voteComplete.tm?vno=${voting.voteNo}&tno=${tno}'">투표 완료</button>
+									<button type="button" class="btn btn-secondary"
+										onclick="location.href = 'voteComplete.tm?vno=${voting.voteNo}&tno=${tno}'">투표
+										완료</button>
 								</c:if>
 							</div>
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- 모바일 투표 모달 -->
 				<div class="modal fade" id="voteModal" tabindex="-1"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -254,80 +271,87 @@
 							<div class="modal-body">
 								<!-- 진행중인 투표 -->
 								<form id="ongoingVoteForm" action="voting.tm" method="post">
-									 <input type="hidden" id="tno" name="tno" value="${tno}" />
-									 <input type="hidden" id="tno" name="vno" value="${voting.voteNo}" />
+									<input type="hidden" id="tno" name="tno" value="${tno}" /> <input
+										type="hidden" id="tno" name="vno" value="${voting.voteNo}" />
 									<div class="bd-report-title">
 										<h4>진행중인 투표</h4>
-											<hr>
+										<hr>
+										<div>
+											<p>
+												<b>투표 제목: ${voting.voteTitle }</b>
+											</p>
 											<div>
-												<p><b>투표 제목: ${voting.voteTitle }</b></p>
-												<div>
-													<input type="checkbox" id="option1" name="voteOption" value="1" onclick="selectOnlyOne(this)" />
-													<label for="option1">${voting.voteOne }</label>
-												</div>
-												<div>
-													<input type="checkbox" id="option2" name="voteOption" value="2" onclick="selectOnlyOne(this)" />
-													<label for="option2">${voting.voteTwo }</label>
-												</div>
-												<div>
-													<input type="checkbox" id="option3" name="voteOption" value="3" onclick="selectOnlyOne(this)" />
-													<label for="option3">${voting.voteThree }</label>
-												</div>
-												<div>
-													<input type="checkbox" id="option4" name="voteOption" value="4" onclick="selectOnlyOne(this)" />
-													<label for="option4">${voting.voteFour }</label>
-												</div>
-												<div>
-													<input type="checkbox" id="option5" name="voteOption" value="5" onclick="selectOnlyOne(this)" />
-													<label for="option5">${voting.voteFive }</label>
-												</div>
+												<input type="checkbox" id="option1" name="voteOption"
+													value="1" onclick="selectOnlyOne(this)" /> <label
+													for="option1">${voting.voteOne }</label>
 											</div>
+											<div>
+												<input type="checkbox" id="option2" name="voteOption"
+													value="2" onclick="selectOnlyOne(this)" /> <label
+													for="option2">${voting.voteTwo }</label>
+											</div>
+											<div>
+												<input type="checkbox" id="option3" name="voteOption"
+													value="3" onclick="selectOnlyOne(this)" /> <label
+													for="option3">${voting.voteThree }</label>
+											</div>
+											<div>
+												<input type="checkbox" id="option4" name="voteOption"
+													value="4" onclick="selectOnlyOne(this)" /> <label
+													for="option4">${voting.voteFour }</label>
+											</div>
+											<div>
+												<input type="checkbox" id="option5" name="voteOption"
+													value="5" onclick="selectOnlyOne(this)" /> <label
+													for="option5">${voting.voteFive }</label>
+											</div>
+										</div>
 										<button type="submit" class="btn btn-primary mt-3">투표
 											제출</button>
 									</div>
 								</form>
-								 <c:if test="${memNo != null && memNo == leaderNo}">
-								<br />
-								<!-- 투표 생성 -->
-								<form id="createVoteForm" action="createVote.tm" method="post">
-									 <input type="hidden" id="teamNo" name="teamNo" value="${tno}" />
-									<div class="bd-report-title">
-										<h4>투표 생성</h4>
-										<hr>
-										<div>
-											<label for="voteTitle">투표 제목:</label> <input type="text"
-												id="voteTitle" name="voteTitle" class="form-control"
-												placeholder="투표 제목 입력" required />
-											<div class="mt-3">
-												<label for="optionInput1">옵션 1:</label> <input type="text"
-													id="voteOne" name="voteOne" class="form-control"
-													placeholder="옵션 이름 입력" />
+								<c:if test="${memNo != null && memNo == leaderNo}">
+									<br />
+									<!-- 투표 생성 -->
+									<form id="createVoteForm" action="createVote.tm" method="post">
+										<input type="hidden" id="teamNo" name="teamNo" value="${tno}" />
+										<div class="bd-report-title">
+											<h4>투표 생성</h4>
+											<hr>
+											<div>
+												<label for="voteTitle">투표 제목:</label> <input type="text"
+													id="voteTitle" name="voteTitle" class="form-control"
+													placeholder="투표 제목 입력" required />
+												<div class="mt-3">
+													<label for="optionInput1">옵션 1:</label> <input type="text"
+														id="voteOne" name="voteOne" class="form-control"
+														placeholder="옵션 이름 입력" />
+												</div>
+												<div class="mt-2">
+													<label for="optionInput2">옵션 2:</label> <input type="text"
+														id="voteTwo" name="voteTwo" class="form-control"
+														placeholder="옵션 이름 입력" />
+												</div>
+												<div class="mt-2">
+													<label for="optionInput3">옵션 3:</label> <input type="text"
+														id="voteThree" name="voteThree" class="form-control"
+														placeholder="옵션 이름 입력" />
+												</div>
+												<div class="mt-2">
+													<label for="optionInput4">옵션 4:</label> <input type="text"
+														id="voteFour" name="voteFour" class="form-control"
+														placeholder="옵션 이름 입력" />
+												</div>
+												<div class="mt-2">
+													<label for="optionInput5">옵션 5:</label> <input type="text"
+														id="voteFive" name="voteFive" class="form-control"
+														placeholder="옵션 이름 입력" />
+												</div>
 											</div>
-											<div class="mt-2">
-												<label for="optionInput2">옵션 2:</label> <input type="text"
-													id="voteTwo" name="voteTwo" class="form-control"
-													placeholder="옵션 이름 입력" />
-											</div>
-											<div class="mt-2">
-												<label for="optionInput3">옵션 3:</label> <input type="text"
-													id="voteThree" name="voteThree" class="form-control"
-													placeholder="옵션 이름 입력" />
-											</div>
-											<div class="mt-2">
-												<label for="optionInput4">옵션 4:</label> <input type="text"
-													id="voteFour" name="voteFour" class="form-control"
-													placeholder="옵션 이름 입력" />
-											</div>
-											<div class="mt-2">
-												<label for="optionInput5">옵션 5:</label> <input type="text"
-													id="voteFive" name="voteFive" class="form-control"
-													placeholder="옵션 이름 입력" />
-											</div>
+											<button type="submit" class="btn btn-primary mt-3">투표
+												생성</button>
 										</div>
-										<button type="submit" class="btn btn-primary mt-3">투표
-											생성</button>
-									</div>
-								</form>
+									</form>
 								</c:if>
 								<br />
 								<!-- 지금까지 투표 -->
@@ -342,12 +366,12 @@
 											</tr>
 										</thead>
 										<tbody>
-										 <c:forEach var="vl" items="${voteList}">
-						               		<tr>
-						               			<td>${vl.voteTitle}</td>
-						               			<td>${vl.voteContent}</td>
-						               		</tr>
-						               	  </c:forEach>
+											<c:forEach var="vl" items="${voteList}">
+												<tr>
+													<td>${vl.voteTitle}</td>
+													<td>${vl.voteContent}</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -357,29 +381,32 @@
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">닫기</button>
 								<c:if test="${memNo != null && memNo == leaderNo}">
-									<button type="button" class="btn btn-secondary" onclick="location.href = 'voteComplete.tm?vno=${voting.voteNo}&tno=${tno}'">투표 완료</button>
+									<button type="button" class="btn btn-secondary"
+										onclick="location.href = 'voteComplete.tm?vno=${voting.voteNo}&tno=${tno}'">투표
+										완료</button>
 								</c:if>
 							</div>
 						</div>
 					</div>
 				</div>
-				
+
 
 				<div class="teamcomu-member">
 					<h4 class="teamcomu-title-name">팀원 목록</h4>
 					<c:forEach var="ml" items="${memberList}">
 						<table class="teamcomu-table">
 							<tr>
-								<td rowspan="3" class="teamcomu-table-profile">
-									<c:choose>
-									    <c:when test="${ml.changeName == null}">
-									        <img class="teamcomu-table-profile-img" src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" />
-									    </c:when>
-									    <c:otherwise>
-									        <img class="teamcomu-table-profile-img" src="${pageContext.request.contextPath}/resources/images/userProFile/${ml.changeName}" alt="팀 배너 이미지" />
-									    </c:otherwise>
-									</c:choose>
-								</td>
+								<td rowspan="3" class="teamcomu-table-profile"><c:choose>
+										<c:when test="${ml.changeName == null}">
+											<img class="teamcomu-table-profile-img"
+												src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" />
+										</c:when>
+										<c:otherwise>
+											<img class="teamcomu-table-profile-img"
+												src="${pageContext.request.contextPath}/resources/images/userProFile/${ml.changeName}"
+												alt="팀 배너 이미지" />
+										</c:otherwise>
+									</c:choose></td>
 								<td class="teamcomu-table-name" style="width: 100%;">이름 :
 									${ml.memName }</td>
 							</tr>
@@ -395,8 +422,14 @@
 
 				<!-- 팀 탈퇴 -->
 				<div class="teamcomu-teamOut">
-					<button class="teamcomu-teamOutBtn"
-						onclick="confirmTeamOut(${tno})">구단 탈퇴</button>
+					<c:choose>
+						<c:when test="${memNo != null && memNo == leaderNo}">
+							<button class="teamcomu-teamOutBtn" onclick="confirmTeamOut(${tno})">구단 폐쇄</button>
+						</c:when>
+						<c:otherwise>
+							<button class="teamcomu-teamOutBtn" onclick="confirmTeamOut(${tno})">구단 탈퇴</button>
+						</c:otherwise>
+					</c:choose>
 				</div>
 
 				<div class="teamcomu-app-board-container">
@@ -430,10 +463,19 @@
 								<c:choose>
 									<c:when
 										test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
-										<li class="page-item"><a
-											href="boardList.tm?cpage=1&tno=${tno }" class="page-link">
-												<span aria-hidden="true">&laquo;</span>
-										</a></li>
+										<li class="page-item"><c:choose>
+												<c:when test="${not empty category || not empty keyword}">
+													<a
+														href="searchBoard.tm?cpage=1&category=${category}&keyword=${keyword}&tno=${tno}"
+														class="page-link"> <span aria-hidden="true">&laquo;</span>
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a href="boardList.tm?cpage=1&tno=${tno }"
+														class="page-link"> <span aria-hidden="true">&laquo;</span>
+													</a>
+												</c:otherwise>
+											</c:choose></li>
 									</c:when>
 									<c:otherwise>
 										<li class="page-item disabled"><a href="#"
@@ -443,10 +485,20 @@
 								</c:choose>
 								<c:choose>
 									<c:when test="${pi.currentPage > 1}">
-										<li class="page-item"><a
-											href="boardList.tm?cpage=${pi.currentPage - 1}&tno=${tno }"
-											class="page-link"> <span aria-hidden="true">&lt;</span>
-										</a></li>
+										<li class="page-item"><c:choose>
+												<c:when test="${not empty category || not empty keyword}">
+													<a
+														href="searchBoard.tm?cpage=${pi.currentPage - 1}&category=${category}&keyword=${keyword}&tno=${tno}"
+														class="page-link"> <span aria-hidden="true">&lt;</span>
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a
+														href="boardList.tm?cpage=${pi.currentPage - 1}&tno=${tno }"
+														class="page-link"> <span aria-hidden="true">&lt;</span>
+													</a>
+												</c:otherwise>
+											</c:choose></li>
 									</c:when>
 									<c:otherwise>
 										<li class="page-item disabled"><a href="#"
@@ -463,17 +515,38 @@
 												href="#">${page}</a></li>
 										</c:when>
 										<c:otherwise>
-											<li class="page-item"><a class="page-link"
-												href="boardList.tm?cpage=${page}&tno=${tno }">${page}</a></li>
+											<li class="page-item"><c:choose>
+													<c:when test="${not empty category || not empty keyword}">
+														<a
+															href="searchBoard.tm?cpage=${page}&category=${category}&keyword=${keyword}&tno=${tno}"
+															class="page-link"> <span aria-hidden="true">${page}</span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="boardList.tm?cpage=${page}&tno=${tno }"
+															class="page-link"> <span aria-hidden="true">${page}</span>
+														</a>
+													</c:otherwise>
+												</c:choose></li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 								<c:choose>
 									<c:when test="${pi.currentPage < pi.maxPage}">
-										<li class="page-item"><a
-											href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
-											class="page-link"> <span aria-hidden="true">&gt;</span>
-										</a></li>
+										<li class="page-item"><c:choose>
+												<c:when test="${not empty category || not empty keyword}">
+													<a
+														href="searchBoard.tm?cpage=${pi.currentPage + 1}&category=${category}&keyword=${keyword}&tno=${tno}"
+														class="page-link"> <span aria-hidden="true">&gt;</span>
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a
+														href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
+														class="page-link"> <span aria-hidden="true">&gt;</span>
+													</a>
+												</c:otherwise>
+											</c:choose></li>
 									</c:when>
 									<c:otherwise>
 										<li class="page-item disabled"><a href="#"
@@ -489,16 +562,35 @@
 									</c:when>
 									<c:when
 										test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
-										<li class="page-item"><a
-											href="boardList.tm?cpage=${pi.maxPage}&tno=${tno }"
-											class="page-link"> <span aria-hidden="true">&raquo;</span>
-										</a></li>
+										<li class="page-item"><c:choose>
+												<c:when test="${not empty category || not empty keyword}">
+													<a
+														href="searchBoard.tm?cpage=${pi.maxPage}&category=${category}&keyword=${keyword}&tno=${tno}"
+														class="page-link"> <span aria-hidden="true">&raquo;</span>
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a href="boardList.tm?cpage=${pi.maxPage}&tno=${tno }"
+														class="page-link"> <span aria-hidden="true">&raquo;</span>
+													</a>
+												</c:otherwise>
+											</c:choose></li>
 									</c:when>
 									<c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
-										<li class="page-item"><a
-											href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
-											class="page-link"> <span aria-hidden="true">&raquo;</span>
-										</a></li>
+										<li class="page-item"><c:choose>
+												<c:when test="${not empty category || not empty keyword}">
+													<a
+														href="searchBoard.tm?cpage=${pi.currentPage + 1}&category=${category}&keyword=${keyword}&tno=${tno}"
+														class="page-link"> <span aria-hidden="true">&raquo;</span>
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a
+														href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
+														class="page-link"> <span aria-hidden="true">&raquo;</span>
+													</a>
+												</c:otherwise>
+											</c:choose></li>
 									</c:when>
 									<c:otherwise>
 										<li class="page-item disabled"><a href="#"
@@ -569,10 +661,19 @@
 									<c:choose>
 										<c:when
 											test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
-											<li class="page-item"><a
-												href="boardList.tm?cpage=1&tno=${tno }" class="page-link">
-													<span aria-hidden="true">&laquo;</span>
-											</a></li>
+											<li class="page-item"><c:choose>
+													<c:when test="${not empty category || not empty keyword}">
+														<a
+															href="searchBoard.tm?cpage=1&category=${category}&keyword=${keyword}&tno=${tno}"
+															class="page-link"> <span aria-hidden="true">&laquo;</span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="boardList.tm?cpage=1&tno=${tno }"
+															class="page-link"> <span aria-hidden="true">&laquo;</span>
+														</a>
+													</c:otherwise>
+												</c:choose></li>
 										</c:when>
 										<c:otherwise>
 											<li class="page-item disabled"><a href="#"
@@ -582,10 +683,20 @@
 									</c:choose>
 									<c:choose>
 										<c:when test="${pi.currentPage > 1}">
-											<li class="page-item"><a
-												href="boardList.tm?cpage=${pi.currentPage - 1}&tno=${tno }"
-												class="page-link"> <span aria-hidden="true">&lt;</span>
-											</a></li>
+											<li class="page-item"><c:choose>
+													<c:when test="${not empty category || not empty keyword}">
+														<a
+															href="searchBoard.tm?cpage=${pi.currentPage - 1}&category=${category}&keyword=${keyword}&tno=${tno}"
+															class="page-link"> <span aria-hidden="true">&lt;</span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a
+															href="boardList.tm?cpage=${pi.currentPage - 1}&tno=${tno }"
+															class="page-link"> <span aria-hidden="true">&lt;</span>
+														</a>
+													</c:otherwise>
+												</c:choose></li>
 										</c:when>
 										<c:otherwise>
 											<li class="page-item disabled"><a href="#"
@@ -602,17 +713,38 @@
 													href="#">${page}</a></li>
 											</c:when>
 											<c:otherwise>
-												<li class="page-item"><a class="page-link"
-													href="boardList.tm?cpage=${page}&tno=${tno }">${page}</a></li>
+												<li class="page-item"><c:choose>
+														<c:when test="${not empty category || not empty keyword}">
+															<a
+																href="searchBoard.tm?cpage=${page}&category=${category}&keyword=${keyword}&tno=${tno}"
+																class="page-link"> <span aria-hidden="true">${page}</span>
+															</a>
+														</c:when>
+														<c:otherwise>
+															<a href="boardList.tm?cpage=${page}&tno=${tno }"
+																class="page-link"> <span aria-hidden="true">${page}</span>
+															</a>
+														</c:otherwise>
+													</c:choose></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 									<c:choose>
 										<c:when test="${pi.currentPage < pi.maxPage}">
-											<li class="page-item"><a
-												href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
-												class="page-link"> <span aria-hidden="true">&gt;</span>
-											</a></li>
+											<li class="page-item"><c:choose>
+													<c:when test="${not empty category || not empty keyword}">
+														<a
+															href="searchBoard.tm?cpage=${pi.currentPage + 1}&category=${category}&keyword=${keyword}&tno=${tno}"
+															class="page-link"> <span aria-hidden="true">&gt;</span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a
+															href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
+															class="page-link"> <span aria-hidden="true">&gt;</span>
+														</a>
+													</c:otherwise>
+												</c:choose></li>
 										</c:when>
 										<c:otherwise>
 											<li class="page-item disabled"><a href="#"
@@ -628,16 +760,35 @@
 										</c:when>
 										<c:when
 											test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
-											<li class="page-item"><a
-												href="boardList.tm?cpage=${pi.maxPage}&tno=${tno }"
-												class="page-link"> <span aria-hidden="true">&raquo;</span>
-											</a></li>
+											<li class="page-item"><c:choose>
+													<c:when test="${not empty category || not empty keyword}">
+														<a
+															href="searchBoard.tm?cpage=${pi.maxPage}&category=${category}&keyword=${keyword}&tno=${tno}"
+															class="page-link"> <span aria-hidden="true">&raquo;</span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="boardList.tm?cpage=${pi.maxPage}&tno=${tno }"
+															class="page-link"> <span aria-hidden="true">&raquo;</span>
+														</a>
+													</c:otherwise>
+												</c:choose></li>
 										</c:when>
 										<c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
-											<li class="page-item"><a
-												href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
-												class="page-link"> <span aria-hidden="true">&raquo;</span>
-											</a></li>
+											<li class="page-item"><c:choose>
+													<c:when test="${not empty category || not empty keyword}">
+														<a
+															href="searchBoard.tm?cpage=${pi.currentPage + 1}&category=${category}&keyword=${keyword}&tno=${tno}"
+															class="page-link"> <span aria-hidden="true">&raquo;</span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a
+															href="boardList.tm?cpage=${pi.currentPage + 1}&tno=${tno }"
+															class="page-link"> <span aria-hidden="true">&raquo;</span>
+														</a>
+													</c:otherwise>
+												</c:choose></li>
 										</c:when>
 										<c:otherwise>
 											<li class="page-item disabled"><a href="#"

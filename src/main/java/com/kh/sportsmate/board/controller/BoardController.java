@@ -256,14 +256,18 @@ public class BoardController {
 	@RequestMapping("search.bd")
 	public String searchBoard(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model m,
 			String category, String keyword) {
-		int boardCount = boardService.selectListCount();
-		PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 10);
-
+		
 		Map<String, String> map = new HashMap<>();
 		map.put("category", category);
 		map.put("keyword", keyword);
-		ArrayList<Board> list = boardService.searchBoard(pi, map);
+		
+		int boardCount = boardService.searchListCount(map);
+		PageInfo pi = Template.getPageInfo(boardCount, currentPage, 10, 10);
 
+		ArrayList<Board> list = boardService.searchBoard(pi, map);
+		
+		m.addAttribute("category", category);
+		m.addAttribute("keyword", keyword);
 		m.addAttribute("list", list);
 		m.addAttribute("pi", pi);
 
