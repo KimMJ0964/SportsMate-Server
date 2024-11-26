@@ -206,7 +206,7 @@ public class MemberServiceImpl implements MemberService {
             }
         }
 
-        result4 = stadiumDao.insetRental(sqlSession, rental);
+        result4 = stadiumDao.insertRental(sqlSession, rental);
         if (!stadiumAttachmentImgs.isEmpty()) {
             for (StadiumAttachment att : stadiumAttachmentImgs) {
                 att.setStadiumNo(stadiumInfo.getStadiumNo());

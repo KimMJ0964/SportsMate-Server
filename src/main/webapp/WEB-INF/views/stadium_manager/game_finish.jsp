@@ -170,12 +170,11 @@
             </div>
 
             <!-- 뒤로가기 버튼 -->
-            <form action="">
-            <button type="submit" class="registration-button" onclick="location.href = 'managermypage.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/managermypage.me'">뒤로가기</button>
-            </form>
+            <button class="registration-button" onclick="location.href ='managermypage.me'">뒤로가기</button>
         </div>
         </div>
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+
 
 </body>
 </html>

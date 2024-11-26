@@ -17,11 +17,6 @@ function addSearch(zipcodeId, baseAddId, detailAddId){
     }).open();
 }
 
-function confirmEdit() {
-    if (confirm("정말로 구장을 수정하시겠습니까?")) {
-        location.href = "${pageContext.request.contextPath}/stadium_manager/edit";
-    }
-}
 
 function confirmDelete() {
     if (confirm("정말로 구장을 삭제하시겠습니까?")) {

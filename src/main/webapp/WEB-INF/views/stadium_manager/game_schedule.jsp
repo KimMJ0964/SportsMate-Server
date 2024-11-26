@@ -101,66 +101,6 @@
                     </div>
                 </div>
 
-                <div class="vsdetail-container">
-                    <div class="team-match">
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
-                            <div class="team-info">
-                                <p class="team-name">우리동네 FC</p>
-                                <p class="team-level">아마추어2</p>
-                            </div>
-                        </div>
-                        <div class="vs-text">VS</div>
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
-                            <div class="team-info">
-                                <p class="team-name">남의동네 FC</p>
-                                <p class="team-level">아마추어3</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
-                <div class="vsdetail-container">
-                    <div class="team-match">
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
-                            <div class="team-info">
-                                <p class="team-name">우리동네 FC</p>
-                                <p class="team-level">아마추어2</p>
-                            </div>
-                        </div>
-                        <div class="vs-text">VS</div>
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
-                            <div class="team-info">
-                                <p class="team-name">남의동네 FC</p>
-                                <p class="team-level">아마추어3</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="vsdetailLast-container">
-                    <div class="team-match">
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
-                            <div class="team-info">
-                                <p class="team-name">우리동네 FC</p>
-                                <p class="team-level">아마추어2</p>
-                            </div>
-                        </div>
-                        <div class="vs-text">VS</div>
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
-                            <div class="team-info">
-                                <p class="team-name">남의동네 FC</p>
-                                <p class="team-level">아마추어3</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
             <!-- 뒤로가기 버튼 -->

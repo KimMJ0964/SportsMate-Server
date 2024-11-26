@@ -327,7 +327,7 @@
 
                 </div>
                     <!-- 뒤로가기 버튼 -->
-                    <button class="registration2-button">뒤로가기</button>
+                    <button class="registration2-button" onclick="location.href = 'gamefinish.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gamefinish.me'">뒤로가기</button>
             </div>
 
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />

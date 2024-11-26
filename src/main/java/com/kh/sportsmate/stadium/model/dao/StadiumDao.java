@@ -29,37 +29,37 @@ public class StadiumDao {
     private SqlSessionTemplate sqlSession;
 
     // 구장 등록
-    public int insertStadium(Stadium stadiumInfo) {
+    public int insertStadium(SqlSessionTemplate sqlSession, Stadium stadiumInfo) {
         return sqlSession.insert("stadiumMapper.insertStadium", stadiumInfo);
     }
 
     // 편의시설 등록
-    public int insertAmenities(Amenities am) {
+    public int insertAmenities(SqlSessionTemplate sqlSession, Amenities am) {
         return sqlSession.insert("stadiumMapper.insertAmenities", am);
     }
 
     // 대여 시스템 등록
-    public int insertRental(Rental rental) {
+    public int insertRental(SqlSessionTemplate sqlSession, Rental rental) {
         return sqlSession.insert("stadiumMapper.insetRental", rental);
     }
 
     // 구장 이미지 등록
-    public int insertStadiumAttachment(ArrayList<StadiumAttachment> stadiumAttachmentImgs) {
+    public int insertStadiumAttachment(SqlSessionTemplate sqlSession, ArrayList<StadiumAttachment> stadiumAttachmentImgs) {
         return sqlSession.insert("stadiumMapper.insertStadiumAttachment", stadiumAttachmentImgs);
     }
 
     // 관리자가 소유한 모든 구장 조회
-    public List<Stadium> selectStadiumByManager(int memNo) {
+    public List<Stadium> selectStadiumByManager(SqlSessionTemplate sqlSession, int memNo) {
         return sqlSession.selectList("stadiumMapper.selectStadiumByManager", memNo);
     }
 
     // 관리자가 소유한 단일 구장 조회
-    public StadiumDto selectOneStadiumByManager(int memNo) {
-        return sqlSession.selectOne("stadiumMapper.selectOneStadiumByManager", memNo);
+    public StadiumDto selectOneStadiumByManager(SqlSessionTemplate sqlSession, int memNo) {
+    	return sqlSession.selectOne("stadiumMapper.selectOneStadiumByManager", memNo);
     }
 
     // 관리자가 소유한 구장의 이미지 조회
-    public List<StadiumDto> selectStadiumImages(int memNo) {
+    public List<StadiumDto> selectStadiumImages(SqlSessionTemplate sqlSession, int memNo) {
         return sqlSession.selectList("stadiumMapper.selectStadiumImages", memNo);
     }
 
@@ -68,7 +68,7 @@ public class StadiumDao {
      * @param stadiumDto - 수정할 구장 정보
      * @return 업데이트된 행 수
      */
-    public int updateStadium(StadiumDto stadiumDto) {
+    public int updateStadium(SqlSessionTemplate sqlSession, StadiumDto stadiumDto) {
         return sqlSession.update("stadiumMapper.updateStadium", stadiumDto);
     }
 
@@ -77,7 +77,7 @@ public class StadiumDao {
      * @param amenities - 수정할 편의시설 정보
      * @return 업데이트된 행 수
      */
-    public int updateAmenities(Amenities amenities) {
+    public int updateAmenities(SqlSessionTemplate sqlSession, Amenities amenities) {
         return sqlSession.update("stadiumMapper.updateAmenities", amenities);
     }
 
@@ -86,7 +86,7 @@ public class StadiumDao {
      * @param rental - 수정할 대여 시스템 정보
      * @return 업데이트된 행 수
      */
-    public int updateRental(Rental rental) {
+    public int updateRental(SqlSessionTemplate sqlSession, Rental rental) {
         return sqlSession.update("stadiumMapper.updateRental", rental);
     }
 
@@ -95,7 +95,7 @@ public class StadiumDao {
      * @param stadiumNo - 삭제할 구장의 번호
      * @return 삭제된 행 수
      */
-    public int deleteStadiumImages(int stadiumNo) {
+    public int deleteStadiumImages(SqlSessionTemplate sqlSession, int stadiumNo) {
         return sqlSession.delete("stadiumMapper.deleteStadiumImages", stadiumNo);
     }
 
@@ -104,7 +104,7 @@ public class StadiumDao {
      * @param stadiumAttachmentImgs - 새로 추가할 이미지 리스트
      * @return 추가된 행 수
      */
-    public int addStadiumImages(ArrayList<StadiumAttachment> stadiumAttachmentImgs) {
+    public int addStadiumImages(SqlSessionTemplate sqlSession, ArrayList<StadiumAttachment> stadiumAttachmentImgs) {
         return sqlSession.insert("stadiumMapper.addStadiumImages", stadiumAttachmentImgs);
     }
 }

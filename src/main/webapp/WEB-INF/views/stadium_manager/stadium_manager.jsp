@@ -51,9 +51,9 @@
                     <img src="${pageContext.request.contextPath}/resources/images/result_game.png"
                         alt="" onclick="location.href = '${pageContext.request.contextPath}/gamefinish.me'">진행 완료 매치</a>
 
-                <a href="#" class="menu-item" onclick="location.href = 'rentalapproval.me'">
+                <a href="#" class="menu-item" onclick="location.href = 'stadiumrefond.me'">
                     <img src="${pageContext.request.contextPath}/resources/images/rental.png"
-                        alt="" onclick="location.href = '${pageContext.request.contextPath}/rentalapproval.me'">대관 승인</a>
+                        alt="" onclick="location.href = '${pageContext.request.contextPath}/stadiumrefond.me'">환불</a>
 
                 <a href="#" class="menu-item" onclick="location.href = 'stadiuminfo.me'">
                     <img src="${pageContext.request.contextPath}/resources/images/information.png"

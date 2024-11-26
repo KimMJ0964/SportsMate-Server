@@ -27,6 +27,8 @@
         <br>
 
         <jsp:include page="/WEB-INF/views/common/nav.jsp" /> 
+
+        <form action="${pageContext.request.contextPath}/updateStadium.me" method="post" enctype="multipart/form-data">
         <div class="stadiuminfo-container">
             <div class="headname-container">
                 <div class="stadiuminfo-row">
@@ -40,16 +42,16 @@
             </div>
         </div>
       sdvsdavsdv :   ${stadium}
-      <form action="${pageContext.request.contextPath}/updateStadium.me" method="post" enctype="multipart/form-data">
         <input type="hidden" name="stadiumNo" value="${stadium.stadiumNo}">
         <div class="category-container">
             <div class="form-group">
                 <label>종목 선택</label>
                 <div class="sport-options">
-                    <label><input type="checkbox" name="category" value="soccer" disabled ${stadium.stadiumCategory.contains('soccer') ? 'checked' : ''}> 축구</label>
-                    <label><input type="checkbox" name="category" value="futsal" disabled ${stadium.stadiumCategory.contains('futsal') ? 'checked' : ''}> 풋살</label>
-                    <label><input type="checkbox" name="category" value="basketball" disabled ${stadium.stadiumCategory.contains('basketball') ? 'checked' : ''}> 농구</label>
-                    <label><input type="checkbox" name="category" value="baseball" disabled ${stadium.stadiumCategory.contains('baseball') ? 'checked' : ''}> 야구</label>
+                    <input type="hidden" name="stadiumCategory" value="${stadium.stadiumCategory}">
+                    <label><input type="checkbox" name="stadiumCategory" value="soccer" disabled ${stadium.stadiumCategory.contains('soccer') ? 'checked' : ''}> 축구</label>
+                    <label><input type="checkbox" name="stadiumCategory" value="futsal" disabled ${stadium.stadiumCategory.contains('futsal') ? 'checked' : ''}> 풋살</label>
+                    <label><input type="checkbox" name="stadiumCategory" value="basketball" disabled ${stadium.stadiumCategory.contains('basketball') ? 'checked' : ''}> 농구</label>
+                    <label><input type="checkbox" name="stadiumCategory" value="baseball" disabled ${stadium.stadiumCategory.contains('baseball') ? 'checked' : ''}> 야구</label>
                 </div>
             </div>
         </div>
@@ -61,13 +63,13 @@
             </div>
             
             <div class="form-group">
-                <label for="address">주소</label>
+                <label for="memberBaseAdd">주소</label>
                 <div class="address-container">
-                    <input type="text" class="zipcode" id="memberZipcode" name="memberZipcode" value="${stadium.stadiumZipcode}">
+                    <input type="text" class="zipcode" id="memberZipcode" name="stadiumZipcode" value="${stadium.stadiumZipcode}">
                     <button type="button" class="address-search-button" onclick="addSearch('memberZipcode','memberBaseAdd','memberDetailAdd')">주소 검색</button>
                 </div>
                 <input type="text" class="basic-address" id="memberBaseAdd" name="stadiumAdd" value="${stadium.stadiumAdd}" readonly>
-                <input type="text" class="detail-address" id="memberDetailAdd" value="${stadium.stadiumAdd}">
+                <input type="text" class="detail-address" id="memberDetailAdd" name="stadiumDetailAdd" value="${stadium.stadiumAdd}">
             </div>
             
             <div class="form-group">
@@ -145,6 +147,7 @@
                     });
                 }
                 document.addEventListener('DOMContentLoaded', updateCheckboxes);
+                window.onload = updateCheckboxes;
             </script>
             
             <div class="form-group">
@@ -153,7 +156,7 @@
                     <c:if test="${stadium.fileType == 0}">
                         <img src="${stadium.filePath}/${stadium.changeName}" alt="구장 대표 이미지" class="preview-image">
                     </c:if>
-                    <input type="file" name="thumbnailImg" id="thumbnail" value="${stadium.originName}">
+                    <input type="file" name="thumbnailImg" id="thumbnail" >
                 </div>
             </div>
             
@@ -168,9 +171,18 @@
             </div>
 
             <div class="info-btn">
-                <button class="registration-button" onclick="confirmEdit()">수정하기</button>
-                <button class="registration-button" onclick="confirmDelete()">탈퇴하기</button>
+                <button class="registration-button">수정하기</button>
+                <button class="registration-button">탈퇴하기</button>
             </div>
+
+            <script>
+
+                function confirmDelete() {
+                    if (confirm("정말로 구장을 삭제하시겠습니까?")) {
+                        location.href = "${pageContext.request.contextPath}/stadium_manager/delete";
+                    }
+                }
+            </script>
         </div>
     </form>
     </div>

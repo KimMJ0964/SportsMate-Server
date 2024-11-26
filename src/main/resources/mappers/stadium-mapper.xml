@@ -281,18 +281,15 @@
 <!-- 구장 정보 수정 -->
     <update id="updateStadium" parameterType="StadiumDto">
         UPDATE STADIUM
-        SET 
-            STADIUM_NAME = #{stadiumName},
-            STADIUM_ADDRESS = 
-				<if test="stadiumAdd != null and stadiumAdd != ''">
-                #{stadiumAdd}
-            	</if>,
-            STADIUM_ZIPCODE = #{stadiumZipcode},
-            STADIUM_PRICE = #{stadiumPrice},
-            STADIUM_CATEGORY = #{stadiumCategory},
-            STADIUM_START_TIME = #{stadiumStartTime},
-            STADIUM_END_TIME = #{stadiumEndTime}
-        WHERE STADIUM_NO = #{stadiumNo}
+    SET
+        STADIUM_NAME = #{stadiumName},
+        STADIUM_ADDRESS = #{stadiumAdd},
+        STADIUM_ZIPCODE = #{stadiumZipcode},
+        STADIUM_PRICE = #{stadiumPrice},
+        STADIUM_CATEGORY = #{stadiumCategory},
+        STADIUM_START_TIME = #{stadiumStartTime},
+        STADIUM_END_TIME = #{stadiumEndTime}
+    WHERE STADIUM_NO = #{stadiumNo}
     </update>
 
     <!-- 편의시설 정보 수정 -->
