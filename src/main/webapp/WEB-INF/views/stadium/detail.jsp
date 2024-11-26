@@ -366,7 +366,7 @@
 							<p class="match-apply_button-text">지금 신청하면<br>진행 확정이 빨라져요!</p>
 						</div>
 						<div class="btnWrap" style="width: 144px;">
-							<button type="button" class="btn letsplab" data-bs-toggle="modal" data-bs-target="#paymentModal">
+							<button type="button" class="btn letsplab" data-bs-toggle="modal" data-bs-target="#subscription">
 								<p style="color: white">신청하기</p>
 							</button>
 						</div>
@@ -404,6 +404,65 @@
 	                <button type="submit" class="btn btn-primary" form="inquiry-form">질문 제출</button>
 	            </div>
 		    </div>
+		</div>
+	</div>
+	
+	<!-- 신청하기 모달 -->
+	<div class="modal fade" id="subscription" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			
+				<!-- Modal Header -->
+				<div>
+					<div class="modal-header">
+						<h4 class="modal-title">신청하기</h4>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+					<!-- Modal body -->
+					<div class="modal-body">
+						<form action="" method="post" class="modal-form">
+							<!-- 날짜 선택하기 -->
+							<p>매칭 날짜를 선택해주세요</p>
+							<jsp:include page="/WEB-INF/views/common/calendar_header.jsp" />
+							<p>매칭을 잡을 시간을 선택해주세요</p>
+							<div class="mt-start-container">
+			                <select class="mt-starttime">
+								<option value="" disabled selected>시간을 선택해주세요.</option>
+			                    <option value="05:00:00">05:00</option>
+			                    <option value="06:00:00">06:00</option>
+			                    <option value="07:00:00">07:00</option>
+			                    <option value="08:00:00">08:00</option>
+			                    <option value="09:00:00">09:00</option>
+			                    <option value="10:00:00">10:00</option>
+			                    <option value="11:00:00">11:00</option>
+			                    <option value="12:00:00">12:00</option>
+			                </select>
+			            </div>
+			            <p>~</p>
+			            <div class="mt-end-container">
+			                <select class="mt-endtime">
+			                	<option value="" disabled selected>시간을 선택해주세요.</option>
+			                    <option value="13:00:00">13:00</option>
+			                    <option value="14:00:00">14:00</option>
+			                    <option value="15:00:00">15:00</option>
+			                    <option value="16:00:00">16:00</option>
+			                    <option value="17:00:00">17:00</option>
+			                    <option value="18:00:00">18:00</option>
+			                    <option value="19:00:00">19:00</option>
+			                    <option value="20:00:00">20:00</option>
+			                    <option value="21:00:00">21:00</option>
+			                    <option value="22:00:00">22:00</option>
+			                    <option value="23:00:00">23:00</option>
+			                    <option value="24:00:00">24:00</option>
+			                </select>
+			            </div>
+			            <div class="modal-footer">
+			            	<button type="submit" class="btn btn-primary">신청하기</button>
+			            </div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	

@@ -365,6 +365,25 @@ textarea.form-control {
 	width: 16px; /* 아이콘 크기 */
 	height: 16px;
 }
+
+/* 시작 시간 선택 */
+.mt-starttime {
+width: 200px;
+height: 30px;
+border-radius: 14px;
+background-color: white;
+text-align: center;
+border: 1px solid black;
+}
+/* 끝 시간 선택 */
+.mt-endtime {
+width: 200px;
+height: 30px;
+border-radius: 14px;
+background-color: white;
+text-align: center;
+border: 1px solid black;
+}
 /* 화면 크기가 480px 이하일 때만 표시 (모바일 전용) */
 @media (max-width: 480px) {
 	.mobile-only {
