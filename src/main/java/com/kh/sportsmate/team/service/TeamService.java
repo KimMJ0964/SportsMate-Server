@@ -1,5 +1,7 @@
 package com.kh.sportsmate.team.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -7,6 +9,7 @@ import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.match.model.vo.MatchRefund;
 import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 
@@ -136,5 +139,17 @@ public interface TeamService {
  	
  	// 구단 미니 홈피 게시글 검색
  	int searchListCount(Map<String, String> map);
+ 	
+ 	// 구단 전적 수
+ 	int selectMatchCount(int tno);
+ 	
+ 	// 구단 전적
+ 	ArrayList<TeamMatchInfoDto> matchInfo(PageInfo pi, int tno);
+ 	
+ 	// 예정된 매치
+ 	TeamMatchInfoDto willMatch(int tno);
+ 	
+ 	// 매치 환불
+ 	int teamMatchRefund(MatchRefund mr, HttpSession session);
 }
 

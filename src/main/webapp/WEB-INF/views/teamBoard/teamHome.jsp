@@ -64,12 +64,20 @@
 								src="${pageContext.request.contextPath}/resources/images/team_board_vote.png">
 							<div class="teamcomu-center-word">투표</div>
 						</div>
+						<div class="teamcomu-work-match" onclick="location.href = 'teamMatch.tm?tno=${tno}'" >
+							<img class="teamcomu-wrok-match-img"
+								src="${pageContext.request.contextPath}/resources/images/team_board_match.png"
+									style="width: 60px; height: 60px;">
+							<div class="teamcomu-center-word">매치</div>
+						</div>
 						<c:if test="${memNo != null && memNo == leaderNo}">
+							<!-- 
 							<div class="teamcomu-work-join">
 								<img class="teamcomu-wrok-join-img"
 									src="${pageContext.request.contextPath}/resources/images/team_board_join.png">
 								<div class="teamcomu-center-word">모집</div>
 							</div>
+							-->
 							<div class="teamcomu-work-modify"
 								onclick="location.href = 'teamManagement.tm?tno=${tno}'">
 								<img class="teamcomu-wrok-modify-img"
@@ -424,7 +432,7 @@
 				<div class="teamcomu-teamOut">
 					<c:choose>
 						<c:when test="${memNo != null && memNo == leaderNo}">
-							<button class="teamcomu-teamOutBtn" onclick="confirmTeamOut(${tno})">구단 폐쇄</button>
+							<button class="teamcomu-teamOutBtn" onclick="confirmTeamClosing(${tno})">구단 폐쇄</button>
 						</c:when>
 						<c:otherwise>
 							<button class="teamcomu-teamOutBtn" onclick="confirmTeamOut(${tno})">구단 탈퇴</button>

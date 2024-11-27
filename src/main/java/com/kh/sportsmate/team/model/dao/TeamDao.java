@@ -9,6 +9,7 @@ import com.kh.sportsmate.team.model.dto.RecruitDto;
 import com.kh.sportsmate.team.model.dto.RecruitListDto;
 import com.kh.sportsmate.team.model.dto.RecruitListQueryStringDto;
 import com.kh.sportsmate.team.model.dto.TeamInfoDto;
+import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.dto.TeamMemberDto;
 import com.kh.sportsmate.team.model.dto.TeamVoteDetailDto;
 import com.kh.sportsmate.team.model.vo.*;
@@ -20,6 +21,7 @@ import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.match.model.vo.MatchRefund;
 
 @Repository
 public class TeamDao {
@@ -439,5 +441,60 @@ public class TeamDao {
      */
     public int searchListCount(SqlSessionTemplate sqlSession, Map<String, String> map) {
     	return sqlSession.selectOne("teamMapper.searchListCount", map);
+    }
+    
+    /**
+     * 구단 전적 수
+     * @param sqlSession
+     * @param tno
+     */
+    public int selectMatchCount(SqlSessionTemplate sqlSession, int tno) {
+    	return sqlSession.selectOne("teamMapper.selectMatchCount", tno);
+    }
+    
+    /**
+     * 구단 전적
+     * @param sqlSession
+     * @param pi
+     * @param tno
+     */
+    public ArrayList<TeamMatchInfoDto> matchInfo(SqlSessionTemplate sqlSession, PageInfo pi, int tno) {
+    	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+        RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("tno", tno);
+    	return (ArrayList) sqlSession.selectList("teamMapper.matchInfo", params, rowBounds);
+    }
+    
+    /**
+     * 예정된 매칭
+     * @param tno
+     * @param sqlSession
+     */
+    public TeamMatchInfoDto willMatch(SqlSessionTemplate sqlSession, int tno) {
+    	return sqlSession.selectOne("teamMapper.willMatch", tno);
+    }
+    
+    /**
+     * 환불있는지 확인
+     * @param mr
+     * @param sqlSession
+     */
+    public int checkMatchRefund(SqlSessionTemplate sqlSession, MatchRefund mr) {
+    	Integer refundNo = sqlSession.selectOne("checkMatchRefund", mr);
+    	if (refundNo == null) {
+    	    refundNo = 0; // 기본값 설정
+    	}
+    	return refundNo;
+    }
+    
+    /**
+     * 매치 환불
+     * @param mr
+     * @param sqlSession
+     */
+    public int teamMatchRefund(SqlSessionTemplate sqlSession, MatchRefund mr) {
+    	return sqlSession.insert("teamMapper.teamMatchRefund", mr);
     }
 }

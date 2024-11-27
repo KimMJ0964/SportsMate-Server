@@ -43,7 +43,9 @@
             <mapping path="/boardList.tm" />
             <mapping path="/createBd.tm" />
             <mapping path="/searchBoard.tm" />
-            <mapping path="/voting.tm"/>
+            <mapping path="/voting.tm" />
+            <mapping path="/teamMatch.tm" />
+            <mapping path="/teamMatchRefund.tm" />
             <beans:bean class="com.kh.sportsmate.common.intercepter.TeamBoardInterceptor" id="TeamBoardInterceptor"/>
         </interceptor>
 

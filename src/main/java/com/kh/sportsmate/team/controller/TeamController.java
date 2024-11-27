@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.match.model.vo.MatchRefund;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.team.service.TeamService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -345,8 +346,10 @@ public class TeamController {
      */
     @RequestMapping("searchBoard.tm")
     public String searchBoard(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model m,
-                              String category, String keyword, int tno) {
-    	
+                              String category, String keyword, int tno, HttpSession session) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+    	int memNo = loginMember.getMemNo();
+    	int leaderNo = teamService.leaderNo(tno);
     	Map<String, String> map = new HashMap<>();
     	map.put("category", category);
     	map.put("keyword", keyword);
@@ -362,6 +365,8 @@ public class TeamController {
         m.addAttribute("pi", pi);
         m.addAttribute("memberList", memberList);
         m.addAttribute("tno", tno);
+        m.addAttribute("memNo", memNo);
+    	m.addAttribute("leaderNo", leaderNo);
 
         return "teamBoard/teamHome";
     }
@@ -753,6 +758,58 @@ public class TeamController {
     	return "redirect:boardList.tm?tno=" + tno;
     }
     
+    /**
+     * 구단 매치 사이트
+     * 
+     * @param tno
+     * @param session
+     * @param m
+     * @return
+     */
+    @RequestMapping("teamMatch.tm")
+    public String teamMatchMove(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, int tno, HttpSession session, Model m) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+    	int memNo = loginMember.getMemNo();
+    	int leaderNo = teamService.leaderNo(tno);
+    	// 구단 전적 수 세기
+    	int matchCount = teamService.selectMatchCount(tno);
+         
+         // 페이지네이션
+        PageInfo pi = Template.getPageInfo(matchCount, currentPage, 10, 10);
+    	
+        // 예정된 매치
+        TeamMatchInfoDto willMatch = teamService.willMatch(tno);
+        
+        // 구단 전적들
+    	ArrayList<TeamMatchInfoDto> matchInfo = teamService.matchInfo(pi, tno);
+    	
+    	m.addAttribute("willMatch", willMatch);
+    	m.addAttribute("matchInfo", matchInfo);
+    	m.addAttribute("pi", pi);
+    	m.addAttribute("memNo", memNo);
+    	m.addAttribute("leaderNo", leaderNo);
+    	m.addAttribute("tno", tno);
+    	
+    	return "teamBoard/teamMatch";
+    }
+    
+    /**
+     * 구단 매칭 환불
+     * 
+     * @param mr
+     * @param session
+     * @param tno
+     * @return
+     */
+    @RequestMapping("teamMatchRefund.tm")
+    public String teamMatchRefund(MatchRefund mr, HttpSession session, int tno) {
+    	int result = teamService.teamMatchRefund(mr, session);
+    	
+    	if(result < 0)
+            session.setAttribute("alertMsg", "환불이 실패하였습니다. 다시 시도해주세요.");
+    	
+    	return "redirect:/teamMatch.tm?tno=" + tno;
+    }
     /*===================================================================================================================================*/
     
 

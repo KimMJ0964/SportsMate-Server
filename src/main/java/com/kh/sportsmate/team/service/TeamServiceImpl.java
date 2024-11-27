@@ -1,5 +1,7 @@
 package com.kh.sportsmate.team.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.match.model.vo.MatchRefund;
 import com.kh.sportsmate.team.model.dao.TeamDao;
 
 import lombok.RequiredArgsConstructor;
@@ -572,5 +575,60 @@ public class TeamServiceImpl implements TeamService {
 	public int searchListCount(Map<String, String> map) {
 		return teamDao.searchListCount(sqlSession, map);
 	}
+	
+	/**
+	 * 구단 전적 수
+	 * @param tno
+	 * @return
+	 */
+	@Override
+	public int selectMatchCount(int tno) {
+		return teamDao.selectMatchCount(sqlSession, tno);
+	}
+	
+	/**
+	 * 구단 전적
+	 * @param pi
+	 * @param tno
+	 * @return
+	 */
+	@Override
+	public ArrayList<TeamMatchInfoDto> matchInfo(PageInfo pi, int tno) {
+		return teamDao.matchInfo(sqlSession, pi, tno);
+	}
+
+	/**
+	 * 예정된 매칭
+	 * @param tno
+	 * @return
+	 */
+	@Override
+	public TeamMatchInfoDto willMatch(int tno) {
+		return teamDao.willMatch(sqlSession, tno);
+	}
+
+	/**
+	 * 매치환불
+	 * @param mr
+	 * @return
+	 */
+	@Override
+	public int teamMatchRefund(MatchRefund mr, HttpSession session) {
+		int result = 0;
+		result = teamDao.checkMatchRefund(sqlSession, mr);
+		
+		System.out.println("환불 체크 : " + result);
+		
+		if(result < 1) {
+			result = teamDao.teamMatchRefund(sqlSession, mr);
+			session.setAttribute("alertMsg", "환불에 성공하였습니다.");
+			return result;
+		} else {
+			session.setAttribute("alertMsg", "이미 환불을 진행하였습니다.");
+			return result;
+		}
+		
+	}
+	
 }
 
