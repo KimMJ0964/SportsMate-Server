@@ -2,6 +2,7 @@ package com.kh.sportsmate.stadium.model.dao;
 
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
@@ -47,4 +48,9 @@ public class StadiumDao {
     public List<StadiumSearch> getPaginatedStadiums(SqlSessionTemplate sqlSession, Map<String, Object> params) {
         return sqlSession.selectList("stadiumMapper.getPaginatedStadiums", params);
     }
+    
+    public StadiumSearch selectStadiumById(SqlSessionTemplate sqlSession, int stadiumId) {
+    	return sqlSession.selectOne("stadiumMapper.selectStadiumById", stadiumId);
+    }
+    
 }

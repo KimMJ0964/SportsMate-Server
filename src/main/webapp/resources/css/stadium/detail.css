@@ -365,7 +365,13 @@ textarea.form-control {
 	width: 16px; /* 아이콘 크기 */
 	height: 16px;
 }
-
+.choice {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    padding: 10px;
+}
 /* 시작 시간 선택 */
 .mt-starttime {
 width: 200px;

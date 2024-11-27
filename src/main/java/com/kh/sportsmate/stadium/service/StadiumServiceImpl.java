@@ -1,6 +1,5 @@
 package com.kh.sportsmate.stadium.service;
 
-import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -54,5 +54,17 @@ public class StadiumServiceImpl implements StadiumService{
 		    params.put("boardLimit", pi.getBoardLimit());
 
 		    return stadiumDao.getPaginatedStadiums(sqlSession, params);
+	}
+
+	@Override
+	public StadiumSearch getStadiumById(int stadiumId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public WeatherResponse getWeather(String location) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
