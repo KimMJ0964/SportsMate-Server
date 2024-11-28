@@ -35,7 +35,7 @@
                 <div>${body}</div>
             </div>
             <div id="result-footer">
-                    <button type="button" class="move-btn" onclick="location.href= 'searchInfo.me'">되돌아가기</button>
+                    <button type="button" class="move-btn" onclick="location.href= 'searchInfo.me'">비밀번호 찾기</button>
                     <button type="button" class="move-btn" onclick="location.href= 'loginForm.me'">로그인</button>
             </div>
         </div>
