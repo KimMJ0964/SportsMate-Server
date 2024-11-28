@@ -254,7 +254,7 @@ public class MemberController {
      * @throws Exception
      */
     @RequestMapping(value = "naver-login")
-    public String naverLoginCallback(String code, String state, HttpServletRequest request) throws Exception {
+    public String naverLoginCallback(String code, String state, HttpServletRequest request, HttpSession session) throws Exception {
         String redirectURL = URLEncoder.encode(request.getContextPath(), "UTF-8");
         String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
         apiURL += "client_id=" + this.clientID;
@@ -310,13 +310,37 @@ public class MemberController {
             String birthDay = memberInfo.get("birthday").getAsString().replace("-", ".");
             String birth = birthYear.concat(".").concat(birthDay);
             Member m = new Member();
-            m.setMemName(memberInfo.get("name").toString());
-            m.setMemEmail(memberInfo.get("email").toString());
-            m.setMemGender(memberInfo.get("gender").toString());
-            m.setMemPhone(memberInfo.get("mobile").toString());
+            m.setMemName(memberInfo.get("name").getAsString());
+            m.setMemEmail(memberInfo.get("email").getAsString());
+            m.setMemGender(memberInfo.get("gender").getAsString());
+            m.setMemPhone(memberInfo.get("mobile").getAsString());
             m.setMemBirth(birth);
-
             log.info("네이버 회원 정보 : {}", m);
+            Map<Integer,Member> confirmResult = memberService.confirmMember(m);
+            int key = 0;
+            if(confirmResult.size() == 1){
+                key = confirmResult.keySet().iterator().next();
+            }
+            switch (key){
+                case 1: // 기존 회원이 아닌경우
+                    session.setAttribute("alertMsg", "회원가입이 필요합니다.");
+                    session.setAttribute("naverMemberInfo",m);
+                    return "redirect:/memberEnrollForm.me";
+                case 2: // 도메인이 동일한 회원이 있는 경우
+                    session.setAttribute("loginMember", confirmResult.get(2));
+                    session.setAttribute("alertMsg", "로그인에 성공하셨습니다.");
+                    return "redirect:/";
+                case 3: // 도메인이 다른 회원이 있는 경우
+                    Member confirmMember = memberService.loginMember(m);
+                    String maskedEmail = Template.maskingEmail(confirmResult.get(3).getMemEmail());
+                    request.setAttribute("resultHeader","기존 회원 존재");
+                    request.setAttribute("description","기존에 다른 이메일로 가입하신 정보가 있습니다.");
+                    request.setAttribute("body", maskedEmail);
+                    return "member/searchResult";
+                default:
+                    session.setAttribute("alertMsg", "네이버 로그인에 실패하였습니다.");
+                    return "redirect:/";
+            }
         }
         return "redirect:/";
     }

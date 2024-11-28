@@ -182,4 +182,13 @@ public class Template {
         }
         return new String(chars);
     }
+    public static String maskingEmail(String email){
+        int atIndex = email.indexOf('@');
+        String id = email.substring(0, atIndex);
+        String domain = email.substring(atIndex);
+        int middle = id.length() / 2;
+        String maskedEmail = id.substring(0, middle -1) + "**" + id.substring(middle + 1)
+                + domain;
+        return maskedEmail;
+    }
 }

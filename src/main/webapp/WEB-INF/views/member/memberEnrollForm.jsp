@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: jun
@@ -33,10 +34,16 @@
                 <div class="input-wrap">
                     <span class="form-title">이메일</span> <br>
                     <div class="email-container">
-                        <input type="email" class="email"  name="memEmail" placeholder="이메일을 입력해주세요.">
-                        <button type="button" class="email-auth-btn" id="send-mail-btn"
-                                onclick="authCodeSendBtnClick()">인증번호 전송
-                        </button>
+                        <c:choose>
+                            <c:when test="${naverMemberInfo != null}">
+                                <input type="email" class="email" id="auto_email" name="memEmail" placeholder="이메일을 입력해주세요." value="${naverMemberInfo.memEmail}" readonly>
+                            </c:when>
+                            <c:otherwise>
+                                <input type="email" class="email"  name="memEmail" placeholder="이메일을 입력해주세요.">
+                                <button type="button" class="email-auth-btn" id="send-mail-btn" onclick="authCodeSendBtnClick()">인증번호 전송
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <span id="emailCheckResult" class="hide"></span>
                     <div class="check-auth-code-container-hide" id="check-auth-code-container">
