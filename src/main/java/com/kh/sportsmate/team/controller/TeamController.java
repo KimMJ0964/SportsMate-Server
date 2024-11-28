@@ -778,7 +778,7 @@ public class TeamController {
         PageInfo pi = Template.getPageInfo(matchCount, currentPage, 10, 10);
     	
         // 예정된 매치
-        TeamMatchInfoDto willMatch = teamService.willMatch(tno);
+        ArrayList<TeamMatchInfoDto> willMatch = teamService.willMatch(tno);
         
         // 구단 전적들
     	ArrayList<TeamMatchInfoDto> matchInfo = teamService.matchInfo(pi, tno);

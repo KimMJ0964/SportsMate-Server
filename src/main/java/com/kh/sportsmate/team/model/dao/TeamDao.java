@@ -472,8 +472,8 @@ public class TeamDao {
      * @param tno
      * @param sqlSession
      */
-    public TeamMatchInfoDto willMatch(SqlSessionTemplate sqlSession, int tno) {
-    	return sqlSession.selectOne("teamMapper.willMatch", tno);
+    public ArrayList<TeamMatchInfoDto> willMatch(SqlSessionTemplate sqlSession, int tno) {
+    	return (ArrayList) sqlSession.selectList("teamMapper.willMatch", tno);
     }
     
     /**

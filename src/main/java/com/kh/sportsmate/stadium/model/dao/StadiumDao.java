@@ -4,6 +4,8 @@ import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -36,5 +38,13 @@ public class StadiumDao {
     }
     public int insertStadiumAttachment(SqlSessionTemplate sqlSession, ArrayList<StadiumAttachment> stadiumAttachmentImgs){
         return sqlSession.insert("stadiumMapper.insertStadiumAttachment", stadiumAttachmentImgs);
+    }
+    
+    public ArrayList<StadiumQna> inquiryList(SqlSessionTemplate sqlSession, int memNo) {
+    	return (ArrayList) sqlSession.selectList("stadiumMapper.inquiryList", memNo);
+    }
+    
+    public int inquiryUpdate(SqlSessionTemplate sqlSession, StadiumQna sq) {
+    	return sqlSession.update("stadiumMapper.inquiryUpdate", sq);
     }
 }

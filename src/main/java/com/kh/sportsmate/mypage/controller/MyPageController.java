@@ -30,6 +30,7 @@ import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.member.service.MemberService;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.mypage.service.MyPageService;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
@@ -90,11 +91,7 @@ public class MyPageController {
     	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
     	
     	// 내 문의
-    	ArrayList<MatchQna> myQna = myPageService.selectMyQna(memNo);
-    	
-    	for(MatchQna myQna2 : myQna) {
-    		System.out.println(myQna2);
-    	}
+    	ArrayList<StadiumQna> myQna = myPageService.selectMyQna(memNo);
     	
     	model.addAttribute("myQna", myQna);
     	model.addAttribute("myMatchWinCount", myMatchWinCount);

@@ -239,4 +239,22 @@
 		    NOW()
 		)
     </insert>
+    
+    <!-- 문의 리스트 -->
+    <select id="inquiryList" resultType="StadiumQna">
+    	SELECT sq.MATCH_QNA_NO as matchQnaNo,
+   				sq.MATCH_Q_TITLE as matchQTitle,
+   				sq.MATCH_Q_DETAIL as matchQDetail,
+   				sq.MATCH_A as matchA
+		FROM STADIUM_QNA sq
+		JOIN STADIUM s ON sq.STADIUM_NO = s.STADIUM_NO
+		WHERE s.MEM_NO = #{memNo}
+    </select>
+    
+    <!-- 문의 답변 -->
+    <update id="inquiryUpdate">
+    	UPDATE STADIUM_QNA
+		SET MATCH_A = #{matchA}
+		WHERE MATCH_QNA_NO = #{matchQnaNo};
+    </update>
 </mapper>

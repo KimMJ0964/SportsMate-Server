@@ -147,7 +147,7 @@ public interface TeamService {
  	ArrayList<TeamMatchInfoDto> matchInfo(PageInfo pi, int tno);
  	
  	// 예정된 매치
- 	TeamMatchInfoDto willMatch(int tno);
+ 	ArrayList<TeamMatchInfoDto> willMatch(int tno);
  	
  	// 매치 환불
  	int teamMatchRefund(MatchRefund mr, HttpSession session);

@@ -361,11 +361,11 @@
     </select>
     
     <!-- 내 문의 -->
-    <select id="selectMyQna" resultType="MatchQna">
+    <select id="selectMyQna" resultType="StadiumQna">
 	    SELECT MATCH_Q_TITLE AS matchQTitle,
 	    	   MATCH_Q_DETAIL AS matchQDetail,
 	    	   MATCH_A AS matchA
-	   	FROM MATCH_QNA
+	   	FROM STADIUM_QNA
 	   	WHERE Q_MEM_NO = #{memNo}
     </select>
     

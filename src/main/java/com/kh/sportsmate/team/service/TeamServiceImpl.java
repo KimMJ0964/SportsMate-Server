@@ -603,7 +603,7 @@ public class TeamServiceImpl implements TeamService {
 	 * @return
 	 */
 	@Override
-	public TeamMatchInfoDto willMatch(int tno) {
+	public ArrayList<TeamMatchInfoDto> willMatch(int tno) {
 		return teamDao.willMatch(sqlSession, tno);
 	}
 
