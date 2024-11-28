@@ -112,13 +112,22 @@
 		)
 	</insert>
 
-
-
+	<!-- 구단 게시글 갯수 -->
     <select id="selectListCount" resultType="_int">
         SELECT COUNT(*)
         FROM TEAM_BOARD
         WHERE STATUS = 'Y'
         AND TEAM_NO = #{teamNo}
+    </select>
+    
+    <!-- 구단 게시글 검색 갯수 -->
+    <select id="searchListCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM TEAM_BOARD
+        WHERE STATUS = 'Y'
+        AND TEAM_NO = #{tno}
+        AND TYPE = #{category}
+		AND TITLE LIKE CONCAT('%', #{keyword}, '%')
     </select>
     
      <!-- 구단 게시글 조회 -->
@@ -157,11 +166,13 @@
 	               WHEN T.TEAM_CATEGORY = 'baseball' THEN C.BASE_ABILITY
 	               WHEN T.TEAM_CATEGORY = 'basketball' THEN C.BASKET_ABILITY
 	               ELSE NULL
-	           END AS ability
+	           END AS ability,
+	           PF.CHANGE_NAME as changeName
 	    FROM TEAM_MEMBER TM
 	    JOIN MEMBER M ON TM.MEM_NO = M.MEM_NO
 	    JOIN TEAM T ON TM.TEAM_NO = T.TEAM_NO
 	    LEFT JOIN CATEGORY C ON TM.MEM_NO = C.MEM_NO
+	    LEFT JOIN PROFILE_FILE PF ON TM.MEM_NO = PF.MEM_NO
 	    WHERE TM.TEAM_NO = #{teamNo}
 	    AND TM.STATUS = 'Y'
 	</select>
@@ -194,7 +205,8 @@
 			   b.STATUS AS status,
 			   b.COM_PARENT_NO AS comParentNo,
 	     	   p.CHANGE_NAME AS changeName,
-			   b.COM_CONTENT AS comContent
+			   b.COM_CONTENT AS comContent,
+			   b.MEM_NO AS memNo
 		FROM TEAM_BOARD_COMMENT b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 		LEFT JOIN PROFILE_FILE p ON b.MEM_NO = p.MEM_NO
@@ -270,6 +282,198 @@
 		AND STATUS = 'Y'
 	</select>
 	
+	<!-- 진행중인 투표 -->
+	<select id="voting" resultType="TeamVote">
+		SELECT VOTE_NO as voteNo,
+			   TEAM_NO as teamNo,
+			   STATUS as status,
+			   VOTE_TITLE as voteTitle,
+			   VOTE_ONE as voteOne,
+			   VOTE_TWO as voteTwo,
+			   VOTE_THREE as voteThree,
+			   VOTE_FOUR as voteFour,
+			   VOTE_FIVE as voteFive
+		FROM TEAM_VOTE
+		WHERE TEAM_NO = #{tno}
+		AND STATUS = 'N'
+	</select>
+	
+	<!-- 진행완료된 투표 -->
+	<select id="voteList" resultType="TeamVoteDetailDto">
+		SELECT 
+		    VOTE_NO AS voteNo,
+		    VOTE_TITLE AS voteTitle,
+		    VOTE_CONTENT AS voteContent,
+		    SELECT_COUNT AS selectCount
+		FROM (
+		    SELECT 
+		        TV.VOTE_NO,
+		        TV.VOTE_TITLE,
+		        CASE TVD.CHECK
+		            WHEN 1 THEN TV.VOTE_ONE
+		            WHEN 2 THEN TV.VOTE_TWO
+		            WHEN 3 THEN TV.VOTE_THREE
+		            WHEN 4 THEN TV.VOTE_FOUR
+		            WHEN 5 THEN TV.VOTE_FIVE
+		        END AS VOTE_CONTENT,
+		        COUNT(*) AS SELECT_COUNT
+		    FROM 
+		        TEAM_VOTE TV
+		    JOIN 
+		        TEAM_VOTE_DETAIL TVD ON TV.VOTE_NO = TVD.VOTE_NO
+		    WHERE 
+		        TV.TEAM_NO = #{voteNo}
+		        AND TV.STATUS = 'Y'
+		        AND TVD.CHECK != 0
+		    GROUP BY 
+		        TV.VOTE_NO, 
+		        TV.VOTE_TITLE,
+		        TVD.CHECK,
+		        CASE TVD.CHECK
+		            WHEN 1 THEN TV.VOTE_ONE
+		            WHEN 2 THEN TV.VOTE_TWO
+		            WHEN 3 THEN TV.VOTE_THREE
+		            WHEN 4 THEN TV.VOTE_FOUR
+		            WHEN 5 THEN TV.VOTE_FIVE
+		        END
+		) AS VOTE_RESULTS
+		ORDER BY VOTE_NO ASC;
+	</select>
+	
+	<!-- 구단장 번호 가져오기 -->
+	<select id="leaderNo" resultType="_int">
+		SELECT MEM_NO as memNo
+		FROM TEAM
+		WHERE TEAM_NO = #{tno}
+	</select>
+	
+	<!-- 구단 배너 -->
+	<select id="teamBanner" resultType="Profile">
+		SELECT CHANGE_NAME as changeName
+		FROM PROFILE_FILE
+		WHERE TEAM_NO = #{tno}
+	</select>
+	
+	<!-- 본인 팀인지 확인 -->
+	<select id="checkTeamMember" resultType="Integer">
+		SELECT TEAM_NO as teamNo
+		FROM TEAM_MEMBER
+		WHERE TEAM_NO = #{tno}
+		AND MEM_NO = #{memNo}
+	</select>
+	
+	<!-- 구단 전적 -->
+	<select id="matchInfo" resultType="TeamMatchInfoDto">
+		SELECT 
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN T1.TEAM_NAME
+		        ELSE T2.TEAM_NAME
+		    END AS myTeamName,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN T2.TEAM_NAME
+		        ELSE T1.TEAM_NAME
+		    END AS enemyTeamName,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN T1.TEAM_POINT
+		        ELSE T2.TEAM_POINT
+		    END AS myTeamPoint,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN T2.TEAM_POINT
+		        ELSE T1.TEAM_POINT
+		    END AS enemyTeamPoint,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN M.TEAM_A_NO 
+		        ELSE M.TEAM_B_NO 
+		    END AS myTeamNo,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN M.TEAM_B_NO
+		        ELSE M.TEAM_A_NO
+		    END AS enemyTeamNo,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN M.SCORE_A
+		        ELSE M.SCORE_B
+		    END AS myScore,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN M.SCORE_B
+		        ELSE M.SCORE_A
+		    END AS enemyScore,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN PF1.CHANGE_NAME
+		        ELSE PF2.CHANGE_NAME
+		    END AS myTeamProfile,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN PF2.CHANGE_NAME
+		        ELSE PF1.CHANGE_NAME
+		    END AS enemyTeamProfile
+		FROM 
+		    `MATCH` M
+		LEFT JOIN `TEAM` T1 ON M.TEAM_A_NO = T1.TEAM_NO
+		LEFT JOIN `TEAM` T2 ON M.TEAM_B_NO = T2.TEAM_NO
+		LEFT JOIN `PROFILE_FILE` PF1 ON M.TEAM_A_NO = PF1.TEAM_NO
+		LEFT JOIN `PROFILE_FILE` PF2 ON M.TEAM_B_NO = PF2.TEAM_NO
+		WHERE 
+	     (M.TEAM_A_NO = #{tno} OR M.TEAM_B_NO = #{tno})
+		    AND EXISTS (
+		        SELECT 1 
+		        FROM `MATCH_BEST` MB 
+		        WHERE MB.MATCH_NO = M.MATCH_NO
+		    );
+
+	</select>
+	
+	<!-- 예정된 매칭 -->
+	<select id="willMatch" resultType="TeamMatchInfoDto">
+		SELECT
+		    M.MATCH_NO AS matchNo,
+		    S.STADIUM_NAME AS stadiumName,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN T2.TEAM_NAME
+		        ELSE T1.TEAM_NAME
+		    END AS enemyTeamName,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN T2.TEAM_POINT
+		        ELSE T1.TEAM_POINT
+		    END AS enemyTeamPoint,
+		    CASE 
+		        WHEN M.TEAM_A_NO = #{tno} THEN PF2.CHANGE_NAME
+		        ELSE PF1.CHANGE_NAME
+		    END AS enemyTeamProfile,
+		    MR.STATUS AS status  -- MATCH_REFUND 테이블에서 STATUS 컬럼 추가
+		FROM 
+		    `MATCH` M
+		LEFT JOIN `TEAM` T1 ON M.TEAM_A_NO = T1.TEAM_NO
+		LEFT JOIN `TEAM` T2 ON M.TEAM_B_NO = T2.TEAM_NO
+		LEFT JOIN `PROFILE_FILE` PF1 ON M.TEAM_A_NO = PF1.TEAM_NO
+		LEFT JOIN `PROFILE_FILE` PF2 ON M.TEAM_B_NO = PF2.TEAM_NO
+		LEFT JOIN `STADIUM` S ON M.STADIUM_NO = S.STADIUM_NO
+		LEFT JOIN `MATCH_REFUND` MR ON M.MATCH_NO = MR.MATCH_NO  -- MATCH_REFUND 테이블 조인
+		WHERE 
+		    (M.TEAM_A_NO = #{tno} OR M.TEAM_B_NO = #{tno})
+		    AND NOT EXISTS (
+		        SELECT 1 
+		        FROM `MATCH_BEST` MB 
+		        WHERE MB.MATCH_NO = M.MATCH_NO
+		    );
+	</select>
+	
+	<!-- 구단 전적 수 -->
+	<select id="selectMatchCount" resultType="_int">
+		SELECT 
+		    COUNT(*)
+		FROM 
+		    `MATCH` M
+		WHERE 
+		    M.TEAM_A_NO = #{tno} OR M.TEAM_B_NO = #{tno};
+	</select>
+	
+	<!-- 매치 환불 확인 -->
+	<select id="checkMatchRefund" resultType="_int">
+		SELECT REFUND_NO
+		FROM MATCH_REFUND
+		WHERE MATCH_NO = #{matchNo}
+	</select>
+	
+	
 	<!-- 게시글 생성 -->
 	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">
 	  	INSERT INTO TEAM_BOARD (
@@ -288,6 +492,20 @@
 		    NOW(),
 		    #{teamNo}
 		)
+	  </insert>
+	  
+	  <!-- 매치 환불 실시 -->
+	  <insert id="teamMatchRefund">
+	  	INSERT INTO MATCH_REFUND
+	  	(
+	  		MATCH_NO,
+	  		REFUND_CONTENT,
+	  		REFUND_DATE
+	  		) VALUES (
+	  		#{matchNo},
+	  		#{refundContent},
+	  		NOW()
+	  	)
 	  </insert>
 	  
 	  <!-- 게시글 수정 -->
@@ -326,6 +544,20 @@
 		WHERE BOARD_NO =
 		#{bno}
 		AND MEM_NO = #{memNo}
+	</update>
+	
+	<!-- 투표 선택 -->
+	<update id="choseVote">
+		UPDATE TEAM_VOTE_DETAIL
+	    SET `CHECK` = #{voteOption}
+	    WHERE VOTE_NO = #{vno} AND MEM_NO = #{memNo};
+	</update>
+	
+	<!-- 투표 종료 -->
+	<update id="voteComplete">
+		UPDATE TEAM_VOTE
+		SET STATUS = 'Y'
+		WHERE VOTE_NO = #{vno}
 	</update>
 	
 	<!-- 입단자 거절 -->
@@ -594,6 +826,35 @@
 			</if>
 		</trim>
 		)
+	</insert>
+	
+	<!-- 투표 생성 -->
+	<insert id="insertVote" useGeneratedKeys="true" keyProperty="voteNo">
+		INSERT INTO `TEAM_VOTE` (`TEAM_NO`, `STATUS`, `VOTE_TITLE`, `VOTE_ONE`, `VOTE_TWO`, `VOTE_THREE`, `VOTE_FOUR`, `VOTE_FIVE`)
+		SELECT #{teamNo}, 'N', #{voteTitle}, #{voteOne}, #{voteTwo}, #{voteThree}, #{voteFour}, #{voteFive}
+		FROM DUAL
+		WHERE NOT EXISTS (
+		    SELECT 1
+		    FROM `TEAM_VOTE`
+		    WHERE `TEAM_NO` = #{teamNo} AND `STATUS` = 'N'
+		);
+	</insert>
+	
+	<!-- 투표 생성 (Detail) -->
+	<insert id="insertVoteDetail">
+		INSERT INTO `TEAM_VOTE_DETAIL` (`VOTE_NO`, `MEM_NO`, `CHECK`)
+		SELECT
+		    TV.VOTE_NO,
+		    TM.MEM_NO,
+		    0
+		FROM
+		    TEAM_MEMBER TM
+		JOIN
+		    TEAM_VOTE TV
+		ON
+		    TM.TEAM_NO = TV.TEAM_NO
+		WHERE
+		    TV.VOTE_NO = #{voteNo};
 	</insert>
 
 </mapper>
