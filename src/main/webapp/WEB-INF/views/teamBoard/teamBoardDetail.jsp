@@ -41,7 +41,7 @@
                 <c:if test="${loginMember != null && loginMember.memNo == teamBoard.memNo}">
                  	<button class="bd-button"  onclick="location.href = 'modifyMoveBd.tm?mpage=${teamBoard.boardNo}'">수정하기</button>
                  </c:if>
-                 <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</button>
+                 <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${teamBoard.boardNo}, 0, ${teamBoard.memNo}, ${ teamBoard.teamNo })">신고하기</button>
                  <div>
 				 	<img class="bd-like" src="${pageContext.request.contextPath}/resources/images/board_like.png" onclick="location.href = 'boardLike.tm?bno=${teamBoard.boardNo }'"/>
             		<div class="bd-like-count" style="text-align: center;">${likeCount }</div>
@@ -93,7 +93,7 @@
 		            <hr>
 		            <div class="bd-button-container">
 		                <div class="bd-red-button" onclick="location.href = 'deleteComm.tm?cno=${comments.comNo}&bno=${teamBoard.boardNo }&tno=${teamBoard.teamNo }'">댓글 삭제</div>
-		                <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</div>
+		                <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${teamBoard.boardNo}, ${comments.comNo}, ${comments.memNo}, ${teamBoard.teamNo})">신고하기</div>
 		                <button class="bd-button" data-bs-toggle="modal" data-bs-target="#commentModal" onclick="setCommentData(${comments.comNo}, ${teamBoard.boardNo})">답글 작성</button>
 		            </div>
 		
@@ -129,7 +129,7 @@
                               <hr>
                               <div class="bd-button-container">
                                   <button class="bd-red-button" onclick="location.href = 'deleteComm.bd?cno=${reply.comNo}&bno=${teamBoard.boardNo }'">답글 삭제</button>
-                                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${board.boardNo}, ${reply.comNo}, ${comments.memNo})">신고하기</button>
+                                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${teamBoard.boardNo}, ${reply.comNo}, ${reply.memNo}, ${teamBoard.teamNo})">신고하기</button>
                                   <button class="bd-button" data-bs-toggle="modal" data-bs-target="#commentModal" onclick="setCommentData(${reply.comParentNo}, ${teamBoard.boardNo})">답글 작성</button>
                               </div>
                           </c:if>
@@ -148,7 +148,7 @@
 		        <h1 class="modal-title fs-5" id="exampleModalLabel">신고</h1>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
-		     <form method="post" action="boardReport.bd">
+		     <form method="post" action="boardReport.tm">
 		      <div class="modal-body">
 		        <div class="bd-report-title">
 		        	<h5>사유</h5>
@@ -163,6 +163,7 @@
                 <input type="hidden" id="report-boardNo" name="boardNo">
                 <input type="hidden" id="report-comNo" name="comNo">
                 <input type="hidden" id="report-reporterNo" name="reporterNo">
+                <input type="hidden" id="report-teamNo" name="teamNo">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 		        <button type="submit" class="btn btn-primary">신고 완료</button>
 		      </div>
@@ -201,7 +202,7 @@
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/board/boardDetail.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/team/teamBoardDetail.js"></script>
    
 
 </body>
