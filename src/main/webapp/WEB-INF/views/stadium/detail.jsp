@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,9 +75,9 @@
 					<div class="stadInner" style="border: none;">
 						<div class="matchRule">
 							<pre class="tet2">
-								■ 주소 : 서울특별시 송파구 풍납동 403-3
-								■ 가격 : 200,000원
-								■ 구장 운영 시간 : 09:00 ~ 24:00
+								■ 주소 : ${stadiumDetail.stadiumAddress}
+								■ 가격 : ${stadiumDetail.stadiumPrice}원
+								■ 구장 운영 시간 : ${stadiumDetail.stadiumStartTime} ~ ${stadiumDetail.stadiumEndTime}
 							</pre>
 						</div>
 					</div>
@@ -93,33 +94,64 @@
 					<div class="info_list_wrapper double">
 						<ul>
 							<li class="info_list">
-								<img src="${pageContext.request.contextPath}/resources/images/smoking.png" class="icon">
+								<img src="${pageContext.request.contextPath}/resources/images/toile.png" class="icon">
 								<div>
-									<p>흡연실</p>
+									<!-- IF 조건 -->
+									<c:if test="${stadiumDetail.toilet == 'Y'}">
+										<p>화장실</p>
+									</c:if>
+									
+									<!-- Else 조건 -->
+									<c:if test="${stadiumDetail.toilet != 'Y'}">
+										<p class="title_line">화장실</p>
+									</c:if>
 								</div>
 							</li>
 							<li class="info_list">
 								<img src="${pageContext.request.contextPath}/resources/images/shower.png" class="icon">
 								<div>
-									<p class="title_line">샤워실</p>
+									<!-- IF 조건 -->
+									<c:if test="${stadiumDetail.shower == 'Y'}">
+										<p>샤워실</p>
+									</c:if>
+									
+									<!-- Else 조건 -->
+									<c:if test="${stadiumDetail.shower == 'N'}">
+										<p class="title_line">샤워실</p>
+									</c:if>
+								</div>
+							</li>
+							<li class="info_list">
+								<img src="${pageContext.request.contextPath}/resources/images/smoking.png" class="icon">
+								<div>
+									<c:if test="${stadiumDetail.smoke == 'Y'}">
+						                <p>흡연 구역</p>
+						            </c:if>
+						            <c:if test="${stadiumDetail.smoke == 'N'}">
+						                <p class="title_line">흡연 구역</p>
+						            </c:if>
 								</div>
 							</li>
 							<li class="info_list">
 								<img src="${pageContext.request.contextPath}/resources/images/parked.png" class="icon">
 								<div>
-									<p class="title_line">주차장</p>
+									<c:if test="${stadiumDetail.park == 'Y'}">
+						                <p>주차장</p>
+						            </c:if>
+						            <c:if test="${stadiumDetail.park == 'N'}">
+						                <p class="title_line">주차장</p>
+						            </c:if>
 								</div>
 							</li>
 							<li class="info_list">
 								<img src="${pageContext.request.contextPath}/resources/images/drink.png" class="icon">
 								<div>
-									<p class="title_line">음료 판매</p>
-								</div>
-							</li>
-							<li class="info_list">
-								<img src="${pageContext.request.contextPath}/resources/images/toile.png" class="icon">
-								<div>
-									<p>화장실</p>
+									<c:if test="${stadiumDetail.drink == 'Y'}">
+						                <p>음료 판매</p>
+						            </c:if>
+						            <c:if test="${stadiumDetail.drink == 'N'}">
+						                <p class="title_line">음료 판매</p>
+						            </c:if>
 								</div>
 							</li>
 						</ul>
@@ -137,13 +169,23 @@
 							<li class="info_list">
 								<img src="${pageContext.request.contextPath}/resources/images/ball.png" class="icon">
 								<div>
-									<p>공 대여</p>
+									<c:if test="${stadiumDetail.ball == 'Y'}">
+						                <p>공 대여</p>
+						            </c:if>
+						            <c:if test="${stadiumDetail.ball == 'N'}">
+						                <p class="title_line">공 대여</p>
+						            </c:if>
 								</div>
 							</li>
 							<li class="info_list">
-								<img src="${pageContext.request.contextPath}/resources/images/shoe.png" class="icon">
+								<img src="${pageContext.request.contextPath}/resources/images/vest.png" class="icon">
 								<div>
-									<p class="title_line">풋살화 대여</p>
+									<c:if test="${stadiumDetail.vest == 'Y'}">
+						                <p>조끼</p>
+						            </c:if>
+						            <c:if test="${stadiumDetail.vest == 'N'}">
+						                <p class="title_line">조끼</p>
+						            </c:if>
 								</div>
 							</li>
 						</ul>
@@ -422,71 +464,13 @@
 					<div class="modal-body">
 						<form action="" method="post" class="modal-form">
 							<!-- 날짜 선택하기 -->
-							<div class="date-group" id="date-selector" style="cursor: pointer;">
-								<img src="${pageContext.request.contextPath}/resources/images/calendar.png" alt="달력아이콘" class="icon">
-								<span id="selected-date">날짜를 선택하세요.</span>
-								<!-- 숨겨진 input 필드 -->
-								<input type="hidden" name="selectedDate" id="hidden-selected-date">
-                            </div>
-							<div class="calendar hidden" id="calendar-container">
-                           		<div class="calendar-wrapper">
-							        <div class="wrapper">
-							            <header>
-							                <div class="nav">
-							                    <button id="prev" class="material-icons" type="button"> chevron_left </button>
-							                    <p class="current-date"></p>
-							                    <button id="next" class="material-icons" type="button"> chevron_right </button>
-							                </div>
-							            </header>
-							            <div class="calendar">
-							                <ul class="weeks">
-							                    <li>일</li>
-							                    <li>월</li>
-							                    <li>화</li>
-							                    <li>수</li>
-							                    <li>목</li>
-							                    <li>금</li>
-							                    <li>토</li>
-							                </ul>
-							                <ul class="days"></ul>
-							            </div>
-							        </div>
-							    </div>
-                            </div>
+							<p>매칭을 잡을 날짜를 선택해주세요</p>
+                            <jsp:include page="/WEB-INF/views/common/calendar_header.jsp" />
 							<p>매칭을 잡을 시간을 선택해주세요</p>
-							<div class="choice">
-								<div class="mt-start-container">
-				                <select class="mt-starttime">
-									<option value="" disabled selected>시간을 선택해주세요.</option>
-				                    <option value="05:00:00">05:00</option>
-				                    <option value="06:00:00">06:00</option>
-				                    <option value="07:00:00">07:00</option>
-				                    <option value="08:00:00">08:00</option>
-				                    <option value="09:00:00">09:00</option>
-				                    <option value="10:00:00">10:00</option>
-				                    <option value="11:00:00">11:00</option>
-				                    <option value="12:00:00">12:00</option>
-				                </select>
-					            </div>
-					            <p>~</p>
-					            <div class="mt-end-container">
-					                <select class="mt-endtime">
-					                	<option value="" disabled selected>시간을 선택해주세요.</option>
-					                    <option value="13:00:00">13:00</option>
-					                    <option value="14:00:00">14:00</option>
-					                    <option value="15:00:00">15:00</option>
-					                    <option value="16:00:00">16:00</option>
-					                    <option value="17:00:00">17:00</option>
-					                    <option value="18:00:00">18:00</option>
-					                    <option value="19:00:00">19:00</option>
-					                    <option value="20:00:00">20:00</option>
-					                    <option value="21:00:00">21:00</option>
-					                    <option value="22:00:00">22:00</option>
-					                    <option value="23:00:00">23:00</option>
-					                    <option value="24:00:00">24:00</option>
-					                </select>
-					            </div>
-							</div>
+							<label for="time-options">시간 선택 :</label>
+							<select id="time-options">
+								<option value="">--시간 선택--</option>
+							</select>
 							<p>대기중인 매치</p>
 							
 			            <div class="modal-footer">
@@ -502,6 +486,7 @@
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stadium/detail.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=043f5595cb50307eae5f33cc8943d0e6"></script>
     <script>
         var map;

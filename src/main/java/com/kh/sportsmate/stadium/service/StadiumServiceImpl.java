@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
 
@@ -55,9 +56,9 @@ public class StadiumServiceImpl implements StadiumService{
 
 		    return stadiumDao.getPaginatedStadiums(sqlSession, params);
 	}
-
+	
 	@Override
-	public StadiumSearch getStadiumById(int stadiumId) {
+	public StadiumSearch getStadiumById(int stadiumNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -66,5 +67,10 @@ public class StadiumServiceImpl implements StadiumService{
 	public WeatherResponse getWeather(String location) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public StadiumDetail getStadiumDetail(int stadiumNo) {
+		return stadiumDao.getStadiumDetail(sqlSession, stadiumNo);
 	}
 }

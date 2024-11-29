@@ -6,8 +6,7 @@ import java.util.List;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
-
-
+import com.kh.sportsmate.stadium.model.dto.StadiumDetail; 
 
 public interface StadiumService {
 	
@@ -19,8 +18,11 @@ public interface StadiumService {
 	                            String selectedDate);
 
 	// 구장 ID로 상세 정보 조회
-	StadiumSearch getStadiumById(int stadiumId);
+	StadiumSearch getStadiumById(int stadiumNo);
 	
 	// 위치 기반 날씨 정보 조회
 	WeatherResponse getWeather(String location);
+	
+	// 경기장 상세 정보 가져오기
+	StadiumDetail getStadiumDetail(int stadiumNo);
 }

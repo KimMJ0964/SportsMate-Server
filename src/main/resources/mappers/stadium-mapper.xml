@@ -288,4 +288,37 @@
     LIMIT #{startRow}, #{boardLimit}
 </select>
 
+<!-- 경기장 상세 정보 조회 -->
+<select id="getStadiumDetail" parameterType="int" resultType="StadiumDetail">
+	SELECT
+		S.STADIUM_NO as stadiumNo, 
+            S.MEM_NO as memNo, 
+            S.STADIUM_NAME as stadiumName, 
+            S.STADIUM_ZIPCODE as stadiumZipcode, 
+            S.STADIUM_ADDRESS as stadiumAddress, 
+            S.STADIUM_SCORE as stadiumScore, 
+            S.STADIUM_PRICE as stadiumPrice, 
+            S.STADIUM_CATEGORY as stadiumCategory, 
+            S.STADIUM_START_TIME as stadiumStartTime, 
+            S.STADIUM_END_TIME as stadiumEndTime, 
+            S.STATUS as status,
+            -- 물품 지원
+            R.BALL, 
+            R.VEST,
+            -- 편의 시설
+            A.TOILET, 
+            A.SHOWER, 
+            A.SMOKE, 
+            A.PARK, 
+            A.DRINK
+        FROM 
+            STADIUM S
+        LEFT JOIN 
+            STADIUM_RENTAL R ON S.STADIUM_NO = R.STADIUM_NO
+        LEFT JOIN 
+            STADIUM_AM A ON S.STADIUM_NO = A.STADIUM_NO
+        WHERE 
+            S.STADIUM_NO = #{stadiumNo}
+</select>
+
 </mapper>

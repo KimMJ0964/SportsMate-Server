@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
 import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
 import com.kh.sportsmate.stadium.service.StadiumService;
 
@@ -66,28 +67,20 @@ public class stadiumController {
     public String gameresult() {
         return "stadium_manager/game_result";
     }
-	
-    @RequestMapping("/list.st")
-    public String showStadiumList() {
-        return "stadium/listPage";
-    }
-    
+	   
     @RequestMapping("/detail.st")
-    public String showStadiumDatil( 
-    	@RequestParam("stadiumId") int stadiumId,
-    	Model model) {
-    		// 구장 상세 정보 가져오기
-    		StadiumSearch stadiumDetail = stadiumService.getStadiumById(stadiumId);
-    		
-    		// 날씨 정보 가져오기 (구장 위치를 기준으로 검색)
-    		String location = stadiumDetail.getStadiumAddress(); // 구장 주소를 위치로 사용
-    		WeatherResponse weather = stadiumService.getWeather(location);
-    		
-    		// Model에 데이터 전달
-    		model.addAttribute("stadiumDetail", stadiumDetail); //구장 상세 정보
-    		model.addAttribute("weather", weather); // 날씨 정보
-    		
-        return "stadium/detail";
+    public String getStadiumDetail(
+    		@RequestParam("stadiumNo") int stadiumNo,  Model model) {
+    	
+    	// Service 호출하여 경기장 상세 정보 가져오기
+    	StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
+    	
+    	// 모델에 데이터 추가
+    	model.addAttribute("stadiumDetail", stadiumDetail);
+    	model.addAttribute("stadiumNo", stadiumNo);
+    	
+    	// 뷰로 이동
+    	return "stadium/detail";
     }
     
     @RequestMapping("searchStadium.st")

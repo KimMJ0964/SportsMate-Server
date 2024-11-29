@@ -86,16 +86,16 @@
 	</form>
 	
 <section class="video-grid">
-	<c:forEach var="StadiumSearch" items="${results}">
+	<c:forEach var="stadiumSearch" items="${results}">
         <div class="video-priview">
-            	<a href="detail.st">
+            	<a href="detail.st?stadiumNo=${stadiumSearch.stadiumNo}">
                 	<img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
                 </a>
             <div class="video-info-grid" >
                 <div class="video-info">
-                	<p class="vider-author">${StadiumSearch.stadiumAddress}</p>
-                	<p class="vider-title">${StadiumSearch.stadiumName}</p>
-                	<p class="vider-state">${StadiumSearch.stadiumCategory} ${StadiumSearch.selectedDate}</p>
+                	<p class="vider-author">${stadiumSearch.stadiumAddress}</p>
+                	<p class="vider-title">${stadiumSearch.stadiumName}</p>
+                	<p class="vider-state">${stadiumSearch.stadiumCategory} ${stadiumSearch.selectedDate}</p>
                 </div>
             </div>
         </div>
