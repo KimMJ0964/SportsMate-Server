@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,23 +45,25 @@
             </div>
         </div>
 
-        <div class="matching-container">
-            <div class="matching-title">
-                <h4>대전팀</h4>
-            </div>
-
-            <div class="match-a">
-                <div class="team-profile">
-                    <img src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="">
-                    <h4>구단: 구단명</h4>
-                </div>
-
-                <div class="team-detail">
-                    <b>전적</b>
-                    <p>xx전 xx승 xx패 xx무</p>
-                </div>
-            </div>
-        </div>
+		<c:if test="${ss.opponent not null}">
+	        <div class="matching-container">
+	            <div class="matching-title">
+	                <h4>대전팀</h4>
+	            </div>
+	
+	            <div class="match-a">
+	                <div class="team-profile">
+	                    <img src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="">
+	                    <h4>구단: ${ss.opponent }</h4>
+	                </div>
+	
+	                <div class="team-detail">
+	                    <b>전적</b>
+	                    <p>${ss.result }</p>
+	                </div>
+	            </div>
+	        </div>
+        </c:if>
 
         <div class="matching-container">
             <div class="matching-title">
@@ -70,17 +73,17 @@
             <div class="match-b">
                 <div class="team-profile">
                     <img src="" alt="">
-                    <h4>구단: 구단명</h4>
+                    <h4>구단: ${ss.teamName}</h4>
                 </div>
 
                 <div class="match-category">
                     <div>
                         <b>종목명</b>
-                        <p>종목</p>
+                        <p>${ss.category }</p>
                     </div>
                     <div>
                         <b>심판</b>
-                        <p>심판명</p>
+                        <p>${ss.opponent }</p>
                     </div>
                 </div>
 
@@ -100,7 +103,7 @@
                 <form action="">
                     <div class="total">
                         <h4>대관료</h4>
-                        <p>금액</p>
+                        <p>${ss.price }</p>
                     </div>
                     <div>
                         <h4>결제수단</h4>

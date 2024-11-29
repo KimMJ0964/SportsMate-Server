@@ -67,9 +67,9 @@ public class MatchController {
     }
 	
 	@RequestMapping(value = "orderInfo.st")
-	public String orderInfo(Match mc, Model model) {
+	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, String date, Model model) {
 		
-		StadiumSubscription ss = matchService.selectMatch(mc);
+		StadiumSubscription ss = matchService.selectMatch(mc, price, date);
 		
 		model.addAttribute("ss", ss);
 		

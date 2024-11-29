@@ -107,9 +107,21 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public StadiumSubscription selectMatch(Match mc) {
+	public StadiumSubscription selectMatch(Match mc, int price, String date) {
 		
 		StadiumSubscription ss = matchDao.selectMatch(sqlSession, mc);
+		
+		ss.setPrice(price);
+		
+		if(mc.getTeamBNo() > 0) {
+			StadiumSubscription s2 = matchDao.selectMatchB(sqlSession, mc);
+			ss.setResult(s2.getResult());
+			ss.setOpponent(s2.getOpponent());
+		}
+		StadiumSubscription s1 = matchDao.selectMatchA(sqlSession, mc);
+		
+		ss.setTeamName(s1.getTeamName());
+		
 		return ss;
 	}
 

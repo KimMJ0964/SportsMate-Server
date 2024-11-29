@@ -17,13 +17,9 @@
         b팀번호
         <input type="number" name="memNoB"> <br>
         가격
-        <input type="number" name="stadiumPrice"> <br>
+        <input type="number" name="price"> <br>
         선택일
-        <input type="date" name="selectedDate"> <br>
-        시작시간
-        <input type="time" name="stadiumStartTime"> <br>
-        끝시간
-        <input type="time" name="stadiumEndTime">
+        <input type="date" name="date"> <br>
         <button>제출</button>
     </form>
 </body>

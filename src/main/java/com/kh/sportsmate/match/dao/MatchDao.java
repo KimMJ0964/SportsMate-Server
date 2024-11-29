@@ -12,4 +12,12 @@ public class MatchDao {
 	public StadiumSubscription selectMatch(SqlSessionTemplate sqlSession, Match mc) {
 		return sqlSession.selectOne("matchMapper.selectMatch", mc);
 	}
+	
+	public StadiumSubscription selectMatchA(SqlSessionTemplate sqlSession, Match mc) {
+		return sqlSession.selectOne("matchMapper.selectMatchA", mc);
+	}
+	
+	public StadiumSubscription selectMatchB(SqlSessionTemplate sqlSession, Match mc) {
+		return sqlSession.selectOne("matchMapper.selectMatchB", mc);
+	}
 }

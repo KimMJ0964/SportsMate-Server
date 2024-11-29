@@ -25,6 +25,7 @@
 
         <!-- Match -->
         <typeAlias type="com.kh.sportsmate.match.model.vo.Match" alias="Match"/>
+        <typeAlias type="com.kh.sportsmate.match.model.dto.StadiumSubscription" alias="StadiumSubscription"/>
 
         <!-- Attachment -->
         <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
