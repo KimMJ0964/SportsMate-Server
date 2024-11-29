@@ -31,6 +31,12 @@
         from MEMBER
         WHERE MEM_EMAIL = #{email}
     </select>
+	<select id="confirmMember" parameterType="Member" resultType="Member">
+		SELECT MEM_EMAIL AS memEmail,
+			MEM_NAME AS memName
+		FROM MEMBER
+		WHERE MEM_PHONE = #{memPhone};
+	</select>
 
     <!-- 사용자 회원가입 -->
     <insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="memNo">
@@ -158,7 +164,8 @@
 	        PROFILE_FILE PF ON T.TEAM_NO = PF.TEAM_NO
 	    WHERE 
 	        TM.MEM_NO = #{memNo}
-	        AND TM.STATUS = 'Y';
+	        AND TM.STATUS = 'Y'
+	        AND T.STATUS = 'Y';
 	</select>
     
     <!-- 내 구단 입단 명단자 -->
@@ -321,29 +328,29 @@
 	    WHERE 
 	        tm.TEAM_NO = #{teamNo};
 	</select>
-    
-    <!-- 마이페이지 내 정보 출력 / 이메일, 이름, 성별, 생년월일, 휴대폰번호, 포지션 -->
-    <select id="myInfoList" resultType="MemberModifyDto">
-	    SELECT m.MEM_NO as memNo,
-	       m.MEM_EMAIL as memEmail,
-	       m.MEM_NAME as memName,
-	       m.MEM_ZIPCODE as memZipcode,
-	       m.MEM_ADD as memAdd,
-	       m.MEM_GENDER as memGender,
-	       m.MEM_PHONE as memPhone,
-	       m.MEM_BIRTH as memBirth,
-	       c.SOC_POSI as socPosi,
-	       c.SOC_ABILITY as socAbility,
-	       c.FOOT_POSI as footPosi,
-	       c.FOOT_ABILITY as footAbility,
-	       c.BASKET_POSI as basketPosi,
-	       c.BASKET_ABILITY as basketAbility,
-	       c.BASE_POSI as basePosi,
-	       c.BASE_ABILITY as baseAbility
+
+	<!-- 마이페이지 내 정보 출력 / 이메일, 이름, 성별, 생년월일, 휴대폰번호, 포지션 -->
+	<select id="myInfoList" resultType="MemberModifyDto">
+		SELECT m.MEM_NO as memNo,
+		m.MEM_EMAIL as memEmail,
+		m.MEM_NAME as memName,
+		m.MEM_ZIPCODE as memZipcode,
+		m.MEM_ADD as memAdd,
+		m.MEM_GENDER as memGender,
+		m.MEM_PHONE as memPhone,
+		m.MEM_BIRTH as memBirth,
+		c.SOC_POSI as socPosi,
+		c.SOC_ABILITY as socAbility,
+		c.FOOT_POSI as footPosi,
+		c.FOOT_ABILITY as footAbility,
+		c.BASKET_POSI as basketPosi,
+		c.BASKET_ABILITY as basketAbility,
+		c.BASE_POSI as basePosi,
+		c.BASE_ABILITY as baseAbility
 		FROM MEMBER m
 		JOIN CATEGORY c ON m.MEM_NO = c.MEM_NO
 		WHERE m.MEM_NO = #{memNo}
-    </select>
+	</select>
     
     <!-- 비밀번호 확인 -->
 	<select id="verifyOldPassword" resultType="String">
@@ -386,7 +393,8 @@
         MEM_STATUS = #{memStatus}
         WHERE MEM_NO = #{memNo}
     </update>
-
+	
+	<!-- 프로필 수정 -->
     <update id="modifyProfile" parameterType="Profile">
         UPDATE PROFILE_FILE
         <set>
@@ -402,7 +410,8 @@
         </set>
         WHERE MEM_NO = #{memNo} <!-- 반드시 Primary Key에 해당하는 조건 추가 -->
     </update>
-
+	
+	<!-- 내 종목 수정 -->
     <update id="modifyCategory" parameterType="Category">
         UPDATE CATEGORY
         <set>

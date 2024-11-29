@@ -26,11 +26,18 @@ public class Profile {
     private String originName;
     private String changeName;
     private String filePath;
-
+    
     public Profile(String originName, String changeName, String filePath) {
         this.originName = originName;
         this.changeName = changeName;
         this.filePath = filePath;
+    }
+    
+    public Profile(String originName, String changeName, String filePath, int teamNo) {
+        this.originName = originName;
+        this.changeName = changeName;
+        this.filePath = filePath;
+        this.teamNo = teamNo;
     }
 }
 

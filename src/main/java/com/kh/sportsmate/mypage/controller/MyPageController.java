@@ -51,7 +51,13 @@ public class MyPageController {
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 	
-	/* 마이페이지 */
+    /**
+     * 마이페이지 정보 출력
+     *
+     * @param model
+     * @param session
+     * @return
+     */
     @RequestMapping("myPageInfo.mp")
     public String myPageSelect(Model model, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -101,7 +107,18 @@ public class MyPageController {
     	return "myPage/myPage";
     }
     
-    /* 베스트 플레이어 및 구장 별점 */
+    /**
+     * 베스트 플레이어 및 구장 별점
+     *
+     * @param session
+     * @param model
+     * @param reviewCount
+     * @param reviewStar
+     * @param stadiumNo
+     * @param matchno
+     * @param bestMNo
+     * @return
+     */
     @RequestMapping("myPageVote.mp")
     public String myPageVote(HttpSession session, Model model, String reviewContent, double reviewStar, int stadiumNo, int matchNo, int bestMNo) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -138,7 +155,13 @@ public class MyPageController {
         }
     }
     
-    /* 베스트 플레이어 매치 플레이어 출력 */
+    /**
+     * 베스트 플레이어 및 구장 별점
+     *
+     * @RequestParam teamANo
+     * @RequestParam teamBNo
+     * @return
+     */
     @RequestMapping("getTeamInfo.mp")
     @ResponseBody
     public Map<String, Object> getTeamInfo(@RequestParam int teamANo, @RequestParam int teamBNo) {
@@ -153,7 +176,13 @@ public class MyPageController {
         return result;
     }
     
-    // 내 정보 수정 페이지 이동
+    /**
+     * 네 정보 수정 페이지 이동
+     *
+     * @param session
+     * @param m
+     * @return
+     */
     @RequestMapping("modifyMyInfoMove.mp")
     public String modifyMyInfo(Model m, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -176,7 +205,14 @@ public class MyPageController {
 		return "myPage/myPageModify";
     }
     
-    // 내 정보 수정 로직
+    /**
+     * 내 정보 수정 로직
+     *
+     * @param m
+     * @param userProfile
+     * @param session
+     * @return
+     */
     @PostMapping(value = "modifyMyInfo.mp")
     public String memberEnroll(MemberEnrollDto m, MultipartFile userProfile, HttpSession session) {
         Profile profile = null;
@@ -202,7 +238,15 @@ public class MyPageController {
         }
     }
     
-    // 비밀번호 수정
+    /**
+     * 비밀번호 수정
+     *
+     * @param memPwd
+     * @param pwdCheck
+     * @param pwdModify
+     * @param session
+     * @return
+     */
     @RequestMapping("modifyPwd.mp")
     public String modifyPassword(String memPwd, String pwdCheck, String pwdModify, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -248,7 +292,11 @@ public class MyPageController {
 	    }
     }
     
-    // 로그아웃
+    /**
+     * 로그아웃
+     *
+     * @return
+     */
     @RequestMapping("logout.mp")
     public String logOut(HttpSession session) {
     	session.removeAttribute("loginMember");
@@ -256,7 +304,14 @@ public class MyPageController {
 		return "redirect:/";
     }
     
-    // 계정 탈퇴
+    /**
+     * 계정 탈퇴
+     *
+     * @param session
+     * @param memPwd
+     * @param pwdCheck
+     * @return
+     */
     @RequestMapping("accountCancel.mp")
     public String accountCancel(HttpSession session, String memPwd, String pwdCheck) {
     	Member loginMember = (Member) session.getAttribute("loginMember");

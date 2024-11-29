@@ -7,6 +7,7 @@ import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.vo.Member;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * packageName    : com.kh.sportsmate.service
@@ -37,4 +38,7 @@ public interface MemberService {
 
     // 임시 비밀번호로 비밀번호 수정
     int updatePwd(MemberEnrollDto memInfo);
+
+    // 기존에 가입된 회원 여부 확인
+    Map<Integer, Member> confirmMember(Member m);
 }
