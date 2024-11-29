@@ -17,12 +17,14 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class StadiumSubscription { // 신청하기
-	private int stadiumNo;
-	private int memNoA;
-	private int memNoB;
-	private int stadiumPrice;
-	private String selectedDate;
-	private String stadiumStartTime;
-	private String stadiumEndTime;
-
+	private String stadiumAddress; //경기장 주소
+	private String stadiumName; //경기장 이름
+	private String matchDay; //경기일
+	private String opponent; //상대팀
+	private String teamName; //a팀 이름
+	private String result; //a팀 전적
+	private String category; //종목명
+	private String referee; //심판명
+	private int price; //가격
+	private String payment; //결제수단
 }

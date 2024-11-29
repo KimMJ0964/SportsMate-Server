@@ -4,6 +4,48 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="matchMapper">
+	
+	<!-- SELECT -->
+	<!-- 결제정보 불러오기 -->
+	<select id="selectMatch" parameterType="Match" resultType="StadiumSubscription">
+	    SELECT 
+	        S.STADIUM_ADDRESS AS stadiumAddress,
+	        S.STADIUM_NAME AS stadiumName,
+	        M.TEAM_NAME AS teamName,
+	        <if test="teamANo != null">
+		        CONCAT(
+		            COUNT(*) , '전 ',
+		            CASE 
+		                WHEN COUNT(CASE WHEN M.SCORE_A &gt; M.SCORE_B THEN 1 END) &gt; 0 
+		                    THEN CONCAT(COUNT(CASE WHEN M.SCORE_A &gt; M.SCORE_B THEN 1 END), '승')
+		                ELSE ''
+		            END,
+		            ' ',
+		            CASE 
+		                WHEN COUNT(CASE WHEN M.SCORE_A = M.SCORE_B THEN 1 END) &gt; 0 
+		                    THEN CONCAT(COUNT(CASE WHEN M.SCORE_A = M.SCORE_B THEN 1 END), '무')
+		                ELSE ''
+		            END,
+		            ' ',
+		            CASE 
+		                WHEN COUNT(CASE WHEN M.SCORE_A &lt; M.SCORE_B THEN 1 END) &gt; 0 
+		                    THEN CONCAT(COUNT(CASE WHEN M.SCORE_A &lt; M.SCORE_B THEN 1 END), '패')
+		                ELSE ''
+		            END
+		        ) AS result,
+	        </if>
+	        S.CATEGORY AS category,
+	        ME.MEM_NAME AS referee,
+	        S.STADIUM_PRICE AS price
+	    FROM MATCH M
+	    JOIN STADIUM S ON S.STADIUM_NO = M.STADIUM_NO
+	    JOIN MEMBER ME ON S.MEM_NO = ME.MEM_NO
+	    WHERE S.STADIUM_NO = #{stadiumNo}
+	    <if test="teamANo != null">
+	    	AND M.TEAM_A_NO = #{teamANo}
+	    </if>
+	</select>
+
     
     <!-- UPDATE -->
     <!-- 베스트 플레이어 선정   #{memNo} #{matchNo} #{bestMNo} -->

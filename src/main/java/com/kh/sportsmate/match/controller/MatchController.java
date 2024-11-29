@@ -16,6 +16,7 @@ import com.kh.sportsmate.match.model.dto.ApproveResponseDto;
 import com.kh.sportsmate.match.model.dto.OrderCreateFormDto;
 import com.kh.sportsmate.match.model.dto.ReadyResponseDto;
 import com.kh.sportsmate.match.model.dto.StadiumSubscription;
+import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.service.MatchService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +67,9 @@ public class MatchController {
     }
 	
 	@RequestMapping(value = "orderInfo.st")
-	public String orderInfo(StadiumSubscription ss, Model model) {
+	public String orderInfo(Match mc, Model model) {
+		
+		StadiumSubscription ss = matchService.selectMatch(mc);
 		
 		model.addAttribute("ss", ss);
 		
