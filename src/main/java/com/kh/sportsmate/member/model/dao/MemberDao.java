@@ -74,4 +74,7 @@ public class MemberDao {
     public int updatePwd(SqlSessionTemplate sqlSession, MemberEnrollDto memInfo){
         return sqlSession.update("memberMapper.updatePwd", memInfo);
     }
+    public Member confirmMember(SqlSessionTemplate sqlSession, Member m){
+        return sqlSession.selectOne("memberMapper.confirmMember",m);
+    }
 }

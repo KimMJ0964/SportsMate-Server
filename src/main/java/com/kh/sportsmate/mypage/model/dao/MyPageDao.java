@@ -27,87 +27,173 @@ import com.kh.sportsmate.team.model.vo.Team;
 public class MyPageDao {
 	/* 마이페이지 */
 
-	// 내 정보
+	/**
+     * 내 정보 Select
+     * @param sqlSession
+     * @param memNo
+     * @return
+     */
 	public MemberPositionDto selectMyInfo(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.selectOne("memberMapper.selectMyInfo", memNo);
 	}
 
-	// 내 구단
+	/**
+     * 내 구단 Select
+     * @param sqlSession
+     * @param map
+     * @return
+     */
 	public ArrayList<MyTeamDto> selectMyTeam(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyTeam", memNo);
 	}
 
-	// 내 구단 입단 명단자
+	/**
+     * 내 구단 입단자 명단 Select
+     * @param sqlSession
+     * @param map
+     * @return
+     */
 	public ArrayList<Recruit> selectMyRecruit(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyRecruit", memNo);
 	}
 
-	// 내 전적
+	/**
+     * 내 전적 Select
+     * @param sqlSession
+     * @param map
+     * @return
+     */
 	public ArrayList<MyMatch> selectMyMatch(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyMatch", memNo);
 	}
 
-	// 내 전적 판 수
+	/**
+     * 내 전적 판수 Select
+     * @param sqlSession
+     * @param map
+     * @return
+     */
 	public int selectMyMatchCount(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.selectOne("memberMapper.selectMyMatchCount", memNo);
 	}
 
-	// 내 전적 이긴 판 수
+	/**
+     * 내 전적 이긴 판 수 Select
+     * @param sqlSession
+     * @param map
+     * @return
+     */
 	public int selectMyMatchWinCount(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.selectOne("memberMapper.selectMyMatchWinCount", memNo);
 	}
 
-	// a팀 정보
+	/**
+     * 내 구단 A팀 정보 Select
+     * @param sqlSession
+     * @param teamNo
+     * @return
+     */
 	public ArrayList<MemberPositionDto> selectATeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
 	}
 
-	// b팀 정보
+	/**
+     * 내 구단 B팀 정보 Select
+     * @param sqlSession
+     * @param teamNo
+     * @return
+     */
 	public ArrayList<MemberPositionDto> selectBTeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
 	}
 
-	// 리뷰 작성
+	/**
+     * 구장 인터뷰 Insert
+     * @param sqlSession
+     * @param pr
+     * @return
+     */
 	public int insertPReview(SqlSessionTemplate sqlSession, StadiumReview pr) {
 		return sqlSession.insert("stadiumMapper.insertPReview", pr);
 	}
 
-	// 베스트 플레이어 선정 (투표자 기록)
+	/**
+     * 베스트 플레이어 선정 Update
+     * @param sqlSession
+     * @param map
+     * @return
+     */
 	public int bestPlayerChoice(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.update("matchMapper.updateVoteStatus", map);
 	}
 
-	// 베스트 플레이어 선정 (투표자 기록)
+	/**
+     * 베스트 플레이어 선정 (수 증가) Update
+     * @param sqlSession
+     * @param map
+     * @return
+     */
 	public int bestPlayerVote(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.update("matchMapper.incrementVoteCount", map);
 	}
 
-	// 내 프로필 사진
+	/**
+     * 내 프로필 정보 Select
+     * @param sqlSession
+     * @param memNo
+     * @return
+     */
 	public Profile selectMyProfile(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.selectOne("memberMapper.selectMyProfile", memNo);
 	}
 
-	// 마이페이지 수정 페이지 및 내 정보 출력
+	/**
+     * 수정 페이지 내 프로필 정보 출력 Select
+     * @param sqlSession
+     * @param memNo
+     * @return
+     */
 	public MemberModifyDto myInfoList(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.selectOne("memberMapper.myInfoList", memNo);
 	}
 
-	// 내 정보 수정
+	/**
+     * 내 정보 수정 Update
+     * @param sqlSession
+     * @param m
+     * @return
+     */
 	public int modifyMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.modifyMember", m);
 	}
 
-	// 내 프로필 사진 수정
+	/**
+     * 내 프로필 정보수정 Update
+     * @param sqlSession
+     * @param profile
+     * @return
+     */
 	public int modifyProfile(SqlSessionTemplate sqlSession, Profile profile) {
 		return sqlSession.update("memberMapper.modifyProfile", profile);
 	}
 
-	// 내 카테고리 수정
+	/**
+     * 내 카테고리 수정
+     * @param sqlSession
+     * @param category
+     * @return
+     */
 	public int modifyCategory(SqlSessionTemplate sqlSession, Category category) {
 		return sqlSession.update("memberMapper.modifyCategory", category);
 	}
 	
-	// 비밀번호 확인
+	/**
+     * 비밀번호 확인 Select
+     * @param sqlSession
+     * @param memNo
+     * @param memPwd
+     * @return
+     */
 	public boolean verifyOldPassword(SqlSessionTemplate sqlSession, int memNo, String memPwd) {
 		Map<String, String> map = new HashMap<>();
 		map.put("memNo", String.valueOf(memNo));
@@ -115,22 +201,42 @@ public class MyPageDao {
 		return sqlSession.selectOne("memberMapper.verifyOldPassword", map);
 	}
 	
-	// 비밀번호 변경
+	/**
+     * 내 비밀번호 변경 update
+     * @param sqlSession
+     * @param map
+     * @return
+     */
 	public int updatePassword(SqlSessionTemplate sqlSession,  Map<String, String> map) {
 		return sqlSession.update("memberMapper.updatePassword", map);
 	}
 	
-	// 게정 탈퇴
+	/**
+     * 계정 탈퇴 Update
+     * @param sqlSession
+     * @param memNo
+     * @return
+     */
 	public int accountCancel(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.update("memberMapper.accountCancel", memNo);
 	}
 	
-	// 내 문의
+	/**
+     * 내 문의 Select
+     * @param sqlSession
+     * @param memNo
+     * @return
+     */
 	public ArrayList<MatchQna> selectMyQna(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyQna", memNo);
 	}
 	
-	// 리뷰 체크
+	/**
+     * 리뷰 체크 Select
+     * @param sqlSession
+     * @param map
+     * @return
+     */
 	public MatchBest checkReview(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.selectOne("memberMapper.checkReview", map);
 	}

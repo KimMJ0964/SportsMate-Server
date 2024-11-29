@@ -26,4 +26,6 @@ public class TeamMemberDto {
 	private String position;
 	private String memName;
 	private Date memBirth;
+	
+	private String changeName;
 }
