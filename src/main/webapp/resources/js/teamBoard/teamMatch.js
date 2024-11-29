@@ -1,3 +1,3 @@
 function setMatchNo(matchNo) {
-    document.getElementById("refund-matchNo").value = matchNo;
+    document.getElementById("refund-matchQnaNo").value = matchNo;
 }

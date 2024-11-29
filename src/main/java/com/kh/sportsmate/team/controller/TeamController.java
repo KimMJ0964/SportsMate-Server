@@ -810,6 +810,26 @@ public class TeamController {
     	
     	return "redirect:/teamMatch.tm?tno=" + tno;
     }
+    
+    /**
+     * 구단 폐쇄
+     * 
+     * @param tno
+     * @param session
+     * @return
+     */
+    @RequestMapping("teamClosing.tm")
+    public String teamClosing(int tno, HttpSession session) {
+    	int result = teamService.teamClosing(tno);
+    	
+    	if(result < 0) {
+    		session.setAttribute("alertMsg", "구단 폐쇄에 실패하였습니다.");
+    	} else {
+    		session.setAttribute("alertMsg", "구단 폐쇄에 성공하였습니다.");
+    	}
+    	
+    	return "redirect:/myPageInfo.mp";
+    }
     /*===================================================================================================================================*/
     
 

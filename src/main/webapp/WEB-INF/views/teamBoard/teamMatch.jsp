@@ -247,6 +247,7 @@
 						<div class="modal-footer">
 							<!-- 숨겨진 input으로 boardNo와 comNo 값을 전달 -->
 							<input type="hidden" id="refund-matchQnaNo" name="matchNo">
+							<input type="hidden" id="refund-tno" name="tno" value="${tno }">
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 							<button type="submit" class="btn btn-primary">작성 완료</button>
 						</div>

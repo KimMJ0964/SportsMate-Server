@@ -35,6 +35,7 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Schedule" alias="Schedule"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumReview" alias="StadiumReview"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumQna" alias="StadiumQna"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumQnaDto" alias="StadiumQnaDto"/>
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
         <typeAlias type="com.kh.sportsmate.board.model.vo.BoardLike" alias="BoardLike"/>

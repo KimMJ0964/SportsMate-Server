@@ -50,7 +50,12 @@
 					<div class="inquiry-row">
 						<div class="team-info">
 							<ul>
-								<li><h5>${mi.matchQTitle }</h5></li>
+								<li>
+									<h5>
+										<b>${mi.matchQTitle }</b>
+									</h5> <span class="inquiry-date">${mi.matchQnaDate}</span>
+								</li>
+								<li><br></li>
 								<li><p>문의 내용 : ${mi.matchQDetail }</p></li>
 								<li><p>문의 답장 : ${mi.matchA }</p></li>
 							</ul>
@@ -58,13 +63,106 @@
 					</div>
 					<div class="inquiry-btn-container">
 						<hr>
-						<button class="answer-btn" data-bs-toggle="modal"
-											data-bs-target="#inquiryModal" onclick="setMatchQnaNo(${mi.matchQnaNo})">답변하기</button>
+						<c:choose>
+							<c:when test="${not empty mi.matchA}">
+								<button class="answer-btn" data-bs-toggle="modal"
+									data-bs-target="#inquiryModal"
+									onclick="setMatchQnaNo(${mi.matchQnaNo})">답변 수정하기</button>
+							</c:when>
+							<c:otherwise>
+								<button class="answer-btn" data-bs-toggle="modal"
+									data-bs-target="#inquiryModal"
+									onclick="setMatchQnaNo(${mi.matchQnaNo})">답변하기</button>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
 		</c:forEach>
+		<div id="pagenation">
+			<nav>
+				<ul class="pagination">
+					<c:choose>
+						<c:when
+							test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
+							<li class="page-item"><a
+								href="inquiry.me?cpage=1"
+								class="page-link"> <span aria-hidden="true">&laquo;</span>
+							</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a href="#" class="page-link">
+									<span aria-hidden="true">&laquo;</span>
+							</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${pi.currentPage > 1}">
+							<li class="page-item"><a
+								href="inquiry.me?cpage=${pi.currentPage - 1}"
+								class="page-link"> <span aria-hidden="true">&lt;</span>
+							</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a href="#" class="page-link">
+									<span aria-hidden="true">&lt;</span>
+							</a></li>
+						</c:otherwise>
+					</c:choose>
 
+					<c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}"
+						step="1">
+						<c:choose>
+							<c:when test="${page == pi.currentPage}">
+								<li class="page-item active"><a class="page-link" href="#">${page}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link"
+									href="inquiry.me?cpage=${page}">${page}</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${pi.currentPage < pi.maxPage}">
+							<li class="page-item"><a
+								href="inquiry.me?cpage=${pi.currentPage + 1}"
+								class="page-link"> <span aria-hidden="true">&gt;</span>
+							</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a href="#" class="page-link">
+									<span aria-hidden="true">&gt;</span>
+							</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${pi.currentPage eq pi.maxPage}">
+							<li class="page-item disabled"><a href="#" class="page-link">
+									<span aria-hidden="true">&raquo;</span>
+							</a></li>
+						</c:when>
+						<c:when test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
+							<li class="page-item"><a
+								href="inquiry.me?cpage=${pi.maxPage}"
+								class="page-link"> <span aria-hidden="true">&raquo;</span>
+							</a></li>
+						</c:when>
+						<c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
+							<li class="page-item"><a
+								href="inquiry.me?cpage=${pi.endPage + 1}"
+								class="page-link"> <span aria-hidden="true">&raquo;</span>
+							</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a href="#" class="page-link">
+									<span aria-hidden="true">&raquo;</span>
+							</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</nav>
+		</div>
 		<!-- 등록 버튼 -->
 		<button class="registration-button"
 			onclick="location.href = 'managermypage.me'" alt=""
@@ -86,8 +184,8 @@
 							</div>
 							<br>
 							<div class="bd-inquiry-content">
-								<textarea class="bd-inquiry-content-textarea" id="inquiry-content"
-									name="matchA" class="refund-content"
+								<textarea class="bd-inquiry-content-textarea"
+									id="inquiry-content" name="matchA" class="refund-content"
 									style="width: 100%; height: 300px; border: 2px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
 							</div>
 						</div>
@@ -105,6 +203,7 @@
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
-	<script src="${pageContext.request.contextPath}/resources/js/stadium_manager/inquiry.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/stadium_manager/inquiry.js"></script>
 </body>
 </html>

@@ -629,6 +629,11 @@ public class TeamServiceImpl implements TeamService {
 		}
 		
 	}
+
+	@Override
+	public int teamClosing(int tno) {
+		return teamDao.teamClosing(sqlSession, tno);
+	}
 	
 }
 

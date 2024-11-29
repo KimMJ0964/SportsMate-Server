@@ -151,5 +151,8 @@ public interface TeamService {
  	
  	// 매치 환불
  	int teamMatchRefund(MatchRefund mr, HttpSession session);
+ 	
+ 	// 구단 폐쇄
+ 	int teamClosing(int tno);
 }
 

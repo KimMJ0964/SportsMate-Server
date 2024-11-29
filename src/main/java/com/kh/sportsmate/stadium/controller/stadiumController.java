@@ -1,6 +1,8 @@
 package com.kh.sportsmate.stadium.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.sportsmate.board.model.vo.Board;
+import com.kh.sportsmate.common.template.Template;
+import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.service.StadiumService;
@@ -59,12 +65,17 @@ public class stadiumController {
      * @return
      */
 	@RequestMapping(value = "inquiry.me")
-    public String inquiry(Model m, HttpSession session) {
+    public String inquiry(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,Model m, HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
 		
-		ArrayList<StadiumQna> myInquiry = stadiumService.inquiryList(memNo);
+		int inquiryCount = stadiumService.selectInquiryCount(memNo);
 		
+		PageInfo pi = Template.getPageInfo(inquiryCount, currentPage, 10, 10);
+		
+		ArrayList<StadiumQna> myInquiry = stadiumService.inquiryList(memNo, pi);
+		
+		m.addAttribute("pi", pi);
 		m.addAttribute("myInquiry", myInquiry);
 		
         return "stadium_manager/inquiry";
@@ -87,7 +98,7 @@ public class stadiumController {
 			session.setAttribute("alertMsg", "문의 답장 실패");
 		}
 		
-        return "stadium_manager/inquiry";
+        return "redirect:inquiry.me?cpage=1";
     }
 	
 	@RequestMapping(value = "managermypage.me")

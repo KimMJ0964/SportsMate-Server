@@ -62,7 +62,9 @@ public class MyPageController {
     @RequestMapping("myPageInfo.mp")
     public String myPageSelect(Model model, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
+    	System.out.println("loginMember : " + loginMember);
 		int memNo = loginMember.getMemNo();
+		System.out.println("memNo" + memNo);
     	
     	// 내 정보
     	MemberPositionDto myInfo = myPageService.selectMyInfo(memNo);

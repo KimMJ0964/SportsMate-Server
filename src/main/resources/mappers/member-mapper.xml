@@ -361,12 +361,22 @@
     </select>
     
     <!-- 내 문의 -->
-    <select id="selectMyQna" resultType="StadiumQna">
-	    SELECT MATCH_Q_TITLE AS matchQTitle,
-	    	   MATCH_Q_DETAIL AS matchQDetail,
-	    	   MATCH_A AS matchA
-	   	FROM STADIUM_QNA
-	   	WHERE Q_MEM_NO = #{memNo}
+    <select id="selectMyQna" resultType="StadiumQnaDto">
+	    SELECT 
+		    q.MATCH_Q_TITLE AS matchQTitle,
+		    q.MATCH_Q_DETAIL AS matchQDetail,
+		    q.MATCH_A AS matchA,
+		    s.STADIUM_NAME AS stadiumName
+		FROM 
+		    STADIUM_QNA q
+		JOIN 
+		    STADIUM s
+		ON 
+		    q.STADIUM_NO = s.STADIUM_NO
+		WHERE 
+		    q.Q_MEM_NO = #{memNo}
+		ORDER BY 
+		    q.MATCH_QNA_NO DESC;
     </select>
     
     <!-- 리뷰 체크 -->

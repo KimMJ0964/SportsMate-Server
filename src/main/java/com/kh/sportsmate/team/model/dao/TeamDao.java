@@ -497,4 +497,13 @@ public class TeamDao {
     public int teamMatchRefund(SqlSessionTemplate sqlSession, MatchRefund mr) {
     	return sqlSession.insert("teamMapper.teamMatchRefund", mr);
     }
+    
+    /**
+     * 구단 폐쇄
+     * @param tno
+     * @param sqlSession
+     */
+    public int teamClosing(SqlSessionTemplate sqlSession, int tno) {
+    	return sqlSession.update("teamMapper.teamClosing", tno);
+    }
 }

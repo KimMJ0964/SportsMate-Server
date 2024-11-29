@@ -753,6 +753,14 @@
 	    </set>
 	    WHERE TEAM_NO = #{teamNo};
 	</update>
+	
+	<!-- 팀 폐쇄 -->
+	<update id="teamClosing">
+		UPDATE team
+			SET
+				STATUS = 'N' 
+			WHERE TEAM_NO = #{tno};
+	</update>
 
 	<insert id="insertTeam" parameterType="Team" useGeneratedKeys="true" keyProperty="teamNo" >
 		insert into team(

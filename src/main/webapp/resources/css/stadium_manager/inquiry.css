@@ -71,11 +71,22 @@
 	color: white;
 	border: none;
 	border-radius: 8px;
-	font-weight: bold;
 	float: right;
 	margin-right: 10px;
+	height: 32px;
 }
 
+.inquiry-date {
+	font-size: 12px;
+	font-weight: bold;
+	color: #9c9c9c;
+}
+
+ .pagination {
+	    display: flex;
+	    justify-content: center;
+	    margin: 20px 0;
+	}
 
 @media (max-width: 480px) {
     .inquiry-container {
