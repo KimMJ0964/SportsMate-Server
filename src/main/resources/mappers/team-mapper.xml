@@ -360,6 +360,7 @@
 		FROM TEAM_MEMBER
 		WHERE TEAM_NO = #{tno}
 		AND MEM_NO = #{memNo}
+		AND STATUS = 'Y'
 	</select>
 	
 	<!-- 구단 전적 -->
