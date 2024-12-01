@@ -70,13 +70,16 @@ public class stadiumController {
 	   
     @RequestMapping("/detail.st")
     public String getStadiumDetail(
-    		@RequestParam("stadiumNo") int stadiumNo,  Model model) {
+    		@RequestParam("stadiumNo") int stadiumNo,
+    		@RequestParam(value = "selectedDate", required = false) String selectedDate,
+    		Model model) {
     	
     	// Service 호출하여 경기장 상세 정보 가져오기
     	StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
     	
     	// 모델에 데이터 추가
     	model.addAttribute("stadiumDetail", stadiumDetail);
+    	model.addAttribute("selectedDate", selectedDate);
     	model.addAttribute("stadiumNo", stadiumNo);
     	
     	// 뷰로 이동

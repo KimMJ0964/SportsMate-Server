@@ -110,6 +110,26 @@ function toggleDay(element) {
     const allBoxes = document.querySelectorAll(".day-box");
     allBoxes.forEach(box => box.classList.remove(activeClass));
     element.classList.add(activeClass);
+
+    // 선택한 날짜 가져오기
+    const date = element.querySelector(".date").innerText; // 날짜
+    const day = element.querySelector(".day").innerText; // 요일
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // 월 (01~12)
+
+    // 날짜 형식 조합 (2024.11.30.토)
+    const selectedDate = `${year}.${month}.${date}.${day}`;
+
+    // 각 구장의 링크에 날짜 추가
+    const links = document.querySelectorAll(".video-priview a");
+    links.forEach(link => {
+        const href = link.getAttribute("href");
+        const newHref = `${href}&selectedDate=${encodeURIComponent(selectedDate)}`;
+        link.setAttribute("href", newHref);
+    });
+
+    console.log("날짜가 링크에 추가됨:", selectedDate);
 }
 
 // 초기화

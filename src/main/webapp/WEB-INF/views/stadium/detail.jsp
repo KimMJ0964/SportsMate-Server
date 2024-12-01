@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -377,27 +378,29 @@
         <aside class="sidebar">
         	<div class="info-box">
 				<div class="section-pc">
-					<div class="matchTime">11월 12일 화요일 07:00</div>
+					<div class="matchTime">${selectedDate} ${stadiumDetail.stadiumCategory}</div>
 					<div class="matchPlace">
 						<h1 class="txtH w700h">
-							<p>서울 강동 송파 풋살장</p>
+							<p>${stadiumDetail.stadiumName}</p>
 						</h1>
 						<div class="wtgTool">
-							<span class="stadium-info_address">서울특별시 송파구 풍납동 403-3</span>
-							<button onclick="showMap()" class="sm1">지도 보기</button>
+							<span class="stadium-info_address">${stadiumDetail.stadiumAddress}</span>
+							<button onclick="showMap('${stadiumDetail.stadiumAddress}')" class="sm1">지도 보기</button>
 						</div>
 						<div style="margin-top: 10px; display: flex;">
-							<div class="scope"><img src="${pageContext.request.contextPath}/resources/images/star.png" class="star"><span>5/5</span></div>
+							<div class="scope"><img src="${pageContext.request.contextPath}/resources/images/star.png" class="star"><span>${stadiumDetail.stadiumScore}/5</span></div>
 						</div>
 					</div>
 					<div class="match-info_fee">
 						<div class="matchFee">
 							<div>
-								<span class="matchFee_money">200,000원</span>
+								<span class="matchFee_money">
+									<fmt:formatNumber value="${stadiumDetail.stadiumPrice}" type="number" groupingUsed="true"/>원
+								</span>
 								<span> / 2시간</span>
 							</div>
 							<div>
-								<p style="color: black; font-size: 12px;">구장 운영 시간 : 09:00 ~ 24:00</p>
+								<p style="color: black; font-size: 12px;">구장 운영 시간 : ${stadiumDetail.stadiumStartTime} ~ ${stadiumDetail.stadiumEndTime}</p>
 							</div>
 						</div>
 					</div>
@@ -456,6 +459,12 @@
 			
 				<!-- Modal Header -->
 				<div>
+					<!-- stadium-info: 데이터를 전달하는 hidden div -->
+	                <div id="stadium-info" 
+	                     data-stadium-no="${stadiumDetail.stadiumNo}" 
+	                     data-stadium-category="${stadiumDetail.stadiumCategory}">
+	                </div>
+	                
 					<div class="modal-header">
 						<h4 class="modal-title">신청하기</h4>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -465,9 +474,30 @@
 						<form action="" method="post" class="modal-form">
 							<!-- 날짜 선택하기 -->
 							<p>매칭을 잡을 날짜를 선택해주세요</p>
-                            <jsp:include page="/WEB-INF/views/common/calendar_header.jsp" />
+                            	<div class="calendar-wrapper-2">
+							        <div class="wrapper-2">
+							            <header>
+							                <div class="nav-2">
+							                    <button id="prev-2" class="material-icons" type="button"> chevron_left </button>
+							                    <p class="current-date-2"></p>
+							                    <button id="next-2" class="material-icons" type="button"> chevron_right </button>
+							                </div>
+							            </header>
+							            <div class="calendar-2">
+							                <ul class="weeks-2">
+							                    <li>일</li>
+							                    <li>월</li>
+							                    <li>화</li>
+							                    <li>수</li>
+							                    <li>목</li>
+							                    <li>금</li>
+							                    <li>토</li>
+							                </ul>
+							                <ul class="days-2"></ul>
+							            </div>
+							        </div>
+							    </div>
 							<p>매칭을 잡을 시간을 선택해주세요</p>
-							<label for="time-options">시간 선택 :</label>
 							<select id="time-options">
 								<option value="">--시간 선택--</option>
 							</select>
@@ -487,46 +517,65 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/detail.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=043f5595cb50307eae5f33cc8943d0e6"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stadium/time.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=043f5595cb50307eae5f33cc8943d0e6&libraries=services"></script>
     <script>
-        var map;
-        var isMapVisible = false; // 현재 상태를 저장하는 변수
-        
-        function showMap() {
-            if (isMapVisible) {
-                // 지도를 숨기고 이미지를 보이게 함
-                document.getElementById('map').style.display = 'none';
-                document.getElementById('stadiumImage').style.display = 'block';
-            } else {
-                // 이미지를 숨기고 지도를 보이게 함
-                document.getElementById('stadiumImage').style.display = 'none';
-                document.getElementById('map').style.display = 'block';
+    var map;
+    var isMapVisible = false; // 현재 상태를 저장하는 변수
 
-                // 지도 생성
-                if (!map) {
-                    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-                        mapOption = { 
-                            center: new kakao.maps.LatLng(37.637523, 126.917863), // 지도의 중심좌표
-                            level: 3 // 지도의 확대 레벨
-                        };
-
-                    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-                    // 마커가 표시될 위치입니다 
-                    var markerPosition  = new kakao.maps.LatLng(37.637523, 126.917863); 
-
-                    // 마커를 생성합니다
-                    var marker = new kakao.maps.Marker({
-                        position: markerPosition
-                    });
-
-                    // 마커가 지도 위에 표시되도록 설정합니다
-                    marker.setMap(map);
-                }
-            }
-            // 상태 반전
-            isMapVisible = !isMapVisible;
+    function showMap(address) {
+        if (!kakao || !kakao.maps || !kakao.maps.services) {
+            console.error("Kakao 지도 API가 로드되지 않았습니다.");
+            return;
         }
+
+        if (!address) {
+            console.error("주소가 제공되지 않았습니다.");
+            return;
+        }
+
+        // 지도와 Geocoder 초기화
+        var mapContainer = document.getElementById('map');
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        if (isMapVisible) {
+            // 지도를 숨기고 이미지를 보이게 함
+            document.getElementById('map').style.display = 'none';
+            document.getElementById('stadiumImage').style.display = 'block';
+        } else {
+            // 이미지를 숨기고 지도를 보이게 함
+            document.getElementById('stadiumImage').style.display = 'none';
+            document.getElementById('map').style.display = 'block';
+
+            // Geocoder로 주소 검색
+            geocoder.addressSearch(address, function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    // 지도 생성 또는 갱신
+                    if (!map) {
+                        map = new kakao.maps.Map(mapContainer, {
+                            center: coords,
+                            level: 3 // 확대 레벨
+                        });
+                    } else {
+                        map.setCenter(coords);
+                    }
+
+                    // 마커 표시
+                    var marker = new kakao.maps.Marker({
+                        position: coords,
+                        map: map
+                    });
+                } else {
+                    console.error("주소 변환 실패:", status);
+                }
+            });
+        }
+
+        // 상태 반전
+        isMapVisible = !isMapVisible;
+    }    
     </script>
 </body>
 </html>

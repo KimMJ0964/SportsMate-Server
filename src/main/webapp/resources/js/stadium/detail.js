@@ -1,72 +1,93 @@
-// 서버에서 종목 데이터 가져오기 (예제 데이터 사용)
-const fetchSportsData = async () => {
-    // 예제 종목 데이터 (DB에서 가져오는 시뮬레이션)
-    return ["축구", "풋살", "야구", "농구"];
-};
+const currentDate2 = document.querySelector(".current-date-2"),
+daysTag2 = document.querySelector(".days-2");
+prevNextIcon2 = document.querySelectorAll("#prev-2, #next-2");
 
-// 종목별 시간 데이터 매핑
-const timeDataMapping = {
-    "축구": ["10:00", "12:00", "14:00", "16:00"],
-    "풋살": ["09:00", "11:00", "13:00", "15:00"],
-    "야구": ["08:00", "10:30", "13:30", "17:30"],
-    "농구": ["07:00", "09:00", "11:00", "13:00"]
-};
+let date2 = new Date(),
+currYear2 = date2.getFullYear(),
+currMonth2 = date2.getMonth();
 
-// 종목별 시간 간격 생성
-const createTimeIntervals = (times) => {
-    const intervals = [];
-    for (let i = 0; i < times.length - 1; i++) {
-        intervals.push(`${times[i]} - ${times[i + 1]}`);
+const months2 = [  
+    "1월","2월","3월","4월","5월","6월",
+    "7월","8월","9월","10월","11월","12월"
+];
+
+const renderCalendar2 = () => {
+    let firstDayofMonth2 = new Date(currYear2, currMonth2, 1).getDay(),
+    lastDateofMonth2 = new Date(currYear2, currMonth2 + 1, 0).getDate(),
+    lastDayofMonth2 = new Date(currYear2, currMonth2, lastDateofMonth2).getDay(),
+    lastDateofLastMonth2 = new Date(currYear2, currMonth2, 0).getDate();
+    let liTag2 = "";
+
+    for (let i = firstDayofMonth2; i > 0; i--) {
+        liTag2 += `<li class="inactive-2">${lastDateofLastMonth2 - i + 1}</li>`;
     }
-    return intervals;
-};
 
-// DOM 요소
-const timeSelect = document.getElementById("time-options");
-const selectedSportElement = document.getElementById("selected-sport");
+    for (let i = 1; i <= lastDateofMonth2; i++) {
+        let isPast2 = currYear2 === date2.getFullYear() && currMonth2 === date2.getMonth() 
+                && i < date2.getDate() ? "past-2" : "";
 
-// 특정 종목에 대한 시간 옵션 로드
-const loadTimeOptions = async (selectedSport) => {
-    try {
-        // 선택된 종목에 해당하는 시간 데이터 가져오기
-        const times = timeDataMapping[selectedSport] || [];
-        
-        // 시간 간격 생성
-        const intervals = createTimeIntervals(times);
+        let dayOfWeek2 = new Date(currYear2, currMonth2, i).getDay();
+        let isSaturday2 = !isPast2 && dayOfWeek2 === 6 ? "saturday-2" : ""; 
+        let isSunday2 = !isPast2 && dayOfWeek2 === 0 ? "sunday-2" : ""; 
 
-        // 기존 옵션 초기화
-        timeSelect.innerHTML = '<option value="">--시간 선택--</option>';
-
-        // 시간 간격으로 옵션 추가
-        intervals.forEach((interval) => {
-            const option = document.createElement("option");
-            option.value = interval;
-            option.textContent = interval;
-            timeSelect.appendChild(option);
-        });
-    } catch (error) {
-        console.error("시간 데이터를 로드하는 중 오류 발생:", error);
+        liTag2 += `<li class="${isPast2} ${isSaturday2} ${isSunday2}" data-date="${currYear2}-${currMonth2 + 1}-${i}">${i}</li>`;
     }
-};
 
-// 페이지 로드 시 종목 선택 및 시간 데이터 로드
-const init = async () => {
-    try {
-        // 종목 데이터 가져오기 (예: 서버에서 선택된 종목을 받아오는 로직)
-        const sportsData = await fetchSportsData();
-
-        // 첫 번째 종목 선택 (예제에서는 '축구'가 선택된 상태로 설정)
-        const selectedSport = sportsData[0];
-
-        // 선택된 종목 표시
-        selectedSportElement.textContent = selectedSport;
-
-        // 시간 옵션 로드
-        await loadTimeOptions(selectedSport);
-    } catch (error) {
-        console.error("초기화 중 오류 발생:", error);
+    for (let i = lastDayofMonth2; i < 6; i++) {
+        liTag2 += `<li class="inactive-2">${i - lastDayofMonth2 + 1}</li>`;
     }
+
+    currentDate2.innerText = `${currYear2} ${months2[currMonth2]}`;
+    daysTag2.innerHTML = liTag2;
+
+    document.querySelectorAll(".days-2 li").forEach(day => {
+        if (!day.classList.contains("past-2") && !day.classList.contains("inactive-2")) {
+            day.addEventListener("click", () => {
+                const selectedDate2 = day.dataset.date; 
+                const displayDate2 = document.getElementById("selected-date-2");
+                const hiddenInput2 = document.getElementById("hidden-selected-date-2"); 
+                
+                if (displayDate2) {
+                    displayDate2.textContent = selectedDate2; 
+                }
+                
+                if (hiddenInput2) {
+                    hiddenInput2.value = selectedDate2;
+                }
+                alert(`선택한 날짜: ${selectedDate2}`);
+            });
+        }
+    });
 };
 
-// 초기화 함수 실행
-document.addEventListener("DOMContentLoaded", init);
+renderCalendar2();
+
+prevNextIcon2.forEach(icon => {
+    icon.addEventListener("click", () => {
+        if (icon.id === "prev-2" && (currYear2 === date2.getFullYear() && currMonth2 <= date2.getMonth())) {
+            alert("더 이전으로 이동할 수 없습니다.");
+            return;
+        }
+
+        currMonth2 = icon.id === "prev-2" ? currMonth2 - 1 : currMonth2 + 1;
+
+        if (currMonth2 < 0) {
+            currMonth2 = 11;
+            currYear2 -= 1;
+        }
+
+        if (currMonth2 > 11) {
+            currMonth2 = 0;
+            currYear2 += 1;
+        }
+
+        if (currYear2 === date2.getFullYear() && currMonth2 < date2.getMonth()) {
+            alert("더 이전으로 이동할 수 없습니다.");
+            currMonth2 = date2.getMonth();
+            currYear2 = date2.getFullYear();
+            return;
+        }
+
+        renderCalendar2();
+    });
+});

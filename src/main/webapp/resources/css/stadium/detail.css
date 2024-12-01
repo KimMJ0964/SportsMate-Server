@@ -390,6 +390,131 @@ background-color: white;
 text-align: center;
 border: 1px solid black;
 }
+/* 달력 */
+.calendar-wrapper-2 * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.calendar-wrapper-2 button {
+    /* button 요소에 기본적으로 설정되는 스타일 속성 초기화 */
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+
+.calendar-wrapper-2 .wrapper-2 {
+    width: 450px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 25px;
+}
+
+.calendar-wrapper-2 body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper-2 .nav-2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.wrapper-2 .nav-2 .current-date-2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.wrapper-2 .nav-2 button {
+    width: 38px;
+    height: 38px;
+    font-size: 30px;
+    color: #878787;
+}
+
+/*#7*/
+.calendar-2 ul {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.calendar-2 .weeks-2 li {
+    font-weight: 500;
+}
+
+.calendar-2 .days-2 {
+    margin-bottom: 20px;
+}
+
+.calendar-2 ul li {
+    /*#8*/
+    width: calc(100% / 7);
+    /*#9*/
+    position: relative;
+}
+
+.calendar-2 .days-2 li {
+    /*#10*/
+    z-index: 1;
+    margin-top: 30px;
+    cursor: pointer;
+}      
+
+/*#11*/
+.days-2 li.inactive-2 {
+    color: #aaa;
+}
+
+.days-2 li.active-2 {
+    color: #fff;
+}
+
+.calendar-2 .days-2 li::before {
+    position: absolute;
+    content: '';
+    height: 40px;
+    width: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.days-2 li:hover::before,
+.days-2 li:hover {
+    background: #f2f2f2;
+    cursor: pointer;
+}
+
+.days-2 li.active-2::before {
+    background: #008aff;
+}
+
+.days-2 li.past-2 {
+    color: #aaa; /* 지난 날짜 연한 색 */
+    pointer-events: none; /* 클릭 불가능 */
+}
+
+.days-2 li.inactive-2 {
+    pointer-events: none; /* 클릭 불가능 */
+}
+
+.days-2 li.saturday-2 {
+    color: blue;
+}
+
+.days-2 li.sunday-2 {
+    color: red;
+}
 /* 화면 크기가 480px 이하일 때만 표시 (모바일 전용) */
 @media (max-width: 480px) {
 	.mobile-only {
