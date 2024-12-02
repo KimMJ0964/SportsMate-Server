@@ -339,7 +339,7 @@ public class MemberController {
                 request.setAttribute("description", "기존에 다른 이메일로 가입하신 정보가 있습니다.");
                 request.setAttribute("body", maskedEmail);
                 return "member/searchResult";
-            default:
+            default:    
                 session.setAttribute("alertMsg", "네이버 로그인에 실패하였습니다.");
                 return "redirect:/";
         }
