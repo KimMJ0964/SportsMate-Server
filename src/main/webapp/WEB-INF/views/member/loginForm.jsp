@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/loginForm.css">
+    <script src="${pageContext.request.contextPath}/resources/js/member/loginForm.js"></script>
     <title>SportsMate - 로그인</title>
 </head>
 <body>
@@ -41,23 +42,15 @@
                 </div>
                 <div class="split-bar"></div>
                 <div class="submit-btn">
-                    <button type="button" class="sns-login-btn" onclick="naverLogin()"><img src="${pageContext.request.contextPath}/resources/images/Naver_login.png" class="sns-login-img" alt=""></button>
+                    <button type="button" class="sns-login-btn" onclick="naverLogin('${naverClientId}')">
+                        <img src="${pageContext.request.contextPath}/resources/images/Naver_login.png" class="sns-login-img" alt="">
+                    </button>
                 </div>
-                <script>
-                    function naverLogin() {
-                        const clientId = "5GKM2LrZ_OEPzmwL6z66";
-                        const redirectURI = encodeURIComponent("http://localhost:7777/SportsMate/naver-login"); // redirectURL을 UTF-8로 인코딩하여 저장
-
-                        // 랜덤한 수 2개를 넣어줘야한다. (36진수로 변환 후 2개 뽑는다.)
-                        const state = Math.random().toString(36).substring(2);
-                        let apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-                        apiURL += "&client_id=" + clientId;
-                        apiURL += "&redirect_uri=" + redirectURI;
-                        apiURL += "&state=" + state;
-
-                        location.href = apiURL;
-                    }
-                </script>
+                <div class="submit-btn">
+                    <button type="button" class="sns-login-btn" onclick="kakaoLogin('${kakaoClientId}')">
+                        <img src="${pageContext.request.contextPath}/resources/images/kakao_login.png" class="sns-login-img" alt="">
+                    </button>
+                </div>
             </form>
         </div>
     </div>
