@@ -327,4 +327,56 @@
     WHERE 
         si.STADIUM_NO = #{memNo} AND si.FILE_TYPE = 1
 </select>
+
+<!-- 환불 -->
+<select id="">
+	SELECT 
+	    M.MATCH_NO AS matchNo,                <!-- 경기 번호 (Key 값) -->
+	    M.TEAM_A_NO AS teamANo,               <!-- A팀 번호 -->
+	    M.TEAM_B_NO AS teamBNo ,              <!-- B팀 번호 -->
+	    R.REFUND_DATE AS refundDate,          <!-- 환불일 -->
+	    R.REFUND_CONTENT AS refundContent,    <!-- 환불 사유 -->
+	    R.REFUND_PRICE AS refundPrice,        <!-- 환불 가격 -->
+	    R.STATUS                              <!-- 환불 승인 여부 (Y, N, NULL) -->
+	FROM 
+	    `MATCH` M
+	JOIN 
+	    match_refund R ON M.MATCH_NO = R.MATCH_NO      <!-- 두 테이블을 경기 번호로 조인 -->
+	WHERE 
+	    M.ACCESS_DATE IS NOT NULL;   <!-- 승인 날짜가 NULL이 아닌 경우 -->
+		
+</select>
+
+<select id="getRefundPageData" parameterType="int" resultType="Refund">
+	SELECT 
+    	sr.RESERVATION_NO AS reservationNo,           <!-- 예약 번호 -->
+        s.STADIUM_NAME AS stadiumName,                <!-- 경기장 이름 -->
+        si.FILE_PATH AS stadiumImage,                 <!-- 경기장 사진 파일 경로 -->
+        a_team.TEAM_NAME AS aTeamName,                <!-- A팀 구단명 -->
+        a_team_img.CHANGE_NAME AS aTeamProfileImage,  <!-- A팀 구단 프로필 변경 파일명 -->
+        b_team.TEAM_NAME AS bTeamName,                <!-- B팀 구단명 -->
+        b_team_img.CHANGE_NAME AS bTeamProfileImage,  <!-- B팀 구단 프로필 변경 파일명 -->
+        sr.START_TIME AS matchStartTime,              <!-- 경기 시작 시간 -->
+        sr.END_TIME AS matchEndTime                   <!-- 경기 종료 시간 -->
+	FROM 
+	    STADIUM_RESERVATIONS sr                       <!-- 구장 예약 테이블 -->
+    INNER JOIN 
+        STADIUM s ON sr.STADIUM_NO = s.STADIUM_NO     <!-- 필수 JOIN -->
+    LEFT JOIN 
+        STADIUM_IMG si ON sr.STADIUM_NO = si.STADIUM_NO AND si.FILE_TYPE = 0
+    LEFT JOIN 
+        TEAM a_team ON sr.A_MEM_NO = a_team.MEM_NO
+    LEFT JOIN 
+        TEAM_IMG a_team_img ON a_team.TEAM_NO = a_team_img.TEAM_NO AND a_team_img.FILE_LEVER = '3'
+    LEFT JOIN 
+        TEAM b_team ON sr.B_MEM_NO = b_team.MEM_NO
+    LEFT JOIN 
+        TEAM_IMG b_team_img ON b_team.TEAM_NO = b_team_img.TEAM_NO AND b_team_img.FILE_LEVER = '3'
+    WHERE 
+        sr.STATUS = 'Y';                               <!-- 예약 상태가 승인된 것만 -->
+
+
+</select>
+
+
 </mapper>

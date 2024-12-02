@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.service.StadiumService;
 
 @CrossOrigin
@@ -41,12 +42,6 @@ public class StadiumController {
         return "stadium_manager/game_finish";
     }
 
-    // 대여 승인 관리 페이지로 이동
-    @RequestMapping(value = "stadiumrefond.me")
-    public String rentalapproval() {
-        return "stadium_manager/stadium_refond";
-    }
-
     // 문의사항 확인 페이지로 이동
     @RequestMapping(value = "inquiry.me")
     public String inquiry() {
@@ -67,7 +62,7 @@ public class StadiumController {
 
     // 구장 상세 페이지로 이동
     @RequestMapping("/detail.st")
-    public String showStadiumdatil() {
+    public String showStadiumdetail() {
         return "stadium/detail";
     }
     
@@ -76,6 +71,57 @@ public class StadiumController {
     public String managermypage() {
         return "stadium_manager/stadium_manager";
     }
+    
+ // 환불 관리 페이지로 이동
+    @RequestMapping(value = "stadiumrefund.me")
+    public String stadiumrefund(HttpSession session, Model model) {
+        
+        // 세션에서 로그인한 회원 정보 가져오기
+        Member loginMember = (Member) session.getAttribute("loginMember");
+
+        // 로그인 상태 확인
+        if (loginMember == null) {
+            return "redirect:/login.me"; // 로그인 페이지로 리다이렉트
+        }
+
+        // 로그인한 회원의 회원 번호 가져오기
+        int memNo = loginMember.getMemNo();
+        
+        // 구매 확정된 매치 정보 가져오기
+        List<StadiumRefundDto> refundPageData = stadiumService.getRefundPageData(memNo);
+        System.out.println("Refund Data: " + refundPageData);
+
+        // 모델에 환불 정보 추가
+        model.addAttribute("refundPageData", refundPageData);
+
+        // 환불 관리 페이지로 이동
+        return "stadium_manager/stadium_refund";
+    }
+    
+    // 환불성공 요청
+    @PostMapping(value = "/refundProcess.me")
+    public String processRefund(int reservationNo, String refundReason, String reasonType, HttpSession session) {
+        // 세션에서 로그인한 회원 정보 가져오기
+        Member loginMember = (Member) session.getAttribute("loginMember");
+
+        // 로그인 상태 확인
+        if (loginMember == null) {
+            return "redirect:/login.me"; // 로그인 페이지로 리다이렉트
+        }
+
+        // 환불 처리 로직
+        boolean isProcessed = stadiumService.processRefund(reservationNo, refundReason, reasonType);
+
+        if (isProcessed) {
+            // 성공 시 환불 관리 페이지로 리다이렉트
+            return "redirect:/stadiumrefund.me";
+        } else {
+            // 실패 시 에러 페이지로 이동
+            return "redirect:/errorPage.me";
+        }
+    }
+
+
 
 
     /**

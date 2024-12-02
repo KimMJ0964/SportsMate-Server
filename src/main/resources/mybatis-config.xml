@@ -81,6 +81,7 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Stadium" alias="Stadium"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Amenities" alias="Amenities"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Rental" alias="Rental"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.vo.Refund" alias="Refund"/>
     </typeAliases>
 
 

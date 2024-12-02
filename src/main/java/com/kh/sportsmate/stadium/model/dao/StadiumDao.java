@@ -3,6 +3,7 @@ package com.kh.sportsmate.stadium.model.dao;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
+import com.kh.sportsmate.stadium.model.vo.Refund;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -62,6 +63,16 @@ public class StadiumDao {
     public List<StadiumDto> selectStadiumImages(SqlSessionTemplate sqlSession, int memNo) {
         return sqlSession.selectList("stadiumMapper.selectStadiumImages", memNo);
     }
+    
+ // 구매 완료된 매치 데이터 조회
+    public List<Refund> selectCompletedMatches(SqlSessionTemplate sqlSession, int memNo) {
+        return sqlSession.selectList("stadiumMapper.selectCompletedMatches", memNo);
+    }
+    
+    public List<Refund> getRefundPageData(int memNo) {
+		return sqlSession.selectList("stadiumMapper.getRefundPageData", memNo);
+	}
+    
 
     /**
      * 구장 정보 수정
@@ -107,4 +118,7 @@ public class StadiumDao {
     public int addStadiumImages(SqlSessionTemplate sqlSession, ArrayList<StadiumAttachment> stadiumAttachmentImgs) {
         return sqlSession.insert("stadiumMapper.addStadiumImages", stadiumAttachmentImgs);
     }
+
+    
+    
 }

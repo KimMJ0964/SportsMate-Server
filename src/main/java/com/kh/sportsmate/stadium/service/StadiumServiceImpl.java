@@ -1,6 +1,7 @@
 package com.kh.sportsmate.stadium.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
+import com.kh.sportsmate.stadium.model.vo.Refund;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 
@@ -63,5 +66,32 @@ public class StadiumServiceImpl implements StadiumService{
 
         return isStadiumUpdated && isAmenitiesUpdated && isRentalUpdated;
 	}
+	
+	@Override
+	public List<StadiumRefundDto> getRefundPageData(int memNo) {
+	    // DAO에서 VO 리스트 가져오기
+	    List<Refund> refundList = stadiumDao.getRefundPageData(memNo);
+
+	    // Refund VO를 StadiumRefundDto로 변환하여 반환
+	    return refundList.stream().map(refund -> {
+	        StadiumRefundDto dto = new StadiumRefundDto();
+	        dto.setReservationNo(refund.getReservationNo());
+	        dto.setStadiumName(refund.getStadiumName());
+	        dto.setStadiumImage(refund.getStadiumImage());
+	        dto.setATeamName(refund.getATeamName());
+	        dto.setATeamProfileImage(refund.getATeamProfileImage());
+	        dto.setBTeamName(refund.getBTeamName());
+	        dto.setBTeamProfileImage(refund.getBTeamProfileImage());
+	        dto.setStartTime(refund.getStartTime());
+	        dto.setEndTime(refund.getEndTime());
+	        return dto;
+	    }).collect(Collectors.toList());
+	}
+
+	@Override
+	public boolean processRefund(int reservationNo, String refundReason, String reasonType) {
+		return false;
+	}
+
 
 }
