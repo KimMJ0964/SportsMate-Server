@@ -29,6 +29,7 @@
     <interceptors>
         <interceptor>
             <mapping path="/teamEnrollForm.tm"/> <!-- 구단 창설 폼으로 이동 -->
+            <mapping path="/myPageInfo.mp" />
             <mapping path="/createMove.bd" />
             <mapping path="/writeReply.bd" />
             <mapping path="/deleteComm.bd" />
@@ -37,9 +38,8 @@
             <mapping path="/replyComment.bd" />
             <beans:bean class="com.kh.sportsmate.common.intercepter.LoginInterceptor" id="LoginIntercepter"/>
         </interceptor>
-        
-        <!-- 구단 미니 홈피 관련 -->
-        <interceptor>
+		
+		<interceptor>
             <mapping path="/boardList.tm" />
             <mapping path="/createBd.tm" />
             <mapping path="/modify.tm" />
@@ -50,7 +50,7 @@
             <mapping path="/teamMatch.tm" />
             <beans:bean class="com.kh.sportsmate.common.intercepter.TeamBoardInterceptor" id="TeamBoardInterceptor"/>
         </interceptor>
-        
+		        
         <!-- 구단장 관련 -->
 		<interceptor>
 			<mapping path="/approveJoin.tm" />
@@ -67,8 +67,11 @@
 		<!-- 게시글 소유지 확인 -->
 		<interceptor>
 			<mapping path="/modify.bd" />
+			<mapping path="/modify.tm" />
+			<mapping path="/delete.bd" />
 			<mapping path="/delete.bd" />
 			<mapping path="/deleteComm.bd" />
+			<mapping path="/deleteComm.tm" />
 			<beans:bean class="com.kh.sportsmate.common.intercepter.BoardInterceptor" id="BoardInterceptor" />
 		</interceptor>
 		

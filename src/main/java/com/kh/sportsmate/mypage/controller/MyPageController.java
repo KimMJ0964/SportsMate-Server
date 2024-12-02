@@ -123,8 +123,8 @@ public class MyPageController {
     	Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
 		Map<String, Integer> checkMap = new HashMap<>();
-		checkMap .put("memNo", memNo);
-		checkMap .put("matchNo", matchNo);
+		checkMap.put("memNo", memNo);
+		checkMap.put("matchNo", matchNo);
         
         MatchBest check = myPageService.checkReview(checkMap);
         System.out.println(check);

@@ -356,8 +356,8 @@
 	</select>
 	
 	<!-- 본인 팀인지 확인 -->
-	<select id="checkTeamMember" resultType="Integer">
-		SELECT TEAM_NO as teamNo
+	<select id="checkTeamMember" resultType="_int">
+		SELECT COUNT(*)
 		FROM TEAM_MEMBER
 		WHERE TEAM_NO = #{tno}
 		AND MEM_NO = #{memNo}

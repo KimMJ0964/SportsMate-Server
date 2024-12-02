@@ -562,7 +562,7 @@ public class TeamServiceImpl implements TeamService {
 	 * @return
 	 */
 	@Override
-	public Integer checkTeamMember(Map<String, String> map) {
+	public int checkTeamMember(Map<String, Integer> map) {
 		return teamDao.checkTeamMember(sqlSession, map);
 	}
 	

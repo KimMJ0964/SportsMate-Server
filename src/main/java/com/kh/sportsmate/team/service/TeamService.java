@@ -135,7 +135,7 @@ public interface TeamService {
  	Profile teamBanner(int tno);
  	
  	// 본인 팀인지 체크
- 	Integer checkTeamMember(Map<String, String> map);
+ 	int checkTeamMember(Map<String, Integer> map);
  	
  	// 구단 미니 홈피 게시글 검색
  	int searchListCount(Map<String, String> map);

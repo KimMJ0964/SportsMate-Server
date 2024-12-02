@@ -430,7 +430,7 @@ public class TeamDao {
      * @param sqlSession
      * @param map
      */
-    public Integer checkTeamMember(SqlSessionTemplate sqlSession, Map<String, String> map) {
+    public int checkTeamMember(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
     	return sqlSession.selectOne("teamMapper.checkTeamMember", map);
     }
     

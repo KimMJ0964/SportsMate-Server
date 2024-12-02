@@ -236,7 +236,9 @@
 	          SELECT DISTINCT MATCH_NO
 	          FROM MATCH_BEST
 	          WHERE MEM_NO = #{memNo}
-	      );
+	      )
+	      AND M.SCORE_A IS NOT NULL
+      	  AND M.SCORE_B IS NOT NULL;
 	</select>
 	
 	<!-- 내 전적 판 수 -->
@@ -263,6 +265,8 @@
 		          FROM MATCH_BEST
 		          WHERE MEM_NO = #{memNo}
 		      )
+		      AND M.SCORE_A IS NOT NULL
+      	  	  AND M.SCORE_B IS NOT NULL
 		) AS match_count;
 	</select>
 	
