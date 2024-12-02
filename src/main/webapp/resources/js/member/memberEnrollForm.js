@@ -10,6 +10,10 @@ let timerId = null; // 타이머 ID를 전역에서 관리
 
 $(document).ready(function () {
     toggleSubmit();
+    // 소셜 회원가입의 경우 이메일 중복 여부 자동 체크
+    if($('#auto_email').val().length > 8){
+        handleEmailCheckResult('NNNNY');
+    }
     $('#profileImg').on('click', profileUpload);
     setDateSelectBox();
 
@@ -38,6 +42,7 @@ $(document).ready(function () {
 
     // 비밀번호 일치 확인
     $('input[name="pwdCheck"]').on('focusout', checkPwd);
+
 });
 
 

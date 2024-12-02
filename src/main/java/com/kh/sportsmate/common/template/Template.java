@@ -94,8 +94,8 @@ public class Template {
     }
 
     // API에 GET 요청 보낸 후 응답을 받아오는 메서드
-    public static String get(String apiURL, Map<String, String> requestHeaders) {
-        HttpURLConnection conn = connect(apiURL);
+    public static String get(String reqURL, Map<String, String> requestHeaders) {
+        HttpURLConnection conn = connect(reqURL);
 
         try {
             conn.setRequestMethod("GET"); // 요청 메서드 변경
@@ -181,5 +181,14 @@ public class Template {
             chars[j] = temp;
         }
         return new String(chars);
+    }
+    public static String maskingEmail(String email){
+        int atIndex = email.indexOf('@');
+        String id = email.substring(0, atIndex);
+        String domain = email.substring(atIndex);
+        int middle = id.length() / 2;
+        String maskedEmail = id.substring(0, middle -1) + "**" + id.substring(middle + 1)
+                + domain;
+        return maskedEmail;
     }
 }

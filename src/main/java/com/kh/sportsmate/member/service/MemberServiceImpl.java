@@ -7,7 +7,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.kh.sportsmate.common.template.Template;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,17 +30,6 @@ import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * packageName    : com.kh.sportsmate.service
@@ -240,14 +232,15 @@ public class MemberServiceImpl implements MemberService {
         m.setMemBirth(memBirth);
         String email = memberDao.searchEmail(sqlSession, m);
         if(email != null){
-            int atIndex = email.indexOf('@');
-            String id = email.substring(0, atIndex);
-            String domain = email.substring(atIndex);
-            int middle = id.length() / 2;
-            String maskedEmail = id.substring(0, middle -1) + "**" + id.substring(middle + 1)
-                    + domain;
-            log.info("마스킹 이메일 : {}",maskedEmail);
-            return maskedEmail;
+//            int atIndex = email.indexOf('@');
+//            String id = email.substring(0, atIndex);
+//            String domain = email.substring(atIndex);
+//            int middle = id.length() / 2;
+//            String maskedEmail = id.substring(0, middle -1) + "**" + id.substring(middle + 1)
+//                    + domain;
+//            log.info("마스킹 이메일 : {}",maskedEmail);
+//            return maskedEmail;
+            return Template.maskingEmail(email);
         }
         return null;
     }
@@ -260,5 +253,23 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int updatePwd(MemberEnrollDto memInfo) {
         return memberDao.updatePwd(sqlSession,memInfo);
+    }
+
+    @Override
+    public Map<Integer, Member> confirmMember(Member m) {
+        // 핸드폰 번호로 기존 멤버 여부 확인
+        Member resultMember = memberDao.confirmMember(sqlSession, m);
+        log.info("resultMember : {}", resultMember);
+        Map<Integer, Member> resultMap = new HashMap<>();
+        if(resultMember == null){ // 기존 회원이 아닌 경우
+            resultMap.put(1, null);
+            return resultMap;
+        }else if(resultMember.getMemEmail().equals(m.getMemEmail())){ // 기존 회원과 도메인이 동일한 경우
+            resultMap.put(2, resultMember);
+            return resultMap;
+        }else{ // 존재는 하는데 도메인이 다른경우
+            resultMap.put(3, resultMember);
+            return resultMap;
+        }
     }
 }

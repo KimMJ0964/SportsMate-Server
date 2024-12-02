@@ -80,14 +80,23 @@
 	margin-left: 15px;
 }
 
-.teamcomu-work-vote, .teamcomu-work-join, .teamcomu-work-modify {
+.teamcomu-work-vote, .teamcomu-work-join, .teamcomu-work-modify, .teamcomu-work-vote-desktop, .teamcomu-work-match {
 	text-align: center;
 	border: 1px solid #1D87FA;
 	border-radius: 8px;
+	cursor: pointer;
 }
 
 .teamcomu-wrok-vote-img, .teamcomu-wrok-join-img {
 	padding: 10px;
+}
+
+.teamcomu-work-vote {
+	display: none;
+}
+
+#voteModalDesktop .modal-dialog .modal-content {
+	width: 1500px;
 }
 
 .teamcomu-wrok-modify-img {
@@ -100,6 +109,8 @@
 
 .teamcomu-table-profile-img {
 	width: 40px;
+	height: 40px;
+	border-radius: 50px;
 }
 
 .teamcomu-table-profile {
@@ -118,7 +129,20 @@
 	display: none;
 }
 
+.vote-desktop-topContainer {
+  display: flex; 
+  justify-content: space-between;
+  width: 100%;
+}
 
+.vote-desktop-topContainer .bd-report-title {
+	width: 50%;
+	top: 0%;
+}
+
+.board-banner img {
+	max-height: 300px;
+}
 
 @media (max-width: 430px) {
 
@@ -128,28 +152,35 @@
 		border-top: 3px solid #ddd; 
 	}
 	.teamcomu-member {
-		overflow-y: hidden;
 		border-style: none;
 		border-bottom: 3px solid #ddd;
 	}
 
-  .teamcomu-board-container {
-    display: none;
-  }
-  
-  .board-app-createMove-btn {
-  		padding: 10px 15px;
-    	font-weight: bold;
-    	border: none;
-    	border-radius: 5px;
-    	color: white;
-    	cursor: pointer;
-    	background-color: #007bff;
+	  .teamcomu-board-container {
+	    display: none;
+	  }
+	  
+	  .board-app-createMove-btn {
+	  		padding: 10px 15px;
+	    	font-weight: bold;
+	    	border: none;
+	    	border-radius: 5px;
+	    	color: white;
+	    	cursor: pointer;
+	    	background-color: #007bff;
+			display: block;
+	}
+	
+	.teamcomu-app-board-container {
+		display: block;	
+	}
+	
+	.teamcomu-work-vote {
 		display: block;
-}
-
-.teamcomu-app-board-container {
-	display: block;	
-}
+	}
+	
+	.teamcomu-work-vote-desktop {
+		display: none;
+	}
   
 }
