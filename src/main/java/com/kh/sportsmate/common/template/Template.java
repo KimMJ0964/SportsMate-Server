@@ -94,8 +94,8 @@ public class Template {
     }
 
     // API에 GET 요청 보낸 후 응답을 받아오는 메서드
-    public static String get(String apiURL, Map<String, String> requestHeaders) {
-        HttpURLConnection conn = connect(apiURL);
+    public static String get(String reqURL, Map<String, String> requestHeaders) {
+        HttpURLConnection conn = connect(reqURL);
 
         try {
             conn.setRequestMethod("GET"); // 요청 메서드 변경
