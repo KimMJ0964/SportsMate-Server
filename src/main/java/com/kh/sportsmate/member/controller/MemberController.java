@@ -1,7 +1,5 @@
 package com.kh.sportsmate.member.controller;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.common.kakaoAPI.kakaoAPI;
@@ -28,12 +26,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -264,8 +258,8 @@ public class MemberController {
     /**
      * 네이버 로그인(Oauth2.0)
      *
-     * @param code kakao 인가 코드
-     * @param state 네이버 로그인 과정 중 동일한 값을 유지하는 임의의 문자열(CSRF 공격 보호)
+     * @param code    kakao 인가 코드
+     * @param state   네이버 로그인 과정 중 동일한 값을 유지하는 임의의 문자열(CSRF 공격 보호)
      * @param request request 객체
      * @return
      * @throws Exception
@@ -305,9 +299,10 @@ public class MemberController {
 
     /**
      * 카카오 로그인
-     * @param code 인가 코드
-     * @param state 네이버 로그인 과정 중 동일한 값을 유지하는 임의의 문자열(CSRF 공격 보호)
-     * @param error 인가 코드 요청에 대한 에러 코드
+     *
+     * @param code              인가 코드
+     * @param state             네이버 로그인 과정 중 동일한 값을 유지하는 임의의 문자열(CSRF 공격 보호)
+     * @param error             인가 코드 요청에 대한 에러 코드
      * @param error_description 인가 코드 요청에 대한 에러 설명
      * @param request
      * @param session

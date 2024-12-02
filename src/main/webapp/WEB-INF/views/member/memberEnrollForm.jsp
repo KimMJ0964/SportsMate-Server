@@ -378,8 +378,8 @@
                 <div class="submit-btn">
                     <button type="submit" id="submitBtn" class="none-clickable">회원가입</button>
                 </div>
-                <c:if test="${not empty authMemInfo}">
-                    <c:remove var="${authMemInfo}" scope="session"/>
+                <c:if test="${authMemInfo != null}">
+                    <c:remove var="authMemInfo" scope="session"/>
                 </c:if>
             </form>
         </div>
