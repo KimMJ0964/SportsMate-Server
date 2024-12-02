@@ -516,7 +516,8 @@
 	        TITLE = #{title},
 	        CONTENT = #{content},
 	        TYPE = #{type},
-	        CREATE_DATE = NOW()
+	        CREATE_DATE = NOW(),
+			MODIFY_DATE = NOW()
 	    WHERE 
 	        BOARD_NO = #{boardNo} <!-- 보통 게시글 ID를 기준으로 수정 -->
 	</update>

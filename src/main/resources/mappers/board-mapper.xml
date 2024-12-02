@@ -38,7 +38,8 @@
 		b.CONTENT AS content,
 		b.BOARD_NO AS boardNo,
 		b.MEM_NO AS memNo,
-		b.TYPE AS type
+		b.TYPE AS type,
+		b.MODIFY_DATE AS modifyDate
 		FROM BOARD b
 		JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 		WHERE b.STATUS = 'Y'
@@ -260,7 +261,8 @@
 		TITLE = #{title},
 		CONTENT = #{content},
 		TYPE = #{type},
-		CREATE_DATE = NOW()
+		CREATE_DATE = NOW(),
+		MODIFY_DATE = NOW()
 		WHERE
 		BOARD_NO = #{boardNo} <!-- 보통 게시글 ID를 기준으로 수정 -->
 	</update>
