@@ -78,9 +78,6 @@
     width: 100%;
     border-bottom: 2px solid lightgray;
 }
-.sns-login-img{
-
-}
 .sns-login-btn{
     border: none;
     border-radius: 8px;
@@ -97,6 +94,6 @@
         display: none !important;
     }
     .sns-login-img{
-        width: 344px;
+        width: 100%;
     }
 }
