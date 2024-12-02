@@ -4,20 +4,23 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.common.kakaoAPI.kakaoAPI;
 import com.kh.sportsmate.common.mail.service.MailService;
+import com.kh.sportsmate.common.naverAPI.naverAPI;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.member.model.dto.ManagerEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -60,11 +63,20 @@ public class MemberController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private final MailService mailService;
+    @Autowired
+    private final kakaoAPI kakaoAPI;
+    @Autowired
+    private final naverAPI naverAPI;
     @Value("${sns.naver.clientId}")
-    private String clientID;
+    private String naverClientID;
+    @Value("${sns.naver.redirectURI}")
+    private String naverRedirectURI;
     @Value("${sns.naver.clientSecret}")
-    private String clientSecret;
-
+    private String naverClientSecret;
+    @Value("${sns.kakao.clientId}")
+    private String kakaoClientId;
+    @Value("${sns.kakao.redirectURI}")
+    private String kakaoRedirectURI;
 
 
     /***
@@ -102,7 +114,12 @@ public class MemberController {
      * @return
      */
     @RequestMapping(value = "loginForm.me")
-    public String loginForm() {
+    public String loginForm(Model model) {
+        model.addAttribute("naverClientId", naverClientID);
+        model.addAttribute("naverRedirectURI", naverRedirectURI);
+        model.addAttribute("kakaoClientId", kakaoClientId);
+        model.addAttribute("kakaoRedirectURI", kakaoRedirectURI);
+
         return "member/loginForm";
     }
 
@@ -247,102 +264,90 @@ public class MemberController {
     /**
      * 네이버 로그인(Oauth2.0)
      *
-     * @param code
-     * @param state
-     * @param request
+     * @param code kakao 인가 코드
+     * @param state 네이버 로그인 과정 중 동일한 값을 유지하는 임의의 문자열(CSRF 공격 보호)
+     * @param request request 객체
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "naver-login")
     public String naverLoginCallback(String code, String state, HttpServletRequest request, HttpSession session) throws Exception {
         String redirectURL = URLEncoder.encode(request.getContextPath(), "UTF-8");
-        String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-        apiURL += "client_id=" + this.clientID;
-        apiURL += "&client_secret=" + clientSecret;
-        apiURL += "&redirect_uri=" + redirectURL;
-        apiURL += "&code=" + code;
-        apiURL += "&state=" + state;
-        log.info("URL : {}", apiURL); // @Slf4j 어노테이션 추가시 이런식으로 로그 찍기 가능
-
-//        URL url = new URL(apiURL);
-//        HttpURLConnection con = (HttpURLConnection) url.openConnection(); // 요청 연결
-        HttpURLConnection con = Template.connect(apiURL); // 요청 연결
-        int responseCode = con.getResponseCode();
-        log.info("responseCode : {}", responseCode); // 응답 코드 로그 출력
-        BufferedReader br;
-        if (responseCode == 200) {
-            br = new BufferedReader(new InputStreamReader(con.getInputStream())); // 한 줄씩 꺼낼 수 있다.
-        } else { // 에러 발생
-            br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+        String accessToken = naverAPI.getAccessToken(code, state, redirectURL);
+        Member naverMemInfo = naverAPI.getUserInfo(accessToken);
+        Map<Integer, Member> confirmResult = memberService.confirmMember(naverMemInfo);
+        int key = 0;
+        if (confirmResult.size() == 1) {
+            key = confirmResult.keySet().iterator().next();
         }
+        switch (key) {
+            case 1: // 기존 회원이 아닌경우
+                session.setAttribute("alertMsg", "회원가입이 필요합니다.");
+                session.setAttribute("authMemInfo", naverMemInfo);
+                return "redirect:/memberEnrollForm.me";
+            case 2: // 도메인이 동일한 회원이 있는 경우
+                session.setAttribute("loginMember", confirmResult.get(2));
+                session.setAttribute("alertMsg", "로그인에 성공하셨습니다.");
+                return "redirect:/";
+            case 3: // 도메인이 다른 회원이 있는 경우
+                Member confirmMember = memberService.loginMember(naverMemInfo);
+                String maskedEmail = Template.maskingEmail(confirmResult.get(3).getMemEmail());
+                request.setAttribute("resultHeader", "기존 회원 존재");
+                request.setAttribute("description", "기존에 다른 이메일로 가입하신 정보가 있습니다.");
+                request.setAttribute("body", maskedEmail);
+                return "member/searchResult";
+            default:
 
-        // 응답데이터 읽어오기
-
-        String inputLine;
-        StringBuffer res = new StringBuffer(); // String 보다 처리 방식이 빠름
-        while ((inputLine = br.readLine()) != null) {
-            res.append(inputLine);
+                session.setAttribute("alertMsg", "네이버 로그인에 실패하였습니다.");
+                return "redirect:/";
         }
-        br.close();
-        if (responseCode == 200) {
-            // 정상적으로 정보가 받아왔다면 출력
-            String result = res.toString();
-            log.info("result : {}", result);
+    }
 
-            // access_token 값 추출
-            // JSON Object로 가져온다.
-            JsonObject totalObj = JsonParser.parseString(result).getAsJsonObject();
-            String accessToken = totalObj.get("access_token").getAsString(); // 정보접근을 위한 토큰
+    /**
+     * 카카오 로그인
+     * @param code 인가 코드
+     * @param state 네이버 로그인 과정 중 동일한 값을 유지하는 임의의 문자열(CSRF 공격 보호)
+     * @param error 인가 코드 요청에 대한 에러 코드
+     * @param error_description 인가 코드 요청에 대한 에러 설명
+     * @param request
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "kakao-login")
+    public String kakaoLogin(String code, String state, String error, String error_description, HttpServletRequest request, HttpSession session) {
+        log.info("인증 코드 : {}", code);
+        log.info("응답 코드 : {}", state);
+        log.info("에러 코드 : {}", error);
+        log.info("에러 설명 : {}", error_description);
+        String accessToken = kakaoAPI.getAccessToken(code);
+        log.info("accessToken : {}", accessToken);
+        Member kakaoMemberInfo = kakaoAPI.getUserInfo(accessToken);
 
-            String header = "Bearer " + accessToken;
-
-            String infoApiURL = "https://openapi.naver.com/v1/nid/me";
-            Map<String, String> requestHeaders = new HashMap<>();
-            requestHeaders.put("Authorization", header);
-            String responseBody = get(infoApiURL, requestHeaders);
-            JsonObject memberInfo = JsonParser.parseString(responseBody).getAsJsonObject();
-            log.info("memberInfo : {}", memberInfo);
-            memberInfo = memberInfo.getAsJsonObject("response");
-            log.info("result : {}", memberInfo);
-            // 받아온 email과 데이터베이스의 email을 비교하여 가입유무 판단한 후
-            // 가입되어있다면 로그인, 가입되어있지 않다면 회원가입창으로 해당정보를 담아서 보내주면 된다.
-            String birthYear = memberInfo.get("birthyear").getAsString();
-            String birthDay = memberInfo.get("birthday").getAsString().replace("-", ".");
-            String birth = birthYear.concat(".").concat(birthDay);
-            Member m = new Member();
-            m.setMemName(memberInfo.get("name").getAsString());
-            m.setMemEmail(memberInfo.get("email").getAsString());
-            m.setMemGender(memberInfo.get("gender").getAsString());
-            m.setMemPhone(memberInfo.get("mobile").getAsString());
-            m.setMemBirth(birth);
-            log.info("네이버 회원 정보 : {}", m);
-            Map<Integer,Member> confirmResult = memberService.confirmMember(m);
-            int key = 0;
-            if(confirmResult.size() == 1){
-                key = confirmResult.keySet().iterator().next();
-            }
-            switch (key){
-                case 1: // 기존 회원이 아닌경우
-                    session.setAttribute("alertMsg", "회원가입이 필요합니다.");
-                    session.setAttribute("naverMemberInfo",m);
-                    return "redirect:/memberEnrollForm.me";
-                case 2: // 도메인이 동일한 회원이 있는 경우
-                    session.setAttribute("loginMember", confirmResult.get(2));
-                    session.setAttribute("alertMsg", "로그인에 성공하셨습니다.");
-                    return "redirect:/";
-                case 3: // 도메인이 다른 회원이 있는 경우
-                    Member confirmMember = memberService.loginMember(m);
-                    String maskedEmail = Template.maskingEmail(confirmResult.get(3).getMemEmail());
-                    request.setAttribute("resultHeader","기존 회원 존재");
-                    request.setAttribute("description","기존에 다른 이메일로 가입하신 정보가 있습니다.");
-                    request.setAttribute("body", maskedEmail);
-                    return "member/searchResult";
-                default:
-                    session.setAttribute("alertMsg", "네이버 로그인에 실패하였습니다.");
-                    return "redirect:/";
-            }
+        Map<Integer, Member> confirmResult = memberService.confirmMember(kakaoMemberInfo);
+        int key = 0;
+        if (confirmResult.size() == 1) {
+            key = confirmResult.keySet().iterator().next();
         }
-        return "redirect:/";
+        switch (key) {
+            case 1: // 기존 회원이 아닌경우
+                session.setAttribute("alertMsg", "회원가입이 필요합니다.");
+                session.setAttribute("authMemInfo", kakaoMemberInfo);
+                return "redirect:/memberEnrollForm.me";
+            case 2: // 도메인이 동일한 회원이 있는 경우
+                session.setAttribute("loginMember", confirmResult.get(2));
+                session.setAttribute("alertMsg", "로그인에 성공하셨습니다.");
+                return "redirect:/";
+            case 3: // 도메인이 다른 회원이 있는 경우
+                Member confirmMember = memberService.loginMember(kakaoMemberInfo);
+                String maskedEmail = Template.maskingEmail(confirmResult.get(3).getMemEmail());
+                request.setAttribute("resultHeader", "기존 회원 존재");
+                request.setAttribute("description", "기존에 다른 이메일로 가입하신 정보가 있습니다.");
+                request.setAttribute("body", maskedEmail);
+                return "member/searchResult";
+            default:
+                session.setAttribute("alertMsg", "네이버 로그인에 실패하였습니다.");
+                return "redirect:/";
+        }
     }
 
     /**
@@ -357,47 +362,49 @@ public class MemberController {
 
     /**
      * Email 찾기
+     *
      * @param memInfo 기본 정보(memName, memBirth)
      * @param session
      * @param request
      * @return
      */
     @PostMapping(value = "searchId.me")
-    public String searchId(MemberEnrollDto memInfo,HttpSession session, HttpServletRequest request) {
+    public String searchId(MemberEnrollDto memInfo, HttpSession session, HttpServletRequest request) {
         String email = memberService.searchEmail(memInfo);
-        if(email != null){
+        if (email != null) {
             request.setAttribute("resultHeader", "이메일 찾기");
-            request.setAttribute("description","조회하신 이메일");
-            request.setAttribute("body",email);
+            request.setAttribute("description", "조회하신 이메일");
+            request.setAttribute("body", email);
             return "member/searchResult";
-        }else{
-            session.setAttribute("alertMsg","가입된 회원이 존재하지 않습니다.");
+        } else {
+            session.setAttribute("alertMsg", "가입된 회원이 존재하지 않습니다.");
             return "redirect:/searchInfo.me";
         }
     }
 
     /**
      * 임시 비밀번호 발급
+     *
      * @param memInfo 기본 정보(memEmail, memName)
      * @param session
      * @param request
      * @return
      */
     @PostMapping(value = "searchPwd.me")
-    public String searchPwd(MemberEnrollDto memInfo, HttpSession session,HttpServletRequest request) {
+    public String searchPwd(MemberEnrollDto memInfo, HttpSession session, HttpServletRequest request) {
         String tempPwd = createTmpPwd();
         String encPwd = bCryptPasswordEncoder.encode(tempPwd); // 비밀번호 암호화
         memInfo.setMemPwd(encPwd);
         int result = memberService.updatePwd(memInfo);
-        if(result > 0){
+        if (result > 0) {
             boolean success = mailService.tmpPwdIssue(tempPwd, memInfo.getMemEmail());
-        }else{
-            session.setAttribute("alertMsg","임시 비밀번호 발급에 실패했습니다. 다시 시도해주세요.");
+        } else {
+            session.setAttribute("alertMsg", "임시 비밀번호 발급에 실패했습니다. 다시 시도해주세요.");
             return "redirect:/searchInfo.me";
         }
         request.setAttribute("resultHeader", "임시 비밀번호 발급 되었습니다.");
-        request.setAttribute("description","이메일을 확인해주세요.");
-        request.setAttribute("body","발급된 임시 비밀번호는 꼭 수정해주세요.");
+        request.setAttribute("description", "이메일을 확인해주세요.");
+        request.setAttribute("body", "발급된 임시 비밀번호는 꼭 수정해주세요.");
         return "member/searchResult";
     }
 }
