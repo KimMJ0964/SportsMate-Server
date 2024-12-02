@@ -1,5 +1,8 @@
 package com.kh.sportsmate.stadium.model.dto;
 
+import java.util.List;
+
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,4 +39,7 @@ public class StadiumDetail {
     private String smoke; // 흡연 구역 유무
     private String park; // 주차장 유무
     private String drink; // 음료 구비 유무
+    
+    // StadiumReview 정보
+    private List<StadiumReviewDto> reviews;
 }

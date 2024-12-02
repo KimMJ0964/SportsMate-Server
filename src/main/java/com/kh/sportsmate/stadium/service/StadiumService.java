@@ -1,12 +1,12 @@
 package com.kh.sportsmate.stadium.service;
 
-import java.sql.Time;
 import java.util.List;
 
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetail; 
 
 public interface StadiumService {
 	
@@ -25,4 +25,10 @@ public interface StadiumService {
 	
 	// 경기장 상세 정보 가져오기
 	StadiumDetail getStadiumDetail(int stadiumNo);
+	
+	// 페이징된 리뷰 조회
+	List<StadiumReviewDto> getPagedReviewsByStadiumNo(int stadiumNo, int currentPage, int boardLimit);
+	
+	// 전체 리뷰 개수 조회
+	int getReviewCount(int stadiumNo);
 }

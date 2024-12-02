@@ -321,4 +321,28 @@
             S.STADIUM_NO = #{stadiumNo}
 </select>
 
+<!-- 리뷰 조회 -->
+<select id="selectReviewsByStadiumNo" parameterType="map" resultType="StadiumReviewDto">
+	SELECT
+        SR.REVIEW_NO AS reviewNo,
+        SR.STADIUM_NO AS stadiumNo,
+        SR.MEM_NO AS memNo,
+        M.MEM_NAME AS memName,
+        SR.REVIEW_STAR AS reviewStar,
+        SR.REVIEW_CONTENT AS reviewContent,
+        SR.REVIEW_DATE AS reviewDate
+    FROM STADIUM_REVIEW SR
+    JOIN MEMBER M ON SR.MEM_NO = M.MEM_NO
+    WHERE SR.STADIUM_NO = #{stadiumNo}
+    ORDER BY SR.REVIEW_DATE DESC
+    LIMIT #{offset}, #{limit}
+</select>
+
+<!-- 전체 리뷰 개수 조회 -->
+<select id="selectReviewCountByStadiumNo" parameterType="int" resultType="int">
+    SELECT COUNT(*)
+    FROM STADIUM_REVIEW
+    WHERE STADIUM_NO = #{stadiumNo}
+</select>
+
 </mapper>

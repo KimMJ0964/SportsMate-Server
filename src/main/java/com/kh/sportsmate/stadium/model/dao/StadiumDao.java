@@ -1,18 +1,20 @@
 package com.kh.sportsmate.stadium.model.dao;
 
-import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
-import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
-import com.kh.sportsmate.stadium.model.vo.Amenities;
-import com.kh.sportsmate.stadium.model.vo.Rental;
-import com.kh.sportsmate.stadium.model.vo.Stadium;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.vo.Amenities;
+import com.kh.sportsmate.stadium.model.vo.Rental;
+import com.kh.sportsmate.stadium.model.vo.Stadium;
 
 /**
  * packageName    : com.kh.sportsmate.stadium.model.dao
@@ -55,6 +57,20 @@ public class StadiumDao {
     // 특정 stadiumNo로 경기장 디테일 정보 조회
     public StadiumDetail getStadiumDetail(SqlSessionTemplate sqlSession, int stadiumNo) {
     	return sqlSession.selectOne("stadiumMapper.getStadiumDetail", stadiumNo);
+    }
+    
+    // 리뷰 페이징 조회
+    public List<StadiumReviewDto> selectReviewsByStadiumNo(SqlSessionTemplate sqlSession, int stadiumNo, int offset, int limit) {
+    	Map<String, Object> params = new HashMap<>();
+    	params.put("stadiumNo", stadiumNo);
+    	params.put("offset", offset);
+    	params.put("limit", limit);
+    	return sqlSession.selectList("stadiumMapper.selectReviewsByStadiumNo", params);
+    }
+    
+    // 전체 리뷰 개수 조회
+    public int selectReviewCountByStadiumNo(SqlSessionTemplate sqlSession, int stadiumNo) {
+    	 return sqlSession.selectOne("stadiumMapper.selectReviewCountByStadiumNo", stadiumNo);
     }
     
     // 변경해야될사항!

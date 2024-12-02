@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
-import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
+import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.stadium.service.StadiumService;
 
 @CrossOrigin
@@ -72,18 +73,33 @@ public class stadiumController {
     public String getStadiumDetail(
     		@RequestParam("stadiumNo") int stadiumNo,
     		@RequestParam(value = "selectedDate", required = false) String selectedDate,
+    		@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
     		Model model) {
     	
-    	// Service 호출하여 경기장 상세 정보 가져오기
-    	StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
-    	
-    	// 모델에 데이터 추가
-    	model.addAttribute("stadiumDetail", stadiumDetail);
-    	model.addAttribute("selectedDate", selectedDate);
-    	model.addAttribute("stadiumNo", stadiumNo);
-    	
-    	// 뷰로 이동
-    	return "stadium/detail";
+        // 게시글 개수 조회
+        int listCount = stadiumService.getReviewCount(stadiumNo);
+
+        // PageInfo 생성
+        int pageLimit = 10; // 페이징바 최대 개수
+        int boardLimit = 5; // 한 페이지에 보여질 리뷰 개수
+        PageInfo pi = Template.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+
+        // 리뷰 리스트 조회
+        List<StadiumReviewDto> reviews = stadiumService.getPagedReviewsByStadiumNo(stadiumNo, currentPage, boardLimit);
+
+        // 경기장 상세 정보 가져오기
+        StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
+        stadiumDetail.setReviews(reviews);
+
+        // 모델에 데이터 추가
+        model.addAttribute("stadiumDetail", stadiumDetail);
+        model.addAttribute("selectedDate", selectedDate);
+        model.addAttribute("stadiumNo", stadiumNo);
+        model.addAttribute("reviews", reviews);
+        model.addAttribute("pi", pi);
+
+        // 뷰로 이동
+        return "stadium/detail";
     }
     
     @RequestMapping("searchStadium.st")
