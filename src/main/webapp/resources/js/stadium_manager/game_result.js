@@ -79,4 +79,52 @@ document.querySelectorAll('.star-container').forEach(container => {
     });
 });
 
+const getRating = () => {
+    const memArr = document.querySelectorAll('.star-container'); // 모든 star-container 요소 선택
+    const memData = []; // 결과를 저장할 객체 배열
 
+    memArr.forEach(element => {
+        const memNo = element.getAttribute('data-memNo'); // data-memNo 값을 가져옴
+        const rating = element.getAttribute('data-rating'); // data-rating 값을 가져옴
+        const isSkill = element.classList.contains('skill'); // skill인지 확인
+        const isManner = element.classList.contains('manner'); // manner인지 확인
+
+        // 배열에서 해당 memNo 객체를 찾기
+        let memObj = memData.find(item => item.memNo === memNo);
+
+        if (!memObj) {
+            // 해당 memNo 객체가 없으면 새로 추가
+            memObj = { memNo: memNo, skill: null, manner: null };
+            memData.push(memObj);
+        }
+
+        // skill 또는 manner 값 설정
+        if (isSkill) {
+            memObj.skill = rating;
+        } else if (isManner) {
+            memObj.manner = rating;
+        }
+    });
+
+    console.log(memData); // 결과 출력
+    return memData; // 결과 객체 배열 반환
+};
+
+const clickRegisterBtn = () =>{
+    setGameResult(getRating(),()=>{
+        // location.href = 'gamefinish.me';
+    })
+}
+const setGameResult = (data, callBack)=>{
+    $.ajax({
+        url: "game_result.gp",
+        method: "POST",
+        data : data,
+        contentType:"application/json",
+        data: JSON.stringify(data),
+        success: callBack(),
+        error:()=>{
+            console.log("경기 결과 작성 AJAX 요청 실패");
+        }
+    })
+}

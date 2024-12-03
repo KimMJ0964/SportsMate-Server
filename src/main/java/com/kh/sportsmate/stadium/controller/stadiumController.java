@@ -2,17 +2,17 @@ package com.kh.sportsmate.stadium.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.kh.sportsmate.stadium.model.dto.Rating;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.common.template.Template;
@@ -22,6 +22,7 @@ import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.service.StadiumService;
 
 @CrossOrigin
+@Slf4j
 @Controller
 public class stadiumController {
 	
@@ -119,5 +120,12 @@ public class stadiumController {
     @RequestMapping("/detail.st")
     public String showStadiumdatil() {
         return "stadium/detail";
+    }
+
+    @ResponseBody
+    @PostMapping(value = "game_result.gp")
+    public String gameResult(@RequestBody List<Rating> ratingList){
+        log.info("전달받은 rating : {}",ratingList);
+        return "XXXXY";
     }
 }
