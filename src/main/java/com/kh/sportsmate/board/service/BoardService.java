@@ -89,7 +89,7 @@ public interface BoardService {
 	int updateBoardFile(BoardFile bf);
 	
 	// 게시글 주인 확인
-	Integer checkBoardMember(Map<String, String> map);
+	int checkBoardMember(int bno);
 	
 	// 게시글 검색 수
 	int searchListCount(Map<String, String> map);

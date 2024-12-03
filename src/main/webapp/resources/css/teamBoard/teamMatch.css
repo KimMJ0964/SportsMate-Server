@@ -26,6 +26,11 @@
 	width: 20%;
 }
 
+.team-match-matchingRecord td {
+	border-bottom: 1px solid #ccc;
+	height: 65px;
+}
+
 .matchRefundBtn {
 	background-color: #dc3545;
 	border-style: none;

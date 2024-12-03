@@ -35,27 +35,35 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>${willMatch.stadiumName}</td>
-							<td>${willMatch.enemyTeamName }</td>
-							<td>${willMatch.enemyTeamPoint }</td>
-							<td><c:if test="${memNo != null && memNo == leaderNo}">
-									<button class="matchRefundBtn" data-bs-toggle="modal"
-										data-bs-target="#refundModal">환불하기</button>
-								</c:if></td>
-							<td>
-								<c:choose>
-									<c:when test="${willMatch.status eq 'Y'}">
-										 <img src="${pageContext.request.contextPath}/resources/images/qnaCheck.png" alt="Checked"/>
-									</c:when>
-									<c:when test="${willMatch.status eq 'N'}">								
-										<img src="${pageContext.request.contextPath}/resources/images/qnaUnCheck.png" alt="Checked"/>
-									</c:when>
-									<c:otherwise>
-									</c:otherwise>
-								</c:choose>
-							</td>
-						</tr>
+						<c:forEach var="wm" items="${willMatch }">
+							<tr>
+								<td>${wm.stadiumName}</td>
+								<td>${wm.enemyTeamName }</td>
+								<td>${wm.enemyTeamPoint }</td>
+								<td><c:if test="${memNo != null && memNo == leaderNo}">
+										<button class="matchRefundBtn" data-bs-toggle="modal"
+											data-bs-target="#refundModal"
+											onclick="setMatchNo(${wm.matchNo})">환불하기</button>
+									</c:if></td>
+								<td><c:choose>
+										<c:when test="${wm.status eq 'Y'}">
+											<img
+												src="${pageContext.request.contextPath}/resources/images/qnaCheck.png"
+												alt="Checked" />
+										</c:when>
+										<c:when test="${wm.status eq 'N'}">
+											<img
+												src="${pageContext.request.contextPath}/resources/images/qnaUnCheck.png"
+												alt="Checked" />
+										</c:when>
+										<c:otherwise>
+											<img
+												src="${pageContext.request.contextPath}/resources/images/noneCheck.png"
+												alt="Checked" />
+										</c:otherwise>
+									</c:choose></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -244,9 +252,10 @@
 						</div>
 						<div class="modal-footer">
 							<!-- 숨겨진 input으로 boardNo와 comNo 값을 전달 -->
-							<input type="hidden" id="refund-teamNo" name="tno" value="${tno}">
-							<input type="hidden" id="refund-matchNo" name="matchNo" value="${willMatch.matchNo}">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+							<input type="hidden" id="refund-matchQnaNo" name="matchNo">
+							<input type="hidden" id="refund-tno" name="tno" value="${tno }">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">닫기</button>
 							<button type="submit" class="btn btn-primary">작성 완료</button>
 						</div>
 					</form>
@@ -255,5 +264,7 @@
 		</div>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/teamBoard/teamMatch.js"></script>
 </body>
 </html>

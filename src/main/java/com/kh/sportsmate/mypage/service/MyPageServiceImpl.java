@@ -25,6 +25,7 @@ import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.mypage.model.dao.MyPageDao;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -276,7 +277,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
-	public ArrayList<MatchQna> selectMyQna(int memNo) {
+	public ArrayList<StadiumQna> selectMyQna(int memNo) {
 		return mypageDao.selectMyQna(sqlSession, memNo);
 	}
 

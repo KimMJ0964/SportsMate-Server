@@ -1,21 +1,24 @@
 package com.kh.sportsmate.stadium.model.dao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Repository;
-
-import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
+
+import org.apache.ibatis.session.RowBounds;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * packageName    : com.kh.sportsmate.stadium.model.dao
@@ -84,4 +87,19 @@ public class StadiumDao {
     	return sqlSession.selectOne("stadiumMapper.selectStadiumById", stadiumNo);
     }
     
+    public int selectInquiryCount(SqlSessionTemplate sqlSession, int memNo) {
+    	return sqlSession.selectOne("stadiumMapper.selectInquiryCount", memNo);
+    }
+    
+    public ArrayList<StadiumQna> inquiryList(SqlSessionTemplate sqlSession, int memNo, PageInfo pi) {
+    	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+    	
+    	return (ArrayList) sqlSession.selectList("stadiumMapper.inquiryList", memNo, rowBounds);
+    }
+    
+    public int inquiryUpdate(SqlSessionTemplate sqlSession, StadiumQna sq) {
+    	return sqlSession.update("stadiumMapper.inquiryUpdate", sq);
+    }
 }

@@ -240,6 +240,7 @@
 		)
     </insert>
     
+<<<<<<< HEAD
    <select id="getSearchResultCount" parameterType="map" resultType="int">
     SELECT COUNT(*) 
     FROM STADIUM
@@ -365,4 +366,33 @@
 	WHERE
 		TM.TEAM_NO = #{teamNo} -- 팀 번호로 조회
 </select>
+=======
+    <!-- 문의 리스트 갯수 -->
+    <select id="selectInquiryCount" resultType="_int">
+    	SELECT COUNT(*)
+		FROM STADIUM_QNA sq
+		JOIN STADIUM s ON sq.STADIUM_NO = s.STADIUM_NO
+		WHERE s.MEM_NO = #{memNo}
+    </select>
+    
+    <!-- 문의 리스트 -->
+    <select id="inquiryList" resultType="StadiumQna">
+    	SELECT sq.MATCH_QNA_NO as matchQnaNo,
+   				sq.MATCH_Q_TITLE as matchQTitle,
+   				sq.MATCH_Q_DETAIL as matchQDetail,
+   				sq.MATCH_A as matchA,
+   				sq.MATCH_QNA_DATE as matchQnaDate
+		FROM STADIUM_QNA sq
+		JOIN STADIUM s ON sq.STADIUM_NO = s.STADIUM_NO
+		WHERE s.MEM_NO = #{memNo}
+		ORDER BY MATCH_QNA_NO DESC;
+    </select>
+    
+    <!-- 문의 답변 -->
+    <update id="inquiryUpdate">
+    	UPDATE STADIUM_QNA
+		SET MATCH_A = #{matchA}
+		WHERE MATCH_QNA_NO = #{matchQnaNo};
+    </update>
+>>>>>>> 98cf04ea3bfb76db7ccbf306abbc238f356feb34
 </mapper>

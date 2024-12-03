@@ -26,7 +26,14 @@
             
             <!-- 3. 닉네임 / 게시일 / 조회수 -->
             <div class="bd-meta-info">
-                ${teamBoard.memName } / ${teamBoard.createDate } / ${teamBoard.view }
+                <c:choose>
+					<c:when test="${not empty teamBoard.modifyDate}">
+						${teamBoard.memName } / ${teamBoard.modifyDate }(수정됨) / ${teamBoard.view }
+					</c:when>
+					<c:otherwise>
+						${teamBoard.memName } / ${teamBoard.createDate } / ${teamBoard.view }
+					</c:otherwise>
+				</c:choose>
             </div>
         </div>
         

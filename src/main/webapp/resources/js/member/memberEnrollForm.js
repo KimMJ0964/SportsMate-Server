@@ -10,12 +10,12 @@ let timerId = null; // 타이머 ID를 전역에서 관리
 
 $(document).ready(function () {
     toggleSubmit();
+    setDateSelectBox();
     // 소셜 회원가입의 경우 이메일 중복 여부 자동 체크
     if($('#auto_email').val().length > 8){
         handleEmailCheckResult('NNNNY');
     }
     $('#profileImg').on('click', profileUpload);
-    setDateSelectBox();
 
     // 종목 체크박스 클릭 시 해당 info div 표시/숨김 처리
     $('input[type="checkbox"][name="category"]').on('change', function () {

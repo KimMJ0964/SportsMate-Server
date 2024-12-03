@@ -18,6 +18,7 @@ import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -227,7 +228,7 @@ public class MyPageDao {
      * @param memNo
      * @return
      */
-	public ArrayList<MatchQna> selectMyQna(SqlSessionTemplate sqlSession, int memNo) {
+	public ArrayList<StadiumQna> selectMyQna(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyQna", memNo);
 	}
 	

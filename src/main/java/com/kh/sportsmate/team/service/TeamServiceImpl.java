@@ -562,7 +562,7 @@ public class TeamServiceImpl implements TeamService {
 	 * @return
 	 */
 	@Override
-	public Integer checkTeamMember(Map<String, String> map) {
+	public int checkTeamMember(Map<String, Integer> map) {
 		return teamDao.checkTeamMember(sqlSession, map);
 	}
 	
@@ -603,7 +603,7 @@ public class TeamServiceImpl implements TeamService {
 	 * @return
 	 */
 	@Override
-	public TeamMatchInfoDto willMatch(int tno) {
+	public ArrayList<TeamMatchInfoDto> willMatch(int tno) {
 		return teamDao.willMatch(sqlSession, tno);
 	}
 
@@ -628,6 +628,11 @@ public class TeamServiceImpl implements TeamService {
 			return result;
 		}
 		
+	}
+
+	@Override
+	public int teamClosing(int tno) {
+		return teamDao.teamClosing(sqlSession, tno);
 	}
 	
 }

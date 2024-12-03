@@ -430,7 +430,7 @@ public class TeamDao {
      * @param sqlSession
      * @param map
      */
-    public Integer checkTeamMember(SqlSessionTemplate sqlSession, Map<String, String> map) {
+    public int checkTeamMember(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
     	return sqlSession.selectOne("teamMapper.checkTeamMember", map);
     }
     
@@ -472,8 +472,8 @@ public class TeamDao {
      * @param tno
      * @param sqlSession
      */
-    public TeamMatchInfoDto willMatch(SqlSessionTemplate sqlSession, int tno) {
-    	return sqlSession.selectOne("teamMapper.willMatch", tno);
+    public ArrayList<TeamMatchInfoDto> willMatch(SqlSessionTemplate sqlSession, int tno) {
+    	return (ArrayList) sqlSession.selectList("teamMapper.willMatch", tno);
     }
     
     /**
@@ -496,5 +496,14 @@ public class TeamDao {
      */
     public int teamMatchRefund(SqlSessionTemplate sqlSession, MatchRefund mr) {
     	return sqlSession.insert("teamMapper.teamMatchRefund", mr);
+    }
+    
+    /**
+     * 구단 폐쇄
+     * @param tno
+     * @param sqlSession
+     */
+    public int teamClosing(SqlSessionTemplate sqlSession, int tno) {
+    	return sqlSession.update("teamMapper.teamClosing", tno);
     }
 }
