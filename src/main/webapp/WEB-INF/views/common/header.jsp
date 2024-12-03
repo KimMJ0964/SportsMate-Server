@@ -19,7 +19,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="${pageContext.request.contextPath}/resources/css/common/header.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/common/modal.css" rel="stylesheet" >
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <style>
     </style>
@@ -48,15 +47,15 @@
             <c:choose>
                 <c:when test="${loginMember.memStatus.equals('A')}">
                     <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
-                         alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+                         alt="" onclick="location.href = '${pageContext.request.contextPath}/adminPage.me'">
                 </c:when>
                 <c:when test="${loginMember.memStatus.equals('M')}">
                     <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
-                         alt="" onclick="location.href = '${pageContext.request.contextPath}/loginForm.me'">
+                         alt="" onclick="location.href = '${pageContext.request.contextPath}/managermypage.me'">
                 </c:when>
                 <c:when test="${loginMember.memStatus.equals('Y')}">
                     <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"
-                         alt="" onclick="location.href = '${pageContext.request.contextPath}/myPage.me'">
+                         alt="" onclick="location.href = '${pageContext.request.contextPath}/myPageInfo.mp'">
                 </c:when>
                 <c:otherwise>
                     <img src="${pageContext.request.contextPath}/resources/images/user_profile.png" class="user-img"

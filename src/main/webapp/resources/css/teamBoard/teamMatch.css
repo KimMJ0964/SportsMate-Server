@@ -1,0 +1,121 @@
+@charset "UTF-8";
+
+#team-match-container {
+	min-height: 50vh;	
+}
+
+/* ===================== 진행할 매칭 ===================== */
+.team-match-matchingRecord {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.team-match-matchingRecord th {
+	border-bottom: 2px solid #000;
+	padding: 10px;
+	text-align: center;
+}
+
+.team-match-matchingRecord td {
+	padding: 8px;
+	text-align: center;
+}
+
+.team-match-matchingRecord th, .team-match-matchingRecord td {
+	width: 20%;
+}
+
+.team-match-matchingRecord td {
+	border-bottom: 1px solid #ccc;
+	height: 65px;
+}
+
+.matchRefundBtn {
+	background-color: #dc3545;
+	border-style: none;
+	color: white;
+	border-radius: 8px;
+	height: 35px;
+}
+
+#team-match-matchingList h3 {
+	margin-left: 20px;
+}
+
+/* ===================== 내 전적 ===================== */
+.team-match-matchedRecord {
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+.team-match-matchedRecord thead tr {
+	border-bottom: 2px solid #c8c8c8;
+	font-size: 20px;
+	height: 60px;
+}
+
+.team-match-matchedRecord tbody tr {
+	border-bottom: 1px solid #ccc;
+	height: 65px;
+}
+
+.team-cell img {
+	width: 32px;
+	height: 32px;
+	border-radius: 50px;
+}
+
+#team-match-matchedList h3 {
+	margin-left: 20px;
+}
+
+/* 랭킹 */
+.team-match-matchedRecord th:nth-child(1), .team-match-matchedRecord td:nth-child(1)
+	{
+	width: 8%;
+}
+
+/* 내 구단 */
+.team-match-matchedRecord th:nth-child(2), .team-match-matchedRecord td:nth-child(2)
+	{
+	width: 30%;
+}
+
+/* 점수 */
+.team-match-matchedRecord th:nth-child(3), .team-match-matchedRecord td:nth-child(3)
+	{
+	width: 5%;
+}
+
+/* VS */
+.team-match-matchedRecord th:nth-child(4), .team-match-matchedRecord td:nth-child(4)
+	{
+	width: 6%;
+}
+
+/* 점수 */
+.team-match-matchedRecord th:nth-child(5), .team-match-matchedRecord td:nth-child(5)
+	{
+	width: 5%;
+}
+
+/* 상대 구단 */
+.team-match-matchedRecord th:nth-child(6), .team-match-matchedRecord td:nth-child(6)
+	{
+	width: 30%;
+}
+
+/* 랭킹 */
+.team-match-matchedRecord th:nth-child(7), .team-match-matchedRecord td:nth-child(7)
+	{
+	width: 8%;
+}
+
+@media (max-width: 425px) {
+	.team-match-matchedRecord thead tr {
+		font-size: 14px;
+	}
+}

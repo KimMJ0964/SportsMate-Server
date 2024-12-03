@@ -35,16 +35,29 @@
         <div id="enroll-wrap">
             <form action="manager_enroll.me" class="enroll-form" method="post" enctype="multipart/form-data" >
                 <div class="input-wrap">
-                    <span class="form-title">이메일</span> <br>
-                    <input type="email" name="memEmail" placeholder="이메일을 입력해주세요.">
+                    <div class="email-container">
+                        <input type="email" class="email"  name="memEmail" placeholder="이메일을 입력해주세요.">
+                        <button type="button" class="email-auth-btn" id="send-mail-btn"
+                                onclick="authCodeSendBtnClick()">인증번호 전송
+                        </button>
+                    </div>
+                    <span id="emailCheckResult" class="hide"></span>
+                    <div class="check-auth-code-container-hide" id="check-auth-code-container">
+                        <input type="number" id="auth-code" placeholder="인증번호 6자리를 입력하세요.">
+                        <button type="button" class="email-auth-btn" id="auth-code-btn" onclick="authCodeCheckBtnClick()">인증번호 확인
+                        </button>
+                        <span id="timer"></span>
+                    </div>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">비밀번호</span><br>
                     <input type="password" name="memPwd" placeholder="비밀번호를 입력해주세요.">
+                    <span id="checkPwdCondition"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">비밀번호 확인</span><br>
                     <input type="password" name="pwdCheck" placeholder="비밀번호를 한 번 더 입력해주세요.">
+                    <span id="checkPwdResult"></span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">이름</span><br>
@@ -81,17 +94,13 @@
                             </select>
                         </div>
                         <div class="month-wrap">
-                            <input type="number" name="phone2" id="phone2" maxlength="4">
+                            <input type="number" name="phone2" id="phone2" oninput="this.value = this.value.slice(0, 4)" >
                         </div>
                         <div class="day-wrap">
-                            <input type="number" name="phone3" id="phone3" maxlength="4">
+                            <input type="number" name="phone3" id="phone3" oninput="this.value = this.value.slice(0, 4)">
                         </div>
                     </div>
                 </div>
-<%--                <div class="input-wrap">--%>
-<%--                    <span class="form-title">주소</span><br>--%>
-<%--                    <input type="text" name="memAdd" placeholder="주소를 입력해주세요.">--%>
-<%--                </div>--%>
                 <div class="input-wrap">
                     <span class="form-title">주소</span> <br>
                     <div class="address-container">
@@ -215,15 +224,12 @@
                     <input type="checkbox" name="privacyAgreement" id="privacy-agreement" class="agreement"> 개인정보 수집 및
                     이용 동의 (필수)
                 </div>
-
                 <div class="submit-btn">
-                    <button type="submit" disabled class="none-clickable">회원가입</button>
+                    <button type="submit" id="submitBtn" disabled class="none-clickable">회원가입</button>
                 </div>
 
             </form>
         </div>
-    </div>
-
     </div>
 </body>
 </html>

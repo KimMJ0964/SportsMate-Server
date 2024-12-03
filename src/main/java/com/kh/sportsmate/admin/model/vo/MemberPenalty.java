@@ -26,7 +26,9 @@ public class MemberPenalty {
 	private String pnGround;
 	private String pnCommunity;
 	private String pnComment;
+	private String pnTeam;
 	private String pnType;
 	private String stadiumName;
+	private String pnStatus;
 	
 }

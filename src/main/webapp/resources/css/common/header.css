@@ -48,7 +48,7 @@
 }
 
 #search-bar-form input:focus{
-    outline-style: none;
+	outline-style: none;
 }
 
 #search-bar-form button{

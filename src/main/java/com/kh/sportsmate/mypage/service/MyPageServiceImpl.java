@@ -9,21 +9,25 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
-import com.kh.sportsmate.member.model.dto.MemberPosition;
+import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Category;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.mypage.model.dao.MyPageDao;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 
@@ -39,76 +43,160 @@ public class MyPageServiceImpl implements MyPageService{
 	@Autowired
 	private final MyPageDao mypageDao;
 	
-	// 내 정보
+	@Autowired
+	private final AttachmentDao attachmentDao;
+	
+	/**
+     * 내 정보
+     *
+     * @param memNo
+     * @return
+     */
 	@Override
-	public MemberPosition selectMyInfo(int memNo) {
+	public MemberPositionDto selectMyInfo(int memNo) {
 		return mypageDao.selectMyInfo(sqlSession, memNo);
 	}
 	
-	// 내 구단
+	/**
+     * 내 구단
+     *
+     * @param memNo
+     * @return
+     */
 	@Override
-	public ArrayList<Team> selectMyTeam(int memNo) {
+	public ArrayList<MyTeamDto> selectMyTeam(int memNo) {
 		return mypageDao.selectMyTeam(sqlSession, memNo);
 	}
 
-	// 내 구단 입단 명단자
+	/**
+     * 내 구단 입단자 명단
+     *
+     * @param memNo
+     * @return
+     */
 	@Override
 	public ArrayList<Recruit> selectMyRecruit(int memNo) {
 		return mypageDao.selectMyRecruit(sqlSession, memNo);
 	}
 	
-	// 내 전적
+	/**
+     * 내 전적
+     *
+     * @param memNo
+     * @return
+     */
 	@Override
-	public ArrayList<Match> selectMyMatch(int memNo) {
+	public ArrayList<MyMatch> selectMyMatch(int memNo) {
 		return mypageDao.selectMyMatch(sqlSession, memNo);
 	}
 
-	// 내 전적 판 수
+	/**
+     * 내 전적 판 수
+     *
+     * @param memNo
+     * @return
+     */
 	@Override
 	public int selectMyMatchCount(int memNo) {
 		return mypageDao.selectMyMatchCount(sqlSession, memNo);
 	}
-
+	
+	/**
+     * 내 전적 이긴 수
+     *
+     * @param memNo
+     * @return
+     */
 	@Override
 	public int selectMyMatchWinCount(int memNo) {
 		return mypageDao.selectMyMatchWinCount(sqlSession, memNo);
 	}
-
+	
+	/**
+     * 전적 A팀 정보
+     *
+     * @param teamANo
+     * @return
+     */
 	@Override
-	public ArrayList<MemberPosition> selectATeamInfo(int teamANo) {
+	public ArrayList<MemberPositionDto> selectATeamInfo(int teamANo) {
 		return mypageDao.selectATeamInfo(sqlSession, teamANo);
 	}
-
+	
+	/**
+     * 전적 B팀 정보
+     *
+     * @param teamBNo
+     * @return
+     */
 	@Override
-	public ArrayList<MemberPosition> selectBTeamInfo(int teamBNo) {
+	public ArrayList<MemberPositionDto> selectBTeamInfo(int teamBNo) {
 		return mypageDao.selectBTeamInfo(sqlSession, teamBNo);
 	}
-
+	
+	/**
+     * 구장 리뷰
+     *
+     * @param pr
+     * @return
+     */
 	@Override
 	public int insertPReview(StadiumReview pr) {
 		return mypageDao.insertPReview(sqlSession, pr);
 	}
-
+	
+	/**
+     * 베스트 플레이어 선택
+     *
+     * @param map
+     * @return
+     */
 	@Override
 	public int bestPlayerChoice(Map<String, Integer> map) {
 		return mypageDao.bestPlayerChoice(sqlSession, map);
 	}
-
+	
+	/**
+     * 베스트 플레이어 투표
+     *
+     * @param map
+     * @return
+     */
 	@Override
 	public int bestPlayerVote(Map<String, Integer> map) {
 		return mypageDao.bestPlayerVote(sqlSession, map);
 	}
-
+	
+	/**
+     * 내 프로필 정보
+     *
+     * @param memNo
+     * @return
+     */
 	@Override
 	public Profile selectMyProfile(int memNo) {
 		return mypageDao.selectMyProfile(sqlSession, memNo);
 	}
-
+	
+	/**
+     * 내 정보 출력
+     *
+     * @param memNo
+     * @return
+     */
 	@Override
 	public MemberModifyDto myInfoList(int memNo) {
 		return mypageDao.myInfoList(sqlSession, memNo);
 	}
-
+	
+	/**
+     * 내 정보 수정
+     *
+     * @param m
+     * @param profile
+     * @param session
+     * @return
+     */
 	@Override
 	public int modifyMember(MemberEnrollDto m, Profile profile, HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -117,7 +205,7 @@ public class MyPageServiceImpl implements MyPageService{
 		int result1 = 0;
         int result2 = 1;
         int result3 = 0;
-        String memAdd = m.getMemberBaseAdd() + " " + m.getMemberDetailAdd();
+        String memAdd = m.getMemberBaseAdd() + " , " + m.getMemberDetailAdd();
         String memBirth = m.getYear() + "." + m.getMonth() + "." + m.getDay(); // 생년월일 concatenate
         String memPhone = m.getPhone1() + "-" + m.getPhone2() + "-" + m.getPhone3(); // 전화번호
         Member processedMember = new Member(m.getMemEmail(), m.getMemPwd(), m.getMemName(),
@@ -129,6 +217,9 @@ public class MyPageServiceImpl implements MyPageService{
         if (profile != null) {
             profile.setMemNo(processedMember.getMemNo());
             result2 = mypageDao.modifyProfile(sqlSession, profile);
+            if(result2 == 0) {
+            	result2 = attachmentDao.insertProfile(sqlSession, profile);
+            }
         }
 
         // 종목 관련 내용을 담을 객체
@@ -144,27 +235,58 @@ public class MyPageServiceImpl implements MyPageService{
         System.out.println("내 카테고리 수정 : " + result3);
         return result1 * result2 * result3;
 	}
-
+	
+	/**
+     * 옛날 비밀번호 확인
+     *
+     * @param memNo
+     * @param memPwd
+     * @return
+     */
 	@Override
 	public boolean verifyOldPassword(int memNo, String memPwd) {
 		return mypageDao.verifyOldPassword(sqlSession, memNo, memPwd);
 	}
-
+	
+	/**
+     * 비밀번호 수정
+     *
+     * @param map
+     * @return
+     */
 	@Override
 	public int updatePassword( Map<String, String> map) {
 		return mypageDao.updatePassword(sqlSession, map);
 	}
-
+	
+	/**
+     * 계정 탈톼
+     *
+     * @param memNo
+     * @return
+     */
 	@Override
 	public int accountCancel(int memNo) {
 		return mypageDao.accountCancel(sqlSession, memNo);
 	}
-
+	
+	/**
+     * 내 문의 목록
+     *
+     * @param memNo
+     * @return
+     */
 	@Override
-	public ArrayList<MatchQna> selectMyQna(int memNo) {
+	public ArrayList<StadiumQna> selectMyQna(int memNo) {
 		return mypageDao.selectMyQna(sqlSession, memNo);
 	}
 
+	/**
+     * 리뷰 작성 여부
+     *
+     * @param map
+     * @return
+     */
 	@Override
 	public MatchBest checkReview(Map<String, Integer> map) {
 		return mypageDao.checkReview(sqlSession, map);

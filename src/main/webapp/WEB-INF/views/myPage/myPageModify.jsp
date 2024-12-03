@@ -264,6 +264,8 @@
                 <div class="submit-btn">
                 	<div id="pwdModiBtns" class="none-clickables" data-bs-toggle="modal" data-bs-target="#pwdModiModal">비밀번호 변경</div>
                     <button type="submit" id="submitBtns" class="none-clickables">수정 완료</button>
+                    <hr class="btn-line">
+                    <div id="cancelBtns" data-bs-toggle="modal" data-bs-target="#acCancelModal">회원 탈퇴</div>
                 </div>
 
             </form>
@@ -298,6 +300,38 @@
 				        <div class="modal-footer">
 				          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 				          <button type="submit" class="btn btn-primary" id="pwdModiSubmit">비밀번호 변경 완료</button>
+				        </div>
+				      </form>
+				    </div>
+				  </div>
+				</div>
+				
+				<!-- 회원 탈퇴 모달 -->
+				 <div class="modal fade" id="acCancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalLabel">회원 탈퇴</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <form id="pwdModiForm" action="accountCancel.mp" method="post">
+				        <div class="modal-body">
+				          <div class="input-wrap">
+				            <span class="form-title">비밀번호 입력</span><br>
+				            <input type="password" id="memPwd" name="memPwd" placeholder="기존 비밀번호를 입력해주세요.">
+				            <span id="checkPwdCondition"></span>
+				          </div>
+				          <br>
+				          <div class="input-wrap">
+				            <span class="form-title">비밀번호 재입력</span><br>
+				            <input type="password" id="pwdCheck" name="pwdCheck" placeholder="비밀번호를 한 번 더 입력해주세요.">
+				            <span id="checkPwdResult"></span>
+				          </div>
+				          <br>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				          <button type="submit" class="btn btn-primary" id="pwdModiSubmit">회원 탈퇴 완료</button>
 				        </div>
 				      </form>
 				    </div>

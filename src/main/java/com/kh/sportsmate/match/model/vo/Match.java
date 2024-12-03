@@ -21,9 +21,4 @@ public class Match {
 	private Date reservStart;
 	private Date reservEnd;
 	private Date accessDate;
-	
-	private String teamAName;
-	private String teamBName;
-	private int matchCount;
-	private int winCount;
 }

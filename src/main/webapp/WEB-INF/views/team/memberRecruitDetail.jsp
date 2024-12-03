@@ -24,6 +24,7 @@
 <body>
     <div class="wrap">
         <jsp:include page="../common/header.jsp"/>
+        <br>
         <jsp:include page="../common/nav.jsp"/>
         <div class="recruit-list-wrap">
             <div id="title">단원모집</div>
@@ -91,8 +92,15 @@
                         <input type="hidden" name="memNo" value="${loginMember.memNo}">
                         <div class="content-wrap center">
                             <div class="team-logo-wrap">
-                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/${detailInfo.teamProfileChangeName}"
-                                     alt="">
+                                <c:choose>
+                                    <c:when test="${detailInfo.teamProfileChangeName ne null}">
+                                        <img src="${pageContext.request.contextPath}/resources/images/userProFile/${detailInfo.teamProfileChangeName}"
+                                             alt="">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png"/>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <div class="team-info-wrap">
                                 <p class="team-name">${detailInfo.teamName}</p>
@@ -112,12 +120,6 @@
                         </div>
                     </form>
                 </div>
-
-                <!-- Modal footer -->
-                <%--                <div class="modal-footer">--%>
-                <%--                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>--%>
-                <%--                </div>--%>
-
             </div>
         </div>
     </div>

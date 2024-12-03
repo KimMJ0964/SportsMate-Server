@@ -3,39 +3,40 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 커넥션풀을 쓸수있는 클래스 psql사용시 변경필요-->
-<!--    <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">-->
-<!--        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>-->
-<!--        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>-->
-<!--        <property name="username" value="spring"/>-->
-<!--        <property name="password" value="spring"/>-->
-<!--    </bean>-->
+    <!--    <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">-->
+    <!--        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>-->
+    <!--        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>-->
+    <!--        <property name="username" value="spring"/>-->
+    <!--        <property name="password" value="spring"/>-->
+    <!--    </bean>-->
     <!-- MariaDB -->
-<!--    이 xml 파일에서 사용하기 위헤서 resources 안에 모든 프로퍼티 파일을 불러온다.-->
+    <!--    이 xml 파일에서 사용하기 위헤서 resources 안에 모든 프로퍼티 파일을 불러온다.-->
     <context:property-placeholder location="classpath:*.properties" file-encoding="UTF-8"/>
     <bean id="dataSourceMariaDB" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="root"/>
-        <property name="password" value="SportsMate"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
     </bean>
-<!--    <bean id="dataSourceMariaDB" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-<!--        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>-->
-<!--        <property name="url" value="jdbc:mariadb://localhost:3306/SPORTSMATE"/>-->
-<!--        <property name="username" value="SPORTSMATE"/>-->
-<!--        <property name="password" value="SPORTSMATE"/>-->
-<!--    </bean>-->
-<!--    <bean id="dataSourceMariaDB" class="org.apache.commons.dbcp2.BasicDataSource">-->
-<!--        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>-->
-<!--        <property name="url" value="jdbc:mariadb://localhost:3306/SPORTSMATE"/>-->
-<!--        <property name="username" value="SPORTSMATE"/>-->
-<!--        <property name="password" value="SPORTSMATE"/>-->
-<!--        <property name="defaultAutoCommit" value="false"/>-->
-<!--    </bean>-->
+    <!--    <bean id="dataSourceMariaDB" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+    <!--        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>-->
+    <!--        <property name="url" value="jdbc:mariadb://localhost:3306/SPORTSMATE"/>-->
+    <!--        <property name="username" value="SPORTSMATE"/>-->
+    <!--        <property name="password" value="SPORTSMATE"/>-->
+    <!--    </bean>-->
+    <!--    <bean id="dataSourceMariaDB" class="org.apache.commons.dbcp2.BasicDataSource">-->
+    <!--        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>-->
+    <!--        <property name="url" value="jdbc:mariadb://localhost:3306/SPORTSMATE"/>-->
+    <!--        <property name="username" value="SPORTSMATE"/>-->
+    <!--        <property name="password" value="SPORTSMATE"/>-->
+    <!--        <property name="defaultAutoCommit" value="false"/>-->
+    <!--    </bean>-->
 
     <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
@@ -48,15 +49,37 @@
 
     <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
         <property name="maxUploadSize" value="100000000"/>
-        <property name="maxInMemorySize" value="100000000" />
+        <property name="maxInMemorySize" value="100000000"/>
     </bean>
 
     <context:component-scan base-package="com.kh.sportsmate.aspect" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
     </context:component-scan>
 
-<!--    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-<!--        <property name="dataSource" ref="dataSource"/>-->
-<!--    </bean>-->
-<!--    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
+    <!--    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+    <!--        <property name="dataSource" ref="dataSource"/>-->
+    <!--    </bean>-->
+    <!--    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
+
+    <!-- JavaMailSender 객체 등록   -->
+    <bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="sender">
+        <property name="host" value="${mail.smtp.host}"/>
+        <property name="port" value="${mail.smtp.port}"/>
+        <property name="username" value="${mail.smtp.username}"/>
+        <property name="password" value="${mail.smtp.password}"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- redis -->
+    <bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"
+          p:host-name="${redis.hostName}"
+          p:port="${redis.port}"
+          p:password="${redis.password}"/>
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+          p:connectionFactory-ref="redisConnectionFactory"/>
 </beans>

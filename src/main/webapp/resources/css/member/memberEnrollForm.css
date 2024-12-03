@@ -32,7 +32,10 @@
 .email-wrap {
     width: 100%;
 }
-
+.profile-description{
+    display: inline-block;
+    padding: 15px 0px;
+}
 .enroll-form input[type='email'],
 .enroll-form input[type='password'],
 .enroll-form input[type='text'],
@@ -89,32 +92,58 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
 }
 
-/*.find-info-wrap {*/
-/*    width: 100%;*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    justify-content: space-around;*/
-/*    align-items: center;*/
-/*}*/
-
-/*.find-info-wrap a {*/
-/*    text-decoration-line: none;*/
-/*    color: black;*/
-/*}*/
-
-/*.find-info {*/
-/*    width: 50%;*/
-/*    text-align: center;*/
-/*}*/
-
-/*.enroll-member {*/
-/*    width: 50%;*/
-/*    text-align: center;*/
-/*}*/
 
 .split-bar {
     width: 100%;
     border-bottom: 2px solid lightgray;
+}
+.email-container{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.check-auth-code-container-hide{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+    display: none;
+}
+.check-auth-code-container-expose{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+}
+.email{
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+}
+.email-auth-btn{
+    padding: 8px 12px;
+    background-color: #307DFA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.email-auth-btn-disabled{
+    background-color: #91b1e9;
+    padding: 8px 12px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#timer{
+    line-height: 40px;
+}
+#auth-code{
+    width: 50%;
+    padding: 8px;
+    border-radius: 8px;
+    height: 40px;
 }
 /*------------- 二쇱냼 -------------*/
 .address-container {
@@ -299,7 +328,8 @@ select option:nth-child(1) {
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
-    text-align: center;	
+    text-align: center;
+    margin-bottom: 20px;
 }
 .submit-btn > button {
 
@@ -314,3 +344,27 @@ select option:nth-child(1) {
     font-size: 16px;
     padding: 10px;
 } 
+
+#cancelBtns {
+	width: 100%;
+    height: 65px;
+    border-radius: 8px;
+    border: none;
+    background-color: #dc3545;;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; /* Flexbox를 사용 */
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    text-align: center;
+   	margin-bottom: 60px;
+   	margin-top: 20px;
+}
+
+.btn-line {
+        border: 2px solid black; /* 두께와 색상 */
+        width: 100%;            /* 너비 */
+        margin: 10px 0;         /* 위아래 여백 */
+    }
