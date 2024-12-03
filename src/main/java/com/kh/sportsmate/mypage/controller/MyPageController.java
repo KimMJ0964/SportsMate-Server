@@ -30,6 +30,7 @@ import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.member.service.MemberService;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.mypage.service.MyPageService;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
@@ -61,7 +62,9 @@ public class MyPageController {
     @RequestMapping("myPageInfo.mp")
     public String myPageSelect(Model model, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
+    	System.out.println("loginMember : " + loginMember);
 		int memNo = loginMember.getMemNo();
+		System.out.println("memNo" + memNo);
     	
     	// 내 정보
     	MemberPositionDto myInfo = myPageService.selectMyInfo(memNo);
@@ -90,11 +93,7 @@ public class MyPageController {
     	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
     	
     	// 내 문의
-    	ArrayList<MatchQna> myQna = myPageService.selectMyQna(memNo);
-    	
-    	for(MatchQna myQna2 : myQna) {
-    		System.out.println(myQna2);
-    	}
+    	ArrayList<StadiumQna> myQna = myPageService.selectMyQna(memNo);
     	
     	model.addAttribute("myQna", myQna);
     	model.addAttribute("myMatchWinCount", myMatchWinCount);
@@ -124,8 +123,8 @@ public class MyPageController {
     	Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
 		Map<String, Integer> checkMap = new HashMap<>();
-		checkMap .put("memNo", memNo);
-		checkMap .put("matchNo", matchNo);
+		checkMap.put("memNo", memNo);
+		checkMap.put("matchNo", matchNo);
         
         MatchBest check = myPageService.checkReview(checkMap);
         System.out.println(check);
