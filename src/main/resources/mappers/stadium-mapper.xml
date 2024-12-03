@@ -240,7 +240,6 @@
 		)
     </insert>
     
-<<<<<<< HEAD
    <select id="getSearchResultCount" parameterType="map" resultType="int">
     SELECT COUNT(*) 
     FROM STADIUM
@@ -357,16 +356,21 @@
 		TM.MEM_NO AS memNo, -- 멤버 번호
 		M.MEM_NO AS memName, -- 멤버 이름
 		TM.STATUS AS status, -- 멤버 상태
+		C.SOC_POSI AS socPosi, -- 축구 포지션
+		C.FOOT_POSI AS footPosi, -- 풋살 포지션
+		C.BASKET_POSI AS basketPosi, -- 농구 포지션
+		C.BASE_POSI AS basePosi -- 야구 포지션
 	FROM
 		TEAM_MEMBER TM
 	JOIN
 		MEMBER M ON TM.MEM_NO = M.MEM_NO
 	JOIN
 		TEAM T ON TM.TEAM_NO = T.TEAM_NO
+	LEFT JOIN
+		CATEGORY C ON M.MEM_NO = C.MEM_NO -- CATEGORY 테이블 조인
 	WHERE
 		TM.TEAM_NO = #{teamNo} -- 팀 번호로 조회
 </select>
-=======
     <!-- 문의 리스트 갯수 -->
     <select id="selectInquiryCount" resultType="_int">
     	SELECT COUNT(*)
@@ -394,5 +398,4 @@
 		SET MATCH_A = #{matchA}
 		WHERE MATCH_QNA_NO = #{matchQnaNo};
     </update>
->>>>>>> 98cf04ea3bfb76db7ccbf306abbc238f356feb34
 </mapper>

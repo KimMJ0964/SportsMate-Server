@@ -142,13 +142,14 @@ public class stadiumController {
         // 구장 신청하기 모달
         int teamNo = stadiumDetail.getTeamNo(); 
         List<StadiumDetailmodal> stadiumReservation = stadiumService.getStadiumReservation(teamNo);
-
+        
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);
         model.addAttribute("selectedDate", selectedDate);
         model.addAttribute("stadiumNo", stadiumNo);
         model.addAttribute("reviews", reviews);
         model.addAttribute("pi", pi);
+        model.addAttribute("stadiumReservation", stadiumReservation); // 모달용 데이터 추가
 
         // 뷰로 이동
         return "stadium/detail";
