@@ -15,6 +15,7 @@ import com.kh.sportsmate.member.model.dto.MemberModifyDto;
 import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -74,7 +75,7 @@ public interface MyPageService {
     int accountCancel(int memNo);
     
     // 내 문의
-    ArrayList<MatchQna> selectMyQna(int memNo);
+    ArrayList<StadiumQna> selectMyQna(int memNo);
     
     // 리뷰 체크
     MatchBest checkReview(Map<String, Integer> map);
