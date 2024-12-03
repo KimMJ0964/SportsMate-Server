@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
@@ -71,6 +72,11 @@ public class StadiumDao {
     // 전체 리뷰 개수 조회
     public int selectReviewCountByStadiumNo(SqlSessionTemplate sqlSession, int stadiumNo) {
     	 return sqlSession.selectOne("stadiumMapper.selectReviewCountByStadiumNo", stadiumNo);
+    }
+    
+    // 디테일페이지 구장 신청하기 모달
+    public List<StadiumDetailmodal> StadiumReservation(SqlSessionTemplate sqlSession, int teamNo) {
+    	return sqlSession.selectList("stadiumMapper.StadiumReservation", teamNo);
     }
     
     // 변경해야될사항!

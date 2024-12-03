@@ -37,6 +37,7 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumSearch" alias="StadiumSearch"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetail" alias="StadiumDetail"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumReviewDto" alias="StadiumReviewDto"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal" alias="StadiumDetailmodal"/>
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
         <typeAlias type="com.kh.sportsmate.board.model.vo.BoardLike" alias="BoardLike"/>

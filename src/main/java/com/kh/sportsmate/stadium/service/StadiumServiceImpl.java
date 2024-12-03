@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
@@ -84,6 +85,11 @@ public class StadiumServiceImpl implements StadiumService{
 	@Override
 	public int getReviewCount(int stadiumNo) {
 		return stadiumDao.selectReviewCountByStadiumNo(sqlSession, stadiumNo);
+	}
+
+	@Override
+	public List<StadiumDetailmodal> getStadiumReservation(int teamNo) {
+		return stadiumDao.StadiumReservation(sqlSession, teamNo);
 	}
 
 }

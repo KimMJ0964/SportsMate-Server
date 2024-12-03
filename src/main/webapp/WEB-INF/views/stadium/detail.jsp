@@ -334,84 +334,83 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
+				<!-- 페이지 네이션 -->
+	            <div id="pagenation">
+				    <nav>
+				        <ul class="pagination">
+				            <!-- 처음 페이지 -->
+				            <c:choose>
+				                <c:when test="${pi.currentPage > 1}">
+				                    <li class="page-item">
+				                        <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}&currentPage=1" class="page-link">&laquo;</a>
+				                    </li>
+				                </c:when>
+				                <c:otherwise>
+				                    <li class="page-item disabled">
+				                        <a href="#" class="page-link">&laquo;</a>
+				                    </li>
+				                </c:otherwise>
+				            </c:choose>
+				
+				            <!-- 이전 페이지 -->
+				            <c:choose>
+				                <c:when test="${pi.currentPage > 1}">
+				                    <li class="page-item">
+				                        <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}&currentPage=${pi.currentPage - 1}" class="page-link">&lt;</a>
+				                    </li>
+				                </c:when>
+				                <c:otherwise>
+				                    <li class="page-item disabled">
+				                        <a href="#" class="page-link">&lt;</a>
+				                    </li>
+				                </c:otherwise>
+				            </c:choose>
+				
+				            <!-- 페이지 번호 -->
+				            <c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}">
+				                <c:choose>
+				                    <c:when test="${page == pi.currentPage}">
+				                        <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
+				                    </c:when>
+				                    <c:otherwise>
+				                        <li class="page-item">
+				                            <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}&currentPage=${page}" class="page-link">${page}</a>
+				                        </li>
+				                    </c:otherwise>
+				                </c:choose>
+				            </c:forEach>
+				
+				            <!-- 다음 페이지 -->
+				            <c:choose>
+				                <c:when test="${pi.currentPage < pi.maxPage}">
+				                    <li class="page-item">
+				                        <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}&currentPage=${pi.currentPage + 1}" class="page-link">&gt;</a>
+				                    </li>
+				                </c:when>
+				                <c:otherwise>
+				                    <li class="page-item disabled">
+				                        <a href="#" class="page-link">&gt;</a>
+				                    </li>
+				                </c:otherwise>
+				            </c:choose>
+				
+				            <!-- 마지막 페이지 -->
+				            <c:choose>
+				                <c:when test="${pi.currentPage < pi.maxPage}">
+				                    <li class="page-item">
+				                        <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}&currentPage=${pi.maxPage}" class="page-link">&raquo;</a>
+				                    </li>
+				                </c:when>
+				                <c:otherwise>
+				                    <li class="page-item disabled">
+				                        <a href="#" class="page-link">&raquo;</a>
+				                    </li>
+				                </c:otherwise>
+				            </c:choose>
+				        </ul>
+				    </nav>
+				</div>    
             </div>
-            <!-- 페이지 네이션 -->
-            <div id="pagenation">
-			    <nav>
-			        <ul class="pagination">
-			            <!-- 처음 페이지 -->
-			            <c:choose>
-			                <c:when test="${pi.currentPage > 1}">
-			                    <li class="page-item">
-			                        <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}&currentPage=1" class="page-link">&laquo;</a>
-			                    </li>
-			                </c:when>
-			                <c:otherwise>
-			                    <li class="page-item disabled">
-			                        <a href="#" class="page-link">&laquo;</a>
-			                    </li>
-			                </c:otherwise>
-			            </c:choose>
-			
-			            <!-- 이전 페이지 -->
-			            <c:choose>
-			                <c:when test="${pi.currentPage > 1}">
-			                    <li class="page-item">
-			                        <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}&currentPage=${pi.currentPage - 1}" class="page-link">&lt;</a>
-			                    </li>
-			                </c:when>
-			                <c:otherwise>
-			                    <li class="page-item disabled">
-			                        <a href="#" class="page-link">&lt;</a>
-			                    </li>
-			                </c:otherwise>
-			            </c:choose>
-			
-			            <!-- 페이지 번호 -->
-			            <c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}">
-			                <c:choose>
-			                    <c:when test="${page == pi.currentPage}">
-			                        <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
-			                    </c:when>
-			                    <c:otherwise>
-			                        <li class="page-item">
-			                            <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}&currentPage=${page}" class="page-link">${page}</a>
-			                        </li>
-			                    </c:otherwise>
-			                </c:choose>
-			            </c:forEach>
-			
-			            <!-- 다음 페이지 -->
-			            <c:choose>
-			                <c:when test="${pi.currentPage < pi.maxPage}">
-			                    <li class="page-item">
-			                        <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}&currentPage=${pi.currentPage + 1}" class="page-link">&gt;</a>
-			                    </li>
-			                </c:when>
-			                <c:otherwise>
-			                    <li class="page-item disabled">
-			                        <a href="#" class="page-link">&gt;</a>
-			                    </li>
-			                </c:otherwise>
-			            </c:choose>
-			
-			            <!-- 마지막 페이지 -->
-			            <c:choose>
-			                <c:when test="${pi.currentPage < pi.maxPage}">
-			                    <li class="page-item">
-			                        <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}&currentPage=${pi.maxPage}" class="page-link">&raquo;</a>
-			                    </li>
-			                </c:when>
-			                <c:otherwise>
-			                    <li class="page-item disabled">
-			                        <a href="#" class="page-link">&raquo;</a>
-			                    </li>
-			                </c:otherwise>
-			            </c:choose>
-			        </ul>
-			    </nav>
-			</div>
-            
             
 			<!-- 미디어쿼리 적용 후 모바일 페이지  -->
         	<div class="info-box mobile-only">

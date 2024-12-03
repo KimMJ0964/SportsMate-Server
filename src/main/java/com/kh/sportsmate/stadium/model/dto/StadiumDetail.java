@@ -18,6 +18,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class StadiumDetail {
 	private int stadiumNo; // 구장 번호
+	private int teamNo; // 팀 번호
     private int memNo; // 구장 관리자 식별 번호
     private String stadiumName; // 구장명
     private String stadiumZipcode; // 구장 우편번호
@@ -41,5 +42,5 @@ public class StadiumDetail {
     private String drink; // 음료 구비 유무
     
     // StadiumReview 정보
-    private List<StadiumReviewDto> reviews;
+    private List<StadiumReviewDto> reviews; 
 }

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
-import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.stadium.service.StadiumService;
 
 @CrossOrigin
@@ -81,7 +81,7 @@ public class stadiumController {
 
         // PageInfo 생성
         int pageLimit = 10; // 페이징바 최대 개수
-        int boardLimit = 5; // 한 페이지에 보여질 리뷰 개수
+        int boardLimit = 3; // 한 페이지에 보여질 리뷰 개수
         PageInfo pi = Template.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 
         // 리뷰 리스트 조회
@@ -90,6 +90,10 @@ public class stadiumController {
         // 경기장 상세 정보 가져오기
         StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
         stadiumDetail.setReviews(reviews);
+        
+        // 구장 신청하기 모달
+        int teamNo = stadiumDetail.getTeamNo(); 
+        List<StadiumDetailmodal> stadiumReservation = stadiumService.getStadiumReservation(teamNo);
 
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
@@ -31,4 +32,7 @@ public interface StadiumService {
 	
 	// 전체 리뷰 개수 조회
 	int getReviewCount(int stadiumNo);
+	
+	// 신청 모달
+	List<StadiumDetailmodal> getStadiumReservation(int teamNo);
 }

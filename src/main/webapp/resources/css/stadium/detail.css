@@ -515,6 +515,14 @@ border: 1px solid black;
 .days-2 li.sunday-2 {
     color: red;
 }
+
+/* 페이지네이션 */
+#pagenation{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
 /* 화면 크기가 480px 이하일 때만 표시 (모바일 전용) */
 @media (max-width: 480px) {
 	.mobile-only {
