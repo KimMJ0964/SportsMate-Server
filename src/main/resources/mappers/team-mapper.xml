@@ -188,7 +188,8 @@
 	           b.BOARD_NO AS boardNo,
 	           b.TYPE AS type,
 	           b.TEAM_NO AS teamNo,
-	           b.MEM_NO AS memNo
+	           b.MEM_NO AS memNo,
+	           b.MODIFY_DATE AS modifyDate
 	    FROM TEAM_BOARD b
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 	    WHERE b.STATUS = 'Y'
@@ -355,11 +356,12 @@
 	</select>
 	
 	<!-- 본인 팀인지 확인 -->
-	<select id="checkTeamMember" resultType="Integer">
-		SELECT TEAM_NO as teamNo
+	<select id="checkTeamMember" resultType="_int">
+		SELECT COUNT(*)
 		FROM TEAM_MEMBER
 		WHERE TEAM_NO = #{tno}
 		AND MEM_NO = #{memNo}
+		AND STATUS = 'Y'
 	</select>
 	
 	<!-- 구단 전적 -->
@@ -515,7 +517,7 @@
 	        TITLE = #{title},
 	        CONTENT = #{content},
 	        TYPE = #{type},
-	        CREATE_DATE = NOW()
+			MODIFY_DATE = NOW()
 	    WHERE 
 	        BOARD_NO = #{boardNo} <!-- 보통 게시글 ID를 기준으로 수정 -->
 	</update>
@@ -752,6 +754,14 @@
 	        </if>
 	    </set>
 	    WHERE TEAM_NO = #{teamNo};
+	</update>
+	
+	<!-- 팀 폐쇄 -->
+	<update id="teamClosing">
+		UPDATE team
+			SET
+				STATUS = 'N' 
+			WHERE TEAM_NO = #{tno};
 	</update>
 
 	<insert id="insertTeam" parameterType="Team" useGeneratedKeys="true" keyProperty="teamNo" >

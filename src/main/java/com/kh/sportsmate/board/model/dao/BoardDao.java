@@ -282,8 +282,8 @@ public class BoardDao {
 	 * @param map
 	 * @return
 	 */
-	public Integer checkBoardMember(SqlSessionTemplate sqlSession, Map<String, String> map) {
-		return sqlSession.selectOne("boardMapper.checkBoardMember", map);
+	public int checkBoardMember(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.selectOne("boardMapper.checkBoardMember", bno);
 	}
 	
 	/**

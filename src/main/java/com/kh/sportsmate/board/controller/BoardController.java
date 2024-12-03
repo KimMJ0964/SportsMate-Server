@@ -323,28 +323,19 @@ public class BoardController {
 	public String deleteReply(HttpSession session, int cno, int bno, Model m) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		
-		if (loginMember == null ) {
-			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
-			return "redirect:detailMove.bd?bno=" + bno;
+		if (loginMember != null ) {
+			int result = boardService.deleteReply(cno);
+			
+			if (result > 0) { // 성공
+				return "redirect:detailMove.bd?bno=" + bno;
+			} else { // 실패
+				m.addAttribute("errorMsg", "댓글 작성 실패");
+				return "redirect:detailMove.bd?bno=" + bno;
+			}
+		} else {
+			return "board/board";
 		}
-		
-		int memNo = loginMember.getMemNo();
 
-		BoardComment comment = boardService.getCommentById(cno);
-
-		if (comment != null && comment.getMemNo() != memNo) {
-			session.setAttribute("alertMsg", "권한이 없습니다.");
-			return "redirect:detailMove.bd?bno=" + bno;
-		}
-
-		int result = boardService.deleteReply(cno);
-
-		if (result > 0) { // 성공
-			return "redirect:detailMove.bd?bno=" + bno;
-		} else { // 실패
-			m.addAttribute("errorMsg", "댓글 작성 실패");
-			return "redirect:detailMove.bd?bno=" + bno;
-		}
 	}
 
 	/**
@@ -383,8 +374,7 @@ public class BoardController {
 			}
 
 		} else {
-			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
-			return "redirect:detailMove.bd?bno=" + bno;
+			return "board/board";
 		}
 	}
 
@@ -423,8 +413,7 @@ public class BoardController {
 			return "redirect:detailMove.bd?bno=" + boardNo;
 
 		} else {
-			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
-			return "redirect:detailMove.bd?bno=" + boardNo;
+			return "board/board";
 		}
 	}
 	
@@ -455,8 +444,7 @@ public class BoardController {
 			return "redirect:detailMove.bd?bno=" + boardNo;
 
 		} else {
-			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
-			return "redirect:detailMove.bd?bno=" + boardNo;
+			return "board/board";
 		}
 	}
 	

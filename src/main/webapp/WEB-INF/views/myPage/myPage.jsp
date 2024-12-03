@@ -368,7 +368,7 @@
 							<div class="profile-text">${mr.memName }</div>
 						</div>
 						<div class="profile team-name">
-							<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mr.teamProfile }" alt="" style="width: 60px; height: 60px;"/> <br />
+							<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mr.teamProfile }" alt="" style="width: 60%; max-height: 75px;"/> <br />
 							<div class="profile-text">${mr.teamName }</div>
 						</div>
 						<div class="buttons">
@@ -398,7 +398,8 @@
 					<table class="mypage-qna-table">
 						<thead class="mypage-qna-thead">
 							<tr class="mypage-qna-header-row">
-								<th class="mypage-qna-header">문의 제목</th>
+								<th class="mypage-qna-header">장소</th>
+								<th class="mypage-qna-header">제목</th>
 								<th class="mypage-qna-header">질문</th>
 								<th class="mypage-qna-header">문답</th>
 							</tr>
@@ -406,6 +407,7 @@
 						<tbody class="mypage-qna-tbody">
 							<c:forEach var="mq" items="${myQna}">
 								<tr class="mypage-qna-row">
+									<td class="mypage-qna-cell">${mq.stadiumName}</td>
 									<td class="mypage-qna-cell">${mq.matchQTitle}</td>
 									<td class="mypage-qna-cell">${mq.matchQDetail}</td>
 									<td class="mypage-qna-cell">
@@ -504,7 +506,6 @@
 		</div>
 	</div>
 	
-	</div>
 	<!-- myPage-container 끝 -->
 	<!-- warp 끝 -->
 	<!-- 푸터 -->

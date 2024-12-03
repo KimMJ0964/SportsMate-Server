@@ -34,6 +34,7 @@ public class kakaoAPI {
 
     /**
      * 카카오 로그인을 위한 AccessToken 요청 API
+     *
      * @param authorizeCode 인가 코드
      * @return accessToken
      */
@@ -58,7 +59,7 @@ public class kakaoAPI {
             bw.flush();
 
             int responseCode = conn.getResponseCode();
-            log.info("kakao getAccessToken responseCode : {}",responseCode);
+            log.info("kakao getAccessToken responseCode : {}", responseCode);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String inputLine = "";
@@ -89,6 +90,7 @@ public class kakaoAPI {
 
     /**
      * 카카오 사용자 정보 조회 API
+     *
      * @param accessToken 정보 조회를 위한 accessToken
      * @return Member 객체(memEmail, memName, memGender, memPhone, memBirth)
      */
@@ -127,11 +129,10 @@ public class kakaoAPI {
             String birthYear = kakaoAccount.get("birthyear").getAsString();
             String birthDay = kakaoAccount.get("birthday").getAsString().substring(0, 2) + "." + kakaoAccount.get("birthday").getAsString().substring(2);
             String birth = birthYear.concat(".").concat(birthDay);
-            String gender = kakaoAccount.get("gender").getAsString();
-            if (gender.equals("male")) {
-                m.setMemGender("M");
-            } else {
-                m.setMemGender("F");
+            String gender;
+            if (kakaoAccount.has("gender")) {
+                gender = kakaoAccount.get("gender").getAsString();
+                m.setMemGender((gender.equals("male") ? "M" : "F"));
             }
 
             m.setMemEmail(kakaoAccount.get("email").getAsString());
