@@ -240,7 +240,6 @@
 		)
     </insert>
     
-<<<<<<< HEAD
     <!-- 관리자 소유의 구장 정보 -->
     <select id="selectOneStadiumByManager" parameterType="int" resultType="StadiumDto">
     SELECT 

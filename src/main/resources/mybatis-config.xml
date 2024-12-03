@@ -38,6 +38,7 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumReview" alias="StadiumReview"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumQna" alias="StadiumQna"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumQnaDto" alias="StadiumQnaDto"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDto" alias="StadiumDto"/>
         
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
@@ -84,6 +85,7 @@
         <!-- Attachment -->
         <typeAlias type="com.kh.sportsmate.Attachment.model.vo.Profile" alias="Profile"/>
         <typeAlias type="com.kh.sportsmate.admin.model.dto.BlockProfileDto" alias="BlockProfileDto"/>
+        
     </typeAliases>
 
 
