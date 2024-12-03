@@ -10,9 +10,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/matching/matchingReq.css">
+    
     <!-- jQuery -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/matching/kakaopay.js"></script>
 
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,14 +41,14 @@
                     <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/event-banner.png" alt="">
                 </div>
                 <div>
-                    <p>주소지</p>
-                    <h4>구장명</h4>
+                    <p>${ss.stadiumAddress }</p>
+                    <h4>${ss.stadiumName }</h4>
                     <p>경기일시</p>
                 </div>
             </div>
         </div>
 
-		<c:if test="${ss.opponent not null}">
+		<c:if test="${ss.opponent != null}">
 	        <div class="matching-container">
 	            <div class="matching-title">
 	                <h4>대전팀</h4>
@@ -83,7 +86,7 @@
                     </div>
                     <div>
                         <b>심판</b>
-                        <p>${ss.opponent }</p>
+                        <p>${ss.referee }</p>
                     </div>
                 </div>
 
@@ -100,7 +103,9 @@
             </div>
 
             <div class="match-order">
-                <form action="">
+                <form>
+                    <input type="hidden" value="${ss.price }" id="price">
+                    <input type="hidden" value="${ss.stadiumName }" id="stadium">
                     <div class="total">
                         <h4>대관료</h4>
                         <p>${ss.price }</p>
@@ -109,14 +114,13 @@
                         <h4>결제수단</h4>
                         <select name="" id="">
                             <option>카카오페이</option>
-                            <option>카드결제</option>
                         </select>
 
                         <div class="order-box">
-                            dja
+                            <br>
                         </div>
                     </div>
-                    <button>결제완료</button>
+                    <button id="btn-pay-ready">결제하기</button>
                 </form>
             </div>
         </div>

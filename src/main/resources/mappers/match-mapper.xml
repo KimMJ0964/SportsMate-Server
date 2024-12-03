@@ -20,33 +20,24 @@
 	<select id="selectMatchA" parameterType="Match" resultType="StadiumSubscription">
 	    SELECT TEAM_NAME AS teamName
 	    FROM TEAM
-	    WHERE TEAM_NO = #{teamANo}
+	    WHERE TEAM_NO =
+	    	CASE 
+		        WHEN #{teamBNo} != 0 THEN #{teamBNo}
+		        ELSE #{teamANo}
+		    END;
 	</select>
 
 	<select id="selectMatchB" parameterType="Match" resultType="StadiumSubscription">
-	    SELECT TEAM_NAME AS opponent,
+	    SELECT T.TEAM_NAME AS opponent,
 	    		CONCAT(
-		            COUNT(*) , '전 ',
-		            CASE 
-		                WHEN COUNT(CASE WHEN M.SCORE_A &gt; M.SCORE_B THEN 1 END) &gt; 0 
-		                    THEN CONCAT(COUNT(CASE WHEN M.SCORE_A &gt; M.SCORE_B THEN 1 END), '승')
-		                ELSE ''
-		            END,
-		            ' ',
-		            CASE 
-		                WHEN COUNT(CASE WHEN M.SCORE_A = M.SCORE_B THEN 1 END) &gt; 0 
-		                    THEN CONCAT(COUNT(CASE WHEN M.SCORE_A = M.SCORE_B THEN 1 END), '무')
-		                ELSE ''
-		            END,
-		            ' ',
-		            CASE 
-		                WHEN COUNT(CASE WHEN M.SCORE_A &lt; M.SCORE_B THEN 1 END) &gt; 0 
-		                    THEN CONCAT(COUNT(CASE WHEN M.SCORE_A &lt; M.SCORE_B THEN 1 END), '패')
-		                ELSE ''
-		            END
+		            R.MATCH_COUNT , '전 ',
+		            R.WIN, '승 ',
+		            R.LOSE, '패 ',
+		            R.DRAW, '무'
 		        ) AS result
-		FROM TEAM
-		WHERE TEAM_NO = #{teamANo}
+		FROM TEAM T
+		JOIN TEAM_RECORD R ON R.TEAM_NO = T.TEAM_NO
+		WHERE T.TEAM_NO = #{teamANo}
 	</select>
 	
     

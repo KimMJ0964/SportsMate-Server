@@ -13,9 +13,9 @@
         구장번호
         <input type="number" name="stadiumNo"> <br>
         a팀번호
-        <input type="number" name="memNoA"> <br>
+        <input type="number" name="teamANo"> <br>
         b팀번호
-        <input type="number" name="memNoB"> <br>
+        <input type="number" name="teamBNo"> <br>
         가격
         <input type="number" name="price"> <br>
         선택일

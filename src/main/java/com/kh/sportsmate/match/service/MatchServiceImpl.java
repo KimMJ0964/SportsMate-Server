@@ -116,6 +116,7 @@ public class MatchServiceImpl implements MatchService {
 		if(mc.getTeamBNo() > 0) {
 			StadiumSubscription s2 = matchDao.selectMatchB(sqlSession, mc);
 			ss.setResult(s2.getResult());
+			System.out.println("sdsadsadsadsadfdasdsfa"+s2.getOpponent());
 			ss.setOpponent(s2.getOpponent());
 		}
 		StadiumSubscription s1 = matchDao.selectMatchA(sqlSession, mc);
