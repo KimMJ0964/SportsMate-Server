@@ -309,8 +309,8 @@ public class BoardServiceImpl implements BoardService{
 	 * @return
 	 */
 	@Override
-	public Integer checkBoardMember(Map<String, String> map) {
-		return boardDao.checkBoardMember(sqlSession, map);
+	public int checkBoardMember(int bno) {
+		return boardDao.checkBoardMember(sqlSession, bno);
 	}
 	
 	/**

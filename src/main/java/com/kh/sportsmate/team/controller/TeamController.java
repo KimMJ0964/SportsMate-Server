@@ -70,7 +70,7 @@ public class TeamController {
      * @return
      */
     @RequestMapping("boardList.tm")
-    public String selectList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model, int tno, HttpSession session) {
+    public String selectList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model m, int tno, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
     	int memNo = loginMember.getMemNo();
     	
@@ -93,21 +93,21 @@ public class TeamController {
         Profile teamBanner = teamService.teamBanner(tno);
         
         if(teamBanner != null) {
-        	model.addAttribute("teamBanner", teamBanner);
+        	m.addAttribute("teamBanner", teamBanner);
         }
         
         for (TeamMemberDto teamMember : memberList) {
             System.out.println(teamMember);
         }
         
-        model.addAttribute("leaderNo", leaderNo);
-        model.addAttribute("memNo", memNo);
-        model.addAttribute("voting", voting);
-        model.addAttribute("voteList", voteList);
-        model.addAttribute("tno", tno);
-        model.addAttribute("list", list);
-        model.addAttribute("pi", pi);
-        model.addAttribute("memberList", memberList);
+        m.addAttribute("leaderNo", leaderNo);
+        m.addAttribute("memNo", memNo);
+        m.addAttribute("voting", voting);
+        m.addAttribute("voteList", voteList);
+        m.addAttribute("tno", tno);
+        m.addAttribute("list", list);
+        m.addAttribute("pi", pi);
+        m.addAttribute("memberList", memberList);
         return "teamBoard/teamHome";
     }
 
@@ -360,6 +360,16 @@ public class TeamController {
 
         ArrayList<TeamBoard> list = teamService.searchBoard(pi, map);
         ArrayList<TeamMemberDto> memberList = teamService.selectMemberList(tno);
+        // 투표
+        TeamVote voting = teamService.voting(tno);
+        // 투표 내용
+        ArrayList<TeamVoteDetailDto> voteList = teamService.voteList(tno);
+        // 구단 배너
+        Profile teamBanner = teamService.teamBanner(tno);
+        
+        if(teamBanner != null) {
+        	m.addAttribute("teamBanner", teamBanner);
+        }
 
         m.addAttribute("list", list);
         m.addAttribute("pi", pi);
@@ -367,7 +377,9 @@ public class TeamController {
         m.addAttribute("tno", tno);
         m.addAttribute("memNo", memNo);
     	m.addAttribute("leaderNo", leaderNo);
-
+    	m.addAttribute("voting", voting);
+        m.addAttribute("voteList", voteList);
+        
         return "teamBoard/teamHome";
     }
 
@@ -778,7 +790,7 @@ public class TeamController {
         PageInfo pi = Template.getPageInfo(matchCount, currentPage, 10, 10);
     	
         // 예정된 매치
-        TeamMatchInfoDto willMatch = teamService.willMatch(tno);
+        ArrayList<TeamMatchInfoDto> willMatch = teamService.willMatch(tno);
         
         // 구단 전적들
     	ArrayList<TeamMatchInfoDto> matchInfo = teamService.matchInfo(pi, tno);
@@ -809,6 +821,26 @@ public class TeamController {
             session.setAttribute("alertMsg", "환불이 실패하였습니다. 다시 시도해주세요.");
     	
     	return "redirect:/teamMatch.tm?tno=" + tno;
+    }
+    
+    /**
+     * 구단 폐쇄
+     * 
+     * @param tno
+     * @param session
+     * @return
+     */
+    @RequestMapping("teamClosing.tm")
+    public String teamClosing(int tno, HttpSession session) {
+    	int result = teamService.teamClosing(tno);
+    	
+    	if(result < 0) {
+    		session.setAttribute("alertMsg", "구단 폐쇄에 실패하였습니다.");
+    	} else {
+    		session.setAttribute("alertMsg", "구단 폐쇄에 성공하였습니다.");
+    	}
+    	
+    	return "redirect:/myPageInfo.mp";
     }
     /*===================================================================================================================================*/
     

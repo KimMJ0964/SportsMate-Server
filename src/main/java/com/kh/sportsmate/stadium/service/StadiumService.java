@@ -1,13 +1,16 @@
 package com.kh.sportsmate.stadium.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumImgDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 
 public interface StadiumService {
 	// **조회 메서드**
@@ -24,4 +27,14 @@ public interface StadiumService {
 
     // **처리 메서드**
     boolean processRefund(int reservationNo, String refundReason, String reasonType); // 환불 처리
+
+	
+	// 문의 리스트 갯수
+	int selectInquiryCount(int memNo);
+	
+	// 문의 리스트
+	ArrayList<StadiumQna> inquiryList(int memNo, PageInfo pi);
+	
+	// 문의 답변
+	int inquiryUpdate(StadiumQna sq);
 }

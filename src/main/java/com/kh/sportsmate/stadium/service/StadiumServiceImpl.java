@@ -1,5 +1,6 @@
 package com.kh.sportsmate.stadium.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
@@ -14,6 +16,7 @@ import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Refund;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 
 @Service
 public class StadiumServiceImpl implements StadiumService{
@@ -79,5 +82,20 @@ public class StadiumServiceImpl implements StadiumService{
 		return false;
 	}
 
+
+	@Override
+	public int selectInquiryCount(int memNo) {
+		return stadiumDao.selectInquiryCount(sqlSession, memNo);
+	}
+
+	@Override
+	public ArrayList<StadiumQna> inquiryList(int memNo, PageInfo pi) {
+		return stadiumDao.inquiryList(sqlSession, memNo, pi);
+	}
+
+	@Override
+	public int inquiryUpdate(StadiumQna sq) {
+		return stadiumDao.inquiryUpdate(sqlSession, sq);
+	}
 
 }

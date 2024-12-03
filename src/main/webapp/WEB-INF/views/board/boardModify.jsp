@@ -52,7 +52,7 @@
 				
 				<!-- 버튼 -->
 				<div class="bcm-button-content">
-					<div class="bcm-back-btn">게시글로 돌아가기</div>
+					<div class="bcm-back-btn" onclick="history.back()">게시글로 돌아가기</div>
 					<div class="bcm-delete-btn"  onclick="location.href = 'delete.bd?bno=${board.boardNo}'">게시글 삭제</div>
 					<button class="bcm-complete-btn" type="submit">게시글 수정</button>
 				</div>
