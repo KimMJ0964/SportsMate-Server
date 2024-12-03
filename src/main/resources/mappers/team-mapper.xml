@@ -492,6 +492,10 @@
 		WHERE MATCH_NO = #{matchNo}
 	</select>
 	
+	<!-- 메인페이지 구단 랭킹 -->
+	<select id="mainRanking" resultType="MyTeamDto">
+		SELECT 
+	</select>
 	
 	<!-- 게시글 생성 -->
 	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">

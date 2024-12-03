@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.dto.RecruitDetailDto;
 import com.kh.sportsmate.team.model.dto.RecruitDto;
 import com.kh.sportsmate.team.model.dto.RecruitListDto;
@@ -522,5 +523,13 @@ public class TeamDao {
      */
     public int checkBoardMember(SqlSessionTemplate sqlSession, int bno) {
     	return sqlSession.selectOne("teamMapper.checkBoardMember", bno);
+    }
+    
+    /**
+     * 메인페이지 구단 랭킹
+     * @param sqlSession
+     */
+    public ArrayList<MyTeamDto> mainRanking(SqlSessionTemplate sqlSession) {
+    	return (ArrayList) sqlSession.selectList("teamMapper.mainRanking");
     }
 }

@@ -160,5 +160,8 @@ public interface TeamService {
  	
  	// 댓글 및 게시판 주인 확인
  	int checkBoardMember(int bno);
+ 	
+ 	// 메인페이지 구단 랭킹
+ 	ArrayList<MyTeamDto> mainRanking();
 }
 

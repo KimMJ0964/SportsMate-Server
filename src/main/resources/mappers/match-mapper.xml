@@ -48,6 +48,7 @@
 		WHERE M.SCORE_A IS NOT NULL
 		AND M.SCORE_B IS NOT NULL
 		AND S.STADIUM_NAME LIKE CONCAT('%', #{cityName}, ' ', #{districtName}, '%')
+		ORDER BY M.MATCH_NO DESC
 		LIMIT 6;
     </select>
 </mapper>

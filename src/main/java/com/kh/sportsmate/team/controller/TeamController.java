@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.match.model.vo.MatchRefund;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.team.service.TeamService;
@@ -842,6 +843,19 @@ public class TeamController {
     	
     	return "redirect:/myPageInfo.mp";
     }
+    
+    /**
+     * 메인페이지 랭킹
+     * 
+     * @return
+     */
+    @RequestMapping("mainRanking.mn")
+	@ResponseBody
+	public ArrayList<MyTeamDto> mainRanking() {
+	    ArrayList<MyTeamDto> response = teamService.mainRanking();
+	    
+	    return response;
+	}
     /*===================================================================================================================================*/
     
 

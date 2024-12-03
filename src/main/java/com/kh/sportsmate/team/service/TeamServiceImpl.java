@@ -658,5 +658,13 @@ public class TeamServiceImpl implements TeamService {
 		return teamDao.checkBoardMember(sqlSession, bno);
 	}
 	
+	/**
+	 * 메인페이지 구단 랭킹
+	 */
+	@Override
+	public ArrayList<MyTeamDto> mainRanking() {
+		return teamDao.mainRanking(sqlSession);
+	}
+	
 }
 

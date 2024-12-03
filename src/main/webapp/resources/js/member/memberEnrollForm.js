@@ -12,7 +12,7 @@ $(document).ready(function () {
     toggleSubmit();
     setDateSelectBox();
     // 소셜 회원가입의 경우 이메일 중복 여부 자동 체크
-    if($('#auto_email').val().length > 8){
+     if($('#auto_email').length && $('#auto_email').val().length > 8){
         handleEmailCheckResult('NNNNY');
     }
     $('#profileImg').on('click', profileUpload);
