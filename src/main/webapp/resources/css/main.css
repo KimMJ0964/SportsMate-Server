@@ -202,6 +202,13 @@
     max-height: 425px;
 }
 
+#activityArea {
+	width: 80%;
+	border: 1px solid black;
+	border-radius: 8px;
+	padding: 5px;
+}
+
 @media (min-width: 481px) and (max-width: 1200px) {
     .inner-left, .inner-right {
         min-width: 480px;

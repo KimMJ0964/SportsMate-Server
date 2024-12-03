@@ -19,4 +19,35 @@
 	    WHERE MATCH_NO = #{matchNo} AND MEM_NO = #{bestMNo}
 	</update>
     
+    <select id="mainRegionMatch" resultType="String">
+    	SELECT AREA_NAME
+    	FROM AREA
+    	WHERE ACTIVITY_AREA = #{activityArea}
+    </select>
+    
+    <select id="mainMatchList" resultType="MyMatch">
+    	SELECT DISTINCT
+		    M.SCORE_A AS scoreA,
+		    M.SCORE_B AS scoreB,
+		    M.STADIUM_NO AS stadiumNo,
+		    M.MATCH_NO AS matchNo,
+		    A.TEAM_NAME AS teamAName,
+		    B.TEAM_NAME AS teamBName,
+		    M.TEAM_A_NO AS teamANo,
+		    M.TEAM_B_NO AS teamBNo,
+		    PA.CHANGE_NAME AS teamAProfile,
+		    PB.CHANGE_NAME AS teamBProfile
+		FROM `MATCH` M
+		JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
+		JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
+		JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
+		JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
+		LEFT JOIN PROFILE_FILE PA ON M.TEAM_A_NO = PA.TEAM_NO
+		LEFT JOIN PROFILE_FILE PB ON M.TEAM_B_NO = PB.TEAM_NO
+		JOIN STADIUM S ON M.STADIUM_NO = S.STADIUM_NO
+		WHERE M.SCORE_A IS NOT NULL
+		AND M.SCORE_B IS NOT NULL
+		AND S.STADIUM_NAME LIKE CONCAT('%', #{cityName}, ' ', #{districtName}, '%')
+		LIMIT 6;
+    </select>
 </mapper>

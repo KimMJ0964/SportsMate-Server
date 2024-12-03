@@ -242,64 +242,18 @@
 	</select>
 	
 	<!-- 내 전적 판 수 -->
-	<select id="selectMyMatchCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM (
-		    SELECT DISTINCT
-		        M.SCORE_A AS scoreA,
-		        M.SCORE_B AS scoreB,
-		        M.STADIUM_NO AS stadiumNo,
-		        M.MATCH_NO AS matchNo,
-		        A.TEAM_NAME AS teamAName,
-		        B.TEAM_NAME AS teamBName,
-		        M.TEAM_A_NO AS teamANo,
-		        M.TEAM_B_NO AS teamBNo
-		    FROM `MATCH` M
-		    JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
-		    JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
-		    JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
-		    JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
-		    WHERE (TA.MEM_NO = #{memNo} OR TB.MEM_NO = #{memNo})
-		      AND M.MATCH_NO IN (
-		          SELECT DISTINCT MATCH_NO
-		          FROM MATCH_BEST
-		          WHERE MEM_NO = #{memNo}
-		      )
-		      AND M.SCORE_A IS NOT NULL
-      	  	  AND M.SCORE_B IS NOT NULL
-		) AS match_count;
-	</select>
-	
-	<!-- 내 전적 이긴 횟수 -->
-	<select id="selectMyMatchWinCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM (
-		    SELECT DISTINCT
-		        M.SCORE_A AS scoreA,
-		        M.SCORE_B AS scoreB,
-		        M.STADIUM_NO AS stadiumNo,
-		        M.MATCH_NO AS matchNo,
-		        A.TEAM_NAME AS teamAName,
-		        B.TEAM_NAME AS teamBName,
-		        M.TEAM_A_NO AS teamANo,
-		        M.TEAM_B_NO AS teamBNo
-		    FROM `MATCH` M
-		    JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
-		    JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
-		    JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
-		    JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
-		    WHERE (TA.MEM_NO = #{memNo} OR TB.MEM_NO = #{memNo})
-		      AND M.MATCH_NO IN (
-		          SELECT DISTINCT MATCH_NO
-		          FROM MATCH_BEST
-		          WHERE MEM_NO = #{memNo}
-		      )
-		       AND (
-			      (TA.MEM_NO = #{memNo} AND M.SCORE_A > M.SCORE_B)  -- A팀에 속한 경우, A팀이 더 높은 점수
-			      OR
-			      (TB.MEM_NO = #{memNo} AND M.SCORE_B > M.SCORE_A)  -- B팀에 속한 경우, B팀이 더 높은 점수
-			  )
-		) AS higher_score_matches;
+	<select id="selectMyMatchCount" resultType="TeamRecord">
+		SELECT 
+		    SUM(TR.MATCH_COUNT) AS matchCount,
+		    SUM(TR.WIN) AS win
+		FROM 
+		    TEAM_MEMBER TM
+		JOIN 
+		    TEAM_RECORD TR 
+		ON 
+		    TM.TEAM_NO = TR.TEAM_NO
+		WHERE 
+		    TM.MEM_NO = #{memNo};
 	</select>
     
     <!-- 팀 정보  #{teamANo, teamBNo} -->

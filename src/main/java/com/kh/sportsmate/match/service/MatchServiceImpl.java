@@ -1,8 +1,11 @@
 package com.kh.sportsmate.match.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,14 +13,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.kh.sportsmate.board.model.dao.BoardDao;
+import com.kh.sportsmate.match.model.dao.MatchDao;
 import com.kh.sportsmate.match.model.dto.ApproveResponseDto;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.match.model.dto.ReadyResponseDto;
+import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.member.model.dao.MemberDao;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class MatchServiceImpl implements MatchService {
+	
+	@Autowired
+	private final SqlSessionTemplate sqlSession;
+	@Autowired
+	private final MatchDao matchDao;
 	
 	@Value("${kakaopay.secretKey}")
 	private String secretKey;
@@ -89,6 +104,16 @@ public class MatchServiceImpl implements MatchService {
         log.info("결제승인 응답객체: " + approveResponseDto);
 
         return approveResponseDto;
+	}
+
+	@Override
+	public String mainRegionMatch(String activityArea) {
+		return matchDao.mainRegionMatch(sqlSession, activityArea);
+	}
+
+	@Override
+	public ArrayList<MyMatch> mainMatchList(Map<String, String> map) {
+		return matchDao.mainMatchList(sqlSession, map);
 	}
 
 }

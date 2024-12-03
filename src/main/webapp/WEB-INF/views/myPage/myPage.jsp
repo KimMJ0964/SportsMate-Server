@@ -59,7 +59,6 @@
 					</p>
 					<p>나이 : ${myInfo.memAge }</p>
 					<p>점수 : ${myInfo.memRank }</p>
-					<br>
 				</div>
 				<div class="profile-buttons">
 					<Button class="modify-btn"
@@ -78,11 +77,11 @@
 					<div class="stats-container">
 						<div class="AllCountBox">
 							<div class="all">총 경기 수</div>
-							<div class="all_count">${myMatchCount}번</div>
+							<div class="all_count">${myMatchCount.matchCount}번</div>
 						</div>
 						<div class="VictoryCountBox">
 							<div class="victory">승리 횟수</div>
-							<div class="victory_count">${myMatchWinCount}번</div>
+							<div class="victory_count">${myMatchCount.win}번</div>
 						</div>
 					</div>
 					<c:forEach var="mm" items="${myMatch}">
@@ -330,7 +329,7 @@
 										</div>
 									</div>
 									<div class="club-body">
-										<h5>구단 정보</h5>
+										<h5><b>구단 정보</b></h5>
 										<p>point : ${mt.teamPoint }</p>
 										<p>인원수 : ${mt.teamMemberCount} / ${mt.teamMaxPerson }</p>
 										<p>창설일 : ${mt.teamEnrollDate }</p>

@@ -89,6 +89,23 @@
 		from AREA
 		where ACTIVITY_AREA = #{searchArea}
 	</select>
+	
+	<!-- 구단 게시글 인터셉터 -->
+	<select id="checkTeamBoard" resultType="String">
+		SELECT 'Y'
+		FROM TEAM_BOARD TB
+		JOIN TEAM_MEMBER TM
+		ON TB.TEAM_NO = TM.TEAM_NO
+		WHERE TB.BOARD_NO = #{bno}
+		  AND TM.MEM_NO = #{memNo};
+	</select>
+	
+	<!-- 게시글 및 댓글 주인 확인 -->
+	<select id="checkBoardMember" resultType="Integer">
+		SELECT MEM_NO
+		FROM TEAM_BOARD
+		WHERE BOARD_NO = #{bno}
+	</select>
 	<!-- 구단 가입 신청 -->
 	<insert id="insertRecruit" parameterType="RecruitDto">
 		insert into recruit(

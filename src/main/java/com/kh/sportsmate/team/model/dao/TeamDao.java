@@ -506,4 +506,21 @@ public class TeamDao {
     public int teamClosing(SqlSessionTemplate sqlSession, int tno) {
     	return sqlSession.update("teamMapper.teamClosing", tno);
     }
+    
+    /**
+     * 구단 게시글 본인 소속 확인
+     * @param map
+     * @param sqlSession
+     */
+    public String checkTeamBoard(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+    	return sqlSession.selectOne("teamMapper.checkTeamBoard", map);
+    }
+    
+    /** 댓글 및 게시글 주인 확인
+     * @param bno
+     * @param sqlSession
+     */
+    public int checkBoardMember(SqlSessionTemplate sqlSession, int bno) {
+    	return sqlSession.selectOne("teamMapper.checkBoardMember", bno);
+    }
 }

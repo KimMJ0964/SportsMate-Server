@@ -48,6 +48,7 @@
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoard" alias="TeamBoard"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamMember" alias="TeamMember"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamVote" alias="TeamVote"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamRecord" alias="TeamRecord"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamMemberDto" alias="TeamMemberDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoardComment" alias="TeamBoardComment"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamBoardCommentDto" alias="TeamBoardCommentDto"/>
