@@ -2,6 +2,7 @@ package com.kh.sportsmate.stadium.model.dao;
 
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Refund;
 import com.kh.sportsmate.stadium.model.vo.Rental;
@@ -69,8 +70,8 @@ public class StadiumDao {
         return sqlSession.selectList("stadiumMapper.selectCompletedMatches", memNo);
     }
     
-    public List<Refund> getRefundPageData(int memNo) {
-		return sqlSession.selectList("stadiumMapper.getRefundPageData", memNo);
+    public List<StadiumRefundDto> getRefundPageData(int memNo) {
+		return (List)sqlSession.selectList("stadiumMapper.getRefundPageData", memNo);
 	}
     
 

@@ -45,6 +45,14 @@
     margin: auto;
 }
 
+.victory1-container {
+    background-color: #fff; /* 메뉴 박스 배경색 */
+    padding: 15px; /* 내부 여백 */
+    margin-bottom: 30px; /* 아래 여백 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    position: relative;
+}
+
 .victory-container {
     background-color: #fff; /* 메뉴 박스 배경색 */
     border: 1px solid #ddd; /* 테두리 색상 */
@@ -299,7 +307,7 @@
     }
 
     .registration-button{
-        margin-bottom: 100px;
+        margin-bottom: 50px;
     }
 
     .victory-container img{

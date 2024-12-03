@@ -31,37 +31,37 @@ public class StadiumController {
     }
 
     // 경기 일정 관리 페이지로 이동
-    @RequestMapping(value = "gameschedule.me")
+    @RequestMapping(value = "gameschedule.gp")
     public String gameschedule() {
         return "stadium_manager/game_schedule";
     }
 
     // 경기 종료 관리 페이지로 이동
-    @RequestMapping(value = "gamefinish.me")
+    @RequestMapping(value = "gamefinish.gp")
     public String gamefinish() {
         return "stadium_manager/game_finish";
     }
 
     // 문의사항 확인 페이지로 이동
-    @RequestMapping(value = "inquiry.me")
+    @RequestMapping(value = "inquiry.gp")
     public String inquiry() {
         return "stadium_manager/inquiry";
     }
 
     // 경기 결과 관리 페이지로 이동
-    @RequestMapping(value = "gameresult.me")
+    @RequestMapping(value = "gameresult.gp")
     public String gameresult() {
         return "stadium_manager/game_result";
     }
 
     // 구장 리스트 페이지로 이동
-    @RequestMapping("/list.st")
+    @RequestMapping("/list.gp")
     public String showStadiumList() {
         return "stadium/listPage";
     }
 
     // 구장 상세 페이지로 이동
-    @RequestMapping("/detail.st")
+    @RequestMapping("/detail.gp")
     public String showStadiumdetail() {
         return "stadium/detail";
     }
@@ -73,7 +73,7 @@ public class StadiumController {
     }
     
  // 환불 관리 페이지로 이동
-    @RequestMapping(value = "stadiumrefund.me")
+    @RequestMapping(value = "stadiumrefund.gp")
     public String stadiumrefund(HttpSession session, Model model) {
         
         // 세션에서 로그인한 회원 정보 가져오기
@@ -114,7 +114,7 @@ public class StadiumController {
 
         if (isProcessed) {
             // 성공 시 환불 관리 페이지로 리다이렉트
-            return "redirect:/stadiumrefund.me";
+            return "redirect:/stadiumrefund.gp";
         } else {
             // 실패 시 에러 페이지로 이동
             return "redirect:/errorPage.me";
@@ -130,7 +130,7 @@ public class StadiumController {
      * @param model - JSP에 전달할 구장 정보
      * @return stadium_manager/stadium_info.jsp
      */
-    @RequestMapping(value = "stadiuminfo.me")
+    @RequestMapping(value = "stadiuminfo.gp")
     public String stadiumInfo(HttpSession session, Model model) {
         // 세션에서 로그인한 회원 정보 가져오기
         Member loginMember = (Member) session.getAttribute("loginMember");
@@ -178,7 +178,7 @@ public class StadiumController {
             model.addAttribute("stadiumImages", stadiumImages);
         	
             // 성공 시 정보 페이지로 리다이렉트
-            return "redirect:/stadiuminfo.me";
+            return "redirect:/stadiuminfo.gp";
         } else {
             // 실패 시 에러 페이지 또는 재수정 요청
             return "redirect:/errorPage.me";

@@ -70,22 +70,8 @@ public class StadiumServiceImpl implements StadiumService{
 	@Override
 	public List<StadiumRefundDto> getRefundPageData(int memNo) {
 	    // DAO에서 VO 리스트 가져오기
-	    List<Refund> refundList = stadiumDao.getRefundPageData(memNo);
-
-	    // Refund VO를 StadiumRefundDto로 변환하여 반환
-	    return refundList.stream().map(refund -> {
-	        StadiumRefundDto dto = new StadiumRefundDto();
-	        dto.setReservationNo(refund.getReservationNo());
-	        dto.setStadiumName(refund.getStadiumName());
-	        dto.setStadiumImage(refund.getStadiumImage());
-	        dto.setATeamName(refund.getATeamName());
-	        dto.setATeamProfileImage(refund.getATeamProfileImage());
-	        dto.setBTeamName(refund.getBTeamName());
-	        dto.setBTeamProfileImage(refund.getBTeamProfileImage());
-	        dto.setStartTime(refund.getStartTime());
-	        dto.setEndTime(refund.getEndTime());
-	        return dto;
-	    }).collect(Collectors.toList());
+	    
+	    return stadiumDao.getRefundPageData(memNo);
 	}
 
 	@Override
