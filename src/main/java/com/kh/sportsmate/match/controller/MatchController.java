@@ -1,5 +1,8 @@
 package com.kh.sportsmate.match.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +56,7 @@ public class MatchController {
 	}
 	
 	@GetMapping(value = "payCompleted.st", produces="application/json; charset-UTF-8")
-    public String payCompleted(@RequestParam("pg_token") String pgToken, Model model) {
+    public String payCompleted(@RequestParam("pg_token") String pgToken, Model model, HttpServletRequest request) {
     
         String tid = Template.getStringAttributeValue("tid");
         log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
@@ -65,15 +68,26 @@ public class MatchController {
         log.info("총 금액: " + approveResponse.getAmount().getTotal());
         
         //db에 매칭정보 등록
+        HttpSession session = request.getSession();
+        
+        Match mc = (Match) session.getAttribute("mc");
+        
+        int result = matchService.insertMatch(mc);
+        
         return "kakaoPaySuccess";
     }
 	
 	@RequestMapping(value = "orderInfo.st")
-	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, String date, Model model) {
+	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, Model model, HttpServletRequest request) {
 		
-		StadiumSubscription ss = matchService.selectMatch(mc, price, date);
+		StadiumSubscription ss = matchService.selectMatch(mc, price);
 		
 		model.addAttribute("ss", ss);
+		
+		//세션객체에 mc보내기
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("mc", mc);
 		
 		return "matching/matchingReq";
 	}

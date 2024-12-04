@@ -107,7 +107,7 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public StadiumSubscription selectMatch(Match mc, int price, String date) {
+	public StadiumSubscription selectMatch(Match mc, int price) {
 		
 		StadiumSubscription ss = matchDao.selectMatch(sqlSession, mc);
 		StadiumSubscription s1 = matchDao.selectMatchA(sqlSession, mc);
@@ -123,6 +123,11 @@ public class MatchServiceImpl implements MatchService {
 		}
 
 		return ss;
+	}
+
+	@Override
+	public int insertMatch(Match mc) {
+		return matchDao.insertMatch(mc);
 	}
 
 }

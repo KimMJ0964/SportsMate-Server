@@ -12,5 +12,8 @@ public interface MatchService {
 	ApproveResponseDto payApprove(String tid, String pgToken);
 	
 	//결제정보 불러오기
-	StadiumSubscription selectMatch(Match mc, int price, String date);
+	StadiumSubscription selectMatch(Match mc, int price);
+	
+	//결제정보 저장하기
+	int insertMatch(Match mc);
 }

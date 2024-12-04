@@ -20,4 +20,8 @@ public class MatchDao {
 	public StadiumSubscription selectMatchB(SqlSessionTemplate sqlSession, Match mc) {
 		return sqlSession.selectOne("matchMapper.selectMatchB", mc);
 	}
+	
+	public int insertMatch(Match mc) {
+		return 0;
+	}
 }
