@@ -20,6 +20,7 @@ import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
+import com.kh.sportsmate.team.model.vo.TeamRecord;
 
 public interface MyPageService {
 	 /* 마이페이지 */
@@ -33,7 +34,7 @@ public interface MyPageService {
     Profile selectMyProfile(int memNo);
     
     // 내 전적 판 수
-    int selectMyMatchCount(int memNo);
+    TeamRecord selectMyMatchCount(int memNo);
     
     // 내 전적 이긴 판 수
     int selectMyMatchWinCount(int memNo);

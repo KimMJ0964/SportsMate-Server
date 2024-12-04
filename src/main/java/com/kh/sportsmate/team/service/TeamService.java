@@ -154,5 +154,14 @@ public interface TeamService {
  	
  	// 구단 폐쇄
  	int teamClosing(int tno);
+ 	
+ 	// 팀 게시글이 본인 팀 확인
+ 	String checkTeamBoard(Map<String, Integer> map);
+ 	
+ 	// 댓글 및 게시판 주인 확인
+ 	int checkBoardMember(int bno);
+ 	
+ 	// 메인페이지 구단 랭킹
+ 	ArrayList<MyTeamDto> mainRanking(String category);
 }
 

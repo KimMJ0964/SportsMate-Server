@@ -4,6 +4,42 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="matchMapper">
+	
+	<!-- SELECT -->
+	<!-- 결제정보 불러오기 -->
+	<select id="selectMatch" parameterType="Match" resultType="StadiumSubscription">
+	    SELECT S.STADIUM_NAME AS stadiumName,
+	    		S.STADIUM_ADDRESS AS stadiumAddress,
+	    		S.STADIUM_CATEGORY AS category,
+	    		M.MEM_NAME AS referee
+	    FROM STADIUM S
+	    JOIN MEMBER M ON M.MEM_NO = S.MEM_NO
+	    WHERE STADIUM_NO = #{stadiumNo}
+	</select>
+	
+	<select id="selectMatchA" parameterType="Match" resultType="StadiumSubscription">
+	    SELECT TEAM_NAME AS teamName
+	    FROM TEAM
+	    WHERE TEAM_NO =
+	    	CASE 
+		        WHEN #{teamBNo} != 0 THEN #{teamBNo}
+		        ELSE #{teamANo}
+		    END;
+	</select>
+
+	<select id="selectMatchB" parameterType="Match" resultType="StadiumSubscription">
+	    SELECT T.TEAM_NAME AS opponent,
+	    		CONCAT(
+		            R.MATCH_COUNT , '전 ',
+		            R.WIN, '승 ',
+		            R.LOSE, '패 ',
+		            R.DRAW, '무'
+		        ) AS result
+		FROM TEAM T
+		JOIN TEAM_RECORD R ON R.TEAM_NO = T.TEAM_NO
+		WHERE T.TEAM_NO = #{teamANo}
+	</select>
+	
     
     <!-- UPDATE -->
     <!-- 베스트 플레이어 선정   #{memNo} #{matchNo} #{bestMNo} -->
@@ -19,4 +55,39 @@
 	    WHERE MATCH_NO = #{matchNo} AND MEM_NO = #{bestMNo}
 	</update>
     
+    <select id="mainRegionMatch" resultType="String">
+    	SELECT AREA_NAME
+    	FROM AREA
+    	WHERE ACTIVITY_AREA = #{activityArea}
+    </select>
+    
+    <select id="mainMatchList" resultType="MyMatch">
+	    SELECT DISTINCT
+	        M.SCORE_A AS scoreA,
+	        M.SCORE_B AS scoreB,
+	        M.STADIUM_NO AS stadiumNo,
+	        M.MATCH_NO AS matchNo,
+	        A.TEAM_NAME AS teamAName,
+	        B.TEAM_NAME AS teamBName,
+	        M.TEAM_A_NO AS teamANo,
+	        M.TEAM_B_NO AS teamBNo,
+	        PA.CHANGE_NAME AS teamAProfile,
+	        PB.CHANGE_NAME AS teamBProfile
+	    FROM `MATCH` M
+	    JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
+	    JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
+	    JOIN TEAM_MEMBER TA ON M.TEAM_A_NO = TA.TEAM_NO
+	    JOIN TEAM_MEMBER TB ON M.TEAM_B_NO = TB.TEAM_NO
+	    LEFT JOIN PROFILE_FILE PA ON M.TEAM_A_NO = PA.TEAM_NO
+	    LEFT JOIN PROFILE_FILE PB ON M.TEAM_B_NO = PB.TEAM_NO
+	    JOIN STADIUM S ON M.STADIUM_NO = S.STADIUM_NO
+	    WHERE M.SCORE_A IS NOT NULL
+	    AND M.SCORE_B IS NOT NULL
+	    AND S.STADIUM_NAME LIKE CONCAT('%', #{cityName}, ' ', #{districtName}, '%')
+	    <if test="category != null">
+	        AND M.CATEGORY = #{category}
+	    </if>
+	    ORDER BY M.MATCH_NO DESC
+	    LIMIT 6;
+	</select>
 </mapper>

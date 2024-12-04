@@ -23,6 +23,7 @@ import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
+import com.kh.sportsmate.team.model.vo.TeamRecord;
 
 @Repository
 public class MyPageDao {
@@ -74,7 +75,7 @@ public class MyPageDao {
      * @param map
      * @return
      */
-	public int selectMyMatchCount(SqlSessionTemplate sqlSession, int memNo) {
+	public TeamRecord selectMyMatchCount(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.selectOne("memberMapper.selectMyMatchCount", memNo);
 	}
 

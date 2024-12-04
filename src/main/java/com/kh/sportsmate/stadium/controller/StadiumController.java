@@ -2,8 +2,6 @@ package com.kh.sportsmate.stadium.controller;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,12 +27,12 @@ import com.kh.sportsmate.stadium.service.StadiumService;
 
 @CrossOrigin
 @Controller
-public class stadiumController {
+public class StadiumController {
 	
 	private final StadiumService stadiumService;
 
 	@Autowired
-    public stadiumController(StadiumService stadiumService) {
+    public StadiumController(StadiumService stadiumService) {
 		this.stadiumService = stadiumService;
 	}
 	

@@ -58,8 +58,8 @@
 						</c:choose>
 					</p>
 					<p>나이 : ${myInfo.memAge }</p>
-					<p>점수 : ${myInfo.memRank }</p>
-					<br>
+					<p>실력 점수 : ${myInfo.memSkillScore }</p>
+					<p>매너 점수 : ${myInfo.memMannerScore }</p>
 				</div>
 				<div class="profile-buttons">
 					<Button class="modify-btn"
@@ -78,11 +78,11 @@
 					<div class="stats-container">
 						<div class="AllCountBox">
 							<div class="all">총 경기 수</div>
-							<div class="all_count">${myMatchCount}번</div>
+							<div class="all_count">${myMatchCount.matchCount}번</div>
 						</div>
 						<div class="VictoryCountBox">
 							<div class="victory">승리 횟수</div>
-							<div class="victory_count">${myMatchWinCount}번</div>
+							<div class="victory_count">${myMatchCount.win}번</div>
 						</div>
 					</div>
 					<c:forEach var="mm" items="${myMatch}">
@@ -330,7 +330,7 @@
 										</div>
 									</div>
 									<div class="club-body">
-										<h5>구단 정보</h5>
+										<h5><b>구단 정보</b></h5>
 										<p>point : ${mt.teamPoint }</p>
 										<p>인원수 : ${mt.teamMemberCount} / ${mt.teamMaxPerson }</p>
 										<p>창설일 : ${mt.teamEnrollDate }</p>
@@ -375,7 +375,7 @@
 							<Button class="view-btn" data-bs-toggle="modal"
 								data-bs-target="#exampleModaltwo" data-name="${mr.memName}"
 								data-age="${mr.memAge}" data-gender="${mr.memGender}"
-								data-rank="${mr.memRank}" data-abl="${mr.ability}"
+								data-skillRank="${mr.memSkillScore}" data-mannerRank="${mr.memMannerScore}" data-abl="${mr.ability}"
 								data-posi="${mr.position}" data-intro="${mr.introduce }"
 								data-profile="${mr.memberProfile }" data-context="${pageContext.request.contextPath}">입단자
 								정보</Button>
@@ -462,7 +462,10 @@
 							실력 : <span id="applicantAbl"></span>
 						</p>
 						<p>
-							평점 : <span id="applicantRank"></span>
+							매너 평점 : <span id="applicantMannerRank"></span>
+						</p>
+						<p>
+							실력 평점 : <span id="applicantSkillRank"></span>
 						</p>
 						<p>
 							나이 : <span id="applicantAge"></span>

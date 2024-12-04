@@ -29,7 +29,7 @@
 				
 				<!-- 파일 업로드 / 종류 -->
 				<div class="bcm-select-container">
-					<select class="bcm-select-select" id="type" name="type">
+					<select class="bcm-select-select" id="type" name="type" required="required">
 						<option value="">선택</option>
 		                <option value="자유">자유</option>
 						<option value="응원">응원</option>
