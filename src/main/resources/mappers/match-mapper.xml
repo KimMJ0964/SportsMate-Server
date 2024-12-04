@@ -4,6 +4,42 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="matchMapper">
+	
+	<!-- SELECT -->
+	<!-- 결제정보 불러오기 -->
+	<select id="selectMatch" parameterType="Match" resultType="StadiumSubscription">
+	    SELECT S.STADIUM_NAME AS stadiumName,
+	    		S.STADIUM_ADDRESS AS stadiumAddress,
+	    		S.STADIUM_CATEGORY AS category,
+	    		M.MEM_NAME AS referee
+	    FROM STADIUM S
+	    JOIN MEMBER M ON M.MEM_NO = S.MEM_NO
+	    WHERE STADIUM_NO = #{stadiumNo}
+	</select>
+	
+	<select id="selectMatchA" parameterType="Match" resultType="StadiumSubscription">
+	    SELECT TEAM_NAME AS teamName
+	    FROM TEAM
+	    WHERE TEAM_NO =
+	    	CASE 
+		        WHEN #{teamBNo} != 0 THEN #{teamBNo}
+		        ELSE #{teamANo}
+		    END;
+	</select>
+
+	<select id="selectMatchB" parameterType="Match" resultType="StadiumSubscription">
+	    SELECT T.TEAM_NAME AS opponent,
+	    		CONCAT(
+		            R.MATCH_COUNT , '전 ',
+		            R.WIN, '승 ',
+		            R.LOSE, '패 ',
+		            R.DRAW, '무'
+		        ) AS result
+		FROM TEAM T
+		JOIN TEAM_RECORD R ON R.TEAM_NO = T.TEAM_NO
+		WHERE T.TEAM_NO = #{teamANo}
+	</select>
+	
     
     <!-- UPDATE -->
     <!-- 베스트 플레이어 선정   #{memNo} #{matchNo} #{bestMNo} -->
