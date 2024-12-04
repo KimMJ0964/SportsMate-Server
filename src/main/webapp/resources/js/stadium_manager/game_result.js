@@ -82,7 +82,7 @@ document.querySelectorAll('.star-container').forEach(container => {
 const getRating = () => {
     const memArr = document.querySelectorAll('.star-container'); // 모든 star-container 요소 선택
     const memData = []; // 결과를 저장할 객체 배열
-
+    const result = {};
     memArr.forEach(element => {
         const memNo = element.getAttribute('data-memNo'); // data-memNo 값을 가져옴
         const rating = element.getAttribute('data-rating'); // data-rating 값을 가져옴
@@ -105,9 +105,18 @@ const getRating = () => {
             memObj.manner = rating;
         }
     });
-
+    const teamAScore = $('#team-a-checkbox').val();
+    const teamBScore = $('#team-b-checkbox').val();
+    console.log()
     console.log(memData); // 결과 출력
-    return memData; // 결과 객체 배열 반환
+    result.ratings = memData;
+    result.teamScore = {teamAScore: teamAScore, teamBScore: teamBScore };
+    console.log(result)
+    return result;
+    // return {
+    //     ratings: memData, // 선수 평점 데이터
+    //     teamScore: { teamAScore: teamAScore, teamBScore: teamBScore } // 팀 점수 추가
+    // };
 };
 
 const clickRegisterBtn = () =>{

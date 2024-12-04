@@ -1,8 +1,12 @@
 package com.kh.sportsmate.stadium.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
+import com.kh.sportsmate.stadium.model.dto.Rating;
+import com.kh.sportsmate.stadium.model.dto.TeamScore;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
@@ -35,4 +39,11 @@ public class StadiumServiceImpl implements StadiumService {
 		return stadiumDao.inquiryUpdate(sqlSession, sq);
 	}
 
+	@Override
+	public int insertGameResult(GameResultDTO gameResultDTO) {
+		List<Rating> ratingList = gameResultDTO.getRatings();
+		TeamScore score = gameResultDTO.getTeamScore();
+
+		return 0;
+	}
 }

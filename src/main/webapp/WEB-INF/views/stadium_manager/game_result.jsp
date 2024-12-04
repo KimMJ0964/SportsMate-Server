@@ -42,7 +42,7 @@
         <!-- 승리 팀 표시 -->
          <div class="result-container">
             <div class="victory-container">
-                <h4 class="victory-title">승리팀</h4>
+                <h4 class="victory-title">경기 결과</h4>
                 
                 <div class="victory-row">
                     <div class="team-info">
@@ -51,7 +51,7 @@
                         <div class="team-details">우리동네FC</div>
                     </div>
                     <div class="checkbox-container">
-                        <input type="number" name="result" id="team-a-checkbox" class="custom-radio">
+                        <input type="number" name="teamA" id="team-a-checkbox" class="custom-radio" required>
                     </div>
                 </div>
                 
@@ -64,7 +64,7 @@
                         <div class="team-details">우리동네FC</div>
                     </div>
                     <div class="checkbox-container">
-                        <input type="number" name="result" id="team-b-checkbox" class="custom-radio">
+                        <input type="number" name="teamB" id="team-b-checkbox" class="custom-radio" required>
                     </div>
                 </div>
             </div>

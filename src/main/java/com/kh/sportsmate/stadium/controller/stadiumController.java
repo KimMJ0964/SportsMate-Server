@@ -7,7 +7,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
 import com.kh.sportsmate.stadium.model.dto.Rating;
+import com.kh.sportsmate.stadium.model.dto.TeamScore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -124,8 +126,10 @@ public class stadiumController {
 
     @ResponseBody
     @PostMapping(value = "game_result.gp")
-    public String gameResult(@RequestBody List<Rating> ratingList){
-        log.info("전달받은 rating : {}",ratingList);
+    public String gameResult(@RequestBody GameResultDTO gameResultDTO){
+        log.info("전달받은 rating : {}", gameResultDTO);
+        int result = stadiumService.insertGameResult(gameResultDTO);
         return "XXXXY";
+
     }
 }
