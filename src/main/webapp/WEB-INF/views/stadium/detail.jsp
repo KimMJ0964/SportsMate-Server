@@ -515,12 +515,9 @@
 				<div>
 					<!-- stadium-info: 데이터를 전달하는 hidden div -->
 	                <div id="stadium-info" 
-	                     data-stadium-no="${stadiumDetail.stadiumNo}" 
-	                     data-stadium-category="${stadiumDetail.stadiumCategory}"
-	                     data-team-no="${stadiumDetail.teamNo}" 
-					     data-stadium-name="${stadiumDetail.stadiumName}" 
-					     data-stadium-score="${stadiumDetail.stadiumScore}" 
-	                     >
+	                    data-stadium-no="${stadiumDetail.stadiumNo}" 
+	                    data-stadium-category="${stadiumDetail.stadiumCategory}"
+	                    data-team-no="${stadiumDetail.teamNo}">
 	                </div>
 	                
 					<div class="modal-header">
@@ -560,7 +557,9 @@
 								<option value="">--시간 선택--</option>
 							</select>
 							<p>참여할 구단 멤버</p>
-							<div id="member-lineup"></div>
+							<div id="member-lineup">
+								<p class="text-muted">참여 가능한 멤버가 없습니다.</p>
+							</div>
 							<p>대기중인 매치</p>
 							
 			            <div class="modal-footer">

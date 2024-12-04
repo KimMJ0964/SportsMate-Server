@@ -138,8 +138,10 @@ public class StadiumController {
         stadiumDetail.setReviews(reviews);
         
         // 구장 신청하기 모달
-        int teamNo = stadiumDetail.getTeamNo(); 
-        List<StadiumDetailmodal> stadiumReservation = stadiumService.getStadiumReservation(teamNo);
+        List<StadiumDetailmodal> stadiumReservation = new ArrayList<>();
+        if (stadiumDetail.getTeamNo() != 0) {
+        	stadiumReservation = stadiumService.getStadiumReservation(stadiumDetail.getTeamNo());
+        }
         
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);

@@ -523,6 +523,10 @@ border: 1px solid black;
 	margin-bottom: 30px;
 	margin-top: 30px;
 }
+#member-lineup .form-check {
+    margin-bottom: 8px;
+}
+
 /* 화면 크기가 480px 이하일 때만 표시 (모바일 전용) */
 @media (max-width: 480px) {
 	.mobile-only {

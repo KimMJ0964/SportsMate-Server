@@ -356,11 +356,11 @@
 		TM.TEAM_NO AS teamNo, -- 구단 번호
 		T.MEM_NO AS tmemNo, -- 구단장 번호 (별칭으로 tmemNo 사용)
 		T.TEAM_NAME AS teamName, -- 구단 이름
-		T.SCORE AS score, -- 구단 평점
+		T.SCORE AS Score, -- 구단 평점
 		T.TEAM_POINT AS teamPoint, -- 구단 점수
 		TM.MEM_NO AS memNo, -- 멤버 번호
-		M.MEM_NO AS memName, -- 멤버 이름
-		TM.STATUS AS status -- 멤버 상태
+		M.MEM_NAME AS memName, -- 멤버 이름
+		TM.STATUS AS Status -- 멤버 상태
 	FROM
 		TEAM_MEMBER TM
 	JOIN
