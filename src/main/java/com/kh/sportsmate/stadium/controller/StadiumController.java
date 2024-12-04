@@ -142,7 +142,7 @@ public class StadiumController {
     // 환불 요청
     @PostMapping(value = "/refundProcess.me", produces = "application/json; charset=utf-8")
     @ResponseBody
-    public Map<String, Object> processRefund(
+    public Map<String, Object> processRefund(HttpSession session,
         @RequestParam int refundNo, 
         @RequestParam String refundContent
     ) {

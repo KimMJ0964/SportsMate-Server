@@ -3,6 +3,8 @@ package com.kh.sportsmate.match.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,14 +12,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.kh.sportsmate.match.dao.MatchDao;
 import com.kh.sportsmate.match.model.dto.ApproveResponseDto;
 import com.kh.sportsmate.match.model.dto.ReadyResponseDto;
+import com.kh.sportsmate.match.model.dto.StadiumSubscription;
+import com.kh.sportsmate.match.model.vo.Match;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class MatchServiceImpl implements MatchService {
+	
+	private final SqlSessionTemplate sqlSession;
+	private final MatchDao matchDao;
+	
+	@Autowired
+	public MatchServiceImpl(SqlSessionTemplate sqlSession, MatchDao matchDao) {
+		super();
+		this.sqlSession = sqlSession;
+		this.matchDao = matchDao;
+	}
 	
 	@Value("${kakaopay.secretKey}")
 	private String secretKey;
@@ -89,6 +104,25 @@ public class MatchServiceImpl implements MatchService {
         log.info("결제승인 응답객체: " + approveResponseDto);
 
         return approveResponseDto;
+	}
+
+	@Override
+	public StadiumSubscription selectMatch(Match mc, int price, String date) {
+		
+		StadiumSubscription ss = matchDao.selectMatch(sqlSession, mc);
+		StadiumSubscription s1 = matchDao.selectMatchA(sqlSession, mc);
+		ss.setTeamName(s1.getTeamName());
+		
+		ss.setPrice(price);
+		 
+		if(mc.getTeamBNo() > 0) {
+			StadiumSubscription s2 = matchDao.selectMatchB(sqlSession, mc);
+			ss.setResult(s2.getResult());
+			ss.setOpponent(s2.getOpponent());
+			ss.setTeamName(s2.getTeamName());
+		}
+
+		return ss;
 	}
 
 }
