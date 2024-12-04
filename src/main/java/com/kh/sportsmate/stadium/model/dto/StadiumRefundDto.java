@@ -22,5 +22,6 @@ public class StadiumRefundDto {
     private String startTime;             // 경기 시작 시간
     private String endTime;               // 경기 종료 시간
     private int aTeamUserNo;              // A팀 유저 식별 번호
+    private int refundNo;
 
 }

@@ -78,8 +78,8 @@ public class StadiumServiceImpl implements StadiumService{
 	}
 
 	@Override
-	public boolean processRefund(int reservationNo, String refundReason, String reasonType) {
-		int result = stadiumDao.updateReservationStatus(sqlSession, reservationNo, refundReason, reasonType);
+	public boolean processRefund(int refundNo, String refundContent) {
+	    int result = stadiumDao.updateReservationStatus(sqlSession, refundNo, refundContent);
 	    return result > 0;
 	}
 

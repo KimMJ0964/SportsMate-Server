@@ -1,6 +1,6 @@
 
-function openModal(reservationNo) {
-    document.getElementById('reservationNo').value = reservationNo; // 예약 번호 설정
+function openModal(refundNo) {
+    document.getElementById('reservationNo').value = refundNo; // 예약 번호 설정
     document.getElementById('modal').style.display = 'block'; // 모달 표시
 }
 
@@ -29,7 +29,7 @@ function submitRefund(event) {
                 alert("환불처리 되었습니다.");
                 closeModal(); 
                 const reservationNo = formData.get('reservationNo');
-                const elementToRemove = document.querySelector(`[data-reservation-no="${reservationNo}"]`);
+                const elementToRemove = document.querySelector(`[data-refund-no="${reservationNo}"]`);
                 if (elementToRemove) {
                     elementToRemove.remove();
                 }

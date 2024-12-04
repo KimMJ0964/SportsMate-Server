@@ -47,7 +47,7 @@
                     <h5 style="font-weight: bold; margin-bottom: 10px;">환불</h5>
                     <c:forEach var="refund" items="${refundPageData}">
                         <c:if test="${not empty refund.aaTeamName}">
-                            <div class="victory-container" data-reservation-no="${refund.reservationNo}">
+                            <div class="victory-container" data-refund-no="${refund.refundNo}">
                                 <div class="victory-row">
                                     <div class="team-info">
                                         <img src="${pageContext.request.contextPath}/resources/images/stadium.png" alt="경기 결과 로고" class="gameresult-logo">
@@ -58,7 +58,7 @@
                                             </ul>
                                             <input type="hidden" name="reservationNo" value="${refund.reservationNo}" />
                                             <div class="refund-btns">
-                                                <button type="button" id="refund-modal-btn" class="refund-btn" onclick="openModal('${refund.reservationNo}')">환불</button>
+                                                <button type="button" id="refund-modal-btn" class="refund-btn" onclick="openModal(`${refund.refundNo}`)">환불</button>
                                             </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                         </c:if>
                     </c:forEach>
                 </div>
-
+                
                 <div id="modal" class="dialog">
                     <div class="tb">
                     <div class="inner" style="max-width:400px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);">
@@ -76,7 +76,8 @@
                         <div class="ct">
                     <form id="refundForm" action="${pageContext.request.contextPath}/refundProcess.me" method="post" onsubmit="submitRefund(event)">
                         <input type="hidden" name="reservationNo" id="reservationNo" />
-                        <input class="refund-text" name="refundReason" type="text" placeholder="환불 사유를 입력해주세요." required>
+                        <input type="hidden" name="refundNo" id="refundNo" />
+                        <input class="refund-text" name="refundContent" type="text" placeholder="환불 사유를 입력해주세요." required>
                         <select name="reasonType" id="reasonType" required>
                             <option value="환불 사유 선택">환불 사유 선택</option>
                             <option value="천재지변">천재지변</option>

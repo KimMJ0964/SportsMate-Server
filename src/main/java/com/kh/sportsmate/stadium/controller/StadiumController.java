@@ -143,17 +143,15 @@ public class StadiumController {
     @PostMapping(value = "/refundProcess.me", produces = "application/json; charset=utf-8")
     @ResponseBody
     public Map<String, Object> processRefund(
-        @RequestParam int reservationNo, 
-        @RequestParam String refundReason, 
-        @RequestParam String reasonType
+        @RequestParam int refundNo, 
+        @RequestParam String refundContent
     ) {
         Map<String, Object> response = new HashMap<>();
-
-        boolean isProcessed = stadiumService.processRefund(reservationNo, refundReason, reasonType);
-
+        boolean isProcessed = stadiumService.processRefund(refundNo, refundContent);
         response.put("success", isProcessed);
         return response;
     }
+
 
 
 
