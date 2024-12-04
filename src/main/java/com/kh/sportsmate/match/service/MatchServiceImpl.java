@@ -110,19 +110,18 @@ public class MatchServiceImpl implements MatchService {
 	public StadiumSubscription selectMatch(Match mc, int price, String date) {
 		
 		StadiumSubscription ss = matchDao.selectMatch(sqlSession, mc);
+		StadiumSubscription s1 = matchDao.selectMatchA(sqlSession, mc);
+		ss.setTeamName(s1.getTeamName());
 		
 		ss.setPrice(price);
-		
+		 
 		if(mc.getTeamBNo() > 0) {
 			StadiumSubscription s2 = matchDao.selectMatchB(sqlSession, mc);
 			ss.setResult(s2.getResult());
-			System.out.println("sdsadsadsadsadfdasdsfa"+s2.getOpponent());
 			ss.setOpponent(s2.getOpponent());
+			ss.setTeamName(s2.getTeamName());
 		}
-		StadiumSubscription s1 = matchDao.selectMatchA(sqlSession, mc);
-		
-		ss.setTeamName(s1.getTeamName());
-		
+
 		return ss;
 	}
 
