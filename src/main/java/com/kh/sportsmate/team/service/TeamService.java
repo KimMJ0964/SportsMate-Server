@@ -162,6 +162,6 @@ public interface TeamService {
  	int checkBoardMember(int bno);
  	
  	// 메인페이지 구단 랭킹
- 	ArrayList<MyTeamDto> mainRanking();
+ 	ArrayList<MyTeamDto> mainRanking(String category);
 }
 

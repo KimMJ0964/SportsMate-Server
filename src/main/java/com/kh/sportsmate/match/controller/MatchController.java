@@ -72,8 +72,8 @@ public class MatchController {
 	
 	@RequestMapping("mainRegionMatch.mn")
 	@ResponseBody
-	public Map<String, Object> mainRegionMatch(String activityArea) {
-	    System.out.println("메인페이지 전적 지역 코드 : " + activityArea);
+	public Map<String, Object> mainRegionMatch(String activityArea, String category) {
+	    System.out.println("메인페이지 전적 지역 코드 : " + activityArea + " / 종목 : " + category);
 	    
 	    String region = matchService.mainRegionMatch(activityArea);
 	    
@@ -95,11 +95,12 @@ public class MatchController {
 	        Map<String, String> map = new HashMap<>();
 	        map.put("cityName", cityName);
 	        map.put("districtName", districtName);
+	        map.put("category", category);
 	        
 	        ArrayList<MyMatch> result = matchService.mainMatchList(map);
 	        
 	        response.put("status", "success");
-	        response.put("matches", result);  // Add the match results to the response
+	        response.put("matches", result);
 	    } else {
 	        response.put("status", "error");
 	        response.put("message", "지역 이름 형식이 예상과 다릅니다.");

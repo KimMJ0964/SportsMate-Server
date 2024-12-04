@@ -76,11 +76,10 @@
 		</div>
 
 		<div class="category-wrap">
-
-			<div class="category">축구</div>
-			<div class="category">풋살</div>
-			<div class="category">농구</div>
-			<div class="category">야구</div>
+			<div class="category" data-value="soccer">축구</div>
+			<div class="category" data-value="futsal">풋살</div>
+			<div class="category" data-value="basketball">농구</div>
+			<div class="category" data-value="baseball">야구</div>
 		</div>
 
 		<div class="main-content">
@@ -89,85 +88,7 @@
 				<div class="main-content-title">
 					<h4>실시간 랭킹</h4>
 				</div>
-				<div class="real-time-rank">
-					<div class="rank-wrap">
-						<div class="rank">1</div>
-						<div class="team">
-							<img
-								src="https://d31wz4d3hgve8q.cloudfront.net/media/emblem/51043_IMG_9132.jpeg"
-								alt="Team Logo" class="team-logo"> <span class="team-name">우리동네FC</span>
-						</div>
-						<div class="point-wrap">
-							<div class="point">Point</div>
-							<div class="score">1245</div>
-						</div>
-					</div>
-					<div class="split-bar"></div>
-					<div class="rank-wrap">
-						<div class="rank">1</div>
-						<div class="team">
-							<img
-								src="https://d31wz4d3hgve8q.cloudfront.net/media/emblem/51043_IMG_9132.jpeg"
-								alt="Team Logo" class="team-logo"> <span class="team-name">우리동네FC</span>
-						</div>
-						<div class="point-wrap">
-							<div class="point">Point</div>
-							<div class="score">1245</div>
-						</div>
-					</div>
-					<div class="split-bar"></div>
-					<div class="rank-wrap">
-						<div class="rank">1</div>
-						<div class="team">
-							<img
-								src="https://d31wz4d3hgve8q.cloudfront.net/media/emblem/51043_IMG_9132.jpeg"
-								alt="Team Logo" class="team-logo"> <span class="team-name">우리동네FC</span>
-						</div>
-						<div class="point-wrap">
-							<div class="point">Point</div>
-							<div class="score">1245</div>
-						</div>
-					</div>
-					<div class="split-bar"></div>
-					<div class="rank-wrap">
-						<div class="rank">1</div>
-						<div class="team">
-							<img
-								src="https://d31wz4d3hgve8q.cloudfront.net/media/emblem/51043_IMG_9132.jpeg"
-								alt="Team Logo" class="team-logo"> <span class="team-name">우리동네FC</span>
-						</div>
-						<div class="point-wrap">
-							<div class="point">Point</div>
-							<div class="score">1245</div>
-						</div>
-					</div>
-					<div class="split-bar"></div>
-					<div class="rank-wrap">
-						<div class="rank">1</div>
-						<div class="team">
-							<img
-								src="https://d31wz4d3hgve8q.cloudfront.net/media/emblem/51043_IMG_9132.jpeg"
-								alt="Team Logo" class="team-logo"> <span class="team-name">우리동네FC</span>
-						</div>
-						<div class="point-wrap">
-							<div class="point">Point</div>
-							<div class="score">1245</div>
-						</div>
-					</div>
-					<div class="split-bar"></div>
-					<div class="rank-wrap">
-						<div class="rank">1</div>
-						<div class="team">
-							<img
-								src="https://d31wz4d3hgve8q.cloudfront.net/media/emblem/51043_IMG_9132.jpeg"
-								alt="Team Logo" class="team-logo"> <span class="team-name">우리동네FC</span>
-						</div>
-						<div class="point-wrap">
-							<div class="point">Point</div>
-							<div class="score">1245</div>
-						</div>
-					</div>
-				</div>
+				<div class="real-time-rank"></div>
 			</div>
 
 			<div class="inner-right">
@@ -206,8 +127,7 @@
 							</select>
 						</form>
 					</div>
-					<div class="main-content-record">
-					</div>
+					<div class="main-content-record"></div>
 				</div>
 			</div>
 		</div>
@@ -217,7 +137,8 @@
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 	</div>
-	<script src="${pageContext.request.contextPath}/resources/js/mainPage/mainPage.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/mainPage/mainPage.js"></script>
 </body>
 
 </html>

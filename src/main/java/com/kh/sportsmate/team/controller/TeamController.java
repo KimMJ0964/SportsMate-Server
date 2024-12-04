@@ -851,8 +851,11 @@ public class TeamController {
      */
     @RequestMapping("mainRanking.mn")
 	@ResponseBody
-	public ArrayList<MyTeamDto> mainRanking() {
-	    ArrayList<MyTeamDto> response = teamService.mainRanking();
+	public ArrayList<MyTeamDto> mainRanking(String category) {
+    	System.out.println("종목  : " + category);
+	    ArrayList<MyTeamDto> response = teamService.mainRanking(category);
+	    
+	    System.out.println("구단 랭킹 : " + response);
 	    
 	    return response;
 	}

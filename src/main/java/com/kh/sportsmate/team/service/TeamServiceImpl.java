@@ -662,8 +662,8 @@ public class TeamServiceImpl implements TeamService {
 	 * 메인페이지 구단 랭킹
 	 */
 	@Override
-	public ArrayList<MyTeamDto> mainRanking() {
-		return teamDao.mainRanking(sqlSession);
+	public ArrayList<MyTeamDto> mainRanking(String category) {
+		return teamDao.mainRanking(sqlSession, category);
 	}
 	
 }

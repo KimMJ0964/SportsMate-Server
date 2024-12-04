@@ -529,7 +529,7 @@ public class TeamDao {
      * 메인페이지 구단 랭킹
      * @param sqlSession
      */
-    public ArrayList<MyTeamDto> mainRanking(SqlSessionTemplate sqlSession) {
-    	return (ArrayList) sqlSession.selectList("teamMapper.mainRanking");
+    public ArrayList<MyTeamDto> mainRanking(SqlSessionTemplate sqlSession, String category) {
+    	return (ArrayList) sqlSession.selectList("teamMapper.mainRanking", category);
     }
 }
