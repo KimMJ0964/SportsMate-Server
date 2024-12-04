@@ -26,12 +26,12 @@ import com.kh.sportsmate.stadium.service.StadiumService;
 @CrossOrigin
 @Slf4j
 @Controller
-public class stadiumController {
+public class StadiumController {
 	
 	private final StadiumService stadiumService;
 	
 	@Autowired
-    public stadiumController(StadiumService stadiumService) {
+    public StadiumController(StadiumService stadiumService) {
 		this.stadiumService = stadiumService;
 	}
 	
