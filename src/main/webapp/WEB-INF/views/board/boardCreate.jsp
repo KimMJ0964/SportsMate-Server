@@ -29,7 +29,7 @@
 				
 				<!-- 파일 업로드 / 종류 -->
 				<div class="bcm-select-container">
-					<select class="bcm-select-select" id="type" name="type">
+					<select class="bcm-select-select" id="type" name="type" required="required">
 						<option value="">선택</option>
 		                <option value="축구">축구</option>
 		                <option value="농구">농구</option>
