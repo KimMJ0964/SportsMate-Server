@@ -819,6 +819,13 @@
 		#{activityArea}
 		)
 	</insert>
+	<insert id="insertTeamRecord" parameterType="_int">
+		insert into TEAM_RECORD(
+		TEAM_NO
+		)VALUES(
+		#{teamNo}
+		)
+	</insert>
 	<insert id="insertActivityDays" parameterType="TeamActivityDays">
 		insert into TEAM_ACTIVITY_DAYS(
 		<trim suffixOverrides=",">

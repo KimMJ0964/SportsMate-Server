@@ -196,6 +196,9 @@ public class TeamDao {
     public int insertTeam(SqlSessionTemplate sqlSession, Team t) {
         return sqlSession.insert("teamMapper.insertTeam", t);
     }
+    public int insertTeamRecord(SqlSessionTemplate sqlSession, int teamNo) {
+        return sqlSession.insert("teamMapper.insertTeamRecord", teamNo);
+    }
 
     public int insertActivityDays(SqlSessionTemplate sqlSession, TeamActivityDays days) {
         return sqlSession.insert("teamMapper.insertActivityDays", days);

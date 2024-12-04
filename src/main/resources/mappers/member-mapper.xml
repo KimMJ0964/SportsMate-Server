@@ -18,6 +18,8 @@
         MEM_GENDER as memGender,
         MEM_PHONE as memPhone,
         MEM_STATUS as memStatus,
+		MEM_SKILL_SCORE as memSkillScore,
+		MEM_MANNER_SCORE as memMannerScore,
         MEM_ENROLL_DATE as memEnrollDate,
         MEM_BIRTH as memBirth
         from member
