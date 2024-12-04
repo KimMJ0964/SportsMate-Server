@@ -1,8 +1,6 @@
 package com.kh.sportsmate.stadium.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.member.model.vo.Member;
@@ -23,12 +20,12 @@ import com.kh.sportsmate.stadium.service.StadiumService;
 
 @CrossOrigin
 @Controller
-public class stadiumController {
+public class StadiumController {
 	
 	private final StadiumService stadiumService;
 	
 	@Autowired
-    public stadiumController(StadiumService stadiumService) {
+    public StadiumController(StadiumService stadiumService) {
 		this.stadiumService = stadiumService;
 	}
 	
