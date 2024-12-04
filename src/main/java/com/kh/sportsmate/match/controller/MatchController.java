@@ -63,6 +63,8 @@ public class MatchController {
         ApproveResponseDto approveResponse = matchService.payApprove(tid, pgToken);
         model.addAttribute("ar", approveResponse);
         log.info("총 금액: " + approveResponse.getAmount().getTotal());
+        
+        //db에 매칭정보 등록
         return "kakaoPaySuccess";
     }
 	
