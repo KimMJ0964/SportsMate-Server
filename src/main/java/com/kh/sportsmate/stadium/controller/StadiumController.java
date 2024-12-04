@@ -129,7 +129,11 @@ public class StadiumController {
     public String gameResult(@RequestBody GameResultDTO gameResultDTO){
         log.info("전달받은 rating : {}", gameResultDTO);
         int result = stadiumService.insertGameResult(gameResultDTO);
-        return "XXXXY";
+        if(result > 0){
+            return "XXXXY";
+        }else{
+            return "XXXXX";
+        }
 
     }
 }

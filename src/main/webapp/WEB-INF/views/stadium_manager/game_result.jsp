@@ -86,7 +86,7 @@
                                 <tr>
                                     <td>김개똥</td>
                                     <td class="star-rating">
-                                        <div class="star-container skill" data-memNo="12" data-rating="0">
+                                        <div class="star-container skill" data-memNo="2" data-rating="0">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -95,7 +95,7 @@
                                         </div>
                                     </td>
                                     <td class="star-rating">
-                                        <div class="star-container manner" data-memNo="12" data-rating="0">
+                                        <div class="star-container manner" data-memNo="2" data-rating="0">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -108,7 +108,7 @@
                                 <tr>
                                     <td>김개똥2</td>
                                     <td class="star-rating">
-                                        <div class="star-container skill" data-memNo="15" data-rating="0">
+                                        <div class="star-container skill" data-memNo="3" data-rating="0">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -117,7 +117,7 @@
                                         </div>
                                     </td>
                                     <td class="star-rating">
-                                        <div class="star-container manner" data-memNo="15" data-rating="0">
+                                        <div class="star-container manner" data-memNo="3" data-rating="0">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -127,72 +127,72 @@
                                     </td>
                                     <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
                                 </tr>
-                                <tr>
-                                    <td>김개똥</td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
-                                </tr>
-                                <tr>
-                                    <td>김개똥</td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
-                                </tr>
-                                <tr>
-                                    <td>김개똥</td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
-                                </tr>
+<%--                                <tr>--%>
+<%--                                    <td>김개똥</td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
+<%--                                </tr>--%>
+<%--                                <tr>--%>
+<%--                                    <td>김개똥</td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
+<%--                                </tr>--%>
+<%--                                <tr>--%>
+<%--                                    <td>김개똥</td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
+<%--                                </tr>--%>
                             </tbody>
                         </table>
 
@@ -208,116 +208,116 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>인최리</td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
-                                </tr>
-                                <tr>
-                                    <td>인최리</td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
-                                </tr>
-                                <tr>
-                                    <td>인최리</td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
-                                </tr>
-                                <tr>
-                                    <td>인최리</td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
-                                </tr>
-                                <tr>
-                                    <td>인최리</td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td class="star-rating">
-                                        <div class="star-container" data-rating="0">
-                                            <span class="star" data-value="1">★</span>
-                                            <span class="star" data-value="2">★</span>
-                                            <span class="star" data-value="3">★</span>
-                                            <span class="star" data-value="4">★</span>
-                                            <span class="star" data-value="5">★</span>
-                                        </div>
-                                    </td>
-                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>
-                                </tr>
+<%--                                <tr>--%>
+<%--                                    <td>인최리</td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
+<%--                                </tr>--%>
+<%--                                <tr>--%>
+<%--                                    <td>인최리</td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
+<%--                                </tr>--%>
+<%--                                <tr>--%>
+<%--                                    <td>인최리</td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
+<%--                                </tr>--%>
+<%--                                <tr>--%>
+<%--                                    <td>인최리</td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
+<%--                                </tr>--%>
+<%--                                <tr>--%>
+<%--                                    <td>인최리</td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td class="star-rating">--%>
+<%--                                        <div class="star-container" data-rating="0">--%>
+<%--                                            <span class="star" data-value="1">★</span>--%>
+<%--                                            <span class="star" data-value="2">★</span>--%>
+<%--                                            <span class="star" data-value="3">★</span>--%>
+<%--                                            <span class="star" data-value="4">★</span>--%>
+<%--                                            <span class="star" data-value="5">★</span>--%>
+<%--                                        </div>--%>
+<%--                                    </td>--%>
+<%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
+<%--                                </tr>--%>
                             </tbody>
                         </table>
 

@@ -60,7 +60,7 @@ public class StadiumDao {
     public int inquiryUpdate(SqlSessionTemplate sqlSession, StadiumQna sq) {
     	return sqlSession.update("stadiumMapper.inquiryUpdate", sq);
     }
-    public int updateRating(SqlSessionTemplate sqlSession, List<Rating> ratingList){
-        return sqlSession.update("stadiumMapper.insertRating", ratingList);
+    public int updateRating(SqlSessionTemplate sqlSession, Rating rating){
+        return sqlSession.update("stadiumMapper.insertRating", rating);
     }
 }

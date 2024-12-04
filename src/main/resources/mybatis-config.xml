@@ -42,6 +42,8 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumReview" alias="StadiumReview"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumQna" alias="StadiumQna"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumQnaDto" alias="StadiumQnaDto"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.Rating" alias="Rating"/>
+
 
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>

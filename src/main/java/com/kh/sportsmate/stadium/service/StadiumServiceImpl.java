@@ -23,32 +23,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @Service
 public class StadiumServiceImpl implements StadiumService {
-	private final StadiumDao stadiumDao;
-	private final SqlSessionTemplate sqlSession;
+    private final StadiumDao stadiumDao;
+    private final SqlSessionTemplate sqlSession;
 
-	@Override
-	public int selectInquiryCount(int memNo) {
-		return stadiumDao.selectInquiryCount(sqlSession, memNo);
-	}
+    @Override
+    public int selectInquiryCount(int memNo) {
+        return stadiumDao.selectInquiryCount(sqlSession, memNo);
+    }
 
-	@Override
-	public ArrayList<StadiumQna> inquiryList(int memNo, PageInfo pi) {
-		return stadiumDao.inquiryList(sqlSession, memNo, pi);
-	}
+    @Override
+    public ArrayList<StadiumQna> inquiryList(int memNo, PageInfo pi) {
+        return stadiumDao.inquiryList(sqlSession, memNo, pi);
+    }
 
-	@Override
-	public int inquiryUpdate(StadiumQna sq) {
-		return stadiumDao.inquiryUpdate(sqlSession, sq);
-	}
+    @Override
+    public int inquiryUpdate(StadiumQna sq) {
+        return stadiumDao.inquiryUpdate(sqlSession, sq);
+    }
 
-	@Transactional
-	@Override
-	public int insertGameResult(GameResultDTO gameResultDTO) {
-		List<Rating> ratingList = gameResultDTO.getRatings();
-		TeamScore score = gameResultDTO.getTeamScore();
-		log.info("평점 리스트 : {}",ratingList);
-		log.info("경기 결과 : {}",score);
-		int result1 = stadiumDao.updateRating(sqlSession, ratingList);
-		return 0;
-	}
+    @Transactional
+    @Override
+    public int insertGameResult(GameResultDTO gameResultDTO) {
+        List<Rating> ratingList = gameResultDTO.getRatings();
+        TeamScore score = gameResultDTO.getTeamScore();
+        log.info("평점 리스트 : {}", ratingList);
+        log.info("경기 결과 : {}", score);
+        for (Rating rating : ratingList) {
+            stadiumDao.updateRating(sqlSession, rating);
+        }
+        return 0;
+    }
 }
