@@ -141,4 +141,9 @@ public class StadiumDao {
     public int inquiryUpdate(SqlSessionTemplate sqlSession, StadiumQna sq) {
     	return sqlSession.update("stadiumMapper.inquiryUpdate", sq);
     }
+
+	public int updateReservationStatus(SqlSessionTemplate sqlSession, int reservationNo, String refundReason, String reasonType) {
+		
+		return sqlSession.update("stadiumMapper.updateReservationStatus", reservationNo);
+	}
 }

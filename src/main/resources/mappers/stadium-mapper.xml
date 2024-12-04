@@ -351,8 +351,13 @@
     WHERE 
         sr.STATUS = 'Y';                               <!-- 예약 상태가 승인된 것만 -->
 
-
 </select>
+
+<update id="updateReservationStatus">
+    UPDATE STADIUM_RESERVATIONS
+    SET STATUS = 'N', REFUND_REASON = #{refundReason}, REASON_TYPE = #{reasonType}
+    WHERE RESERVATION_NO = #{reservationNo};
+</update>
 
     <!-- 문의 리스트 갯수 -->
     <select id="selectInquiryCount" resultType="_int">

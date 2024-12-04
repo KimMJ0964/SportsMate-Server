@@ -1,7 +1,9 @@
 package com.kh.sportsmate.stadium.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
@@ -109,12 +113,6 @@ public class StadiumController {
         return "stadium/detail";
     }
     
- // 구장 관리자의 마이페이지로 이동 (중복된 메서드, 삭제가 필요할 수 있음)
-    @RequestMapping(value = "managermypage.me")
-    public String managermypage() {
-        return "stadium_manager/stadium_manager";
-    }
-    
  // 환불 관리 페이지로 이동
     @RequestMapping(value = "stadiumrefund.gp")
     public String stadiumrefund(HttpSession session, Model model) {
@@ -141,27 +139,20 @@ public class StadiumController {
         return "stadium_manager/stadium_refund";
     }
     
-    // 환불성공 요청
-    @PostMapping(value = "/refundProcess.me")
-    public String processRefund(int reservationNo, String refundReason, String reasonType, HttpSession session) {
-        // 세션에서 로그인한 회원 정보 가져오기
-        Member loginMember = (Member) session.getAttribute("loginMember");
+    // 환불 요청
+    @PostMapping(value = "/refundProcess.me", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Map<String, Object> processRefund(
+        @RequestParam int reservationNo, 
+        @RequestParam String refundReason, 
+        @RequestParam String reasonType
+    ) {
+        Map<String, Object> response = new HashMap<>();
 
-        // 로그인 상태 확인
-        if (loginMember == null) {
-            return "redirect:/login.me"; // 로그인 페이지로 리다이렉트
-        }
-
-        // 환불 처리 로직
         boolean isProcessed = stadiumService.processRefund(reservationNo, refundReason, reasonType);
 
-        if (isProcessed) {
-            // 성공 시 환불 관리 페이지로 리다이렉트
-            return "redirect:/stadiumrefund.gp";
-        } else {
-            // 실패 시 에러 페이지로 이동
-            return "redirect:/errorPage.me";
-        }
+        response.put("success", isProcessed);
+        return response;
     }
 
 

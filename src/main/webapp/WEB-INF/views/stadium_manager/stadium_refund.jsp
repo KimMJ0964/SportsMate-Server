@@ -42,97 +42,100 @@
         </div>
         <p>결제 완료된 목록들이 나오면 환불 버튼</p>
         <div class="rentallist-container">
-            <div class="victory1-container">
-                    <div class="victory-container">
-                        <h5 style="font-weight: bold; margin-bottom: 10px;">환불</h5>
-                        <c:forEach var="refund" items="${refundPageData}">
-                            <c:if test="${not empty refund.aaTeamName}">
-                                <div class="victory-container">
-                                    <div class="victory-row">
-                                        <div class="team-info">
-                                            <img src="${pageContext.request.contextPath}/resources/images/stadium.png" alt="경기 결과 로고" class="gameresult-logo">
-                                            <form action="${pageContext.request.contextPath}/refundProcess" method="post">
-                                                <ul>
-                                                    <li><b>${refund.stadiumName}</b></li>
-                                                    <li><b>${refund.aaTeamName} VS ${refund.bbTeamName}</b></li>
-                                                    <li><b>${refund.startTime} ~ ${refund.endTime}</b></li>
-                                                </ul>
-                                                <input type="hidden" name="reservationNo" value="${refund.reservationNo}" />
-                                                <div class="refund-btns">
-                                                    <button type="button" id="refund-modal-btn" class="refund-btn" onclick="openModal()">환불</button>
-                                                    <div id="modal" class="dialog">
-                                                        <div class="tb">
-                                                        <div class="inner" style="max-width:400px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);">
-                                                            <div class="top">
-                                                                <div class="title">환불 사유</div>
-                                                            </div>
-                                                            <div class="ct">
-                                                            <input class="refund-text" type="text" placeholder="환불 사유를 입력해주세요.">
-                                                            <select name="reason" id="reason">
-                                                                <option value="환불 사유 선택">환불 사유 선택</option>
-                                                                <option value="천재지변">천재지변</option>
-                                                                <option value="구장상태">구장상태</option>
-                                                            </select>
-                                                            </div>
-                                                            <div>
-                                                                <a href="#" class="refund-registration-btn" onclick="closeModal()">등록</a>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
+            <div class="victory-container">
+                <div class="victory-container">
+                    <h5 style="font-weight: bold; margin-bottom: 10px;">환불</h5>
+                    <c:forEach var="refund" items="${refundPageData}">
+                        <c:if test="${not empty refund.aaTeamName}">
+                            <div class="victory-container" data-reservation-no="${refund.reservationNo}">
+                                <div class="victory-row">
+                                    <div class="team-info">
+                                        <img src="${pageContext.request.contextPath}/resources/images/stadium.png" alt="경기 결과 로고" class="gameresult-logo">
+                                            <ul>
+                                                <li><b>${refund.stadiumName}</b></li>
+                                                <li><b>${refund.aaTeamName} VS ${refund.bbTeamName}</b></li>
+                                                <li><b>${refund.startTime} ~ ${refund.endTime}</b></li>
+                                            </ul>
+                                            <input type="hidden" name="reservationNo" value="${refund.reservationNo}" />
+                                            <div class="refund-btns">
+                                                <button type="button" id="refund-modal-btn" class="refund-btn" onclick="openModal('${refund.reservationNo}')">환불</button>
+                                            </div>
                                     </div>
                                 </div>
-                            </c:if>
-                        </c:forEach>
-                    </div>
-
-                <div class="victory-container">
-                    <h5 style="font-weight: bold; margin-bottom: 10px;">환불 요청 내역</h5>
-                    <div class="victory-container">
-                        <div class="victory-row">
-                            <div class="team-info">
-                                <img src="${pageContext.request.contextPath}/resources/images/stadium.png" alt="경기 결과 로고" class="gameresult-logo">
-                                <form action="">
-                                    <ul>
-                                        <li><b>서울 남도빌딩 경기장</b></li>
-                                        <li><b>우리동네FC VS 남의동네FC</b></li>
-                                        <li><b>12 : 00 ~ 14 : 00</b></li>
-                                    </ul>
-                                    <div class="refund-btns">
-                                        <button type="button" id="refund-modal-btn" class="refund-btn" onclick="openModal()">환불</button>
-                                        <div id="modal" class="dialog">
-                                            <div class="tb">
-                                            <div class="inner" style="max-width:400px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);">
-                                                <div class="top">
-                                                    <div class="title">환불 사유</div>
-                                                </div>
-                                                <div class="ct">
-                                                <input class="refund-text" type="text" placeholder="환불 사유를 입력해주세요.">
-                                                <select name="reason" id="reason">
-                                                    <option value="">환불 사유 선택</option>
-                                                    <option value="천재지변">천재지변</option>
-                                                    <option value="구장상태">구장상태</option>
-                                                </select>
-                                                </div>
-                                                <div>
-                                                    <a href="#" class="refund-registration-btn" onclick="closeModal()">등록</a>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+
+                <div id="modal" class="dialog">
+                    <div class="tb">
+                    <div class="inner" style="max-width:400px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);">
+                        <div class="top">
+                            <div class="title">환불 사유</div>
                         </div>
+                        <div class="ct">
+                    <form id="refundForm" action="${pageContext.request.contextPath}/refundProcess.me" method="post" onsubmit="submitRefund(event)">
+                        <input type="hidden" name="reservationNo" id="reservationNo" />
+                        <input class="refund-text" name="refundReason" type="text" placeholder="환불 사유를 입력해주세요." required>
+                        <select name="reasonType" id="reasonType" required>
+                            <option value="환불 사유 선택">환불 사유 선택</option>
+                            <option value="천재지변">천재지변</option>
+                            <option value="구장상태">구장상태</option>
+                        </select>
+                        </div>
+                        <div>
+                            <button type="submit" class="refund-registration-btn">등록</button>
+                            <button type="button" class="refund-cancel-btn" onclick="closeModal()">취소</button>
+                        </div>
+                    </form>
+                    </div>
                     </div>
                 </div>
 
-                
-                <!-- 뒤로가기 버튼 -->
-                <button class="registration-button" onclick="location.href = 'managermypage.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/managermypage.me'">뒤로가기</button>
+            <div class="victory-container">
+                <h5 style="font-weight: bold; margin-bottom: 10px;">환불 요청 내역</h5>
+                <div class="victory-container">
+                    <div class="victory-row">
+                        <div class="team-info">
+                            <img src="${pageContext.request.contextPath}/resources/images/stadium.png" alt="경기 결과 로고" class="gameresult-logo">
+                            <form action="">
+                                <ul>
+                                    <li><b>서울 남도빌딩 경기장</b></li>
+                                    <li><b>우리동네FC VS 남의동네FC</b></li>
+                                    <li><b>12 : 00 ~ 14 : 00</b></li>
+                                </ul>
+                                <div class="refund-btns">
+                                    <button type="button" id="refund-modal-btn" class="refund-btn" onclick="openModal()">환불</button>
+                                    <div id="modal" class="dialog">
+                                        <div class="tb">
+                                        <div class="inner" style="max-width:400px; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);">
+                                            <div class="top">
+                                                <div class="title">환불 사유</div>
+                                            </div>
+                                            <div class="ct">
+                                            <input class="refund-text" type="text" placeholder="환불 사유를 입력해주세요.">
+                                            <select name="reason" id="reason">
+                                                <option value="">환불 사유 선택</option>
+                                                <option value="천재지변">천재지변</option>
+                                                <option value="구장상태">구장상태</option>
+                                            </select>
+                                            </div>
+                                            <div>
+                                                <a href="#" class="refund-registration-btn" onclick="closeModal()">등록</a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- 뒤로가기 버튼 -->
+            <button class="registration-button" onclick="location.href = 'managermypage.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/managermypage.me'">뒤로가기</button>
             </div>
         </div>
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />

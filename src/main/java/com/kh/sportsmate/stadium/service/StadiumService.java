@@ -37,4 +37,6 @@ public interface StadiumService {
 	
 	// 문의 답변
 	int inquiryUpdate(StadiumQna sq);
+	
+
 }
