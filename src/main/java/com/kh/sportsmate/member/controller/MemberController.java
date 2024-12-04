@@ -329,7 +329,10 @@ public class MemberController {
                 session.setAttribute("authMemInfo", kakaoMemberInfo);
                 return "redirect:/memberEnrollForm.me";
             case 2: // 도메인이 동일한 회원이 있는 경우
-                session.setAttribute("loginMember", confirmResult.get(2));
+                Member loginMember = memberService.loginMember(kakaoMemberInfo);
+                log.info("로그인 멤버 객체 : {}", loginMember);
+                session.setAttribute("loginMember", loginMember);
+
                 session.setAttribute("alertMsg", "로그인에 성공하셨습니다.");
                 return "redirect:/";
             case 3: // 도메인이 다른 회원이 있는 경우

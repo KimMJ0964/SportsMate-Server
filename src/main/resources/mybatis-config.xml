@@ -12,6 +12,7 @@
 
     <typeAliases>
         <!-- common -->
+        <typeAlias type="java.util.List" alias="List"/>
         <!-- Member -->
         <typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
         <typeAlias type="com.kh.sportsmate.member.model.dto.MemberModifyDto" alias="MemberModifyDto"/>

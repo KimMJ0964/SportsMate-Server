@@ -2,6 +2,7 @@ package com.kh.sportsmate.stadium.model.dao;
 
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.stadium.model.dto.Rating;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
@@ -58,5 +59,8 @@ public class StadiumDao {
     
     public int inquiryUpdate(SqlSessionTemplate sqlSession, StadiumQna sq) {
     	return sqlSession.update("stadiumMapper.inquiryUpdate", sq);
+    }
+    public int updateRating(SqlSessionTemplate sqlSession, List<Rating> ratingList){
+        return sqlSession.update("stadiumMapper.insertRating", ratingList);
     }
 }

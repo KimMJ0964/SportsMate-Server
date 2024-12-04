@@ -16,9 +16,11 @@ import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class StadiumServiceImpl implements StadiumService {
 	private final StadiumDao stadiumDao;
@@ -39,11 +41,14 @@ public class StadiumServiceImpl implements StadiumService {
 		return stadiumDao.inquiryUpdate(sqlSession, sq);
 	}
 
+	@Transactional
 	@Override
 	public int insertGameResult(GameResultDTO gameResultDTO) {
 		List<Rating> ratingList = gameResultDTO.getRatings();
 		TeamScore score = gameResultDTO.getTeamScore();
-
+		log.info("평점 리스트 : {}",ratingList);
+		log.info("경기 결과 : {}",score);
+		int result1 = stadiumDao.updateRating(sqlSession, ratingList);
 		return 0;
 	}
 }
