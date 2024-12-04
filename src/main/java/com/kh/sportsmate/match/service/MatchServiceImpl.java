@@ -1,5 +1,6 @@
 package com.kh.sportsmate.match.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,27 +13,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.match.dao.MatchDao;
 import com.kh.sportsmate.match.model.dto.ApproveResponseDto;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.match.model.dto.ReadyResponseDto;
+import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.match.model.dto.StadiumSubscription;
 import com.kh.sportsmate.match.model.vo.Match;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class MatchServiceImpl implements MatchService {
 	
 	private final SqlSessionTemplate sqlSession;
 	private final MatchDao matchDao;
 	
-	@Autowired
-	public MatchServiceImpl(SqlSessionTemplate sqlSession, MatchDao matchDao) {
-		super();
-		this.sqlSession = sqlSession;
-		this.matchDao = matchDao;
-	}
 	
 	@Value("${kakaopay.secretKey}")
 	private String secretKey;
@@ -107,7 +108,16 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public StadiumSubscription selectMatch(Match mc, int price) {
+	public String mainRegionMatch(String activityArea) {
+		return matchDao.mainRegionMatch(sqlSession, activityArea);
+	}
+
+	@Override
+	public ArrayList<MyMatch> mainMatchList(Map<String, String> map) {
+		return matchDao.mainMatchList(sqlSession, map);
+	}
+	
+	public StadiumSubscription selectMatch(Match mc, int price, String date) {
 		
 		StadiumSubscription ss = matchDao.selectMatch(sqlSession, mc);
 		StadiumSubscription s1 = matchDao.selectMatchA(sqlSession, mc);
@@ -128,6 +138,12 @@ public class MatchServiceImpl implements MatchService {
 	@Override
 	public int insertMatch(Match mc) {
 		return matchDao.insertMatch(mc);
+	}
+
+	@Override
+	public StadiumSubscription selectMatch(Match mc, int price) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

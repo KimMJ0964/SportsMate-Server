@@ -629,10 +629,41 @@ public class TeamServiceImpl implements TeamService {
 		}
 		
 	}
-
+	
+	/**
+	 * 구단 폐쇄
+	 * @param tno
+	 * @return 
+	 */
 	@Override
 	public int teamClosing(int tno) {
 		return teamDao.teamClosing(sqlSession, tno);
+	}
+
+	/**
+	 * 구단 게시글이 본인 소속 확인
+	 * @param map
+	 */
+	@Override
+	public String checkTeamBoard(Map<String, Integer> map) {
+		return teamDao.checkTeamBoard(sqlSession, map);
+	}
+	
+	/**
+	 * 댓글 및 게시판 주인 확ㅇ;ㄴ
+	 * @param bno
+	 */
+	@Override
+	public int checkBoardMember(int bno) {
+		return teamDao.checkBoardMember(sqlSession, bno);
+	}
+	
+	/**
+	 * 메인페이지 구단 랭킹
+	 */
+	@Override
+	public ArrayList<MyTeamDto> mainRanking(String category) {
+		return teamDao.mainRanking(sqlSession, category);
 	}
 	
 }

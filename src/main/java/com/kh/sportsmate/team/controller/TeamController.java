@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.match.model.vo.MatchRefund;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.team.service.TeamService;
@@ -484,15 +485,15 @@ public class TeamController {
      * @return
      */
  	@RequestMapping("boardReport.tm")
- 	public String boardReport(HttpSession session, String pnContent, int boardNo, int comNo, int reporterNo, int teamNo) {
+ 	public String boardReport(HttpSession session, String pnContent, int bno, int comNo, int reporterNo, int teamNo) {
  		Member loginMember = (Member) session.getAttribute("loginMember");
 
- 		System.out.println(pnContent + " / " + boardNo + " / " + comNo + " / " + reporterNo + "teamNo : " + teamNo);
+ 		System.out.println(pnContent + " / " + bno + " / " + comNo + " / " + reporterNo + "teamNo : " + teamNo);
  		if (loginMember != null) {
  			int memNo = loginMember.getMemNo();
  			
  			 String comNoValue = (comNo == 0) ? null : String.valueOf(comNo);
- 		     String boardNoValue = (comNo == 0) ? String.valueOf(boardNo) : null;
+ 		     String boardNoValue = (comNo == 0) ? String.valueOf(bno) : null;
 
  		     Map<String, String> map = new HashMap<>();
  		     map.put("pnContent", pnContent);
@@ -505,11 +506,11 @@ public class TeamController {
  			int result1 = boardService.commentReport(map);
 
  			session.setAttribute("alertMsg", "신고 작성이 되었습니다.");
- 			return "redirect:detailMoveBd.tm?bno=" + boardNo;
+ 			return "redirect:detailMoveBd.tm?bno=" + bno;
 
  		} else {
  			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
- 			return "redirect:detailMoveBd.tm?bno=" + boardNo;
+ 			return "redirect:detailMoveBd.tm?bno=" + bno;
  		}
  	}
  	
@@ -523,7 +524,7 @@ public class TeamController {
      * @return
      */
  	@RequestMapping("replyComment.tm")
- 	public String replyComment(HttpSession session, int comParentNo, String pnContent, int boardNo) {
+ 	public String replyComment(HttpSession session, int comParentNo, String pnContent, int bno) {
  		Member loginMember = (Member) session.getAttribute("loginMember");
 
  		if (loginMember != null) {
@@ -532,16 +533,16 @@ public class TeamController {
  			Map<String, String> map = new HashMap<>();
  			map.put("pnContent", pnContent);
  			map.put("memNo", String.valueOf(memNo));
- 			map.put("boardNo", String.valueOf(boardNo));
+ 			map.put("boardNo", String.valueOf(bno));
  			map.put("comNo", String.valueOf(comParentNo));
 
  			int result1 = teamService.replyComment(map);
 
- 			return "redirect:detailMoveBd.tm?bno=" + boardNo;
+ 			return "redirect:detailMoveBd.tm?bno=" + bno;
 
  		} else {
  			session.setAttribute("alertMsg", "로그인을 진행해주시길 바랍니다.");
- 			return "redirect:detailMoveBd.tm?bno=" + boardNo;
+ 			return "redirect:detailMoveBd.tm?bno=" + bno;
  		}
  	}
  	
@@ -842,6 +843,22 @@ public class TeamController {
     	
     	return "redirect:/myPageInfo.mp";
     }
+    
+    /**
+     * 메인페이지 랭킹
+     * 
+     * @return
+     */
+    @RequestMapping("mainRanking.mn")
+	@ResponseBody
+	public ArrayList<MyTeamDto> mainRanking(String category) {
+    	System.out.println("종목  : " + category);
+	    ArrayList<MyTeamDto> response = teamService.mainRanking(category);
+	    
+	    System.out.println("구단 랭킹 : " + response);
+	    
+	    return response;
+	}
     /*===================================================================================================================================*/
     
 

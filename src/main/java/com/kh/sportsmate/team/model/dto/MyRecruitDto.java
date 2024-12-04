@@ -29,7 +29,8 @@ public class MyRecruitDto {
 	private String memGender;
 	private String ability;
 	private String position;
-	private double memRank;
+	private double memSkillScore;
+	private double memMannerScore;
 	private String memberProfile;
 	private String teamProfile;
 }

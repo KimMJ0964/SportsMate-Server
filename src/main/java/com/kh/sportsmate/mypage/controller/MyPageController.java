@@ -36,6 +36,7 @@ import com.kh.sportsmate.mypage.service.MyPageService;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
+import com.kh.sportsmate.team.model.vo.TeamRecord;
 
 @CrossOrigin
 @Controller
@@ -81,10 +82,7 @@ public class MyPageController {
     	ArrayList<MyMatch> myMatch = myPageService.selectMyMatch(memNo); 
     	
     	// 내 전적 판 수
-    	int myMatchCount = myPageService.selectMyMatchCount(memNo);
-    	
-    	// 내 전적 이긴 판 수
-    	int myMatchWinCount = myPageService.selectMyMatchWinCount(memNo);
+    	TeamRecord myMatchCount = myPageService.selectMyMatchCount(memNo);
     	
     	// 내 구단
     	ArrayList<MyTeamDto> myTeam = myPageService.selectMyTeam(memNo);
@@ -96,7 +94,6 @@ public class MyPageController {
     	ArrayList<StadiumQna> myQna = myPageService.selectMyQna(memNo);
     	
     	model.addAttribute("myQna", myQna);
-    	model.addAttribute("myMatchWinCount", myMatchWinCount);
     	model.addAttribute("myMatchCount", myMatchCount);
     	model.addAttribute("myMatch", myMatch);
     	model.addAttribute("myInfo", myInfo);

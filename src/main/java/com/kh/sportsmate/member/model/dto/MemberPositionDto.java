@@ -19,7 +19,8 @@ public class MemberPositionDto {
     private String memAdd;
     private String memBirth;
     private String memPhone;
-    private double memRank;
+    private double memSkillScore;
+    private double memMannerScore;
     private Date memEnrollDate;
     private String memStatus;
     private int memAge;
