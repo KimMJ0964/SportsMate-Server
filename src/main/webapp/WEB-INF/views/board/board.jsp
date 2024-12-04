@@ -53,7 +53,8 @@
 					<table>
 			            <thead>
 			                <tr>
-			                    <th>번호</th>
+			                	<th>번호</th>
+			                    <th>종류</th>
 			                    <th style="width: 50%;">제목</th>
 			                    <th>닉네임</th>
 			                    <th>게시일</th>
@@ -63,7 +64,8 @@
 			            <tbody>
 			               <c:forEach var="b" items="${list}">
 			               		<tr onclick="location.href = 'detailMove.bd?bno=${b.boardNo}'" style="cursor: pointer;">
-			               			<td>${b.boardNo}</td>
+			               			<td>${b.boardNo }</td>
+			               			<td>${b.type}</td>
 			               			<td>${b.title}</td>
 			               			<td>${b.memName}</td>
 			               			<td>${b.createDate}</td>

@@ -89,6 +89,23 @@
 		from AREA
 		where ACTIVITY_AREA = #{searchArea}
 	</select>
+	
+	<!-- 구단 게시글 인터셉터 -->
+	<select id="checkTeamBoard" resultType="String">
+		SELECT 'Y'
+		FROM TEAM_BOARD TB
+		JOIN TEAM_MEMBER TM
+		ON TB.TEAM_NO = TM.TEAM_NO
+		WHERE TB.BOARD_NO = #{bno}
+		  AND TM.MEM_NO = #{memNo};
+	</select>
+	
+	<!-- 게시글 및 댓글 주인 확인 -->
+	<select id="checkBoardMember" resultType="Integer">
+		SELECT MEM_NO
+		FROM TEAM_BOARD
+		WHERE BOARD_NO = #{bno}
+	</select>
 	<!-- 구단 가입 신청 -->
 	<insert id="insertRecruit" parameterType="RecruitDto">
 		insert into recruit(
@@ -475,6 +492,25 @@
 		WHERE MATCH_NO = #{matchNo}
 	</select>
 	
+	<!-- 메인페이지 구단 랭킹 -->
+	<select id="mainRanking" resultType="MyTeamDto">
+	    SELECT 
+	        TEAM.TEAM_NAME AS teamName, 
+	        TEAM.TEAM_POINT AS teamPoint, 
+	        PROFILE_FILE.CHANGE_NAME AS teamProfile
+	    FROM 
+	        TEAM
+	    LEFT JOIN 
+	        PROFILE_FILE ON TEAM.TEAM_NO = PROFILE_FILE.TEAM_NO
+	    <where>
+	        <if test="category != null">
+	            AND TEAM.TEAM_CATEGORY = #{category}
+	        </if>
+	    </where>
+	    ORDER BY 
+	        TEAM.TEAM_POINT DESC
+	    LIMIT 6;
+	</select>
 	
 	<!-- 게시글 생성 -->
 	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">
