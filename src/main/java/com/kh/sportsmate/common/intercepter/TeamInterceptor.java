@@ -7,20 +7,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.kh.sportsmate.board.service.BoardService;
 import com.kh.sportsmate.member.model.vo.Member;
-import com.kh.sportsmate.team.model.vo.TeamBoard;
+import com.kh.sportsmate.team.model.dao.TeamDao;
 import com.kh.sportsmate.team.service.TeamService;
 
 @Component
-public class TeamBoardInterceptor implements HandlerInterceptor {
+public class TeamInterceptor implements HandlerInterceptor {
+
 	private TeamService teamService;
 
 	@Autowired
-	public TeamBoardInterceptor(TeamService teamService) {
+	public TeamInterceptor(TeamService teamService) {
 		this.teamService = teamService;
 	}
 
@@ -28,22 +31,22 @@ public class TeamBoardInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		int bno = Integer.parseInt(request.getParameter("bno"));
+		int tno = Integer.parseInt(request.getParameter("tno"));
 
 		if (session.getAttribute("loginMember") != null) {
 			Member loginMember = (Member) session.getAttribute("loginMember");
 			int memNo = loginMember.getMemNo();
 
-			System.out.println("본인의 번호 : " + memNo + "구단 번호 : " + bno);
+			System.out.println("본인의 번호 : " + memNo + "구단 번호 : " + tno);
 			
 			Map<String, Integer> map = new HashMap<>();
 			
-			map.put("bno", bno);
+			map.put("tno", tno);
 			map.put("memNo", memNo);
 			
-			String result = teamService.checkTeamBoard(map);
+			int result = teamService.checkTeamMember(map);
 
-			if (result == null) {
+			if (result < 1) {
 				session.setAttribute("alertMsg", "해당 구단의 인원이 아닙니다.");
 	            response.sendRedirect(request.getContextPath() + "/myPageInfo.mp");
 	            return false; // 추가: 더 이상 후속 처리하지 않음

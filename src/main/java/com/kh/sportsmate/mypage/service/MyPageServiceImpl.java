@@ -30,6 +30,7 @@ import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
+import com.kh.sportsmate.team.model.vo.TeamRecord;
 
 import lombok.RequiredArgsConstructor;
 
@@ -97,7 +98,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
-	public int selectMyMatchCount(int memNo) {
+	public TeamRecord selectMyMatchCount(int memNo) {
 		return mypageDao.selectMyMatchCount(sqlSession, memNo);
 	}
 	
