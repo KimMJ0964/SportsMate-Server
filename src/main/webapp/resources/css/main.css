@@ -194,6 +194,11 @@
 	border-bottom: 2px solid lightgray;
 }
 
+.team-profile {
+	width: 40px;
+	height: 40px;
+}
+
 .main-content h4 {
 	padding: 10px;
 }

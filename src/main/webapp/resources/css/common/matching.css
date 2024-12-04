@@ -1,214 +1,218 @@
 @charset "UTF-8";
-		/*진행중인매칭이미지*/
-        .matching-container {
-        	margin-top: 40px;
-            text-align: center;
-            margin-bottom: 20px; /* 이미지와 날짜 간격주기*/
-        }
-        .matching-img-box {
-            width: 100%;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        .matching-write {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 20px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            color: white;
-            z-index: 1; /* 이미지 위로 텍스트가 나오도록 설정 */
-        }
-        .matchingimg {
-            width: 100%;
-        }
-        /*날짜 선택*/
-        .weekday-selector {
-            display: flex;
-            justify-content: space-around;
-            margin: 0 auto;
-            margin-bottom: 5px;
-            /*max-width: 400px;*/
-        }
-        .day-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
-            border-radius: 20px;
-            width: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .day-box.active {
-            background-color: #0080ff;
-            color: white;
-        }
-        .day-box.inactive {
-            background-color: white;
-            color: black;
-        }
-        .date {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-        .date.std {
-        	color: red;
-        }
-        .date.sd {
-        	color: blue;
-        }
-        .day {
-            font-size: 16px;
-            color: #666;
-        }
-        .day.std {
-        	color: red;
-        }
-        .day.sd {
-        	color: blue;
-        }
-        /*선택하기*/
-        .choice {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            align-items: center;
-        }
-        /*지역선택*/
-        .mt-region {
-            width: 80px;
-            height: 30px;
-            border-radius: 14px;
-            background-color: white;
-            text-align: center;
-            border: 1px solid black;
-        }
-        /* 시작 시간 선택 */
-        .mt-starttime {
-            width: 90px;
-            height: 30px;
-            border-radius: 14px;
-            background-color: white;
-            text-align: center;
-            border: 1px solid black;
-        }
-        /* 끝 시간 선택 */
-        .mt-endtime {
-            width: 90px;
-            height: 30px;
-            border-radius: 14px;
-            background-color: white;
-            text-align: center;
-            border: 1px solid black;
-        }
-        /* 매칭 테이블 */
-		.tableContainer {
-		    width: 100%;
-		    margin-top: 10px;
-		}
-		
-		.table-row {
-		    display: flex;  /* 행을 flex로 설정 */
-		    justify-content: space-between;  /* 셀들 간 간격을 공간으로 조정 */
-		    align-items: center;  /* 세로 정렬 */
-		    border-top: 1px solid black;
-		    padding: 10px 0;
-		}
-		
-		.table-cell {
-		    font-size: 14px;
-		    text-align: center;  /* 기본적으로 모든 셀을 가운데 정렬 */
-		}
-		
-		.time {
-		    text-align: left;  /* 시간은 왼쪽 정렬 */
-		    padding-left: 20px;
-		}
-		
-		.location {
-		    text-align: center;  /* 장소는 중앙 정렬 */
-		}
-		
-		.table-cell:nth-child(3) {
-		    padding-right: 20px;
-		}
-		
-		.match-btn {
-		    padding: 10px 20px;
-		    background-color: #007bff;
-		    color: white;
-		    border: none;
-		    border-radius: 5px;
-		    cursor: pointer;
-		    font-size: 14px;
-		}
-		
-		.match-btn:hover {
-		    background-color: #0056b3;
-		}
-		
-		/* 중간 크기 화면 (481px ~ 1200px) */
-		@media (min-width: 481px) and (max-width: 1200px) {
-		    .inner-left, .inner-right {
-		        min-width: 480px;  /* 두 영역을 480px 이상으로 설정 */
-		    }
-		
-		    .category-wrap {
-		        display: flex;
-		        justify-content: space-between;  /* 항목을 양쪽으로 배치 */
-		        flex-wrap: wrap;  /* 항목들이 넘칠 경우 다음 줄로 배치 */
-		    }
-		
-		    .category {
-		        font-size: 18px;
-		        font-weight: 700;
-		        padding: 5px;
-		    }
-		
-		    .real-time-rank {
-		        border: none;
-		        border-radius: 8px;
-		        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
-		    }
-		}
-		
-		/* 모바일 화면 (300px ~ 480px) */
-		@media (max-width: 480px) {
-		    .inner-left, .inner-right {
-		        margin: 0px 10px; /* 좌우 마진을 10px로 설정하여 간격을 좁힘 */
-		    }
-		
-		    .category-wrap {
-		        width: 100%;
-		        justify-content: space-between;  /* 항목을 좌우로 배치 */
-		    }
-		
-		    .category {
-		        font-size: 16px; /* 폰트 크기 조정 */
-		        font-weight: 700;
-		        padding: 5px;
-		    }
-		
-		    .real-time-rank {
-		        border: none;
-		        border-radius: 8px;
-		        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-		    }
-		    
-		    .matchingimg {
-		        width: 100%;  /* 모바일 화면에서 이미지를 380px로 고정 */
-		        height: 100%;
-		    }
-		
-		    .matching-write {
-		        font-size: 16px;  /* 텍스트 크기도 모바일에서 줄이기 */
-		    }
-		}
-		
+/*진행중인매칭이미지*/
+.matching-container {
+	margin-top: 40px;
+	text-align: center;
+	margin-bottom: 20px; /* 이미지와 날짜 간격주기*/
+}
+
+.matching-img-box {
+	width: 100%;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.matching-write {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 20px;
+	font-weight: bold;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	color: white;
+	z-index: 1; /* 이미지 위로 텍스트가 나오도록 설정 */
+}
+
+.matchingimg {
+	width: 100%;
+}
+/*날짜 선택*/
+.weekday-selector {
+	display: flex;
+	justify-content: space-around;
+	margin: 0 auto;
+	margin-bottom: 5px;
+	/*max-width: 400px;*/
+}
+
+.day-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px;
+	border-radius: 20px;
+	width: 50px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.day-box.active {
+	background-color: #0080ff;
+	color: white;
+}
+
+.day-box.inactive {
+	background-color: white;
+	color: black;
+}
+
+.date {
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+}
+
+.date.std {
+	color: red;
+}
+
+.date.sd {
+	color: blue;
+}
+
+.day {
+	font-size: 16px;
+	color: #666;
+}
+
+.day.std {
+	color: red;
+}
+
+.day.sd {
+	color: blue;
+}
+/*선택하기*/
+.choice {
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+	align-items: center;
+}
+/*지역선택*/
+.mt-region {
+	width: 80px;
+	height: 30px;
+	border-radius: 14px;
+	background-color: white;
+	text-align: center;
+	border: 1px solid black;
+}
+/* 시작 시간 선택 */
+.mt-starttime {
+	width: 90px;
+	height: 30px;
+	border-radius: 14px;
+	background-color: white;
+	text-align: center;
+	border: 1px solid black;
+}
+/* 끝 시간 선택 */
+.mt-endtime {
+	width: 90px;
+	height: 30px;
+	border-radius: 14px;
+	background-color: white;
+	text-align: center;
+	border: 1px solid black;
+}
+/* 매칭 테이블 */
+.tableContainer {
+	display: flex;
+	flex-direction: column;
+	border-radius: 8px;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+.table-cell-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+.table-cell-container:last-child {
+	border-bottom: none; /* 마지막 행은 하단 경계선 제거 */
+}
+
+.table-cell {
+	flex: 1;
+	text-align: center; /* 기본 가운데 정렬 */
+	font-size: 14px;
+	color: #333;
+}
+
+.table-cell.time {
+	padding-left: 10px;
+}
+
+.table-cell.location {
+	text-align: center; /* 중앙 정렬 */
+}
+
+.table-cell button.match-btn {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 5px 10px;
+	cursor: pointer;
+	font-size: 14px;
+	margin-left: auto;
+}
+
+
+/* 중간 크기 화면 (481px ~ 1200px) */
+@media ( min-width : 481px) and (max-width: 1200px) {
+	.inner-left, .inner-right {
+		min-width: 480px; /* 두 영역을 480px 이상으로 설정 */
+	}
+	.category-wrap {
+		display: flex;
+		justify-content: space-between; /* 항목을 양쪽으로 배치 */
+		flex-wrap: wrap; /* 항목들이 넘칠 경우 다음 줄로 배치 */
+	}
+	.category {
+		font-size: 18px;
+		font-weight: 700;
+		padding: 5px;
+	}
+	.real-time-rank {
+		border: none;
+		border-radius: 8px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+	}
+}
+
+/* 모바일 화면 (300px ~ 480px) */
+@media ( max-width : 480px) {
+	.inner-left, .inner-right {
+		margin: 0px 10px; /* 좌우 마진을 10px로 설정하여 간격을 좁힘 */
+	}
+	.category-wrap {
+		width: 100%;
+		justify-content: space-between; /* 항목을 좌우로 배치 */
+	}
+	.category {
+		font-size: 16px; /* 폰트 크기 조정 */
+		font-weight: 700;
+		padding: 5px;
+	}
+	.real-time-rank {
+		border: none;
+		border-radius: 8px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+	}
+	.matchingimg {
+		width: 100%; /* 모바일 화면에서 이미지를 380px로 고정 */
+		height: 100%;
+	}
+	.matching-write {
+		font-size: 16px; /* 텍스트 크기도 모바일에서 줄이기 */
+	}
+}

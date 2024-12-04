@@ -18,10 +18,11 @@ public class MyMatch {
 	private int scoreA;
 	private int scoreB;
 	private String category;
-	private Date reservStart;
-	private Date reservEnd;
+	private String reservStart;
+	private String reservEnd;
 	private Date accessDate;
 	
+	private String stadiumName;
 	private String teamAName;
 	private String teamBName;
 	private int matchCount;

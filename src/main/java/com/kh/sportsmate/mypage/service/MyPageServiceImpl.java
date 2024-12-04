@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
@@ -54,6 +55,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public MemberPositionDto selectMyInfo(int memNo) {
 		return mypageDao.selectMyInfo(sqlSession, memNo);
 	}
@@ -65,6 +67,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<MyTeamDto> selectMyTeam(int memNo) {
 		return mypageDao.selectMyTeam(sqlSession, memNo);
 	}
@@ -76,6 +79,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<Recruit> selectMyRecruit(int memNo) {
 		return mypageDao.selectMyRecruit(sqlSession, memNo);
 	}
@@ -87,6 +91,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<MyMatch> selectMyMatch(int memNo) {
 		return mypageDao.selectMyMatch(sqlSession, memNo);
 	}
@@ -98,6 +103,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public TeamRecord selectMyMatchCount(int memNo) {
 		return mypageDao.selectMyMatchCount(sqlSession, memNo);
 	}
@@ -109,6 +115,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public int selectMyMatchWinCount(int memNo) {
 		return mypageDao.selectMyMatchWinCount(sqlSession, memNo);
 	}
@@ -120,6 +127,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<MemberPositionDto> selectATeamInfo(int teamANo) {
 		return mypageDao.selectATeamInfo(sqlSession, teamANo);
 	}
@@ -131,6 +139,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<MemberPositionDto> selectBTeamInfo(int teamBNo) {
 		return mypageDao.selectBTeamInfo(sqlSession, teamBNo);
 	}
@@ -142,6 +151,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional
 	public int insertPReview(StadiumReview pr) {
 		return mypageDao.insertPReview(sqlSession, pr);
 	}
@@ -153,6 +163,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional
 	public int bestPlayerChoice(Map<String, Integer> map) {
 		return mypageDao.bestPlayerChoice(sqlSession, map);
 	}
@@ -164,6 +175,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional
 	public int bestPlayerVote(Map<String, Integer> map) {
 		return mypageDao.bestPlayerVote(sqlSession, map);
 	}
@@ -175,6 +187,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public Profile selectMyProfile(int memNo) {
 		return mypageDao.selectMyProfile(sqlSession, memNo);
 	}
@@ -186,6 +199,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional
 	public MemberModifyDto myInfoList(int memNo) {
 		return mypageDao.myInfoList(sqlSession, memNo);
 	}
@@ -199,6 +213,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional
 	public int modifyMember(MemberEnrollDto m, Profile profile, HttpSession session) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
@@ -245,6 +260,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public boolean verifyOldPassword(int memNo, String memPwd) {
 		return mypageDao.verifyOldPassword(sqlSession, memNo, memPwd);
 	}
@@ -256,6 +272,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional
 	public int updatePassword( Map<String, String> map) {
 		return mypageDao.updatePassword(sqlSession, map);
 	}
@@ -267,6 +284,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional
 	public int accountCancel(int memNo) {
 		return mypageDao.accountCancel(sqlSession, memNo);
 	}
@@ -278,6 +296,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<StadiumQna> selectMyQna(int memNo) {
 		return mypageDao.selectMyQna(sqlSession, memNo);
 	}
@@ -289,6 +308,7 @@ public class MyPageServiceImpl implements MyPageService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public MatchBest checkReview(Map<String, Integer> map) {
 		return mypageDao.checkReview(sqlSession, map);
 	}
