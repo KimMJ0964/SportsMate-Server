@@ -164,30 +164,32 @@ public class stadiumController {
     		@RequestParam(value = "stadiumStartTime", required = false) String stadiumStartTime,
     		@RequestParam(value = "stadiumEndTime", required = false) String stadiumEndTime,
     		@RequestParam(value = "selectedDate", required = false) String selectedDate,
+    		@RequestParam(value = "activityArea", required = false) String activityArea,
     		Model model) {
     	
     	if (currentPage < 1) {
     		currentPage = 1;
     	}
     	
-    	if ("전체".equals(stadiumAddress)) {
-    	     stadiumAddress = null; // "전체"를 null로 설정
-        }
         if ("전체".equals(stadiumCategory)) {
             stadiumCategory = null; // "전체"를 null로 설정
         }
+        
+        if ("전체".equals(activityArea)) {
+            activityArea = null; // "전체"를 null로 설정
+        }
     	
     	// 검색 조건 설정
-    	StadiumSearch sd = new StadiumSearch(stadiumName, stadiumAddress, stadiumCategory, stadiumStartTime, stadiumEndTime, selectedDate);
+    	StadiumSearch sd = new StadiumSearch(stadiumName, stadiumAddress, stadiumCategory, stadiumStartTime, stadiumEndTime, selectedDate, activityArea);
 
         // 검색 결과 개수 조회
-        int listCount = stadiumService.getSearchResultCount(stadiumName, stadiumAddress, stadiumCategory, stadiumStartTime, stadiumEndTime, selectedDate);
+        int listCount = stadiumService.getSearchResultCount(stadiumName, stadiumAddress, stadiumCategory, stadiumStartTime, stadiumEndTime, selectedDate, activityArea);
 
         // 페이지네이션 정보 생성
         PageInfo pi = Template.getPageInfo(listCount, currentPage, 12, 12);
 
         // 페이징된 검색 결과 조회
-        List<StadiumSearch> results = stadiumService.getPaginatedStadiums(pi, stadiumName, stadiumAddress, stadiumCategory, stadiumStartTime, stadiumEndTime, selectedDate);
+        List<StadiumSearch> results = stadiumService.getPaginatedStadiums(pi, stadiumName, stadiumAddress, stadiumCategory, stadiumStartTime, stadiumEndTime, selectedDate, activityArea);
         
         // Model에 데이터 전달
 		model.addAttribute("stadiumName", stadiumName); // 구장 이름
@@ -196,6 +198,7 @@ public class stadiumController {
 		model.addAttribute("stadiumStartTime", stadiumStartTime); // 시작 시간
 		model.addAttribute("stadiumEndTime", stadiumEndTime); // 끝 시간
 		model.addAttribute("selectedDate", selectedDate); // 선택한 날짜
+		model.addAttribute("activityArea", activityArea); // 선택한 지역 코드
 		model.addAttribute("results", results); // 검색 결과 리스트
 		model.addAttribute("pi", pi);
 		return "stadium/listPage"; // 검색 결과 페이지

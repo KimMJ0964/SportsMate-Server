@@ -578,6 +578,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/detail.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/time.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stadium/lineup.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=043f5595cb50307eae5f33cc8943d0e6&libraries=services"></script>
     <script>
     var map;

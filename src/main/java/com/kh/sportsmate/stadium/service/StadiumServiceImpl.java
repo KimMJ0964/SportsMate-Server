@@ -34,7 +34,7 @@ public class StadiumServiceImpl implements StadiumService{
 
 	@Override
 	public int getSearchResultCount(String stadiumName, String stadiumAddress, String stadiumCategory,
-			String stadiumStartTime, String stadiumEndTime, String selectedDate) {
+			String stadiumStartTime, String stadiumEndTime, String selectedDate, String activityArea) {
 		 Map<String, Object> params = new HashMap<>();
 		    params.put("stadiumName", stadiumName);
 		    params.put("stadiumAddress", stadiumAddress);
@@ -42,12 +42,13 @@ public class StadiumServiceImpl implements StadiumService{
 		    params.put("stadiumStartTime", stadiumStartTime);
 		    params.put("stadiumEndTime", stadiumEndTime);
 		    params.put("selectedDate", selectedDate);
+		    params.put("activityArea", activityArea);
 		    return stadiumDao.getSearchResultCount(sqlSession, params);
 	}
 
 	@Override
 	public List<StadiumSearch> getPaginatedStadiums(PageInfo pi, String stadiumName, String stadiumAddress,
-			String stadiumCategory, String stadiumStartTime, String stadiumEndTime, String selectedDate) {
+			String stadiumCategory, String stadiumStartTime, String stadiumEndTime, String selectedDate, String activityArea) {
 		 Map<String, Object> params = new HashMap<>();
 		    params.put("stadiumName", stadiumName);
 		    params.put("stadiumAddress", stadiumAddress);
@@ -55,6 +56,7 @@ public class StadiumServiceImpl implements StadiumService{
 		    params.put("stadiumStartTime", stadiumStartTime);
 		    params.put("stadiumEndTime", stadiumEndTime);
 		    params.put("selectedDate", selectedDate);
+		    params.put("activityArea", activityArea);
 
 		    // 페이징 정보 추가
 		    params.put("startRow", (pi.getCurrentPage() - 1) * pi.getBoardLimit());

@@ -94,16 +94,33 @@
                                         <input type="text" class="form-control" placeholder="구장명을 입력해주세요." name="stadiumName">
                                     </div>
                                     <div class="type-select-group">
-                                    	<select class="form-select" name="stadiumAddress">
-                                        	<option value="전체" ${stadiumAddress == '전체' ? 'selected' : ''}>전체</option>
-						                    <option value="서울" ${stadiumAddress == '서울' ? 'selected' : ''}>서울</option>
-						                    <option value="부산" ${stadiumAddress == '부산' ? 'selected' : ''}>부산</option>
-						                    <option value="대구" ${stadiumAddress == '대구' ? 'selected' : ''}>대구</option>
-						                    <option value="인천" ${stadiumAddress == '인천' ? 'selected' : ''}>인천</option>
-						                    <option value="광주" ${stadiumAddress == '광주' ? 'selected' : ''}>광주</option>
-						                    <option value="대전" ${stadiumAddress == '대전' ? 'selected' : ''}>대전</option>
-						                    <option value="울산" ${stadiumAddress == '울산' ? 'selected' : ''}>울산</option>
-						                    <option value="세종" ${stadiumAddress == '세종' ? 'selected' : ''}>세종</option>
+                                    	<select class="form-select" name="activityArea">
+                                        	<option value="전체" ${activityArea == '전체' ? 'selected' : ''}>전체</option>
+						                    <option value="000-001" ${activityArea == '000-001' ? 'selected' : ''}>서울시 강남구</option>
+						                    <option value="000-002" ${activityArea == '000-002' ? 'selected' : ''}>서울시 강북구</option>
+						                    <option value="000-003" ${activityArea == '000-003' ? 'selected' : ''}>서울시 종로구</option>
+						                    <option value="000-004" ${activityArea == '000-004' ? 'selected' : ''}>서울시 중구</option>
+						                    <option value="000-005" ${activityArea == '000-005' ? 'selected' : ''}>서울시 용산구</option>
+						                    <option value="000-006" ${activityArea == '000-006' ? 'selected' : ''}>서울시 성동구</option>
+						                    <option value="000-007" ${activityArea == '000-007' ? 'selected' : ''}>서울시 광진구</option>
+						                    <option value="000-008" ${activityArea == '000-008' ? 'selected' : ''}>서울시 동대문구</option>
+						                    <option value="000-009" ${activityArea == '000-009' ? 'selected' : ''}>서울시 중랑구</option>
+						                    <option value="000-010" ${activityArea == '000-010' ? 'selected' : ''}>서울시 성북구</option>
+						                    <option value="000-011" ${activityArea == '000-011' ? 'selected' : ''}>서울시 도봉구</option>
+						                    <option value="000-012" ${activityArea == '000-012' ? 'selected' : ''}>서울시 노원구</option>
+						                    <option value="000-013" ${activityArea == '000-013' ? 'selected' : ''}>서울시 노원구</option>
+						                    <option value="000-014" ${activityArea == '000-014' ? 'selected' : ''}>서울시 은평구</option>
+						                    <option value="000-015" ${activityArea == '000-015' ? 'selected' : ''}>서울시 서대문구</option>
+						                    <option value="000-016" ${activityArea == '000-016' ? 'selected' : ''}>서울시 마포구</option>
+						                    <option value="000-017" ${activityArea == '000-017' ? 'selected' : ''}>서울시 양천구</option>
+						                    <option value="000-018" ${activityArea == '000-018' ? 'selected' : ''}>서울시 구로구</option>
+						                    <option value="000-019" ${activityArea == '000-019' ? 'selected' : ''}>서울시 금천구</option>
+						                    <option value="000-020" ${activityArea == '000-020' ? 'selected' : ''}>서울시 영등포구</option>
+						                    <option value="000-021" ${activityArea == '000-021' ? 'selected' : ''}>서울시 동작구</option>
+						                    <option value="000-022" ${activityArea == '000-022' ? 'selected' : ''}>서울시 관악구</option>
+						                    <option value="000-023" ${activityArea == '000-023' ? 'selected' : ''}>서울시 서초구</option>
+						                    <option value="000-024" ${activityArea == '000-024' ? 'selected' : ''}>서울시 송파구</option>
+						                    <option value="000-025" ${activityArea == '000-025' ? 'selected' : ''}>서울시 강동구</option>
                                         </select>
                                     </div>
                                     <!-- 스포츠 종류 선택 -->

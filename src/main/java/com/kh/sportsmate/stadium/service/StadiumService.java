@@ -14,11 +14,11 @@ import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 public interface StadiumService {
 	
 	int getSearchResultCount(String stadiumName, String stadiumAddress, String stadiumCategory,
-			String stadiumStartTime, String stadiumEndTime, String selectedDate);
+			String stadiumStartTime, String stadiumEndTime, String selectedDate, String activityArea);
 
 	List<StadiumSearch> getPaginatedStadiums(PageInfo pi, String stadiumName, String stadiumAddress,
 	                            String stadiumCategory, String stadiumStartTime, String stadiumEndTime,
-	                            String selectedDate);
+	                            String selectedDate, String activityArea);
 
 	// 구장 ID로 상세 정보 조회
 	StadiumSearch getStadiumById(int stadiumNo);

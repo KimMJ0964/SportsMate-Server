@@ -28,16 +28,17 @@ public class StadiumSearch {
     private String stadiumEndTime; // 구장 운영 종료 시간
     private String status; // 구장 상태
     private String selectedDate; // 날짜 가져오기
+    private String activityArea; // 지역코드
 
     public StadiumSearch(String stadiumName, String stadiumAddress, String stadiumCategory, 
-    		String stadiumStartTime, String stadiumEndTime, String selectedDate) {
+    		String stadiumStartTime, String stadiumEndTime, String selectedDate, String activityArea) {
     	this.stadiumName = stadiumName;
     	this.stadiumAddress = stadiumAddress;
     	this.stadiumCategory = stadiumCategory;
     	this.stadiumStartTime = stadiumStartTime;
     	this.stadiumEndTime = stadiumEndTime;
     	this.selectedDate = selectedDate;
+    	this.activityArea = activityArea;
     }
-
 }
 

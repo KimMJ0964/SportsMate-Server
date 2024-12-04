@@ -29,10 +29,4 @@ public class StadiumDetailmodal {
 	
 	// member 정보
 	private String memName; // 멤버 이름
-	
-	// category (포지션)
-	private String socPosi; // 축구 포지션
-	private String footPosi; // 풋살 포지션
-	private String BasketPosi; // 농구 포지션
-	private String basePosi; // 야구 포지션
 }
