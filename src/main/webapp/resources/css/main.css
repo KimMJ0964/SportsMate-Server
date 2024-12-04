@@ -99,6 +99,17 @@
 	display: flex;
 	align-items: baseline;
 	font-size: 12px;
+	width: 50%;
+}
+
+.team-A {
+	margin-left: 20px;
+    justify-content: flex-start; /* team-B를 오른쪽으로 정렬 */
+}
+
+.team-B {
+    justify-content: flex-end; /* team-B를 오른쪽으로 정렬 */
+	margin-right: 20px;
 }
 
 .radius-img {
