@@ -1,8 +1,9 @@
-// 카카오페이 결제 팝업창 연결
 $(function() {
-    const name = document.querySelector('');
-    const price = document.querySelector('');
+    const name = document.querySelector('#stadium').value;
+    const price = document.querySelector('#price').value;
+
     $("#btn-pay-ready").click(function(e) {
+        e.preventDefault();  // 폼 제출을 막음
         // 아래 데이터 외에도 필요한 데이터를 원하는 대로 담고, Controller에서 @RequestBody로 받으면 됨
         let data = {
             name: name,    // 카카오페이에 보낼 대표 상품명
