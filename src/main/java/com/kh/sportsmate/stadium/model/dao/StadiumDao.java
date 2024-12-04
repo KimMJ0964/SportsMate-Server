@@ -82,6 +82,11 @@ public class StadiumDao {
     	return sqlSession.selectList("stadiumMapper.StadiumReservation", teamNo);
     }
     
+    // 팀번호로 조회
+    public int getTeamNoByMemNo(SqlSessionTemplate sqlSession, int memNo) {
+        return sqlSession.selectOne("stadiumMapper.getTeamNoByMemNo", memNo);
+    }
+    
     // 변경해야될사항!
     public StadiumSearch selectStadiumById(SqlSessionTemplate sqlSession, int stadiumNo) {
     	return sqlSession.selectOne("stadiumMapper.selectStadiumById", stadiumNo);

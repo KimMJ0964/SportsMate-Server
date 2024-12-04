@@ -97,6 +97,11 @@ public class StadiumServiceImpl implements StadiumService{
 	public List<StadiumDetailmodal> getStadiumReservation(int teamNo) {
 		return stadiumDao.StadiumReservation(sqlSession, teamNo);
 	}
+	
+	@Override
+	public int getTeamNoByMemNo(int memNo) {
+		return stadiumDao.getTeamNoByMemNo(sqlSession, memNo);
+	}
 
 	@Override
 	public int selectInquiryCount(int memNo) {
@@ -112,4 +117,5 @@ public class StadiumServiceImpl implements StadiumService{
 	public int inquiryUpdate(StadiumQna sq) {
 		return stadiumDao.inquiryUpdate(sqlSession, sq);
 	}
+
 }

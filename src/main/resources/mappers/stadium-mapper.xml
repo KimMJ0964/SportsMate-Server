@@ -364,11 +364,19 @@
 	FROM
 		TEAM_MEMBER TM
 	JOIN
-		MEMBER M ON TM.MEM_NO = M.MEM_NO
-	JOIN
 		TEAM T ON TM.TEAM_NO = T.TEAM_NO
+	JOIN
+		MEMBER M ON TM.MEM_NO = M.MEM_NO
 	WHERE
-		TM.TEAM_NO = #{teamNo} -- 팀 번호로 조회
+		T.TEAM_NO = #{teamNo} -- 팀 번호로 조회
+		AND TM.STATUS = 'Y';
+</select>
+<!-- 팀번호로  조회 -->
+<select id="getTeamNoByMemNo" parameterType="int" resultType="int">
+    SELECT TEAM_NO
+    FROM TEAM_MEMBER
+    WHERE MEM_NO = #{memNo}
+      AND STATUS = 'Y'; -- 활성화된 상태
 </select>
     <!-- 문의 리스트 갯수 -->
     <select id="selectInquiryCount" resultType="_int">

@@ -1,35 +1,73 @@
 document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("subscription");
-    const timeOptions = document.getElementById("time-options");
 
     modal.addEventListener("show.bs.modal", () => {
-        const stadiumInfo = document.getElementById("stadium-info");
-        const stadiumNo = stadiumInfo.dataset.stadiumNo;
-        const stadiumCategory = stadiumInfo.dataset.stadiumCategory;
+        const startTimeSelect = document.querySelector("#start-time");
+        const endTimeSelect = document.querySelector("#end-time");
 
-        console.log("Stadium No:", stadiumNo);
+        // DOM 요소 존재 여부 확인
+        if (!startTimeSelect || !endTimeSelect) {
+            console.error("시작 시간 또는 종료 시간 select 요소를 찾을 수 없습니다.");
+            return;
+        }
+
+        // 시간 간격 설정
+        const timeIntervals = {
+            soccer: 2,
+            풋살: 2,
+            야구: 3,
+            농구: 1,
+        };
+
+        const stadiumCategory = document.getElementById("stadium-info").dataset.stadiumCategory;
         console.log("Stadium Category:", stadiumCategory);
 
-        // 시간 옵션 생성
-        function generateTimeOptions(startHour, endHour, interval) {
-            timeOptions.innerHTML = '<option value="">--시간 선택--</option>';
-            for (let hour = startHour; hour < endHour; hour += interval) {
-                const option = `${hour.toString().padStart(2, "0")}:00 ~ ${(hour + interval).toString().padStart(2, "0")}:00`;
-                timeOptions.innerHTML += `<option value="${option}">${option}</option>`;
-            }
+        const interval = timeIntervals[stadiumCategory] || 2; // 기본값 2시간
+
+        // 기존 옵션 초기화
+        startTimeSelect.textContent = "";
+        endTimeSelect.textContent = "";
+
+        // 시작 시간 생성
+        const defaultOptionStart = document.createElement("option");
+        defaultOptionStart.value = "";
+        defaultOptionStart.textContent = "--시작 시간 선택--";
+        startTimeSelect.appendChild(defaultOptionStart);
+
+        for (let hour = 6; hour < 24; hour++) {
+            const option = document.createElement("option");
+            option.value = hour;
+            option.textContent = `${hour}:00`;
+            startTimeSelect.appendChild(option);
         }
 
-        if (stadiumCategory === "soccer" || stadiumCategory === "풋살") {
-            generateTimeOptions(6, 24, 2);
-        } else if (stadiumCategory === "야구") {
-            timeOptions.innerHTML = `
-                <option value="09:00 ~ 12:00">09:00 ~ 12:00</option>
-                <option value="15:00 ~ 18:00">15:00 ~ 18:00</option>
-            `;
-        } else if (stadiumCategory === "농구") {
-            generateTimeOptions(6, 24, 1);
-        } else {
-            console.warn("알 수 없는 카테고리입니다.");
-        }
+        // 끝 시간 초기화 및 생성
+        const defaultOptionEnd = document.createElement("option");
+        defaultOptionEnd.value = "";
+        defaultOptionEnd.textContent = "--끝 시간 선택--";
+        endTimeSelect.appendChild(defaultOptionEnd);
+
+        startTimeSelect.addEventListener("change", () => {
+            const selectedStartHour = parseInt(startTimeSelect.value, 10);
+
+            // 종료 시간 초기화
+            endTimeSelect.textContent = "";
+            const defaultOptionEnd = document.createElement("option");
+            defaultOptionEnd.value = "";
+            defaultOptionEnd.textContent = "--끝 시간 선택--";
+            endTimeSelect.appendChild(defaultOptionEnd);
+
+            if (!isNaN(selectedStartHour)) {
+                const calculatedEndHour = selectedStartHour + interval;
+                if (calculatedEndHour <= 24) {
+                    const endOption = document.createElement("option");
+                    endOption.value = calculatedEndHour;
+                    endOption.textContent = `${calculatedEndHour}:00`;
+                    endTimeSelect.appendChild(endOption);
+                } else {
+                    console.warn("종료 시간이 24시를 초과합니다.");
+                }
+            }
+        });
     });
 });

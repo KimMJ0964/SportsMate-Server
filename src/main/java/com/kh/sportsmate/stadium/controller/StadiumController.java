@@ -120,7 +120,26 @@ public class StadiumController {
     		@RequestParam("stadiumNo") int stadiumNo,
     		@RequestParam(value = "selectedDate", required = false) String selectedDate,
     		@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+    		HttpSession session,
     		Model model) {
+    	
+        // 로그인된 사용자 정보 가져오기
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        if (loginMember == null) {
+            // 로그인되지 않은 경우 처리
+            return "redirect:/loginForm.me";
+        }
+        
+        int memNo = loginMember.getMemNo();
+        
+        // 팀 번호 조회
+        int teamNo = stadiumService.getTeamNoByMemNo(memNo);
+        
+        // 구단 멤버 정보 가져오기
+        List<StadiumDetailmodal> stadiumReservation = new ArrayList<>();
+        if (teamNo > 0) {
+            stadiumReservation = stadiumService.getStadiumReservation(teamNo);
+        }
     	
         // 게시글 개수 조회
         int listCount = stadiumService.getReviewCount(stadiumNo);
@@ -136,13 +155,7 @@ public class StadiumController {
         // 경기장 상세 정보 가져오기
         StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
         stadiumDetail.setReviews(reviews);
-        
-        // 구장 신청하기 모달
-        List<StadiumDetailmodal> stadiumReservation = new ArrayList<>();
-        if (stadiumDetail.getTeamNo() != 0) {
-        	stadiumReservation = stadiumService.getStadiumReservation(stadiumDetail.getTeamNo());
-        }
-        
+             
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);
         model.addAttribute("selectedDate", selectedDate);

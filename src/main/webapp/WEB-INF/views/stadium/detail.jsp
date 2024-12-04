@@ -516,8 +516,10 @@
 					<!-- stadium-info: 데이터를 전달하는 hidden div -->
 	                <div id="stadium-info" 
 	                    data-stadium-no="${stadiumDetail.stadiumNo}" 
-	                    data-stadium-category="${stadiumDetail.stadiumCategory}"
-	                    data-team-no="${stadiumDetail.teamNo}">
+					    data-stadium-category="${stadiumDetail.stadiumCategory}" 
+					    data-start-time="${stadiumDetail.stadiumStartTime}"
+     					data-end-time="${stadiumDetail.stadiumEndTime}"
+					    data-reservation='${stadiumReservation}'>
 	                </div>
 	                
 					<div class="modal-header">
@@ -553,14 +555,37 @@
 							        </div>
 							    </div>
 							<p>매칭을 잡을 시간을 선택해주세요</p>
-							<select id="time-options">
-								<option value="">--시간 선택--</option>
-							</select>
+							<div class="time-select-wrapper">
+		                        <label for="start-time">시작 시간</label>
+							    <select id="start-time" name="startTime" class="form-select">
+							    	<option value="">--시작 시간 선택--</option>
+							    </select>
+							</div>
+							<div class="form-group">
+							    <label for="end-time">끝 시간</label>
+							    <select id="end-time" name="endTime" class="form-select">
+							    	<option value="">--끝 시간 선택--</option>
+							    </select>
+		                    </div>
 							<p>참여할 구단 멤버</p>
 							<div id="member-lineup">
-								<p class="text-muted">참여 가능한 멤버가 없습니다.</p>
-							</div>
-							<p>대기중인 매치</p>
+                            <c:choose>
+                                <c:when test="${empty stadiumReservation}">
+                                    <p class="text-muted">참여 가능한 멤버가 없습니다.</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach var="member" items="${stadiumReservation}">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="selectedMembers" value="${member.memNo}">
+                                            <label class="form-check-label" for="member-${member.memNo}">
+                                                ${member.memName}
+                                            </label>
+                                        </div>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+						<p>대기중인 매치</p>
 							
 			            <div class="modal-footer">
 			            	<button type="submit" class="btn btn-primary">신청하기</button>
@@ -577,7 +602,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/detail.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/time.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/stadium/lineup.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=043f5595cb50307eae5f33cc8943d0e6&libraries=services"></script>
     <script>
     var map;

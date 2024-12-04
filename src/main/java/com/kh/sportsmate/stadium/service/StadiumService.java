@@ -37,6 +37,8 @@ public interface StadiumService {
 	
 	// 신청 모달
 	List<StadiumDetailmodal> getStadiumReservation(int teamNo);
+	
+	int getTeamNoByMemNo(int memNo);
 
 	// 문의 리스트 갯수
 	int selectInquiryCount(int memNo);
