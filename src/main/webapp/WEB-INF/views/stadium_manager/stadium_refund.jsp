@@ -47,18 +47,18 @@
                     <h5 style="font-weight: bold; margin-bottom: 10px;">환불</h5>
                     <c:forEach var="refund" items="${refundPageData}">
                         <c:if test="${not empty refund.aaTeamName}">
-                            <div class="victory-container" data-refund-no="${refund.refundNo}">
+                            <div class="victory-container" data-match-no="${refund.matchNo}">
                                 <div class="victory-row">
                                     <div class="team-info">
                                         <img src="${pageContext.request.contextPath}/resources/images/stadium.png" alt="경기 결과 로고" class="gameresult-logo">
                                             <ul>
                                                 <li><b>${refund.stadiumName}</b></li>
                                                 <li><b>${refund.aaTeamName} VS ${refund.bbTeamName}</b></li>
-                                                <li><b>${refund.startTime} ~ ${refund.endTime}</b></li>
+                                                <li><b>${refund.reservStart} ~ ${refund.reservEnd}</b></li>
                                             </ul>
-                                            <input type="hidden" name="reservationNo" value="${refund.reservationNo}" />
+                                            <input type="hidden" name="matchNo" value="${refund.matchNo}" />
                                             <div class="refund-btns">
-                                                <button type="button" id="refund-modal-btn" class="refund-btn" onclick="openModal(`${refund.refundNo}`)">환불</button>
+                                                <button type="button" id="refund-modal-btn" class="refund-btn" onclick="openModal(`${refund.matchNo}`)">환불</button>
                                             </div>
                                     </div>
                                 </div>
@@ -75,8 +75,7 @@
                         </div>
                         <div class="ct">
                     <form id="refundForm" action="${pageContext.request.contextPath}/refundProcess.me" method="post" onsubmit="submitRefund(event)">
-                        <input type="hidden" name="reservationNo" id="reservationNo" />
-                        <input type="hidden" name="refundNo" id="refundNo" />
+                        <input type="hidden" name="matchNo" id="matchNo" /> <!-- matchNo 전달 -->
                         <input class="refund-text" name="refundContent" type="text" placeholder="환불 사유를 입력해주세요." required>
                         <select name="reasonType" id="reasonType" required>
                             <option value="환불 사유 선택">환불 사유 선택</option>
@@ -99,7 +98,6 @@
                     <div class="victory-row">
                         <div class="team-info">
                             <img src="${pageContext.request.contextPath}/resources/images/stadium.png" alt="경기 결과 로고" class="gameresult-logo">
-                            <form action="">
                                 <ul>
                                     <li><b>서울 남도빌딩 경기장</b></li>
                                     <li><b>우리동네FC VS 남의동네FC</b></li>
@@ -128,7 +126,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>

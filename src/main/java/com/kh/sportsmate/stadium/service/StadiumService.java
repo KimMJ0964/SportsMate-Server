@@ -26,7 +26,7 @@ public interface StadiumService {
     boolean updateStadium(StadiumDto stadiumDto, Amenities amenities, Rental rental); // 복합 업데이트
 
     // **처리 메서드**
-    boolean processRefund(int reservationNo, String refundContent); // 환불 처리
+    boolean processRefund(int matNo); // 환불 처리
 
 	
 	// 문의 리스트 갯수

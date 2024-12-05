@@ -100,18 +100,6 @@ public class StadiumController {
     public String gameresult() {
         return "stadium_manager/game_result";
     }
-
-    // 구장 리스트 페이지로 이동
-    @RequestMapping("/list.gp")
-    public String showStadiumList() {
-        return "stadium/listPage";
-    }
-
-    // 구장 상세 페이지로 이동
-    @RequestMapping("/detail.gp")
-    public String showStadiumdetail() {
-        return "stadium/detail";
-    }
     
  // 환불 관리 페이지로 이동
     @RequestMapping(value = "stadiumrefund.gp")
@@ -143,11 +131,10 @@ public class StadiumController {
     @PostMapping(value = "/refundProcess.me", produces = "application/json; charset=utf-8")
     @ResponseBody
     public Map<String, Object> processRefund(HttpSession session,
-        @RequestParam int refundNo, 
-        @RequestParam String refundContent
+        @RequestParam("matchNo") int matchNo
     ) {
         Map<String, Object> response = new HashMap<>();
-        boolean isProcessed = stadiumService.processRefund(refundNo, refundContent);
+        boolean isProcessed = stadiumService.processRefund(matchNo);
         response.put("success", isProcessed);
         return response;
     }

@@ -142,8 +142,8 @@ public class StadiumDao {
     	return sqlSession.update("stadiumMapper.inquiryUpdate", sq);
     }
 
-	public int updateReservationStatus(SqlSessionTemplate sqlSession, int refundNo, String refundContent) {
-		
-		return sqlSession.update("stadiumMapper.updateReservationStatus", refundNo);
+    // 환불 처리
+	public int updateReservationStatus(SqlSessionTemplate sqlSession, int matchNo) {
+		return sqlSession.update("stadiumMapper.updateReservationStatus", matchNo);
 	}
 }

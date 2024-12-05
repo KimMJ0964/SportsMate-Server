@@ -331,33 +331,32 @@
 	<!-- 환불 리스트  -->
 	<select id="getRefundPageData" parameterType="int" resultType="StadiumRefundDto">
 		SELECT 
-	    	sr.RESERVATION_NO AS reservationNo,           <!-- 예약 번호 -->
-	        s.STADIUM_NAME AS stadiumName,                <!-- 경기장 이름 -->
-	        si.FILE_PATH AS stadiumImage,                 <!-- 경기장 사진 파일 경로 -->
-	        a_team.TEAM_NAME AS aaTeamName,                <!-- A팀 구단명 -->
-	        b_team.TEAM_NAME AS bbTeamName,                <!-- B팀 구단명 -->
-	        sr.START_TIME AS startTime,              <!-- 경기 시작 시간 -->
-	        sr.END_TIME AS endTime                   <!-- 경기 종료 시간 -->
+		    m.MATCH_NO AS matchNo,              
+		    s.STADIUM_NAME AS stadiumName,       
+		    si.FILE_PATH AS stadiumImage,              
+		    a_team.TEAM_NAME AS aaTeamName,        
+		    b_team.TEAM_NAME AS bbTeamName,      
+		    m.RESERV_START AS reservStart,        
+		    m.RESERV_END AS reservEnd              
 		FROM 
-		    STADIUM_RESERVATIONS sr                       <!-- 구장 예약 테이블 -->
-	    INNER JOIN 
-	        STADIUM s ON sr.STADIUM_NO = s.STADIUM_NO     <!-- 필수 JOIN -->
-	    LEFT JOIN 
-	        STADIUM_IMG si ON sr.STADIUM_NO = si.STADIUM_NO AND si.FILE_TYPE = 0
-	    LEFT JOIN 
-	        TEAM a_team ON sr.A_MEM_NO = a_team.MEM_NO
-	    LEFT JOIN 
-	        TEAM b_team ON sr.B_MEM_NO = b_team.MEM_NO
-	    WHERE 
-	        sr.STATUS = 'Y';                               <!-- 예약 상태가 승인된 것만 -->
-	
+		    `MATCH` m       
+		INNER JOIN 
+		    STADIUM s ON m.STADIUM_NO = s.STADIUM_NO
+		LEFT JOIN 
+		    STADIUM_IMG si ON s.STADIUM_NO = si.STADIUM_NO AND si.FILE_TYPE = 0 
+		LEFT JOIN 
+		    TEAM a_team ON m.TEAM_A_NO = a_team.TEAM_NO 
+		LEFT JOIN 
+		    TEAM b_team ON m.TEAM_B_NO = b_team.TEAM_NO 
+		WHERE 
+		    s.MEM_NO = #{memNo};
 	</select>
 
 	<!-- 환불 처리 -->
 	<update id="updateReservationStatus">
 	    UPDATE MATCH_REFUND
 	    SET STATUS = 'N', REFUND_CONTENT = #{refundContent}
-	    WHERE REFUND_NO = #{refundNo};
+	    WHERE MATCH_NO = #{matchNo};
 	</update>
 
 
