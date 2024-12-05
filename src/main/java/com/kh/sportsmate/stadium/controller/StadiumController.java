@@ -155,6 +155,9 @@ public class StadiumController {
         // 경기장 상세 정보 가져오기
         StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
         stadiumDetail.setReviews(reviews);
+        
+        // 돈 계산
+        int discountedPrice = stadiumDetail.getStadiumPrice() / 2;
              
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);
@@ -163,6 +166,7 @@ public class StadiumController {
         model.addAttribute("reviews", reviews);
         model.addAttribute("pi", pi);
         model.addAttribute("stadiumReservation", stadiumReservation); // 모달용 데이터 추가
+        model.addAttribute("discountedPrice", discountedPrice);
 
         // 뷰로 이동
         return "stadium/detail";

@@ -36,8 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         for (let hour = 6; hour < 24; hour++) {
             const option = document.createElement("option");
-            option.value = hour;
-            option.textContent = `${hour}:00`;
+            const formattedHour = hour.toString().padStart(2, "0"); // 2자리 형식으로 변환
+            option.value = `${formattedHour}:00`; // "06:00" 형식으로 설정
+            option.textContent = `${formattedHour}:00`;
             startTimeSelect.appendChild(option);
         }
 
@@ -48,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         endTimeSelect.appendChild(defaultOptionEnd);
 
         startTimeSelect.addEventListener("change", () => {
-            const selectedStartHour = parseInt(startTimeSelect.value, 10);
+            const selectedStartHour = parseInt(startTimeSelect.value.split(":")[0], 10);
 
             // 종료 시간 초기화
             endTimeSelect.textContent = "";
@@ -60,9 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!isNaN(selectedStartHour)) {
                 const calculatedEndHour = selectedStartHour + interval;
                 if (calculatedEndHour <= 24) {
+                    const formattedEndHour = calculatedEndHour.toString().padStart(2, "0"); // 2자리 형식으로 변환
                     const endOption = document.createElement("option");
-                    endOption.value = calculatedEndHour;
-                    endOption.textContent = `${calculatedEndHour}:00`;
+                    endOption.value = `${formattedEndHour}:00`; // "08:00" 형식으로 설정
+                    endOption.textContent = `${formattedEndHour}:00`;
                     endTimeSelect.appendChild(endOption);
                 } else {
                     console.warn("종료 시간이 24시를 초과합니다.");

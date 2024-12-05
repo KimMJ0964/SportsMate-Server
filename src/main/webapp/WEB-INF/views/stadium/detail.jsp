@@ -517,8 +517,6 @@
 	                <div id="stadium-info" 
 	                    data-stadium-no="${stadiumDetail.stadiumNo}" 
 					    data-stadium-category="${stadiumDetail.stadiumCategory}" 
-					    data-start-time="${stadiumDetail.stadiumStartTime}"
-     					data-end-time="${stadiumDetail.stadiumEndTime}"
 					    data-reservation='${stadiumReservation}'>
 	                </div>
 	                
@@ -529,67 +527,104 @@
 					<!-- Modal body -->
 					<div class="modal-body">
 						<form action="" method="post" class="modal-form">
-							<!-- 날짜 선택하기 -->
-							<p>매칭을 잡을 날짜를 선택해주세요</p>
-                            	<div class="calendar-wrapper-2">
-							        <div class="wrapper-2">
-							            <header>
-							                <div class="nav-2">
-							                    <button id="prev-2" class="material-icons" type="button"> chevron_left </button>
-							                    <p class="current-date-2"></p>
-							                    <button id="next-2" class="material-icons" type="button"> chevron_right </button>
-							                </div>
-							            </header>
-							            <div class="calendar-2">
-							                <ul class="weeks-2">
-							                    <li>일</li>
-							                    <li>월</li>
-							                    <li>화</li>
-							                    <li>수</li>
-							                    <li>목</li>
-							                    <li>금</li>
-							                    <li>토</li>
-							                </ul>
-							                <ul class="days-2"></ul>
-							            </div>
-							        </div>
-							    </div>
-							<p>매칭을 잡을 시간을 선택해주세요</p>
-							<div class="time-select-wrapper">
-		                        <label for="start-time">시작 시간</label>
-							    <select id="start-time" name="startTime" class="form-select">
-							    	<option value="">--시작 시간 선택--</option>
-							    </select>
-							</div>
-							<div class="form-group">
-							    <label for="end-time">끝 시간</label>
-							    <select id="end-time" name="endTime" class="form-select">
-							    	<option value="">--끝 시간 선택--</option>
-							    </select>
-		                    </div>
-							<p>참여할 구단 멤버</p>
-							<div id="member-lineup">
-                            <c:choose>
-                                <c:when test="${empty stadiumReservation}">
-                                    <p class="text-muted">참여 가능한 멤버가 없습니다.</p>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:forEach var="member" items="${stadiumReservation}">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="selectedMembers" value="${member.memNo}">
-                                            <label class="form-check-label" for="member-${member.memNo}">
-                                                ${member.memName}
-                                            </label>
-                                        </div>
-                                    </c:forEach>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-						<p>대기중인 매치</p>
-							
-			            <div class="modal-footer">
-			            	<button type="submit" class="btn btn-primary">신청하기</button>
-			            </div>
+							<!-- Hidden Inputs -->
+							<input type="hidden" id="team-leader-id" name="teamLeaderId" value="">
+						    <input type="hidden" id="stadium-id" name="stadiumId" value="${stadiumDetail.stadiumNo}">
+						    <input type="hidden" id="price" name="price" value="${discountedPrice}">
+						    <input type="hidden" id="category" name="category" value="${stadiumDetail.stadiumCategory}">
+						    
+							<!-- 경기장 이름과 가격 -->
+			                <div class="row text-center mb-4">
+			                    <div class="col-6">
+			                        <h5>${stadiumDetail.stadiumName}</h5>
+			                    </div>
+			                    <div class="col-6">
+			                        <h5><fmt:formatNumber value="${stadiumDetail.stadiumPrice}" type="number" groupingUsed="true"/>원</h5>
+			                    </div>
+			                </div>
+			
+			                <!-- 달력과 라인업 -->
+			                <input type="hidden" id="hidden-selected-date-2" name="selectedDate">
+			                <div class="row mb-4">
+			                    <!-- 달력 -->
+			                    <div class="col-md-6">
+			                        <div class="calendar-wrapper-2">
+			                            <div class="wrapper-2">
+			                                <header>
+			                                    <div class="nav-2">
+			                                        <button id="prev-2" class="material-icons" type="button"> chevron_left </button>
+			                                        <p class="current-date-2"></p>
+			                                        <button id="next-2" class="material-icons" type="button"> chevron_right </button>
+			                                    </div>
+			                                </header>
+			                                <div class="calendar-2">
+			                                    <ul class="weeks-2">
+			                                        <li>일</li>
+			                                        <li>월</li>
+			                                        <li>화</li>
+			                                        <li>수</li>
+			                                        <li>목</li>
+			                                        <li>금</li>
+			                                        <li>토</li>
+			                                    </ul>
+			                                    <ul class="days-2"></ul>
+			                                </div>
+			                            </div>
+			                        </div>
+			                    </div>
+			
+			                    <!-- 라인업 -->
+			                    <div class="col-md-6">
+			                        <p class="fw-bold">참여할 구단 멤버</p>
+			                        <div id="member-lineup" class="lineup-wrapper">
+			                            <c:choose>
+			                                <c:when test="${empty stadiumReservation}">
+			                                    <p class="text-muted">참여 가능한 멤버가 없습니다.</p>
+			                                </c:when>
+			                                <c:otherwise>
+			                                    <c:forEach var="member" items="${stadiumReservation}">
+			                                        <div class="form-check">
+			                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="selectedMembers" value="${member.memNo}">
+			                                            <label class="form-check-label" for="member-${member.memNo}">
+			                                                ${member.memName}
+			                                            </label>
+			                                        </div>
+			                                    </c:forEach>
+			                                </c:otherwise>
+			                            </c:choose>
+			                        </div>
+			                    </div>
+			                </div>
+			
+			                <!-- 시간 선택 -->
+			                <div class="row mb-4">
+			                    <div class="col-12 text-center">
+			                        <p class="fw-bold">매치 할 시간을 선택해주세요.</p>
+			                        <div class="time-select-wrapper d-flex justify-content-center">
+			                            <select id="start-time" name="startTime" class="form-select w-auto me-2">
+			                                <option value="">--시작 시간 선택--</option>
+			                            </select>
+			                            <select id="end-time" name="endTime" class="form-select w-auto ms-2">
+			                                <option value="">--끝 시간 선택--</option>
+			                            </select>
+			                        </div>
+			                    </div>
+			                </div>
+			
+			                <!-- 대기중인 매치 -->
+			                <div class="row mb-3">
+			                    <div class="col-12 text-center">
+			                        <p class="fw-bold">대기중인 매치</p>
+			                        <div class="pending-matches">
+			                            <p class="text-muted">현재 대기중인 매치가 없습니다.</p>
+			                        </div>
+			                    </div>
+			                </div>
+			
+			                <!-- 신청 버튼 -->
+			                <div class="modal-footer">
+			                    <button type="submit" class="btn btn-primary w-100">신청하기</button>
+			                </div>
 						</form>
 					</div>
 				</div>
