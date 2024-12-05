@@ -19,6 +19,8 @@ categories.forEach(category => {
         var selectedValue = $('#activityArea').val();
 
         fetchMatchResults(selectedValue, selectedCategory);
+
+        fetchMainMatching(selectedCategory);
     });
 });
 
@@ -136,17 +138,44 @@ function fetchMainRanking(selectedCategory) {  // selectedCategory를 매개변�
 }
 
 // 매치중인 매치
-function fetchMainMatching() {
+// 활동 지역 값 변경 시 콘솔 출력
+const regionSelect = document.getElementById("activityAreaTwo");
+const startTimeSelect = document.querySelector(".mt-starttime");
+const endTimeSelect = document.querySelector(".mt-endtime");
+
+// 활동 지역 값 변경 시 fetchMainMatching 호출
+regionSelect.addEventListener("change", () => {
+    fetchMainMatching();
+});
+
+// 시작 시간 값 변경 시 fetchMainMatching 호출
+startTimeSelect.addEventListener("change", () => {
+    fetchMainMatching();
+});
+
+// 종료 시간 값 변경 시 fetchMainMatching 호출
+endTimeSelect.addEventListener("change", () => {
+    fetchMainMatching();
+});
+
+function fetchMainMatching(selectedCategory) {
     $('.tableContainer').empty(); // 기존 내용을 초기화
+    console.log("선택된 지역:", selectedCategory);
+    console.log("선택된 지역:", regionSelect.value);
+    console.log("시작 시간:", startTimeSelect.value);
+    console.log("종료 시간:", endTimeSelect.value);
 
     $.ajax({
         url: 'mainMatching.mn', // 요청 URL
         type: 'GET',
+        data: { category: selectedCategory,
+                region: regionSelect.value,
+                starttime: startTimeSelect.value,
+                endtime: endTimeSelect.value
+         },
         dataType: 'json', // 서버 응답을 JSON으로 처리
         success: function (response) {
             console.log('Matching Response:', response);
-
-
             response.forEach(function (match) {
                 const rankItem = `
                     <div class="table-cell-container">
@@ -156,6 +185,7 @@ function fetchMainMatching() {
                                 <button class="match-btn">매칭하기</button>
                             </div>
                     </div>
+                    <hr class="table-rank-hr">
                 `;
                 $('.tableContainer').append(rankItem); // 최종 테이블 행 추가
             });
@@ -165,4 +195,21 @@ function fetchMainMatching() {
             console.error('Matching Error: ' + error);
         }
     });
+}
+
+function toggleDay(element) {
+    const isActive = element.classList.contains('active');
+    const dayBoxes = document.querySelectorAll('.day-box');
+
+    // Reset all boxes to inactive
+    dayBoxes.forEach(box => {
+        box.classList.remove('active');
+        box.classList.add('inactive');
+    });
+
+    // If the clicked box was not active, set it to active
+    if (!isActive) {
+        element.classList.add('active');
+        element.classList.remove('inactive');
+    }
 }

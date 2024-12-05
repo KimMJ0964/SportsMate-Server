@@ -139,8 +139,8 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public ArrayList<MyMatch> mainMatching() {
-		return matchDao.mainMatching(sqlSession);
+	public ArrayList<MyMatch> mainMatching(Map<String, Object> map) {
+		return matchDao.mainMatching(sqlSession, map);
 	}
 
 }

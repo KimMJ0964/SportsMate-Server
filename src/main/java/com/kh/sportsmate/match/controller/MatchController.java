@@ -1,6 +1,9 @@
 package com.kh.sportsmate.match.controller;
 
 import java.util.ArrayList;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -120,19 +123,55 @@ public class MatchController {
 	 */
 	@RequestMapping("mainMatching.mn")
 	@ResponseBody
-	public ArrayList<MyMatch> mainMatching(String category) {
-	    ArrayList<MyMatch> response = matchService.mainMatching();
-	    
-	    if (response != null && !response.isEmpty()) {
-	        for (MyMatch match : response) {
-	            System.out.println("메인페이지 매치중 : " + match); // match 객체의 toString() 메서드가 호출됩니다.
+	public ArrayList<MyMatch> mainMatching(String category, String region, String starttime, String endtime) {
+	    System.out.println("메인페이지 매치중 // 종류 : " + category + " 지역 : " + region + " 시작 시간 : " + starttime + " 끝 시간 : " + endtime);
+
+	    ArrayList<MyMatch> response = null;
+
+	    // starttime과 endtime을 Time으로 변환
+	    try {
+	        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); // 시간 형식
+	        Date startDate = sdf.parse(starttime); // String을 Date로 변환
+	        Date endDate = sdf.parse(endtime); // String을 Date로 변환
+
+	        Time startTime = new Time(startDate.getTime()); // Date를 Time으로 변환
+	        Time endTime = new Time(endDate.getTime()); // Date를 Time으로 변환
+
+	        System.out.println("startTime: " + startTime);
+	        System.out.println("endTime: " + endTime);
+
+	        if (region != null) {
+	            String area = matchService.mainRegionMatch(region);
+
+	            String[] parts = area.split(" ");
+
+	            if (parts.length == 2) {
+	                String city = parts[0];
+	                String district = parts[1];
+
+	                String cityName = city.replace("시", "");
+	                String districtName = "중구".equals(district) ? district : district.replace("구", "");
+
+	                System.out.println("시: " + cityName);
+	                System.out.println("구: " + districtName);
+
+	                Map<String, Object> map = new HashMap<>();
+	                map.put("cityName", cityName);
+	                map.put("districtName", districtName);
+	                map.put("category", category);
+	                map.put("starttime", startTime);
+	                map.put("endtime", endTime);
+
+	                response = matchService.mainMatching(map);
+	            }
 	        }
-	    } else {
-	        System.out.println("response 리스트가 비어 있습니다.");
+	    } catch (Exception e) {
+	        e.printStackTrace();
 	    }
-	    
+
 	    return response;
 	}
+
 
 	@RequestMapping(value = "orderInfo.st")
 	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, String date, Model model) {

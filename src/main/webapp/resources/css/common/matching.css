@@ -167,6 +167,12 @@
 }
 
 
+.table-rank-hr {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border-top: 2px solid #c8c8c8; 
+}
+
 /* 중간 크기 화면 (481px ~ 1200px) */
 @media ( min-width : 481px) and (max-width: 1200px) {
 	.inner-left, .inner-right {
@@ -214,5 +220,8 @@
 	}
 	.matching-write {
 		font-size: 16px; /* 텍스트 크기도 모바일에서 줄이기 */
+	}
+	.tableContainer {
+		margin-bottom: 100px;
 	}
 }

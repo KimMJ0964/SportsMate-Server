@@ -33,7 +33,7 @@ public class MatchDao {
 		return (ArrayList) sqlSession.selectList("matchMapper.mainMatchList", map);
 	}
 	
-	public ArrayList<MyMatch> mainMatching(SqlSessionTemplate sqlSession) {
-		return (ArrayList) sqlSession.selectList("matchMapper.mainMatching");
+	public ArrayList<MyMatch> mainMatching(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return (ArrayList) sqlSession.selectList("matchMapper.mainMatching", map);
 	}
 }

@@ -24,5 +24,5 @@ public interface MatchService {
 	String mainRegionMatch(String activityArea);
 	
 	// 메인 페이지 매치중
-	ArrayList<MyMatch> mainMatching();
+	ArrayList<MyMatch> mainMatching(Map<String, Object> map);
 }
