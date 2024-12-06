@@ -528,7 +528,7 @@
 					<div class="modal-body">
 						<form action="" method="post" class="modal-form">
 							<!-- Hidden Inputs -->
-							<input type="hidden" id="team-leader-id" name="teamLeaderId" value="">
+							<input type="hidden" id="team-leader-id" name="teamLeaderId" value="${teamLeaderId}">
 						    <input type="hidden" id="stadium-id" name="stadiumId" value="${stadiumDetail.stadiumNo}">
 						    <input type="hidden" id="price" name="price" value="${discountedPrice}">
 						    <input type="hidden" id="category" name="category" value="${stadiumDetail.stadiumCategory}">

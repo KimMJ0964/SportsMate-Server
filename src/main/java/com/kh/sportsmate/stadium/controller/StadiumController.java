@@ -158,6 +158,12 @@ public class StadiumController {
         
         // 돈 계산
         int discountedPrice = stadiumDetail.getStadiumPrice() / 2;
+        
+        // 구단장 번호 추출
+        Integer teamLeaderId = null;
+        if (!stadiumReservation.isEmpty()) {
+            teamLeaderId = stadiumReservation.get(0).getTmemNo();
+        }
              
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);
@@ -167,6 +173,7 @@ public class StadiumController {
         model.addAttribute("pi", pi);
         model.addAttribute("stadiumReservation", stadiumReservation); // 모달용 데이터 추가
         model.addAttribute("discountedPrice", discountedPrice);
+        model.addAttribute("teamLeaderId", teamLeaderId);
 
         // 뷰로 이동
         return "stadium/detail";
