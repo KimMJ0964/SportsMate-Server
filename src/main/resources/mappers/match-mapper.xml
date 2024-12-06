@@ -90,4 +90,26 @@
 	    ORDER BY M.MATCH_NO DESC
 	    LIMIT 6;
 	</select>
+	
+	<!-- insert -->
+	<!-- 매치 등록하기 -->
+	<insert id="insertMatch" parameterType="Match">
+		INSERT INTO `MATCH`(
+			STADIUM_NO,
+			TEAM_A_NO,
+			TEAM_B_NO,
+			CATEGORY,
+			RESERV_START,
+			RESERV_END,
+			ACCESS_DATE
+		) VALUES (
+			#{stadiumNo},
+			#{teamANo},
+			#{teamBNo},
+			#{category},
+			#{reservStart},
+			#{reservEnd},
+			#{accessDate}
+		)
+	</insert>
 </mapper>

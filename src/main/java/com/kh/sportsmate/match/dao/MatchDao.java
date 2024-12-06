@@ -25,8 +25,8 @@ public class MatchDao {
 		return sqlSession.selectOne("matchMapper.selectMatchB", mc);
 	}
 	
-	public int insertMatch(Match mc) {
-		return 0;
+	public int insertMatch(SqlSessionTemplate sqlSession, Match mc) {
+		return sqlSession.insert("matchMapper.insertMatch", mc);
 	}
 	
 	public String mainRegionMatch(SqlSessionTemplate sqlSession, String activityArea) {

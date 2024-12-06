@@ -18,8 +18,22 @@
         <input type="number" name="teamBNo"> <br>
         가격
         <input type="number" name="price"> <br>
+        
+        카테고리
+        <select name="category">
+            <option value="soccer">축구</option>
+            <option value="baseball">야구</option>
+            <option value="basketball">농구</option>
+            <option value="footsal">풋살</option>
+        </select> <br>
+
         선택일
-        <input type="date" name="date"> <br>
+        <input type="date" name="accessDate"> 
+
+        <input type="time" name="reservEnd">
+
+        <input type="time" name="reservStart"> <br>
+
         <button>제출</button>
     </form>
 </body>

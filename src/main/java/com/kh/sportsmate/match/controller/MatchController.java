@@ -129,6 +129,9 @@ public class MatchController {
 		//세션객체에 mc보내기
 		HttpSession session = request.getSession();
 		
+		mc.setReservStart(mc.getReservStart() + ":00");
+		mc.setReservEnd(mc.getReservEnd() + ":00");
+		
 		session.setAttribute("mc", mc);
 		
 		return "matching/matchingReq";

@@ -117,7 +117,7 @@ public class MatchServiceImpl implements MatchService {
 		return matchDao.mainMatchList(sqlSession, map);
 	}
 	
-	public StadiumSubscription selectMatch(Match mc, int price, String date) {
+	public StadiumSubscription selectMatch(Match mc, int price) {
 		
 		StadiumSubscription ss = matchDao.selectMatch(sqlSession, mc);
 		StadiumSubscription s1 = matchDao.selectMatchA(sqlSession, mc);
@@ -137,13 +137,7 @@ public class MatchServiceImpl implements MatchService {
 
 	@Override
 	public int insertMatch(Match mc) {
-		return matchDao.insertMatch(mc);
-	}
-
-	@Override
-	public StadiumSubscription selectMatch(Match mc, int price) {
-		// TODO Auto-generated method stub
-		return null;
+		return matchDao.insertMatch(sqlSession, mc);
 	}
 
 }
