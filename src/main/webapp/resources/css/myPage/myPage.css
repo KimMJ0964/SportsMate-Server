@@ -49,6 +49,17 @@ MyInfoContainer img {
 	margin-top: 10px; /* 버튼 위쪽에 간격을 추가 */
 }
 
+.match-link {
+	color: #0077FF;
+	cursor: pointer;
+}
+
+.match-icon {
+	width: 24px;
+	height: 29px;
+	padding-bottom: 5px;
+}
+
 .userInfo {
 	padding: 20px;
 	border-radius: 8px;
@@ -551,6 +562,11 @@ MyInfoContainer img {
 
 .questionContainer::-webkit-scrollbar-track {
 	background-color: #f0f0f0; /* 배경 색상 */
+}
+
+.myMatchInfoContainerCategory {
+	margin-top: 15px;
+	margin-bottom: 15px;	
 }
 
 @media ( max-width : 480px) {

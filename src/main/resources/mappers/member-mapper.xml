@@ -224,7 +224,8 @@
 	        M.TEAM_A_NO AS teamANo,
 	        M.TEAM_B_NO AS teamBNo,
 	        PA.CHANGE_NAME AS teamAProfile,
-	        PB.CHANGE_NAME AS teamBProfile
+	        PB.CHANGE_NAME AS teamBProfile,
+	        M.CATEGORY AS category
 	    FROM `MATCH` M
 	    JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
 	    JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
@@ -239,7 +240,9 @@
 	          WHERE MEM_NO = #{memNo}
 	      )
 	      AND M.SCORE_A IS NOT NULL
-      	  AND M.SCORE_B IS NOT NULL;
+      	  AND M.SCORE_B IS NOT NULL
+      	  ORDER BY M.MATCH_NO DESC
+		  LIMIT 10;
 	</select>
 	
 	<!-- 내 전적 판 수 -->
