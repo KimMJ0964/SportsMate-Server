@@ -55,4 +55,5 @@ public class Stadium {
         this.stadiumEndTime = stadiumEndTime;
         this.stadiumPrice = stadiumPrice;
     }
+    
 }
