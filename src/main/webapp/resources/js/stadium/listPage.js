@@ -1,156 +1,98 @@
 // 요일 이름 배열
 const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
-let isDragging = false; // 드래그 상태
-let startX = 0; // 드래그 시작 X 좌표
-let currentTranslate = 0; // 현재 슬라이드 위치
-let prevTranslate = 0; // 이전 슬라이드 위치
-let currentIndex = 0; // 현재 슬라이드 인덱스
-
-// 날짜 생성
+// 요일과 날짜를 생성하는 함수
 function generateWeekdays(activeDate) {
-    const today = new Date();
-    const startOfWeek = new Date(today);
-    startOfWeek.setDate(today.getDate() - today.getDay());
+    const today = new Date(); // 현재 날짜 가져오기
+    const startOfWeek = new Date(today); // 이부 주 시작일 계산
+    startOfWeek.setDate(today.getDate() - today.getDay()); // 이번 주 첫 번째 요일(일요일)로 설정
 
-    const weekdaySelector = document.getElementById("weekdaySelector");
-    weekdaySelector.innerHTML = ""; // 초기화
+    const weekdaySelector = document.getElementById("weekdaySelector"); // 슬라이드 컨테이너 요소 가져오기
 
-    for (let week = 0; week < 2; week++) { // 2주일치 데이터 생성
-        for (let i = 0; i < 7; i++) {
-            const dayDate = new Date(startOfWeek);
-            dayDate.setDate(startOfWeek.getDate() + i + week * 7); // 주차별 날짜 계산
+    for (let week = 0; week < 2; week++) { // 총 2주치 데이터를 생성
+        for (let i = 0; i < 7; i++) { // 7일씩 반복
+            const dayDate = new Date(startOfWeek); // 날짜 생성
+            dayDate.setDate(startOfWeek.getDate() + i + week * 7); // 해당 주의 특정 날짜 계산
 
             const fullDate = `${dayDate.getFullYear()}-${(dayDate.getMonth() + 1)
                 .toString()
                 .padStart(2, "0")}-${dayDate
                 .getDate()
                 .toString()
-                .padStart(2, "0")}`;
+                .padStart(2, "0")}`; // yyyy-mm-dd 형식으로 날짜 포맷
 
             const date = dayDate.getDate(); // 날짜 (1~31)
             const day = daysOfWeek[dayDate.getDay()]; // 요일 이름
-
+            const isSaturday = dayDate.getDay() === 6; // 토요일 여부
+            const isSunday = dayDate.getDay() === 0; // 일요일 여부
+            
+			// 슬라이드 개별 요소 생성
             const dayBox = document.createElement("div");
-            dayBox.className = "day-box";
-            if (fullDate === activeDate) {
-                dayBox.classList.add("active"); // 서버에서 전달받은 날짜 활성화
-            }
+	      	dayBox.className = `swiper-slide ${fullDate === activeDate ? "active" : ""}`; // 활성화된 날짜 강조
+	      	dayBox.innerHTML = `
+	        	<span class="date ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${date}</span>
+	        	<span class="day ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${day}</span>
+	      	`;
 
-            dayBox.setAttribute("onclick", "toggleDay(this)");
+			// 클릭 이벤트 추가 (활성화 상태 변경)
+            dayBox.addEventListener("click", () => toggleDay(dayBox));
 
-            const isSaturday = dayDate.getDay() === 6;
-            const isSunday = dayDate.getDay() === 0;
-
-            dayBox.innerHTML = `
-                <span class="date ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${date}</span>
-                <span class="day ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${day}</span>
-            `;
-
-            weekdaySelector.appendChild(dayBox);
-        }
-    }
+      		// 슬라이드 컨테이너에 추가
+      		weekdaySelector.appendChild(dayBox);
+		}
+	}
 }
 
-// 슬라이드 시작
-function startDrag(event) {
-    isDragging = true;
-    startX = getPositionX(event);
-    weekdaySelector.classList.add("grabbing");
-}
-
-// 슬라이드 중
-function drag(event) {
-    if (!isDragging) return;
-    const currentPosition = getPositionX(event);
-    currentTranslate = prevTranslate + currentPosition - startX;
-    setSliderPosition();
-}
-
-// 슬라이드 종료
-function endDrag() {
-    isDragging = false;
-    weekdaySelector.classList.remove("grabbing");
-
-    const sliderWidth = document.querySelector(".weekday-selector").offsetWidth;
-    const movedBy = currentTranslate - prevTranslate;
-
-    if (movedBy < -sliderWidth / 4 && currentIndex < 1) {
-        currentIndex += 1; // 다음 주로 이동
-    }
-    if (movedBy > sliderWidth / 4 && currentIndex > 0) {
-        currentIndex -= 1; // 이전 주로 이동
-    }
-
-    setPositionByIndex();
-}
-
-// 슬라이드 위치 설정 함수
-function setPositionByIndex() {
-    const sliderWidth = document.querySelector(".weekday-selector").offsetWidth;
-    currentTranslate = currentIndex * -sliderWidth; // 현재 슬라이드 위치 계산
-    prevTranslate = currentTranslate;
-    setSliderPosition();
-}
-
-// 슬라이드 CSS 위치 설정
-function setSliderPosition() {
-    const weekdaySelector = document.getElementById("weekdaySelector");
-    weekdaySelector.style.transform = `translateX(${currentTranslate}px)`;
-}
-
-// 이벤트에서 X 좌표 얻기
-function getPositionX(event) {
-    return event.type.includes("mouse") ? event.pageX : event.touches[0].clientX;
-}
-
-// 클릭 시 활성화/비활성화 상태 변경
+// 날짜 선택 시 활성화 상태를 변경하는 함수
 function toggleDay(element) {
-    const activeClass = "active";
-    const allBoxes = document.querySelectorAll(".day-box");
-    allBoxes.forEach(box => box.classList.remove(activeClass));
-    element.classList.add(activeClass);
+  const activeClass = "active"; // 활성화 클래스 이름
+  const allBoxes = document.querySelectorAll(".swiper-slide"); // 모든 슬라이드 가져오기
+  allBoxes.forEach(box => box.classList.remove(activeClass)); // 기존 활성화 상태 초기화
+  element.classList.add(activeClass); // 선택한 날짜 활성화
 
-    // 선택한 날짜 가져오기
-    const date = element.querySelector(".date").innerText; // 날짜
-    const day = element.querySelector(".day").innerText; // 요일
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // 월 (01~12)
+  // 선택한 날짜 정보 가져오기
+  const date = element.querySelector(".date").innerText; // 날짜 텍스트
+  const day = element.querySelector(".day").innerText; // 요일 텍스트
+  const today = new Date();
+  const year = today.getFullYear(); // 현재 연도
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // 현재 월 (01~12)
 
-    // 날짜 형식 조합 (2024.11.30.토)
-    const selectedDate = `${year}.${month}.${date}.${day}`;
+  // 선택된 날짜를 특정 형식으로 조합 (예: 2024.12.06.수)
+  const selectedDate = `${year}.${month}.${date}.${day}`;
 
-    // 각 구장의 링크에 날짜 추가
-    const links = document.querySelectorAll(".video-priview a");
-    links.forEach(link => {
-        const href = link.getAttribute("href");
-        const newHref = `${href}&selectedDate=${encodeURIComponent(selectedDate)}`;
-        link.setAttribute("href", newHref);
-    });
+  // 선택된 날짜를 링크에 추가 (예: href에 selectedDate 파라미터 추가)
+  const links = document.querySelectorAll(".video-priview a"); // 링크 요소 가져오기
+  links.forEach(link => {
+    const href = link.getAttribute("href"); // 기존 href 값 가져오기
+    const newHref = `${href}&selectedDate=${encodeURIComponent(selectedDate)}`; // 선택된 날짜 추가
+    link.setAttribute("href", newHref); // 새 href 설정
+  });
 
-    console.log("날짜가 링크에 추가됨:", selectedDate);
+  console.log("날짜가 링크에 추가됨:", selectedDate); // 디버깅 로그
 }
 
-// 초기화
+// DOM 로드 이후 초기화
 document.addEventListener("DOMContentLoaded", () => {
-    const activeDateElement = document.getElementById("active-date");
-    const activeDate = activeDateElement ? activeDateElement.value : null;
+  const activeDateElement = document.getElementById("active-date"); // 활성화된 날짜 요소
+  const activeDate = activeDateElement ? activeDateElement.value : null; // 활성화된 날짜 값 가져오기
 
-    generateWeekdays(activeDate);
+  generateWeekdays(activeDate); // 날짜 생성 함수 호출
 
-    // 슬라이더 초기 위치를 첫 번째 주로 설정
-    setPositionByIndex();
-
-    // 슬라이더 이벤트 등록
-    const weekdaySelector = document.getElementById("weekdaySelector");
-
-    weekdaySelector.addEventListener("mousedown", startDrag);
-    weekdaySelector.addEventListener("mousemove", drag);
-    weekdaySelector.addEventListener("mouseup", endDrag);
-    weekdaySelector.addEventListener("mouseleave", endDrag);
-
-    weekdaySelector.addEventListener("touchstart", startDrag);
-    weekdaySelector.addEventListener("touchmove", drag);
-    weekdaySelector.addEventListener("touchend", endDrag);
+  // Swiper.js 초기화
+  new Swiper(".swiper-container", {
+    slidesPerView: 7, // 한 화면에 보여질 슬라이드 수
+    spaceBetween: 10, // 슬라이드 간 간격 (px 단위)
+    navigation: {
+      nextEl: ".swiper-button-next", // 다음 슬라이드 버튼
+      prevEl: ".swiper-button-prev", // 이전 슬라이드 버튼
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 5, // 작은 화면에서는 슬라이드 5개만 표시
+      },
+      768: {
+        slidesPerView: 7, // 큰 화면에서는 슬라이드 7개 표시
+      },
+    },
+  });
 });

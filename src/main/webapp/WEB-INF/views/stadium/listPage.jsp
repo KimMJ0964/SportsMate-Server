@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>리스트 페이지</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/stadium/listPage.css">
 
@@ -32,8 +33,17 @@
 
         <!-- 서버에서 activeDate 전달 -->
 		<input type="hidden" id="active-date" value="${selectedDate}" />
-		<div class="weekday-selector">
-			<div id="weekdaySelector"></div>
+		
+		<!-- Swiper 컨테이너 -->
+		<div class="swiper-container weekday-selector">
+		  <!-- Swiper Wrapper -->
+		  <div class="swiper-wrapper" id="weekdaySelector">
+		    <!-- 슬라이드 요소는 JavaScript로 동적으로 추가 -->
+		  </div>
+		
+		  <!-- Swiper 네비게이션 버튼 -->
+		  <div class="swiper-button-prev"></div>
+		  <div class="swiper-button-next"></div>
 		</div>
         
 	<form id="searchForm" action="searchStadium.st" method="get">
@@ -224,5 +234,6 @@
 </div>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/listPage.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/Re-request.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 </body>
 </html>
