@@ -526,10 +526,11 @@
 					</div>
 					<!-- Modal body -->
 					<div class="modal-body">
-						<form action="" method="post" class="modal-form">
+						<form action="orderInfo.st" method="post" class="modal-form">
 							<!-- Hidden Inputs -->
+							<input type="hidden" id="teamNo" name="teamNo" value="${teamNo}">
 						    <input type="hidden" id="stadium-id" name="stadiumNo" value="${stadiumDetail.stadiumNo}">
-						    <input type="hidden" id="price" name="price" value="${stadiumDetail.price}">
+						    <input type="hidden" id="price" name="price" value="${stadiumDetail.stadiumPrice}">
 						    <input type="hidden" id="category" name="category" value="${stadiumDetail.stadiumCategory}">
 						    
 							<!-- 경기장 이름과 가격 -->
@@ -543,7 +544,7 @@
 			                </div>
 			
 			                <!-- 달력과 라인업 -->
-			                <input type="hidden" id="hidden-selected-date-2" name="selectedDate">
+			                <input type="hidden" id="hidden-selected-date-2" name="accessDate">
 			                <div class="row mb-4">
 			                    <!-- 달력 -->
 			                    <div class="col-md-6">
@@ -583,7 +584,7 @@
 			                                <c:otherwise>
 			                                    <c:forEach var="member" items="${stadiumReservation}">
 			                                        <div class="form-check">
-			                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="selectedMembers" value="${member.memNo}">
+			                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="memNo" value="${member.memNo}">
 			                                            <label class="form-check-label" for="member-${member.memNo}">
 			                                                ${member.memName}
 			                                            </label>

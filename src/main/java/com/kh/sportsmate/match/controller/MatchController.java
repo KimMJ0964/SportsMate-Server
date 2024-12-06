@@ -1,10 +1,11 @@
 package com.kh.sportsmate.match.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import com.kh.sportsmate.match.model.dto.OrderCreateFormDto;
 import com.kh.sportsmate.match.model.dto.ReadyResponseDto;
 import com.kh.sportsmate.match.model.dto.StadiumSubscription;
 import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.service.MatchService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -120,7 +122,7 @@ public class MatchController {
 	    return response; // Returning the response as JSON
 }
 	@RequestMapping(value = "orderInfo.st")
-	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, Model model, HttpServletRequest request) {
+	public String orderInfo(Match mc, ArrayList<MatchBest> mb, @RequestParam(defaultValue = "0") int price, Model model, HttpServletRequest request) {
 		
 		StadiumSubscription ss = matchService.selectMatch(mc, price);
 		
@@ -133,6 +135,7 @@ public class MatchController {
 		mc.setReservEnd(mc.getReservEnd() + ":00");
 		
 		session.setAttribute("mc", mc);
+		session.setAttribute("mb", mb);
 		
 		return "matching/matchingReq";
 	}
