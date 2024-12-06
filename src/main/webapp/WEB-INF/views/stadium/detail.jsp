@@ -528,9 +528,9 @@
 					<div class="modal-body">
 						<form action="" method="post" class="modal-form">
 							<!-- Hidden Inputs -->
-							<input type="hidden" id="team-leader-id" name="teamLeaderId" value="${teamLeaderId}">
-						    <input type="hidden" id="stadium-id" name="stadiumId" value="${stadiumDetail.stadiumNo}">
-						    <input type="hidden" id="price" name="price" value="${discountedPrice}">
+							<input type="hidden" id="teamNo" name="teamNo" value="${teamNo}">
+						    <input type="hidden" id="stadium-id" name="stadiumNo" value="${stadiumDetail.stadiumNo}">
+						    <input type="hidden" id="price" name="price" value="${stadiumDetail.stadiumPrice}">
 						    <input type="hidden" id="category" name="category" value="${stadiumDetail.stadiumCategory}">
 						    
 							<!-- 경기장 이름과 가격 -->
@@ -544,7 +544,7 @@
 			                </div>
 			
 			                <!-- 달력과 라인업 -->
-			                <input type="hidden" id="hidden-selected-date-2" name="selectedDate">
+			                <input type="hidden" id="hidden-selected-date-2" name="accessDate">
 			                <div class="row mb-4">
 			                    <!-- 달력 -->
 			                    <div class="col-md-6">
@@ -584,7 +584,7 @@
 			                                <c:otherwise>
 			                                    <c:forEach var="member" items="${stadiumReservation}">
 			                                        <div class="form-check">
-			                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="selectedMembers" value="${member.memNo}">
+			                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="memberNo" value="${member.memNo}">
 			                                            <label class="form-check-label" for="member-${member.memNo}">
 			                                                ${member.memName}
 			                                            </label>
@@ -601,10 +601,10 @@
 			                    <div class="col-12 text-center">
 			                        <p class="fw-bold">매치 할 시간을 선택해주세요.</p>
 			                        <div class="time-select-wrapper d-flex justify-content-center">
-			                            <select id="start-time" name="startTime" class="form-select w-auto me-2">
+			                            <select id="start-time" name="reservStart" class="form-select w-auto me-2">
 			                                <option value="">--시작 시간 선택--</option>
 			                            </select>
-			                            <select id="end-time" name="endTime" class="form-select w-auto ms-2">
+			                            <select id="end-time" name="reservEnd" class="form-select w-auto ms-2">
 			                                <option value="">--끝 시간 선택--</option>
 			                            </select>
 			                        </div>
