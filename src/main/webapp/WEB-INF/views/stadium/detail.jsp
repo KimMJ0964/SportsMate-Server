@@ -528,9 +528,8 @@
 					<div class="modal-body">
 						<form action="" method="post" class="modal-form">
 							<!-- Hidden Inputs -->
-							<input type="hidden" id="team-leader-id" name="teamLeaderId" value="${teamLeaderId}">
-						    <input type="hidden" id="stadium-id" name="stadiumId" value="${stadiumDetail.stadiumNo}">
-						    <input type="hidden" id="price" name="price" value="${discountedPrice}">
+						    <input type="hidden" id="stadium-id" name="stadiumNo" value="${stadiumDetail.stadiumNo}">
+						    <input type="hidden" id="price" name="price" value="${stadiumDetail.price}">
 						    <input type="hidden" id="category" name="category" value="${stadiumDetail.stadiumCategory}">
 						    
 							<!-- 경기장 이름과 가격 -->
@@ -601,10 +600,10 @@
 			                    <div class="col-12 text-center">
 			                        <p class="fw-bold">매치 할 시간을 선택해주세요.</p>
 			                        <div class="time-select-wrapper d-flex justify-content-center">
-			                            <select id="start-time" name="startTime" class="form-select w-auto me-2">
+			                            <select id="start-time" name="reservStart" class="form-select w-auto me-2">
 			                                <option value="">--시작 시간 선택--</option>
 			                            </select>
-			                            <select id="end-time" name="endTime" class="form-select w-auto ms-2">
+			                            <select id="end-time" name="reservEnd" class="form-select w-auto ms-2">
 			                                <option value="">--끝 시간 선택--</option>
 			                            </select>
 			                        </div>
