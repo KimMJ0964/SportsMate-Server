@@ -176,6 +176,7 @@ public class StadiumController {
         model.addAttribute("stadiumReservation", stadiumReservation); // 모달용 데이터 추가
         model.addAttribute("discountedPrice", discountedPrice);
         model.addAttribute("teamLeaderId", teamLeaderId);
+        model.addAttribute("teamNo", teamNo);
 
         // 뷰로 이동
         return "stadium/detail";
