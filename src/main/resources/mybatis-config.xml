@@ -39,6 +39,10 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Rental" alias="Rental"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Schedule" alias="Schedule"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumReview" alias="StadiumReview"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumSearch" alias="StadiumSearch"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetail" alias="StadiumDetail"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumReviewDto" alias="StadiumReviewDto"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal" alias="StadiumDetailmodal"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumQna" alias="StadiumQna"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumQnaDto" alias="StadiumQnaDto"/>
 
@@ -70,7 +74,7 @@
         <typeAlias type="com.kh.sportsmate.team.model.dto.MyTeamDto" alias="MyTeamDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.MyRecruitDto" alias="MyRecruitDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamMatchInfoDto" alias="TeamMatchInfoDto"/>
-        
+
     </typeAliases>
 
     <mappers>
