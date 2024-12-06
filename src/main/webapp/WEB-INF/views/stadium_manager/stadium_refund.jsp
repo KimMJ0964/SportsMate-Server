@@ -40,7 +40,6 @@
                 </div>
             </div>
         </div>
-        <p>결제 완료된 목록들이 나오면 환불 버튼</p>
         <div class="rentallist-container">
             <div class="victory-container">
                 <div class="victory-container">
@@ -83,9 +82,9 @@
                             <option value="구장상태">구장상태</option>
                         </select>
                         </div>
-                        <div>
-                            <button type="submit" class="refund-registration-btn">등록</button>
+                        <div class="refund-matal-btn">
                             <button type="button" class="refund-cancel-btn" onclick="closeModal()">취소</button>
+                            <button type="submit" class="refund-registration-btn">등록</button>
                         </div>
                     </form>
                     </div>
