@@ -365,6 +365,172 @@ textarea.form-control {
 	width: 16px; /* 아이콘 크기 */
 	height: 16px;
 }
+/* 달력 */
+.calendar-wrapper-2 * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.calendar-wrapper-2 button {
+    /* button 요소에 기본적으로 설정되는 스타일 속성 초기화 */
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+.calendar-wrapper-2 body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper-2 .nav-2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.wrapper-2 .nav-2 .current-date-2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.wrapper-2 .nav-2 button {
+    width: 38px;
+    height: 38px;
+    font-size: 30px;
+    color: #878787;
+}
+
+/*#7*/
+.calendar-2 ul {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.calendar-2 .weeks-2 li {
+    font-weight: 500;
+}
+
+.calendar-2 .days-2 {
+    margin-bottom: 20px;
+}
+
+.calendar-2 ul li {
+    /*#8*/
+    width: calc(100% / 7);
+    /*#9*/
+    position: relative;
+}
+
+.calendar-2 .days-2 li {
+    /*#10*/
+    z-index: 1;
+    margin-top: 30px;
+    cursor: pointer;
+}      
+
+/*#11*/
+.days-2 li.inactive-2 {
+    color: #aaa;
+}
+
+.days-2 li.active-2 {
+    background-color: #1570ff;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.calendar-2 .days-2 li::before {
+    position: absolute;
+    content: '';
+    height: 40px;
+    width: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.days-2 li:hover::before,
+.days-2 li:hover {
+    background: #f2f2f2;
+    cursor: pointer;
+}
+
+.days-2 li.active-2::before {
+    background: #008aff;
+}
+
+.days-2 li.past-2 {
+    color: #aaa; /* 지난 날짜 연한 색 */
+    pointer-events: none; /* 클릭 불가능 */
+}
+
+.days-2 li.inactive-2 {
+    pointer-events: none; /* 클릭 불가능 */
+}
+
+.days-2 li.saturday-2 {
+    color: blue;
+}
+
+.days-2 li.sunday-2 {
+    color: red;
+}
+
+/* 페이지네이션 */
+#pagenation{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+
+/* 신청하기 모달 CSS */
+.lineup-wrapper {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* 달력과 라인업 간격 조정 */
+.calendar-wrapper-2 {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* 시간 선택 간격 */
+.time-select-wrapper select {
+    min-width: 120px;
+}
+
+/* 대기중인 매치 스타일 */
+.pending-matches {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* 버튼 스타일 */
+.modal-footer .btn-primary {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
 /* 화면 크기가 480px 이하일 때만 표시 (모바일 전용) */
 @media (max-width: 480px) {
 	.mobile-only {
