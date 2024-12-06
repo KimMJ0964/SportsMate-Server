@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.mypage.service.MyPageService;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
+import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 import com.kh.sportsmate.team.model.vo.TeamRecord;
@@ -348,5 +350,39 @@ public class MyPageController {
 	@RequestMapping("myMatch.mp")
 	public String myMatchMove() {
 		return "myPage/myPageMatch";
+	}
+	
+	/**
+	 * 내 전적 페이지 - 전적 내용
+	 * 
+	 * @return
+	 */
+	@RequestMapping("myMatchInfo.mp")
+	@ResponseBody
+	public ArrayList<TeamMatchInfoDto> myMatchInfo(String category, HttpSession session, HttpServletRequest request) {
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		int memNo = loginMember.getMemNo();
+		
+		String pageParam = request.getParameter("page");
+        
+        int page = 0;
+        try {
+            if (pageParam != null) {
+                page = Integer.parseInt(pageParam);
+            }
+        } catch (NumberFormatException e) {
+            page = 0;
+        }
+
+        // 확인용 출력
+        System.out.println("받은 페이지 번호: " + page);
+		
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("category", category);
+		map.put("memNo", String.valueOf(memNo));
+		
+		ArrayList<TeamMatchInfoDto> response = myPageService.myMatchInfo(map);
+		return response;
 	}
 }

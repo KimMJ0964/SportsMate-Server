@@ -29,4 +29,6 @@ public class MyMatch {
 	private int winCount;
 	private String teamAProfile;
 	private String teamBProfile;
+	private int teamAPoint;
+	private int teamBPoint;
 }

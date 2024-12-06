@@ -29,6 +29,7 @@ import com.kh.sportsmate.stadium.model.vo.Stadium;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
+import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 import com.kh.sportsmate.team.model.vo.TeamRecord;
@@ -313,5 +314,15 @@ public class MyPageServiceImpl implements MyPageService{
 		return mypageDao.checkReview(sqlSession, map);
 	}
 	
-
+	/**
+	 * 전적 페이지
+	 * 
+	 * @param map
+	 * @return
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public ArrayList<TeamMatchInfoDto> myMatchInfo(Map<String, String> map) {
+		return mypageDao.myMatchInfo(sqlSession, map);
+	}
 }

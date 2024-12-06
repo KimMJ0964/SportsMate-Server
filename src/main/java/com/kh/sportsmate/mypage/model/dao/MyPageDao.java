@@ -21,6 +21,7 @@ import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
+import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 import com.kh.sportsmate.team.model.vo.TeamRecord;
@@ -241,5 +242,14 @@ public class MyPageDao {
      */
 	public MatchBest checkReview(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.selectOne("memberMapper.checkReview", map);
+	}
+	
+	/** 전적페이지 전적
+	 * @param sqlSession
+	 * @param map
+	 * @return 
+	 */
+	public ArrayList<TeamMatchInfoDto> myMatchInfo(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return (ArrayList) sqlSession.selectList("memberMapper.myMatchInfo", map);
 	}
 }
