@@ -355,6 +355,9 @@ public class MyPageController {
 	/**
 	 * 내 전적 페이지 - 전적 내용
 	 * 
+	 * @param category
+	 * @param session
+	 * @param request
 	 * @return
 	 */
 	@RequestMapping("myMatchInfo.mp")
