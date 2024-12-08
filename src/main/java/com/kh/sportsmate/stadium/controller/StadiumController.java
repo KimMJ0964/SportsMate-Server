@@ -124,6 +124,11 @@ public class StadiumController {
         return "stadium/detail";
     }
 
+    /**
+     * 경기 결과 입력 AJAX
+     * @param gameResultDTO 경기 결과 파싱 객체(List<Rating> ratings, TeamScore teamScore,  String matchNo)
+     * @return
+     */
     @ResponseBody
     @PostMapping(value = "game_result.gp")
     public String gameResult(@RequestBody GameResultDTO gameResultDTO){

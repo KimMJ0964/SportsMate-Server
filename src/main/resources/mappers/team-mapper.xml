@@ -597,6 +597,57 @@
 		SET STATUS = 'Y'
 		WHERE VOTE_NO = #{vno}
 	</update>
+
+	<!-- 팀 전적 update -->
+	<update id="updateTeamRecord" parameterType="TeamScore">
+		UPDATE TEAM_RECORD
+		<set>
+			MATCH_COUNT = MATCH_COUNT + 1,
+			WIN = WIN +
+			<choose>
+				<when test="teamANo != null and teamAScore &gt; teamBScore">
+					CASE WHEN TEAM_NO = #{teamANo} THEN 1 WHEN TEAM_NO = #{teamBNo} THEN 0 ELSE 0 END
+				</when>
+				<when test="teamBNo != null and teamBScore &gt; teamAScore">
+					CASE WHEN TEAM_NO = #{teamBNo} THEN 1 WHEN TEAM_NO = #{teamANo} THEN 0 ELSE 0 END
+				</when>
+				<otherwise>0</otherwise>
+			</choose>,
+			LOSE = LOSE +
+			<choose>
+				<when test="teamANo != null and teamAScore &lt; teamBScore">
+					CASE WHEN TEAM_NO = #{teamANo} THEN 1 WHEN TEAM_NO = #{teamBNo} THEN 0 ELSE 0 END
+				</when>
+				<when test="teamBNo != null and teamBScore &lt; teamAScore">
+					CASE WHEN TEAM_NO = #{teamBNo} THEN 1 WHEN TEAM_NO = #{teamANo} THEN 0 ELSE 0 END
+				</when>
+				<otherwise>0</otherwise>
+			</choose>,
+			DRAW = DRAW +
+			<choose>
+				<when test="teamAScore == teamBScore">
+					1
+				</when>
+				<otherwise>0</otherwise>
+			</choose>,
+			POINT = POINT +
+			<choose>
+				<when test="teamANo != null and teamAScore &gt; teamBScore">
+					CASE WHEN TEAM_NO = #{teamANo} THEN 3 WHEN TEAM_NO = #{teamBNo} THEN 0 ELSE 0 END
+				</when>
+				<when test="teamBNo != null and teamBScore &gt; teamAScore">
+					CASE WHEN TEAM_NO = #{teamBNo} THEN 3 WHEN TEAM_NO = #{teamANo} THEN 0 ELSE 0 END
+				</when>
+				<when test="teamAScore == teamBScore">
+					1
+				</when>
+				<otherwise>0</otherwise>
+			</choose>
+		</set>
+		WHERE TEAM_NO IN (#{teamANo}, #{teamBNo});
+	</update>
+
+
 	
 	<!-- 입단자 거절 -->
 	<delete id="rejectJoin">

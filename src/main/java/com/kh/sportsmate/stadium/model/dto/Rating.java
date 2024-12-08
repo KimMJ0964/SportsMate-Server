@@ -7,7 +7,7 @@ import lombok.*;
  * fileName       : Rating
  * author         : jun
  * date           : 2024. 12. 3.
- * description    :
+ * description    : 경기 결과 평점 DTO
  * ===========================================================
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
@@ -21,6 +21,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class Rating {
     private String memNo;
+    private String teamNo;
     private String skill;
     private String manner;
 }

@@ -39,7 +39,12 @@
 		JOIN TEAM_RECORD R ON R.TEAM_NO = T.TEAM_NO
 		WHERE T.TEAM_NO = #{teamANo}
 	</select>
-	
+	<!-- 카테고리 명 select -->
+	<select id="selectCategory" resultType="String">
+		select CATEGORY as category
+		from `MATCH`
+		where match_no = #{matchNo};
+	</select>
     
     <!-- UPDATE -->
     <!-- 베스트 플레이어 선정   #{memNo} #{matchNo} #{bestMNo} -->
@@ -53,6 +58,13 @@
 	    UPDATE MATCH_BEST
 	    SET MEM_NO_VOTE_COUNT = MEM_NO_VOTE_COUNT + 1
 	    WHERE MATCH_NO = #{matchNo} AND MEM_NO = #{bestMNo}
+	</update>
+
+	<!-- 경기 결과 점수 update -->
+	<update id="updateGameResult" parameterType="TeamScore">
+		update `match`
+		set SCORE_A = #{teamAScore}, SCORE_B = #{teamBScore}
+		where MATCH_NO = #{matchNo}
 	</update>
     
     <select id="mainRegionMatch" resultType="String">

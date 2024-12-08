@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kh.sportsmate.match.model.dao.MatchDao;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,15 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.kh.sportsmate.board.model.dao.BoardDao;
-import com.kh.sportsmate.match.dao.MatchDao;
 import com.kh.sportsmate.match.model.dto.ApproveResponseDto;
 import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.match.model.dto.ReadyResponseDto;
 import com.kh.sportsmate.match.model.vo.Match;
-import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.match.model.dto.StadiumSubscription;
-import com.kh.sportsmate.match.model.vo.Match;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

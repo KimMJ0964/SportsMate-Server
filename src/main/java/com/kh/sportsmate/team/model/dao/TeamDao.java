@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kh.sportsmate.stadium.model.dto.TeamScore;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.dto.RecruitDetailDto;
 import com.kh.sportsmate.team.model.dto.RecruitDto;
@@ -534,5 +535,15 @@ public class TeamDao {
      */
     public ArrayList<MyTeamDto> mainRanking(SqlSessionTemplate sqlSession, String category) {
     	return (ArrayList) sqlSession.selectList("teamMapper.mainRanking", category);
+    }
+
+    /**
+     * 팀 전적 update
+     * @param sqlSession
+     * @param score
+     * @return
+     */
+    public int updateTeamRecord(SqlSessionTemplate sqlSession, TeamScore score) {
+        return sqlSession.update("teamMapper.updateTeamRecord", score);
     }
 }

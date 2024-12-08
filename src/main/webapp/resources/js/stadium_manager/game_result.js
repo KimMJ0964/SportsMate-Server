@@ -3,7 +3,7 @@ function openModal() {
     document.getElementById('modalOverlay').style.display = 'flex';
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // DOM이 로드된 후 실행
 
     // 모든 경고 체크박스를 선택하여 warningCheckboxes에 저장
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 각 경고 체크박스에 change 이벤트 리스너를 추가
     warningCheckboxes.forEach((checkbox) => {
-        checkbox.addEventListener("change", function() {
+        checkbox.addEventListener("change", function () {
 
             // 체크박스가 선택된 경우에만 모달을 열기
             if (checkbox.checked) {
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // 모든 체크박스 중 하나라도 선택된 것이 있는지 확인
             const isChecked = Array.from(warningCheckboxes).some(cb => cb.checked);
-                
+
             // 하나라도 선택된 것이 있으면 warningContainer를 표시, 없으면 숨김
             warningContainer.style.display = isChecked ? "block" : "none";
         });
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
 document.querySelectorAll('.star-container').forEach(container => {
     // 각 별점 컨테이너 안의 모든 별 요소를 선택하여 stars에 저장
     const stars = container.querySelectorAll('.star');
-    
+
     // 별의 채우기 상태를 업데이트하는 함수
     function updateStars(rating) {
         // 각 별에 대해 클래스 제거 후, 현재 rating에 맞춰 'full' 또는 'half' 클래스 추가
@@ -86,6 +86,7 @@ const getRating = () => {
     memArr.forEach(element => {
         const memNo = element.getAttribute('data-memNo'); // data-memNo 값을 가져옴
         const rating = element.getAttribute('data-rating'); // data-rating 값을 가져옴
+        const teamNo = element.getAttribute('data-teamNo'); // data-teamNo 값을 가져옴
         const isSkill = element.classList.contains('skill'); // skill인지 확인
         const isManner = element.classList.contains('manner'); // manner인지 확인
 
@@ -94,7 +95,7 @@ const getRating = () => {
 
         if (!memObj) {
             // 해당 memNo 객체가 없으면 새로 추가
-            memObj = { memNo: memNo, skill: null, manner: null };
+            memObj = {memNo: memNo, teamNo: teamNo, skill: null, manner: null};
             memData.push(memObj);
         }
 
@@ -105,34 +106,41 @@ const getRating = () => {
             memObj.manner = rating;
         }
     });
+    const teamANo = $('input[type=hidden][name=teamANo]').val();
+    const teamBNo = $('input[type=hidden][name=teamBNo]').val();
+    const matchNo = $('input[type=hidden][name=matchNo]').val();
     const teamAScore = $('#team-a-checkbox').val();
     const teamBScore = $('#team-b-checkbox').val();
     console.log()
     console.log(memData); // 결과 출력
     result.ratings = memData;
-    result.teamScore = {teamAScore: teamAScore, teamBScore: teamBScore };
+    result.teamScore = {
+        matchNo: matchNo,
+        teamANo: teamANo,
+        teamAScore: teamAScore,
+        teamBNo: teamBNo,
+        teamBScore: teamBScore
+    };
+    result.matchNo = matchNo;
     console.log(result)
     return result;
-    // return {
-    //     ratings: memData, // 선수 평점 데이터
-    //     teamScore: { teamAScore: teamAScore, teamBScore: teamBScore } // 팀 점수 추가
-    // };
 };
 
-const clickRegisterBtn = () =>{
-    setGameResult(getRating(),()=>{
-        // location.href = 'gamefinish.me';
+const clickRegisterBtn = () => {
+    setGameResult(getRating(), () => {
+        location.href = 'gamefinish.me';
     })
 }
-const setGameResult = (data, callBack)=>{
+
+const setGameResult = (data, callBack) => {
     $.ajax({
         url: "game_result.gp",
         method: "POST",
-        data : data,
-        contentType:"application/json",
+        data: data,
+        contentType: "application/json",
         data: JSON.stringify(data),
         success: callBack(),
-        error:()=>{
+        error: () => {
             console.log("경기 결과 작성 AJAX 요청 실패");
         }
     })

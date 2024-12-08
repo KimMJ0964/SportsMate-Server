@@ -268,12 +268,4 @@
 		SET MATCH_A = #{matchA}
 		WHERE MATCH_QNA_NO = #{matchQnaNo};
     </update>
-    <update id="insertRating" parameterType="Rating">
-            UPDATE MEMBER
-            SET
-            MEM_SKILL_SCORE = #{skill},
-            MEM_MANNER_SCORE = #{manner}
-            where
-                MEM_NO = #{memNo}
-    </update>
 </mapper>

@@ -9,7 +9,7 @@ import java.util.List;
  * fileName       : GameResultDTO
  * author         : jun
  * date           : 2024. 12. 3.
- * description    :
+ * description    : 경기 결과 DTO
  * ===========================================================
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
@@ -24,4 +24,5 @@ import java.util.List;
 public class GameResultDTO {
     private List<Rating> ratings;
     private TeamScore teamScore;
+    private String matchNo;
 }

@@ -18,7 +18,6 @@
         MEM_GENDER as memGender,
         MEM_PHONE as memPhone,
         MEM_STATUS as memStatus,
-		MEM_SKILL_SCORE as memSkillScore,
 		MEM_MANNER_SCORE as memMannerScore,
         MEM_ENROLL_DATE as memEnrollDate,
         MEM_BIRTH as memBirth
@@ -419,4 +418,91 @@
         WHERE MEM_EMAIL = #{memEmail}
         and MEM_NAME = #{memName}
     </update>
+
+	<!-- 총 실력 평점 update -->
+	<update id="updateTotalPoint" parameterType="map">
+		update CATEGORY
+		<set>
+			<if test="category == 'soccer'">
+				SOCCER_TOTAL_POINT = SOCCER_TOTAL_POINT + #{skill},
+			</if>
+			<if test="category == 'futsal'">
+				FUTSAL_TOTAL_POINT = FUTSAL_TOTAL_POINT + #{skill},
+			</if>
+			<if test="category == 'basketball'">
+				BASKETBALL_TOTAL_POINT = BASKETBALL_TOTAL_POINT + #{skill},
+			</if>
+			<if test="category == 'baseball'">
+				BASEBALL_AVG_POINT = BASEBALL_AVG_POINT + #{skill},
+			</if>
+		</set>
+		where mem_no = #{memNo}
+	</update>
+	<!-- 총 매너 평점 update -->
+	<update id="updateMannerTotalPoint" parameterType="map">
+		update category
+			SET	MANNER_TOTAL_POINT = MANNER_TOTAL_POINT + #{manner}
+		where mem_no = #{memNo}
+	</update>
+
+	<!-- 평균 평점 update -->
+	<update id="updateAvgPoint" parameterType="map">
+		UPDATE CATEGORY
+		<set>
+			<if test="category == 'soccer'">
+				SOCCER_AVG_POINT = (
+				SELECT SOCCER_TOTAL_POINT /
+					(SELECT COUNT(*)
+					FROM MATCH_BEST mb
+					WHERE mb.TEAM_NO = #{teamNo} AND mb.MEM_NO = #{memNo})
+				FROM CATEGORY
+				WHERE MEM_NO = #{memNo}
+				),
+			</if>
+			<if test="category == 'futsal'">
+				FUTSAL_AVG_POINT = (
+				SELECT FUTSAL_TOTAL_POINT /
+					(SELECT COUNT(*)
+					FROM MATCH_BEST mb
+					WHERE mb.TEAM_NO = #{teamNo} AND mb.MEM_NO = #{memNo})
+				FROM CATEGORY
+				WHERE MEM_NO = #{memNo}
+				),
+			</if>
+			<if test="category == 'basketball'">
+				BASKETBALL_AVG_POINT = (
+				SELECT BASKETBALL_TOTAL_POINT /
+					(SELECT COUNT(*)
+					FROM MATCH_BEST mb
+					WHERE mb.TEAM_NO = #{teamNo} AND mb.MEM_NO = #{memNo})
+				FROM CATEGORY
+				WHERE MEM_NO = #{memNo}
+				),
+			</if>
+			<if test="category == 'baseball'">
+				BASEBALL_AVG_POINT = (
+				SELECT BASEBALL_TOTAL_POINT /
+					(SELECT COUNT(*)
+					FROM MATCH_BEST mb
+					WHERE mb.TEAM_NO = #{teamNo} AND mb.MEM_NO = #{memNo})
+				FROM CATEGORY
+				WHERE MEM_NO = #{memNo}
+				),
+			</if>
+		</set>
+		WHERE MEM_NO = #{memNo}
+	</update>
+	<!-- 매너 평점 update -->
+	<update id="updateMemberMannerPoint" parameterType="map">
+		update member
+		SET mem_manner_score = (
+			select manner_total_point /
+				(select count(*)
+				FROM MATCH_BEST mb
+				WHERE mb.MEM_NO = #{memNo})
+			FROM CATEGORY
+			WHERE MEM_NO = #{memNo})
+		WHERE mem_no = #{memNo}
+	</update>
+
 </mapper>

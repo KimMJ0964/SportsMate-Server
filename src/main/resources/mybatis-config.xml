@@ -43,6 +43,7 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumQna" alias="StadiumQna"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumQnaDto" alias="StadiumQnaDto"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.Rating" alias="Rating"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.TeamScore" alias="TeamScore"/>
 
 
         <!-- Board -->
