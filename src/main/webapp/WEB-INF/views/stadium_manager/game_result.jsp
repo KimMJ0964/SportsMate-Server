@@ -409,12 +409,58 @@
 
                 </div>
                     <!-- 뒤로가기 버튼 -->
-                    <button type="button" class="registration2-button">뒤로가기</button>
+                    <button type="button" class="registration2-button" onclick="history.back()">뒤로가기</button>
             </div>
 
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
         </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="applyNow">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
 
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">경고</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="warning_reason.gp" method="post" class="modal-form">
+                        <input type="hidden" name="memNo" >
+                        <div class="content-wrap center">
+                            <div class="team-logo-wrap">
+                                <c:choose>
+                                    <c:when test="${detailInfo.teamProfileChangeName ne null}">
+                                        <img src="${pageContext.request.contextPath}/resources/images/userProFile/${detailInfo.teamProfileChangeName}"
+                                             alt="">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="team-info-wrap">
+                                <p class="team-name">${detailInfo.teamName}</p>
+                                <p class="memberCount"><img
+                                        src="${pageContext.request.contextPath}/resources/images/userIcon.svg"
+                                        alt="">${detailInfo.memberCount}</p>
+                                <p>${detailInfo.activityArea}</p>
+                            </div>
+                        </div>
+                        <div id="apply-from-wrap">
+                            <textarea name="introduce" id="recruit" cols="30" rows="10"
+                                      placeholder="구단 가입 신청서를 작성해주세요."></textarea>
+                            <span>가입 신청시 회원가입시 작성된 정보가 함께 넘어갑니다.</span>
+                            <span>구단에게는 내 프로필이 공개되고, 신청을 수락하면 내 연락처를 볼 수 있습니다.</span>
+                            <span>원활한 소통을 위해 개인정보 제3자 제공에 동의합니다.</span>
+                            <button type="submit">가입 신청</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
         <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/game_result.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/game_result_warning.js"></script>
 </body>
