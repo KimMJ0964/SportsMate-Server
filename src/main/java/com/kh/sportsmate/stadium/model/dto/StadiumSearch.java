@@ -29,6 +29,10 @@ public class StadiumSearch {
     private String status; // 구장 상태
     private String selectedDate; // 날짜 가져오기
     private String activityArea; // 지역코드
+    
+    // 이미지 필드 추가
+    private String filePath; // 파일 경로
+    private String changeName; // 변경된 파일 이름
 
     public StadiumSearch(String stadiumName, String stadiumAddress, String stadiumCategory, 
     		String stadiumStartTime, String stadiumEndTime, String selectedDate, String activityArea) {

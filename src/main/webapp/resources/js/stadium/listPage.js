@@ -3,50 +3,55 @@ const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
 // 요일과 날짜를 생성하는 함수
 function generateWeekdays(activeDate) {
-    const today = new Date(); // 현재 날짜 가져오기
-    const startOfWeek = new Date(today); // 이부 주 시작일 계산
-    startOfWeek.setDate(today.getDate() - today.getDay()); // 이번 주 첫 번째 요일(일요일)로 설정
+  const today = new Date(); // 현재 날짜 가져오기
+  const startOfWeek = new Date(today); // 이번 주 시작일 계산
+  startOfWeek.setDate(today.getDate() - today.getDay()); // 이번 주 첫 번째 요일(일요일)로 설정
 
-    const weekdaySelector = document.getElementById("weekdaySelector"); // 슬라이드 컨테이너 요소 가져오기
+  const weekdaySelector = document.getElementById("weekdaySelector"); // 슬라이드 컨테이너 요소 가져오기
+  weekdaySelector.innerHTML = ""; // 기존 내용 초기화
 
-    for (let week = 0; week < 2; week++) { // 총 2주치 데이터를 생성
-        for (let i = 0; i < 7; i++) { // 7일씩 반복
-            const dayDate = new Date(startOfWeek); // 날짜 생성
-            dayDate.setDate(startOfWeek.getDate() + i + week * 7); // 해당 주의 특정 날짜 계산
+  for (let week = 0; week < 2; week++) { // 총 2주치 데이터를 생성
+    const weekSlide = document.createElement("div"); // 주 단위 슬라이드 생성
+    weekSlide.className = "swiper-slide"; // Swiper 슬라이드 클래스 추가
 
-            const fullDate = `${dayDate.getFullYear()}-${(dayDate.getMonth() + 1)
-                .toString()
-                .padStart(2, "0")}-${dayDate
-                .getDate()
-                .toString()
-                .padStart(2, "0")}`; // yyyy-mm-dd 형식으로 날짜 포맷
+    for (let i = 0; i < 7; i++) { // 각 주의 7일씩 생성
+      const dayDate = new Date(startOfWeek); // 날짜 생성
+      dayDate.setDate(startOfWeek.getDate() + i + week * 7); // 해당 주의 특정 날짜 계산
 
-            const date = dayDate.getDate(); // 날짜 (1~31)
-            const day = daysOfWeek[dayDate.getDay()]; // 요일 이름
-            const isSaturday = dayDate.getDay() === 6; // 토요일 여부
-            const isSunday = dayDate.getDay() === 0; // 일요일 여부
-            
-			// 슬라이드 개별 요소 생성
-            const dayBox = document.createElement("div");
-	      	dayBox.className = `swiper-slide ${fullDate === activeDate ? "active" : ""}`; // 활성화된 날짜 강조
-	      	dayBox.innerHTML = `
-	        	<span class="date ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${date}</span>
-	        	<span class="day ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${day}</span>
-	      	`;
+      const fullDate = `${dayDate.getFullYear()}-${(dayDate.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}-${dayDate
+        .getDate()
+        .toString()
+        .padStart(2, "0")}`; // yyyy-mm-dd 형식으로 날짜 포맷
 
-			// 클릭 이벤트 추가 (활성화 상태 변경)
-            dayBox.addEventListener("click", () => toggleDay(dayBox));
+      const date = dayDate.getDate(); // 날짜 (1~31)
+      const day = daysOfWeek[dayDate.getDay()]; // 요일 이름
+      const isSaturday = dayDate.getDay() === 6; // 토요일 여부
+      const isSunday = dayDate.getDay() === 0; // 일요일 여부
 
-      		// 슬라이드 컨테이너에 추가
-      		weekdaySelector.appendChild(dayBox);
-		}
-	}
+      // 개별 날짜 요소 생성
+      const dayBox = document.createElement("div");
+      dayBox.className = `day-box ${fullDate === activeDate ? "active" : ""}`; // 활성화된 날짜 강조
+      dayBox.innerHTML = `
+        <span class="date ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${date}</span>
+        <span class="day ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${day}</span>
+      `;
+
+      // 클릭 이벤트 추가 (활성화 상태 변경)
+      dayBox.addEventListener("click", () => toggleDay(dayBox));
+
+      weekSlide.appendChild(dayBox); // 주 단위 슬라이드에 날짜 추가
+    }
+
+    weekdaySelector.appendChild(weekSlide); // Swiper Wrapper에 주 단위 슬라이드 추가
+  }
 }
 
 // 날짜 선택 시 활성화 상태를 변경하는 함수
 function toggleDay(element) {
   const activeClass = "active"; // 활성화 클래스 이름
-  const allBoxes = document.querySelectorAll(".swiper-slide"); // 모든 슬라이드 가져오기
+  const allBoxes = document.querySelectorAll(".day-box"); // 모든 날짜 박스 가져오기
   allBoxes.forEach(box => box.classList.remove(activeClass)); // 기존 활성화 상태 초기화
   element.classList.add(activeClass); // 선택한 날짜 활성화
 
@@ -78,21 +83,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   generateWeekdays(activeDate); // 날짜 생성 함수 호출
 
-  // Swiper.js 초기화
+  // Swiper.js 초기화 (1주씩 표시)
   new Swiper(".swiper-container", {
-    slidesPerView: 7, // 한 화면에 보여질 슬라이드 수
-    spaceBetween: 10, // 슬라이드 간 간격 (px 단위)
-    navigation: {
-      nextEl: ".swiper-button-next", // 다음 슬라이드 버튼
-      prevEl: ".swiper-button-prev", // 이전 슬라이드 버튼
-    },
-    breakpoints: {
-      640: {
-        slidesPerView: 5, // 작은 화면에서는 슬라이드 5개만 표시
-      },
-      768: {
-        slidesPerView: 7, // 큰 화면에서는 슬라이드 7개 표시
-      },
-    },
+    slidesPerView: 1, // 한 번에 한 주만 표시
+    spaceBetween: 10, // 슬라이드 간 간격
+    allowTouchMove: true, // 터치 및 드래그 활성화
+    centeredSlides: true, // 슬라이드를 정렬하지 않고 자연스럽게
   });
 });

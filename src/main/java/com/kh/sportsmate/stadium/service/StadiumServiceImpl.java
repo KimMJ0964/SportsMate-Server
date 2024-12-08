@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
+import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
+import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
@@ -99,8 +101,19 @@ public class StadiumServiceImpl implements StadiumService{
 	}
 	
 	@Override
+    public List<StadiumDetailmodal> getPendingMatches(int teamNo) {
+        return stadiumDao.getPendingMatches(sqlSession, teamNo);
+    }
+
+	@Override
 	public int getTeamNoByMemNo(int memNo) {
 		return stadiumDao.getTeamNoByMemNo(sqlSession, memNo);
+	}
+	
+	@Override
+	public boolean insertQna(StadiumQnaDto stadiumQnaDto) {
+	    int result = stadiumDao.insertQna(sqlSession, stadiumQnaDto);
+	    return result > 0;
 	}
 
 	@Override

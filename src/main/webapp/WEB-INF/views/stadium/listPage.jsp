@@ -32,19 +32,14 @@
 <hr class="line">
 
         <!-- 서버에서 activeDate 전달 -->
-		<input type="hidden" id="active-date" value="${selectedDate}" />
-		
-		<!-- Swiper 컨테이너 -->
-		<div class="swiper-container weekday-selector">
-		  <!-- Swiper Wrapper -->
-		  <div class="swiper-wrapper" id="weekdaySelector">
-		    <!-- 슬라이드 요소는 JavaScript로 동적으로 추가 -->
-		  </div>
-		
-		  <!-- Swiper 네비게이션 버튼 -->
-		  <div class="swiper-button-prev"></div>
-		  <div class="swiper-button-next"></div>
-		</div>
+    <input type="hidden" id="active-date" value="${selectedDate}" />
+
+    <!-- Swiper 컨테이너 -->
+	<div class="swiper-container">
+	    <div class="swiper-wrapper" id="weekdaySelector">
+	        <!-- JavaScript에서 요일과 날짜가 동적으로 생성됩니다 -->
+	    </div>
+	</div>
         
 	<form id="searchForm" action="searchStadium.st" method="get">
         <div class="choice">
@@ -116,7 +111,9 @@
 	<c:forEach var="stadiumSearch" items="${results}">
         <div class="video-priview">
             	<a href="detail.st?stadiumNo=${stadiumSearch.stadiumNo}">
-                	<img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
+                	<img src="${pageContext.request.contextPath}/resources/images/stadiumFile/${stadiumSearch.changeName}" 
+					     alt="${stadiumSearch.stadiumName}" 
+					     class="thumbnail" />
                 </a>
             <div class="video-info-grid" >
                 <div class="video-info">
