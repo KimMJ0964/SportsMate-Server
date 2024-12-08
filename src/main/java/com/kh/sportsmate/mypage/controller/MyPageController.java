@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.common.template.Template;
+import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
@@ -362,30 +363,21 @@ public class MyPageController {
 	 */
 	@RequestMapping("myMatchInfo.mp")
 	@ResponseBody
-	public ArrayList<TeamMatchInfoDto> myMatchInfo(String category, HttpSession session, HttpServletRequest request) {
+	public ArrayList<TeamMatchInfoDto> myMatchInfo( 
+			String category, HttpSession session, HttpServletRequest request) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
 		
-		String pageParam = request.getParameter("page");
-        
-        int page = 0;
-        try {
-            if (pageParam != null) {
-                page = Integer.parseInt(pageParam);
-            }
-        } catch (NumberFormatException e) {
-            page = 0;
-        }
-
-        // 확인용 출력
-        System.out.println("받은 페이지 번호: " + page);
-		
 		Map<String, String> map = new HashMap<>();
 		
+		 // 종목 전적 갯수
+        int matchCount = myPageService.categoryMatchCount(map);
+        
 		map.put("category", category);
 		map.put("memNo", String.valueOf(memNo));
 		
 		ArrayList<TeamMatchInfoDto> response = myPageService.myMatchInfo(map);
+		
 		return response;
 	}
 }

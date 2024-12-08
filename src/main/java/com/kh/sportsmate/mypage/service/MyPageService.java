@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
@@ -84,4 +85,7 @@ public interface MyPageService {
     
     // 전적 페이지 - 내 전적
     ArrayList<TeamMatchInfoDto> myMatchInfo(Map<String, String> map);
+    
+    // 전적 갯수
+    int categoryMatchCount(Map<String, String> map);
 }

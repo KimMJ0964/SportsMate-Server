@@ -21,22 +21,20 @@ document.querySelectorAll('.sport-btn').forEach(button => {
     });
 });
 
+let allMatchInfo = [];  // 전체 매치 데이터를 저장할 배열
+let currentIndex = 0;   // 현재까지 표시된 데이터의 인덱스
+
 function getMyMatchInfo(category) {
-    const urlParams = new URL(location.href).searchParams;
-
-    const page = urlParams.get('page');
-
-    console.log("페이지 : " + page)
     $.ajax({
         url: 'myMatchInfo.mp',
         type: 'GET',
-        data: { category: category,
-            page: page
-         },
+        data: { category: category },
         success: function(response) {
             console.log("내 전적 : ", response);
             console.log("종목 : " + category);
-            updateMatchTable(response);
+            allMatchInfo = response;  // 모든 매치 정보를 저장
+            currentIndex = 0;         // 초기화, 첫 번째 항목부터 시작
+            updateMatchTable();       // 처음 10개 항목 표시
         },
         error: function(error) {
             console.error("에러 :", error);
@@ -44,14 +42,15 @@ function getMyMatchInfo(category) {
     });
 }
 
-function updateMatchTable(matchInfo) {
+function updateMatchTable() {
     const tableBody = document.getElementById("match-table-body");
-    tableBody.innerHTML = '';  // 테이블 초기화
 
-    matchInfo.forEach(mi => {
-        // tr 요소 생성
+    // 한 번에 10개씩만 표시
+    const nextMatches = allMatchInfo.slice(currentIndex, currentIndex + 10);
+
+    nextMatches.forEach(mi => {
         const tr = document.createElement("tr");
-        
+
         if (mi.myScore > mi.enemyScore) {
             tr.style.backgroundColor = "#f2f9ff";
         } else if (mi.myScore < mi.enemyScore) {
@@ -60,7 +59,6 @@ function updateMatchTable(matchInfo) {
             tr.style.backgroundColor = "#f2f2f2";
         }
 
-        // 각 td 요소 생성
         tr.innerHTML = `
             <td>${mi.myTeamPoint}</td>
             <td>
@@ -80,8 +78,19 @@ function updateMatchTable(matchInfo) {
             </td>
             <td>${mi.enemyTeamPoint}</td>
         `;
-        
-        // tbody에 tr 추가
+
         tableBody.appendChild(tr);
     });
+
+    currentIndex += 10;  // 10개 항목을 추가했으므로 currentIndex를 10 증가
+
+    // 데이터가 더 이상 없으면 "더 보기" 버튼 숨김
+    if (currentIndex >= allMatchInfo.length) {
+        document.getElementById('load-more-button').style.display = 'none';
+    }
+}
+
+// "더 보기" 버튼 클릭 시 호출되는 함수
+function loadMoreMatches() {
+    updateMatchTable();  // 다음 10개 항목 추가
 }

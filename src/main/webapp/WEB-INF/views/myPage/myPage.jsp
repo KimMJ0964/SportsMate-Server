@@ -58,8 +58,12 @@
 						</c:choose>
 					</p>
 					<p>나이 : ${myInfo.memAge }</p>
-					<p>실력 점수 : ${myInfo.memSkillScore }</p>
+					<hr>
 					<p>매너 점수 : ${myInfo.memMannerScore }</p>
+					<p>축구 점수 : ${myInfo.socTotalPoint }</p>
+					<p>풋살 점수 : ${myInfo.footTotalPoint }</p>
+					<p>농구 점수 : ${myInfo.basketTotalPoint }</p>
+					<p>야구 점수 : ${myInfo.baseTotalPoint }</p>
 				</div>
 				<div class="profile-buttons">
 					<Button class="modify-btn"

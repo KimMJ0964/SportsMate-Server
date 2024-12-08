@@ -53,93 +53,10 @@
 					</tbody>
 				</table>
 			</div>
-
-			<div id="pagenation">
-				<nav>
-					<ul class="pagination">
-						<c:choose>
-							<c:when
-								test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
-								<li class="page-item"><a
-									href="myMatch.mp?page=1"
-									class="page-link"> <span aria-hidden="true">&laquo;</span>
-								</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item disabled"><a href="#"
-									class="page-link"> <span aria-hidden="true">&laquo;</span>
-								</a></li>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${pi.currentPage > 1}">
-								<li class="page-item"><a
-									href="myMatch.mp?page=${pi.currentPage - 1}"
-									class="page-link"> <span aria-hidden="true">&lt;</span>
-								</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item disabled"><a href="#"
-									class="page-link"> <span aria-hidden="true">&lt;</span>
-								</a></li>
-							</c:otherwise>
-						</c:choose>
-
-						<c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}"
-							step="1">
-							<c:choose>
-								<c:when test="${page == pi.currentPage}">
-									<li class="page-item active"><a class="page-link" href="#">${page}</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item"><a class="page-link"
-										href="myMatch.mp?page=${page}">${page}</a>
-									</li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:choose>
-							<c:when test="${pi.currentPage < pi.maxPage}">
-								<li class="page-item"><a
-									href="myMatch.mp?page=${pi.currentPage + 1}"
-									class="page-link"> <span aria-hidden="true">&gt;</span>
-								</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item disabled"><a href="#"
-									class="page-link"> <span aria-hidden="true">&gt;</span>
-								</a></li>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${pi.currentPage eq pi.maxPage}">
-								<li class="page-item disabled"><a href="#"
-									class="page-link"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
-							</c:when>
-							<c:when test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
-								<li class="page-item"><a
-									href="myMatch.mp?page=${pi.maxPage}"
-									class="page-link"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
-							</c:when>
-							<c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
-								<li class="page-item"><a
-									href="myMatch.mp?page=${pi.endPage + 1}"
-									class="page-link"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item disabled"><a href="#"
-									class="page-link"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
-				</nav>
-			</div>
-
 		</div>
+		
+		<br>
+		<div class="add-btn" onclick="loadMoreMatches()">더보기</div>
 		<!-- class="myMatch" 끝 -->
 
 		<br>

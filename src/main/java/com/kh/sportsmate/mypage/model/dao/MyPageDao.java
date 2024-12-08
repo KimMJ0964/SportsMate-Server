@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
@@ -251,5 +253,9 @@ public class MyPageDao {
 	 */
 	public ArrayList<TeamMatchInfoDto> myMatchInfo(SqlSessionTemplate sqlSession, Map<String, String> map) {
 		return (ArrayList) sqlSession.selectList("memberMapper.myMatchInfo", map);
+	}
+	
+	public int categoryMatchCount(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.selectOne("memberMapper.categoryMatchCount", map);
 	}
 }

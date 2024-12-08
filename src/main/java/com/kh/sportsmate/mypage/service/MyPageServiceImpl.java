@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.dao.BoardDao;
+import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
@@ -324,5 +325,10 @@ public class MyPageServiceImpl implements MyPageService{
 	@Transactional(readOnly = true)
 	public ArrayList<TeamMatchInfoDto> myMatchInfo(Map<String, String> map) {
 		return mypageDao.myMatchInfo(sqlSession, map);
+	}
+
+	@Override
+	public int categoryMatchCount(Map<String, String> map) {
+		return mypageDao.categoryMatchCount(sqlSession, map);
 	}
 }
