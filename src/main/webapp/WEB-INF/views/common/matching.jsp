@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/common/default.css">
 <link rel="stylesheet"
@@ -23,32 +24,18 @@
 				</div>
 			</div>
 		</div>
-		<div class="weekday-selector">
-			<div class="day-box inactive" onclick="toggleDay(this)">
-				<span class="date">21</span> <span class="day">월</span>
-			</div>
-			<div class="day-box inactive" onclick="toggleDay(this)">
-				<span class="date">22</span> <span class="day">화</span>
-			</div>
-			<div class="day-box inactive" onclick="toggleDay(this)">
-				<span class="date">23</span> <span class="day">수</span>
-			</div>
-			<div class="day-box inactive" onclick="toggleDay(this)">
-				<span class="date">24</span> <span class="day">목</span>
-			</div>
-			<div class="day-box inactive" onclick="toggleDay(this)">
-				<span class="date">25</span> <span class="day">금</span>
-			</div>
-			<div class="day-box inactive" onclick="toggleDay(this)">
-				<span class="date std">26</span> <span class="day std">토</span>
-			</div>
-			<div class="day-box inactive" onclick="toggleDay(this)">
-				<span class="date sd">27</span> <span class="day sd">일</span>
-			</div>
+		
+		 <!-- Swiper 컨테이너 -->
+		<div class="swiper-container">
+		    <div class="swiper-wrapper" id="weekdaySelector">
+		        <!-- JavaScript에서 요일과 날짜가 동적으로 생성됩니다 -->
+		    </div>
 		</div>
+		
 		<div class="choice">
 			<div class="mt-region-container">
-				<select name="activityAreaTwo" id="activityAreaTwo" id="mt-regionTwo">
+				<select name="activityAreaTwo" id="activityAreaTwo"
+					id="mt-regionTwo">
 					<option disabled hidden>활동 지역을 선택하세요.</option>
 					<option value="000-001" selected>서울시 강남구</option>
 					<option value="000-002">서울시 강북구</option>
@@ -79,56 +66,56 @@
 			</div>
 			<div class="mt-start-container">
 				<select class="mt-starttime">
-				    <option value="05:00:00" selected>05:00</option>
-				    <option value="06:00:00">06:00</option>
-				    <option value="07:00:00">07:00</option>
-				    <option value="08:00:00">08:00</option>
-				    <option value="09:00:00">09:00</option>
-				    <option value="10:00:00">10:00</option>
-				    <option value="11:00:00">11:00</option>
-				    <option value="12:00:00">12:00</option>
-				    <option value="13:00:00">13:00</option>
-				    <option value="14:00:00">14:00</option>
-				    <option value="15:00:00">15:00</option>
-				    <option value="16:00:00">16:00</option>
-				    <option value="17:00:00">17:00</option>
-				    <option value="18:00:00">18:00</option>
-				    <option value="19:00:00">19:00</option>
-				    <option value="20:00:00">20:00</option>
-				    <option value="21:00:00">21:00</option>
-				    <option value="22:00:00">22:00</option>
-				    <option value="23:00:00">23:00</option>
-				    <option value="24:00:00">24:00</option>
+					<option value="05:00:00" selected>05:00</option>
+					<option value="06:00:00">06:00</option>
+					<option value="07:00:00">07:00</option>
+					<option value="08:00:00">08:00</option>
+					<option value="09:00:00">09:00</option>
+					<option value="10:00:00">10:00</option>
+					<option value="11:00:00">11:00</option>
+					<option value="12:00:00">12:00</option>
+					<option value="13:00:00">13:00</option>
+					<option value="14:00:00">14:00</option>
+					<option value="15:00:00">15:00</option>
+					<option value="16:00:00">16:00</option>
+					<option value="17:00:00">17:00</option>
+					<option value="18:00:00">18:00</option>
+					<option value="19:00:00">19:00</option>
+					<option value="20:00:00">20:00</option>
+					<option value="21:00:00">21:00</option>
+					<option value="22:00:00">22:00</option>
+					<option value="23:00:00">23:00</option>
+					<option value="24:00:00">24:00</option>
 				</select>
 			</div>
 			<p>~</p>
 			<div class="mt-end-container">
 				<select class="mt-endtime">
-				    <option value="23:00:00" selected>23:00</option>
-				    <option value="06:00:00">06:00</option>
-				    <option value="07:00:00">07:00</option>
-				    <option value="08:00:00">08:00</option>
-				    <option value="09:00:00">09:00</option>
-				    <option value="10:00:00">10:00</option>
-				    <option value="11:00:00">11:00</option>
-				    <option value="12:00:00">12:00</option>
-				    <option value="13:00:00">13:00</option>
-				    <option value="14:00:00">14:00</option>
-				    <option value="15:00:00">15:00</option>
-				    <option value="16:00:00">16:00</option>
-				    <option value="17:00:00">17:00</option>
-				    <option value="18:00:00">18:00</option>
-				    <option value="19:00:00">19:00</option>
-				    <option value="20:00:00">20:00</option>
-				    <option value="21:00:00">21:00</option>
-				    <option value="22:00:00">22:00</option>
-				    <option value="23:00:00">23:00</option>
-				    <option value="24:00:00">24:00</option>
+					<option value="23:00:00" selected>23:00</option>
+					<option value="06:00:00">06:00</option>
+					<option value="07:00:00">07:00</option>
+					<option value="08:00:00">08:00</option>
+					<option value="09:00:00">09:00</option>
+					<option value="10:00:00">10:00</option>
+					<option value="11:00:00">11:00</option>
+					<option value="12:00:00">12:00</option>
+					<option value="13:00:00">13:00</option>
+					<option value="14:00:00">14:00</option>
+					<option value="15:00:00">15:00</option>
+					<option value="16:00:00">16:00</option>
+					<option value="17:00:00">17:00</option>
+					<option value="18:00:00">18:00</option>
+					<option value="19:00:00">19:00</option>
+					<option value="20:00:00">20:00</option>
+					<option value="21:00:00">21:00</option>
+					<option value="22:00:00">22:00</option>
+					<option value="23:00:00">23:00</option>
+					<option value="24:00:00">24:00</option>
 				</select>
 			</div>
 		</div>
 		<div class="tableContainer">
-		
+
 			<div class="table-row">
 				<div class="table-cell time">18 : 00</div>
 				<div class="table-cell location">서울 영등포 EA SPORTS FC B구장</div>
@@ -143,11 +130,11 @@
 					<button class="match-btn">매칭하기</button>
 				</div>
 			</div>
-			<div class="table-row">
-				
+			<div class="table-row"></div>
 		</div>
 	</div>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/mainPage/mainPage.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 </body>
 </html>

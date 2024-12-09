@@ -154,9 +154,10 @@
                         <span class="form-title">포지션</span><br>
                         <select name="futsalPosition" id="futsalPosition">
                             <option disabled hidden ${member.footPosi == null ? 'selected' : ''}>포지션을 선택해 주세요.</option>
-						    <option value="ST" ${member.footPosi == 'ST' ? 'selected' : ''}>ST</option>
-						    <option value="DF" ${member.footPosi == 'DF' ? 'selected' : ''}>DF</option>
-						    <option value="GK" ${member.footPosi == 'GK' ? 'selected' : ''}>GK</option>
+						    <option value="PIVO" ${member.footPosi == 'PIVO' ? 'selected' : ''}>PIVO</option>
+						    <option value="ALA" ${member.footPosi == 'ALA' ? 'selected' : ''}>ALA</option>
+						    <option value="FIXO" ${member.footPosi == 'FIXO' ? 'selected' : ''}>FIXO</option>
+						    <option value="GOLEIRO" ${member.footPosi == 'GOLEIRO' ? 'selected' : ''}>GOLEIRO</option>
                         </select>
                     </div>
                     <div class="input-wrap">
@@ -192,9 +193,11 @@
                         <span class="form-title">포지션</span><br>
                         <select name="basketballPosition" id="basketballPosition">
                             <option disabled hidden ${member.basketPosi == null ? 'selected' : ''}>포지션을 선택해 주세요.</option>
-						    <option value="ST" ${member.basketPosi == 'ST' ? 'selected' : ''}>ST</option>
-						    <option value="DF" ${member.basketPosi == 'DF' ? 'selected' : ''}>DF</option>
-						    <option value="GK" ${member.basketPosi == 'GK' ? 'selected' : ''}>GK</option>
+						    <option value="PF" ${member.basketPosi == 'PF' ? 'selected' : ''}>PF(파워 포워드)</option>
+						    <option value="SF" ${member.basketPosi == 'SF' ? 'selected' : ''}>SF(스몰 포워드)</option>
+						    <option value="C" ${member.basketPosi == 'C' ? 'selected' : ''}>C(센터)</option>
+						    <option value="PG" ${member.basketPosi == 'PG' ? 'selected' : ''}>PG(포인트 가드)</option>
+						    <option value="SG" ${member.basketPosi == 'SG' ? 'selected' : ''}>SG(슈팅 가드)</option>
                         </select>
                     </div>
                     <div class="input-wrap">
@@ -230,9 +233,15 @@
                         <span class="form-title">포지션</span><br>
                         <select name="baseballPosition" id="baseballPosition">
                             <option disabled hidden ${member.basePosi == null ? 'selected' : ''}>포지션을 선택해 주세요.</option>
-						    <option value="ST" ${member.basePosi == 'ST' ? 'selected' : ''}>ST</option>
-						    <option value="DF" ${member.basePosi == 'DF' ? 'selected' : ''}>DF</option>
-						    <option value="GK" ${member.basePosi == 'GK' ? 'selected' : ''}>GK</option>
+						    <option value="P" ${member.basePosi == 'P' ? 'selected' : ''}>P(투수)</option>
+						    <option value="C" ${member.basePosi == 'C' ? 'selected' : ''}>C(포수)</option>
+						    <option value="1B" ${member.basePosi == '1B' ? 'selected' : ''}>1B(1루수)</option>
+						    <option value="2B" ${member.basePosi == '2B' ? 'selected' : ''}>2B(2루수)</option>
+						    <option value="3B" ${member.basePosi == '3B' ? 'selected' : ''}>3B(3루수)</option>
+						    <option value="SS" ${member.basePosi == 'SS' ? 'selected' : ''}>SS(유격수)</option>
+						    <option value="LF" ${member.basePosi == 'LF' ? 'selected' : ''}>LF(좌익수)</option>
+						    <option value="RF" ${member.basePosi == 'RF' ? 'selected' : ''}>LF(우익수)</option>
+						    <option value="CF" ${member.basePosi == 'CF' ? 'selected' : ''}>CF(증견수)</option>
                         </select>
                     </div>
                     <div class="input-wrap">

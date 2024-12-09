@@ -84,7 +84,7 @@ public interface MyPageService {
     MatchBest checkReview(Map<String, Integer> map);
     
     // 전적 페이지 - 내 전적
-    ArrayList<TeamMatchInfoDto> myMatchInfo(Map<String, String> map);
+    ArrayList<TeamMatchInfoDto> myMatchInfo(Map<String, String> map, PageInfo pi);
     
     // 전적 갯수
     int categoryMatchCount(Map<String, String> map);

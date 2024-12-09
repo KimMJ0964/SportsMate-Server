@@ -123,8 +123,9 @@ public class MatchController {
 	 */
 	@RequestMapping("mainMatching.mn")
 	@ResponseBody
-	public ArrayList<MyMatch> mainMatching(String category, String region, String starttime, String endtime) {
-	    System.out.println("메인페이지 매치중 // 종류 : " + category + " 지역 : " + region + " 시작 시간 : " + starttime + " 끝 시간 : " + endtime);
+	public ArrayList<MyMatch> mainMatching(String category, String region, String starttime, String endtime, String date) {
+	    System.out.println("메인페이지 매치중 // 종류 : " + category + " 지역 : " + region + " 시작 시간 : " +
+	    		starttime + " 끝 시간 : " + endtime + " 선택 날짜 : " + date);
 
 	    ArrayList<MyMatch> response = null;
 
@@ -161,6 +162,7 @@ public class MatchController {
 	                map.put("category", category);
 	                map.put("starttime", startTime);
 	                map.put("endtime", endTime);
+	                map.put("date", date);
 
 	                response = matchService.mainMatching(map);
 	            }

@@ -407,7 +407,9 @@
 		WHERE 
 		    M.SCORE_A IS NOT NULL 
 		    AND M.SCORE_B IS NOT NULL
-			 AND M.CATEGORY = #{category}
+			<if test="category != null">
+		      AND M.CATEGORY = #{category}
+		    </if>
 		ORDER BY M.MATCH_NO DESC;
     </select>
     

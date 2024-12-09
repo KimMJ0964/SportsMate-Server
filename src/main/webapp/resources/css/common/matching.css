@@ -1,4 +1,9 @@
 @charset "UTF-8";
+
+hr {
+	width: 80%;
+	margin: 0 auto; 
+}
 /*진행중인매칭이미지*/
 .matching-container {
 	margin-top: 40px;
@@ -127,6 +132,7 @@
 	border-radius: 8px;
 	overflow: hidden;
 	margin-top: 20px;
+	margin-bottom: 250px;
 }
 
 .table-cell-container {
@@ -194,6 +200,69 @@
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
 	}
 }
+
+/* Swiper 기본 스타일 */
+		.swiper-container {
+		    width: 100%; /* 전체 너비 */
+		    overflow: hidden; /* 오버플로 방지 */
+		}
+		
+		/* 슬라이드 스타일 */
+		.swiper-slide {
+		    width: 100%; /* 한 슬라이드가 화면 전체를 차지 */
+		    display: flex; /* Flexbox 사용 */
+		    flex-direction: row; /* 가로 정렬 */
+		    justify-content: space-around; /* 날짜 간 간격 균등 */
+		    align-items: center; /* 세로 가운데 정렬 */
+		    padding: 10px; /* 슬라이드 여백 */
+		}
+		
+		/* 날짜 박스 스타일 */
+		.day-box {
+		    display: flex; /* 날짜와 요일을 가로로 배치 */
+		    flex-direction: column; /* 날짜와 요일을 세로로 정렬 */
+		    justify-content: center; /* 내부 정렬 */
+		    align-items: center;
+		    padding: 10px; /* 내부 여백 */
+		    border: 1px solid transparent; /* 기본 상태에서는 투명 */
+		    border-radius: 8px; /* 모서리 둥글게 */
+		    cursor: pointer; /* 클릭 가능한 커서 */
+		    transition: transform 0.3s, background-color 0.3s, border 0.3s; /* 애니메이션 효과 */
+		}
+		
+		/* 활성화된 날짜 */
+		.day-box.active {
+		    background-color: #007bff; /* 활성화된 날짜 배경색 */
+		    font-weight: bold; /* 글꼴 굵게 */
+		    transform: scale(1.1); /* 크기 확대 효과 */
+		    border: 1px solid black; /* 활성화 상태의 테두리 색상 */
+		}
+		
+		/* 날짜 스타일 */
+		.date {
+		    font-size: 16px; /* 날짜 글꼴 크기 */
+		    font-weight: bold; /* 굵게 */
+		    margin-bottom: 5px; /* 요일과의 간격 */
+		}
+		
+		/* 요일 스타일 */
+		.day {
+		    font-size: 14px; /* 요일 글꼴 크기 */
+		    color: black; /* 기본 요일 색상 */
+		}
+		
+		/* 일요일 스타일 */
+		.date.sd,
+		.day.sd {
+		    color: red; /* 일요일 텍스트 색상 */
+		}
+		
+		/* 토요일 스타일 */
+		.date.std,
+		.day.std {
+		    color: blue; /* 토요일 텍스트 색상 */
+		}
+		
 
 /* 모바일 화면 (300px ~ 480px) */
 @media ( max-width : 480px) {

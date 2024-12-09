@@ -251,8 +251,11 @@ public class MyPageDao {
 	 * @param map
 	 * @return 
 	 */
-	public ArrayList<TeamMatchInfoDto> myMatchInfo(SqlSessionTemplate sqlSession, Map<String, String> map) {
-		return (ArrayList) sqlSession.selectList("memberMapper.myMatchInfo", map);
+	public ArrayList<TeamMatchInfoDto> myMatchInfo(SqlSessionTemplate sqlSession, Map<String, String> map, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("memberMapper.myMatchInfo", map, rowBounds);
 	}
 	
 	public int categoryMatchCount(SqlSessionTemplate sqlSession, Map<String, String> map) {

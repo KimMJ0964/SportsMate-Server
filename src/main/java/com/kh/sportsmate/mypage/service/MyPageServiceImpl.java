@@ -323,8 +323,8 @@ public class MyPageServiceImpl implements MyPageService{
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public ArrayList<TeamMatchInfoDto> myMatchInfo(Map<String, String> map) {
-		return mypageDao.myMatchInfo(sqlSession, map);
+	public ArrayList<TeamMatchInfoDto> myMatchInfo(Map<String, String> map, PageInfo pi) {
+		return mypageDao.myMatchInfo(sqlSession, map, pi);
 	}
 
 	@Override

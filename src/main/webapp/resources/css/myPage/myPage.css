@@ -169,6 +169,7 @@ MyInfoContainer img {
 	flex-direction: column;
 	align-items: center;
 	font-size: 14px;
+	width: 40%;
 }
 
 .team span {
@@ -569,6 +570,9 @@ MyInfoContainer img {
 	margin-bottom: 15px;	
 }
 
+.mypage-qna-cell img {
+	cursor: pointer;
+}
 @media ( max-width : 480px) {
 	.MyInfoContainer {
 		width: 90%;

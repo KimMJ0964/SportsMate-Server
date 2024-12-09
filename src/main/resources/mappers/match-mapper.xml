@@ -45,6 +45,7 @@
 	    SELECT 
 		    M.RESERV_START AS reservStart,
 		    M.RESERV_END AS reservEnd,
+		    S.STADIUM_NO AS stadiumNo,
 		    S.STADIUM_NAME AS stadiumName,
 		    S.STADIUM_START_TIME AS stadiumStartTime,
 		    S.STADIUM_END_TIME AS stadiumEndTime
@@ -68,6 +69,9 @@
 	        </if>
 	        <if test="endtime != null">
 	        	AND M.RESERV_END &lt;= #{endtime}
+	        </if>
+	        <if test="date != null">
+	        	AND M.ACCESS_DATE = #{date}
 	        </if>
 	</select>
     

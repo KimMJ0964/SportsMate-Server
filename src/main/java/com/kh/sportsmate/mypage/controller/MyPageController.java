@@ -349,35 +349,26 @@ public class MyPageController {
 	 * @return
 	 */
 	@RequestMapping("myMatch.mp")
-	public String myMatchMove() {
-		return "myPage/myPageMatch";
-	}
-	
-	/**
-	 * 내 전적 페이지 - 전적 내용
-	 * 
-	 * @param category
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("myMatchInfo.mp")
-	@ResponseBody
-	public ArrayList<TeamMatchInfoDto> myMatchInfo( 
-			String category, HttpSession session, HttpServletRequest request) {
+	public String myMatchMove(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, String category, HttpSession session, Model m) {
+		
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
 		
 		Map<String, String> map = new HashMap<>();
 		
-		 // 종목 전적 갯수
-        int matchCount = myPageService.categoryMatchCount(map);
-        
 		map.put("category", category);
 		map.put("memNo", String.valueOf(memNo));
+		// 종목 전적 갯수
+		int matchCount = myPageService.categoryMatchCount(map);
 		
-		ArrayList<TeamMatchInfoDto> response = myPageService.myMatchInfo(map);
+		PageInfo pi = Template.getPageInfo(matchCount, currentPage, 10, 10);
 		
-		return response;
+		ArrayList<TeamMatchInfoDto> matchInfo = myPageService.myMatchInfo(map, pi);
+		
+		m.addAttribute("matchInfo", matchInfo);
+		m.addAttribute("pi", pi);
+		m.addAttribute("category", category);
+		
+		return "myPage/myPageMatch";
 	}
 }
