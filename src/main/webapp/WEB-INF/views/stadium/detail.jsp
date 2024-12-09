@@ -474,36 +474,42 @@
 			</div>
         </aside>
     </div>
-	<div class="chat-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+	<div class="chat-button" data-bs-toggle="modal" data-bs-target="#inquiryModal">
     	<img src="${pageContext.request.contextPath}/resources/images/chat.png" alt="Chat Icon">
     </div>
     
-    <!-- 상담 쪽 모달 -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  		<div class="modal-dialog" id="custom-modal">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">문의하기</h5>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      <div class="modal-body">
-					<form id="inquiry-form">
-	                    <div class="mb-3">
-	                        <label for="questionTitle" class="form-label">제목 <span class="text-danger">*</span></label>
-	                        <input type="text" class="form-control" id="questionTitle" placeholder="제목을 입력하세요" required>
-	                    </div>
-	                    <div class="mb-3">
-	                        <label for="questionContent" class="form-label">문의 내용 <span class="text-danger">*</span></label>
-	                        <textarea class="form-control" id="questionContent" rows="6" placeholder="문의 내용을 입력하세요" required></textarea>
-	                    </div>
-	                </form>
-				</div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-	                <button type="submit" class="btn btn-primary" form="inquiry-form">질문 제출</button>
+	<!-- 문의 등록 모달 -->
+	<div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="inquiryModalLabel">문의 등록</h5>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	            </div>
-		    </div>
-		</div>
+	            <div class="modal-body">
+	                <!-- 문의 등록 폼 -->
+	                <form action="inquiryInsert.me" method="post" id="inquiry-form">
+				    <!-- 경기장 번호 -->
+				    <input type="hidden" name="stadiumNo" value="${stadiumNo}" />
+				
+				    <!-- 문의 제목 -->
+				    <div class="mb-3">
+				        <label for="matchQTitle" class="form-label">문의 제목</label>
+				        <input type="text" name="matchQTitle" class="form-control" required />
+				    </div>
+				
+				    <!-- 문의 내용 -->
+				    <div class="mb-3">
+				        <label for="matchQDetail" class="form-label">문의 내용</label>
+				        <textarea name="matchQDetail" class="form-control" rows="5" required></textarea>
+				    </div>
+				
+				    <!-- 제출 버튼 -->
+				    <button type="submit" class="btn btn-primary">문의 등록</button>
+				</form>
+	        </div>
+	    </div>
+	</div>
 	</div>
 	
 	<!-- 신청하기 모달 -->
@@ -532,6 +538,8 @@
 						    <input type="hidden" id="stadium-id" name="stadiumNo" value="${stadiumDetail.stadiumNo}">
 						    <input type="hidden" id="price" name="price" value="${stadiumDetail.stadiumPrice}">
 						    <input type="hidden" id="category" name="category" value="${stadiumDetail.stadiumCategory}">
+						    <input type="hidden" name="teamANo" value="${teamNo}">
+                     		<input type="hidden" name="teamBNo" value="">
 						    
 							<!-- 경기장 이름과 가격 -->
 			                <div class="row text-center mb-4">
@@ -637,6 +645,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/detail.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/time.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stadium/match.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=043f5595cb50307eae5f33cc8943d0e6&libraries=services"></script>
     <script>
     var map;
