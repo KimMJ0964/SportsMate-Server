@@ -965,6 +965,14 @@ public class TeamController {
 						("baseball".equals(teamCategory) && !enrollmentInfo.isBaseball());
 			}
 		}
+		// 본인 소속 구단 여부 확인
+		boolean isMemberTeam = false;
+		Map<String, Integer> map = new HashMap<>();
+		map.put("memNo", m.getMemNo());
+		map.put("teamNo", tno);
+		isMemberTeam = teamService.isMemberTeam(map);
+		log.info("소속 구단 여부 확인 결고 : {}",isMemberTeam);
+		request.setAttribute("isMemberTeam", isMemberTeam);
 		request.setAttribute("canApply", canApply);
         request.setAttribute("detailInfo", detailInfo);
         return "team/memberRecruitDetail";

@@ -518,6 +518,13 @@
 		LEFT JOIN TEAM t ON (tm.TEAM_NO = t.TEAM_NO)
 		WHERE tm.MEM_NO = #{memNo}
 	</select>
+	
+	<select id="selectMemberTeamCount" resultType="_int">
+		SELECT COUNT(*)
+		from TEAM t
+		where MEM_NO = #{memNo}
+			and TEAM_NO= #{teamNo};
+	</select>
 	<!-- 게시글 생성 -->
 	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">
 	  	INSERT INTO TEAM_BOARD (

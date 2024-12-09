@@ -62,14 +62,19 @@
 
             <div>${detailInfo.teamDescription}</div>
             <div>
-                <c:if test="${not canApply}">
-                    <p id="warning">소속 될 수 있는 구단은 종목당 1개 입니다</p>
-                </c:if>
+                <c:choose>
+                    <c:when test="${not canApply}">
+                        <p id="warning">소속 될 수 있는 구단은 종목당 1개 입니다</p>
+                    </c:when>
+                    <c:when test="${not isMemberTeam}">
+                        <p id="warning">본인이 소속된 구단입니다.</p>
+                    </c:when>
+                </c:choose>
             </div>
         </div>
         <div class="btn-wrap">
             <c:choose>
-                <c:when test="${loginMember != null and canApply}">
+                <c:when test="${loginMember != null and canApply and not isMemberTeam }">
                     <button type="button" id="back-list-btn" onclick="history.back()">목록으로 가기</button>
                     <button type="button" id="apply-btn" data-bs-toggle="modal" data-bs-target="#applyNow">신청하기</button>
                 </c:when>

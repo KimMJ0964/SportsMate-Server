@@ -539,4 +539,7 @@ public class TeamDao {
     public ArrayList<String> selectEnrollmentInfo(SqlSessionTemplate sqlSession, int memNo) {
         return (ArrayList) sqlSession.selectList("teamMapper.selectEnrollmentInfo", memNo);
     }
+    public int selectMemberTeamCount(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+        return sqlSession.selectOne("teamMapper.selectMemberTeamCount", map);
+    }
 }
