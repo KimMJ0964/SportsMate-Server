@@ -1,6 +1,54 @@
-function openModal() {
+function openModal(memNo) {
     // 모달 창을 열기 - 'modalOverlay' 요소의 display 속성을 'flex'로 설정하여 보이게 함
-    document.getElementById('modalOverlay').style.display = 'flex';
+    // document.getElementById('modalOverlay').style.display = 'flex';
+
+}
+// 경고 등록 이벤트 리스너
+const requestWarning = ()=>{
+    const memNo = $('input[type=hidden][name=memNo]').val();
+    const pnReporter = $('input[type=hidden][name=pnReporter]').val();
+    const pnGround = $('input[type=hidden][name=pnGround]').val();
+    const pnContent = $('textarea[name=pnContent]').val();
+    let data = {
+        memNo,
+        pnReporter,
+        pnGround,
+        pnContent,
+    }
+    // AJAX 호출
+    insertPenalty(data,(res)=>{
+        if(res === "XXXXY"){
+            alert("경고 등록 성공");
+            $('button[class=btn-close]').click();
+            $(`button[data-memNo="${memNo}"]`).prop("disabled", true);
+            $(`button[data-memNo="${memNo}"]`).removeClass("expose");
+            $(`button[data-memNo="${memNo}"]`).addClass("disabled");
+        }else{
+            alert("경고 등록 실패! 다시 시도하세요.");
+        }
+    })
+}
+const insertPenalty =(data, callback) =>{
+    $.ajax({
+        url: "warning_reason.gp",
+        method: "POST",
+        data,
+        success: (res) =>callback(res),
+        error:()=> console.log("경고 AJAX 요청 실패")
+    })
+}
+const warningBtnClick = (event) =>{
+        // Find the closest 'tr' ancestor of the clicked button
+        const trElement = event.target.closest('tr');
+
+        // Get data-memNo and the first td value
+        const memNo = trElement.querySelector('.star-container.skill').getAttribute('data-memNo');
+        const playerName = trElement.querySelector('td').textContent.trim();
+
+        // Update the modal inputs
+        const modal = document.getElementById('warningModal');
+        modal.querySelector('input[name="memNo"]').value = memNo;
+        modal.querySelector('#name-input').value = playerName;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -128,7 +176,10 @@ const getRating = () => {
 
 const clickRegisterBtn = () => {
     setGameResult(getRating(), () => {
-        location.href = 'gamefinish.me';
+        if(res === 'XXXXY'){
+            alert("경기 결과 등록 성공")
+            location.href = 'gamefinish.me';
+        }
     })
 }
 
@@ -139,7 +190,7 @@ const setGameResult = (data, callBack) => {
         data: data,
         contentType: "application/json",
         data: JSON.stringify(data),
-        success: callBack(),
+        success: (res) => callBack(res),
         error: () => {
             console.log("경기 결과 작성 AJAX 요청 실패");
         }

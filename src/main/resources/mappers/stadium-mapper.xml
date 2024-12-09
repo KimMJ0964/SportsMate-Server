@@ -96,6 +96,19 @@
         </trim>
         )
     </insert>
+    <insert id="insertPenalty" parameterType="StadiumPenaltyDTO">
+        insert into MEMBER_PENALTY(
+            MEM_NO,
+            PN_CONTENT,
+            PN_REPORTER,
+            PN_TYPE
+        ) values(
+            #{memNo},
+            #{pnContent},
+            #{pnReporter},
+            'MATCH'
+        )
+    </insert>
 <!--
     foreach : parameterType이  list 혹은 Array 때 사용
         - collection : 전달받은 인자값(list || array)

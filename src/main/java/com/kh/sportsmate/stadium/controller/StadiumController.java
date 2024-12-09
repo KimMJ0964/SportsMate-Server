@@ -6,8 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
 import com.kh.sportsmate.stadium.model.dto.Rating;
 import com.kh.sportsmate.stadium.model.dto.TeamScore;
@@ -251,5 +253,18 @@ public class StadiumController {
 		model.addAttribute("results", results); // 검색 결과 리스트
 		model.addAttribute("pi", pi);
 		return "stadium/listPage"; // 검색 결과 페이지
+    }
+
+    @ResponseBody
+    @PostMapping(value = "warning_reason.gp")
+    public String insertPenalty(StadiumPenaltyDTO penaltyInfo, HttpServletRequest request) {
+        log.info("패널티 정보 : {}",penaltyInfo);
+        int result = stadiumService.insertPenalty(penaltyInfo);
+        if(result > 0){
+            return "XXXXY";
+        }else {
+            return "XXXXX";
+        }
+//        return "redirect:/";
     }
 }

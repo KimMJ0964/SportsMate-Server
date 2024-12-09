@@ -3,6 +3,7 @@ package com.kh.sportsmate.stadium.service;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
@@ -51,4 +52,6 @@ public interface StadiumService {
 	int inquiryUpdate(StadiumQna sq);
 
 	int insertGameResult(GameResultDTO gameResultDTO);
+
+	int insertPenalty(StadiumPenaltyDTO penaltyInfo);
 }

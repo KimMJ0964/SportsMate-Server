@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.sportsmate.admin.model.dao.AdminDao;
+import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.match.model.dao.MatchDao;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dao.MemberDao;
@@ -41,6 +43,7 @@ public class StadiumServiceImpl implements StadiumService {
     private final MatchDao matchDao;
     private final MemberDao memberDao;
     private final TeamDao teamDao;
+	private final AdminDao adminDao;
 
 	@Override
 	public int getSearchResultCount(String stadiumName, String stadiumAddress, String stadiumCategory,
@@ -184,4 +187,18 @@ public class StadiumServiceImpl implements StadiumService {
         return updateTotalPointResult * updateMannerTotalPointResult * updateAvgPointResult
                 *updateMemberMannerPointResult * updateGameResult * updateTeamRecordResult;
     }
+
+	/**
+	 * 패널티 횟수 조회 후 패널티 신고 등록
+	 * @param penaltyInfo
+	 * @return
+	 */
+	@Override
+	public int insertPenalty(StadiumPenaltyDTO penaltyInfo) {
+		int pnCount = adminDao.selectPenaltyCount(sqlSession, penaltyInfo.getMemNo());
+		log.info("패널티 카운트 조회 결과 : {}",pnCount);
+		penaltyInfo.setPnCount(pnCount);
+		return stadiumDao.insertPenalty(sqlSession, penaltyInfo);
+
+	}
 }

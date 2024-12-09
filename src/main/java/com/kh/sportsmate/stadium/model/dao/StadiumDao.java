@@ -1,5 +1,6 @@
 package com.kh.sportsmate.stadium.model.dao;
 
+import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
@@ -110,4 +111,7 @@ public class StadiumDao {
     	return sqlSession.update("stadiumMapper.inquiryUpdate", sq);
     }
 
+    public int insertPenalty(SqlSessionTemplate sqlSession, StadiumPenaltyDTO penaltyInfo) {
+        return sqlSession.insert("stadiumMapper.insertPenalty", penaltyInfo);
+    }
 }
