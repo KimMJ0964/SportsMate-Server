@@ -15,8 +15,8 @@ import java.sql.Date;
  * -----------------------------------------------------------
  * 2024. 11. 7.        jun       최초 생성
  */
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -31,7 +31,8 @@ public class Member {
     private String memAdd;
     private String memBirth;
     private String memPhone;
-    private double memRank;
+    private double memSkillScore;
+    private double memMannerScore;
     private Date memEnrollDate;
     private String memStatus;
 

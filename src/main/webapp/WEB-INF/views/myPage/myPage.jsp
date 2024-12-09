@@ -27,13 +27,6 @@
 	href="${pageContext.request.contextPath}/resources/css/default.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/myPage/myPage.css?after">
-<style>
-@media ( max-width : 480px) {
-	.joinTeamPeopleContainer {
-		overflow-y: hidden;
-	}
-}
-</style>
 </head>
 <body>
 
@@ -51,7 +44,7 @@
 				        <img src="${pageContext.request.contextPath}/resources/images/userProFile/${filePath}" class="mypage-profile-img" alt="User Profile" />
 				    </c:when>
 				    <c:otherwise>
-				        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" style="width: 150px;"/>
+				        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" class="mypage-profile-img" />
 				    </c:otherwise>
 				</c:choose><br>
 				<div class="userInfo">
@@ -65,16 +58,15 @@
 						</c:choose>
 					</p>
 					<p>나이 : ${myInfo.memAge }</p>
-					<p>점수 : ${myInfo.memRank }</p>
-					<br>
+					<p>실력 점수 : ${myInfo.memSkillScore }</p>
+					<p>매너 점수 : ${myInfo.memMannerScore }</p>
 				</div>
 				<div class="profile-buttons">
 					<Button class="modify-btn"
 						onclick="location.href = 'modifyMyInfoMove.mp'">프로필 수정</Button>
 					<Button class="modify-btn" onclick="location.href = 'logout.mp'">로그아웃</Button>
-					<Button class="secession-btn"
-						onclick="location.href = 'accountCancel.mp'">회원 탈퇴</Button>
 				</div>
+				<br>
 			</div>
 
 			<!-- 내 전적 -->
@@ -86,22 +78,36 @@
 					<div class="stats-container">
 						<div class="AllCountBox">
 							<div class="all">총 경기 수</div>
-							<div class="all_count">${myMatchCount}번</div>
+							<div class="all_count">${myMatchCount.matchCount}번</div>
 						</div>
 						<div class="VictoryCountBox">
 							<div class="victory">승리 횟수</div>
-							<div class="victory_count">${myMatchWinCount}번</div>
+							<div class="victory_count">${myMatchCount.win}번</div>
 						</div>
 					</div>
 					<c:forEach var="mm" items="${myMatch}">
 						<div class="match-info">
 							<div class="team red">
-								<span>${mm.teamAName }</span>
+								<img src="<c:choose>
+						            <c:when test='${mm.teamAProfile != null}'>
+						                ${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamAProfile}
+						            </c:when>
+						            <c:otherwise>
+						                ${pageContext.request.contextPath}/resources/images/user_default_profile.png
+						            </c:otherwise>
+						         </c:choose>"  class="mypage-match-profile-img" alt="User Profile"/>
 								<p>${mm.teamAName }</p>
 							</div>
 							<div class="score">${mm.scoreA} : ${mm.scoreB}</div>
 							<div class="team blue">
-								<span>${mm.teamBName }</span>
+								<img src="<c:choose>
+						            <c:when test='${mm.teamBProfile != null}'>
+						                ${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamBProfile}
+						            </c:when>
+						            <c:otherwise>
+						                ${pageContext.request.contextPath}/resources/images/user_default_profile.png
+						            </c:otherwise>
+						         </c:choose>"  class="mypage-match-profile-img" alt="User Profile"/>
 								<p>${mm.teamBName }</p>
 							</div>
 							<img class="bestplayer-btn" src="resources/images/User_vote.png"
@@ -131,9 +137,7 @@
 									<!-- a팀 -->
 									<div class="my-bestplayer-vote-a">
 										<div class="aTeam-name">
-											<img
-												src="${pageContext.request.contextPath}/resources/images/Logo.png"
-												style="width: 60px;"> <span></span>
+											<span style="font-size: 24px; font-weight: bold;"></span>
 										</div>
 										<br>
 										<table class="modal-ateam-table"
@@ -146,9 +150,7 @@
 									<!-- B팀 -->
 									<div class="my-bestplayer-vote-b">
 										<div class="bTeam-name">
-											<img
-												src="${pageContext.request.contextPath}/resources/images/Logo.png"
-												style="width: 60px;"> <span></span>
+											<span style="font-size: 24px; font-weight: bold;"></span>
 										</div>
 										<br>
 										<table class="modal-bteam-table"
@@ -221,10 +223,22 @@
 										<!-- 야구 구단 -->
 										<div class="baseball">
 											<div class="club-head">
-												<p>${mt.teamCategory }</p>
+												    <c:choose>
+												        <c:when test="${mt.teamCategory == 'futsal'}"><p>풋살</p></c:when>
+												        <c:when test="${mt.teamCategory == 'baseball'}"><p>야구</p></c:when>
+												        <c:when test="${mt.teamCategory == 'soccer'}"><p>축구</p></c:when>
+												        <c:when test="${mt.teamCategory == 'basketball'}"><p>농구</p></c:when>
+												    </c:choose>
 												<div class="profile">
 													<div class="profile-img-container">
-														<div class="profile-circle"></div>
+														<c:choose>
+														    <c:when test="${not empty mt.teamProfile}">
+																<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mt.teamProfile }" class="profile-circle" alt="User Profile"/>
+														    </c:when>
+														    <c:otherwise>
+														        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" class="profile-circle"/>
+														    </c:otherwise>
+														</c:choose>
 													</div>
 													<p class="profile-name">${mt.teamName }</p>
 													<div class="star-rating">
@@ -276,10 +290,22 @@
 									<!-- 야구 구단 -->
 									<div class="baseball">
 										<div class="club-head">
-											<p>${mt.teamCategory }</p>
+											<c:choose>
+												        <c:when test="${mt.teamCategory == 'futsal'}"><p>풋살</p></c:when>
+												        <c:when test="${mt.teamCategory == 'baseball'}"><p>야구</p></c:when>
+												        <c:when test="${mt.teamCategory == 'soccer'}"><p>축구</p></c:when>
+												        <c:when test="${mt.teamCategory == 'basketball'}"><p>농구</p></c:when>
+												    </c:choose>
 											<div class="profile">
 												<div class="profile-img-container">
-													<div class="profile-circle"></div>
+													<c:choose>
+														    <c:when test="${not empty mt.teamProfile}">
+																<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mt.teamProfile }" class="profile-circle" alt="User Profile"/>
+														    </c:when>
+														    <c:otherwise>
+														        <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" class="profile-circle"/>
+														    </c:otherwise>
+														</c:choose>
 												</div>
 												<p class="profile-name">${mt.teamName }</p>
 												<div class="star-rating">
@@ -304,7 +330,7 @@
 										</div>
 									</div>
 									<div class="club-body">
-										<h5>구단 정보</h5>
+										<h5><b>구단 정보</b></h5>
 										<p>point : ${mt.teamPoint }</p>
 										<p>인원수 : ${mt.teamMemberCount} / ${mt.teamMaxPerson }</p>
 										<p>창설일 : ${mt.teamEnrollDate }</p>
@@ -327,19 +353,31 @@
 				<c:forEach var="mr" items="${myRecruit}">
 					<div class="joinBox">
 						<div class="joinProfile">
-							<img src="" alt="" /> <br />
+							<img 
+						        src="<c:choose>
+						                <c:when test='${not empty mr.memberProfile}'>
+						                    ${pageContext.request.contextPath}/resources/images/userProFile/${mr.memberProfile}
+						                </c:when>
+						                <c:otherwise>
+						                    ${pageContext.request.contextPath}/resources/images/user_default_profile.png
+						                </c:otherwise>
+						             </c:choose>" 
+						        alt="" 
+						        style="width: 50px; height: 50px;"
+						    />  <br />
 							<div class="profile-text">${mr.memName }</div>
 						</div>
 						<div class="profile team-name">
-							<img src="" alt="" /> <br />
+							<img src="${pageContext.request.contextPath}/resources/images/userProFile/${mr.teamProfile }" alt="" style="width: 60%; max-height: 75px;"/> <br />
 							<div class="profile-text">${mr.teamName }</div>
 						</div>
 						<div class="buttons">
 							<Button class="view-btn" data-bs-toggle="modal"
 								data-bs-target="#exampleModaltwo" data-name="${mr.memName}"
 								data-age="${mr.memAge}" data-gender="${mr.memGender}"
-								data-rank="${mr.memRank}" data-abl="${mr.ability}"
-								data-posi="${mr.position}" data-intro="${mr.introduce }">입단자
+								data-skillRank="${mr.memSkillScore}" data-mannerRank="${mr.memMannerScore}" data-abl="${mr.ability}"
+								data-posi="${mr.position}" data-intro="${mr.introduce }"
+								data-profile="${mr.memberProfile }" data-context="${pageContext.request.contextPath}">입단자
 								정보</Button>
 							<Button class="approve-btn"
 								onclick="location.href = 'approveJoin.tm?mno=${mr.memNo}&tno=${mr.teamNo }'">승인</Button>
@@ -360,7 +398,8 @@
 					<table class="mypage-qna-table">
 						<thead class="mypage-qna-thead">
 							<tr class="mypage-qna-header-row">
-								<th class="mypage-qna-header">문의 제목</th>
+								<th class="mypage-qna-header">장소</th>
+								<th class="mypage-qna-header">제목</th>
 								<th class="mypage-qna-header">질문</th>
 								<th class="mypage-qna-header">문답</th>
 							</tr>
@@ -368,9 +407,21 @@
 						<tbody class="mypage-qna-tbody">
 							<c:forEach var="mq" items="${myQna}">
 								<tr class="mypage-qna-row">
+									<td class="mypage-qna-cell">${mq.stadiumName}</td>
 									<td class="mypage-qna-cell">${mq.matchQTitle}</td>
 									<td class="mypage-qna-cell">${mq.matchQDetail}</td>
-									<td class="mypage-qna-cell">${mq.matchA}</td>
+									<td class="mypage-qna-cell">
+									    <c:choose>
+									        <c:when test="${not empty mq.matchA}">
+									            <img src="${pageContext.request.contextPath}/resources/images/qnaCheck.png" alt="Checked" data-bs-toggle="modal" class="qnaImage" 
+													data-bs-target="#qnaAnswerModal" data-content="${mq.matchA}"/>
+									        </c:when>
+									        <c:otherwise>
+									            <img src="${pageContext.request.contextPath}/resources/images/qnaUnCheck.png" alt="Unchecked" data-bs-toggle="modal" class="qnaImage" 
+													data-bs-target="#qnaAnswerModal" data-content="아직 문의에 대한 답변이 작성되지 않았습니다."/>
+									        </c:otherwise>
+									    </c:choose>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -394,8 +445,8 @@
 				</div>
 				<div class="modal-body">
 					<div class="my-modal-join-profile-img">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/Logo.png"
+						<img id="my-modal-join-profile-image"
+							src=""
 							style="width: 120px;">
 					</div>
 					<br>
@@ -411,7 +462,10 @@
 							실력 : <span id="applicantAbl"></span>
 						</p>
 						<p>
-							평점 : <span id="applicantRank"></span>
+							매너 평점 : <span id="applicantMannerRank"></span>
+						</p>
+						<p>
+							실력 평점 : <span id="applicantSkillRank"></span>
 						</p>
 						<p>
 							나이 : <span id="applicantAge"></span>
@@ -432,7 +486,29 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="qnaAnswerModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">문의 답변</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="qnaAnswerContent">
+						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">확인</button>
+				</div>
+			</div>
+		</div>
 	</div>
+	
 	<!-- myPage-container 끝 -->
 	<!-- warp 끝 -->
 	<!-- 푸터 -->
@@ -440,92 +516,6 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/myPage/myPage.js"></script>
-	<script>	    
-	    $(document).on('click', '.bestplayer-btn', function() {
-	        var teamANo = $(this).data('atno');
-	        var teamBNo = $(this).data('btno');
-	        
-	        $.ajax({
-	            url: 'getTeamInfo.mp', // 서버에서 팀 정보를 받아올 URL
-	            type: 'GET',
-	            data: {
-	                teamANo: teamANo,
-	                teamBNo: teamBNo
-	            },
-	            success: function(response) {
-	            	console.log(response);
-	                const aTeamInfo = response.aTeamInfo;
-	                const bTeamInfo = response.bTeamInfo;
-	                const aTeamName = response.aTeamInfo[0]?.teamName || 'Unknown A Team';
-	                const bTeamName = response.bTeamInfo[0]?.teamName || 'Unknown B Team';
-
-	                console.log('A팀 이름:', aTeamName); // A팀 이름 출력
-	                console.log('B팀 이름:', bTeamName); // B팀 이름 출력
-
-	                // a팀 이름 삽입
-	                $('.aTeam-name span').text(aTeamName);
-
-	                // b팀 이름 삽입
-	                $('.bTeam-name span').text(bTeamName);
-	                
-	                // a팀 멤버 정보 출력
-	                let aTeamHtml = '';
-	                aTeamInfo.forEach(member => {
-	                	console.log(member)
-	                    aTeamHtml += `
-	                        <tr>
-	                            <td><div class="modal-ateam-table-img">
-	                                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" style="width: 50px;">
-	                            </div></td>
-	                            <td><div class="modal-ateam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
-	                            <td><div class="modal-ateam-table-vote-btn">
-	                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
-	                            </div></td>
-	                        </tr>`;
-	                });
-	                $(".modal-ateam-table").html(aTeamHtml);
-
-	                // b팀 멤버 정보 출력
-	                let bTeamHtml = '';
-	                bTeamInfo.forEach(member => {
-	                	console.log(member)
-	                    bTeamHtml += `
-	                        <tr>
-	                            <td><div class="modal-bteam-table-img">
-	                                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" style="width: 50px;" data-bestmno="a팀">
-	                            </div></td>
-	                            <td><div class="modal-bteam-table-name">` + member.memName + ' / ' +  member.position + `</div></td>
-	                            <td><div class="modal-bteam-table-vote-btn">
-	                                <img class="vote-btn" src="${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png" data-bestmno="`+ member.memNo +`" onclick="updateBestMNo(this)">
-	                            </div></td>
-	                        </tr>`;
-	                });
-	                $(".modal-bteam-table").html(bTeamHtml);
-	            },
-	            error: function() {
-	                alert("팀 정보를 불러오는 데 실패했습니다.");
-	            }
-	        });
-	    });
-	    
-	 // 이미지 클릭 시 상태 변경
-	    $(document).on('click', '.vote-btn', function() {
-	        // 모든 이미지를 원래대로 설정
-	        $('.vote-btn').each(function() {
-	            $(this).attr('src', `${pageContext.request.contextPath}/resources/images/my_uncheck_vote.png`);
-	        });
-	        
-	        // 클릭한 이미지만 my_check_vote.png로 변경
-	        $(this).attr('src', `${pageContext.request.contextPath}/resources/images/my_check_vote.png`);
-	    });
-	 
-	    function updateBestMNo(imgElement) {
-	        const bestMNo = imgElement.getAttribute('data-bestmno');
-	        
-	        document.getElementById('bestMNo').value = bestMNo;
-	    }
-	</script>
+	<script src="${pageContext.request.contextPath}/resources/js/myPage/myPage.js"></script>
 </body>
 </html>

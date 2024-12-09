@@ -1,173 +1,197 @@
 @charset "UTF-8";
 
-
 /* 스타일 예시 */
 body {
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-	
-	.wrap {
-		max-width: 1200px;
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-        .bd-title-container, .bd-content-container, .bd-comment-container {
-            margin: 0 auto;
-        }
-        .bd-title-container {
-            width: 80%;
-            text-align: center;
-            padding-top: 50px;
-        }
-        .bd-title {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .bd-meta-info {
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 10px;
-            text-align: right;
-        }
-        .bd-content-container {
-            width: 75%;
-        }
-        .bd-content {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 3px;
-            margin: 20px 0;
-            height: 250px;
-        }
-        .bd-button-container {
-            display: flex;
-            justify-content: right;
-            margin-bottom: 10px;
-            gap: 15px;
-        }
-        .bd-comment-container {
-            width: 60%;
-        }
-        .bd-comment-section {
-            padding: 10px;
-            margin-bottom: 50px;
-        }
-        .bd-comment {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 5px;
-            margin-bottom: 150px;
-        }
-        .bd-comment-textarea {
-        	height: 150px;
-        	border: 1px solid #1D87FA;
-        	border-radius: 5px;
-        }
-        .bd-comment-info {
-            display: flex;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .bd-profile {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #ccc;
-            display: inline-block;
-            margin-right: 10px;
-        }
-        .bd-comment-content {
-            margin-left: 10px;
-            font-size: 14px;
-        }
-        .bd-reply-form {
-            display: none;
-            margin-top: 10px;
-        }
-        .bd-reply {
-            display: flex;
-            align-items: center;
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-        .bd-reply .bd-button-container {
-            margin-left: 20px;
-            margin-top: 5px;
-            gap: 10px;
-        }
-        .bd-button, .bd-red-button {
-            height: 40px;
-            border-style: none;
-            color: white;
-            border-radius: 8px;
-            display: flex;             
-		    justify-content: center;
-		    align-items: center;
-		    padding-left: 5px;
-		    padding-right: 5px;
-        }
-        .bd-button {
-            background-color: #1D87FA;
-        }
-        .bd-red-button {
-            background-color: #dc3545;
-        }
-        
-        .bd-like {
-        	width: 24px;
-        	height: 24px;
-        }
-        
-        .bd-like-count {
-        	text-align: center;
-        }
-        
-        .bd-report-title {
-        
-        }
-        
-        .bd-report-content {
-        	width: 100%; 
-        }
-        
-        .bd-reply-container {
-        	border-left: 4px solid #505050; /* 파란색 테두리 */
-    		padding-left: 10px; /* 내용과 테두리 사이 간격 */
-        }
-        
-        .bd-report-content-textarea {
-        	 width: 100%; /* 너비를 원하는 크기로 설정 */
-			  height: 300px; /* 고정된 높이 설정 */
-			  border: 2px solid #307DFA; /* 파란색 테두리 */
-			  resize: none; /* 크기 조정 비활성화 */
-			  padding: 10px; /* 내용 여백 */
-			  font-size: 16px; /* 폰트 크기 */
-			  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
-			  border-radius: 8px;
-        }
-        
-        .bd-comment-profile-img {
-        	width: 32px;
-        	height: 32px;
-        	margin-right: 7px;
-        }
-		
-		.deleted-comment {
-	        color: gray; /* 회색 텍스트 */
-	        text-decoration: line-through; /* 취소선 */
-	    }
-        @media (max-width: 480px) {
-            .bd-content-container {
-                width: 90%;
-            }
+	margin: 0 auto;
+	box-sizing: border-box;
+}
 
-            .bd-comment-container {
-                width: 90%;
-            }
-            
-            .bd-button, .bd-red-button {
-	            height: 28px;
-	            font: 8px;
-	        }
-        }
+.wrap {
+	max-width: 1200px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.bd-title-container, .bd-content-container, .bd-comment-container {
+	margin: 0 auto;
+}
+
+.bd-title-container {
+	width: 80%;
+	text-align: center;
+	padding-top: 50px;
+}
+
+.bd-title {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.bd-meta-info {
+	color: #888;
+	font-size: 14px;
+	margin-bottom: 10px;
+	text-align: right;
+}
+
+.bd-content-container {
+	width: 75%;
+}
+
+.bd-content {
+	border: 1px solid #ccc;
+	padding: 20px;
+	border-radius: 3px;
+	margin: 20px 0;
+	min-height: 250px;
+}
+
+.bd-button-container {
+	display: flex;
+	justify-content: right;
+	margin-bottom: 10px;
+	gap: 15px;
+}
+
+.bd-comment-container {
+	width: 60%;
+}
+
+.bd-comment-section {
+	padding: 10px;
+	margin-bottom: 50px;
+}
+
+.bd-comment {
+	border: 1px solid #ccc;
+	padding: 15px;
+	margin-top: 15px;
+	border-radius: 5px;
+	margin-bottom: 150px;
+}
+
+.bd-comment-textarea {
+	height: 150px;
+	border: 1px solid #1D87FA;
+	border-radius: 5px;
+}
+
+.bd-comment-info {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+}
+
+.bd-profile {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #ccc;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.bd-comment-content {
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+.bd-reply-form {
+	display: none;
+	margin-top: 10px;
+}
+
+.bd-reply {
+	display: flex;
+	align-items: center;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.bd-reply .bd-button-container {
+	margin-left: 20px;
+	margin-top: 5px;
+	gap: 10px;
+}
+
+.bd-button, .bd-red-button {
+	height: 40px;
+	border-style: none;
+	color: white;
+	border-radius: 8px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.bd-button {
+	background-color: #1D87FA;
+}
+
+.bd-red-button {
+	background-color: #dc3545;
+}
+
+.bd-like {
+	width: 24px;
+	height: 24px;
+}
+
+.bd-like-count {
+	text-align: center;
+}
+
+.bd-report-title {
+	
+}
+
+.bd-report-content {
+	width: 100%;
+}
+
+.bd-reply-container {
+	border-left: 4px solid #505050; /* 파란색 테두리 */
+	padding-left: 10px; /* 내용과 테두리 사이 간격 */
+}
+
+.bd-report-content-textarea {
+	width: 100%; /* 너비를 원하는 크기로 설정 */
+	height: 300px; /* 고정된 높이 설정 */
+	border: 2px solid #307DFA; /* 파란색 테두리 */
+	resize: none; /* 크기 조정 비활성화 */
+	padding: 10px; /* 내용 여백 */
+	font-size: 16px; /* 폰트 크기 */
+	box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+	border-radius: 8px;
+}
+
+.bd-comment-profile-img {
+	width: 32px;
+	height: 32px;
+	margin-right: 7px;
+	border-radius: 50px;
+}
+
+.deleted-comment {
+	color: gray; /* 회색 텍스트 */
+	text-decoration: line-through; /* 취소선 */
+}
+
+.bd-content img {
+    max-width: 100%; /* 이미지가 부모 요소의 너비를 초과하지 않도록 설정 */
+    height: auto;    /* 비율 유지 */
+}
+
+@media ( max-width : 480px) {
+	.bd-content-container {
+		width: 90%;
+	}
+	.bd-comment-container {
+		width: 90%;
+	}
+	.bd-button, .bd-red-button {
+		height: 28px;
+		font: 8px;
+	}
+}

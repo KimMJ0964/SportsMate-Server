@@ -9,43 +9,47 @@ import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
-import com.kh.sportsmate.member.model.dto.MemberPosition;
+import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
+import com.kh.sportsmate.team.model.vo.TeamRecord;
 
 public interface MyPageService {
 	 /* 마이페이지 */
     // 내 정보
-    MemberPosition selectMyInfo(int memNo);
+    MemberPositionDto selectMyInfo(int memNo);
     
     // 내 전적
-    ArrayList<Match> selectMyMatch(int memNo);
+    ArrayList<MyMatch> selectMyMatch(int memNo);
     
     // 내 프로필 사진
     Profile selectMyProfile(int memNo);
     
     // 내 전적 판 수
-    int selectMyMatchCount(int memNo);
+    TeamRecord selectMyMatchCount(int memNo);
     
     // 내 전적 이긴 판 수
     int selectMyMatchWinCount(int memNo);
     
     // 내 구단
-    ArrayList<Team> selectMyTeam(int memNo);
+    ArrayList<MyTeamDto> selectMyTeam(int memNo);
     	
     // 내 구단 입단 명단
     ArrayList<Recruit> selectMyRecruit(int memNo);
     
     // a팀 정보
-    ArrayList<MemberPosition> selectATeamInfo(int teamANo);
+    ArrayList<MemberPositionDto> selectATeamInfo(int teamANo);
     
     // b팀 정보
-    ArrayList<MemberPosition> selectBTeamInfo(int teamBNo);
+    ArrayList<MemberPositionDto> selectBTeamInfo(int teamBNo);
     
     // 구장 리뷰
     int insertPReview(StadiumReview pr);
@@ -72,7 +76,7 @@ public interface MyPageService {
     int accountCancel(int memNo);
     
     // 내 문의
-    ArrayList<MatchQna> selectMyQna(int memNo);
+    ArrayList<StadiumQna> selectMyQna(int memNo);
     
     // 리뷰 체크
     MatchBest checkReview(Map<String, Integer> map);

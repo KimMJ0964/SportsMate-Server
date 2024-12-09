@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: jun
@@ -26,14 +28,36 @@
         <div id="enroll-wrap">
             <form action="member_enroll.me" class="enroll-form" method="post" enctype="multipart/form-data">
                 <div class="user-profile-wrap">
-                    <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="" id="profileImg">
+                    <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt=""
+                         id="profileImg">
                     <input type="file" name="userProfile" id="userProfile" style="display: none"><br>
                     <span class="profile-description">* 프로필 사진을 추가해주세요.</span>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">이메일</span> <br>
-                    <input type="email" name="memEmail" placeholder="이메일을 입력해주세요.">
+                    <div class="email-container">
+                        <c:choose>
+                            <c:when test="${authMemInfo != null}">
+                                <input type="email" class="email" id="auto_email" name="memEmail"
+                                       placeholder="이메일을 입력해주세요." value="${authMemInfo.memEmail}" readonly>
+                            </c:when>
+
+                            <c:otherwise>
+                                <input type="email" class="email" name="memEmail" placeholder="이메일을 입력해주세요.">
+                                <button type="button" class="email-auth-btn" id="send-mail-btn"
+                                        onclick="authCodeSendBtnClick()">인증번호 전송
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                     <span id="emailCheckResult" class="hide"></span>
+                    <div class="check-auth-code-container-hide" id="check-auth-code-container">
+                        <input type="number" id="auth-code" placeholder="인증번호 6자리를 입력하세요.">
+                        <button type="button" class="email-auth-btn" id="auth-code-btn"
+                                onclick="authCodeCheckBtnClick()">인증번호 확인
+                        </button>
+                        <span id="timer"></span>
+                    </div>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">비밀번호</span><br>
@@ -47,29 +71,68 @@
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">이름</span><br>
-                    <input type="text" name="memName" placeholder="이름을 입력해주세요.">
+                    <c:choose>
+                        <c:when test="${authMemInfo != null}">
+                            <input type="text" name="memName" placeholder="이름을 입력해주세요." value="${authMemInfo.memName}"
+                                   readonly>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="text" name="memName" placeholder="이름을 입력해주세요.">
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">성별</span><br>
-                    <select name="memGender" id="">
-                        <option disabled hidden selected>성별</option>
-                        <option value="M">남자</option>
-                        <option value="F">여자</option>
-                    </select>
+                    <c:choose>
+                        <c:when test="${authMemInfo != null and authMemInfo.memGender eq 'M'}">
+                            <select name="memGender" id="">
+                                <option value="M">남자</option>
+                            </select>
+                        </c:when>
+                        <c:when test="${authMemInfo != null and authMemInfo.memGender eq 'F'}">
+                            <select name="memGender" id="">
+                                <option value="F">여자</option>
+                            </select>
+                        </c:when>
+                        <c:otherwise>
+                            <select name="memGender" id="">
+                                <option disabled hidden selected>성별</option>
+                                <option value="M">남자</option>
+                                <option value="F">여자</option>
+                            </select>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">생년월일</span><br>
-                    <div class="birth-wrap">
-                        <div class="year-wrap">
-                            <select name="year" id="year"></select>
-                        </div>
-                        <div class="month-wrap">
-                            <select name="month" id="month"></select>
-                        </div>
-                        <div class="day-wrap">
-                            <select name="day" id="day"></select>
-                        </div>
-                    </div>
+                    <c:choose>
+                        <c:when test="${authMemInfo != null}">
+                            <div class="birth-wrap">
+                                <div class="year-wrap">
+                                    <input type="text" name="year" value="${fn:split(authMemInfo.memBirth, '.')[0]}" readonly>
+                                </div>
+                                <div class="month-wrap">
+                                    <input type="text" name="month" value="${fn:split(authMemInfo.memBirth, '.')[1]}" readonly>
+                                </div>
+                                <div class="day-wrap">
+                                    <input type="text" name="day" value="${fn:split(authMemInfo.memBirth, '.')[2]}" readonly>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="birth-wrap">
+                                <div class="year-wrap">
+                                    <select name="year" id="year"></select>
+                                </div>
+                                <div class="month-wrap">
+                                    <select name="month" id="month"></select>
+                                </div>
+                                <div class="day-wrap">
+                                    <select name="day" id="day"></select>
+                                </div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="input-wrap">
                     <span class="form-title">핸드폰 번호</span><br>
@@ -80,12 +143,28 @@
                             </select>
                         </div>
                         <div class="month-wrap">
-                            <input type="number" name="phone2" id="phone2"
-                                   oninput="this.value = this.value.slice(0, 4)">
+                            <c:choose>
+                                <c:when test="${authMemInfo != null}">
+                                    <input type="number" name="phone2" id="phone2"
+                                           value="${fn:split(authMemInfo.memPhone, '-')[1]}" readonly>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="number" name="phone2" id="phone2"
+                                           oninput="this.value = this.value.slice(0, 4)">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div class="day-wrap">
-                            <input type="number" name="phone3" id="phone3"
-                                   oninput="this.value = this.value.slice(0, 4)">
+                            <c:choose>
+                                <c:when test="${authMemInfo != null}">
+                                    <input type="number" name="phone3" id="phone3"
+                                           value="${fn:split(authMemInfo.memPhone, '-')[2]}" readonly>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="number" name="phone3" id="phone3"
+                                           oninput="this.value = this.value.slice(0, 4)">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -257,6 +336,7 @@
                             <option value="3B">3B(3루수)</option>
                             <option value="SS">SS(유격수)</option>
                             <option value="LF">LF(좌익수)</option>
+                            <option value="RF">LF(우익수)</option>
                             <option value="CF">CF(중견수)</option>
                         </select>
                     </div>
@@ -298,7 +378,9 @@
                 <div class="submit-btn">
                     <button type="submit" id="submitBtn" class="none-clickable">회원가입</button>
                 </div>
-
+                <c:if test="${authMemInfo != null}">
+                    <c:remove var="authMemInfo" scope="session"/>
+                </c:if>
             </form>
         </div>
     </div>

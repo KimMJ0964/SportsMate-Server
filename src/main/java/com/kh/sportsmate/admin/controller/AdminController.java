@@ -23,7 +23,7 @@ import com.kh.sportsmate.common.vo.PageInfo;
 @CrossOrigin
 @Controller
 public class AdminController {
-	private final AdminService  adminService;
+	private final AdminService adminService;
 
 	@Autowired
 	public AdminController(AdminService adminService) {
@@ -73,6 +73,7 @@ public class AdminController {
 							@RequestParam(value = "pnGround", required = false) String pnGround,
 							@RequestParam(value = "pnCommunity", required = false) String pnCommunity,
 							@RequestParam(value = "pnComment", required = false) String pnComment,
+							@RequestParam(value = "pnTeam", required = false) String pnTeam,
 							HttpServletRequest request) {
 		// 이전 페이지 URL 가져오기
 	    String referer = request.getHeader("Referer");

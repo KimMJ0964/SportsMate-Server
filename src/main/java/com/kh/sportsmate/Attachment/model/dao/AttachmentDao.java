@@ -20,4 +20,14 @@ public class AttachmentDao {
     public int insertProfile(SqlSessionTemplate sqlSession, Profile profile){
         return sqlSession.insert("attachmentMapper.insertProfile", profile);
     }
+    
+    // 프로필 변경
+    public int modifyProfile(SqlSessionTemplate sqlSession, Profile profile){
+        return sqlSession.insert("attachmentMapper.modifyProfile", profile);
+    }
+    
+    // 프로필 있는지 확인
+    public Profile checkTeamProfile(SqlSessionTemplate sqlSession, Profile profile) {
+    	return sqlSession.selectOne("attachmentMapper.checkTeamProfile", profile);
+    }
 }

@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/loginForm.css">
+    <script src="${pageContext.request.contextPath}/resources/js/member/loginForm.js"></script>
     <title>SportsMate - 로그인</title>
 </head>
 <body>
@@ -33,13 +34,23 @@
                 </div>
                 <div class="find-info-wrap">
                     <div class="find-info">
-                        <a href="#">아이디/비밀번호 찾기</a>
+                        <a href="searchInfo.me">아이디/비밀번호 찾기</a>
                     </div>
                     <div class="enroll-member">
                         <a href="enrollSelect.me">회원가입</a>
                     </div>
                 </div>
                 <div class="split-bar"></div>
+                <div class="submit-btn">
+                    <button type="button" class="sns-login-btn" onclick="naverLogin('${naverClientId}')">
+                        <img src="${pageContext.request.contextPath}/resources/images/Naver_login.png" class="sns-login-img" alt="">
+                    </button>
+                </div>
+                <div class="submit-btn">
+                    <button type="button" class="sns-login-btn" onclick="kakaoLogin('${kakaoClientId}')">
+                        <img src="${pageContext.request.contextPath}/resources/images/kakao_login.png" class="sns-login-img" alt="">
+                    </button>
+                </div>
             </form>
         </div>
     </div>

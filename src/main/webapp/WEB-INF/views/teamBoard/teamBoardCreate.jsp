@@ -8,6 +8,9 @@
 <title>구단 게시글 생성</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/board/boardCM.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <!-- include summernote css/js-->
+<link href="${pageContext.request.contextPath}/resources/summernote/summernote-bs5.css" rel="stylesheet">
 <style>
 </style>
 </head>
@@ -26,7 +29,7 @@
 				
 				<!-- 파일 업로드 / 종류 -->
 				<div class="bcm-select-container">
-					<select class="bcm-select-select" id="type" name="type">
+					<select class="bcm-select-select" id="type" name="type" required="required">
 						<option value="">선택</option>
 		                <option value="자유">자유</option>
 						<option value="응원">응원</option>
@@ -37,7 +40,7 @@
 					
 					<div class="bcm-upload-file">
 						<label class="bcm-custom-upload-btn" for="fileUpload">파일 선택</label>
-						<input type="file" id="fileUpload">
+						<input type="file" id="fileUpload" name="fileUpload">
 					</div>
 				</div>
 				
@@ -45,7 +48,7 @@
 				<div class="bcm-content-container">
 					<hr>
 					<div class="bcm-content-textarea">
-						<textarea placeholder="내용을 입력하세요" id="content" name="content"></textarea>
+						<textarea id="summernote" name="content" required="required"></textarea>
 					</div>
 				</div>
 				
@@ -58,6 +61,7 @@
 		</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
-	
+	<script src="${pageContext.request.contextPath}/resources/summernote/summernote-bs5.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/board/boardCreate.js"></script>
 </body>
 </html>

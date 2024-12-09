@@ -23,16 +23,20 @@ import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
+import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.member.model.dto.MemberEnrollDto;
 import com.kh.sportsmate.member.model.dto.MemberModifyDto;
-import com.kh.sportsmate.member.model.dto.MemberPosition;
+import com.kh.sportsmate.member.model.dto.MemberPositionDto;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.member.service.MemberService;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.mypage.service.MyPageService;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
+import com.kh.sportsmate.team.model.vo.TeamRecord;
 
 @CrossOrigin
 @Controller
@@ -49,14 +53,22 @@ public class MyPageController {
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 	
-	/* 마이페이지 */
+    /**
+     * 마이페이지 정보 출력
+     *
+     * @param model
+     * @param session
+     * @return
+     */
     @RequestMapping("myPageInfo.mp")
     public String myPageSelect(Model model, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
+    	System.out.println("loginMember : " + loginMember);
 		int memNo = loginMember.getMemNo();
+		System.out.println("memNo" + memNo);
     	
     	// 내 정보
-    	MemberPosition myInfo = myPageService.selectMyInfo(memNo);
+    	MemberPositionDto myInfo = myPageService.selectMyInfo(memNo);
     	
     	// 내 프로필 사진
     	Profile myProfile = myPageService.selectMyProfile(memNo);
@@ -67,29 +79,21 @@ public class MyPageController {
     	}
     	
     	// 내 전적
-    	ArrayList<Match> myMatch = myPageService.selectMyMatch(memNo); 
+    	ArrayList<MyMatch> myMatch = myPageService.selectMyMatch(memNo); 
     	
     	// 내 전적 판 수
-    	int myMatchCount = myPageService.selectMyMatchCount(memNo);
-    	
-    	// 내 전적 이긴 판 수
-    	int myMatchWinCount = myPageService.selectMyMatchWinCount(memNo);
+    	TeamRecord myMatchCount = myPageService.selectMyMatchCount(memNo);
     	
     	// 내 구단
-    	ArrayList<Team> myTeam = myPageService.selectMyTeam(memNo);
+    	ArrayList<MyTeamDto> myTeam = myPageService.selectMyTeam(memNo);
     	
     	// 내 구단 입단 명단
     	ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
     	
     	// 내 문의
-    	ArrayList<MatchQna> myQna = myPageService.selectMyQna(memNo);
-    	
-    	for(MatchQna myQna2 : myQna) {
-    		System.out.println(myQna2);
-    	}
+    	ArrayList<StadiumQna> myQna = myPageService.selectMyQna(memNo);
     	
     	model.addAttribute("myQna", myQna);
-    	model.addAttribute("myMatchWinCount", myMatchWinCount);
     	model.addAttribute("myMatchCount", myMatchCount);
     	model.addAttribute("myMatch", myMatch);
     	model.addAttribute("myInfo", myInfo);
@@ -99,14 +103,25 @@ public class MyPageController {
     	return "myPage/myPage";
     }
     
-    /* 베스트 플레이어 및 구장 별점 */
+    /**
+     * 베스트 플레이어 및 구장 별점
+     *
+     * @param session
+     * @param model
+     * @param reviewCount
+     * @param reviewStar
+     * @param stadiumNo
+     * @param matchno
+     * @param bestMNo
+     * @return
+     */
     @RequestMapping("myPageVote.mp")
     public String myPageVote(HttpSession session, Model model, String reviewContent, double reviewStar, int stadiumNo, int matchNo, int bestMNo) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
 		Map<String, Integer> checkMap = new HashMap<>();
-		checkMap .put("memNo", memNo);
-		checkMap .put("matchNo", matchNo);
+		checkMap.put("memNo", memNo);
+		checkMap.put("matchNo", matchNo);
         
         MatchBest check = myPageService.checkReview(checkMap);
         System.out.println(check);
@@ -136,12 +151,18 @@ public class MyPageController {
         }
     }
     
-    /* 베스트 플레이어 매치 플레이어 출력 */
+    /**
+     * 베스트 플레이어 및 구장 별점
+     *
+     * @RequestParam teamANo
+     * @RequestParam teamBNo
+     * @return
+     */
     @RequestMapping("getTeamInfo.mp")
     @ResponseBody
     public Map<String, Object> getTeamInfo(@RequestParam int teamANo, @RequestParam int teamBNo) {
-        ArrayList<MemberPosition> aTeamInfo = myPageService.selectATeamInfo(teamANo);
-        ArrayList<MemberPosition> bTeamInfo = myPageService.selectBTeamInfo(teamBNo);
+        ArrayList<MemberPositionDto> aTeamInfo = myPageService.selectATeamInfo(teamANo);
+        ArrayList<MemberPositionDto> bTeamInfo = myPageService.selectBTeamInfo(teamBNo);
         
         // 데이터를 Map에 담아 JSON 형식으로 반환
         Map<String, Object> result = new HashMap<>();
@@ -151,7 +172,13 @@ public class MyPageController {
         return result;
     }
     
-    // 내 정보 수정 페이지 이동
+    /**
+     * 네 정보 수정 페이지 이동
+     *
+     * @param session
+     * @param m
+     * @return
+     */
     @RequestMapping("modifyMyInfoMove.mp")
     public String modifyMyInfo(Model m, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -174,7 +201,14 @@ public class MyPageController {
 		return "myPage/myPageModify";
     }
     
-    // 내 정보 수정 로직
+    /**
+     * 내 정보 수정 로직
+     *
+     * @param m
+     * @param userProfile
+     * @param session
+     * @return
+     */
     @PostMapping(value = "modifyMyInfo.mp")
     public String memberEnroll(MemberEnrollDto m, MultipartFile userProfile, HttpSession session) {
         Profile profile = null;
@@ -200,7 +234,15 @@ public class MyPageController {
         }
     }
     
-    // 비밀번호 수정
+    /**
+     * 비밀번호 수정
+     *
+     * @param memPwd
+     * @param pwdCheck
+     * @param pwdModify
+     * @param session
+     * @return
+     */
     @RequestMapping("modifyPwd.mp")
     public String modifyPassword(String memPwd, String pwdCheck, String pwdModify, HttpSession session) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -246,7 +288,11 @@ public class MyPageController {
 	    }
     }
     
-    // 로그아웃
+    /**
+     * 로그아웃
+     *
+     * @return
+     */
     @RequestMapping("logout.mp")
     public String logOut(HttpSession session) {
     	session.removeAttribute("loginMember");
@@ -254,11 +300,31 @@ public class MyPageController {
 		return "redirect:/";
     }
     
-    // 계정 탈퇴
+    /**
+     * 계정 탈퇴
+     *
+     * @param session
+     * @param memPwd
+     * @param pwdCheck
+     * @return
+     */
     @RequestMapping("accountCancel.mp")
-    public String accountCancel(HttpSession session) {
+    public String accountCancel(HttpSession session, String memPwd, String pwdCheck) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
 		int memNo = loginMember.getMemNo();
+		
+		// 비밀번호 확인: 입력한 기존 비밀번호와 재입력된 비밀번호 비교
+	    if (!pwdCheck.equals(memPwd)) {
+	        session.setAttribute("alertMsg", "비밀번호와 재입력한 비밀번호가 다릅니다.");
+	        return "myPage/myPageModify";
+	    }
+
+	    // 1. 기존 비밀번호와 저장된 암호화된 비밀번호 비교
+	    String storedPassword = loginMember.getMemPwd(); // 저장된 암호화된 비밀번호
+	    if (!bCryptPasswordEncoder.matches(memPwd, storedPassword)) {
+	        session.setAttribute("alertMsg", "기존 비밀번호가 일치하지 않습니다.");
+	        return "myPage/myPageModify";
+	    }
 		
 		int result = myPageService.accountCancel(memNo);
 		

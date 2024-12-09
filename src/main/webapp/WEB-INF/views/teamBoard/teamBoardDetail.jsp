@@ -26,7 +26,14 @@
             
             <!-- 3. 닉네임 / 게시일 / 조회수 -->
             <div class="bd-meta-info">
-                ${teamBoard.memName } / ${teamBoard.createDate } / ${teamBoard.view }
+                <c:choose>
+					<c:when test="${not empty teamBoard.modifyDate}">
+						${teamBoard.memName } / ${teamBoard.modifyDate }(수정됨) / ${teamBoard.view }
+					</c:when>
+					<c:otherwise>
+						${teamBoard.memName } / ${teamBoard.createDate } / ${teamBoard.view }
+					</c:otherwise>
+				</c:choose>
             </div>
         </div>
         
@@ -37,12 +44,14 @@
             </div>
             <!-- 5. 버튼들 -->
             <div class="bd-button-container">
-                <button class="bd-button">파일 다운로드</button>
-                 <button class="bd-button"  onclick="location.href = 'modifyMoveBd.tm?mpage=${teamBoard.boardNo}'">수정하기</button>
-                 <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</button>
+                <div class="bd-button"><a href="${downloadLink}" style="color:white;" download>파일 다운로드</a></div>
+                <c:if test="${loginMember != null && loginMember.memNo == teamBoard.memNo}">
+                 	<button class="bd-button"  onclick="location.href = 'modifyMoveBd.tm?mpage=${teamBoard.boardNo}'">수정하기</button>
+                 </c:if>
+                 <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${teamBoard.boardNo}, 0, ${teamBoard.memNo}, ${ teamBoard.teamNo })">신고하기</button>
                  <div>
-				 	<img class="bd-like" src="${pageContext.request.contextPath}/resources/images/board_like.png"/>
-            		<div class="bd-like-count" style="text-align: center;">${teamBoard.likeCount }</div>
+				 	<img class="bd-like" src="${pageContext.request.contextPath}/resources/images/board_like.png" onclick="location.href = 'boardLike.tm?bno=${teamBoard.boardNo }'"/>
+            		<div class="bd-like-count" style="text-align: center;">${likeCount }</div>
             	</div>
             </div>
             <hr>
@@ -65,21 +74,34 @@
 				 <c:if test="${comments.comParentNo == 0}">    
 		        <div class="bd-one-comment-container">
 		            <div class="bd-comment-info">
-		                <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/board_like.png" />
+		                <c:choose>
+									    <c:when test="${not empty comments.changeName}">
+									        <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/userProFile/${comments.changeName}" />
+									     </c:when>
+							    <c:otherwise>
+									    <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" />
+								</c:otherwise>
+							</c:choose>
 		                <div class="bd-name">${comments.memName}</div>
 		            </div>
-		            <div class="bd-comment-content">${comments.comContent}</div>
+		            <div class="bd-comment-content">
+		            	<c:choose>
+					        <c:when test="${comments.status == 'N'}">
+					            <span class="deleted-comment">삭제된 댓글입니다.</span>
+					        </c:when>
+					        <c:when test="${comments.status == 'B'}">
+					            <span class="deleted-comment">관리자에 의해 삭제된 댓글입니다.</span>
+					        </c:when>
+					        <c:otherwise>
+					            ${comments.comContent}
+					        </c:otherwise>
+					    </c:choose>
+		            </div>
 		            <hr>
 		            <div class="bd-button-container">
 		                <div class="bd-red-button" onclick="location.href = 'deleteComm.tm?cno=${comments.comNo}&bno=${teamBoard.boardNo }&tno=${teamBoard.teamNo }'">댓글 삭제</div>
-		                <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</div>
-		                <button class="bd-button" onclick="toggleReplyForm(event)">답글 작성</button>
-		            </div>
-		
-		            <!-- 대댓글 작성 폼 -->
-		            <div class="bd-reply-form">
-		                <textarea rows="3" style="width: 100%; height: 120px; border: 1px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
-		                <button class="bd-button" style="float: right;">답장 작성 완료</button>
+		                <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${teamBoard.boardNo}, ${comments.comNo}, ${comments.memNo}, ${teamBoard.teamNo})">신고하기</div>
+		                <button class="bd-button" data-bs-toggle="modal" data-bs-target="#commentModal" onclick="setCommentData(${comments.comNo}, ${teamBoard.boardNo})">답글 작성</button>
 		            </div>
 		
 		            <!-- 대댓글 (Replies) -->
@@ -88,15 +110,34 @@
                           <!-- Check if this is a reply to the current parent comment -->
                           <c:if test="${reply.comParentNo == comments.comNo}">
                               <div class="bd-reply">
-                                  <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/Logo.png" />
+                                  <c:choose>
+									    <c:when test="${not empty reply.changeName}">
+									        <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/userProFile/${reply.changeName}" />
+									     </c:when>
+							    <c:otherwise>
+									    <img class="bd-comment-profile-img" src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" />
+								</c:otherwise>
+							</c:choose>
                                   <div class="bd-name">${reply.memName}</div>
                               </div>
-                              <div class="bd-comment-content">${reply.comContent}</div>
+                               <div class="bd-comment-content">
+							    <c:choose>
+							        <c:when test="${reply.status == 'N'}">
+							            <span class="deleted-comment">삭제된 댓글입니다.</span>
+							        </c:when>
+							        <c:when test="${reply.status == 'B'}">
+							            <span class="deleted-comment">관리자에 의해 삭제된 댓글입니다.</span>
+							        </c:when>
+							        <c:otherwise>
+							            ${reply.comContent}
+							        </c:otherwise>
+							    </c:choose>
+							</div>
                               <hr>
                               <div class="bd-button-container">
-                                  <div class="bd-red-button">답글 삭제</div>
-                                  <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal">신고하기</div>
-                                  <button class="bd-button" onclick="toggleReplyForm(event)">답글 작성</button>
+                                  <button class="bd-red-button" onclick="location.href = 'deleteComm.tm?cno=${reply.comNo}&bno=${teamBoard.boardNo }'">답글 삭제</button>
+                                  <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${teamBoard.boardNo}, ${reply.comNo}, ${reply.memNo}, ${teamBoard.teamNo})">신고하기</button>
+                                  <button class="bd-button" data-bs-toggle="modal" data-bs-target="#commentModal" onclick="setCommentData(${reply.comParentNo}, ${teamBoard.boardNo})">답글 작성</button>
                               </div>
                           </c:if>
                       </c:forEach>
@@ -114,26 +155,61 @@
 		        <h1 class="modal-title fs-5" id="exampleModalLabel">신고</h1>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
+		     <form method="post" action="boardReport.tm">
 		      <div class="modal-body">
 		        <div class="bd-report-title">
-		        	<h5>사유 / 대상아이디</h5>
+		        	<h5>사유</h5>
 		        </div>
 		        <br>
 		        <div class="bd-report-content">
-		        	<textarea class="bd-report-content-textarea" style="width: 100%; height: 300px;  border: 2px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
+		        	<textarea class="bd-report-content-textarea" id="report-content" name="pnContent" class="report-content" style="width: 100%; height: 300px;  border: 2px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
 		        </div>
 		      </div>
 		      <div class="modal-footer">
+		      	<!-- 숨겨진 input으로 boardNo와 comNo 값을 전달 -->
+                <input type="hidden" id="report-boardNo" name="bno">
+                <input type="hidden" id="report-comNo" name="comNo">
+                <input type="hidden" id="report-reporterNo" name="reporterNo">
+                <input type="hidden" id="report-teamNo" name="teamNo">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-		        <button type="button" class="btn btn-primary">신고 완료</button>
+		        <button type="submit" class="btn btn-primary">신고 완료</button>
 		      </div>
+		       </form>
+		    </div>
+		  </div>
+		</div>
+		
+		<!-- 대댓글 모달 -->
+        <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">답글</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		     <form method="post" action="replyComment.tm">
+		      <div class="modal-body">
+		        <div class="bd-report-title">
+		        </div>
+		        <div class="bd-report-content">
+		        	<textarea class="bd-report-content-textarea" id="report-content" name="pnContent" class="report-content" style="width: 100%; height: 300px;  border: 2px solid #307DFA; resize: none; padding: 10px; font-size: 16px; box-sizing: border-box; border-radius: 8px;"></textarea>
+		        </div>
+		      </div>
+		      <div class="modal-footer">
+		      	<!-- 숨겨진 input으로 boardNo와 comNo 값을 전달 -->
+                <input type="hidden" id="comParentNo" name="comParentNo">
+                <input type="hidden" id="comment-boardNo" name="bno">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+		        <button type="submit" class="btn btn-primary">답글 완료</button>
+		      </div>
+		       </form>
 		    </div>
 		  </div>
 		</div>
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/board/boardDetail.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/team/teamBoardDetail.js"></script>
    
 
 </body>

@@ -11,6 +11,8 @@
 	rel="stylesheet">
 <link href="resources/css/board/board.css" rel="stylesheet" >
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 </style>
 </head>
@@ -51,7 +53,8 @@
 					<table>
 			            <thead>
 			                <tr>
-			                    <th>번호</th>
+			                	<th>번호</th>
+			                    <th>종류</th>
 			                    <th style="width: 50%;">제목</th>
 			                    <th>닉네임</th>
 			                    <th>게시일</th>
@@ -61,7 +64,8 @@
 			            <tbody>
 			               <c:forEach var="b" items="${list}">
 			               		<tr onclick="location.href = 'detailMove.bd?bno=${b.boardNo}'" style="cursor: pointer;">
-			               			<td>${b.boardNo}</td>
+			               			<td>${b.boardNo }</td>
+			               			<td>${b.type}</td>
 			               			<td>${b.title}</td>
 			               			<td>${b.memName}</td>
 			               			<td>${b.createDate}</td>
@@ -72,33 +76,159 @@
 			        </table>
 			        
 			        <!-- 페이지네이션 -->
-				    <div class="board-pagination">
-			            <ul class="pagination">
-			            
-			            	<c:choose>
-			            		<c:when test="${ pi.currentPage eq 1 }">
-			            			<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-			            		</c:when>
-			            		<c:otherwise>
-			            			<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${pi.currentPage - 1}">이전</a></li>
-			            		</c:otherwise>
-			            	</c:choose>
-			
-							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-								<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${p}">${p}</a></li>
-							</c:forEach>
-			                
-			              <c:choose>
-			            		<c:when test="${ pi.currentPage eq pi.maxPage }">
-			            			<li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
-			            		</c:when>
-			            		<c:otherwise>
-			            			<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${pi.currentPage + 1}">다음</a></li>
-			            		</c:otherwise>
-			            	</c:choose>
-			            
-			            </ul>
-        			</div>
+				    <div id="pagenation">
+                        <nav>
+                            <ul class="pagination">
+                                <c:choose>
+                                    <c:when test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
+                                        <li class="page-item">
+                                            <c:choose>
+											    <c:when test="${not empty category || not empty keyword}">
+											        <a href="search.bd?cpage=1&category=${category}&keyword=${keyword}" class="page-link">
+											        	<span aria-hidden="true">&laquo;</span>
+											        </a>
+											    </c:when>
+											    <c:otherwise>
+											        <a href="boardList.bd?cpage=1" class="page-link">
+		                                                <span aria-hidden="true">&laquo;</span>
+		                                            </a>
+											    </c:otherwise>
+											</c:choose>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${pi.currentPage > 1}">
+                                        <li class="page-item">
+                                            <c:choose>
+											    <c:when test="${not empty category || not empty keyword}">
+											        <a href="search.bd?cpage=${pi.currentPage - 1}&category=${category}&keyword=${keyword}" class="page-link">
+											        	<span aria-hidden="true">&lt;</span>
+											        </a>
+											    </c:when>
+											    <c:otherwise>
+											        <a href="boardList.bd?cpage=${pi.currentPage - 1}" class="page-link"> 
+		                                                <span aria-hidden="true">&lt;</span>
+		                                            </a>
+											    </c:otherwise>
+											</c:choose>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&lt;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}" step="1">
+                                    <c:choose>
+                                        <c:when test="${page == pi.currentPage}">
+                                            <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item">
+	                                            <c:choose>
+												    <c:when test="${not empty category || not empty keyword}">
+												        <a href="search.bd?cpage=${page}&category=${category}&keyword=${keyword}" class="page-link">
+												        	<span aria-hidden="true">${page}</span>
+												        </a>
+												    </c:when>
+												    <c:otherwise>
+												        <a href="boardList.bd?cpage=${page}" class="page-link">
+			                                                <span aria-hidden="true">${page}</span>
+			                                            </a>
+												    </c:otherwise>
+												</c:choose>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${pi.currentPage < pi.maxPage}">
+                                        <li class="page-item">
+                                            <c:choose>
+												   <c:when test="${not empty category || not empty keyword}">
+												       <a href="search.bd?cpage=${pi.currentPage + 1}&category=${category}&keyword=${keyword}" class="page-link">
+												       	<span aria-hidden="true">&gt;</span>
+												       </a>
+												   </c:when>
+												   <c:otherwise>
+												       <a href="boardList.bd?cpage=${pi.currentPage + 1}" class="page-link">
+			                                               <span aria-hidden="true">&gt;</span>
+			                                           </a>
+												   </c:otherwise>
+											</c:choose>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&gt;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${pi.currentPage eq pi.maxPage}">
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:when test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
+                                        <li class="page-item">
+                                             <c:choose>
+												   <c:when test="${not empty category || not empty keyword}">
+												       <a href="search.bd?cpage=${pi.maxPage}&category=${category}&keyword=${keyword}" class="page-link">
+												       	<span aria-hidden="true">&raquo;</span>
+												       </a>
+												   </c:when>
+												   <c:otherwise>
+												       <a href="boardList.bd?cpage=${pi.maxPage}" class="page-link">
+			                                               <span aria-hidden="true">&raquo;</span>
+			                                           </a>
+												   </c:otherwise>
+											</c:choose>
+                                        </li>
+                                    </c:when>
+                                    <c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
+                                        <li class="page-item">
+                                            <c:choose>
+												   <c:when test="${not empty category || not empty keyword}">
+												       <a href="search.bd?cpage=${pi.currentPage + 1}&category=${category}&keyword=${keyword}" class="page-link">
+												       	<span aria-hidden="true">&raquo;</span>
+												       </a>
+												   </c:when>
+												   <c:otherwise>
+												       <a href="boardList.bd?cpage=${pi.currentPage + 1}" class="page-link">
+			                                               <span aria-hidden="true">&raquo;</span>
+			                                           </a>
+												   </c:otherwise>
+											</c:choose>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </nav>
+                    </div>
 				</div>
 				
 				<div class="board-app-table-container"> <!-- 앱일 때 출력 -->
@@ -120,31 +250,159 @@
 				    </table>
 				    
 				    <div class="board-pagination">
-			            <ul class="pagination">
-			            
-			            	<c:choose>
-			            		<c:when test="${ pi.currentPage eq 1 }">
-			            			<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-			            		</c:when>
-			            		<c:otherwise>
-			            			<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${pi.currentPage - 1}">이전</a></li>
-			            		</c:otherwise>
-			            	</c:choose>
-			
-							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-								<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${p}">${p}</a></li>
-							</c:forEach>
-			                
-			              <c:choose>
-			            		<c:when test="${ pi.currentPage eq pi.maxPage }">
-			            			<li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
-			            		</c:when>
-			            		<c:otherwise>
-			            			<li class="page-item"><a class="page-link" href="boardList.bd?cpage=${pi.currentPage + 1}">다음</a></li>
-			            		</c:otherwise>
-			            	</c:choose>
-			            
-			            </ul>
+				             <div id="pagenation">
+	                        <nav>
+	                            <ul class="pagination">
+	                                <c:choose>
+	                                    <c:when test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
+	                                        <li class="page-item">
+	                                            <c:choose>
+												    <c:when test="${not empty category || not empty keyword}">
+												        <a href="search.bd?cpage=1&category=${category}&keyword=${keyword}" class="page-link">
+												        	<span aria-hidden="true">&laquo;</span>
+												        </a>
+												    </c:when>
+												    <c:otherwise>
+												        <a href="boardList.bd?cpage=1" class="page-link">
+			                                                <span aria-hidden="true">&laquo;</span>
+			                                            </a>
+												    </c:otherwise>
+												</c:choose>
+	                                        </li>
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                        <li class="page-item disabled">
+	                                            <a href="#" class="page-link">
+	                                                <span aria-hidden="true">&laquo;</span>
+	                                            </a>
+	                                        </li>
+	                                    </c:otherwise>
+	                                </c:choose>
+	                                <c:choose>
+	                                    <c:when test="${pi.currentPage > 1}">
+	                                        <li class="page-item">
+	                                            <c:choose>
+												    <c:when test="${not empty category || not empty keyword}">
+												        <a href="search.bd?cpage=${pi.currentPage - 1}&category=${category}&keyword=${keyword}" class="page-link">
+												        	<span aria-hidden="true">&lt;</span>
+												        </a>
+												    </c:when>
+												    <c:otherwise>
+												        <a href="boardList.bd?cpage=${pi.currentPage - 1}" class="page-link"> 
+			                                                <span aria-hidden="true">&lt;</span>
+			                                            </a>
+												    </c:otherwise>
+												</c:choose>
+	                                        </li>
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                        <li class="page-item disabled">
+	                                            <a href="#" class="page-link">
+	                                                <span aria-hidden="true">&lt;</span>
+	                                            </a>
+	                                        </li>
+	                                    </c:otherwise>
+	                                </c:choose>
+	
+	                                <c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}" step="1">
+	                                    <c:choose>
+	                                        <c:when test="${page == pi.currentPage}">
+	                                            <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
+	                                        </c:when>
+	                                        <c:otherwise>
+	                                            <li class="page-item">
+		                                            <c:choose>
+													    <c:when test="${not empty category || not empty keyword}">
+													        <a href="search.bd?cpage=${page}&category=${category}&keyword=${keyword}" class="page-link">
+													        	<span aria-hidden="true">${page}</span>
+													        </a>
+													    </c:when>
+													    <c:otherwise>
+													        <a href="boardList.bd?cpage=${page}" class="page-link">
+				                                                <span aria-hidden="true">${page}</span>
+				                                            </a>
+													    </c:otherwise>
+													</c:choose>
+	                                            </li>
+	                                        </c:otherwise>
+	                                    </c:choose>
+	                                </c:forEach>
+	                                <c:choose>
+	                                    <c:when test="${pi.currentPage < pi.maxPage}">
+	                                        <li class="page-item">
+	                                            <c:choose>
+													   <c:when test="${not empty category || not empty keyword}">
+													       <a href="search.bd?cpage=${pi.currentPage + 1}&category=${category}&keyword=${keyword}" class="page-link">
+													       	<span aria-hidden="true">&gt;</span>
+													       </a>
+													   </c:when>
+													   <c:otherwise>
+													       <a href="boardList.bd?cpage=${pi.currentPage + 1}" class="page-link">
+				                                               <span aria-hidden="true">&gt;</span>
+				                                           </a>
+													   </c:otherwise>
+												</c:choose>
+	                                        </li>
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                        <li class="page-item disabled">
+	                                            <a href="#" class="page-link">
+	                                                <span aria-hidden="true">&gt;</span>
+	                                            </a>
+	                                        </li>
+	                                    </c:otherwise>
+	                                </c:choose>
+	                                <c:choose>
+	                                    <c:when test="${pi.currentPage eq pi.maxPage}">
+	                                        <li class="page-item disabled">
+	                                            <a href="#" class="page-link">
+	                                                <span aria-hidden="true">&raquo;</span>
+	                                            </a>
+	                                        </li>
+	                                    </c:when>
+	                                    <c:when test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
+	                                        <li class="page-item">
+	                                             <c:choose>
+													   <c:when test="${not empty category || not empty keyword}">
+													       <a href="search.bd?cpage=${pi.maxPage}&category=${category}&keyword=${keyword}" class="page-link">
+													       	<span aria-hidden="true">&raquo;</span>
+													       </a>
+													   </c:when>
+													   <c:otherwise>
+													       <a href="boardList.bd?cpage=${pi.maxPage}" class="page-link">
+				                                               <span aria-hidden="true">&raquo;</span>
+				                                           </a>
+													   </c:otherwise>
+												</c:choose>
+	                                        </li>
+	                                    </c:when>
+	                                    <c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
+	                                        <li class="page-item">
+	                                            <c:choose>
+													   <c:when test="${not empty category || not empty keyword}">
+													       <a href="search.bd?cpage=${pi.currentPage + 1}&category=${category}&keyword=${keyword}" class="page-link">
+													       	<span aria-hidden="true">&raquo;</span>
+													       </a>
+													   </c:when>
+													   <c:otherwise>
+													       <a href="boardList.bd?cpage=${pi.currentPage + 1}" class="page-link">
+				                                               <span aria-hidden="true">&raquo;</span>
+				                                           </a>
+													   </c:otherwise>
+												</c:choose>
+	                                        </li>
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                        <li class="page-item disabled">
+	                                            <a href="#" class="page-link">
+	                                                <span aria-hidden="true">&raquo;</span>
+	                                            </a>
+	                                        </li>
+	                                    </c:otherwise>
+	                                </c:choose>
+	                            </ul>
+	                        </nav>
+	                    </div>
         			</div>
 				</div>
 				
