@@ -125,14 +125,13 @@
 	        M.MEM_NAME as memName,
 	        M.MEM_ADD as memAdd,
 	        M.MEM_GENDER as memGender,
-	        M.MEM_SKILL_SCORE as memSkillScore,
 	        M.MEM_MANNER_SCORE as memMannerScore,
 	        M.MEM_BIRTH as memBirth,
 	        TIMESTAMPDIFF(YEAR, M.MEM_BIRTH, CURDATE()) as memAge,
-	        C.FOOT_TOTAL_POINT as footTotalPoint,
-	        C.SOC_TOTAL_POINT as socTotalPoint,
-	        C.BASE_TOTAL_POINT as baseTotalPoint,
-	        C.BASKET_TOTAL_POINT as basketTotalPoint
+	        C.FUTSAL_AVG_POINT as futsalAvgPoint,
+	        C.SOCCER_AVG_POINT as soccerAvgPoint,
+	        C.BASEBALL_AVG_POINT as baseballAvgPoint,
+	        C.BASKETBALL_AVG_POINT as basketballAvgPoint
 	    FROM MEMBER M
 	    LEFT JOIN CATEGORY C ON M.MEM_NO = C.MEM_NO
 	    WHERE M.MEM_NO = #{memNo}
@@ -185,7 +184,6 @@
 	        M.MEM_NAME AS memName,
 	        M.MEM_BIRTH AS memBirth,
 	        M.MEM_GENDER AS memGender,
-	        M.MEM_SKILL_SCORE AS memSkillScore,
 	         M.MEM_MANNER_SCORE AS memMannerScore,
 	        TIMESTAMPDIFF(YEAR, M.MEM_BIRTH, CURDATE()) AS memAge,
 	        CASE 

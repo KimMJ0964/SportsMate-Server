@@ -60,10 +60,10 @@
 					<p>나이 : ${myInfo.memAge }</p>
 					<hr>
 					<p>매너 점수 : ${myInfo.memMannerScore }</p>
-					<p>축구 점수 : ${myInfo.socTotalPoint }</p>
-					<p>풋살 점수 : ${myInfo.footTotalPoint }</p>
-					<p>농구 점수 : ${myInfo.basketTotalPoint }</p>
-					<p>야구 점수 : ${myInfo.baseTotalPoint }</p>
+					<p>축구 점수 : ${myInfo.soccerAvgPoint }</p>
+					<p>풋살 점수 : ${myInfo.futsalAvgPoint }</p>
+					<p>농구 점수 : ${myInfo.basketballAvgPoint }</p>
+					<p>야구 점수 : ${myInfo.baseballAvgPoint }</p>
 				</div>
 				<div class="profile-buttons">
 					<Button class="modify-btn"
