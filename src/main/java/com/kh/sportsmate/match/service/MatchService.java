@@ -8,6 +8,7 @@ import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.match.model.dto.ReadyResponseDto;
 import com.kh.sportsmate.match.model.dto.StadiumSubscription;
 import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.match.model.vo.MatchBest;
 
 public interface MatchService {
 	
@@ -22,5 +23,5 @@ public interface MatchService {
 	StadiumSubscription selectMatch(Match mc, int price);
 	
 	//결제정보 저장하기
-	int insertMatch(Match mc);
+	int insertMatch(Match mc, MatchBest mb);
 }

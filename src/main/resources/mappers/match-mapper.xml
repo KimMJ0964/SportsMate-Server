@@ -112,4 +112,23 @@
 			#{accessDate}
 		)
 	</insert>
+	
+	<insert id="insertMatchBestList" parameterType="java.util.List">
+	    INSERT INTO `MATCH_BEST` (
+	        MATCH_NO,
+	        MEM_NO,
+	        MEM_NO_VOTE_COUNT,
+	        TEAM_NO
+	    )
+	    VALUES
+	    <foreach collection="list" item="item" separator=",">
+	        (
+	            #{item.matchNo},
+	            #{item.memNo},
+	            #{item.memNoVoteCount},
+	            #{item.teamNo}
+	        )
+	    </foreach>
+	</insert>
+
 </mapper>

@@ -77,8 +77,9 @@ public class MatchController {
         HttpSession session = request.getSession();
         
         Match mc = (Match) session.getAttribute("mc");
+        MatchBest mb = (MatchBest) session.getAttribute("mb");
         
-        int result = matchService.insertMatch(mc);
+        int result = matchService.insertMatch(mc, mb);
         
         return "kakaoPaySuccess";
     }
