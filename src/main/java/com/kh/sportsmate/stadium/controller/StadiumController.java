@@ -167,6 +167,10 @@ public class StadiumController {
         if (!stadiumReservation.isEmpty()) {
             teamLeaderId = stadiumReservation.get(0).getTmemNo();
         }
+        
+     // **날씨 데이터 가져오기**
+        String stadiumAddress = stadiumDetail.getStadiumAddress();
+        List<WeatherResponse> weatherData = stadiumService.getWeatherByAddress(stadiumAddress);
              
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);
@@ -177,6 +181,7 @@ public class StadiumController {
         model.addAttribute("stadiumReservation", stadiumReservation); // 모달용 데이터 추가
         model.addAttribute("teamLeaderId", teamLeaderId);
         model.addAttribute("teamNo", teamNo);
+        model.addAttribute("weatherData", weatherData); // 날씨 데이터 추가
 
         // 뷰로 이동
         return "stadium/detail";

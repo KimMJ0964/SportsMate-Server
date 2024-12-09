@@ -21,13 +21,7 @@ public interface StadiumService {
 	List<StadiumSearch> getPaginatedStadiums(PageInfo pi, String stadiumName, String stadiumAddress,
 	                            String stadiumCategory, String stadiumStartTime, String stadiumEndTime,
 	                            String selectedDate, String activityArea);
-
-	// 구장 ID로 상세 정보 조회
-	StadiumSearch getStadiumById(int stadiumNo);
-	
-	// 위치 기반 날씨 정보 조회
-	WeatherResponse getWeather(String location);
-	
+		
 	// 경기장 상세 정보 가져오기
 	StadiumDetail getStadiumDetail(int stadiumNo);
 	
@@ -57,5 +51,6 @@ public interface StadiumService {
 	// 문의 답변
 	int inquiryUpdate(StadiumQna sq);
 	
-	
+	// 지역별 날씨 정보 가져오기
+	List<WeatherResponse> getWeatherByAddress(String address);
 }
