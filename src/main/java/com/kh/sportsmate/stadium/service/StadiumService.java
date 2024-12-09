@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
+import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
@@ -38,7 +40,13 @@ public interface StadiumService {
 	// 신청 모달
 	List<StadiumDetailmodal> getStadiumReservation(int teamNo);
 	
+	// 대기 중인 매치 정보 가져오기
+    List<StadiumDetailmodal> getPendingMatches(int teamNo);
+	
 	int getTeamNoByMemNo(int memNo);
+	
+	// 문의 등록
+	boolean insertQna(StadiumQnaDto stadiumQnaDto);
 
 	// 문의 리스트 갯수
 	int selectInquiryCount(int memNo);
@@ -48,4 +56,6 @@ public interface StadiumService {
 	
 	// 문의 답변
 	int inquiryUpdate(StadiumQna sq);
+	
+	
 }
