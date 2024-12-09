@@ -196,6 +196,9 @@ public class TeamDao {
     public int insertTeam(SqlSessionTemplate sqlSession, Team t) {
         return sqlSession.insert("teamMapper.insertTeam", t);
     }
+    public int insertTeamRecord(SqlSessionTemplate sqlSession, int teamNo) {
+        return sqlSession.insert("teamMapper.insertTeamRecord", teamNo);
+    }
 
     public int insertActivityDays(SqlSessionTemplate sqlSession, TeamActivityDays days) {
         return sqlSession.insert("teamMapper.insertActivityDays", days);
@@ -531,5 +534,9 @@ public class TeamDao {
      */
     public ArrayList<MyTeamDto> mainRanking(SqlSessionTemplate sqlSession, String category) {
     	return (ArrayList) sqlSession.selectList("teamMapper.mainRanking", category);
+    }
+
+    public ArrayList<String> selectEnrollmentInfo(SqlSessionTemplate sqlSession, int memNo) {
+        return (ArrayList) sqlSession.selectList("teamMapper.selectEnrollmentInfo", memNo);
     }
 }

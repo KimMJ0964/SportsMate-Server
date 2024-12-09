@@ -870,7 +870,30 @@ public class TeamController {
 
     // 구단 창설 폼으로 이동
     @GetMapping(value = "teamEnrollForm.tm")
-    public String moveTeamEnrollForm() {
+    public String moveTeamEnrollForm(HttpServletRequest request,HttpSession session) {
+		Member m = (Member) session.getAttribute("loginMember");
+		// 구단 가입 정보 조회
+		EnrollmentInfoDTO enrollmentInfo = teamService.selectEnrollmentInfo(m);
+		Map<String, Object> enrollmentInfoMap = new HashMap<>();
+		Map<String, Boolean> map = new HashMap<>();
+		map.put("soccer", enrollmentInfo.isSoccer());
+		map.put("futsal", enrollmentInfo.isFutsal());
+		map.put("basketball", enrollmentInfo.isBasketball());
+		map.put("baseball", enrollmentInfo.isBaseball());
+		Map<String, String> categoryLabels = new HashMap<>();
+		categoryLabels.put("soccer", "축구");
+		categoryLabels.put("futsal", "풋살");
+		categoryLabels.put("basketball", "농구");
+		categoryLabels.put("baseball", "야구");
+		enrollmentInfoMap.put("categories", map);
+		enrollmentInfoMap.put("categoryLabels", categoryLabels);
+		request.setAttribute("enrollmentInfo", enrollmentInfoMap);
+		log.info("소속 구단 카테고리 정보 조회 결과 : {}", enrollmentInfo);
+
+		if(map.values().stream().allMatch(Boolean::booleanValue)){
+			session.setAttribute("alertMsg","더이상 구단을 창설할 수 없습니다.");
+			return "redirect:/";
+		}
         return "team/teamEnrollForm";
     }
     // 단원 모집 리스트로 이동
@@ -923,10 +946,26 @@ public class TeamController {
     }
 
     @GetMapping(value = "recruit_detail.tm")
-    public String moveRecruitDetail(int tno, HttpServletRequest request) {
+    public String moveRecruitDetail(int tno, HttpServletRequest request, HttpSession session) {
         log.info("팀번호 : {}", tno);
         RecruitDetailDto detailInfo = teamService.selectRecruitDetail(tno);
         log.info("디테일 INFO : {}", detailInfo);
+		// 구단에 소속된 카테고리 조회
+		Member m = (Member) session.getAttribute("loginMember");
+		boolean canApply = false;
+		if(m != null && detailInfo != null){
+			EnrollmentInfoDTO enrollmentInfo = teamService.selectEnrollmentInfo(m);
+			log.info("소속 구단 카테고리 정보 조회 결과 : {}", enrollmentInfo);
+//			request.setAttribute("enrollmentInfo", enrollmentInfo);
+			if(enrollmentInfo != null){
+				String teamCategory = detailInfo.getTeamCategory();
+				canApply = ("soccer".equals(teamCategory) && !enrollmentInfo.isSoccer()) ||
+						("futsal".equals(teamCategory) && !enrollmentInfo.isFutsal()) ||
+						("basketball".equals(teamCategory) && !enrollmentInfo.isBasketball()) ||
+						("baseball".equals(teamCategory) && !enrollmentInfo.isBaseball());
+			}
+		}
+		request.setAttribute("canApply", canApply);
         request.setAttribute("detailInfo", detailInfo);
         return "team/memberRecruitDetail";
     }
