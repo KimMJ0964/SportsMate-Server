@@ -1,10 +1,9 @@
 package com.kh.sportsmate.stadium.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +21,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,8 +31,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.kh.sportsmate.board.model.vo.Board;
 
+import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
+import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.board.model.vo.Board;
@@ -277,9 +280,6 @@ public class StadiumController {
         StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
         stadiumDetail.setReviews(reviews);
 
-        // 돈 계산
-        int discountedPrice = stadiumDetail.getStadiumPrice() / 2;
-
         // 구단장 번호 추출
         Integer teamLeaderId = null;
         if (!stadiumReservation.isEmpty()) {
@@ -293,7 +293,6 @@ public class StadiumController {
         model.addAttribute("reviews", reviews);
         model.addAttribute("pi", pi);
         model.addAttribute("stadiumReservation", stadiumReservation); // 모달용 데이터 추가
-        model.addAttribute("discountedPrice", discountedPrice);
         model.addAttribute("teamLeaderId", teamLeaderId);
         model.addAttribute("teamNo", teamNo);
 
@@ -319,6 +318,39 @@ public class StadiumController {
 
     }
 
+    
+    /**
+     * 문의 등록
+     *
+     * @param qnaRequestDto
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "inquiryInsert.me", method = RequestMethod.POST)
+    public String inquiryInsert(StadiumQnaDto stadiumQnaDto, HttpSession session, Model model) {
+        // 세션에서 로그인된 사용자 정보 확인
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        if (loginMember == null) {
+            model.addAttribute("errorMsg", "로그인이 필요합니다.");
+            return "common/errorPage"; // 에러 페이지로 리다이렉트
+        }
+
+        // 사용자 번호 설정
+        stadiumQnaDto.setQMemNo(loginMember.getMemNo());
+
+        // 서비스 호출
+        boolean result = stadiumService.insertQna(stadiumQnaDto);
+
+        // 성공 여부에 따라 리다이렉트
+        if (result) {
+            session.setAttribute("alertMsg", "문의가 성공적으로 등록되었습니다.");
+            return "redirect:inquiry.me"; // 문의 목록 페이지로 리다이렉트
+        } else {
+            model.addAttribute("errorMsg", "문의 등록에 실패했습니다.");
+            return "common/errorPage";
+        }
+    }
+    
     @RequestMapping("searchStadium.st")
     public String searchResults(
     		@RequestParam(value = "cpage", defaultValue = "1") int currentPage, // 현재 페이지

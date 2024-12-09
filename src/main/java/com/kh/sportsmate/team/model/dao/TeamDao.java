@@ -546,4 +546,9 @@ public class TeamDao {
     public int updateTeamRecord(SqlSessionTemplate sqlSession, TeamScore score) {
         return sqlSession.update("teamMapper.updateTeamRecord", score);
     }
+
+    public ArrayList<String> selectEnrollmentInfo(SqlSessionTemplate sqlSession, int memNo) {
+        return (ArrayList) sqlSession.selectList("teamMapper.selectEnrollmentInfo", memNo);
+
+    }
 }

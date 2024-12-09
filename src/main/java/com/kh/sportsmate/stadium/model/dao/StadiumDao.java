@@ -1,8 +1,10 @@
 package com.kh.sportsmate.stadium.model.dao;
 
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
+import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
+import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
@@ -168,6 +170,11 @@ public class StadiumDao {
     	return sqlSession.selectList("stadiumMapper.StadiumReservation", teamNo);
     }
     
+    // 추가: 대기 중인 매치 정보 가져오기
+    public List<StadiumDetailmodal> getPendingMatches(SqlSessionTemplate sqlSession, int teamNo) {
+        return sqlSession.selectList("stadiumMapper.StadiumReservation", teamNo);
+    }
+    
     // 팀번호로 조회
     public int getTeamNoByMemNo(SqlSessionTemplate sqlSession, int memNo) {
         return sqlSession.selectOne("stadiumMapper.getTeamNoByMemNo", memNo);
@@ -176,6 +183,11 @@ public class StadiumDao {
     // 변경해야될사항!
     public StadiumSearch selectStadiumById(SqlSessionTemplate sqlSession, int stadiumNo) {
     	return sqlSession.selectOne("stadiumMapper.selectStadiumById", stadiumNo);
+    }
+    
+    // 문의 등록
+    public int insertQna(SqlSessionTemplate sqlSession, StadiumQnaDto stadiumQnaDto) {
+        return sqlSession.insert("stadiumMapper.insertQna", stadiumQnaDto);
     }
     
     public int selectInquiryCount(SqlSessionTemplate sqlSession, int memNo) {
