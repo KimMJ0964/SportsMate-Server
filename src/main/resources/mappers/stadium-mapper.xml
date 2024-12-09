@@ -351,6 +351,37 @@
 		WHERE 
 		    s.MEM_NO = #{memNo};
 	</select>
+	
+	<!-- 경기 예정 리스트 -->
+	<select id="getGameScheduleData" parameterType="int" resultType="GameScheduleDto">
+		SELECT 
+		    m.MATCH_NO AS matchNo,              
+		    s.STADIUM_NAME AS stadiumName,       
+		    a_team_img.FILE_PATH AS aaTeamImage,             
+		    b_team_img.FILE_PATH AS bbTeamImage,             
+		    a_team.TEAM_NAME AS aaTeamName,        
+		    b_team.TEAM_NAME AS bbTeamName,      
+		    m.RESERV_START AS reservStart,        
+		    m.RESERV_END AS reservEnd
+		FROM 
+		    `MATCH` m
+		JOIN 
+		    `STADIUM` s ON m.STADIUM_NO = s.STADIUM_NO
+		JOIN 
+		    `TEAM` a_team ON m.TEAM_A_NO = a_team.TEAM_NO
+		JOIN 
+		    `TEAM` b_team ON m.TEAM_B_NO = b_team.TEAM_NO
+		LEFT JOIN 
+		    `TEAM_IMG` a_team_img ON a_team.TEAM_NO = a_team_img.TEAM_NO AND a_team_img.FILE_LEVER = '3'
+		LEFT JOIN 
+		    `TEAM_IMG` b_team_img ON b_team.TEAM_NO = b_team_img.TEAM_NO AND b_team_img.FILE_LEVER = '3'
+		WHERE
+			m.MATCH_NO = 11 
+		    AND m.SCORE_A IS NULL 					<!-- A팀 점수가 NULL -->
+		    AND m.SCORE_B IS NULL 				<!-- B팀 점수가 NULL -->
+		    AND m.ACCESS_DATE > CURRENT_DATE; 	<!-- 오늘 이후로 잡힌 매치 -->
+
+	</select>
 
 	<!-- 환불 처리 -->
 	<update id="updateReservationStatus">
@@ -358,6 +389,17 @@
 	    SET STATUS = 'N', REFUND_CONTENT = #{refundContent}
 	    WHERE MATCH_NO = #{matchNo};
 	</update>
+	
+	<delete id="deleteMatchBest" parameterType="int">
+	    DELETE FROM `MATCH_BEST`
+	    WHERE MATCH_NO = #{matchNo};
+	</delete>
+	
+	<delete id="deleteMatch" parameterType="int">
+	    DELETE FROM `MATCH`
+	    WHERE MATCH_NO = #{matchNo};
+	</delete>
+	
 
 
     <!-- 문의 리스트 갯수 -->

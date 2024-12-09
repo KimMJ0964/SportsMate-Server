@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
@@ -41,13 +42,26 @@ public class StadiumController {
 
     // 경기 일정 관리 페이지로 이동
     @RequestMapping(value = "gameschedule.gp")
-    public String gameschedule() {
+    public String gameschedule(HttpSession session, Model model) {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+
+        if (loginMember == null) {
+            return "redirect:/loginForm.me"; // 로그인 페이지로 리다이렉트
+        }
+
+        int memNo = loginMember.getMemNo();
+        List<GameScheduleDto> gameScheduleList = stadiumService.getGameScheduleData(memNo);
+
+        System.out.println("Controller 결과: " + gameScheduleList);
+        model.addAttribute("gameScheduleList", gameScheduleList);
+    	
         return "stadium_manager/game_schedule";
     }
 
     // 경기 종료 관리 페이지로 이동
     @RequestMapping(value = "gamefinish.gp")
-    public String gamefinish() {
+    public String gamefinish(HttpSession session, Model model) {
+    	
         return "stadium_manager/game_finish";
     }
 
@@ -134,7 +148,7 @@ public class StadiumController {
         @RequestParam("matchNo") int matchNo
     ) {
         Map<String, Object> response = new HashMap<>();
-        boolean isProcessed = stadiumService.processRefund(matchNo);
+        boolean isProcessed = stadiumService.deleteMatchAndBest(matchNo);
         response.put("success", isProcessed);
         return response;
     }

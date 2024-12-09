@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
+import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
@@ -97,6 +99,22 @@ public class StadiumServiceImpl implements StadiumService{
 	@Override
 	public int inquiryUpdate(StadiumQna sq) {
 		return stadiumDao.inquiryUpdate(sqlSession, sq);
+	}
+
+	@Override
+	public List<GameScheduleDto> getGameScheduleData(int memNo) {
+		return stadiumDao.selectGameScheduleData(sqlSession, memNo);
+	}
+
+	@Override
+	@Transactional
+	public boolean deleteMatchAndBest(int matchNo) {
+		// 1. MATCH_BEST 데이터 삭제
+	    int matchBestDeleted = stadiumDao.deleteMatchBest(sqlSession, matchNo);
+
+	    // 2. MATCH 데이터 삭제
+	    int matchDeleted = stadiumDao.deleteMatch(sqlSession, matchNo);
+		return matchBestDeleted > 0 && matchDeleted > 0;
 	}
 
 }

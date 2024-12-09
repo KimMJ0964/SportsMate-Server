@@ -1,6 +1,7 @@
 package com.kh.sportsmate.stadium.model.dao;
 
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.common.vo.PageInfo;
@@ -146,4 +147,17 @@ public class StadiumDao {
 	public int updateReservationStatus(SqlSessionTemplate sqlSession, int matchNo) {
 		return sqlSession.update("stadiumMapper.updateReservationStatus", matchNo);
 	}
+
+	public List<GameScheduleDto> selectGameScheduleData(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.selectList("stadiumMapper.getGameScheduleData", memNo);
+	}
+	
+	public int deleteMatchBest(SqlSessionTemplate sqlSession, int matchNo) {
+	    return sqlSession.delete("stadiumMapper.deleteMatchBest", matchNo);
+	}
+
+	public int deleteMatch(SqlSessionTemplate sqlSession, int matchNo) {
+	    return sqlSession.delete("stadiumMapper.deleteMatch", matchNo);
+	}
+
 }
