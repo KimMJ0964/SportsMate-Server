@@ -535,4 +535,8 @@ public class TeamDao {
     public ArrayList<MyTeamDto> mainRanking(SqlSessionTemplate sqlSession, String category) {
     	return (ArrayList) sqlSession.selectList("teamMapper.mainRanking", category);
     }
+
+    public ArrayList<String> selectEnrollmentInfo(SqlSessionTemplate sqlSession, int memNo) {
+        return (ArrayList) sqlSession.selectList("teamMapper.selectEnrollmentInfo", memNo);
+    }
 }

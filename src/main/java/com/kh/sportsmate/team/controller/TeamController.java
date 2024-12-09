@@ -870,7 +870,30 @@ public class TeamController {
 
     // 구단 창설 폼으로 이동
     @GetMapping(value = "teamEnrollForm.tm")
-    public String moveTeamEnrollForm() {
+    public String moveTeamEnrollForm(HttpServletRequest request,HttpSession session) {
+		Member m = (Member) session.getAttribute("loginMember");
+		// 구단 가입 정보 조회
+		EnrollmentInfoDTO enrollmentInfo = teamService.selectEnrollmentInfo(m);
+		Map<String, Object> enrollmentInfoMap = new HashMap<>();
+		Map<String, Boolean> map = new HashMap<>();
+		map.put("soccer", enrollmentInfo.isSoccer());
+		map.put("futsal", enrollmentInfo.isFutsal());
+		map.put("basketball", enrollmentInfo.isBasketball());
+		map.put("baseball", enrollmentInfo.isBaseball());
+		Map<String, String> categoryLabels = new HashMap<>();
+		categoryLabels.put("soccer", "축구");
+		categoryLabels.put("futsal", "풋살");
+		categoryLabels.put("basketball", "농구");
+		categoryLabels.put("baseball", "야구");
+		enrollmentInfoMap.put("categories", map);
+		enrollmentInfoMap.put("categoryLabels", categoryLabels);
+		request.setAttribute("enrollmentInfo", enrollmentInfoMap);
+		log.info("구단 가입 정보 조회 결과 : {}", enrollmentInfo);
+
+		if(map.values().stream().allMatch(Boolean::booleanValue)){
+			session.setAttribute("alertMsg","더이상 구단을 창설할 수 없습니다.");
+			return "redirect:/";
+		}
         return "team/teamEnrollForm";
     }
     // 단원 모집 리스트로 이동

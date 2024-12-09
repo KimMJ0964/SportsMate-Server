@@ -10,6 +10,7 @@ import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.match.model.vo.MatchRefund;
+import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 
@@ -163,5 +164,8 @@ public interface TeamService {
  	
  	// 메인페이지 구단 랭킹
  	ArrayList<MyTeamDto> mainRanking(String category);
+
+	 // 구단 가입 정보 조회
+	EnrollmentInfoDTO selectEnrollmentInfo(Member m);
 }
 

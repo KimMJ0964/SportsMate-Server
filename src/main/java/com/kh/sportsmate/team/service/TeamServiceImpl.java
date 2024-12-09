@@ -9,6 +9,7 @@ import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
+import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -672,6 +673,33 @@ public class TeamServiceImpl implements TeamService {
 	public ArrayList<MyTeamDto> mainRanking(String category) {
 		return teamDao.mainRanking(sqlSession, category);
 	}
-	
+
+	@Override
+	public EnrollmentInfoDTO selectEnrollmentInfo(Member m) {
+		EnrollmentInfoDTO enrollmentInfo = new EnrollmentInfoDTO();
+		ArrayList<String> enrollmentInfoList = teamDao.selectEnrollmentInfo(sqlSession,m.getMemNo());
+		if(!enrollmentInfoList.isEmpty()){
+			for (String category : enrollmentInfoList) {
+				switch (category) {
+					case "soccer":
+						enrollmentInfo.setSoccer(true);
+						break;
+					case "futsal":
+						enrollmentInfo.setFutsal(true);
+						break;
+					case "basketball":
+						enrollmentInfo.setBasketball(true);
+						break;
+					case "baseball":
+						enrollmentInfo.setBaseball(true);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+
+		return enrollmentInfo;
+	}
 }
 
