@@ -263,32 +263,40 @@
     </if>
 </select>
 <select id="getPaginatedStadiums" parameterType="map" resultType="StadiumSearch">
-    SELECT 
-        STADIUM_NO as stadiumNo,
-        STADIUM_ADDRESS as stadiumAddress,
-        STADIUM_NAME as stadiumName,
-        STADIUM_CATEGORY as stadiumCategory,
-        STADIUM_START_TIME as stadiumStartTime,
-        STADIUM_END_TIME as stadiumEndTime,
-        A.ACTIVITY_AREA as activityArea
-    FROM STADIUM S
-    JOIN AREA A 
-        ON S.STADIUM_ADDRESS LIKE CONCAT('%', REPLACE(A.AREA_NAME, '서울시 ', ''), '%')
-    WHERE STATUS = 'Y'
+        SELECT 
+        S.STADIUM_NO as stadiumNo,
+        S.STADIUM_ADDRESS as stadiumAddress,
+        S.STADIUM_NAME as stadiumName,
+        S.STADIUM_CATEGORY as stadiumCategory,
+        S.STADIUM_START_TIME as stadiumStartTime,
+        S.STADIUM_END_TIME as stadiumEndTime,
+        A.ACTIVITY_AREA as activityArea,
+        SI.FILE_PATH as filePath, -- 이미지 파일 경로
+        SI.CHANGE_NAME as changeName -- 이미지 변경 이름
+    FROM 
+        STADIUM S
+    JOIN 
+        AREA A ON S.STADIUM_ADDRESS LIKE CONCAT('%', REPLACE(A.AREA_NAME, '서울시 ', ''), '%')
+    LEFT JOIN 
+        STADIUM_IMG SI ON S.STADIUM_NO = SI.STADIUM_NO
+        AND SI.FILE_TYPE = 0 -- 썸네일 이미지
+        AND SI.STATUS = 'Y' -- 유효한 이미지
+    WHERE 
+        S.STATUS = 'Y'
     <if test="activityArea != null and activityArea != ''">
-        AND A.ACTIVITY_AREA = #{activityArea} -- 지역 코드 필터링
+        AND A.ACTIVITY_AREA = #{activityArea}
     </if>
     <if test="stadiumName != null and stadiumName != ''">
-        AND STADIUM_NAME LIKE CONCAT('%', #{stadiumName}, '%')
+        AND S.STADIUM_NAME LIKE CONCAT('%', #{stadiumName}, '%')
     </if>
     <if test="stadiumCategory != null and stadiumCategory != ''">
-        AND STADIUM_CATEGORY = #{stadiumCategory}
+        AND S.STADIUM_CATEGORY = #{stadiumCategory}
     </if>
     <if test="stadiumStartTime != null">
-        AND STADIUM_START_TIME &gt;= #{stadiumStartTime}
+        AND S.STADIUM_START_TIME &gt;= #{stadiumStartTime}
     </if>
     <if test="stadiumEndTime != null">
-        AND STADIUM_END_TIME &lt;= #{stadiumEndTime}
+        AND S.STADIUM_END_TIME &lt;= #{stadiumEndTime}
     </if>
     LIMIT #{startRow}, #{boardLimit}
 </select>
@@ -360,16 +368,27 @@
 		T.TEAM_POINT AS teamPoint, -- 구단 점수
 		TM.MEM_NO AS memNo, -- 멤버 번호
 		M.MEM_NAME AS memName, -- 멤버 이름
-		TM.STATUS AS Status -- 멤버 상태
+		TM.STATUS AS Status, -- 멤버 상태
+		-- 대기 중인 매치 정보
+	    `MATCH`.MATCH_NO AS matchNo,
+	    `MATCH`.TEAM_A_NO AS teamANo,
+	    `MATCH`.TEAM_B_NO AS teamBNo,
+	    `MATCH`.CATEGORY AS category,
+	    `MATCH`.RESERV_START AS reservStart,
+	    `MATCH`.RESERV_END AS reservEnd,
+	    `MATCH`.ACCESS_DATE AS accessDate
 	FROM
-		TEAM_MEMBER TM
+	    TEAM_MEMBER TM
 	JOIN
-		TEAM T ON TM.TEAM_NO = T.TEAM_NO
+	    TEAM T ON TM.TEAM_NO = T.TEAM_NO
 	JOIN
-		MEMBER M ON TM.MEM_NO = M.MEM_NO
+	    MEMBER M ON TM.MEM_NO = M.MEM_NO
+	LEFT JOIN
+	    `MATCH` ON T.TEAM_NO = `MATCH`.TEAM_A_NO
 	WHERE
-		T.TEAM_NO = #{teamNo} -- 팀 번호로 조회
-		AND TM.STATUS = 'Y';
+	    T.TEAM_NO = #{teamNo} -- 팀 번호로 조회
+	    AND TM.STATUS = 'Y'
+	    AND (`MATCH`.TEAM_B_NO IS NULL OR `MATCH`.TEAM_B_NO = 0); -- B팀이 매칭되지 않은 경우
 </select>
 <!-- 팀번호로  조회 -->
 <select id="getTeamNoByMemNo" parameterType="int" resultType="int">
@@ -378,6 +397,13 @@
     WHERE MEM_NO = #{memNo}
       AND STATUS = 'Y'; -- 활성화된 상태
 </select>
+<insert id="insertQna" parameterType="StadiumQnaDto">
+    INSERT INTO STADIUM_QNA (
+        Q_MEM_NO, STADIUM_NO, MATCH_Q_TITLE, MATCH_Q_DETAIL, MATCH_QNA_DATE
+    ) VALUES (
+        #{qMemNo}, #{stadiumNo}, #{matchQTitle}, #{matchQDetail}, NOW()
+    )
+</insert>
     <!-- 문의 리스트 갯수 -->
     <select id="selectInquiryCount" resultType="_int">
     	SELECT COUNT(*)
