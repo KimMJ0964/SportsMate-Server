@@ -665,6 +665,24 @@ public class TeamServiceImpl implements TeamService {
 	public ArrayList<MyTeamDto> mainRanking(String category) {
 		return teamDao.mainRanking(sqlSession, category);
 	}
+
+	/**
+	 * 랭킹페이지 구단 랭킹
+	 * @param category 조회할 팀 카테고리
+	 * @param pi 페이지네이션 정보
+	 */
+	@Override
+	public ArrayList<RankingDto> rankingList(Map<String, Object> params, PageInfo pi) {
+		return teamDao.RankingList(sqlSession, params, pi);
+	}
+
+	/**
+	 * 카테고리별 팀 총 데이터 수 조회
+	 */
+	@Override
+	public int rankingPagination(Map<String, Object> params) {
+		return teamDao.Rankingpagination(sqlSession, params);
+	}
 	
 }
 

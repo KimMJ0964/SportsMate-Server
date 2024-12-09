@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
+import com.kh.sportsmate.team.model.dto.RankingDto;
 import com.kh.sportsmate.team.model.dto.RecruitDetailDto;
 import com.kh.sportsmate.team.model.dto.RecruitDto;
 import com.kh.sportsmate.team.model.dto.RecruitListDto;
@@ -531,5 +532,35 @@ public class TeamDao {
      */
     public ArrayList<MyTeamDto> mainRanking(SqlSessionTemplate sqlSession, String category) {
     	return (ArrayList) sqlSession.selectList("teamMapper.mainRanking", category);
+    }
+    
+    /**
+     * 랭킹페이지 구단 랭킹
+     * 
+     * @param sqlSession myBatis SQL 세션 객체
+     * @param paramMap 파라미터가 담긴 Map (카테고리, 검색 키워드, 정렬 순서)
+     * @param pi 페이지네이션 정보
+     * @return 팀 랭킹 정보가 담긴 ArrayList<RankingDto>
+     */
+    public ArrayList<RankingDto> RankingList(SqlSessionTemplate sqlSession, Map<String, Object> paramMap, PageInfo pi) {
+    	// 페이징 처리를 위해 RowBounds 생성
+    	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 시작 위치 계산
+    	int limit = pi.getBoardLimit(); // 한 페이지에 보여줄 데이터 수
+    	RowBounds rowBounds = new RowBounds(offset, limit);
+    	
+    	// myBatis 매퍼 호출 (RowBounds 사용)
+    	return (ArrayList) sqlSession.selectList("teamMapper.RankingList", paramMap, rowBounds);
+    }
+    
+    /**
+     * 카테고리 별 총 데이터 수 조회
+     * 
+     * @param sqlSession MyBatis SqlSessionTemplate 객체
+     * @param category 조회할 팀 카테고리
+     * @return int 총 데이터 수
+     */
+    public int Rankingpagination(SqlSessionTemplate sqlSession, Map<String, Object> paramMap) {
+    	// MyBatis 매퍼 호출
+    	return sqlSession.selectOne("teamMapper.Rankingpagination", paramMap);
     }
 }

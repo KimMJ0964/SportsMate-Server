@@ -163,5 +163,11 @@ public interface TeamService {
  	
  	// 메인페이지 구단 랭킹
  	ArrayList<MyTeamDto> mainRanking(String category);
+ 	
+ 	// 랭킹페이지 구단 랭킹
+ 	ArrayList<RankingDto> rankingList(Map<String, Object> params, PageInfo pi);
+ 	
+ 	// 카테고리별 팀 총 데이터 수 조회
+ 	int rankingPagination(Map<String, Object> params);
 }
 

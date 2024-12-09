@@ -1,118 +1,249 @@
 @charset "UTF-8";
-   .row {
-	    display: flex;
-	    align-items: center;
-	    border-top: 1px solid #ddd;
-	    padding: 4px 0;
-	}
-	
-	.cell {
-	    flex: 1; /* 셀을 균등하게 배분 */
-	    text-align: center;
-	}
-	
-	.left {
-	    display: flex;
-	    align-items: center;
-	    justify-content: flex-start; /* 왼쪽 정렬 */
-	    margin-left: 20px;
-	}
-	
-	.left span {
-	    display: inline-block;
-	    width: 20px;
-	    text-align: center;
-	}
-	
-	.left img {
-	    margin-left: 20px; /* 이미지와 숫자 사이의 간격 */
-	}
-	
-	.center {
-	    text-align: center; /* 가운데 정렬 */
-	}
-	
-	.right {
-	    text-align: right; /* 오른쪽 정렬 */
-	    margin-right: 20px;
-	}
-	
-	.point {
-	    font-size: 0.8em;
-	    color: #888;
-	}
-	
-	.divider {
-	    height: 1px; /* 줄의 두께 */
-	    background-color: #ddd; /* 줄의 색상 */
-	    margin: 0; /* 위아래 간격 */
-	}
 
-    /* 페이지네이션 */
-    .board-pagination {
-       display: flex;
-       justify-content: center;
-       margin: 20px 0;
-    }
-   
-   .board-page-btn {
-       border-style: none;
-       color: #1D87FA;
-       background-color: white;
-       padding: 8px 12px;
-       margin: 0 5px;
-       border-radius: 5px;
-       cursor: pointer;
-       font-size: 16px;
-    }
-   
-   .board-page-btn:hover {
-       background-color: #1D87FA;
-       color: white;
-    }
-	/* 종목 선택 css */
-	.sport-button-container {
-        display: flex;
-	    justify-content: center; /* 중앙 정렬 */
-	    width: 300px;
-	    height: 40px;
-	    border: 1px solid #333;
-	    border-radius: 15px;
-	    margin: 20px auto; /* 위아래 여백 */
-	    padding: 5px; /* 내부 여백 추가 */
-    }
-    
-    .sport-btn {
-        border: none;
-	    background-color: white;
-	    padding: 0; /* padding을 0으로 설정하여 버튼 크기 조정 */
-	    width: 60px; /* 버튼 너비 */
-	    height: 30px; /* 버튼 높이 */
-	    border-radius: 15px;
-	    margin: 0 5px; /* 버튼 사이 간격 */
-	    cursor: pointer;
-	    transition: background-color 0.3s
-    }
+/* ==================================================
+   팀 랭킹 리스트 스타일
+================================================== */
 
-    .sport-btn:hover {
-        background-color: #f0f0f0;
-    }
+/* 팀 랭킹 행 컨테이너 */
+/* .row: 각 팀 랭킹 정보를 포함하는 행 */
+.row {
+    display: flex;
+    align-items: center; /* 행 내 요소를 수직 중앙 정렬 */
+    border-top: 1px solid #ddd; /* 행 상단 경계선 */
+    padding: 4px 0; /* 위아래 간격 추가 */
+}
 
-    .sport-btn.active {
-        background-color: #1D87FA;
-        color: white;
-    }
-    /* 글 사이즈 */
-    .size {
-    	display: flex;
-	    justify-content: center;
-	    font-weight: bold;
-    }
-    /* 이미지 css */
-    img {
-    	margin: 20px;
-    }
-    
-    hr {
-    	background-color: black;
-    }
+/* 랭킹 셀 스타일 */
+/* .cell: 랭킹 정보의 각 열 */
+.cell {
+    flex: 1; /* 열을 균등하게 분배 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+/* 왼쪽 셀 스타일 */
+/* .left: 순위 번호와 이미지를 포함하는 셀 */
+.left {
+    display: flex;
+    align-items: center; /* 이미지와 텍스트를 수직 중앙 정렬 */
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    margin-left: 20px; /* 셀 왼쪽 간격 */
+}
+
+/* 왼쪽 순위 텍스트 스타일 */
+/* .left span: 순위 번호 텍스트 */
+.left span {
+    display: inline-block;
+    width: 20px; /* 텍스트 너비 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+/* 왼쪽 이미지 스타일 */
+/* .left img: 팀 이미지를 표시 */
+.left img {
+    margin-left: 20px; /* 이미지와 순위 텍스트 사이 간격 */
+}
+
+/* 가운데 셀 스타일 */
+/* .center: 팀 이름을 포함 */
+.center {
+    text-align: center; /* 팀 이름을 중앙 정렬 */
+}
+
+/* 오른쪽 셀 스타일 */
+/* .right: 팀 점수를 포함 */
+.right {
+    text-align: right; /* 점수를 오른쪽 정렬 */
+    margin-right: 20px; /* 셀 오른쪽 간격 */
+}
+
+/* 점수 텍스트 스타일 */
+/* .point: 팀 점수의 보조 텍스트 */
+.point {
+    font-size: 0.8em; /* 작은 폰트 크기 */
+    color: #888; /* 연한 회색 텍스트 */
+}
+
+/* 행 구분선 스타일 */
+/* .divider: 팀 목록의 구분선 */
+.divider {
+    height: 1px; /* 구분선 두께 */
+    background-color: #ddd; /* 구분선 색상 */
+    margin: 0; /* 상하 간격 제거 */
+}
+
+/* ==================================================
+   종목 선택 버튼 스타일
+================================================== */
+
+/* 종목 선택 버튼 컨테이너 */
+/* .sport-button-container: 종목 선택 버튼을 감싸는 컨테이너 */
+.sport-button-container {
+    display: flex;
+    justify-content: center; /* 버튼 중앙 정렬 */
+    width: 300px; /* 컨테이너 너비 */
+    height: 40px; /* 컨테이너 높이 */
+    border: 1px solid #333; /* 외곽선 */
+    border-radius: 15px; /* 둥근 모서리 */
+    margin: 20px auto; /* 위아래 간격 및 중앙 정렬 */
+    padding: 5px; /* 내부 여백 추가 */
+}
+
+/* 종목 버튼 스타일 */
+/* .sport-btn: 개별 종목 버튼 */
+.sport-btn {
+    border: none; /* 테두리 제거 */
+    background-color: white; /* 흰색 배경 */
+    padding: 0; /* 여백 제거 */
+    width: 60px; /* 버튼 너비 */
+    height: 30px; /* 버튼 높이 */
+    border-radius: 15px; /* 둥근 모서리 */
+    margin: 0 5px; /* 버튼 간격 */
+    cursor: pointer; /* 클릭 가능 포인터 */
+    transition: background-color 0.3s; /* 배경색 전환 효과 */
+}
+
+/* 버튼 hover 효과 */
+/* .sport-btn:hover: 마우스를 올렸을 때 */
+.sport-btn:hover {
+    background-color: #f0f0f0; /* 연한 회색 배경 */
+}
+
+/* 활성화된 버튼 스타일 */
+/* .sport-btn.active: 현재 선택된 버튼 */
+.sport-btn.active {
+    background-color: #1D87FA; /* 파란 배경 */
+    color: white; /* 흰색 텍스트 */
+}
+
+/* ==================================================
+   글자 크기 스타일
+================================================== */
+
+/* 타이틀 텍스트 스타일 */
+/* .size: "실시간 랭킹" 같은 제목 텍스트 */
+.size {
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 중앙 정렬 */
+    font-weight: bold; /* 굵은 텍스트 */
+}
+
+/* ==================================================
+   이미지 스타일
+================================================== */
+
+/* 모든 이미지 공통 스타일 */
+/* img: 팀 이미지 및 버튼 아이콘 */
+img {
+    margin: 20px; /* 이미지와 주변 요소 간격 */
+    width: 30px; /* 이미지 너비 */
+    height: 30px; /* 이미지 높이 */
+}
+
+/* ==================================================
+   페이지네이션 스타일
+================================================== */
+
+/* 페이지네이션 컨테이너 */
+/* #pagenation: 페이지 번호를 감싸는 컨테이너 */
+#pagenation {
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 중앙 정렬 */
+    margin-bottom: 30px; /* 아래 여백 */
+    margin-top: 30px; /* 위 여백 */
+}
+
+/* ==================================================
+   검색 바 스타일
+================================================== */
+
+/* 검색 바 컨테이너 */
+/* .search-bar-team: 검색 창 전체를 감싸는 컨테이너 */
+.search-bar-team {
+    width: 30%; /* 부모 컨테이너 기준으로 중앙 정렬 */
+    margin: 0 auto; /* 상하 0, 좌우 자동 정렬 */
+}
+
+/* 검색 바 폼 */
+/* #search-bar-form-team: 검색 입력 필드와 버튼을 포함한 폼 */
+#search-bar-form-team {
+    border: 1px solid black; /* 검은 테두리 */
+    display: flex; /* Flexbox 사용 */
+    justify-content: space-between; /* 내부 요소 간격 균등 분배 */
+    align-items: center; /* 내부 요소 수직 정렬 */
+    width: 100%; /* 전체 너비 */
+    height: 40px; /* 높이 */
+    border-radius: 8px; /* 둥근 모서리 */
+}
+
+/* 검색 입력 필드 */
+/* #search-bar-form-team input: 검색어 입력 필드 */
+#search-bar-form-team input {
+    padding: 10px; /* 내부 여백 */
+    width: calc(100% - 40px); /* 버튼 크기를 제외한 입력 필드 너비 */
+    height: 100%; /* 높이 */
+    border-radius: 8px; /* 둥근 모서리 */
+    font-size: 14px; /* 텍스트 크기 */
+    border: none; /* 테두리 제거 */
+}
+
+/* 입력 필드 포커스 효과 */
+/* #search-bar-form-team input:focus: 필드에 포커스가 있을 때 */
+#search-bar-form-team input:focus {
+    outline-style: none; /* 외곽선 제거 */
+}
+
+/* 검색 버튼 */
+/* #search-bar-form-team button: 검색 버튼 */
+#search-bar-form-team button {
+    width: 40px; /* 너비 */
+    height: 100%; /* 높이 */
+    border: none; /* 테두리 제거 */
+    background-color: white; /* 흰색 배경 */
+    border-radius: 8px; /* 둥근 모서리 */
+    padding: 0; /* 내부 여백 제거 */
+}
+
+/* 검색 버튼 이미지 */
+/* .search-btn-team: 버튼 아이콘 이미지 */
+.search-btn-team {
+    width: 25px !important; /* 너비 */
+    height: 25px !important; /* 높이 */
+}
+
+/* ==================================================
+   랭킹 바 스타일
+================================================== */
+
+/* 정렬 컨테이너 */
+/* .sort-container: 랭킹 정렬 버튼을 감싸는 컨테이너 */
+.sort-container {
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 버튼을 수평 중앙 정렬 */
+    margin: 20px 0; /* 위아래 간격 설정 */
+}
+
+/* 정렬 버튼 스타일 */
+/* .sort-btn: 랭킹 정렬을 위한 개별 버튼 */
+.sort-btn {
+    border: 1px solid #ddd; /* 연한 회색 테두리 */
+    background-color: white; /* 흰색 배경 */
+    padding: 10px 20px; /* 버튼 내부 여백 */
+    margin: 0 10px; /* 버튼 간 간격 설정 */
+    border-radius: 5px; /* 둥근 모서리 */
+    cursor: pointer; /* 마우스 포인터 모양 변경 */
+    transition: background-color 0.3s; /* 배경색 전환 효과 추가 */
+}
+
+/* 버튼 hover 효과 */
+/* .sort-btn:hover: 마우스를 올렸을 때 적용되는 스타일 */
+.sort-btn:hover {
+    background-color: #f0f0f0; /* 연한 회색 배경 */
+}
+
+/* 활성화된 버튼 스타일 */
+/* .sort-btn.active: 현재 선택된 버튼 */
+.sort-btn.active {
+    background-color: #1D87FA; /* 파란색 배경 */
+    color: white; /* 흰색 텍스트 */
+    font-weight: bold; /* 굵은 글씨 */
+}

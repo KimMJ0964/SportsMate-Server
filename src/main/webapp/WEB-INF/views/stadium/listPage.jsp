@@ -107,24 +107,31 @@
         </div>
 	</form>
 	
-<section class="video-grid">
-	<c:forEach var="stadiumSearch" items="${results}">
-        <div class="video-priview">
-            	<a href="detail.st?stadiumNo=${stadiumSearch.stadiumNo}">
-                	<img src="${pageContext.request.contextPath}/resources/images/stadiumFile/${stadiumSearch.changeName}" 
-					     alt="${stadiumSearch.stadiumName}" 
-					     class="thumbnail" />
-                </a>
-            <div class="video-info-grid" >
-                <div class="video-info">
-                	<p class="vider-author">${stadiumSearch.stadiumAddress}</p>
-                	<p class="vider-title">${stadiumSearch.stadiumName}</p>
-                	<p class="vider-state">${stadiumSearch.stadiumCategory} ${stadiumSearch.selectedDate}</p>
-                </div>
-            </div>
-        </div>
-	</c:forEach>
-</section>
+			<section class="video-grid">
+				<c:forEach var="stadiumSearch" items="${results}">
+			        <div class="video-priview">
+			            	<a href="detail.st?stadiumNo=${stadiumSearch.stadiumNo}">
+			                	<img src="${pageContext.request.contextPath}/resources/images/stadiumFile/${stadiumSearch.changeName}" 
+								     alt="${stadiumSearch.stadiumName}" 
+								     class="thumbnail" />
+			                </a>
+			            <div class="video-info-grid" >
+			                <div class="video-info">
+			                	<p class="vider-author">${stadiumSearch.stadiumAddress}</p>
+			                	<p class="vider-title">${stadiumSearch.stadiumName}</p>
+			                	<p class="vider-state">
+			                		<c:choose>
+								        <c:when test="${stadiumSearch.stadiumCategory == 'soccer'}">축구</c:when>
+								        <c:when test="${stadiumSearch.stadiumCategory == 'baseball'}">야구</c:when>
+								        <c:when test="${stadiumSearch.stadiumCategory == 'basketball'}">농구</c:when>
+								        <c:when test="${stadiumSearch.stadiumCategory == 'futsal'}">풋살</c:when>
+								    </c:choose>
+			                	</p>
+			                </div>
+			            </div>
+			        </div>
+				</c:forEach>
+			</section>
                     <div id="pagenation">
                         <nav>
                             <ul class="pagination">
