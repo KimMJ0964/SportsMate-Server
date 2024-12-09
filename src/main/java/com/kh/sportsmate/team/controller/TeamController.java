@@ -888,7 +888,7 @@ public class TeamController {
 		enrollmentInfoMap.put("categories", map);
 		enrollmentInfoMap.put("categoryLabels", categoryLabels);
 		request.setAttribute("enrollmentInfo", enrollmentInfoMap);
-		log.info("구단 가입 정보 조회 결과 : {}", enrollmentInfo);
+		log.info("소속 구단 카테고리 정보 조회 결과 : {}", enrollmentInfo);
 
 		if(map.values().stream().allMatch(Boolean::booleanValue)){
 			session.setAttribute("alertMsg","더이상 구단을 창설할 수 없습니다.");
@@ -946,10 +946,26 @@ public class TeamController {
     }
 
     @GetMapping(value = "recruit_detail.tm")
-    public String moveRecruitDetail(int tno, HttpServletRequest request) {
+    public String moveRecruitDetail(int tno, HttpServletRequest request, HttpSession session) {
         log.info("팀번호 : {}", tno);
         RecruitDetailDto detailInfo = teamService.selectRecruitDetail(tno);
         log.info("디테일 INFO : {}", detailInfo);
+		// 구단에 소속된 카테고리 조회
+		Member m = (Member) session.getAttribute("loginMember");
+		boolean canApply = false;
+		if(m != null && detailInfo != null){
+			EnrollmentInfoDTO enrollmentInfo = teamService.selectEnrollmentInfo(m);
+			log.info("소속 구단 카테고리 정보 조회 결과 : {}", enrollmentInfo);
+//			request.setAttribute("enrollmentInfo", enrollmentInfo);
+			if(enrollmentInfo != null){
+				String teamCategory = detailInfo.getTeamCategory();
+				canApply = ("soccer".equals(teamCategory) && !enrollmentInfo.isSoccer()) ||
+						("futsal".equals(teamCategory) && !enrollmentInfo.isFutsal()) ||
+						("basketball".equals(teamCategory) && !enrollmentInfo.isBasketball()) ||
+						("baseball".equals(teamCategory) && !enrollmentInfo.isBaseball());
+			}
+		}
+		request.setAttribute("canApply", canApply);
         request.setAttribute("detailInfo", detailInfo);
         return "team/memberRecruitDetail";
     }
