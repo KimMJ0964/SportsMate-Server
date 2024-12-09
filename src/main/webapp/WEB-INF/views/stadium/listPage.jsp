@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>리스트 페이지</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/default.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/stadium/listPage.css">
 
@@ -31,10 +32,14 @@
 <hr class="line">
 
         <!-- 서버에서 activeDate 전달 -->
-		<input type="hidden" id="active-date" value="${selectedDate}" />
-		<div class="weekday-selector">
-			<div id="weekdaySelector"></div>
-		</div>
+    <input type="hidden" id="active-date" value="${selectedDate}" />
+
+    <!-- Swiper 컨테이너 -->
+	<div class="swiper-container">
+	    <div class="swiper-wrapper" id="weekdaySelector">
+	        <!-- JavaScript에서 요일과 날짜가 동적으로 생성됩니다 -->
+	    </div>
+	</div>
         
 	<form id="searchForm" action="searchStadium.st" method="get">
         <div class="choice">
@@ -106,7 +111,9 @@
 	<c:forEach var="stadiumSearch" items="${results}">
         <div class="video-priview">
             	<a href="detail.st?stadiumNo=${stadiumSearch.stadiumNo}">
-                	<img src="${pageContext.request.contextPath}/resources/images/field.png" alt="경기장" class="thumbnail" />
+                	<img src="${pageContext.request.contextPath}/resources/images/stadiumFile/${stadiumSearch.changeName}" 
+					     alt="${stadiumSearch.stadiumName}" 
+					     class="thumbnail" />
                 </a>
             <div class="video-info-grid" >
                 <div class="video-info">
@@ -224,5 +231,6 @@
 </div>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/listPage.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/Re-request.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 </body>
 </html>

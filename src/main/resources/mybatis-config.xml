@@ -45,6 +45,7 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal" alias="StadiumDetailmodal"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumQna" alias="StadiumQna"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumQnaDto" alias="StadiumQnaDto"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.QnaRequestDto" alias="QnaRequestDto"/>
 
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>

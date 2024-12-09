@@ -1,6 +1,7 @@
 package com.kh.sportsmate.stadium.model.dto;
 
 import java.sql.Date;
+import java.sql.Time;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -29,4 +30,12 @@ public class StadiumDetailmodal {
 	
 	// member 정보
 	private String memName; // 멤버 이름
+	
+	// 추가: Match 관련 정보
+    private int matchNo; // 매치 번호
+    private int teamANo; // A팀 번호 (매칭 시 A팀만 저장)
+    private String category; // 경기 카테고리
+    private Time reservStart; // 예약 시작 시간
+    private Time reservEnd; // 예약 종료 시간
+    private Date accessDate; // 승인 날짜
 }
