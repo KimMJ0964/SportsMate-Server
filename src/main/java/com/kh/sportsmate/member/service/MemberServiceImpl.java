@@ -123,8 +123,8 @@ public class MemberServiceImpl implements MemberService {
     public int insertManagerMember(ManagerEnrollDto m, ArrayList<StadiumAttachment> stadiumAttachmentImgs) {
         int result1 = 0; // 멤버 insert 결과
         int result2 = 0; // 구장 insert 결과
-        int result3 = 0; // 편의시설 insert 결과
-        int result4 = 0; // 대여 물품 insert 결과
+        int result3 = 1; // 편의시설 insert 결과
+        int result4 = 1; // 대여 물품 insert 결과
         int result5 = 1; // 구장 Attachment Insert 결과
         // 사용자 정보 결합
         String memBirth = m.getYear() + "." + m.getMonth() + "." + m.getDay(); // 생년월일 concatenate
@@ -159,7 +159,7 @@ public class MemberServiceImpl implements MemberService {
         // 편의 시설 객체 생성
         Amenities am = new Amenities();
         am.setStadiumNo(stadiumInfo.getStadiumNo());
-        if (!m.getAmenities().isEmpty()) {
+        if (m.getAmenities() != null &&!m.getAmenities().isEmpty()) {
             for (String amenities : m.getAmenities()) {
                 switch (amenities) {
                     case "toilet":
@@ -179,13 +179,14 @@ public class MemberServiceImpl implements MemberService {
                         break;
                 }
             }
+            result3 = stadiumDao.insertAmenities(sqlSession, am);
         }
         System.out.println("am : " + am);
-        result3 = stadiumDao.insertAmenities(sqlSession, am);
-        // 대여 물품 객체 생성
+
+// 대여 물품 객체 생성
         Rental rental = new Rental();
         rental.setStadiumNo(stadiumInfo.getStadiumNo());
-        if (!m.getRental().isEmpty()) {
+        if (m.getRental() != null && !m.getRental().isEmpty()) {
             for (String rentalEquipment : m.getRental()) {
                 switch (rentalEquipment) {
                     case "ball":
@@ -196,9 +197,9 @@ public class MemberServiceImpl implements MemberService {
                         break;
                 }
             }
+            result4 = stadiumDao.insetRental(sqlSession, rental);
         }
 
-        result4 = stadiumDao.insetRental(sqlSession, rental);
         if (!stadiumAttachmentImgs.isEmpty()) {
             for (StadiumAttachment att : stadiumAttachmentImgs) {
                 att.setStadiumNo(stadiumInfo.getStadiumNo());
@@ -207,6 +208,7 @@ public class MemberServiceImpl implements MemberService {
             result5 = stadiumDao.insertStadiumAttachment(sqlSession, stadiumAttachmentImgs);
         }
         return result1 * result2 * result3 * result4 * result5;
+
     }
 
     /**

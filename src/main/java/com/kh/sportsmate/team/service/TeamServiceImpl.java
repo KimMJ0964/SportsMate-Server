@@ -9,6 +9,7 @@ import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
+import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class TeamServiceImpl implements TeamService {
     private final SqlSessionTemplate sqlSession;
@@ -250,7 +252,13 @@ public class TeamServiceImpl implements TeamService {
 		// 구단장 팀원에 추가
 		TeamMember teamMember = new TeamMember(team.getMemNo(), team.getTeamNo());
 		int result4 = teamDao.insertTeamMember(sqlSession, teamMember);
-        return result1 * result2 * result3 * result4;
+		int result5 = teamDao.insertTeamRecord(sqlSession, team.getTeamNo());
+		log.info("구단 창설 result1 : {}",result1);
+		log.info("구단 창설 result2 : {}",result2);
+		log.info("구단 창설 result3 : {}",result3);
+		log.info("구단 창설 result4 : {}",result4);
+		log.info("구단 창설 result5 : {}",result5);
+        return result1 * result2 * result3 * result4 * result5;
     }
 
     /**
@@ -665,6 +673,33 @@ public class TeamServiceImpl implements TeamService {
 	public ArrayList<MyTeamDto> mainRanking(String category) {
 		return teamDao.mainRanking(sqlSession, category);
 	}
-	
+
+	@Override
+	public EnrollmentInfoDTO selectEnrollmentInfo(Member m) {
+		EnrollmentInfoDTO enrollmentInfo = new EnrollmentInfoDTO();
+		ArrayList<String> enrollmentInfoList = teamDao.selectEnrollmentInfo(sqlSession,m.getMemNo());
+		if(!enrollmentInfoList.isEmpty()){
+			for (String category : enrollmentInfoList) {
+				switch (category) {
+					case "soccer":
+						enrollmentInfo.setSoccer(true);
+						break;
+					case "futsal":
+						enrollmentInfo.setFutsal(true);
+						break;
+					case "basketball":
+						enrollmentInfo.setBasketball(true);
+						break;
+					case "baseball":
+						enrollmentInfo.setBaseball(true);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+
+		return enrollmentInfo;
+	}
 }
 

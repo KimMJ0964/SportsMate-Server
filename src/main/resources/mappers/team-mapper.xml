@@ -511,7 +511,13 @@
 	        TEAM.TEAM_POINT DESC
 	    LIMIT 6;
 	</select>
-	
+	<!-- 가입한 구단 category 조회 -->
+	<select id="selectEnrollmentInfo" parameterType="_int" resultType="String">
+		SELECT t.TEAM_CATEGORY
+		FROM TEAM_MEMBER tm
+		LEFT JOIN TEAM t ON (tm.TEAM_NO = t.TEAM_NO)
+		WHERE tm.MEM_NO = #{memNo}
+	</select>
 	<!-- 게시글 생성 -->
 	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">
 	  	INSERT INTO TEAM_BOARD (
@@ -817,6 +823,13 @@
 		#{teamCategory},
 		#{activityTime},
 		#{activityArea}
+		)
+	</insert>
+	<insert id="insertTeamRecord" parameterType="_int">
+		insert into TEAM_RECORD(
+		TEAM_NO
+		)VALUES(
+		#{teamNo}
 		)
 	</insert>
 	<insert id="insertActivityDays" parameterType="TeamActivityDays">
