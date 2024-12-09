@@ -29,6 +29,7 @@ import com.kh.sportsmate.mypage.model.dao.MyPageDao;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
+import com.kh.sportsmate.team.model.dto.MyRecruitDto;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -82,7 +83,7 @@ public class MyPageServiceImpl implements MyPageService{
      */
 	@Override
 	@Transactional(readOnly = true)
-	public ArrayList<Recruit> selectMyRecruit(int memNo) {
+	public ArrayList<MyRecruitDto> selectMyRecruit(int memNo) {
 		return mypageDao.selectMyRecruit(sqlSession, memNo);
 	}
 	
@@ -319,6 +320,7 @@ public class MyPageServiceImpl implements MyPageService{
 	 * 전적 페이지
 	 * 
 	 * @param map
+	 * @param pi
 	 * @return
 	 */
 	@Override
@@ -326,8 +328,15 @@ public class MyPageServiceImpl implements MyPageService{
 	public ArrayList<TeamMatchInfoDto> myMatchInfo(Map<String, String> map, PageInfo pi) {
 		return mypageDao.myMatchInfo(sqlSession, map, pi);
 	}
-
+	
+	/**
+	 * 내 전적 종목 별 수
+	 * 
+	 * @param map
+	 * @return
+	 */
 	@Override
+	@Transactional(readOnly = true)
 	public int categoryMatchCount(Map<String, String> map) {
 		return mypageDao.categoryMatchCount(sqlSession, map);
 	}

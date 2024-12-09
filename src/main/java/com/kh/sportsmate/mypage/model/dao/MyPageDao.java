@@ -22,6 +22,7 @@ import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
+import com.kh.sportsmate.team.model.dto.MyRecruitDto;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -58,7 +59,7 @@ public class MyPageDao {
      * @param map
      * @return
      */
-	public ArrayList<Recruit> selectMyRecruit(SqlSessionTemplate sqlSession, int memNo) {
+	public ArrayList<MyRecruitDto> selectMyRecruit(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyRecruit", memNo);
 	}
 

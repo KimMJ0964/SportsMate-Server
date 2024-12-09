@@ -185,7 +185,7 @@
 	        M.MEM_NAME AS memName,
 	        M.MEM_BIRTH AS memBirth,
 	        M.MEM_GENDER AS memGender,
-	         M.MEM_MANNER_SCORE AS memMannerScore,
+	         C.MANNER_TOTAL_POINT AS memMannerScore,
 	        TIMESTAMPDIFF(YEAR, M.MEM_BIRTH, CURDATE()) AS memAge,
 	        CASE 
 	            WHEN T.TEAM_CATEGORY = 'soccer' THEN C.SOC_POSI
@@ -200,7 +200,13 @@
 	            WHEN T.TEAM_CATEGORY = 'baseball' THEN C.BASE_ABILITY
 	        END AS ability,
 	        MPF.CHANGE_NAME AS memberProfile,
-	        TPF.CHANGE_NAME AS teamProfile
+	        TPF.CHANGE_NAME AS teamProfile,
+	        CASE 
+	            WHEN T.TEAM_CATEGORY = 'soccer' THEN C.SOCCER_AVG_POINT
+	            WHEN T.TEAM_CATEGORY = 'basketball' THEN C.BASKETBALL_AVG_POINT
+	            WHEN T.TEAM_CATEGORY = 'futsal' THEN C.FUTSAL_AVG_POINT
+	            WHEN T.TEAM_CATEGORY = 'baseball' THEN C.BASEBALL_AVG_POINT
+	        END AS memSkillScore
 	    FROM 
 	        TEAM T
 	    JOIN 

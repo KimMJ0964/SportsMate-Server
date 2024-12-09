@@ -18,6 +18,7 @@ import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
+import com.kh.sportsmate.team.model.dto.MyRecruitDto;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -45,7 +46,7 @@ public interface MyPageService {
     ArrayList<MyTeamDto> selectMyTeam(int memNo);
     	
     // 내 구단 입단 명단
-    ArrayList<Recruit> selectMyRecruit(int memNo);
+    ArrayList<MyRecruitDto> selectMyRecruit(int memNo);
     
     // a팀 정보
     ArrayList<MemberPositionDto> selectATeamInfo(int teamANo);

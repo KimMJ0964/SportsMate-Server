@@ -35,6 +35,7 @@ import com.kh.sportsmate.member.service.MemberService;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
 import com.kh.sportsmate.mypage.service.MyPageService;
+import com.kh.sportsmate.team.model.dto.MyRecruitDto;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
@@ -92,7 +93,7 @@ public class MyPageController {
 		ArrayList<MyTeamDto> myTeam = myPageService.selectMyTeam(memNo);
 
 		// 내 구단 입단 명단
-		ArrayList<Recruit> myRecruit = myPageService.selectMyRecruit(memNo);
+		ArrayList<MyRecruitDto> myRecruit = myPageService.selectMyRecruit(memNo);
 
 		// 내 문의
 		ArrayList<StadiumQna> myQna = myPageService.selectMyQna(memNo);
@@ -346,6 +347,10 @@ public class MyPageController {
 	/**
 	 * 내 전적 페이지 이동
 	 * 
+	 * @param currentPage
+	 * @param category
+	 * @param session
+	 * @param m
 	 * @return
 	 */
 	@RequestMapping("myMatch.mp")
