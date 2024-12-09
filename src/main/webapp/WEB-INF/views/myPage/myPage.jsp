@@ -430,7 +430,7 @@
 							<Button class="approve-btn"
 								onclick="location.href = 'approveJoin.tm?mno=${mr.memNo}&tno=${mr.teamNo }'">승인</Button>
 							<Button class="reject-btn"
-								onclick="location.href = 'rejectJoin.tm?mno=${mr.memNo}'">거절</Button>
+								onclick="location.href = 'rejectJoin.tm?mno=${mr.memNo}&tno=${mr.teamNo }'">거절</Button>
 						</div>
 					</div>
 					<br>

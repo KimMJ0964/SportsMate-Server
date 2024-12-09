@@ -323,7 +323,7 @@ public class TeamController {
      * @return
      */
     @RequestMapping("rejectJoin.tm")
-    public String rejectJoin(Model m, HttpSession session, int mno) {
+    public String rejectJoin(Model m, HttpSession session, int mno, int tno) {
         int result = teamService.rejectJoin(mno);
         if (result > 0) { // 성공
             session.setAttribute("alertMsg", "입단 거부 성공");
