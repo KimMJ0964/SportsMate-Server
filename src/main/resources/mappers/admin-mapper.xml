@@ -31,7 +31,12 @@
 		FROM member_penalty
 		WHERE PN_STATUS = 'N'
     </select>
-    
+
+	<select id="selectPenaltyCount" parameterType="_int" resultType="_int">
+		select COUNT(*)
+		FROM member_penalty
+		where MEM_NO = #{memNo}
+	</select>
     <!-- 신고접수 리스트 가져오기 -->
     <select id="selectList" parameterType="String" resultType="MemberPenalty">
         SELECT  PN_NO AS pnNo,

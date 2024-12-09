@@ -96,6 +96,19 @@
         </trim>
         )
     </insert>
+    <insert id="insertPenalty" parameterType="StadiumPenaltyDTO">
+        insert into MEMBER_PENALTY(
+            MEM_NO,
+            PN_CONTENT,
+            PN_REPORTER,
+            PN_TYPE
+        ) values(
+            #{memNo},
+            #{pnContent},
+            #{pnReporter},
+            'MATCH'
+        )
+    </insert>
 <!--
     foreach : parameterType이  list 혹은 Array 때 사용
         - collection : 전달받은 인자값(list || array)
@@ -212,6 +225,7 @@
         </trim>
         )
     </insert>
+
     <!-- 경기 예정 -->
     <select id="stadiumSchedule" resultType="Schedule">
     	SELECT MATCH
@@ -402,6 +416,144 @@
 	
 
 
+   <select id="getSearchResultCount" parameterType="map" resultType="int">
+    SELECT COUNT(*) 
+    FROM STADIUM S
+    JOIN AREA A
+    	ON S.STADIUM_ADDRESS LIKE CONCAT('%', REPLACE(A.AREA_NAME, '서울시', ''), '%')
+    WHERE S.STATUS = 'Y'
+    <if test="activityArea != null and activityArea != ''">
+    	AND A.ACTIVITY_AREA = #{activityArea} -- 지역 코드 필터링
+    </if>
+    <if test="stadiumName != null and stadiumName != ''">
+        AND STADIUM_NAME LIKE CONCAT('%', #{stadiumName}, '%')
+    </if>
+    <if test="stadiumCategory != null and stadiumCategory != ''">
+        AND STADIUM_CATEGORY = #{stadiumCategory}
+    </if>
+    <if test="stadiumStartTime != null">
+        AND STADIUM_START_TIME &gt;= #{stadiumStartTime}
+    </if>
+    <if test="stadiumEndTime != null">
+        AND STADIUM_END_TIME &lt;= #{stadiumEndTime}
+    </if>
+</select>
+<select id="getPaginatedStadiums" parameterType="map" resultType="StadiumSearch">
+    SELECT 
+        STADIUM_NO as stadiumNo,
+        STADIUM_ADDRESS as stadiumAddress,
+        STADIUM_NAME as stadiumName,
+        STADIUM_CATEGORY as stadiumCategory,
+        STADIUM_START_TIME as stadiumStartTime,
+        STADIUM_END_TIME as stadiumEndTime,
+        A.ACTIVITY_AREA as activityArea
+    FROM STADIUM S
+    JOIN AREA A 
+        ON S.STADIUM_ADDRESS LIKE CONCAT('%', REPLACE(A.AREA_NAME, '서울시 ', ''), '%')
+    WHERE STATUS = 'Y'
+    <if test="activityArea != null and activityArea != ''">
+        AND A.ACTIVITY_AREA = #{activityArea} -- 지역 코드 필터링
+    </if>
+    <if test="stadiumName != null and stadiumName != ''">
+        AND STADIUM_NAME LIKE CONCAT('%', #{stadiumName}, '%')
+    </if>
+    <if test="stadiumCategory != null and stadiumCategory != ''">
+        AND STADIUM_CATEGORY = #{stadiumCategory}
+    </if>
+    <if test="stadiumStartTime != null">
+        AND STADIUM_START_TIME &gt;= #{stadiumStartTime}
+    </if>
+    <if test="stadiumEndTime != null">
+        AND STADIUM_END_TIME &lt;= #{stadiumEndTime}
+    </if>
+    LIMIT #{startRow}, #{boardLimit}
+</select>
+
+<!-- 경기장 상세 정보 조회 -->
+<select id="getStadiumDetail" parameterType="int" resultType="StadiumDetail">
+	SELECT
+		S.STADIUM_NO as stadiumNo, 
+            S.MEM_NO as memNo, 
+            S.STADIUM_NAME as stadiumName, 
+            S.STADIUM_ZIPCODE as stadiumZipcode, 
+            S.STADIUM_ADDRESS as stadiumAddress, 
+            S.STADIUM_SCORE as stadiumScore, 
+            S.STADIUM_PRICE as stadiumPrice, 
+            S.STADIUM_CATEGORY as stadiumCategory, 
+            S.STADIUM_START_TIME as stadiumStartTime, 
+            S.STADIUM_END_TIME as stadiumEndTime, 
+            S.STATUS as status,
+            -- 물품 지원
+            R.BALL, 
+            R.VEST,
+            -- 편의 시설
+            A.TOILET, 
+            A.SHOWER, 
+            A.SMOKE, 
+            A.PARK, 
+            A.DRINK
+        FROM 
+            STADIUM S
+        LEFT JOIN 
+            STADIUM_RENTAL R ON S.STADIUM_NO = R.STADIUM_NO
+        LEFT JOIN 
+            STADIUM_AM A ON S.STADIUM_NO = A.STADIUM_NO
+        WHERE 
+            S.STADIUM_NO = #{stadiumNo}
+</select>
+
+<!-- 리뷰 조회 -->
+<select id="selectReviewsByStadiumNo" parameterType="map" resultType="StadiumReviewDto">
+	SELECT
+        SR.REVIEW_NO AS reviewNo,
+        SR.STADIUM_NO AS stadiumNo,
+        SR.MEM_NO AS memNo,
+        M.MEM_NAME AS memName,
+        SR.REVIEW_STAR AS reviewStar,
+        SR.REVIEW_CONTENT AS reviewContent,
+        SR.REVIEW_DATE AS reviewDate
+    FROM STADIUM_REVIEW SR
+    JOIN MEMBER M ON SR.MEM_NO = M.MEM_NO
+    WHERE SR.STADIUM_NO = #{stadiumNo}
+    ORDER BY SR.REVIEW_DATE DESC
+    LIMIT #{offset}, #{limit}
+</select>
+
+<!-- 전체 리뷰 개수 조회 -->
+<select id="selectReviewCountByStadiumNo" parameterType="int" resultType="int">
+    SELECT COUNT(*)
+    FROM STADIUM_REVIEW
+    WHERE STADIUM_NO = #{stadiumNo}
+</select>
+
+<!-- 구장 신청하기 -->
+<select id="StadiumReservation" parameterType="int" resultType="StadiumDetailmodal">
+	SELECT
+		TM.TEAM_NO AS teamNo, -- 구단 번호
+		T.MEM_NO AS tmemNo, -- 구단장 번호 (별칭으로 tmemNo 사용)
+		T.TEAM_NAME AS teamName, -- 구단 이름
+		T.SCORE AS Score, -- 구단 평점
+		T.TEAM_POINT AS teamPoint, -- 구단 점수
+		TM.MEM_NO AS memNo, -- 멤버 번호
+		M.MEM_NAME AS memName, -- 멤버 이름
+		TM.STATUS AS Status -- 멤버 상태
+	FROM
+		TEAM_MEMBER TM
+	JOIN
+		TEAM T ON TM.TEAM_NO = T.TEAM_NO
+	JOIN
+		MEMBER M ON TM.MEM_NO = M.MEM_NO
+	WHERE
+		T.TEAM_NO = #{teamNo} -- 팀 번호로 조회
+		AND TM.STATUS = 'Y';
+</select>
+<!-- 팀번호로  조회 -->
+<select id="getTeamNoByMemNo" parameterType="int" resultType="int">
+    SELECT TEAM_NO
+    FROM TEAM_MEMBER
+    WHERE MEM_NO = #{memNo}
+      AND STATUS = 'Y'; -- 활성화된 상태
+</select>
     <!-- 문의 리스트 갯수 -->
     <select id="selectInquiryCount" resultType="_int">
     	SELECT COUNT(*)

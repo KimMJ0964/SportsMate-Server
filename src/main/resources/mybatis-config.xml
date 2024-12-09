@@ -12,6 +12,10 @@
 
     <typeAliases>
         <!-- common -->
+        <typeAlias type="java.util.List" alias="List"/>
+
+        <!-- Admin -->
+        <typeAlias type="com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO" alias="StadiumPenaltyDTO"/>
         <!-- Member -->
         <typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
         <typeAlias type="com.kh.sportsmate.member.model.dto.MemberModifyDto" alias="MemberModifyDto"/>
@@ -41,11 +45,18 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Refund" alias="Refund"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumRefundDto" alias="StadiumRefundDto"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumReview" alias="StadiumReview"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumSearch" alias="StadiumSearch"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetail" alias="StadiumDetail"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumReviewDto" alias="StadiumReviewDto"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal" alias="StadiumDetailmodal"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumQna" alias="StadiumQna"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumQnaDto" alias="StadiumQnaDto"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDto" alias="StadiumDto"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.GameScheduleDto" alias="GameScheduleDto"/>
-        
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.Rating" alias="Rating"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.TeamScore" alias="TeamScore"/>
+
+
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
         <typeAlias type="com.kh.sportsmate.board.model.vo.BoardLike" alias="BoardLike"/>
@@ -59,6 +70,7 @@
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoard" alias="TeamBoard"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamMember" alias="TeamMember"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamVote" alias="TeamVote"/>
+        <typeAlias type="com.kh.sportsmate.team.model.vo.TeamRecord" alias="TeamRecord"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamMemberDto" alias="TeamMemberDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.vo.TeamBoardComment" alias="TeamBoardComment"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamBoardCommentDto" alias="TeamBoardCommentDto"/>
@@ -74,7 +86,6 @@
         <typeAlias type="com.kh.sportsmate.team.model.dto.MyRecruitDto" alias="MyRecruitDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamMatchInfoDto" alias="TeamMatchInfoDto"/>
 
-        
     </typeAliases>
 
     <mappers>

@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class TeamServiceImpl implements TeamService {
     private final SqlSessionTemplate sqlSession;
@@ -250,7 +251,13 @@ public class TeamServiceImpl implements TeamService {
 		// 구단장 팀원에 추가
 		TeamMember teamMember = new TeamMember(team.getMemNo(), team.getTeamNo());
 		int result4 = teamDao.insertTeamMember(sqlSession, teamMember);
-        return result1 * result2 * result3 * result4;
+		int result5 = teamDao.insertTeamRecord(sqlSession, team.getTeamNo());
+		log.info("구단 창설 result1 : {}",result1);
+		log.info("구단 창설 result2 : {}",result2);
+		log.info("구단 창설 result3 : {}",result3);
+		log.info("구단 창설 result4 : {}",result4);
+		log.info("구단 창설 result5 : {}",result5);
+        return result1 * result2 * result3 * result4 * result5;
     }
 
     /**
@@ -629,10 +636,41 @@ public class TeamServiceImpl implements TeamService {
 		}
 		
 	}
-
+	
+	/**
+	 * 구단 폐쇄
+	 * @param tno
+	 * @return 
+	 */
 	@Override
 	public int teamClosing(int tno) {
 		return teamDao.teamClosing(sqlSession, tno);
+	}
+
+	/**
+	 * 구단 게시글이 본인 소속 확인
+	 * @param map
+	 */
+	@Override
+	public String checkTeamBoard(Map<String, Integer> map) {
+		return teamDao.checkTeamBoard(sqlSession, map);
+	}
+	
+	/**
+	 * 댓글 및 게시판 주인 확ㅇ;ㄴ
+	 * @param bno
+	 */
+	@Override
+	public int checkBoardMember(int bno) {
+		return teamDao.checkBoardMember(sqlSession, bno);
+	}
+	
+	/**
+	 * 메인페이지 구단 랭킹
+	 */
+	@Override
+	public ArrayList<MyTeamDto> mainRanking(String category) {
+		return teamDao.mainRanking(sqlSession, category);
 	}
 	
 }

@@ -48,7 +48,7 @@
             <mapping path="/teamSelfOut.tm" />
             <mapping path="/voting.tm" />
             <mapping path="/teamMatch.tm" />
-            <beans:bean class="com.kh.sportsmate.common.intercepter.TeamBoardInterceptor" id="TeamBoardInterceptor"/>
+            <beans:bean class="com.kh.sportsmate.common.intercepter.TeamInterceptor" id="TeamInterceptor"/>
         </interceptor>
 		        
         <!-- 구단장 관련 -->
@@ -64,15 +64,28 @@
 			<beans:bean class="com.kh.sportsmate.common.intercepter.TeamLeaderInterceptor" id="TeamLeaderInterceptor" />
 		</interceptor>
 		
+		<!-- 구단 게시글 인터셉터 -->
+		<interceptor>
+			<mapping path="/detailMoveBd.tm" />
+			<mapping path="/writeReply.tm" />
+			<mapping path="/boardLike.tm" />
+			<mapping path="/replyComment.tm" />
+			<beans:bean class="com.kh.sportsmate.common.intercepter.TeamBoardInterceptor" id="TeamBoardInterceptor" />
+		</interceptor>
+		
 		<!-- 게시글 소유지 확인 -->
 		<interceptor>
 			<mapping path="/modify.bd" />
-			<mapping path="/modify.tm" />
 			<mapping path="/delete.bd" />
-			<mapping path="/delete.bd" />
-			<mapping path="/deleteComm.bd" />
 			<mapping path="/deleteComm.tm" />
 			<beans:bean class="com.kh.sportsmate.common.intercepter.BoardInterceptor" id="BoardInterceptor" />
+		</interceptor>
+		
+		<!-- 구단 게시글 소유지 확인 -->
+		<interceptor>
+			<mapping path="/modify.tm" />
+			<mapping path="/delete.tm" />
+			<beans:bean class="com.kh.sportsmate.common.intercepter.TeamBoardTwoInterceptor" id="TeamBoardTwoInterceptor" />
 		</interceptor>
 		
         <!-- 관리자 관련 -->

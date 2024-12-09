@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kh.sportsmate.stadium.model.dto.TeamScore;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 import com.kh.sportsmate.team.model.dto.RecruitDetailDto;
 import com.kh.sportsmate.team.model.dto.RecruitDto;
 import com.kh.sportsmate.team.model.dto.RecruitListDto;
@@ -194,6 +196,9 @@ public class TeamDao {
 	
     public int insertTeam(SqlSessionTemplate sqlSession, Team t) {
         return sqlSession.insert("teamMapper.insertTeam", t);
+    }
+    public int insertTeamRecord(SqlSessionTemplate sqlSession, int teamNo) {
+        return sqlSession.insert("teamMapper.insertTeamRecord", teamNo);
     }
 
     public int insertActivityDays(SqlSessionTemplate sqlSession, TeamActivityDays days) {
@@ -505,5 +510,40 @@ public class TeamDao {
      */
     public int teamClosing(SqlSessionTemplate sqlSession, int tno) {
     	return sqlSession.update("teamMapper.teamClosing", tno);
+    }
+    
+    /**
+     * 구단 게시글 본인 소속 확인
+     * @param map
+     * @param sqlSession
+     */
+    public String checkTeamBoard(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+    	return sqlSession.selectOne("teamMapper.checkTeamBoard", map);
+    }
+    
+    /** 댓글 및 게시글 주인 확인
+     * @param bno
+     * @param sqlSession
+     */
+    public int checkBoardMember(SqlSessionTemplate sqlSession, int bno) {
+    	return sqlSession.selectOne("teamMapper.checkBoardMember", bno);
+    }
+    
+    /**
+     * 메인페이지 구단 랭킹
+     * @param sqlSession
+     */
+    public ArrayList<MyTeamDto> mainRanking(SqlSessionTemplate sqlSession, String category) {
+    	return (ArrayList) sqlSession.selectList("teamMapper.mainRanking", category);
+    }
+
+    /**
+     * 팀 전적 update
+     * @param sqlSession
+     * @param score
+     * @return
+     */
+    public int updateTeamRecord(SqlSessionTemplate sqlSession, TeamScore score) {
+        return sqlSession.update("teamMapper.updateTeamRecord", score);
     }
 }

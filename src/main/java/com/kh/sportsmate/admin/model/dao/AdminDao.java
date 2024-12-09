@@ -59,4 +59,14 @@ public class AdminDao {
 	public int unblockUser(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.update("adminMapper.unblockUser", memNo);
 	}
+
+	/**
+	 * 패널티 카운트 조회
+	 * @param sqlSession
+	 * @param memNo 패널티 대상 memNo
+	 * @return 패널티 카운트 값
+	 */
+	public int selectPenaltyCount(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.selectOne("adminMapper.selectPenaltyCount", memNo);
+	}
 }

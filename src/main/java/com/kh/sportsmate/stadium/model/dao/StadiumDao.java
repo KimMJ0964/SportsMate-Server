@@ -1,10 +1,16 @@
 package com.kh.sportsmate.stadium.model.dao;
 
+import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
+import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.stadium.model.dto.Rating;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Refund;
 import com.kh.sportsmate.stadium.model.vo.Rental;
@@ -19,6 +25,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 /**
  * packageName    : com.kh.sportsmate.stadium.model.dao
@@ -127,6 +134,50 @@ public class StadiumDao {
     }
 
     
+    // 검색 결과 개수 조회
+    public int getSearchResultCount(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+        return sqlSession.selectOne("stadiumMapper.getSearchResultCount", params);
+    }
+
+    // 페이지네이션된 경기장 리스트 조회
+    public List<StadiumSearch> getPaginatedStadiums(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+        return sqlSession.selectList("stadiumMapper.getPaginatedStadiums", params);
+    }
+    
+    // 특정 stadiumNo로 경기장 디테일 정보 조회
+    public StadiumDetail getStadiumDetail(SqlSessionTemplate sqlSession, int stadiumNo) {
+    	return sqlSession.selectOne("stadiumMapper.getStadiumDetail", stadiumNo);
+    }
+    
+    // 리뷰 페이징 조회
+    public List<StadiumReviewDto> selectReviewsByStadiumNo(SqlSessionTemplate sqlSession, int stadiumNo, int offset, int limit) {
+    	Map<String, Object> params = new HashMap<>();
+    	params.put("stadiumNo", stadiumNo);
+    	params.put("offset", offset);
+    	params.put("limit", limit);
+    	return sqlSession.selectList("stadiumMapper.selectReviewsByStadiumNo", params);
+    }
+    
+    // 전체 리뷰 개수 조회
+    public int selectReviewCountByStadiumNo(SqlSessionTemplate sqlSession, int stadiumNo) {
+    	 return sqlSession.selectOne("stadiumMapper.selectReviewCountByStadiumNo", stadiumNo);
+    }
+    
+    // 디테일페이지 구장 신청하기 모달
+    public List<StadiumDetailmodal> StadiumReservation(SqlSessionTemplate sqlSession, int teamNo) {
+    	return sqlSession.selectList("stadiumMapper.StadiumReservation", teamNo);
+    }
+    
+    // 팀번호로 조회
+    public int getTeamNoByMemNo(SqlSessionTemplate sqlSession, int memNo) {
+        return sqlSession.selectOne("stadiumMapper.getTeamNoByMemNo", memNo);
+    }
+    
+    // 변경해야될사항!
+    public StadiumSearch selectStadiumById(SqlSessionTemplate sqlSession, int stadiumNo) {
+    	return sqlSession.selectOne("stadiumMapper.selectStadiumById", stadiumNo);
+    }
+    
     public int selectInquiryCount(SqlSessionTemplate sqlSession, int memNo) {
     	return sqlSession.selectOne("stadiumMapper.selectInquiryCount", memNo);
     }
@@ -159,5 +210,9 @@ public class StadiumDao {
 	public int deleteMatch(SqlSessionTemplate sqlSession, int matchNo) {
 	    return sqlSession.delete("stadiumMapper.deleteMatch", matchNo);
 	}
+
+    public int insertPenalty(SqlSessionTemplate sqlSession, StadiumPenaltyDTO penaltyInfo) {
+        return sqlSession.insert("stadiumMapper.insertPenalty", penaltyInfo);
+    }
 
 }

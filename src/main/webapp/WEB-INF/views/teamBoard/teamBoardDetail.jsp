@@ -135,7 +135,7 @@
 							</div>
                               <hr>
                               <div class="bd-button-container">
-                                  <button class="bd-red-button" onclick="location.href = 'deleteComm.bd?cno=${reply.comNo}&bno=${teamBoard.boardNo }'">답글 삭제</button>
+                                  <button class="bd-red-button" onclick="location.href = 'deleteComm.tm?cno=${reply.comNo}&bno=${teamBoard.boardNo }'">답글 삭제</button>
                                   <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${teamBoard.boardNo}, ${reply.comNo}, ${reply.memNo}, ${teamBoard.teamNo})">신고하기</button>
                                   <button class="bd-button" data-bs-toggle="modal" data-bs-target="#commentModal" onclick="setCommentData(${reply.comParentNo}, ${teamBoard.boardNo})">답글 작성</button>
                               </div>
@@ -167,7 +167,7 @@
 		      </div>
 		      <div class="modal-footer">
 		      	<!-- 숨겨진 input으로 boardNo와 comNo 값을 전달 -->
-                <input type="hidden" id="report-boardNo" name="boardNo">
+                <input type="hidden" id="report-boardNo" name="bno">
                 <input type="hidden" id="report-comNo" name="comNo">
                 <input type="hidden" id="report-reporterNo" name="reporterNo">
                 <input type="hidden" id="report-teamNo" name="teamNo">
@@ -198,7 +198,7 @@
 		      <div class="modal-footer">
 		      	<!-- 숨겨진 input으로 boardNo와 comNo 값을 전달 -->
                 <input type="hidden" id="comParentNo" name="comParentNo">
-                <input type="hidden" id="comment-boardNo" name="boardNo">
+                <input type="hidden" id="comment-boardNo" name="bno">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 		        <button type="submit" class="btn btn-primary">답글 완료</button>
 		      </div>
