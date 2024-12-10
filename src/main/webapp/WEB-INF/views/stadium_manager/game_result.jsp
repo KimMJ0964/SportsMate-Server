@@ -450,11 +450,11 @@
                     <input type="hidden" name="memNo">
                     <input type="hidden" name="pnReporter" value="${loginMember.memNo}">
                     <%--                        <input type="hidden" name="pnGround" value="${stadiumNo}">--%>
-                    <input type="hidden" name="pnGround" value="1">
+                    <input type="hidden" name="pnGround" value="${stadiumNo}">
                     <div class="content-wrap center">
                         <div class="content-title margin">
                             경고 선수명
-                            <input type="text" id="name-input" value="홍길동" readonly>
+                            <input type="text" id="name-input" value="" readonly>
                         </div>
                         <div class="report-wrap margin">
                         </div>
