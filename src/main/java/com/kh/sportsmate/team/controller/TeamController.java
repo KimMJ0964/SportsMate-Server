@@ -421,14 +421,27 @@ public class TeamController {
 	    * @return
 	    */
     @RequestMapping("deleteComm.tm")
-    public String deleteReply(int cno, int bno, int tno, Model m) {
-        int result = teamService.deleteReply(cno);
-
-		if (result > 0) { // 성공
-			return "redirect:detailMoveBd.tm?bno=" + bno;
-		} else { // 실패
-			m.addAttribute("errorMsg", "댓글 작성 실패");
-			return "redirect:detailMoveBd.tm?bno=" + bno;
+    public String deleteReply(HttpSession session, int cno, int bno, int tno, Model m) {
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		if (loginMember != null ) {
+			int memNo = loginMember.getMemNo();
+			
+			Map<String, Integer> map = new HashMap<>();
+			
+			map.put("cno", cno);
+			map.put("memNo", memNo);
+			
+			int result = teamService.deleteReply(map);
+			
+			if (result > 0) { // 성공
+				return "redirect:detailMoveBd.tm?bno=" + bno;
+			} else { // 실패
+				session.setAttribute("alertMsg", "댓글 삭제 실패");
+				return "redirect:detailMoveBd.tm?bno=" + bno;
+			}
+		} else {
+			return "board/board";
 		}
 	}
     

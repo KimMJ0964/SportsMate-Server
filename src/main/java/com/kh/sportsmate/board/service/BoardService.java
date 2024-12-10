@@ -47,7 +47,7 @@ public interface BoardService {
 	int writeReply(Map<String, String> map);
 	
 	// 댓글 삭제
-	int deleteReply(int cno);
+	int deleteReply(Map<String, Integer> map);
 	
 	// 댓글 주인 확인
 	BoardComment getCommentById(int cno);
