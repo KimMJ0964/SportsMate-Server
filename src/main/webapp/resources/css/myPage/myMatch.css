@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+.myMatch {
+	min-height: 47vh;
+	
+}
+
+.myMatch-title {
+	text-align: center;
+	margin-top: 35px;
+	margin-bottom: 35px;
+}
+
+/* 종목 선택 css */
+.sport-button-container {
+	display: flex;
+	justify-content: center; /* 중앙 정렬 */
+	width: 300px;
+	height: 40px;
+	border: 1px solid #333;
+	border-radius: 15px;
+	margin: 20px auto; /* 위아래 여백 */
+	padding: 5px; /* 내부 여백 추가 */
+}
+
+.sport-btn {
+	border: none;
+	background-color: white;
+	padding: 0; /* padding을 0으로 설정하여 버튼 크기 조정 */
+	width: 60px; /* 버튼 너비 */
+	height: 30px; /* 버튼 높이 */
+	border-radius: 15px;
+	margin: 0 5px; /* 버튼 사이 간격 */
+	cursor: pointer;
+	transition: background-color 0.3s
+}
+
+.sport-btn:hover {
+	background-color: #f0f0f0;
+}
+
+.sport-btn.active {
+	background-color: #1D87FA;
+	color: white;
+}
+
+.add-btn {
+	display: flex; /* Flexbox 활성화 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center;
+	width: 50%;
+	height: 35px;
+	text-align: center;
+	border-style: none;
+	border: 1px solid #333;
+	border-radius: 5px;
+	margin: 0 auto;
+	cursor: pointer;
+}

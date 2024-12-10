@@ -17,12 +17,17 @@ public interface MatchService {
 	ReadyResponseDto payReady(String name, int totalPrice);
 	ApproveResponseDto payApprove(String tid, String pgToken);
 	
-	String mainRegionMatch(String activityArea);
-	
 	ArrayList<MyMatch> mainMatchList(Map<String, String> map);
+	
 	//결제정보 불러오기
 	StadiumSubscription selectMatch(Match mc, int price);
 	
 	//결제정보 저장하기
 	int insertMatch(Match mc, List<MatchBest> mb);
+	
+	// 메인 페이지 지역 전적
+	String mainRegionMatch(String activityArea);
+	
+	// 메인 페이지 매치중
+	ArrayList<MyMatch> mainMatching(Map<String, Object> map);
 }

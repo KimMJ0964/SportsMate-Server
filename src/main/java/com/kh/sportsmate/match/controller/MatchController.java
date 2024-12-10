@@ -1,6 +1,9 @@
 package com.kh.sportsmate.match.controller;
 
 import java.util.ArrayList;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +30,7 @@ import com.kh.sportsmate.match.model.dto.StadiumSubscription;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.service.MatchService;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,24 +45,24 @@ public class MatchController {
 		super();
 		this.matchService = matchService;
 	}
-	
-	@PostMapping(value = "payMatch.st", produces="application/json; charset-UTF-8")
+
+	@PostMapping(value = "payMatch.st", produces = "application/json; charset-UTF-8")
 	@ResponseBody
 	public ReadyResponseDto payReady(@RequestBody OrderCreateFormDto orderCreateFormDto) {
 		String name = orderCreateFormDto.getName();
 		int totalPrice = orderCreateFormDto.getTotalPrice();
-		
+
 		log.info("대관 구장명" + name);
 		log.info("결제금액" + totalPrice);
-		
-		//카카오 결제 준비
+
+		// 카카오 결제 준비
 		ReadyResponseDto readyResponseDto = matchService.payReady(name, totalPrice);
 		// 세션에 결제 고유번호(tid) 저장
-        Template.addAttribute("tid", readyResponseDto.getTid());
-        log.info("결제 고유번호: " + readyResponseDto.getTid());
+		Template.addAttribute("tid", readyResponseDto.getTid());
+		log.info("결제 고유번호: " + readyResponseDto.getTid());
 
-        return readyResponseDto;
-		
+		return readyResponseDto;
+
 	}
 	
 	@GetMapping(value = "payCompleted.st", produces="application/json; charset-UTF-8")
@@ -87,41 +91,101 @@ public class MatchController {
 	@RequestMapping("mainRegionMatch.mn")
 	@ResponseBody
 	public Map<String, Object> mainRegionMatch(String activityArea, String category) {
-	    System.out.println("메인페이지 전적 지역 코드 : " + activityArea + " / 종목 : " + category);
-	    
-	    String region = matchService.mainRegionMatch(activityArea);
-	    
-	    System.out.println("지역 이름 : " + region);
-	    
-	    String[] parts = region.split(" ");
-	    Map<String, Object> response = new HashMap<>();
-	    
-	    if (parts.length == 2) {
-	        String city = parts[0];
-	        String district = parts[1];
-	        
-	        String cityName = city.replace("시", "");
-	        String districtName = district.replace("구", "");
-	        
-	        System.out.println("시: " + cityName);
-	        System.out.println("구: " + districtName);
-	        
-	        Map<String, String> map = new HashMap<>();
-	        map.put("cityName", cityName);
-	        map.put("districtName", districtName);
-	        map.put("category", category);
-	        
-	        ArrayList<MyMatch> result = matchService.mainMatchList(map);
-	        
-	        response.put("status", "success");
-	        response.put("matches", result);
-	    } else {
-	        response.put("status", "error");
-	        response.put("message", "지역 이름 형식이 예상과 다릅니다.");
+		System.out.println("메인페이지 전적 지역 코드 : " + activityArea + " / 종목 : " + category);
+
+		String region = matchService.mainRegionMatch(activityArea);
+
+		System.out.println("지역 이름 : " + region);
+
+		String[] parts = region.split(" ");
+		Map<String, Object> response = new HashMap<>();
+
+		if (parts.length == 2) {
+			String city = parts[0];
+			String district = parts[1];
+
+			String cityName = city.replace("시", "");
+			String districtName = "중구".equals(district) ? district : district.replace("구", "");
+
+			System.out.println("시: " + cityName);
+			System.out.println("구: " + districtName);
+
+			Map<String, String> map = new HashMap<>();
+			map.put("cityName", cityName);
+			map.put("districtName", districtName);
+			map.put("category", category);
+
+			ArrayList<MyMatch> result = matchService.mainMatchList(map);
+
+			response.put("status", "success");
+			response.put("matches", result);
+		} else {
+			response.put("status", "error");
+			response.put("message", "지역 이름 형식이 예상과 다릅니다.");
+		}
+
+		return response; // Returning the response as JSON
+	}
+	
+	/**
+	 * 메인페이지 진행중인 매치
+	 * 
+	 * @return
+	 */
+	@RequestMapping("mainMatching.mn")
+	@ResponseBody
+	public ArrayList<MyMatch> mainMatching(String category, String region, String starttime, String endtime, String date) {
+	    System.out.println("메인페이지 매치중 // 종류 : " + category + " 지역 : " + region + " 시작 시간 : " +
+	    		starttime + " 끝 시간 : " + endtime + " 선택 날짜 : " + date);
+
+	    ArrayList<MyMatch> response = null;
+
+	    // starttime과 endtime을 Time으로 변환
+	    try {
+	        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); // 시간 형식
+	        Date startDate = sdf.parse(starttime); // String을 Date로 변환
+	        Date endDate = sdf.parse(endtime); // String을 Date로 변환
+
+	        Time startTime = new Time(startDate.getTime()); // Date를 Time으로 변환
+	        Time endTime = new Time(endDate.getTime()); // Date를 Time으로 변환
+
+	        System.out.println("startTime: " + startTime);
+	        System.out.println("endTime: " + endTime);
+
+	        if (region != null) {
+	            String area = matchService.mainRegionMatch(region);
+
+	            String[] parts = area.split(" ");
+
+	            if (parts.length == 2) {
+	                String city = parts[0];
+	                String district = parts[1];
+
+	                String cityName = city.replace("시", "");
+	                String districtName = "중구".equals(district) ? district : district.replace("구", "");
+
+	                System.out.println("시: " + cityName);
+	                System.out.println("구: " + districtName);
+
+	                Map<String, Object> map = new HashMap<>();
+	                map.put("cityName", cityName);
+	                map.put("districtName", districtName);
+	                map.put("category", category);
+	                map.put("starttime", startTime);
+	                map.put("endtime", endTime);
+	                map.put("date", date);
+	                
+	                response = matchService.mainMatching(map);
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
 	    }
-	    
-	    return response; // Returning the response as JSON
-}
+
+	    return response;
+	}
+
+
 	@RequestMapping(value = "orderInfo.st")
 	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, Model model, HttpServletRequest request) {
 		

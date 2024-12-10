@@ -44,6 +44,40 @@
 		WHERE T.TEAM_NO = #{teamANo}
 	</select>
 	
+	<!-- 메인페이지 매칭중 매치 -->
+	<select id="mainMatching" resultType="MyMatch">
+	    SELECT 
+		    M.RESERV_START AS reservStart,
+		    M.RESERV_END AS reservEnd,
+		    S.STADIUM_NO AS stadiumNo,
+		    S.STADIUM_NAME AS stadiumName,
+		    S.STADIUM_START_TIME AS stadiumStartTime,
+		    S.STADIUM_END_TIME AS stadiumEndTime
+		FROM 
+		    `MATCH` M
+		JOIN 
+		    STADIUM S
+		ON 
+		    M.STADIUM_NO = S.STADIUM_NO
+		WHERE 
+		    M.TEAM_A_NO IS NOT NULL
+		    AND M.TEAM_B_NO IS NULL
+		    <if test="category != null and category != ''">
+		        AND M.CATEGORY = #{category}
+		    </if>
+		    <if test="cityName != null and cityName != '' and districtName != null and districtName != ''">
+		        AND S.STADIUM_ADDRESS LIKE CONCAT('%', #{cityName}, '%', #{districtName}, '%')
+		    </if>
+		    <if test="starttime != null">
+	            AND M.RESERV_START >= #{starttime}
+	        </if>
+	        <if test="endtime != null">
+	        	AND M.RESERV_END &lt;= #{endtime}
+	        </if>
+	        <if test="date != null">
+	        	AND M.ACCESS_DATE = #{date}
+	        </if>
+	</select>
     
     <!-- UPDATE -->
     <!-- 베스트 플레이어 선정   #{memNo} #{matchNo} #{bestMNo} -->
@@ -93,7 +127,7 @@
 	    JOIN STADIUM S ON M.STADIUM_NO = S.STADIUM_NO
 	    WHERE M.SCORE_A IS NOT NULL
 	    AND M.SCORE_B IS NOT NULL
-	    AND S.STADIUM_NAME LIKE CONCAT('%', #{cityName}, ' ', #{districtName}, '%')
+	    AND S.STADIUM_ADDRESS LIKE CONCAT('%', #{cityName}, '%', #{districtName}, '%')
 	    <if test="category != null">
 	        AND M.CATEGORY = #{category}
 	    </if>

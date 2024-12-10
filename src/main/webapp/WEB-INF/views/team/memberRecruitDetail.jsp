@@ -61,10 +61,15 @@
             </c:choose>
 
             <div>${detailInfo.teamDescription}</div>
+            <div>
+                <c:if test="${not canApply}">
+                    <p id="warning">소속 될 수 있는 구단은 종목당 1개 입니다</p>
+                </c:if>
+            </div>
         </div>
         <div class="btn-wrap">
             <c:choose>
-                <c:when test="${loginMember != null}">
+                <c:when test="${loginMember != null and canApply}">
                     <button type="button" id="back-list-btn" onclick="history.back()">목록으로 가기</button>
                     <button type="button" id="apply-btn" data-bs-toggle="modal" data-bs-target="#applyNow">신청하기</button>
                 </c:when>
@@ -72,7 +77,6 @@
                     <button type="button" id="back-list-btn" onclick="history.back()">목록으로 가기</button>
                 </c:otherwise>
             </c:choose>
-
         </div>
     </div>
     <!-- The Modal -->

@@ -9,6 +9,7 @@ import com.kh.sportsmate.Attachment.model.dao.AttachmentDao;
 import com.kh.sportsmate.Attachment.model.vo.Profile;
 import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
+import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class TeamServiceImpl implements TeamService {
     private final SqlSessionTemplate sqlSession;
@@ -37,6 +39,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional(readOnly = true)
  	public int selectListCount(int teamNo) {
  		return teamDao.selectListCount(sqlSession, teamNo);
  	}
@@ -49,6 +52,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional(readOnly = true)
  	public ArrayList<TeamBoard> selectList(PageInfo pi, int teamNo) {
  		return teamDao.selectList(sqlSession, pi, teamNo);
  	}
@@ -60,6 +64,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional(readOnly = true)
  	public ArrayList<TeamMemberDto> selectMemberList(int teamNo) {
  		return teamDao.selectMemberList(sqlSession, teamNo);
  	}
@@ -71,6 +76,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional(readOnly = true)
  	public TeamBoard detailList(int bno) {
  		return teamDao.detailList(sqlSession, bno);
  	}
@@ -82,6 +88,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional(readOnly = true)
  	public ArrayList<TeamBoardComment> commentList(int bno) {
  		return teamDao.commentList(sqlSession, bno);
  	}
@@ -93,6 +100,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional(readOnly = true)
  	public int commentCount(int bno) {
  		return teamDao.commentCount(sqlSession, bno);
  	}
@@ -104,6 +112,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional
  	public int createBoard(TeamBoard b) {
  		return teamDao.createBoard(sqlSession, b);
  	}
@@ -115,6 +124,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional
  	public int updateBoard(TeamBoard b) {
  		return teamDao.updateBoard(sqlSession, b);
  	}
@@ -126,6 +136,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional
  	public int deleteBoard(int bno) {
  		return teamDao.deleteBoard(sqlSession, bno);
  	}
@@ -137,6 +148,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional
  	public int rejectJoin(int mno) {
  		return teamDao.rejectJoin(sqlSession, mno);
  	}
@@ -148,6 +160,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional
  	public int approveJoin(Map<String, Integer> nos) {
  		int mno = nos.get("mno");
  		if(teamDao.approveJoin(sqlSession, mno) > 0) {
@@ -165,6 +178,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional(readOnly = true)
  	public ArrayList<TeamBoard> searchBoard(PageInfo pi, Map<String, String> map) {
  		return teamDao.searchBoard(sqlSession, pi, map);
  	}
@@ -176,6 +190,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional
  	public int writeReply(Map<String, String> map) {
  		return teamDao.writeReply(sqlSession, map);
  	}
@@ -187,6 +202,7 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional
  	public int deleteReply(int cno) {
  		return teamDao.deleteReply(sqlSession, cno);
  	}
@@ -198,12 +214,13 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
+ 	@Transactional
  	public int viewAdd(int bno) {
  		return teamDao.viewAdd(sqlSession, bno);
  	}
 
-    @Transactional
     @Override
+    @Transactional
     public int insertTeam(CreateTeamDto t, Profile profile) {
         int result2 = 1;
         int result3 = 1;
@@ -250,7 +267,13 @@ public class TeamServiceImpl implements TeamService {
 		// 구단장 팀원에 추가
 		TeamMember teamMember = new TeamMember(team.getMemNo(), team.getTeamNo());
 		int result4 = teamDao.insertTeamMember(sqlSession, teamMember);
-        return result1 * result2 * result3 * result4;
+		int result5 = teamDao.insertTeamRecord(sqlSession, team.getTeamNo());
+		log.info("구단 창설 result1 : {}",result1);
+		log.info("구단 창설 result2 : {}",result2);
+		log.info("구단 창설 result3 : {}",result3);
+		log.info("구단 창설 result4 : {}",result4);
+		log.info("구단 창설 result5 : {}",result5);
+        return result1 * result2 * result3 * result4 * result5;
     }
 
     /**
@@ -665,6 +688,33 @@ public class TeamServiceImpl implements TeamService {
 	public ArrayList<MyTeamDto> mainRanking(String category) {
 		return teamDao.mainRanking(sqlSession, category);
 	}
-	
+
+	@Override
+	public EnrollmentInfoDTO selectEnrollmentInfo(Member m) {
+		EnrollmentInfoDTO enrollmentInfo = new EnrollmentInfoDTO();
+		ArrayList<String> enrollmentInfoList = teamDao.selectEnrollmentInfo(sqlSession,m.getMemNo());
+		if(!enrollmentInfoList.isEmpty()){
+			for (String category : enrollmentInfoList) {
+				switch (category) {
+					case "soccer":
+						enrollmentInfo.setSoccer(true);
+						break;
+					case "futsal":
+						enrollmentInfo.setFutsal(true);
+						break;
+					case "basketball":
+						enrollmentInfo.setBasketball(true);
+						break;
+					case "baseball":
+						enrollmentInfo.setBaseball(true);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+
+		return enrollmentInfo;
+	}
 }
 

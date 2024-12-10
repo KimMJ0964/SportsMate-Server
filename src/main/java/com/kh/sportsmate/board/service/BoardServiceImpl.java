@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionManager;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.board.model.dto.BoardMemberPanalty;
@@ -44,6 +45,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<Board> selectList(PageInfo pi) {
 		return boardDao.selectList(sqlSession, pi);
 	}
@@ -55,6 +57,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public Board detailList(int bno) {
 		return boardDao.detailList(sqlSession, bno);
 	}
@@ -66,6 +69,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<CommentInfo> commentList(int bno) {
 		return boardDao.commentList(sqlSession, bno);
 	}
@@ -77,6 +81,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public int commentCount(int bno) {
 		return boardDao.commentCount(sqlSession, bno);
 	}
@@ -88,6 +93,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int createBoard(Board b) {
 		return boardDao.createBoard(sqlSession, b);
 	}
@@ -99,6 +105,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int updateBoard(Board b) {
 		return boardDao.updateBoard(sqlSession, b);
 	}
@@ -110,6 +117,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int deleteBoard(int bno) {
 		return boardDao.deleteBoard(sqlSession, bno);
 	}
@@ -122,6 +130,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<Board> searchBoard(PageInfo pi, Map<String, String> map) {
 		return boardDao.searchBoard(sqlSession, pi, map);
 	}
@@ -133,6 +142,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int writeReply(Map<String, String> map) {
 		return boardDao.writeReply(sqlSession, map);
 	}
@@ -144,6 +154,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int deleteReply(int cno) {
 		return boardDao.deleteReply(sqlSession, cno);
 	}
@@ -155,6 +166,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int viewAdd(int bno) {
 		return boardDao.viewAdd(sqlSession, bno);
 	}
@@ -166,6 +178,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public BoardComment getCommentById(int cno) {
 		return boardDao.getCommentById(sqlSession, cno);
 	}
@@ -177,6 +190,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public BoardLike boardIsLike(Map<String, Integer> map) {
 		return boardDao.boardIsLike(sqlSession, map);
 	}
@@ -188,6 +202,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int boardToLike(Map<String, Integer> map) {
 		return boardDao.boardToLike(sqlSession, map);
 	}
@@ -199,6 +214,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int boardToUnLike(Map<String, Integer> map) {
 		return boardDao.boardToUnLike(sqlSession, map);
 	}
@@ -210,6 +226,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int boardInsertLike(Map<String, Integer> map) {
 		return boardDao.boardInsertLike(sqlSession, map);
 	}
@@ -221,6 +238,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public int likeCount(int bno) {
 		return boardDao.likeCount(sqlSession, bno);
 	}
@@ -232,6 +250,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int boardReport(Map<String, String> map) {
 		return boardDao.boardReport(sqlSession, map);
 	}
@@ -243,6 +262,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int commentReport(Map<String, String> map) {
 		return boardDao.commentReport(sqlSession, map);
 	}
@@ -254,6 +274,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int saveBoardFile(BoardFile bf) {
 		return boardDao.saveBoardFile(sqlSession, bf);
 	}
@@ -265,6 +286,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public BoardFile filedownloadLink(int bno) {
 		return boardDao.filedownloadLink(sqlSession, bno);
 	}
@@ -276,6 +298,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int replyComment(Map<String, String> map) {
 		return boardDao.replyComment(sqlSession, map);
 	}
@@ -287,6 +310,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional(readOnly = true)
 	public BoardFile fileCheck(int bno) {
 		return boardDao.fileCheck(sqlSession, bno);
 	}
@@ -298,6 +322,7 @@ public class BoardServiceImpl implements BoardService{
      * @return
      */
 	@Override
+	@Transactional
 	public int updateBoardFile(BoardFile bf) {
 		return boardDao.updateBoardFile(sqlSession, bf);
 	}
@@ -309,6 +334,7 @@ public class BoardServiceImpl implements BoardService{
 	 * @return
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public int checkBoardMember(int bno) {
 		return boardDao.checkBoardMember(sqlSession, bno);
 	}
@@ -319,6 +345,7 @@ public class BoardServiceImpl implements BoardService{
 	 * @return
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public int searchListCount(Map<String, String> map) {
 		return boardDao.searchListCount(sqlSession, map);
 	}
