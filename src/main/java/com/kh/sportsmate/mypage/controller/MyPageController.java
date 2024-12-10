@@ -74,6 +74,14 @@ public class MyPageController {
 
 		// 내 정보
 		MemberPositionDto myInfo = myPageService.selectMyInfo(memNo);
+		
+		if (myInfo != null && myInfo.getMemAdd() != null) {
+	        String addressWithoutCommas = myInfo.getMemAdd().replace(",", " ");
+
+	        myInfo.setMemAdd(addressWithoutCommas);
+	    } else {
+	        System.out.println("Member information or address is null.");
+	    }
 
 		// 내 프로필 사진
 		Profile myProfile = myPageService.selectMyProfile(memNo);
