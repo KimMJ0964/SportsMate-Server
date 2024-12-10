@@ -12,6 +12,10 @@
 
     <typeAliases>
         <!-- common -->
+        <typeAlias type="java.util.List" alias="List"/>
+
+        <!-- Admin -->
+        <typeAlias type="com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO" alias="StadiumPenaltyDTO"/>
         <!-- Member -->
         <typeAlias type="com.kh.sportsmate.member.model.vo.Member" alias="Member"/>
         <typeAlias type="com.kh.sportsmate.member.model.dto.MemberModifyDto" alias="MemberModifyDto"/>
@@ -38,6 +42,8 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Amenities" alias="Amenities"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Rental" alias="Rental"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.Schedule" alias="Schedule"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.vo.Refund" alias="Refund"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumRefundDto" alias="StadiumRefundDto"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumReview" alias="StadiumReview"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumSearch" alias="StadiumSearch"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetail" alias="StadiumDetail"/>
@@ -45,7 +51,12 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal" alias="StadiumDetailmodal"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumQna" alias="StadiumQna"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumQnaDto" alias="StadiumQnaDto"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDto" alias="StadiumDto"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.GameScheduleDto" alias="GameScheduleDto"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.Rating" alias="Rating"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.TeamScore" alias="TeamScore"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.QnaRequestDto" alias="QnaRequestDto"/>
+
 
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>

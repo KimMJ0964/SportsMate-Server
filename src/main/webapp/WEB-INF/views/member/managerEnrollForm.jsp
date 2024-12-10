@@ -151,7 +151,6 @@
                     <input type="number" name="price" placeholder="한 타임의 가격을 입력하세요.">
                 </div>
 
-
                 <div class="input-wrap">
                     <label>운영 시간</label>
                     <div class="time-group">

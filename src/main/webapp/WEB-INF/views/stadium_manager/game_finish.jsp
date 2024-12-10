@@ -40,7 +40,7 @@
             <div class="vsdetailtotal-container">
                 <h5 class="result-input">결과 입력</h5>
                 <a href="#">
-                <div class="vsdetail-container" onclick="location.href = 'gameresult.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gameresult.me'">
+                <div class="vsdetail-container" onclick="location.href = 'gameresult.gp'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gameresult.gp'">
                     <div class="team-match">
                         <div class="gamelist-info">
                             <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
@@ -62,7 +62,7 @@
                 </a>
 
                 <a href="#">
-                    <div class="vsdetail-container" onclick="location.href = 'gameresult.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gameresult.me'">
+                    <div class="vsdetail-container" onclick="location.href = 'gameresult.gp'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gameresult.gp'">
                         <div class="team-match">
                             <div class="gamelist-info">
                                 <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
@@ -84,7 +84,7 @@
                     </a>
 
                     <a href="#">
-                        <div class="vsdetail-container" onclick="location.href = 'gameresult.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gameresult.me'">
+                        <div class="vsdetail-container" onclick="location.href = 'gameresult.gp'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gameresult.gp'">
                             <div class="team-match">
                                 <div class="gamelist-info">
                                     <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
@@ -106,76 +106,12 @@
                         </a>
             </div>
 
-            <div class="vsdetailtotal-container">
-                <h5 class="result-input">결과 입력 완료</h5>
-                <div class="vsdetail-container">
-                    <div class="team-match">
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
-                            <div class="team-info">
-                                <p class="team-name">우리동네 FC</p>
-                                <p class="team-level">아마추어2</p>
-                            </div>
-                        </div>
-                        <div class="vs-text">VS</div>
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
-                            <div class="team-info">
-                                <p class="team-name">남의동네 FC</p>
-                                <p class="team-level">아마추어3</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="vsdetail-container">
-                    <div class="team-match">
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
-                            <div class="team-info">
-                                <p class="team-name">우리동네 FC</p>
-                                <p class="team-level">아마추어2</p>
-                            </div>
-                        </div>
-                        <div class="vs-text">VS</div>
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
-                            <div class="team-info">
-                                <p class="team-name">남의동네 FC</p>
-                                <p class="team-level">아마추어3</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="vsdetail-container">
-                    <div class="team-match">
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
-                            <div class="team-info">
-                                <p class="team-name">우리동네 FC</p>
-                                <p class="team-level">아마추어2</p>
-                            </div>
-                        </div>
-                        <div class="vs-text">VS</div>
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
-                            <div class="team-info">
-                                <p class="team-name">남의동네 FC</p>
-                                <p class="team-level">아마추어3</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- 뒤로가기 버튼 -->
-            <form action="">
-            <button type="submit" class="registration-button" onclick="location.href = 'managermypage.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/managermypage.me'">뒤로가기</button>
-            </form>
+            <button class="registration-button" onclick="location.href ='managermypage.me'">뒤로가기</button>
         </div>
         </div>
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+
 
 </body>
 </html>
