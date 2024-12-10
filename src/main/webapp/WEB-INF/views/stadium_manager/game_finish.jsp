@@ -39,71 +39,29 @@
             </div>
             <div class="vsdetailtotal-container">
                 <h5 class="result-input">결과 입력</h5>
-                <a href="#">
-                <div class="vsdetail-container" onclick="location.href = 'gameresult.gp'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gameresult.gp'">
-                    <div class="team-match">
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
-                            <div class="team-info">
-                                <p class="team-name">우리동네 FC</p>
-                                <p class="team-level">아마추어2</p>
-                            </div>
-                        </div>
-                        <div class="vs-text">VS</div>
-                        <div class="gamelist-info">
-                            <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
-                            <div class="team-info">
-                                <p class="team-name">남의동네 FC</p>
-                                <p class="team-level">아마추어3</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </a>
-
-                <a href="#">
-                    <div class="vsdetail-container" onclick="location.href = 'gameresult.gp'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gameresult.gp'">
-                        <div class="team-match">
-                            <div class="gamelist-info">
-                                <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
-                                <div class="team-info">
-                                    <p class="team-name">우리동네 FC</p>
-                                    <p class="team-level">아마추어2</p>
-                                </div>
-                            </div>
-                            <div class="vs-text">VS</div>
-                            <div class="gamelist-info">
-                                <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
-                                <div class="team-info">
-                                    <p class="team-name">남의동네 FC</p>
-                                    <p class="team-level">아마추어3</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </a>
-
+                <c:forEach var="match" items="${completedMatches}">
                     <a href="#">
-                        <div class="vsdetail-container" onclick="location.href = 'gameresult.gp'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gameresult.gp'">
+                        <div class="vsdetail-container" onclick="location.href = 'gameresult.gp'" alt="" onclick="location.href = '${pageContext.request.contextPath}/game_detail.gp?matchNo=${matchNo}'">
                             <div class="team-match">
                                 <div class="gamelist-info">
                                     <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
                                     <div class="team-info">
-                                        <p class="team-name">우리동네 FC</p>
-                                        <p class="team-level">아마추어2</p>
+                                        <p class="team-name">${match.aaTeamName}</p>
                                     </div>
                                 </div>
                                 <div class="vs-text">VS</div>
                                 <div class="gamelist-info">
                                     <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
                                     <div class="team-info">
-                                        <p class="team-name">남의동네 FC</p>
-                                        <p class="team-level">아마추어3</p>
+                                        <p class="team-name">${match.bbTeamName}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        </a>
+                    </a>
+                </c:forEach>
+
+                
             </div>
 
             <!-- 뒤로가기 버튼 -->

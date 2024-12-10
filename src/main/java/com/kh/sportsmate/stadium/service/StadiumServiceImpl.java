@@ -14,6 +14,7 @@ import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.match.model.dao.MatchDao;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dao.MemberDao;
+import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
 import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
 import com.kh.sportsmate.stadium.model.dto.Rating;
 import com.kh.sportsmate.stadium.model.dto.TeamScore;
@@ -297,5 +298,11 @@ public class StadiumServiceImpl implements StadiumService{
 		penaltyInfo.setPnCount(pnCount);
 		return stadiumDao.insertPenalty(sqlSession, penaltyInfo);
 
+	}
+	
+
+	@Override
+	public List<GameFinishDto> getCompleteMatches(int matchNo) {
+		return stadiumDao.getCompleteMatches(sqlSession);
 	}
 }

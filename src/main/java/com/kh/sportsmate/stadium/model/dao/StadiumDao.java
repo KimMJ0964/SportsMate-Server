@@ -8,6 +8,7 @@ import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
 import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
@@ -225,6 +226,11 @@ public class StadiumDao {
 
     public int insertPenalty(SqlSessionTemplate sqlSession, StadiumPenaltyDTO penaltyInfo) {
         return sqlSession.insert("stadiumMapper.insertPenalty", penaltyInfo);
+    }
+    
+    // 진행 완료 매치
+    public List<GameFinishDto> getCompleteMatches(SqlSessionTemplate sqlSession) {
+        return sqlSession.selectList("stadiumMapper.getCompleteMatches");
     }
 
 }

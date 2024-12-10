@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
+import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
 import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
 import com.kh.sportsmate.stadium.model.dto.Rating;
 import com.kh.sportsmate.stadium.model.dto.TeamScore;
@@ -83,7 +84,9 @@ public class StadiumController {
     // 경기 종료 관리 페이지로 이동
     @RequestMapping(value = "gamefinish.gp")
     public String gamefinish(HttpSession session, Model model) {
-    	
+    	List<GameFinishDto> completedMatches = stadiumService.getCompleteMatches(0);
+    	System.out.println("Completed Matches: " + completedMatches);
+        model.addAttribute("completedMatches", completedMatches);
         return "stadium_manager/game_finish";
     }
 

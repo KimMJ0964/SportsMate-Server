@@ -14,6 +14,7 @@ import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
 import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
 import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
@@ -31,6 +32,7 @@ public interface StadiumService {
     List<StadiumDto> getStadiumImagesByManager(int memNo);          // 구장 이미지 리스트 조회
     List<StadiumRefundDto> getRefundPageData(int memNo);            // 환불 데이터 조회
     List<GameScheduleDto> getGameScheduleData(int memNo);           // 경기 예정 리스트 조회
+    List<GameFinishDto> getCompleteMatches(int matchNo);
 
     // **업데이트 메서드**
     int updateStadium(StadiumDto stadiumDto);                       // 구장 정보 업데이트
