@@ -7,13 +7,13 @@ import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.dto.*;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
 import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.common.vo.PageInfo;
-import com.kh.sportsmate.stadium.model.dto.Rating;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Refund;
 import com.kh.sportsmate.stadium.model.vo.Rental;
@@ -231,6 +231,13 @@ public class StadiumDao {
     // 진행 완료 매치
     public List<GameFinishDto> getCompleteMatches(SqlSessionTemplate sqlSession, int stadiumNo) {
         return sqlSession.selectList("stadiumMapper.getCompleteMatches", stadiumNo);
+    }
+    public int getStadiumNo(SqlSessionTemplate sqlSession, int memNo) {
+        return sqlSession.selectOne("stadiumMapper.getStadiumNo", memNo);
+    }
+    public ArrayList<MatchResultMemberInfoDTO> selectMatchMemberInfo(SqlSessionTemplate sqlSession, Map<String,Object> map) {
+        return (ArrayList) sqlSession.selectList("stadiumMapper.selectMatchMemberInfo", map);
+
     }
 
 }

@@ -16,6 +16,8 @@ import com.kh.sportsmate.stadium.model.dto.Rating;
 import com.kh.sportsmate.stadium.model.dto.TeamScore;
 
 import lombok.RequiredArgsConstructor;
+import com.kh.sportsmate.stadium.model.dto.*;
+import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -434,4 +436,44 @@ public class StadiumController {
         }
 //        return "redirect:/";
     }
+    @GetMapping(value = "game_detail.gp")
+    public String moveGameResultView(int matchNo, HttpServletRequest request, HttpSession session){
+        /*
+         * gameResult View 에서 필요한 객체
+         * matchNo V
+         * teamAInfo(teamNo, changeName,teamName) V
+         * teamBInfo(teamNo, changeName,teamName) V
+         * teamAMemberList(memNo, memName)
+         * teamBMemberList(memNo, memName)
+         * stadiumNo
+         * */
+        // 팀 정보 조회
+        MatchResultTeamInfoDTO teamInfo = stadiumService.selectTeamInfo(matchNo);
+        log.info("경기 결과 디테일 관련 팀 정보 : {}",teamInfo);
+
+        // 구장 정보 조회
+        Member m = (Member) session.getAttribute("loginMember");
+        int stadiumNo = stadiumService.getStadiumNo(m.getMemNo());
+        log.info("구장 번호 조회 : {}",stadiumNo);
+
+        // 경기 참가 A팀 팀원 리스트 조회
+        Map<String, Object> map = new HashMap<>();
+        map.put("matchNo", matchNo);
+        map.put("teamNo", teamInfo.getTeamANo());
+        ArrayList<MatchResultMemberInfoDTO> teamAMemberList = stadiumService.selectMatchMemberInfo(map);
+        log.info("A 팀 참가 선수 리스트 조회 결과 : {}",teamAMemberList);
+        map.clear();
+        map.put("matchNo", matchNo);
+        map.put("teamNo", teamInfo.getTeamBNo());
+        ArrayList<MatchResultMemberInfoDTO> teamBMemberList = stadiumService.selectMatchMemberInfo(map);
+        log.info("B 팀 참가 선수 리스트 조회 결과 : {}",teamBMemberList);
+
+        request.setAttribute("matchNo", matchNo);
+        request.setAttribute("teamInfo", teamInfo);
+        request.setAttribute("stadiumNo",stadiumNo);
+        request.setAttribute("teamAMemberList",teamAMemberList);
+        request.setAttribute("teamBMemberList",teamBMemberList);
+        return "stadium_manager/game_result";
+    }
+
 }
