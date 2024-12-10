@@ -1,13 +1,9 @@
 package com.kh.sportsmate.stadium.model.dao;
 
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
-import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.dto.*;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
 import com.kh.sportsmate.common.vo.PageInfo;
-import com.kh.sportsmate.stadium.model.dto.Rating;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
@@ -114,4 +110,11 @@ public class StadiumDao {
     public int insertPenalty(SqlSessionTemplate sqlSession, StadiumPenaltyDTO penaltyInfo) {
         return sqlSession.insert("stadiumMapper.insertPenalty", penaltyInfo);
     }
+    public int getStadiumNo(SqlSessionTemplate sqlSession, int memNo) {
+        return sqlSession.selectOne("stadiumMapper.getStadiumNo", memNo);
+    }
+    public ArrayList<MatchResultMemberInfoDTO> selectMatchMemberInfo(SqlSessionTemplate sqlSession, Map<String,Object> map) {
+        return (ArrayList) sqlSession.selectList("stadiumMapper.selectMatchMemberInfo", map);
+    }
+
 }

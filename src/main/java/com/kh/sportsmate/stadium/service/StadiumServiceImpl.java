@@ -12,21 +12,15 @@ import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.match.model.dao.MatchDao;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dao.MemberDao;
-import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
-import com.kh.sportsmate.stadium.model.dto.Rating;
-import com.kh.sportsmate.stadium.model.dto.TeamScore;
+import com.kh.sportsmate.stadium.model.dto.*;
 import com.kh.sportsmate.team.model.dao.TeamDao;
+import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
-import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
-import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 
 import lombok.RequiredArgsConstructor;
@@ -201,4 +195,26 @@ public class StadiumServiceImpl implements StadiumService {
 		return stadiumDao.insertPenalty(sqlSession, penaltyInfo);
 
 	}
+
+	/**
+	 * 경기 결과 디테일에 필요한 각 팀 정보 조회
+	 * @param matchNo
+	 * @return
+	 */
+	@Override
+	public MatchResultTeamInfoDTO selectTeamInfo(int matchNo) {
+		return teamDao.selectTeamInfo(sqlSession,matchNo);
+	}
+
+	@Override
+	public int getStadiumNo(int memNo) {
+		return stadiumDao.getStadiumNo(sqlSession,memNo);
+
+	}
+
+	@Override
+	public ArrayList<MatchResultMemberInfoDTO> selectMatchMemberInfo(Map<String, Object> map) {
+		return stadiumDao.selectMatchMemberInfo(sqlSession, map);
+	}
+
 }

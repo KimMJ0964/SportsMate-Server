@@ -40,7 +40,7 @@
             <div class="vsdetailtotal-container">
                 <h5 class="result-input">결과 입력</h5>
                 <a href="#">
-                <div class="vsdetail-container" onclick="location.href = 'gameresult.me'" alt="" onclick="location.href = '${pageContext.request.contextPath}/gameresult.me'">
+                    <div class="vsdetail-container" alt="" onclick="location.href = '${pageContext.request.contextPath}/game_detail.gp?matchNo=${matchNo}'">
                     <div class="team-match">
                         <div class="gamelist-info">
                             <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">

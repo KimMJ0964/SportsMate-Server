@@ -51,6 +51,7 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumQnaDto" alias="StadiumQnaDto"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.Rating" alias="Rating"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.TeamScore" alias="TeamScore"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.MatchResultMemberInfoDTO" alias="MatchResultMemberInfoDTO"/>
 
 
         <!-- Board -->
@@ -81,6 +82,7 @@
         <typeAlias type="com.kh.sportsmate.team.model.dto.MyTeamDto" alias="MyTeamDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.MyRecruitDto" alias="MyRecruitDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamMatchInfoDto" alias="TeamMatchInfoDto"/>
+        <typeAlias type="com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO" alias="MatchResultTeamInfoDTO"/>
 
     </typeAliases>
 

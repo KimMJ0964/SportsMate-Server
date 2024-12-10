@@ -36,27 +36,31 @@
                         <div class="team-details">
                             <h4 class="head-name">경기 결과</h4>
                             <input type="hidden" name="matchNo" value="${matchNo}">
-                            <%--                            <input type="hidden" name="matchNo" value="2">--%>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- 승리 팀 표시 -->
         <div class="result-container">
             <div class="victory-container">
                 <h4 class="victory-title">경기 결과</h4>
                 <div class="victory-row">
                     <div class="team-info">
-                        <%--                        <div class="team-name" data-teamNo="1">A팀</div>--%>
-                        <div class="team-name" data-teamNo="${teamAInfo.teamNo}">A팀</div>
-                        <img src="${pageContext.request.contextPath}/resources/images/userProFile/${teamAInfo.changeName}"
-                             alt="팀 로고" class="team-logo">
-                        <%--                        <div class="team-details">우리동네FC</div>--%>
-                        <div class="team-details">${teamAInfo.teamName}</div>
-                        <%--                        <input type="hidden" name="teamANo" value="1">--%>
-                        <input type="hidden" name="teamANo" value="${teamAInfo.teamNo}">
+                        <div class="team-name" data-teamNo="${teamInfo.teamANo}">A팀</div>
+                        <c:choose>
+                            <c:when test="${teamInfo.teamAChangeName != null}">
+                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/${teamInfo.teamAChangeName}"
+                                     alt="팀 로고" class="team-logo">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png"
+                                     alt="Default Profile" class="team-logo"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <div class="team-details">${teamInfo.teamAName}</div>
+                        <input type="hidden" name="teamANo" value="${teamInfo.teamANo}">
+
                     </div>
                     <div class="checkbox-container">
                         <input type="number" name="teamA" id="team-a-checkbox" class="custom-radio" required>
@@ -67,14 +71,20 @@
 
                 <div class="victory2-row">
                     <div class="team-info">
-                        <%--                        <div class="team-name" data-teamNo="3">B팀</div>--%>
-                        <div class="team-name" data-teamNo="${teamBInfo.teamNo}">B팀</div>
-                        <img src="${pageContext.request.contextPath}/resources/images/userProFile/${teamBInfo.changeName}"
-                             alt="팀 로고" class="team-logo">
-                        <%--                        <div class="team-details">우리동네FC</div>--%>
-                        <div class="team-details">${teamBInfo.teamName}</div>
-                        <%--                        <input type="hidden" name="teamBNo" value="3">--%>
-                        <input type="hidden" name="teamBNo" value="${teamBInfo.teamNo}">
+                        <div class="team-name" data-teamNo="${teamInfo.teamBNo}">B팀</div>
+                        <c:choose>
+                            <c:when test="${teamInfo.teamBChangeName != null}">
+                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/${teamInfo.teamBChangeName}"
+                                     alt="팀 로고" class="team-logo">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png"
+                                     alt="Default Profile" class="team-logo"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <div class="team-details">${teamInfo.teamBName}</div>
+                        <input type="hidden" name="teamBNo" value="${teamInfo.teamBNo}">
+
                     </div>
                     <div class="checkbox-container">
                         <input type="number" name="teamB" id="team-b-checkbox" class="custom-radio" required>
@@ -103,7 +113,7 @@
                                     <td>${teamAMember.memName}</td>
                                     <td class="star-rating">
                                         <div class="star-container skill" data-memNo="${teamAMember.memNo}"
-                                             data-rating="0" data-teamNo="${teamAInfo.teamNo}">
+                                             data-rating="0" data-teamNo="${teamInfo.teamANo}">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -113,7 +123,7 @@
                                     </td>
                                     <td class="star-rating">
                                         <div class="star-container manner" data-memNo="${teamAMember.memNo}"
-                                             data-rating="0" data-teamNo="${teamAInfo.teamNo}">
+                                             data-rating="0" data-teamNo="${teamInfo.teamANo}">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -122,7 +132,8 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <button type="button" class="expose" data-memNo="${teamAMember.memNo}" data-bs-toggle="modal"
+                                        <button type="button" class="expose" data-memNo="${teamAMember.memNo}"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#warningModal" onclick="warningBtnClick(event)">경고
                                         </button>
                                     </td>
@@ -134,121 +145,7 @@
                                 <td colspan="4"> 멤버가 없습니다.</td>
                             </tr>
                         </c:otherwise>
-                    </c:choose>
-
-
-                    <%--                                <tr>--%>
-                    <%--                                    <td>김개똥</td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container skill" data-memNo="2" data-rating="0" data-teamNo="1">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container manner" data-memNo="2" data-rating="0" data-teamNo="1">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
-                    <%--                                </tr>--%>
-                    <%--                                <tr>--%>
-                    <%--                                    <td>김개똥2</td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container skill" data-memNo="3" data-rating="0" data-teamNo="1">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container manner" data-memNo="3" data-rating="0" data-teamNo="1">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
-                    <%--                                </tr>--%>
-                    <%--                                <tr>--%>
-                    <%--                                    <td>김개똥</td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container skill" data-memNo="5" data-rating="0" data-teamNo="1">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container manner" data-memNo="5" data-rating="0" data-teamNo="1">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
-                    <%--                                </tr>--%>
-
-                    <%--                                <tr>--%>
-                    <%--                                    <td>김개똥</td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container" data-rating="0">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container" data-rating="0">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
-                    <%--                                </tr>--%>
-                    <%--                                <tr>--%>
-                    <%--                                    <td>김개똥</td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container" data-rating="0">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container" data-rating="0">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
-                    <%--                                </tr>--%>
-                    </tbody>
+                    </c:choose></tbody>
                 </table>
 
                 <!-- B팀 선수 평가 -->
@@ -270,7 +167,7 @@
                                     <td>${teamBMember.memName}</td>
                                     <td class="star-rating">
                                         <div class="star-container skill" data-memNo="${teamBMember.memNo}"
-                                             data-rating="0" data-teamNo="${teamBInfo.teamNo}">
+                                             data-rating="0" data-teamNo="${teamInfo.teamBNo}">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -280,7 +177,7 @@
                                     </td>
                                     <td class="star-rating">
                                         <div class="star-container manner" data-memNo="${teamBMember.memNo}"
-                                             data-rating="0" data-teamNo="${teamBInfo.teamNo}">
+                                             data-rating="0" data-teamNo="${teamInfo.teamBNo}">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -290,7 +187,8 @@
                                     </td>
                                     <td>
                                             <%--                                                <input type="checkbox" class="warning-checkbox" onclick="openModal(${teamBMember.memNo})">--%>
-                                        <button type="button" id="warning-btn" class="expose" data-memNo="${teamBMember.memNo}"
+                                        <button type="button" id="warning-btn" class="expose"
+                                                data-memNo="${teamBMember.memNo}"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#warningModal" onclick="warningBtnClick(event)">경고
                                         </button>
@@ -304,124 +202,6 @@
                             </tr>
                         </c:otherwise>
                     </c:choose>
-
-
-<%--                    <tr>--%>
-<%--                        <td>인최리</td>--%>
-<%--                        <td class="star-rating">--%>
-<%--                            <div class="star-container skill" data-memNo="6" data-rating="0" data-teamNo="3">--%>
-<%--                                <span class="star" data-value="1">★</span>--%>
-<%--                                <span class="star" data-value="2">★</span>--%>
-<%--                                <span class="star" data-value="3">★</span>--%>
-<%--                                <span class="star" data-value="4">★</span>--%>
-<%--                                <span class="star" data-value="5">★</span>--%>
-<%--                            </div>--%>
-<%--                        </td>--%>
-<%--                        <td class="star-rating">--%>
-<%--                            <div class="star-container manner" data-memNo="6" data-rating="0" data-teamNo="3">--%>
-<%--                                <span class="star" data-value="1">★</span>--%>
-<%--                                <span class="star" data-value="2">★</span>--%>
-<%--                                <span class="star" data-value="3">★</span>--%>
-<%--                                <span class="star" data-value="4">★</span>--%>
-<%--                                <span class="star" data-value="5">★</span>--%>
-<%--                            </div>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            &lt;%&ndash;                                        <input type="checkbox" class="warning-checkbox" onclick="openModal()">&ndash;%&gt;--%>
-<%--                            <button type="button" class="expose" data-memNo="6" data-bs-toggle="modal"--%>
-<%--                                    data-bs-target="#warningModal" onclick="warningBtnClick(event)">경고--%>
-<%--                            </button>--%>
-<%--                        </td>--%>
-<%--                    </tr>--%>
-                    <%--                                <tr>--%>
-                    <%--                                    <td>인최리</td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container skill" data-memNo="7" data-rating="0" data-teamNo="3">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container manner" data-memNo="7" data-rating="0" data-teamNo="3">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
-                    <%--                                </tr>--%>
-                    <%--                                <tr>--%>
-                    <%--                                    <td>인최리</td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container skill" data-memNo="8" data-rating="0" data-teamNo="3">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container manner" data-memNo="8" data-rating="0" data-teamNo="3">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
-                    <%--                                </tr>--%>
-
-                    <%--                                <tr>--%>
-                    <%--                                    <td>인최리</td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container" data-rating="0">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container" data-rating="0">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
-                    <%--                                </tr>--%>
-                    <%--                                <tr>--%>
-                    <%--                                    <td>인최리</td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container" data-rating="0">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td class="star-rating">--%>
-                    <%--                                        <div class="star-container" data-rating="0">--%>
-                    <%--                                            <span class="star" data-value="1">★</span>--%>
-                    <%--                                            <span class="star" data-value="2">★</span>--%>
-                    <%--                                            <span class="star" data-value="3">★</span>--%>
-                    <%--                                            <span class="star" data-value="4">★</span>--%>
-                    <%--                                            <span class="star" data-value="5">★</span>--%>
-                    <%--                                        </div>--%>
-                    <%--                                    </td>--%>
-                    <%--                                    <td><input type="checkbox" class="warning-checkbox" onclick="openModal()"></td>--%>
-                    <%--                                </tr>--%>
                     </tbody>
                 </table>
 
@@ -446,10 +226,8 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <%--                    <form action="warning_reason.gp" method="post" class="modal-form">--%>
                     <input type="hidden" name="memNo">
                     <input type="hidden" name="pnReporter" value="${loginMember.memNo}">
-                    <%--                        <input type="hidden" name="pnGround" value="${stadiumNo}">--%>
                     <input type="hidden" name="pnGround" value="1">
                     <div class="content-wrap center">
                         <div class="content-title margin">
@@ -462,8 +240,6 @@
                             경고 사유
                         </div>
                         <div class="report-wrap margin">
-                            <%--                                <label for="reason-for-report">경고 사유</label>--%>
-                            <%--                                <input type="text" name="pnComment" id="reason-for-report">--%>
                             <textarea name="pnContent" id="reason-for-report" rows="5" cols="20"
                                       placeholder="경고 사유를 입력하세요."></textarea>
                         </div>
@@ -471,12 +247,10 @@
                             <button type="button" id="warning-submit-btn" onclick="requestWarning()">경고 등록하기</button>
                         </div>
                     </div>
-                    <%--                    </form>--%>
                 </div>
             </div>
         </div>
     </div>
     <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/game_result.js"></script>
-<%--    <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/game_result_warning.js"></script>--%>
 </body>
 </html>

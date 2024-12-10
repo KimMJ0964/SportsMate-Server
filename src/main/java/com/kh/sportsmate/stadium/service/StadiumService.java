@@ -2,16 +2,13 @@ package com.kh.sportsmate.stadium.service;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.common.vo.PageInfo;
-import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
-import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
-import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
+import com.kh.sportsmate.stadium.model.dto.*;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
+import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
 
 public interface StadiumService {
 	
@@ -54,4 +51,14 @@ public interface StadiumService {
 	int insertGameResult(GameResultDTO gameResultDTO);
 
 	int insertPenalty(StadiumPenaltyDTO penaltyInfo);
+
+	// 경기 결과 디테일에 필요한 팀 정보
+	MatchResultTeamInfoDTO selectTeamInfo(int matchNo);
+
+	// 구장 번호 조회
+	int getStadiumNo(int memNo);
+
+	// 매치 참여 선수 리스트 조회
+	ArrayList<MatchResultMemberInfoDTO> selectMatchMemberInfo(Map<String, Object> map);
+
 }
