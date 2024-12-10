@@ -38,12 +38,21 @@
         
             <div class="match-info">
                 <div>
-                    <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/event-banner.png" alt="">
+                    <c:choose>
+                        <c:when test="${ss.filePath} != null">
+                            <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/stadiumFile/${ss.filePath}" alt="">
+                        </c:when>
+                        <c:otherwise>
+                            <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/stadiumFile/default.jpg" alt="">
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div>
                     <p>${ss.stadiumAddress }</p>
                     <h4>${ss.stadiumName }</h4>
                     <p>경기일시</p>
+                    <p>${mc.accessDate}</p>
+                    <p>${mc.reservStart}~${mc.reservEnd}</p>
                 </div>
             </div>
         </div>
@@ -56,7 +65,15 @@
 	
 	            <div class="match-a">
 	                <div class="team-profile">
-	                    <img src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="">
+                        <c:choose>
+                            <c:when test="${ss.filePath} != null">
+                                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${pageContext.request.contextPath}/resources/images/profileFile/${ss.teamFilePath}" alt="">
+                            </c:otherwise>
+                        </c:choose>
+	                    
 	                    <h4>구단: ${ss.opponent }</h4>
 	                </div>
 	
@@ -92,7 +109,8 @@
 
                 <div class="team-detail">
                     <b>경기일시</b>
-                    <p>경기일시</p>
+                    <p>${mc.accessDate}</p>
+                    <p>${mc.reservStart}~${mc.reservEnd}</p>
                 </div>
             </div>
         </div>

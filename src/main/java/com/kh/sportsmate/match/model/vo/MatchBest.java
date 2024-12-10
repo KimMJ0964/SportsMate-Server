@@ -19,7 +19,8 @@ public class MatchBest {
 	private int matchNo;
 	private int memNo;
 	private int memNoVoteCount;
-	private Date voteStatus;
+	private String voteStatus;
+	private int teamNo;
 	
 	public MatchBest (int memNo, int matchNo) {
 		this.memNo = memNo;
