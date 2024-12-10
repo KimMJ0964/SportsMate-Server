@@ -412,7 +412,7 @@
 										<c:otherwise>
 											<img class="teamcomu-table-profile-img"
 												src="${pageContext.request.contextPath}/resources/images/userProFile/${ml.changeName}"
-												alt="팀 배너 이미지" />
+												alt="멤버 프로필 이미지" />
 										</c:otherwise>
 									</c:choose></td>
 								<td class="teamcomu-table-name" style="width: 100%;">이름 :

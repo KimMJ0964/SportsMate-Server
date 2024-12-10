@@ -58,8 +58,12 @@
 						</c:choose>
 					</p>
 					<p>나이 : ${myInfo.memAge }</p>
-					<p>실력 점수 : ${myInfo.memSkillScore }</p>
+					<hr>
 					<p>매너 점수 : ${myInfo.memMannerScore }</p>
+					<p>축구 점수 : ${myInfo.soccerAvgPoint }</p>
+					<p>풋살 점수 : ${myInfo.futsalAvgPoint }</p>
+					<p>농구 점수 : ${myInfo.basketballAvgPoint }</p>
+					<p>야구 점수 : ${myInfo.baseballAvgPoint }</p>
 				</div>
 				<div class="profile-buttons">
 					<Button class="modify-btn"
@@ -75,6 +79,12 @@
 					onclick="toggleHeight(event)"></i>
 				<div class="record-container">
 					<h4 class="joinTitle">내 전적</h4>
+					<div class="match-link" onclick="location.href = 'myMatch.mp'">
+						<span class="match-link">
+					        <img src="${pageContext.request.contextPath}/resources/images/moveLink.png" alt="전적 페이지 아이콘" class="match-icon">
+					        전적 페이지 바로가기
+					    </span>
+				    </div>
 					<div class="stats-container">
 						<div class="AllCountBox">
 							<div class="all">총 경기 수</div>
@@ -85,38 +95,76 @@
 							<div class="victory_count">${myMatchCount.win}번</div>
 						</div>
 					</div>
-					<c:forEach var="mm" items="${myMatch}">
-						<div class="match-info">
-							<div class="team red">
-								<img src="<c:choose>
-						            <c:when test='${mm.teamAProfile != null}'>
-						                ${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamAProfile}
-						            </c:when>
-						            <c:otherwise>
-						                ${pageContext.request.contextPath}/resources/images/user_default_profile.png
-						            </c:otherwise>
-						         </c:choose>"  class="mypage-match-profile-img" alt="User Profile"/>
-								<p>${mm.teamAName }</p>
-							</div>
-							<div class="score">${mm.scoreA} : ${mm.scoreB}</div>
-							<div class="team blue">
-								<img src="<c:choose>
-						            <c:when test='${mm.teamBProfile != null}'>
-						                ${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamBProfile}
-						            </c:when>
-						            <c:otherwise>
-						                ${pageContext.request.contextPath}/resources/images/user_default_profile.png
-						            </c:otherwise>
-						         </c:choose>"  class="mypage-match-profile-img" alt="User Profile"/>
-								<p>${mm.teamBName }</p>
-							</div>
-							<img class="bestplayer-btn" src="resources/images/User_vote.png"
-								style="cursor: pointer;" data-bs-toggle="modal"
-								data-bs-target="#exampleModal" data-stadiumno="${mm.stadiumNo}"
-								data-matchno="${mm.matchNo}" data-atno="${mm.teamANo}"
-								data-btno="${mm.teamBNo}">
-						</div>
-					</c:forEach>
+					<div class="myMatchInfoContainer">
+					    <c:forEach var="category" items="${['soccer', 'futsal', 'basketball', 'baseball']}">
+					        
+					        <!-- 카테고리에 해당하는 myMatch 리스트가 있는지 확인 -->
+					        <c:set var="matchesExist" value="false" />
+					        
+					        <c:forEach var="mm" items="${myMatch}">
+					            <c:if test="${mm.category == category}">
+					                <c:set var="matchesExist" value="true" />
+					            </c:if>
+					        </c:forEach>
+					
+					        <!-- 매치가 없다면 해당 카테고리 출력하지 않음 -->
+					        <c:if test="${matchesExist}">
+					            <c:choose>
+					                <c:when test="${category == 'soccer'}">
+					                    <h4 class="myMatchInfoContainerCategory">축구</h4>
+					                </c:when>
+					                <c:when test="${category == 'futsal'}">
+					                    <h4 class="myMatchInfoContainerCategory">풋살</h4>
+					                </c:when>
+					                <c:when test="${category == 'basketball'}">
+					                    <h4 class="myMatchInfoContainerCategory">농구</h4>
+					                </c:when>
+					                <c:when test="${category == 'baseball'}">
+					                    <h4 class="myMatchInfoContainerCategory">야구</h4>
+					                </c:when>
+					                <c:otherwise>
+					                    <h4>기타</h4>
+					                </c:otherwise>
+					            </c:choose>
+					
+					            <!-- 해당 카테고리에 맞는 매치 출력 -->
+					            <c:forEach var="mm" items="${myMatch}">
+					                <c:if test="${mm.category == category}">
+					                    <div class="match-info">
+					                        <div class="team red">
+					                            <img src="<c:choose>
+					                                        <c:when test='${mm.teamAProfile != null}'>
+					                                            ${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamAProfile}
+					                                        </c:when>
+					                                        <c:otherwise>
+					                                            ${pageContext.request.contextPath}/resources/images/user_default_profile.png
+					                                        </c:otherwise>
+					                                      </c:choose>" class="mypage-match-profile-img" alt="User Profile" />
+					                            <p>${mm.teamAName}</p>
+					                        </div>
+					                        <div class="score">${mm.scoreA} : ${mm.scoreB}</div>
+					                        <div class="team blue">
+					                            <img src="<c:choose>
+					                                        <c:when test='${mm.teamBProfile != null}'>
+					                                            ${pageContext.request.contextPath}/resources/images/userProFile/${mm.teamBProfile}
+					                                        </c:when>
+					                                        <c:otherwise>
+					                                            ${pageContext.request.contextPath}/resources/images/user_default_profile.png
+					                                        </c:otherwise>
+					                                      </c:choose>" class="mypage-match-profile-img" alt="User Profile" />
+					                            <p>${mm.teamBName}</p>
+					                        </div>
+					                        <img class="bestplayer-btn" src="resources/images/User_vote.png" 
+					                             style="cursor: pointer;" data-bs-toggle="modal"
+					                             data-bs-target="#exampleModal" data-stadiumno="${mm.stadiumNo}"
+					                             data-matchno="${mm.matchNo}" data-atno="${mm.teamANo}"
+					                             data-btno="${mm.teamBNo}">
+					                    </div>
+					                </c:if>
+					            </c:forEach>
+					        </c:if>
+					    </c:forEach>
+					</div>
 				</div>
 			</div>
 
@@ -382,7 +430,7 @@
 							<Button class="approve-btn"
 								onclick="location.href = 'approveJoin.tm?mno=${mr.memNo}&tno=${mr.teamNo }'">승인</Button>
 							<Button class="reject-btn"
-								onclick="location.href = 'rejectJoin.tm?mno=${mr.memNo}'">거절</Button>
+								onclick="location.href = 'rejectJoin.tm?mno=${mr.memNo}&tno=${mr.teamNo }'">거절</Button>
 						</div>
 					</div>
 					<br>

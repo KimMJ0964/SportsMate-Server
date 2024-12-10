@@ -503,6 +503,7 @@
 	    LEFT JOIN 
 	        PROFILE_FILE ON TEAM.TEAM_NO = PROFILE_FILE.TEAM_NO
 	    <where>
+	    	TEAM.STATUS = 'Y'
 	        <if test="category != null">
 	            AND TEAM.TEAM_CATEGORY = #{category}
 	        </if>
