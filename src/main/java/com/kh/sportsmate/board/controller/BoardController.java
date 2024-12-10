@@ -324,12 +324,19 @@ public class BoardController {
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		
 		if (loginMember != null ) {
-			int result = boardService.deleteReply(cno);
+			int memNo = loginMember.getMemNo();
+			
+			Map<String, Integer> map = new HashMap<>();
+			
+			map.put("cno", cno);
+			map.put("memNo", memNo);
+			
+			int result = boardService.deleteReply(map);
 			
 			if (result > 0) { // 성공
 				return "redirect:detailMove.bd?bno=" + bno;
 			} else { // 실패
-				m.addAttribute("errorMsg", "댓글 작성 실패");
+				session.setAttribute("alertMsg", "댓글 삭제 실패");
 				return "redirect:detailMove.bd?bno=" + bno;
 			}
 		} else {

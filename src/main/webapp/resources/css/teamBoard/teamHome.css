@@ -144,6 +144,10 @@
 	max-height: 300px;
 }
 
+.table-bordered, .table-bordered tr, .table-bordered td, .table-bordered th{
+	border: 1px solid #c8c8c8;
+} 
+
 @media (max-width: 430px) {
 
 	.teamcomu-work {

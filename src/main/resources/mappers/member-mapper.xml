@@ -158,7 +158,7 @@
 	        TM.MEM_NO AS memNo,
 	        T.TEAM_CATEGORY AS teamCategory,
 	        M.MEM_NAME AS memName,
-	        (SELECT COUNT(*) FROM TEAM_MEMBER TM2 WHERE TM2.TEAM_NO = T.TEAM_NO) AS teamMemberCount,
+	        (SELECT COUNT(*) FROM TEAM_MEMBER TM2 WHERE TM2.TEAM_NO = T.TEAM_NO AND TM2.STATUS = 'Y') AS teamMemberCount,
 	        PF.CHANGE_NAME AS teamProfile
 	    FROM 
 	        TEAM T
