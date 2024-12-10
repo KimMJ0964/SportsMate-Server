@@ -631,7 +631,7 @@
 	    LEFT JOIN 
 	        TEAM_IMG TIB ON TB.TEAM_NO = TIB.TEAM_NO AND TIB.FILE_LEVER = '3'
 	    WHERE 
-	        M.ACCESS_DATE &gt; CURRENT_DATE
+	        M.ACCESS_DATE &lt; CURRENT_DATE
 	        AND (M.SCORE_A IS NULL OR M.SCORE_B IS NULL)
 	        AND M.STADIUM_NO = #{stadiumNo}
 	</select>
