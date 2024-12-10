@@ -11,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
+import com.kh.sportsmate.stadium.model.dto.MatchInfoDto;
 import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumApplicationDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
@@ -82,20 +83,30 @@ public class StadiumServiceImpl implements StadiumService{
 	public int getReviewCount(int stadiumNo) {
 		return stadiumDao.selectReviewCountByStadiumNo(sqlSession, stadiumNo);
 	}
-
-	@Override
-	public List<StadiumDetailmodal> getStadiumReservation(int teamNo) {
-		return stadiumDao.StadiumReservation(sqlSession, teamNo);
-	}
 	
-	@Override
-    public List<StadiumDetailmodal> getPendingMatches(int teamNo) {
-        return stadiumDao.getPendingMatches(sqlSession, teamNo);
+	/* 구장 신청하기 모달 */
+	// 팀장 번호 가져오기
+    @Override
+    public int getTeamLeaderNo(int teamNo) {
+        return stadiumDao.getTeamLeaderNo(sqlSession, teamNo);
     }
 
+    // 활성화된 팀 멤버 가져오기
+    @Override
+    public List<StadiumApplicationDto> getTeamMembers(int teamNo) {
+        return stadiumDao.getTeamMembers(sqlSession, teamNo);
+    }
+
+    // 로그인한 사용자의 팀 번호 가져오기
+    @Override
+    public Integer getTeamNoByMember(int memNo) {
+        return stadiumDao.getTeamNoByMember(sqlSession, memNo);
+    }
+    
 	@Override
-	public int getTeamNoByMemNo(int memNo) {
-		return stadiumDao.getTeamNoByMemNo(sqlSession, memNo);
+	public List<MatchInfoDto> getPendingMatches(int stadiumNo, String selectedDate) {
+		// selectedDate와 stadiumNo을 담아서 쿼리 호출
+	    return stadiumDao.getPendingMatches(sqlSession, stadiumNo, selectedDate);
 	}
 	
 	@Override
@@ -124,5 +135,4 @@ public class StadiumServiceImpl implements StadiumService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

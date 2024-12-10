@@ -18,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.sportsmate.stadium.model.dto.MatchInfoDto;
 import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumApplicationDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
@@ -137,17 +138,15 @@ public class StadiumController {
             return "redirect:/loginForm.me";
         }
         
-        int memNo = loginMember.getMemNo();
+        int memNo = loginMember.getMemNo(); // 로그인된 사용자의 식별 번호
         
-        // 팀 번호 조회
-        int teamNo = stadiumService.getTeamNoByMemNo(memNo);
+        // 경기장 상세 정보 가져오기
+        StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
         
-        // 구단 멤버 정보 가져오기
-        List<StadiumDetailmodal> stadiumReservation = new ArrayList<>();
-        if (teamNo > 0) {
-            stadiumReservation = stadiumService.getStadiumReservation(teamNo);
-        }
-    	
+        // 대기중인 매치 정보 가져오기
+        List<MatchInfoDto> pendingMatches = stadiumService.getPendingMatches(stadiumNo, selectedDate);
+        model.addAttribute("pendingMatches", pendingMatches);
+                 	
         // 게시글 개수 조회
         int listCount = stadiumService.getReviewCount(stadiumNo);
 
@@ -158,25 +157,33 @@ public class StadiumController {
 
         // 리뷰 리스트 조회
         List<StadiumReviewDto> reviews = stadiumService.getPagedReviewsByStadiumNo(stadiumNo, currentPage, boardLimit);
+        stadiumDetail.setReviews(reviews);    
+        
+        // 로그인된 사용자의 팀 번호 가져오기
+        Integer teamNo = stadiumService.getTeamNoByMember(memNo);
+        if (teamNo != null) {
+            // 팀장 번호 가져오기
+            int teamLeaderNo = stadiumService.getTeamLeaderNo(teamNo);
 
-        // 경기장 상세 정보 가져오기
-        StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
-        stadiumDetail.setReviews(reviews);
-                
-        // 구단장 번호 추출
-        Integer teamLeaderId = null;
-        if (!stadiumReservation.isEmpty()) {
-            teamLeaderId = stadiumReservation.get(0).getTmemNo();
-        }        
-             
+            // 팀장 여부 확인
+            boolean isTeamLeader = (memNo == teamLeaderNo);
+            model.addAttribute("isTeamLeader", isTeamLeader);
+
+            // 활성화된 팀 멤버 리스트 가져오기
+            List<StadiumApplicationDto> teamMembers = stadiumService.getTeamMembers(teamNo);
+            model.addAttribute("teamMembers", teamMembers);
+        } else {
+            // 팀 번호가 없으면 팀 정보는 비활성화
+            model.addAttribute("isTeamLeader", false);
+            model.addAttribute("teamMembers", null);
+        }
+
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);
         model.addAttribute("selectedDate", selectedDate);
         model.addAttribute("stadiumNo", stadiumNo);
         model.addAttribute("reviews", reviews);
         model.addAttribute("pi", pi);
-        model.addAttribute("stadiumReservation", stadiumReservation); // 모달용 데이터 추가
-        model.addAttribute("teamLeaderId", teamLeaderId);
         model.addAttribute("teamNo", teamNo);
 
         // 뷰로 이동

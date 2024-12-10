@@ -465,9 +465,16 @@
 							<p class="match-apply_button-text">지금 신청하면<br>진행 확정이 빨라져요!</p>
 						</div>
 						<div class="btnWrap" style="width: 144px;">
-							<button type="button" class="btn letsplab" data-bs-toggle="modal" data-bs-target="#subscription">
-								<p style="color: white">신청하기</p>
-							</button>
+							<c:if test="${isTeamLeader}">
+							    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscription">
+							        신청하기
+							    </button>
+							</c:if>
+							<c:if test="${!isTeamLeader}">
+							    <button type="button" class="btn btn-secondary" disabled>
+							        팀장만 신청 가능합니다
+							    </button>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -583,25 +590,25 @@
 			
 			                    <!-- 라인업 -->
 			                    <div class="col-md-6">
-			                        <p class="fw-bold">참여할 구단 멤버</p>
-			                        <div id="member-lineup" class="lineup-wrapper">
-			                            <c:choose>
-			                                <c:when test="${empty stadiumReservation}">
-			                                    <p class="text-muted">참여 가능한 멤버가 없습니다.</p>
-			                                </c:when>
-			                                <c:otherwise>
-			                                    <c:forEach var="member" items="${stadiumReservation}">
-			                                        <div class="form-check">
-			                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="memberNo" value="${member.memNo}">
-			                                            <label class="form-check-label" for="member-${member.memNo}">
-			                                                ${member.memName}
-			                                            </label>
-			                                        </div>
-			                                    </c:forEach>
-			                                </c:otherwise>
-			                            </c:choose>
-			                        </div>
-			                    </div>
+								    <p class="fw-bold">참여할 구단 멤버</p>
+								    <div class="lineup-wrapper">
+									    <c:choose>
+									        <c:when test="${empty teamMembers}">
+									            <p class="text-muted">참여 가능한 멤버가 없습니다.</p>
+									        </c:when>
+									        <c:otherwise>
+									            <c:forEach var="member" items="${teamMembers}">
+									                <div class="form-check">
+									                    <input type="checkbox" class="form-check-input" id="member-${member.tmemNo}" name="memberNo" value="${member.tmemNo}">
+									                    <label class="form-check-label" for="member-${member.tmemNo}">
+									                        ${member.memName}
+									                    </label>
+									                </div>
+									            </c:forEach>
+									        </c:otherwise>
+									    </c:choose>
+									</div>
+								</div>
 			                </div>
 			
 			                <!-- 시간 선택 -->

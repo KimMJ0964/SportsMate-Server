@@ -42,10 +42,11 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumSearch" alias="StadiumSearch"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetail" alias="StadiumDetail"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumReviewDto" alias="StadiumReviewDto"/>
-        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal" alias="StadiumDetailmodal"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumApplicationDto" alias="StadiumApplicationDto"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.vo.StadiumQna" alias="StadiumQna"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.StadiumQnaDto" alias="StadiumQnaDto"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.QnaRequestDto" alias="QnaRequestDto"/>
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.MatchInfoDto" alias="MatchInfoDto"/>
 
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>

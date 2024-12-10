@@ -359,44 +359,71 @@
 </select>
 
 <!-- 구장 신청하기 -->
-<select id="StadiumReservation" parameterType="int" resultType="StadiumDetailmodal">
-	SELECT
-		TM.TEAM_NO AS teamNo, -- 구단 번호
-		T.MEM_NO AS tmemNo, -- 구단장 번호 (별칭으로 tmemNo 사용)
-		T.TEAM_NAME AS teamName, -- 구단 이름
-		T.SCORE AS Score, -- 구단 평점
-		T.TEAM_POINT AS teamPoint, -- 구단 점수
-		TM.MEM_NO AS memNo, -- 멤버 번호
-		M.MEM_NAME AS memName, -- 멤버 이름
-		TM.STATUS AS Status, -- 멤버 상태
-		-- 대기 중인 매치 정보
-	    `MATCH`.MATCH_NO AS matchNo,
-	    `MATCH`.TEAM_A_NO AS teamANo,
-	    `MATCH`.TEAM_B_NO AS teamBNo,
-	    `MATCH`.CATEGORY AS category,
-	    `MATCH`.RESERV_START AS reservStart,
-	    `MATCH`.RESERV_END AS reservEnd,
-	    `MATCH`.ACCESS_DATE AS accessDate
-	FROM
-	    TEAM_MEMBER TM
-	JOIN
-	    TEAM T ON TM.TEAM_NO = T.TEAM_NO
-	JOIN
-	    MEMBER M ON TM.MEM_NO = M.MEM_NO
-	LEFT JOIN
-	    `MATCH` ON T.TEAM_NO = `MATCH`.TEAM_A_NO
-	WHERE
-	    T.TEAM_NO = #{teamNo} -- 팀 번호로 조회
-	    AND TM.STATUS = 'Y'
-	    AND (`MATCH`.TEAM_B_NO IS NULL OR `MATCH`.TEAM_B_NO = 0); -- B팀이 매칭되지 않은 경우
+<!-- 1. 팀장 여부 확인 -->
+<select id="getTeamLeaderNo" parameterType="int" resultType="int">
+    SELECT 
+        MEM_NO
+    FROM 
+        TEAM
+    WHERE 
+        TEAM_NO = #{teamNo};
 </select>
-<!-- 팀번호로  조회 -->
-<select id="getTeamNoByMemNo" parameterType="int" resultType="int">
-    SELECT TEAM_NO
-    FROM TEAM
-    WHERE MEM_NO = #{memNo}
-      AND STATUS = 'Y'; -- 활성화된 상태
+
+<!-- 2. 활성화된 팀 멤버 가져오기 -->
+<select id="getTeamMembers" parameterType="int" resultType="StadiumApplicationDto">
+    SELECT 
+        T.TEAM_NO AS teamNo,
+        T.MEM_NO AS teamLeaderNo,
+        T.TEAM_NAME AS teamName,
+        T.SCORE AS score,
+        T.TEAM_POINT AS teamPoint,
+        TM.MEM_NO AS tmemNo,
+        TM.STATUS AS status,
+        M.MEM_NAME AS memName
+    FROM 
+        TEAM T
+    LEFT JOIN 
+        TEAM_MEMBER TM ON T.TEAM_NO = TM.TEAM_NO
+    LEFT JOIN 
+        MEMBER M ON TM.MEM_NO = M.MEM_NO
+    WHERE 
+        T.TEAM_NO = #{teamNo}
+    AND 
+        TM.STATUS = 'Y';
 </select>
+
+<!-- 3. 로그인한 사용자의 팀 번호 가져오기 -->
+<select id="getTeamNoByMember" parameterType="int" resultType="int">
+    SELECT 
+        TEAM_NO
+    FROM 
+        TEAM_MEMBER
+    WHERE 
+        MEM_NO = #{memNo}
+    AND 
+        STATUS = 'Y';
+</select>
+
+<!-- 매치 정보 가져오기 -->
+<select id="getPendingMatches" parameterType="map" resultType="MatchInfoDto">
+    SELECT 
+        M.MATCH_NO AS matchNo,
+        M.TEAM_A_NO AS teamANo,
+        DATE_FORMAT(M.RESERV_START, '%H:%i') AS reservStart,
+        DATE_FORMAT(M.RESERV_END, '%H:%i') AS reservEnd,
+        DATE_FORMAT(M.ACCESS_DATE, '%Y-%m-%d') AS accessDate,
+        T.TEAM_NAME AS teamName,
+        T.SCORE AS score,
+        T.TEAM_POINT AS teamPoint
+    FROM 
+        `MATCH` M
+    INNER JOIN 
+        TEAM T ON M.TEAM_A_NO = T.TEAM_NO
+    WHERE 
+        M.STADIUM_NO = #{stadiumNo}
+        AND M.ACCESS_DATE = #{selectedDate}
+</select>
+
 <insert id="insertQna" parameterType="StadiumQnaDto">
     INSERT INTO STADIUM_QNA (
         Q_MEM_NO, STADIUM_NO, MATCH_Q_TITLE, MATCH_Q_DETAIL, MATCH_QNA_DATE

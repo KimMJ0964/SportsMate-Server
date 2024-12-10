@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.stadium.model.dto.MatchInfoDto;
 import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumApplicationDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
@@ -31,14 +32,20 @@ public interface StadiumService {
 	// 전체 리뷰 개수 조회
 	int getReviewCount(int stadiumNo);
 	
-	// 신청 모달
-	List<StadiumDetailmodal> getStadiumReservation(int teamNo);
-	
-	// 대기 중인 매치 정보 가져오기
-    List<StadiumDetailmodal> getPendingMatches(int teamNo);
-	
-	int getTeamNoByMemNo(int memNo);
-	
+	/* 구장 신청하기 모달  */
+	// 팀장 번호 가졍오기
+    // 팀장 번호 가져오기
+    int getTeamLeaderNo(int teamNo);
+
+    // 활성화된 팀 멤버 가져오기
+    List<StadiumApplicationDto> getTeamMembers(int teamNo);
+
+    // 로그인한 사용자의 팀 번호 가져오기
+    Integer getTeamNoByMember(int memNo);
+    
+    // 대기중인 매치 리스트 가져오기
+    List<MatchInfoDto> getPendingMatches(int stadiumNo, String selectedDate);
+		
 	// 문의 등록
 	boolean insertQna(StadiumQnaDto stadiumQnaDto);
 

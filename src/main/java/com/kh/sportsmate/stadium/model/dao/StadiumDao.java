@@ -1,26 +1,26 @@
 package com.kh.sportsmate.stadium.model.dao;
 
-import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
-import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
-import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
-import com.kh.sportsmate.common.vo.PageInfo;
-import com.kh.sportsmate.stadium.model.vo.Amenities;
-import com.kh.sportsmate.stadium.model.vo.Rental;
-import com.kh.sportsmate.stadium.model.vo.Stadium;
-import com.kh.sportsmate.stadium.model.vo.StadiumQna;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.stadium.model.dto.MatchInfoDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumApplicationDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.vo.Amenities;
+import com.kh.sportsmate.stadium.model.vo.Rental;
+import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 
 /**
  * packageName    : com.kh.sportsmate.stadium.model.dao
@@ -79,24 +79,42 @@ public class StadiumDao {
     	 return sqlSession.selectOne("stadiumMapper.selectReviewCountByStadiumNo", stadiumNo);
     }
     
-    // 디테일페이지 구장 신청하기 모달
-    public List<StadiumDetailmodal> StadiumReservation(SqlSessionTemplate sqlSession, int teamNo) {
-    	return sqlSession.selectList("stadiumMapper.StadiumReservation", teamNo);
-    }
-    
-    // 추가: 대기 중인 매치 정보 가져오기
-    public List<StadiumDetailmodal> getPendingMatches(SqlSessionTemplate sqlSession, int teamNo) {
-        return sqlSession.selectList("stadiumMapper.StadiumReservation", teamNo);
-    }
-    
-    // 팀번호로 조회
-    public int getTeamNoByMemNo(SqlSessionTemplate sqlSession, int memNo) {
-        return sqlSession.selectOne("stadiumMapper.getTeamNoByMemNo", memNo);
-    }
-    
     // 변경해야될사항!
     public StadiumSearch selectStadiumById(SqlSessionTemplate sqlSession, int stadiumNo) {
     	return sqlSession.selectOne("stadiumMapper.selectStadiumById", stadiumNo);
+    }
+    
+    /* 디테일 모달 창 */
+    // 팀장 번호 가져오기
+    public int getTeamLeaderNo(SqlSessionTemplate sqlSession, int teamNo) {
+        return sqlSession.selectOne("stadiumMapper.getTeamLeaderNo", teamNo);
+    }
+
+    // 활성화된 팀 멤버 가져오기
+    public List<StadiumApplicationDto> getTeamMembers(SqlSessionTemplate sqlSession, int teamNo) {
+        return sqlSession.selectList("stadiumMapper.getTeamMembers", teamNo);
+    }
+    
+    /**
+     * 대기 중인 매치 정보 가져오기
+     * 
+     * @param stadiumNo 선택된 경기장 번호
+     * @param selectedDate 선택된 날짜
+     * @return 대기 중인 매치 리스트
+     */
+    // 특정 날짜의 대기 중인 매치 리스트 가져오기
+    public List<MatchInfoDto> getPendingMatches(SqlSessionTemplate sqlSession, int stadiumNo, String selectedDate) {
+        // HashMap을 사용하여 데이터를 넘겨줍니다.
+        Map<String, Object> params = new HashMap<>();
+        params.put("stadiumNo", stadiumNo);
+        params.put("selectedDate", selectedDate);
+
+        return sqlSession.selectList("stadiumMapper.getPendingMatches", params);
+    }
+
+    // 로그인한 사용자의 팀 번호 가져오기
+    public Integer getTeamNoByMember(SqlSessionTemplate sqlSession, int memNo) {
+        return sqlSession.selectOne("stadiumMapper.getTeamNoByMember", memNo);
     }
     
     // 문의 등록
