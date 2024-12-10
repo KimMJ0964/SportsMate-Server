@@ -125,12 +125,9 @@ public class StadiumController {
         return "stadium_manager/game_result";
     }
 	   
-    @RequestMapping("/detail.st")
+	@RequestMapping("/detail.st")
     public String getStadiumDetail(
     		@RequestParam("stadiumNo") int stadiumNo,
-    		@RequestParam Date accessDate,
-            @RequestParam Time reservStart,
-            @RequestParam Time reservEnd,
     		@RequestParam(value = "selectedDate", required = false) String selectedDate,
     		@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
     		HttpSession session,
@@ -178,15 +175,6 @@ public class StadiumController {
             model.addAttribute("isTeamLeader", false);
             model.addAttribute("teamMembers", null);
         }
-        
-        Map<String, Object> params = new HashMap<>();
-        params.put("stadiumNo", stadiumNo);
-        params.put("accessDate", accessDate);
-        params.put("reservStart", reservStart);
-        params.put("reservEnd", reservEnd);
-        
-        List<MatchInfoDto> matches = stadiumService.getPendingMatches(params);
-        model.addAttribute("matches", matches);
 
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);

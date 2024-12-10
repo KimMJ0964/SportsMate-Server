@@ -1,55 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.days-2 li').forEach(day => {
-        day.addEventListener('click', function () {
-            const selectedDate = this.getAttribute('data-date'); // YYYY-MM-DD 형식
-            document.getElementById('hidden-selected-date').value = selectedDate;
-            fetchMatches();
-        });
+    const applyButton = document.querySelector('.btn-primary'); // 신청하기 버튼
+    const form = document.querySelector('.modal-form'); // 신청 폼
+    const teamBNoInput = form.querySelector('input[name="teamBNo"]'); // B팀 번호 숨김 필드
+    const matchNoInput = form.querySelector('input[name="matchNo"]'); // 매치 번호 숨김 필드
+
+    applyButton.addEventListener('click', () => {
+        const matchItem = document.querySelector('.match-item'); // 매치 데이터가 포함된 DOM
+        const matchNo = matchItem.getAttribute('data-matchno'); // 매치 번호
+        const isBTeam = form.getAttribute('data-teamb'); // B팀 여부 (true/false)
+
+        if (isBTeam === 'true') {
+            const teamANo = matchItem.getAttribute('data-teamano'); // A팀 번호 가져오기
+            const teamBNo = form.querySelector('input[name="teamANo"]').value; // 현재 로그인한 팀 번호
+
+            teamBNoInput.value = teamBNo; // B팀 번호 설정
+            matchNoInput.value = matchNo; // 매치 번호 설정
+        } else {
+            teamBNoInput.value = ''; // B팀 번호는 비워둠
+            matchNoInput.value = matchNo; // A팀 신청도 매치 번호 포함
+        }
+
+        // 폼 제출
+        form.submit();
     });
-
-    document.getElementById('start-time').addEventListener('change', fetchMatches);
-    document.getElementById('end-time').addEventListener('change', fetchMatches);
-
-    function fetchMatches() {
-        const selectedDate = document.getElementById('hidden-selected-date').value;
-        const startTime = document.getElementById('start-time').value;
-        const endTime = document.getElementById('end-time').value;
-
-        if (!selectedDate || !startTime || !endTime) {
-            return;
-        }
-
-        // AJAX 요청
-        fetch(`/pendingMatches?stadiumNo=1&accessDate=${selectedDate}&reservStart=${startTime}&reservEnd=${endTime}`, {
-            method: 'GET',
-        })
-            .then(response => response.json())
-            .then(data => {
-                updateMatches(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-
-    function updateMatches(matches) {
-        const container = document.querySelector('.team-info-wrapper');
-        container.innerHTML = '';
-
-        if (matches.length === 0) {
-            container.innerHTML = '<p>대기 중인 매치가 없습니다.</p>';
-            return;
-        }
-
-        matches.forEach(match => {
-            const matchDiv = document.createElement('div');
-            matchDiv.className = 'team-info';
-            matchDiv.innerHTML = `
-                <p><strong>팀 이름:</strong> ${match.teamName}</p>
-                <p><strong>평점:</strong> ${match.score}</p>
-                <p><strong>팀 점수:</strong> ${match.teamPoint}</p>
-            `;
-            container.appendChild(matchDiv);
-        });
-    }
 });

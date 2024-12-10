@@ -94,11 +94,6 @@ public class StadiumDao {
     public List<StadiumApplicationDto> getTeamMembers(SqlSessionTemplate sqlSession, int teamNo) {
         return sqlSession.selectList("stadiumMapper.getTeamMembers", teamNo);
     }
-    
-    public List<MatchInfoDto> getPendingMatches(SqlSessionTemplate sqlSession, Map<String, Object> params) {
-        return sqlSession.selectList("stadiumMapper.getPendingMatches", params);
-    }
-
 
     // 로그인한 사용자의 팀 번호 가져오기
     public Integer getTeamNoByMember(SqlSessionTemplate sqlSession, int memNo) {

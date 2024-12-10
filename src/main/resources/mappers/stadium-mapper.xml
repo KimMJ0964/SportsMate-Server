@@ -255,11 +255,11 @@
     <if test="stadiumCategory != null and stadiumCategory != ''">
         AND STADIUM_CATEGORY = #{stadiumCategory}
     </if>
-    <if test="stadiumStartTime != null">
-        AND STADIUM_START_TIME &gt;= #{stadiumStartTime}
+    <if test="stadiumStartTime != null and stadiumStartTime != ''">
+        AND S.STADIUM_START_TIME = #{stadiumStartTime}
     </if>
-    <if test="stadiumEndTime != null">
-        AND STADIUM_END_TIME &lt;= #{stadiumEndTime}
+    <if test="stadiumEndTime != null and stadiumEndTime != ''">
+        AND S.STADIUM_END_TIME = #{stadiumEndTime}
     </if>
 </select>
 <select id="getPaginatedStadiums" parameterType="map" resultType="StadiumSearch">
@@ -271,16 +271,16 @@
         S.STADIUM_START_TIME as stadiumStartTime,
         S.STADIUM_END_TIME as stadiumEndTime,
         A.ACTIVITY_AREA as activityArea,
-        SI.FILE_PATH as filePath, -- 이미지 파일 경로
-        SI.CHANGE_NAME as changeName -- 이미지 변경 이름
+        SI.FILE_PATH as filePath,
+        SI.CHANGE_NAME as changeName
     FROM 
         STADIUM S
     JOIN 
         AREA A ON S.STADIUM_ADDRESS LIKE CONCAT('%', REPLACE(A.AREA_NAME, '서울시 ', ''), '%')
     LEFT JOIN 
         STADIUM_IMG SI ON S.STADIUM_NO = SI.STADIUM_NO
-        AND SI.FILE_TYPE = 0 -- 썸네일 이미지
-        AND SI.STATUS = 'Y' -- 유효한 이미지
+        AND SI.FILE_TYPE = 0
+        AND SI.STATUS = 'Y'
     WHERE 
         S.STATUS = 'Y'
     <if test="activityArea != null and activityArea != ''">
@@ -292,46 +292,43 @@
     <if test="stadiumCategory != null and stadiumCategory != ''">
         AND S.STADIUM_CATEGORY = #{stadiumCategory}
     </if>
-    <if test="stadiumStartTime != null">
-        AND S.STADIUM_START_TIME &gt;= #{stadiumStartTime}
+    <if test="stadiumStartTime != null and stadiumStartTime != ''">
+        AND S.STADIUM_START_TIME = #{stadiumStartTime}
     </if>
-    <if test="stadiumEndTime != null">
-        AND S.STADIUM_END_TIME &lt;= #{stadiumEndTime}
+    <if test="stadiumEndTime != null and stadiumEndTime != ''">
+        AND S.STADIUM_END_TIME = #{stadiumEndTime}
     </if>
+    ORDER BY S.STADIUM_NO ASC -- stadiumNo 기준으로 오름차순 정렬
     LIMIT #{startRow}, #{boardLimit}
 </select>
 
 <!-- 경기장 상세 정보 조회 -->
 <select id="getStadiumDetail" parameterType="int" resultType="StadiumDetail">
-	SELECT
-		S.STADIUM_NO as stadiumNo, 
-            S.MEM_NO as memNo, 
-            S.STADIUM_NAME as stadiumName, 
-            S.STADIUM_ZIPCODE as stadiumZipcode, 
-            S.STADIUM_ADDRESS as stadiumAddress, 
-            S.STADIUM_SCORE as stadiumScore, 
-            S.STADIUM_PRICE as stadiumPrice, 
-            S.STADIUM_CATEGORY as stadiumCategory, 
-            S.STADIUM_START_TIME as stadiumStartTime, 
-            S.STADIUM_END_TIME as stadiumEndTime, 
-            S.STATUS as status,
-            -- 물품 지원
-            R.BALL, 
-            R.VEST,
-            -- 편의 시설
-            A.TOILET, 
-            A.SHOWER, 
-            A.SMOKE, 
-            A.PARK, 
-            A.DRINK
-        FROM 
-            STADIUM S
-        LEFT JOIN 
-            STADIUM_RENTAL R ON S.STADIUM_NO = R.STADIUM_NO
-        LEFT JOIN 
-            STADIUM_AM A ON S.STADIUM_NO = A.STADIUM_NO
-        WHERE 
-            S.STADIUM_NO = #{stadiumNo}
+   SELECT
+        S.STADIUM_NO as stadiumNo, 
+        S.MEM_NO as memNo, 
+        S.STADIUM_NAME as stadiumName, 
+        S.STADIUM_ZIPCODE as stadiumZipcode, 
+        S.STADIUM_ADDRESS as stadiumAddress, 
+        S.STADIUM_SCORE as stadiumScore, 
+        S.STADIUM_PRICE as stadiumPrice, 
+        S.STADIUM_CATEGORY as stadiumCategory, 
+        S.STADIUM_START_TIME as stadiumStartTime, 
+        S.STADIUM_END_TIME as stadiumEndTime, 
+        S.STATUS as status,
+        F.FILE_PATH as filePath,
+        F.CHANGE_NAME as changeName
+    FROM 
+        STADIUM S
+    LEFT JOIN 
+        STADIUM_RENTAL R ON S.STADIUM_NO = R.STADIUM_NO
+    LEFT JOIN 
+        STADIUM_AM A ON S.STADIUM_NO = A.STADIUM_NO
+    LEFT JOIN 
+        STADIUM_IMG F ON S.STADIUM_NO = F.STADIUM_NO
+    WHERE 
+        S.STADIUM_NO = #{stadiumNo}
+    LIMIT 1
 </select>
 
 <!-- 리뷰 조회 -->
@@ -371,25 +368,25 @@
 
 <!-- 2. 활성화된 팀 멤버 가져오기 -->
 <select id="getTeamMembers" parameterType="int" resultType="StadiumApplicationDto">
-    SELECT 
-        T.TEAM_NO AS teamNo,
-        T.MEM_NO AS teamLeaderNo,
-        T.TEAM_NAME AS teamName,
-        T.SCORE AS score,
-        T.TEAM_POINT AS teamPoint,
-        TM.MEM_NO AS tmemNo,
-        TM.STATUS AS status,
-        M.MEM_NAME AS memName
-    FROM 
-        TEAM T
-    LEFT JOIN 
-        TEAM_MEMBER TM ON T.TEAM_NO = TM.TEAM_NO
-    LEFT JOIN 
-        MEMBER M ON TM.MEM_NO = M.MEM_NO
-    WHERE 
-        T.TEAM_NO = #{teamNo}
-    AND 
-        TM.STATUS = 'Y';
+	SELECT 
+	    T.TEAM_NO AS teamNo,
+	    T.MEM_NO AS teamLeaderNo,
+	    T.TEAM_NAME AS teamName,
+	    T.SCORE AS score,
+	    T.TEAM_POINT AS teamPoint,
+	    TM.MEM_NO AS tmemNo,
+	    TM.STATUS AS status,
+	    M.MEM_NAME AS memName
+	FROM 
+	    TEAM T
+	LEFT JOIN 
+	    TEAM_MEMBER TM ON T.TEAM_NO = TM.TEAM_NO
+	LEFT JOIN 
+	    MEMBER M ON TM.MEM_NO = M.MEM_NO
+	WHERE 
+	    T.TEAM_NO = #{teamNo}
+	AND 
+	    TM.STATUS = 'Y';
 </select>
 
 <!-- 3. 로그인한 사용자의 팀 번호 가져오기 -->
@@ -402,28 +399,6 @@
         MEM_NO = #{memNo}
     AND 
         STATUS = 'Y';
-</select>
-
-<!-- 매치 정보 가져오기 -->
-<select id="getPendingMatches" parameterType="map" resultType="MatchInfoDto">
-	SELECT 
-	    m.MATCH_NO AS matchNo,                          
-	    m.TEAM_A_NO AS teamANo,                         
-	    t.TEAM_NAME AS teamName,                        
-	    t.SCORE AS score,                             
-	    t.TEAM_POINT AS teamPoint,
-	    m.RESERV_START AS reservStart,
-	    m.RESERV_END AS reservEnd,
-	    m.ACCESS_DATE AS accessDate                  
-	FROM 
-	    `MATCH` m
-	JOIN 
-	    TEAM t ON m.TEAM_A_NO = t.TEAM_NO            
-	WHERE 
-	    m.STADIUM_NO = #{stadiumNo}                     -- 특정 경기장에서
-	    AND m.ACCESS_DATE = #{accessDate}             -- 특정 날짜에 승인된 매치
-	    AND m.RESERV_START = #{reservStart}               -- 시작 시간이 선택한 값과 일치
-	    AND m.RESERV_END = #{reservEnd}                   -- 종료 시간이 선택한 값과 일치            
 </select>
 
 <insert id="insertQna" parameterType="StadiumQnaDto">

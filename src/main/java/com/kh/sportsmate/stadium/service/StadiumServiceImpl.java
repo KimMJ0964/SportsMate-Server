@@ -2,6 +2,7 @@ package com.kh.sportsmate.stadium.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -86,7 +87,7 @@ public class StadiumServiceImpl implements StadiumService{
 	
 	/* 구장 신청하기 모달 */
 	// 팀장 번호 가져오기
-    @Override
+	@Override
     public int getTeamLeaderNo(int teamNo) {
         return stadiumDao.getTeamLeaderNo(sqlSession, teamNo);
     }
@@ -129,10 +130,5 @@ public class StadiumServiceImpl implements StadiumService{
 	public List<WeatherResponse> getWeatherByAddress(String address) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public List<MatchInfoDto> getPendingMatches(Map<String, Object> params) {
-		return stadiumDao.getPendingMatches(sqlSession, params);
 	}
 }
