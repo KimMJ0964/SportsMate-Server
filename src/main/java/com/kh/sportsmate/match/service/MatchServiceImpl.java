@@ -11,6 +11,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.kh.sportsmate.match.model.dto.ApproveResponseDto;
@@ -104,11 +105,13 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public String mainRegionMatch(String activityArea) {
 		return matchDao.mainRegionMatch(sqlSession, activityArea);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<MyMatch> mainMatchList(Map<String, String> map) {
 		return matchDao.mainMatchList(sqlSession, map);
 	}
@@ -129,6 +132,11 @@ public class MatchServiceImpl implements MatchService {
 		}
 
 		return ss;
+	}
+
+	@Override
+	public ArrayList<MyMatch> mainMatching(Map<String, Object> map) {
+		return matchDao.mainMatching(sqlSession, map);
 	}
 
 }

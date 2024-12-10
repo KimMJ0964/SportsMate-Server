@@ -46,6 +46,7 @@ import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.service.StadiumService;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 
 @CrossOrigin
 @Slf4j

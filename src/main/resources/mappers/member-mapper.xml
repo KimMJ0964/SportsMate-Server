@@ -121,17 +121,22 @@
     
     <!-- 마이페이지 -->
      <select id="selectMyInfo" resultType="MemberPositionDto">
-        SELECT MEM_NO as memNo,
-        	   MEM_NAME as memName,
-        	   MEM_ADD as memAdd,
-        	   MEM_GENDER as memGender,
-        	   MEM_SKILL_SCORE as memSkillScore,
-        	   MEM_MANNER_SCORE as memMannerScore,
-        	   MEM_BIRTH as memBirth,
-           		TIMESTAMPDIFF(YEAR, MEM_BIRTH, CURDATE()) as memAge
-        FROM MEMBER
-        WHERE MEM_NO = #{memNo}
-    </select>
+	    SELECT 
+	        M.MEM_NO as memNo,
+	        M.MEM_NAME as memName,
+	        M.MEM_ADD as memAdd,
+	        M.MEM_GENDER as memGender,
+	        M.MEM_MANNER_SCORE as memMannerScore,
+	        M.MEM_BIRTH as memBirth,
+	        TIMESTAMPDIFF(YEAR, M.MEM_BIRTH, CURDATE()) as memAge,
+	        C.FUTSAL_AVG_POINT as futsalAvgPoint,
+	        C.SOCCER_AVG_POINT as soccerAvgPoint,
+	        C.BASEBALL_AVG_POINT as baseballAvgPoint,
+	        C.BASKETBALL_AVG_POINT as basketballAvgPoint
+	    FROM MEMBER M
+	    LEFT JOIN CATEGORY C ON M.MEM_NO = C.MEM_NO
+	    WHERE M.MEM_NO = #{memNo}
+	</select>
     
     <!-- 내 정보 -->
     <select id="selectMyProfile" resultType="Profile">
@@ -180,8 +185,7 @@
 	        M.MEM_NAME AS memName,
 	        M.MEM_BIRTH AS memBirth,
 	        M.MEM_GENDER AS memGender,
-	        M.MEM_SKILL_SCORE AS memSkillScore,
-	         M.MEM_MANNER_SCORE AS memMannerScore,
+	         C.MANNER_TOTAL_POINT AS memMannerScore,
 	        TIMESTAMPDIFF(YEAR, M.MEM_BIRTH, CURDATE()) AS memAge,
 	        CASE 
 	            WHEN T.TEAM_CATEGORY = 'soccer' THEN C.SOC_POSI
@@ -196,7 +200,13 @@
 	            WHEN T.TEAM_CATEGORY = 'baseball' THEN C.BASE_ABILITY
 	        END AS ability,
 	        MPF.CHANGE_NAME AS memberProfile,
-	        TPF.CHANGE_NAME AS teamProfile
+	        TPF.CHANGE_NAME AS teamProfile,
+	        CASE 
+	            WHEN T.TEAM_CATEGORY = 'soccer' THEN C.SOCCER_AVG_POINT
+	            WHEN T.TEAM_CATEGORY = 'basketball' THEN C.BASKETBALL_AVG_POINT
+	            WHEN T.TEAM_CATEGORY = 'futsal' THEN C.FUTSAL_AVG_POINT
+	            WHEN T.TEAM_CATEGORY = 'baseball' THEN C.BASEBALL_AVG_POINT
+	        END AS memSkillScore
 	    FROM 
 	        TEAM T
 	    JOIN 
@@ -225,7 +235,8 @@
 	        M.TEAM_A_NO AS teamANo,
 	        M.TEAM_B_NO AS teamBNo,
 	        PA.CHANGE_NAME AS teamAProfile,
-	        PB.CHANGE_NAME AS teamBProfile
+	        PB.CHANGE_NAME AS teamBProfile,
+	        M.CATEGORY AS category
 	    FROM `MATCH` M
 	    JOIN TEAM A ON M.TEAM_A_NO = A.TEAM_NO
 	    JOIN TEAM B ON M.TEAM_B_NO = B.TEAM_NO
@@ -240,7 +251,9 @@
 	          WHERE MEM_NO = #{memNo}
 	      )
 	      AND M.SCORE_A IS NOT NULL
-      	  AND M.SCORE_B IS NOT NULL;
+      	  AND M.SCORE_B IS NOT NULL
+      	  ORDER BY M.MATCH_NO DESC
+		  LIMIT 10;
 	</select>
 	
 	<!-- 내 전적 판 수 -->
@@ -347,6 +360,85 @@
     	AND MEM_NO = #{memNo}
     </select>
     
+    <!-- 전적페이지 -->
+    <select id="myMatchInfo" resultType="TeamMatchInfoDto">
+	    SELECT 
+		    CASE 
+		        WHEN M.TEAM_A_NO = TM.TEAM_NO THEN T1.TEAM_NAME
+		        ELSE T2.TEAM_NAME
+		    END AS myTeamName,
+		    CASE 
+		        WHEN M.TEAM_A_NO = TM.TEAM_NO THEN T2.TEAM_NAME
+		        ELSE T1.TEAM_NAME
+		    END AS enemyTeamName,
+		    CASE 
+		        WHEN M.TEAM_A_NO = TM.TEAM_NO THEN T1.TEAM_POINT
+		        ELSE T2.TEAM_POINT
+		    END AS myTeamPoint,
+		    CASE 
+		        WHEN M.TEAM_A_NO = TM.TEAM_NO THEN T2.TEAM_POINT
+		        ELSE T1.TEAM_POINT
+		    END AS enemyTeamPoint,
+		    CASE 
+		        WHEN M.TEAM_A_NO = TM.TEAM_NO THEN M.TEAM_A_NO 
+		        ELSE M.TEAM_B_NO 
+		    END AS myTeamNo,
+		    CASE 
+		        WHEN M.TEAM_A_NO = TM.TEAM_NO THEN M.TEAM_B_NO
+		        ELSE M.TEAM_A_NO
+		    END AS enemyTeamNo,
+		    CASE 
+		        WHEN M.TEAM_A_NO = TM.TEAM_NO THEN M.SCORE_A
+		        ELSE M.SCORE_B
+		    END AS myScore,
+		    CASE 
+		        WHEN M.TEAM_A_NO = TM.TEAM_NO THEN M.SCORE_B
+		        ELSE M.SCORE_A
+		    END AS enemyScore,
+		    CASE 
+		        WHEN M.TEAM_A_NO = TM.TEAM_NO THEN PF1.CHANGE_NAME
+		        ELSE PF2.CHANGE_NAME
+		    END AS myTeamProfile,
+		    CASE 
+		        WHEN M.TEAM_A_NO = TM.TEAM_NO THEN PF2.CHANGE_NAME
+		        ELSE PF1.CHANGE_NAME
+		    END AS enemyTeamProfile,
+		    M.CATEGORY AS category
+		FROM 
+		    `MATCH` M
+		LEFT JOIN `TEAM` T1 ON M.TEAM_A_NO = T1.TEAM_NO
+		LEFT JOIN `TEAM` T2 ON M.TEAM_B_NO = T2.TEAM_NO
+		LEFT JOIN `PROFILE_FILE` PF1 ON M.TEAM_A_NO = PF1.TEAM_NO
+		LEFT JOIN `PROFILE_FILE` PF2 ON M.TEAM_B_NO = PF2.TEAM_NO
+		LEFT JOIN `TEAM_MEMBER` TM ON (TM.MEM_NO = #{memNo} AND (M.TEAM_A_NO = TM.TEAM_NO OR M.TEAM_B_NO = TM.TEAM_NO))
+		WHERE 
+		    M.SCORE_A IS NOT NULL 
+		    AND M.SCORE_B IS NOT NULL
+			<if test="category != null">
+		      AND M.CATEGORY = #{category}
+		    </if>
+		ORDER BY M.MATCH_NO DESC;
+    </select>
+    
+    <!-- 전적 갯수 -->
+    <select id="categoryMatchCount" resultType="_int" >
+    	SELECT COUNT(*) 
+		FROM `MATCH` m
+		WHERE m.CATEGORY = #{category}
+		  AND (
+		      m.TEAM_A_NO IN (
+		          SELECT t.TEAM_NO 
+		          FROM TEAM_MEMBER t 
+		          WHERE t.MEM_NO = #{memNo}
+		      )
+		      OR 
+		      m.TEAM_B_NO IN (
+		          SELECT t.TEAM_NO 
+		          FROM TEAM_MEMBER t 
+		          WHERE t.MEM_NO = #{memNo}
+		      )
+		  );
+    </select>
 
     <!-- UPDATE -->
     <!-- 내 정보 수정 -->
