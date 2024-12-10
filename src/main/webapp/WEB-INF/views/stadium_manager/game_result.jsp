@@ -110,7 +110,7 @@
                                     <td>${teamAMember.memName}</td>
                                     <td class="star-rating">
                                         <div class="star-container skill" data-memNo="${teamAMember.memNo}"
-                                             data-rating="0" data-teamNo="${teamAInfo.teamNo}">
+                                             data-rating="0" data-teamNo="${teamInfo.teamANo}">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -120,7 +120,7 @@
                                     </td>
                                     <td class="star-rating">
                                         <div class="star-container manner" data-memNo="${teamAMember.memNo}"
-                                             data-rating="0" data-teamNo="${teamAInfo.teamNo}">
+                                             data-rating="0" data-teamNo="${teamInfo.teamANo}">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -165,7 +165,7 @@
                                     <td>${teamBMember.memName}</td>
                                     <td class="star-rating">
                                         <div class="star-container skill" data-memNo="${teamBMember.memNo}"
-                                             data-rating="0" data-teamNo="${teamBInfo.teamNo}">
+                                             data-rating="0" data-teamNo="${teamInfo.teamBNo}">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
@@ -175,7 +175,7 @@
                                     </td>
                                     <td class="star-rating">
                                         <div class="star-container manner" data-memNo="${teamBMember.memNo}"
-                                             data-rating="0" data-teamNo="${teamBInfo.teamNo}">
+                                             data-rating="0" data-teamNo="${teamInfo.teamBNo}">
                                             <span class="star" data-value="1">★</span>
                                             <span class="star" data-value="2">★</span>
                                             <span class="star" data-value="3">★</span>
