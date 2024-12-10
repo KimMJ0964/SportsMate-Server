@@ -45,16 +45,17 @@
                     <div>
                         <img src="${pageContext.request.contextPath}/resources/images/event-banner.png" alt="">
                     </div>
-                    <div>
-                        <p>서울 강남구 테헤란로</p>
-                        <h4>[서울]KH체육관</h4>
-                        <p>2024.10.28 14:00~16:00</p>
+                    <div class="order-info">
+                        <p>${st.stadiumAddress }</p>
+                        <h4>${ar.item_name}</h4>
+                        <p>${mc.accessDate}</p>
+                        <p>${mc.reservStart}~${mc.reservEnd}</p>
                     </div>
                 </div>
                 <div class="order-result-info">
                     <div>
                         <h4>결제금액</h4>
-                        <p>100,000</p>
+                        <p>${st.price }</p>
                     </div>
                     <div>
                         <h4>결제수단</h4>
@@ -64,7 +65,7 @@
             </div>
         </div>
 
-        <button class="done">목록가기</button>
+        <button class="done" onclick="location.href='searchStadium.st'">목록가기</button>
 
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </div>

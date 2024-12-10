@@ -164,6 +164,10 @@
     margin-top: 100px; /* 상단 여백 */
 }
 
+.order-info{
+    text-align: left !important;
+}
+
 @media (max-width: 480px) {
     .matching-container div > h4{
         font-size: 20px;
