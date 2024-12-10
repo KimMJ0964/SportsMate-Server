@@ -41,8 +41,8 @@
             <div class="vsdetailtotal-container">
                 <h5 class="result-input">결과 입력</h5>
                 <c:forEach var="match" items="${completedMatches}">
-                    <a href="#">
-                        <div class="vsdetail-container" onclick="location.href = 'gameresult.gp'" alt="" onclick="location.href = '${pageContext.request.contextPath}/game_detail.gp?matchNo=${matchNo}'">
+                    <a href="${pageContext.request.contextPath}/game_detail.gp?matchNo=${match.matchNo}">
+                        <div class="vsdetail-container">
                             <div class="team-match">
                                 <div class="gamelist-info">
                                     <img src="${pageContext.request.contextPath}/resources/images/rental.png" alt="우리동네 FC" class="team1-logo">
