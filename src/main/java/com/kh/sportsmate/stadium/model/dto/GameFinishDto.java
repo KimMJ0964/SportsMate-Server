@@ -15,7 +15,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class GameFinishDto {
 	private int matchNo;        // 경기 번호
-    private String stadiumName; // 구장 이름
     private String aaTeamImage;  // A팀 이미지
     private String bbTeamImage;  // B팀 이미지
     private String aaTeamName;   // A팀 이름

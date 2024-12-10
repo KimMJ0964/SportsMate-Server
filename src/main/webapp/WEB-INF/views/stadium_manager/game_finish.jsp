@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,14 +45,14 @@
                         <div class="vsdetail-container" onclick="location.href = 'gameresult.gp'" alt="" onclick="location.href = '${pageContext.request.contextPath}/game_detail.gp?matchNo=${matchNo}'">
                             <div class="team-match">
                                 <div class="gamelist-info">
-                                    <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="우리동네 FC" class="team1-logo">
+                                    <img src="${pageContext.request.contextPath}/resources/images/rental.png" alt="우리동네 FC" class="team1-logo">
                                     <div class="team-info">
                                         <p class="team-name">${match.aaTeamName}</p>
                                     </div>
                                 </div>
                                 <div class="vs-text">VS</div>
                                 <div class="gamelist-info">
-                                    <img src="${pageContext.request.contextPath}/resources/images/team2.png" alt="남의동네 FC" class="team2-logo">
+                                    <img src="${pageContext.request.contextPath}/resources/images/rental.png" alt="남의동네 FC" class="team2-logo">
                                     <div class="team-info">
                                         <p class="team-name">${match.bbTeamName}</p>
                                     </div>

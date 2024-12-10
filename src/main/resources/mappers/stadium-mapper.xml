@@ -390,10 +390,10 @@
 		LEFT JOIN 
 		    `TEAM_IMG` b_team_img ON b_team.TEAM_NO = b_team_img.TEAM_NO AND b_team_img.FILE_LEVER = '3'
 		WHERE
-			m.MATCH_NO = #{memNo}; 
+			m.MATCH_NO = #{memNo} 
 		    AND m.SCORE_A IS NULL 					<!-- A팀 점수가 NULL -->
 		    AND m.SCORE_B IS NULL 				<!-- B팀 점수가 NULL -->
-		    AND m.ACCESS_DATE > CURRENT_DATE; 	<!-- 오늘 이후로 잡힌 매치 -->
+		    AND m.ACCESS_DATE > CURRENT_DATE 	<!-- 오늘 이후로 잡힌 매치 -->
 
 	</select>
 
@@ -629,9 +629,8 @@
 	        TEAM_IMG TIA ON TA.TEAM_NO = TIA.TEAM_NO AND TIA.FILE_LEVER = '3'
 	    LEFT JOIN 
 	        TEAM_IMG TIB ON TB.TEAM_NO = TIB.TEAM_NO AND TIB.FILE_LEVER = '3'
-	    WHERE
-	    	M.MATCH_NO = #{matchNo} 
-	        AND M.ACCESS_DATE &lt; CURRENT_DATE
+	    WHERE 
+	        M.ACCESS_DATE &gt; CURRENT_DATE
 	        AND (M.SCORE_A IS NULL OR M.SCORE_B IS NULL)
 	        AND M.STADIUM_NO = #{stadiumNo}
 	</select>

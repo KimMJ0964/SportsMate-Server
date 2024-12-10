@@ -2,6 +2,7 @@ package com.kh.sportsmate.stadium.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -84,9 +85,26 @@ public class StadiumController {
     // 경기 종료 관리 페이지로 이동
     @RequestMapping(value = "gamefinish.gp")
     public String gamefinish(HttpSession session, Model model) {
-    	List<GameFinishDto> completedMatches = stadiumService.getCompleteMatches(0);
-    	System.out.println("Completed Matches: " + completedMatches);
-        model.addAttribute("completedMatches", completedMatches);
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+
+        if (loginMember == null) {
+            return "redirect:/loginForm.me"; // 로그인 페이지로 리다이렉트
+        }
+
+        
+        // 구장 번호 가져오기
+        int stadiumNo = stadiumService.getStadiumByManager(loginMember.getMemNo()).getStadiumNo();
+        
+        // 진행 완료 매치 리스트 가져오기
+        List<GameFinishDto> completedMatches = stadiumService.getCompleteMatches(stadiumNo);
+        log.info("dddd: {}",completedMatches);
+        
+        // match_no 리스트를 모델에 추가
+        List<Integer> matchNoList = completedMatches.stream()
+                                                    .map(GameFinishDto::getMatchNo)
+                                                    .collect(Collectors.toList());
+        model.addAttribute("completedMatches", completedMatches); // 매치 리스트
+        model.addAttribute("matchNoList", matchNoList); // match_no 리스트
         return "stadium_manager/game_finish";
     }
 

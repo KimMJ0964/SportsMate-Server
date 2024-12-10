@@ -302,7 +302,7 @@ public class StadiumServiceImpl implements StadiumService{
 	
 
 	@Override
-	public List<GameFinishDto> getCompleteMatches(int matchNo) {
-		return stadiumDao.getCompleteMatches(sqlSession);
+	public List<GameFinishDto> getCompleteMatches(int stadiumNo) {
+		return stadiumDao.getCompleteMatches(sqlSession, stadiumNo);
 	}
 }

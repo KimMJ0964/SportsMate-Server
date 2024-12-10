@@ -229,8 +229,8 @@ public class StadiumDao {
     }
     
     // 진행 완료 매치
-    public List<GameFinishDto> getCompleteMatches(SqlSessionTemplate sqlSession) {
-        return sqlSession.selectList("stadiumMapper.getCompleteMatches");
+    public List<GameFinishDto> getCompleteMatches(SqlSessionTemplate sqlSession, int stadiumNo) {
+        return sqlSession.selectList("stadiumMapper.getCompleteMatches", stadiumNo);
     }
 
 }
