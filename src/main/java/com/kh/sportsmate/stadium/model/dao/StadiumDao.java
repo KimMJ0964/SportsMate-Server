@@ -95,22 +95,10 @@ public class StadiumDao {
         return sqlSession.selectList("stadiumMapper.getTeamMembers", teamNo);
     }
     
-    /**
-     * 대기 중인 매치 정보 가져오기
-     * 
-     * @param stadiumNo 선택된 경기장 번호
-     * @param selectedDate 선택된 날짜
-     * @return 대기 중인 매치 리스트
-     */
-    // 특정 날짜의 대기 중인 매치 리스트 가져오기
-    public List<MatchInfoDto> getPendingMatches(SqlSessionTemplate sqlSession, int stadiumNo, String selectedDate) {
-        // HashMap을 사용하여 데이터를 넘겨줍니다.
-        Map<String, Object> params = new HashMap<>();
-        params.put("stadiumNo", stadiumNo);
-        params.put("selectedDate", selectedDate);
-
+    public List<MatchInfoDto> getPendingMatches(SqlSessionTemplate sqlSession, Map<String, Object> params) {
         return sqlSession.selectList("stadiumMapper.getPendingMatches", params);
     }
+
 
     // 로그인한 사용자의 팀 번호 가져오기
     public Integer getTeamNoByMember(SqlSessionTemplate sqlSession, int memNo) {

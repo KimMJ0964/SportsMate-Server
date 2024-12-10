@@ -1,6 +1,7 @@
 package com.kh.sportsmate.stadium.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 
 import com.kh.sportsmate.common.vo.PageInfo;
@@ -34,7 +35,6 @@ public interface StadiumService {
 	
 	/* 구장 신청하기 모달  */
 	// 팀장 번호 가졍오기
-    // 팀장 번호 가져오기
     int getTeamLeaderNo(int teamNo);
 
     // 활성화된 팀 멤버 가져오기
@@ -43,8 +43,8 @@ public interface StadiumService {
     // 로그인한 사용자의 팀 번호 가져오기
     Integer getTeamNoByMember(int memNo);
     
-    // 대기중인 매치 리스트 가져오기
-    List<MatchInfoDto> getPendingMatches(int stadiumNo, String selectedDate);
+    // 특정 날짜와 시간 범위에 해당하는 매치 조회
+    List<MatchInfoDto> getPendingMatches(Map<String, Object> params);
 		
 	// 문의 등록
 	boolean insertQna(StadiumQnaDto stadiumQnaDto);

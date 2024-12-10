@@ -103,11 +103,6 @@ public class StadiumServiceImpl implements StadiumService{
         return stadiumDao.getTeamNoByMember(sqlSession, memNo);
     }
     
-	@Override
-	public List<MatchInfoDto> getPendingMatches(int stadiumNo, String selectedDate) {
-		// selectedDate와 stadiumNo을 담아서 쿼리 호출
-	    return stadiumDao.getPendingMatches(sqlSession, stadiumNo, selectedDate);
-	}
 	
 	@Override
 	public boolean insertQna(StadiumQnaDto stadiumQnaDto) {
@@ -134,5 +129,10 @@ public class StadiumServiceImpl implements StadiumService{
 	public List<WeatherResponse> getWeatherByAddress(String address) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<MatchInfoDto> getPendingMatches(Map<String, Object> params) {
+		return stadiumDao.getPendingMatches(sqlSession, params);
 	}
 }

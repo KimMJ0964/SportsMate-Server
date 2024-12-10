@@ -628,13 +628,16 @@
 			
 			                <!-- 대기중인 매치 -->
 			                <div class="row mb-3">
-			                    <div class="col-12 text-center">
-			                        <p class="fw-bold">대기중인 매치</p>
-			                        <div class="pending-matches">
-			                            <p class="text-muted">현재 대기중인 매치가 없습니다.</p>
-			                        </div>
-			                    </div>
-			                </div>
+							    <div class="col-12 text-center">
+							        <p class="fw-bold">대기중인 매치</p>
+							        <div class="pending-matches">
+							            <!-- 초기 상태 -->
+							            <p class="text-muted" id="no-matches-message">현재 대기중인 매치가 없습니다.</p>
+							            <!-- AJAX로 데이터를 채워 넣을 영역 -->
+							            <div id="match-results" class="matches-list"></div>
+							        </div>
+							    </div>
+							</div>
 			
 			                <!-- 신청 버튼 -->
 			                <div class="modal-footer">

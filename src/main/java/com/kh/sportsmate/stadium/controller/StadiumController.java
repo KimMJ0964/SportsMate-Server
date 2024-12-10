@@ -2,6 +2,8 @@ package com.kh.sportsmate.stadium.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -126,6 +128,9 @@ public class StadiumController {
     @RequestMapping("/detail.st")
     public String getStadiumDetail(
     		@RequestParam("stadiumNo") int stadiumNo,
+    		@RequestParam Date accessDate,
+            @RequestParam Time reservStart,
+            @RequestParam Time reservEnd,
     		@RequestParam(value = "selectedDate", required = false) String selectedDate,
     		@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
     		HttpSession session,
@@ -142,10 +147,6 @@ public class StadiumController {
         
         // 경기장 상세 정보 가져오기
         StadiumDetail stadiumDetail = stadiumService.getStadiumDetail(stadiumNo);
-        
-        // 대기중인 매치 정보 가져오기
-        List<MatchInfoDto> pendingMatches = stadiumService.getPendingMatches(stadiumNo, selectedDate);
-        model.addAttribute("pendingMatches", pendingMatches);
                  	
         // 게시글 개수 조회
         int listCount = stadiumService.getReviewCount(stadiumNo);
@@ -177,6 +178,15 @@ public class StadiumController {
             model.addAttribute("isTeamLeader", false);
             model.addAttribute("teamMembers", null);
         }
+        
+        Map<String, Object> params = new HashMap<>();
+        params.put("stadiumNo", stadiumNo);
+        params.put("accessDate", accessDate);
+        params.put("reservStart", reservStart);
+        params.put("reservEnd", reservEnd);
+        
+        List<MatchInfoDto> matches = stadiumService.getPendingMatches(params);
+        model.addAttribute("matches", matches);
 
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);

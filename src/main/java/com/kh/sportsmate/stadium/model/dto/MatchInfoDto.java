@@ -1,5 +1,8 @@
 package com.kh.sportsmate.stadium.model.dto;
 
+import java.sql.Date;
+import java.sql.Time;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,7 +25,7 @@ public class MatchInfoDto {
     /* 매치 테이블 정보 */
     private int matchNo;       // 매치 번호
     private int teamANo;       // A팀 번호
-    private String reservStart; // 예약 시작 시간 (HH:mm 형식)
-    private String reservEnd;   // 예약 종료 시간 (HH:mm 형식)
-    private String accessDate;  // 승인 날짜 (YYYY-MM-DD 형식)
+    private Time reservStart; // 예약 시작 시간 (HH:mm 형식)
+    private Time reservEnd;   // 예약 종료 시간 (HH:mm 형식)
+    private Date accessDate;  // 승인 날짜 (YYYY-MM-DD 형식)
 }

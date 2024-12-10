@@ -406,22 +406,24 @@
 
 <!-- 매치 정보 가져오기 -->
 <select id="getPendingMatches" parameterType="map" resultType="MatchInfoDto">
-    SELECT 
-        M.MATCH_NO AS matchNo,
-        M.TEAM_A_NO AS teamANo,
-        DATE_FORMAT(M.RESERV_START, '%H:%i') AS reservStart,
-        DATE_FORMAT(M.RESERV_END, '%H:%i') AS reservEnd,
-        DATE_FORMAT(M.ACCESS_DATE, '%Y-%m-%d') AS accessDate,
-        T.TEAM_NAME AS teamName,
-        T.SCORE AS score,
-        T.TEAM_POINT AS teamPoint
-    FROM 
-        `MATCH` M
-    INNER JOIN 
-        TEAM T ON M.TEAM_A_NO = T.TEAM_NO
-    WHERE 
-        M.STADIUM_NO = #{stadiumNo}
-        AND M.ACCESS_DATE = #{selectedDate}
+	SELECT 
+	    m.MATCH_NO AS matchNo,                          
+	    m.TEAM_A_NO AS teamANo,                         
+	    t.TEAM_NAME AS teamName,                        
+	    t.SCORE AS score,                             
+	    t.TEAM_POINT AS teamPoint,
+	    m.RESERV_START AS reservStart,
+	    m.RESERV_END AS reservEnd,
+	    m.ACCESS_DATE AS accessDate                  
+	FROM 
+	    `MATCH` m
+	JOIN 
+	    TEAM t ON m.TEAM_A_NO = t.TEAM_NO            
+	WHERE 
+	    m.STADIUM_NO = #{stadiumNo}                     -- 특정 경기장에서
+	    AND m.ACCESS_DATE = #{accessDate}             -- 특정 날짜에 승인된 매치
+	    AND m.RESERV_START = #{reservStart}               -- 시작 시간이 선택한 값과 일치
+	    AND m.RESERV_END = #{reservEnd}                   -- 종료 시간이 선택한 값과 일치            
 </select>
 
 <insert id="insertQna" parameterType="StadiumQnaDto">
