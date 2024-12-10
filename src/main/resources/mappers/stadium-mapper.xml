@@ -393,7 +393,7 @@
 <!-- 팀번호로  조회 -->
 <select id="getTeamNoByMemNo" parameterType="int" resultType="int">
     SELECT TEAM_NO
-    FROM TEAM_MEMBER
+    FROM TEAM
     WHERE MEM_NO = #{memNo}
       AND STATUS = 'Y'; -- 활성화된 상태
 </select>
