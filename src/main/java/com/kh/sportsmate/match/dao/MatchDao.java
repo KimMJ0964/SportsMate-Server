@@ -1,6 +1,7 @@
 package com.kh.sportsmate.match.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -26,11 +27,15 @@ public class MatchDao {
 		return sqlSession.selectOne("matchMapper.selectMatchB", mc);
 	}
 	
-	public int insertMatch(SqlSessionTemplate sqlSession, Match mc) {
-		return sqlSession.insert("matchMapper.insertMatch", mc);
+	public int insertMatchA(SqlSessionTemplate sqlSession, Match mc) {
+		return sqlSession.insert("matchMapper.insertMatchA", mc);
 	}
 	
-	public int insertMatch(SqlSessionTemplate sqlSession, MatchBest mb) {
+	public int insertMatchB(SqlSessionTemplate sqlSession, Match mc) {
+		return sqlSession.update("matchMapper.insertMatchB", mc);
+	}
+	
+	public int insertMatch(SqlSessionTemplate sqlSession, List<MatchBest> mb) {
 		return sqlSession.insert("matchMapper.insertMatchBest", mb);
 	}
 	

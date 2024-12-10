@@ -77,11 +77,11 @@ public class MatchController {
         HttpSession session = request.getSession();
         
         Match mc = (Match) session.getAttribute("mc");
-        MatchBest mb = (MatchBest) session.getAttribute("mb");
+        ArrayList<MatchBest> mb = (ArrayList<MatchBest>) session.getAttribute("mb");
         
         int result = matchService.insertMatch(mc, mb);
         
-        return "kakaoPaySuccess";
+        return "matching/matchingSuccess";
     }
 	
 	@RequestMapping("mainRegionMatch.mn")
@@ -123,11 +123,30 @@ public class MatchController {
 	    return response; // Returning the response as JSON
 }
 	@RequestMapping(value = "orderInfo.st")
-	public String orderInfo(Match mc, ArrayList<MatchBest> mb, @RequestParam(defaultValue = "0") int price, Model model, HttpServletRequest request) {
+	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, Model model, HttpServletRequest request) {
 		
 		StadiumSubscription ss = matchService.selectMatch(mc, price);
 		
 		model.addAttribute("ss", ss);
+		
+		// MatchBest 리스트 생성
+	    ArrayList<MatchBest> mbList = new ArrayList<>();
+	    int index = 0;
+
+	    while (true) {
+	        String teamNo = request.getParameter("mb[" + index + "].teamNo");
+	        String memNo = request.getParameter("mb[" + index + "].memNo");
+
+	        if (teamNo == null || memNo == null) {
+	            break; // 더 이상의 데이터가 없으면 종료
+	        }
+
+	        MatchBest mb = new MatchBest();
+	        mb.setTeamNo(Integer.parseInt(teamNo));
+	        mb.setMemNo(Integer.parseInt(memNo));
+	        mbList.add(mb);
+	        index++;
+	    }
 		
 		//세션객체에 mc보내기
 		HttpSession session = request.getSession();
@@ -135,8 +154,11 @@ public class MatchController {
 		mc.setReservStart(mc.getReservStart() + ":00");
 		mc.setReservEnd(mc.getReservEnd() + ":00");
 		
+		System.out.println("mb: " + mbList);
+		
 		session.setAttribute("mc", mc);
-		session.setAttribute("mb", mb);
+		session.setAttribute("mb", mbList);
+		session.setAttribute("st", ss);
 		
 		return "matching/matchingReq";
 	}

@@ -1,6 +1,7 @@
 package com.kh.sportsmate.match.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.kh.sportsmate.match.model.dto.ApproveResponseDto;
@@ -23,5 +24,5 @@ public interface MatchService {
 	StadiumSubscription selectMatch(Match mc, int price);
 	
 	//결제정보 저장하기
-	int insertMatch(Match mc, MatchBest mb);
+	int insertMatch(Match mc, List<MatchBest> mb);
 }

@@ -2,6 +2,7 @@ package com.kh.sportsmate.match.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -133,10 +134,24 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
-	public int insertMatch(Match mc, MatchBest mb) {
-		int result1 = matchDao.insertMatch(sqlSession, mc);
-		int result2 = matchDao.insertMatch(sqlSession, mb);
-		return result1 * result2;
+	public int insertMatch(Match mc, List<MatchBest> mb) {
+		int result1 = 0;
+		int result2 = 0;
+		
+		if(mc.getTeamBNo() == 0) {
+			result1 = matchDao.insertMatchA(sqlSession, mc);
+			result2 = 1;
+		} else {
+			result1 = 1;
+			result2 = matchDao.insertMatchB(sqlSession, mc);
+		}
+		
+		for (MatchBest mbItem : mb) {
+		    mbItem.setMatchNo(mc.getMatchNo()); // MatchBest 객체의 matchNo를 result1로 설정
+		}
+		
+		int result3 = matchDao.insertMatch(sqlSession, mb);
+		return result1 * result2 * result3;
 	}
 
 }
