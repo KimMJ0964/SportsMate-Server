@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,7 @@ import com.kh.sportsmate.match.model.dto.OrderCreateFormDto;
 import com.kh.sportsmate.match.model.dto.ReadyResponseDto;
 import com.kh.sportsmate.match.model.dto.StadiumSubscription;
 import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.service.MatchService;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
 
@@ -60,23 +64,30 @@ public class MatchController {
 		return readyResponseDto;
 
 	}
+	
+	@GetMapping(value = "payCompleted.st", produces="application/json; charset-UTF-8")
+    public String payCompleted(@RequestParam("pg_token") String pgToken, Model model, HttpServletRequest request) {
+    
+        String tid = Template.getStringAttributeValue("tid");
+        log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
+        log.info("결제 고유번호: " + tid);
 
-	@GetMapping(value = "payCompleted.st", produces = "application/json; charset-UTF-8")
-	public String payCompleted(@RequestParam("pg_token") String pgToken, Model model) {
-
-		String tid = Template.getStringAttributeValue("tid");
-		log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
-		log.info("결제 고유번호: " + tid);
-
-		// 카카오 결제 요청하기
-		ApproveResponseDto approveResponse = matchService.payApprove(tid, pgToken);
-		model.addAttribute("ar", approveResponse);
-		log.info("총 금액: " + approveResponse.getAmount().getTotal());
-
-		// db에 매칭정보 등록
-		return "kakaoPaySuccess";
-	}
-
+        // 카카오 결제 요청하기
+        ApproveResponseDto approveResponse = matchService.payApprove(tid, pgToken);
+        model.addAttribute("ar", approveResponse);
+        log.info("총 금액: " + approveResponse.getAmount().getTotal());
+        
+        //db에 매칭정보 등록
+        HttpSession session = request.getSession();
+        
+        Match mc = (Match) session.getAttribute("mc");
+        ArrayList<MatchBest> mb = (ArrayList<MatchBest>) session.getAttribute("mb");
+        
+        int result = matchService.insertMatch(mc, mb);
+        
+        return "matching/matchingSuccess";
+    }
+	
 	@RequestMapping("mainRegionMatch.mn")
 	@ResponseBody
 	public Map<String, Object> mainRegionMatch(String activityArea, String category) {
@@ -176,12 +187,43 @@ public class MatchController {
 
 
 	@RequestMapping(value = "orderInfo.st")
-	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, String date, Model model) {
-
-		StadiumSubscription ss = matchService.selectMatch(mc, price, date);
-
+	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, Model model, HttpServletRequest request) {
+		
+		StadiumSubscription ss = matchService.selectMatch(mc, price);
+		
 		model.addAttribute("ss", ss);
+		
+		// MatchBest 리스트 생성
+	    ArrayList<MatchBest> mbList = new ArrayList<>();
+	    int index = 0;
 
+	    while (true) {
+	        String teamNo = request.getParameter("mb[" + index + "].teamNo");
+	        String memNo = request.getParameter("mb[" + index + "].memNo");
+
+	        if (teamNo == null || memNo == null) {
+	            break; // 더 이상의 데이터가 없으면 종료
+	        }
+
+	        MatchBest mb = new MatchBest();
+	        mb.setTeamNo(Integer.parseInt(teamNo));
+	        mb.setMemNo(Integer.parseInt(memNo));
+	        mbList.add(mb);
+	        index++;
+	    }
+		
+		//세션객체에 mc보내기
+		HttpSession session = request.getSession();
+		
+		mc.setReservStart(mc.getReservStart() + ":00");
+		mc.setReservEnd(mc.getReservEnd() + ":00");
+		
+		System.out.println("mb: " + mbList);
+		
+		session.setAttribute("mc", mc);
+		session.setAttribute("mb", mbList);
+		session.setAttribute("st", ss);
+		
 		return "matching/matchingReq";
 	}
 }

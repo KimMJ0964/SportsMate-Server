@@ -18,7 +18,7 @@ public class Match {
 	private int scoreA;
 	private int scoreB;
 	private String category;
-	private Date reservStart;
-	private Date reservEnd;
-	private Date accessDate;
+	private String reservStart;
+	private String reservEnd;
+	private String accessDate;
 }

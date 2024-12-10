@@ -11,10 +11,12 @@
 	    SELECT S.STADIUM_NAME AS stadiumName,
 	    		S.STADIUM_ADDRESS AS stadiumAddress,
 	    		S.STADIUM_CATEGORY AS category,
-	    		M.MEM_NAME AS referee
+	    		M.MEM_NAME AS referee,
+	    		SP.FILE_PATH AS filePath
 	    FROM STADIUM S
 	    JOIN MEMBER M ON M.MEM_NO = S.MEM_NO
-	    WHERE STADIUM_NO = #{stadiumNo}
+	    LEFT JOIN stadium_img SP ON S.STADIUM_NO = SP.STADIUM_NO
+	    WHERE S.STADIUM_NO = #{stadiumNo}
 	</select>
 	
 	<select id="selectMatchA" parameterType="Match" resultType="StadiumSubscription">
@@ -29,6 +31,7 @@
 
 	<select id="selectMatchB" parameterType="Match" resultType="StadiumSubscription">
 	    SELECT T.TEAM_NAME AS opponent,
+	    		T.FILE_PATH AS teamFilePath,
 	    		CONCAT(
 		            R.MATCH_COUNT , '전 ',
 		            R.WIN, '승 ',
@@ -37,6 +40,7 @@
 		        ) AS result
 		FROM TEAM T
 		JOIN TEAM_RECORD R ON R.TEAM_NO = T.TEAM_NO
+		LEFT JOIN team_img TP ON T.TEAM_NO = TP.TEAM_NO
 		WHERE T.TEAM_NO = #{teamANo}
 	</select>
 	
@@ -88,6 +92,12 @@
 	    SET MEM_NO_VOTE_COUNT = MEM_NO_VOTE_COUNT + 1
 	    WHERE MATCH_NO = #{matchNo} AND MEM_NO = #{bestMNo}
 	</update>
+	
+	<update id="insertMatchB" parameterType="Match">
+		UPDATE `MATCH`
+		SET TEAM_B_NO = #{teamBNo}
+		WHERE MATCH_NO = #{matchNo}
+	</update>
     
     <select id="mainRegionMatch" resultType="String">
     	SELECT AREA_NAME
@@ -124,4 +134,43 @@
 	    ORDER BY M.MATCH_NO DESC
 	    LIMIT 6;
 	</select>
+	
+	<!-- insert -->
+	<!-- 매치 등록하기 -->
+	<insert id="insertMatchA" parameterType="Match" useGeneratedKeys="true" keyProperty="matchNo" keyColumn="MATCH_NO">
+		INSERT INTO `MATCH`(
+			STADIUM_NO,
+			TEAM_A_NO,
+			CATEGORY,
+			RESERV_START,
+			RESERV_END,
+			ACCESS_DATE
+		) VALUES (
+			#{stadiumNo},
+			#{teamANo},
+			#{category},
+			#{reservStart},
+			#{reservEnd},
+			#{accessDate}
+		)
+	</insert>
+	
+	<insert id="insertMatchBest" parameterType="java.util.List">
+	    INSERT INTO MATCH_BEST (
+	        MATCH_NO,
+	        MEM_NO,
+	        MEM_NO_VOTE_COUNT,
+	        TEAM_NO
+	    )
+	    VALUES
+	    <foreach collection="list" item="item" separator=",">
+	        (
+	            #{item.matchNo},
+	            #{item.memNo},
+	            #{item.memNoVoteCount},
+	            #{item.teamNo}
+	        )
+	    </foreach>
+	</insert>
+
 </mapper>

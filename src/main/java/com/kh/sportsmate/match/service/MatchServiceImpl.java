@@ -2,10 +2,10 @@ package com.kh.sportsmate.match.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,15 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import com.kh.sportsmate.board.model.dao.BoardDao;
 import com.kh.sportsmate.match.dao.MatchDao;
 import com.kh.sportsmate.match.model.dto.ApproveResponseDto;
 import com.kh.sportsmate.match.model.dto.MyMatch;
 import com.kh.sportsmate.match.model.dto.ReadyResponseDto;
-import com.kh.sportsmate.match.model.vo.Match;
-import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.match.model.dto.StadiumSubscription;
 import com.kh.sportsmate.match.model.vo.Match;
+import com.kh.sportsmate.match.model.vo.MatchBest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -120,7 +118,7 @@ public class MatchServiceImpl implements MatchService {
 		return matchDao.mainMatchList(sqlSession, map);
 	}
 	
-	public StadiumSubscription selectMatch(Match mc, int price, String date) {
+	public StadiumSubscription selectMatch(Match mc, int price) {
 		
 		StadiumSubscription ss = matchDao.selectMatch(sqlSession, mc);
 		StadiumSubscription s1 = matchDao.selectMatchA(sqlSession, mc);
@@ -139,6 +137,26 @@ public class MatchServiceImpl implements MatchService {
 	}
 
 	@Override
+	public int insertMatch(Match mc, List<MatchBest> mb) {
+		int result1 = 0;
+		int result2 = 0;
+		
+		if(mc.getTeamBNo() == 0) {
+			result1 = matchDao.insertMatchA(sqlSession, mc);
+			result2 = 1;
+		} else {
+			result1 = 1;
+			result2 = matchDao.insertMatchB(sqlSession, mc);
+		}
+		
+		for (MatchBest mbItem : mb) {
+		    mbItem.setMatchNo(mc.getMatchNo()); // MatchBest 객체의 matchNo를 result1로 설정
+		}
+		
+		int result3 = matchDao.insertMatch(sqlSession, mb);
+		return result1 * result2 * result3;
+	}
+	
 	public ArrayList<MyMatch> mainMatching(Map<String, Object> map) {
 		return matchDao.mainMatching(sqlSession, map);
 	}
