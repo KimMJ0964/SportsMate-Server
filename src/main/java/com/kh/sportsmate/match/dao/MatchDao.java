@@ -32,4 +32,8 @@ public class MatchDao {
 	public ArrayList<MyMatch> mainMatchList(SqlSessionTemplate sqlSession, Map<String, String> map) {
 		return (ArrayList) sqlSession.selectList("matchMapper.mainMatchList", map);
 	}
+	
+	public ArrayList<MyMatch> mainMatching(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return (ArrayList) sqlSession.selectList("matchMapper.mainMatching", map);
+	}
 }

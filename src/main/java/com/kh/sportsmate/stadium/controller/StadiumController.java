@@ -30,6 +30,7 @@ import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.service.StadiumService;
+import com.kh.sportsmate.team.model.dto.MyTeamDto;
 
 @CrossOrigin
 @Controller

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: jun
@@ -109,22 +110,16 @@
                 <div class="split-bar"></div>
                 <div class="input-wrap">
                     <div class="category-checkBox-wrap">
-                        <div class="category-checkBox">
-                            <input type="checkbox" name="teamCategory" id="soccer" value="soccer">
-                            <label for="soccer">축구</label>
-                        </div>
-                        <div class="category-checkBox">
-                            <input type="checkbox" name="teamCategory" id="futsal" value="futsal">
-                            <label for="futsal">풋살</label>
-                        </div>
-                        <div class="category-checkBox">
-                            <input type="checkbox" name="teamCategory" id="basketball" value="basketball">
-                            <label for="basketball">농구</label>
-                        </div>
-                        <div class="category-checkBox">
-                            <input type="checkbox" name="teamCategory" id="baseball" value="baseball">
-                            <label for="baseball">야구</label>
-                        </div>
+                        <c:forEach var="category" items="${enrollmentInfo.categories}">
+                            <div class="category-checkBox">
+                                <input type="checkbox" name="teamCategory" id="${category.key}" value="${category.key}"
+                                       <c:if test="${category.value}">disabled</c:if>
+                                >
+                                <label for="${category.key}">
+                                    <c:out value="${enrollmentInfo.categoryLabels[category.key]}"/>
+                                </label>
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
                 <div class="input-wrap">

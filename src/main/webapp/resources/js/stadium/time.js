@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // 시간 간격 설정
         const timeIntervals = {
             soccer: 2,
-            풋살: 2,
-            야구: 3,
-            농구: 1,
+            futsal: 2,
+            baseball: 3,
+            basketball: 1,
         };
 
         const stadiumCategory = document.getElementById("stadium-info").dataset.stadiumCategory;

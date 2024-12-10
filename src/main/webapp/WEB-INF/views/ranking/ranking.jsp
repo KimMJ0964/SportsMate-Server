@@ -35,9 +35,9 @@
 		<!-- 종목 선택 버튼 -->
 		<div class="sport-button-container" style="text-align: center; margin-bottom: 20px;">
 		    <button class="sport-btn ${selectedCategory == 'soccer' ? 'active' : ''}" onclick="location.href='ranking.tm?category=soccer'">축구</button>
-		    <button class="sport-btn ${selectedCategory == '풋살' ? 'active' : ''}" onclick="location.href='ranking.tm?category=풋살'">풋살</button>
-		    <button class="sport-btn ${selectedCategory == '야구' ? 'active' : ''}" onclick="location.href='ranking.tm?category=야구'">야구</button>
-		    <button class="sport-btn ${selectedCategory == '농구' ? 'active' : ''}" onclick="location.href='ranking.tm?category=농구'">농구</button>
+		    <button class="sport-btn ${selectedCategory == 'futsal' ? 'active' : ''}" onclick="location.href='ranking.tm?category=futsal'">풋살</button>
+		    <button class="sport-btn ${selectedCategory == 'baseball' ? 'active' : ''}" onclick="location.href='ranking.tm?category=baseball'">야구</button>
+		    <button class="sport-btn ${selectedCategory == 'basketball' ? 'active' : ''}" onclick="location.href='ranking.tm?category=basketball'">농구</button>
 		</div>
 		
 		<!-- 정렬 및 검색 컨테이너 -->

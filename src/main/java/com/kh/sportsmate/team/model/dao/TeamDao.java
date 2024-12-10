@@ -197,6 +197,9 @@ public class TeamDao {
     public int insertTeam(SqlSessionTemplate sqlSession, Team t) {
         return sqlSession.insert("teamMapper.insertTeam", t);
     }
+    public int insertTeamRecord(SqlSessionTemplate sqlSession, int teamNo) {
+        return sqlSession.insert("teamMapper.insertTeamRecord", teamNo);
+    }
 
     public int insertActivityDays(SqlSessionTemplate sqlSession, TeamActivityDays days) {
         return sqlSession.insert("teamMapper.insertActivityDays", days);
@@ -562,5 +565,9 @@ public class TeamDao {
     public int Rankingpagination(SqlSessionTemplate sqlSession, Map<String, Object> paramMap) {
     	// MyBatis 매퍼 호출
     	return sqlSession.selectOne("teamMapper.Rankingpagination", paramMap);
+    }
+
+    public ArrayList<String> selectEnrollmentInfo(SqlSessionTemplate sqlSession, int memNo) {
+        return (ArrayList) sqlSession.selectList("teamMapper.selectEnrollmentInfo", memNo);
     }
 }

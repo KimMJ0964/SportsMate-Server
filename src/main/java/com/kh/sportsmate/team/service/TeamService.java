@@ -10,6 +10,7 @@ import com.kh.sportsmate.board.model.vo.BoardFile;
 import com.kh.sportsmate.board.model.vo.BoardLike;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.match.model.vo.MatchRefund;
+import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 
@@ -169,5 +170,9 @@ public interface TeamService {
  	
  	// 카테고리별 팀 총 데이터 수 조회
  	int rankingPagination(Map<String, Object> params);
+
+
+	 // 구단 가입 정보 조회
+	EnrollmentInfoDTO selectEnrollmentInfo(Member m);
 }
 

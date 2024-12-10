@@ -157,7 +157,7 @@
                         <div class="day-wrap">
                             <c:choose>
                                 <c:when test="${authMemInfo != null}">
-                                    <input type="number" name="phone2" id="phone2"
+                                    <input type="number" name="phone3" id="phone3"
                                            value="${fn:split(authMemInfo.memPhone, '-')[2]}" readonly>
                                 </c:when>
                                 <c:otherwise>

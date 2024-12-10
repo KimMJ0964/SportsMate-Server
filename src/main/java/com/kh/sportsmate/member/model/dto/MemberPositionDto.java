@@ -28,4 +28,8 @@ public class MemberPositionDto {
     private String teamName;
     private String teamProfile;
     private String memberProfile;
+    private double soccerAvgPoint;
+    private double futsalAvgPoint;
+    private double baseballAvgPoint;
+    private double basketballAvgPoint;
 }
