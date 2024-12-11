@@ -1,15 +1,13 @@
 package com.kh.sportsmate.match.controller;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.kh.sportsmate.match.model.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.sportsmate.common.template.Template;
-import com.kh.sportsmate.match.model.dto.ApproveResponseDto;
-import com.kh.sportsmate.match.model.dto.MyMatch;
-import com.kh.sportsmate.match.model.dto.OrderCreateFormDto;
-import com.kh.sportsmate.match.model.dto.ReadyResponseDto;
-import com.kh.sportsmate.match.model.dto.StadiumSubscription;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.service.MatchService;
@@ -187,31 +180,62 @@ public class MatchController {
 
 
 	@RequestMapping(value = "orderInfo.st")
-	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, Model model, HttpServletRequest request) {
-		
+	public String orderInfo(Match mc, @RequestParam(defaultValue = "0") int price, Model model, HttpServletRequest request, @RequestParam Map<String, String> paramMap) {
+		log.info("파라미터 맵 : {}",paramMap);
+		List<PlayerInfo> mbLists = new ArrayList<>();
+		paramMap.forEach((key, value) -> {
+			if(key.startsWith("mb[")){
+				String[] keyParts = key.replace("mb[", "").replace("]", "").split("\\.");
+				int index = Integer.parseInt(keyParts[0]); // 배열 인덱스 추출
+				String fieldName = keyParts[1]; // 필드명 추출
+
+				// 리스트 크기 확장
+				while (mbLists.size() <= index) {
+					mbLists.add(new PlayerInfo());
+				}
+
+				// 해당 객체에 값 설정
+				PlayerInfo mb = mbLists.get(index);
+				if ("teamNo".equals(fieldName) && value != null && value.matches("\\d+")) {
+					mb.setTeamNo(Integer.parseInt(value));
+				} else if ("memNo".equals(fieldName) && value != null && value.matches("\\d+")) {
+					mb.setMemNo(Integer.parseInt(value));
+				}
+
+			}
+		});
+		log.info("mbList : {}",mbLists);
+
 		StadiumSubscription ss = matchService.selectMatch(mc, price);
 		
 		model.addAttribute("ss", ss);
 		
 		// MatchBest 리스트 생성
 	    ArrayList<MatchBest> mbList = new ArrayList<>();
-	    int index = 0;
-
-	    while (true) {
-	        String teamNo = request.getParameter("mb[" + index + "].teamNo");
-	        String memNo = request.getParameter("mb[" + index + "].memNo");
-
-	        if (teamNo == null || memNo == null) {
-	            break; // 더 이상의 데이터가 없으면 종료
-	        }
-
-	        MatchBest mb = new MatchBest();
-	        mb.setTeamNo(Integer.parseInt(teamNo));
-	        mb.setMemNo(Integer.parseInt(memNo));
-	        mbList.add(mb);
-	        index++;
-	    }
-		
+//	    int index = 0;
+//
+//	    while (true) {
+//	        String teamNo = request.getParameter("mb[" + index + "].teamNo");
+//	        String memNo = request.getParameter("mb[" + index + "].memNo");
+//			log.info(" teamNO: " + teamNo + " memNo: " + memNo);
+//	        if (memNo == null ||teamNo == null) {
+//	            break; // 더 이상의 데이터가 없으면 종료
+//	        }
+//
+//	        MatchBest mb = new MatchBest();
+//	        mb.setTeamNo(Integer.parseInt(teamNo));
+//	        mb.setMemNo(Integer.parseInt(memNo));
+//	        mbList.add(mb);
+//	        index++;
+//	    }
+		for(PlayerInfo playerInfo : mbLists) {
+			if(playerInfo.getMemNo() != 0){
+				MatchBest mb = new MatchBest();
+				mb.setTeamNo(playerInfo.getTeamNo());
+				mb.setMemNo(playerInfo.getMemNo());
+				mbList.add(mb);
+			}
+		}
 		//세션객체에 mc보내기
 		HttpSession session = request.getSession();
 		

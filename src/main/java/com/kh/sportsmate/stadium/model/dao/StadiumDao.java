@@ -177,8 +177,8 @@ public class StadiumDao {
     }
     
     // 팀번호로 조회
-    public int getTeamNoByMemNo(SqlSessionTemplate sqlSession, int memNo) {
-        return sqlSession.selectOne("stadiumMapper.getTeamNoByMemNo", memNo);
+    public int getTeamNoByMemNo(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+        return sqlSession.selectOne("stadiumMapper.getTeamNoByMemNo", params);
     }
     
     // 변경해야될사항!
@@ -227,7 +227,7 @@ public class StadiumDao {
     public int insertPenalty(SqlSessionTemplate sqlSession, StadiumPenaltyDTO penaltyInfo) {
         return sqlSession.insert("stadiumMapper.insertPenalty", penaltyInfo);
     }
-    
+
     // 진행 완료 매치
     public List<GameFinishDto> getCompleteMatches(SqlSessionTemplate sqlSession, int stadiumNo) {
         return sqlSession.selectList("stadiumMapper.getCompleteMatches", stadiumNo);
@@ -239,5 +239,7 @@ public class StadiumDao {
         return (ArrayList) sqlSession.selectList("stadiumMapper.selectMatchMemberInfo", map);
 
     }
-
+    public String getStadiumCategory(SqlSessionTemplate sqlSession, int stadiumNo) {
+        return sqlSession.selectOne("stadiumMapper.getStadiumCategory", stadiumNo);
+    }
 }
