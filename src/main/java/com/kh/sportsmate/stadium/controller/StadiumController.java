@@ -152,7 +152,7 @@ public class StadiumController {
 			session.setAttribute("alertMsg", "문의 답장 실패");
 		}
 		
-        return "redirect:inquiry.me?cpage=1";
+        return "redirect:inquiry.gp?cpage=1";
     }
 
 //    // 경기 결과 관리 페이지로 이동

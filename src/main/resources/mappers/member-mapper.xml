@@ -273,33 +273,36 @@
     
     <!-- 팀 정보  #{teamANo, teamBNo} -->
    <select id="selectTeamInfo" resultType="MemberPositionDto">
-	    SELECT 
-	        m.MEM_NO AS memNo, 
-	        m.MEM_NAME AS memName,
-	        t.TEAM_NAME AS teamName,
-	        CASE 
-	            WHEN t.TEAM_CATEGORY = 'soccer' THEN c.SOC_POSI
-	            WHEN t.TEAM_CATEGORY = 'futsal' THEN c.FOOT_POSI
-	            WHEN t.TEAM_CATEGORY = 'basketball' THEN c.BASKET_POSI
-	            WHEN t.TEAM_CATEGORY = 'baseball' THEN c.BASE_POSI
-	            ELSE '포지션 없음'
-	        END AS position,
-	        pfTeam.CHANGE_NAME AS teamProfile,
-	        pfMember.CHANGE_NAME AS memberProfile
-	    FROM 
-	        MEMBER m
-	    JOIN 
-	        TEAM_MEMBER tm ON m.MEM_NO = tm.MEM_NO
-	    JOIN 
-	        TEAM t ON tm.TEAM_NO = t.TEAM_NO
-	    LEFT JOIN 
-	        CATEGORY c ON m.MEM_NO = c.MEM_NO
-	    LEFT JOIN 
-	        PROFILE_FILE pfTeam ON t.TEAM_NO = pfTeam.TEAM_NO
-	    LEFT JOIN 
-	        PROFILE_FILE pfMember ON m.MEM_NO = pfMember.MEM_NO
-	    WHERE 
-	        tm.TEAM_NO = #{teamNo};
+	    SELECT DISTINCT
+		    m.MEM_NO AS memNo, 
+		    m.MEM_NAME AS memName,
+		    t.TEAM_NAME AS teamName,
+		    CASE 
+		        WHEN t.TEAM_CATEGORY = 'soccer' THEN c.SOC_POSI
+		        WHEN t.TEAM_CATEGORY = 'futsal' THEN c.FOOT_POSI
+		        WHEN t.TEAM_CATEGORY = 'basketball' THEN c.BASKET_POSI
+		        WHEN t.TEAM_CATEGORY = 'baseball' THEN c.BASE_POSI
+		        ELSE '포지션 없음'
+		    END AS position,
+		    pfTeam.CHANGE_NAME AS teamProfile,
+		    pfMember.CHANGE_NAME AS memberProfile
+		FROM 
+		    MEMBER m
+		JOIN 
+		    TEAM_MEMBER tm ON m.MEM_NO = tm.MEM_NO
+		JOIN 
+		    TEAM t ON tm.TEAM_NO = t.TEAM_NO AND t.TEAM_NO = #{teamNo} -- TEAM_NO가 1인 팀만 선택
+		LEFT JOIN 
+		    CATEGORY c ON m.MEM_NO = c.MEM_NO
+		LEFT JOIN 
+		    PROFILE_FILE pfTeam ON t.TEAM_NO = pfTeam.TEAM_NO
+		LEFT JOIN 
+		    PROFILE_FILE pfMember ON m.MEM_NO = pfMember.MEM_NO
+		JOIN 
+		    MATCH_BEST mb ON tm.MEM_NO = mb.MEM_NO
+		WHERE 
+		    mb.TEAM_NO = #{teamNo}
+		    AND mb.MATCH_NO = #{matchNo};
 	</select>
 
 	<!-- 마이페이지 내 정보 출력 / 이메일, 이름, 성별, 생년월일, 휴대폰번호, 포지션 -->

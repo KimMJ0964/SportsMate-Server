@@ -71,13 +71,13 @@ function fetchMatchResults(selectedValue, selectedCategory) {
                             <div class="team-record">
                                 <div class="team-A">
                                     <img src="${teamAProfile}" class="radius-img" alt="">
-                                    <p><b>${match.teamAName}</b></p>
+                                    <div class="team-record-name"><b>${match.teamAName}</b></div>
                                 </div>
                                 <div class="record-score">
-                                    <h5>${match.scoreA}:${match.scoreB}</h5>
+                                    <h5>${match.scoreA} : ${match.scoreB}</h5>
                                 </div>
                                 <div class="team-B">
-                                    <p><b>${match.teamBName}</b></p>
+                                    <div class="team-record-name"><b>${match.teamBName}</b></div>
                                     <img src="${teamBProfile}" class="radius-img" alt="">
                                 </div>
                             </div>

@@ -695,7 +695,9 @@
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 	    WHERE b.STATUS = 'Y'
 	    	AND b.TEAM_NO = #{tno}
-	        AND b.TYPE = #{category}
+	        <if test="category != null and category != ''">
+		        AND b.TYPE = #{category}
+		    </if>
 	    	AND b.TITLE LIKE CONCAT('%', #{keyword}, '%')
 	    ORDER BY b.BOARD_NO DESC
 	</select>

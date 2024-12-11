@@ -174,9 +174,20 @@ public class MyPageController {
 	 */
 	@RequestMapping("getTeamInfo.mp")
 	@ResponseBody
-	public Map<String, Object> getTeamInfo(@RequestParam int teamANo, @RequestParam int teamBNo) {
-		ArrayList<MemberPositionDto> aTeamInfo = myPageService.selectATeamInfo(teamANo);
-		ArrayList<MemberPositionDto> bTeamInfo = myPageService.selectBTeamInfo(teamBNo);
+	public Map<String, Object> getTeamInfo(@RequestParam int teamANo, @RequestParam int teamBNo, @RequestParam int matchNo) {
+		
+		System.out.println("투표 매치 번호 : " + matchNo);
+		
+		Map<String, Integer> aMap = new HashMap<>();
+		aMap.put("teamNo", teamANo);
+		aMap.put("matchNo", matchNo);
+		
+		Map<String, Integer> bMap = new HashMap<>();
+		bMap.put("teamNo", teamBNo);
+		bMap.put("matchNo", matchNo);
+		
+		ArrayList<MemberPositionDto> aTeamInfo = myPageService.selectATeamInfo(aMap);
+		ArrayList<MemberPositionDto> bTeamInfo = myPageService.selectBTeamInfo(bMap);
 
 		// 데이터를 Map에 담아 JSON 형식으로 반환
 		Map<String, Object> result = new HashMap<>();
