@@ -107,7 +107,7 @@
 									</c:if>
 									
 									<!-- Else 조건 -->
-									<c:if test="${stadiumDetail.toilet != 'Y'}">
+									<c:if test="${stadiumDetail.toilet != 'N'}">
 										<p class="title_line">화장실</p>
 									</c:if>
 								</div>
@@ -121,7 +121,7 @@
 									</c:if>
 									
 									<!-- Else 조건 -->
-									<c:if test="${stadiumDetail.shower == 'N'}">
+									<c:if test="${stadiumDetail.shower != 'N'}">
 										<p class="title_line">샤워실</p>
 									</c:if>
 								</div>
@@ -132,7 +132,7 @@
 									<c:if test="${stadiumDetail.smoke == 'Y'}">
 						                <p>흡연 구역</p>
 						            </c:if>
-						            <c:if test="${stadiumDetail.smoke == 'N'}">
+						            <c:if test="${stadiumDetail.smoke != 'N'}">
 						                <p class="title_line">흡연 구역</p>
 						            </c:if>
 								</div>
@@ -143,7 +143,7 @@
 									<c:if test="${stadiumDetail.park == 'Y'}">
 						                <p>주차장</p>
 						            </c:if>
-						            <c:if test="${stadiumDetail.park == 'N'}">
+						            <c:if test="${stadiumDetail.park != 'N'}">
 						                <p class="title_line">주차장</p>
 						            </c:if>
 								</div>
@@ -154,7 +154,7 @@
 									<c:if test="${stadiumDetail.drink == 'Y'}">
 						                <p>음료 판매</p>
 						            </c:if>
-						            <c:if test="${stadiumDetail.drink == 'N'}">
+						            <c:if test="${stadiumDetail.drink != 'N'}">
 						                <p class="title_line">음료 판매</p>
 						            </c:if>
 								</div>
@@ -177,7 +177,7 @@
 									<c:if test="${stadiumDetail.ball == 'Y'}">
 						                <p>공 대여</p>
 						            </c:if>
-						            <c:if test="${stadiumDetail.ball == 'N'}">
+						            <c:if test="${stadiumDetail.ball != 'N'}">
 						                <p class="title_line">공 대여</p>
 						            </c:if>
 								</div>
@@ -188,7 +188,7 @@
 									<c:if test="${stadiumDetail.vest == 'Y'}">
 						                <p>조끼</p>
 						            </c:if>
-						            <c:if test="${stadiumDetail.vest == 'N'}">
+						            <c:if test="${stadiumDetail.vest != 'N'}">
 						                <p class="title_line">조끼</p>
 						            </c:if>
 								</div>
@@ -549,6 +549,8 @@
 						    <input type="hidden" id="price" name="price" value="${stadiumDetail.stadiumPrice}">
 						    <input type="hidden" id="category" name="category" value="${stadiumDetail.stadiumCategory}">
 						    <input type="hidden" name="teamANo" value="${teamNo}">
+						    <input type="hidden" name="teamBNo" value="">
+						    <input type="hidden" name="match" value="">
 						    
 							<!-- 경기장 이름과 가격 -->
 			                <div class="row text-center mb-4">
