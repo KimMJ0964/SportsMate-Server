@@ -206,8 +206,13 @@ public class StadiumServiceImpl implements StadiumService{
 
     // 로그인한 사용자의 팀 번호 가져오기
     @Override
-    public Integer getTeamNoByMember(int memNo) {
-        return stadiumDao.getTeamNoByMember(sqlSession, memNo);
+    public Integer getTeamNoByMember(int memNo, int stadiumNo) {
+		String category = stadiumDao.getStadiumCategory(sqlSession, stadiumNo);
+		log.info("구장 번호로 가져온 카테고리 : {}",category);
+		Map<String, Object> params = new HashMap<>();
+		params.put("memNo", memNo);
+		params.put("category", category);
+        return stadiumDao.getTeamNoByMember(sqlSession, params);
     }
 
 	

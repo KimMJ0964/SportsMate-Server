@@ -299,7 +299,8 @@ public class StadiumController {
         stadiumDetail.setReviews(reviews);
 
         // 로그인된 사용자의 팀 번호 가져오기
-        Integer teamNo = stadiumService.getTeamNoByMember(memNo);
+        Integer teamNo = stadiumService.getTeamNoByMember(memNo,stadiumNo);
+        log.info("구단장이 소속된 팀 번호 : {}",teamNo);
         if (teamNo != null) {
             // 팀장 번호 가져오기
             int teamLeaderNo = stadiumService.getTeamLeaderNo(teamNo);

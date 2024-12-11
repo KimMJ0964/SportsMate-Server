@@ -78,7 +78,7 @@ public interface StadiumService {
     List<StadiumApplicationDto> getTeamMembers(int teamNo);
 
     // 로그인한 사용자의 팀 번호 가져오기
-    Integer getTeamNoByMember(int memNo);
+    Integer getTeamNoByMember(int memNo, int stadiumNo);
 
 	// 문의 등록
 	boolean insertQna(StadiumQnaDto stadiumQnaDto);

@@ -195,8 +195,8 @@ public class StadiumDao {
     }
 
     // 로그인한 사용자의 팀 번호 가져오기
-    public Integer getTeamNoByMember(SqlSessionTemplate sqlSession, int memNo) {
-        return sqlSession.selectOne("stadiumMapper.getTeamNoByMember", memNo);
+    public Integer getTeamNoByMember(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+        return sqlSession.selectOne("stadiumMapper.getTeamNoByMember", params);
     }
 
     // 문의 등록
@@ -251,6 +251,9 @@ public class StadiumDao {
     public ArrayList<MatchResultMemberInfoDTO> selectMatchMemberInfo(SqlSessionTemplate sqlSession, Map<String,Object> map) {
         return (ArrayList) sqlSession.selectList("stadiumMapper.selectMatchMemberInfo", map);
 
+    }
+    public String getStadiumCategory(SqlSessionTemplate sqlSession, int stadiumNo) {
+        return sqlSession.selectOne("stadiumMapper.getStadiumCategory", stadiumNo);
     }
 
 }

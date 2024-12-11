@@ -565,15 +565,18 @@
 </select>
 
 <!-- 3. 로그인한 사용자의 팀 번호 가져오기 -->
-<select id="getTeamNoByMember" parameterType="int" resultType="int">
+<select id="getTeamNoByMember" parameterType="map" resultType="_int">
     SELECT
-        TEAM_NO
-    FROM
-        TEAM_MEMBER
-    WHERE
-        MEM_NO = #{memNo}
-    AND
-        STATUS = 'Y';
+        t.TEAM_NO
+    FROM TEAM t
+    WHERE MEM_NO = #{memNo}
+        AND STATUS = 'Y'
+        and TEAM_CATEGORY =#{category};
+</select>
+<select id="getStadiumCategory" parameterType="_int" resultType="String">
+    select s.STADIUM_CATEGORY as category
+    from STADIUM s
+    where s.STADIUM_NO = #{stadiumNo};
 </select>
 
 <insert id="insertQna" parameterType="StadiumQnaDto">
