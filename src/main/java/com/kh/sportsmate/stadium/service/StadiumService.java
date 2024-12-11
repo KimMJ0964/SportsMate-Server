@@ -8,10 +8,27 @@ import java.util.Map;
 
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.common.vo.PageInfo;
-import com.kh.sportsmate.stadium.model.dto.*;
+import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumImgDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
+import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
+import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
+import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
+import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
+import java.util.Map;
+
+import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
+import com.kh.sportsmate.common.vo.PageInfo;
+import com.kh.sportsmate.stadium.model.dto.*;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
 
@@ -22,6 +39,7 @@ public interface StadiumService {
     List<StadiumDto> getStadiumImagesByManager(int memNo);          // 구장 이미지 리스트 조회
     List<StadiumRefundDto> getRefundPageData(int memNo);            // 환불 데이터 조회
     List<GameScheduleDto> getGameScheduleData(int memNo);           // 경기 예정 리스트 조회
+    List<GameFinishDto> getCompleteMatches(int matchNo);
 
     // **업데이트 메서드**
     int updateStadium(StadiumDto stadiumDto);                       // 구장 정보 업데이트
@@ -81,6 +99,7 @@ public interface StadiumService {
 
 	int insertPenalty(StadiumPenaltyDTO penaltyInfo);
 
+
 	// 경기 결과 디테일에 필요한 팀 정보
 	MatchResultTeamInfoDTO selectTeamInfo(int matchNo);
 
@@ -89,5 +108,6 @@ public interface StadiumService {
 
 	// 매치 참여 선수 리스트 조회
 	ArrayList<MatchResultMemberInfoDTO> selectMatchMemberInfo(Map<String, Object> map);
+
 }
 

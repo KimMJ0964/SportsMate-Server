@@ -2,6 +2,7 @@ package com.kh.sportsmate.stadium.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,10 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
-import com.kh.sportsmate.stadium.model.dto.*;
+import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
+import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
+import com.kh.sportsmate.stadium.model.dto.Rating;
+import com.kh.sportsmate.stadium.model.dto.TeamScore;
 
 import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
 import lombok.RequiredArgsConstructor;
+import com.kh.sportsmate.stadium.model.dto.*;
+import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,10 +36,19 @@ import org.springframework.web.bind.annotation.*;
 
 import com.kh.sportsmate.board.model.vo.Board;
 
+import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
+import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.board.model.vo.Board;
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.member.model.vo.Member;
+import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.service.StadiumService;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
@@ -73,7 +88,26 @@ public class StadiumController {
     // 경기 종료 관리 페이지로 이동
     @RequestMapping(value = "gamefinish.gp")
     public String gamefinish(HttpSession session, Model model) {
-    	
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+
+        if (loginMember == null) {
+            return "redirect:/loginForm.me"; // 로그인 페이지로 리다이렉트
+        }
+
+
+        // 구장 번호 가져오기
+        int stadiumNo = stadiumService.getStadiumByManager(loginMember.getMemNo()).getStadiumNo();
+
+        // 진행 완료 매치 리스트 가져오기
+        List<GameFinishDto> completedMatches = stadiumService.getCompleteMatches(stadiumNo);
+        log.info("dddd: {}",completedMatches);
+
+        // match_no 리스트를 모델에 추가
+        List<Integer> matchNoList = completedMatches.stream()
+                                                    .map(GameFinishDto::getMatchNo)
+                                                    .collect(Collectors.toList());
+        model.addAttribute("completedMatches", completedMatches); // 매치 리스트
+        model.addAttribute("matchNoList", matchNoList); // match_no 리스트
         return "stadium_manager/game_finish";
     }
 
@@ -401,18 +435,19 @@ public class StadiumController {
         }else {
             return "XXXXX";
         }
+//        return "redirect:/";
     }
     @GetMapping(value = "game_detail.gp")
     public String moveGameResultView(int matchNo, HttpServletRequest request, HttpSession session){
         /*
-        * gameResult View 에서 필요한 객체
-        * matchNo V
-        * teamAInfo(teamNo, changeName,teamName) V
-        * teamBInfo(teamNo, changeName,teamName) V
-        * teamAMemberList(memNo, memName)
-        * teamBMemberList(memNo, memName)
-        * stadiumNo
-        * */
+         * gameResult View 에서 필요한 객체
+         * matchNo V
+         * teamAInfo(teamNo, changeName,teamName) V
+         * teamBInfo(teamNo, changeName,teamName) V
+         * teamAMemberList(memNo, memName)
+         * teamBMemberList(memNo, memName)
+         * stadiumNo
+         * */
         // 팀 정보 조회
         MatchResultTeamInfoDTO teamInfo = stadiumService.selectTeamInfo(matchNo);
         log.info("경기 결과 디테일 관련 팀 정보 : {}",teamInfo);
@@ -441,4 +476,5 @@ public class StadiumController {
         request.setAttribute("teamBMemberList",teamBMemberList);
         return "stadium_manager/game_result";
     }
+
 }

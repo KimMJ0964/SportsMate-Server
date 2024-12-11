@@ -279,6 +279,7 @@
 		STATUS = 'N'
 		WHERE
 		COM_NO = #{cno}
+		AND MEM_NO = #{memNo}
 	</update>
 
 	<!-- 조회수 증가 -->

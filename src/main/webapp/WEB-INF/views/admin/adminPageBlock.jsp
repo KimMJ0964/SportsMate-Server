@@ -47,7 +47,15 @@
 	            <div class="victory-container">
 	                <div class="victory-row">
 	                    <div class="team-info">
-	                        <img src="${pageContext.request.contextPath}/resources/images/my-profile.png" alt="" class="gameresult-logo">
+                            <c:choose>
+                                <c:when test="${b.filePath} != null">
+                                    <img src="${pageContext.request.contextPath}/resources/images/userProFile/${b.filePath}" alt="" class="gameresult-logo">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="${pageContext.request.contextPath}/resources/images/my-profile.png" alt="" class="gameresult-logo">
+                                </c:otherwise>
+                            </c:choose>
+	                        
 	                        <form action="unblockUser.me" method="post">
                                 <input type="hidden" name="memNo" value="${b.memNo}">
 	                            <ul>

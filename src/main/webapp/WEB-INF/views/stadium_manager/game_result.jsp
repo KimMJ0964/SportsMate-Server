@@ -36,31 +36,31 @@
                         <div class="team-details">
                             <h4 class="head-name">경기 결과</h4>
                             <input type="hidden" name="matchNo" value="${matchNo}">
-                            <%--                            <input type="hidden" name="matchNo" value="2">--%>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- 승리 팀 표시 -->
         <div class="result-container">
             <div class="victory-container">
                 <h4 class="victory-title">경기 결과</h4>
                 <div class="victory-row">
                     <div class="team-info">
-                        <%--                        <div class="team-name" data-teamNo="1">A팀</div>--%>
                         <div class="team-name" data-teamNo="${teamInfo.teamANo}">A팀</div>
                         <c:choose>
                             <c:when test="${teamInfo.teamAChangeName != null}">
-                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/${teamInfo.teamAChangeName}" alt="팀 로고" class="team-logo">
+                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/${teamInfo.teamAChangeName}"
+                                     alt="팀 로고" class="team-logo">
                             </c:when>
                             <c:otherwise>
-                                <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" class="team-logo" />
+                                <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png"
+                                     alt="Default Profile" class="team-logo"/>
                             </c:otherwise>
                         </c:choose>
                         <div class="team-details">${teamInfo.teamAName}</div>
                         <input type="hidden" name="teamANo" value="${teamInfo.teamANo}">
+
                     </div>
                     <div class="checkbox-container">
                         <input type="number" name="teamA" id="team-a-checkbox" class="custom-radio" required>
@@ -74,14 +74,17 @@
                         <div class="team-name" data-teamNo="${teamInfo.teamBNo}">B팀</div>
                         <c:choose>
                             <c:when test="${teamInfo.teamBChangeName != null}">
-                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/${teamInfo.teamBChangeName}" alt="팀 로고" class="team-logo">
+                                <img src="${pageContext.request.contextPath}/resources/images/userProFile/${teamInfo.teamBChangeName}"
+                                     alt="팀 로고" class="team-logo">
                             </c:when>
                             <c:otherwise>
-                                <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png" alt="Default Profile" class="team-logo" />
+                                <img src="${pageContext.request.contextPath}/resources/images/user_default_profile.png"
+                                     alt="Default Profile" class="team-logo"/>
                             </c:otherwise>
                         </c:choose>
                         <div class="team-details">${teamInfo.teamBName}</div>
                         <input type="hidden" name="teamBNo" value="${teamInfo.teamBNo}">
+
                     </div>
                     <div class="checkbox-container">
                         <input type="number" name="teamB" id="team-b-checkbox" class="custom-radio" required>
@@ -142,8 +145,7 @@
                                 <td colspan="4"> 멤버가 없습니다.</td>
                             </tr>
                         </c:otherwise>
-                    </c:choose>
-                    </tbody>
+                    </c:choose></tbody>
                 </table>
 
                 <!-- B팀 선수 평가 -->
@@ -224,9 +226,9 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <%--                    <form action="warning_reason.gp" method="post" class="modal-form">--%>
                     <input type="hidden" name="memNo">
                     <input type="hidden" name="pnReporter" value="${loginMember.memNo}">
+
                     <%--                        <input type="hidden" name="pnGround" value="${stadiumNo}">--%>
                     <input type="hidden" name="pnGround" value="${stadiumNo}">
                     <div class="content-wrap center">
@@ -240,8 +242,6 @@
                             경고 사유
                         </div>
                         <div class="report-wrap margin">
-                            <%--                                <label for="reason-for-report">경고 사유</label>--%>
-                            <%--                                <input type="text" name="pnComment" id="reason-for-report">--%>
                             <textarea name="pnContent" id="reason-for-report" rows="5" cols="20"
                                       placeholder="경고 사유를 입력하세요."></textarea>
                         </div>
@@ -249,12 +249,10 @@
                             <button type="button" id="warning-submit-btn" onclick="requestWarning()">경고 등록하기</button>
                         </div>
                     </div>
-                    <%--                    </form>--%>
                 </div>
             </div>
         </div>
     </div>
     <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/game_result.js"></script>
-    <%--    <script src="${pageContext.request.contextPath}/resources/js/stadium_manager/game_result_warning.js"></script>--%>
 </body>
 </html>

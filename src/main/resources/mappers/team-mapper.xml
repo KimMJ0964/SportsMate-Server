@@ -468,11 +468,7 @@
 		LEFT JOIN `MATCH_REFUND` MR ON M.MATCH_NO = MR.MATCH_NO  -- MATCH_REFUND 테이블 조인
 		WHERE 
 		    (M.TEAM_A_NO = #{tno} OR M.TEAM_B_NO = #{tno})
-		    AND NOT EXISTS (
-		        SELECT 1 
-		        FROM `MATCH_BEST` MB 
-		        WHERE MB.MATCH_NO = M.MATCH_NO
-		    );
+		    AND M.ACCESS_DATE >= CURRENT_DATE(); 
 	</select>
 	
 	<!-- 구단 전적 수 -->
@@ -789,6 +785,7 @@
 	        STATUS = 'N'
 	    WHERE 
 	        COM_NO = #{cno}
+	    AND MEM_NO = #{memNo}
 	</update>
 	
 	<!-- 조회수 증가 -->
@@ -985,5 +982,23 @@
 		WHERE
 		    TV.VOTE_NO = #{voteNo};
 	</insert>
+	<!-- 경기 결과 디테일에 필요한 각 팀 정보 조회 -->
+	<select id="selectTeamInfo" parameterType="_int" resultType="MatchResultTeamInfoDTO">
+		SELECT
+		m.TEAM_A_NO as teamANo,
+		m.TEAM_B_NO as teamBNo,
+		t1.TEAM_NAME AS teamAName,
+		t2.TEAM_NAME AS teamBName,
+		pf1.CHANGE_NAME AS teamAChangeName,
+		pf2.CHANGE_NAME AS teamBChangeName
+		FROM
+		`match` m
+		JOIN team t1 ON m.TEAM_A_NO = t1.TEAM_NO
+		JOIN team t2 ON m.TEAM_B_NO = t2.TEAM_NO
+		LEFT JOIN PROFILE_FILE pf1 ON t1.TEAM_NO = pf1.TEAM_NO
+		LEFT JOIN PROFILE_FILE pf2 ON t2.TEAM_NO = pf2.TEAM_NO
+		WHERE
+		m.MATCH_NO = #{matchNo};
+	</select>
 
 </mapper>

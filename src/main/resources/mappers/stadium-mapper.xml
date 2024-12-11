@@ -363,7 +363,7 @@
 		LEFT JOIN 
 		    TEAM b_team ON m.TEAM_B_NO = b_team.TEAM_NO 
 		WHERE 
-		    s.MEM_NO = #{memNo};
+		    m.MATCH_NO = #{matchNo};
 	</select>
 	
 	<!-- 경기 예정 리스트 -->
@@ -390,10 +390,10 @@
 		LEFT JOIN 
 		    `TEAM_IMG` b_team_img ON b_team.TEAM_NO = b_team_img.TEAM_NO AND b_team_img.FILE_LEVER = '3'
 		WHERE
-			m.MATCH_NO = 11 
+			m.MATCH_NO = #{memNo}
 		    AND m.SCORE_A IS NULL 					<!-- A팀 점수가 NULL -->
 		    AND m.SCORE_B IS NULL 				<!-- B팀 점수가 NULL -->
-		    AND m.ACCESS_DATE > CURRENT_DATE; 	<!-- 오늘 이후로 잡힌 매치 -->
+		    AND m.ACCESS_DATE > CURRENT_DATE 	<!-- 오늘 이후로 잡힌 매치 -->
 
 	</select>
 
@@ -447,16 +447,16 @@
         S.STADIUM_START_TIME as stadiumStartTime,
         S.STADIUM_END_TIME as stadiumEndTime,
         A.ACTIVITY_AREA as activityArea,
-        SI.FILE_PATH as filePath, -- 이미지 파일 경로
-        SI.CHANGE_NAME as changeName -- 이미지 변경 이름
+        SI.FILE_PATH as filePath,
+        SI.CHANGE_NAME as changeName
     FROM 
         STADIUM S
     JOIN 
         AREA A ON S.STADIUM_ADDRESS LIKE CONCAT('%', REPLACE(A.AREA_NAME, '서울시 ', ''), '%')
     LEFT JOIN 
         STADIUM_IMG SI ON S.STADIUM_NO = SI.STADIUM_NO
-        AND SI.FILE_TYPE = 0 -- 썸네일 이미지
-        AND SI.STATUS = 'Y' -- 유효한 이미지
+        AND SI.FILE_TYPE = 0
+        AND SI.STATUS = 'Y'
     WHERE 
         S.STATUS = 'Y'
     <if test="activityArea != null and activityArea != ''">
@@ -608,6 +608,35 @@
 		WHERE MATCH_QNA_NO = #{matchQnaNo}
     </update>
 
+
+    <!-- 진행 완료 매치 리스트 -->
+    <select id="getCompleteMatches" resultType="GameFinishDto">
+	    SELECT
+	        M.MATCH_NO AS matchNo,
+	        TA.TEAM_NAME AS aaTeamName,
+	        TB.TEAM_NAME AS bbTeamName,
+	        TIA.FILE_PATH AS aaTeamImage,
+	        TIB.FILE_PATH AS bbTeamImage,
+	        M.RESERV_START AS reservStart,
+	        M.RESERV_END AS reservEnd,
+	        M.ACCESS_DATE AS accessDate
+	    FROM
+	        `MATCH` M
+	    JOIN
+	        TEAM TA ON M.TEAM_A_NO = TA.TEAM_NO
+	    JOIN
+	        TEAM TB ON M.TEAM_B_NO = TB.TEAM_NO
+	    LEFT JOIN
+	        TEAM_IMG TIA ON TA.TEAM_NO = TIA.TEAM_NO AND TIA.FILE_LEVER = '3'
+	    LEFT JOIN
+	        TEAM_IMG TIB ON TB.TEAM_NO = TIB.TEAM_NO AND TIB.FILE_LEVER = '3'
+	    WHERE
+	        M.ACCESS_DATE &lt; CURRENT_DATE
+	        AND (M.SCORE_A IS NULL OR M.SCORE_B IS NULL)
+	        AND M.STADIUM_NO = #{stadiumNo}
+	</select>
+
+
     <!-- 구장번호 조회 -->
     <select id="getStadiumNo" parameterType="_int" resultType="_int">
         select STADIUM_NO as stadiumNo
@@ -616,11 +645,13 @@
     </select>
     <select id="selectMatchMemberInfo" parameterType="map" resultType="MatchResultMemberInfoDTO">
         SELECT
-            mb.MEM_NO as memNo,
-            mb.TEAM_NO as teamNo,
-            m.MEM_NAME as memName
+        mb.MEM_NO as memNo,
+        mb.TEAM_NO as teamNo,
+        m.MEM_NAME as memName
         FROM match_best mb
         JOIN `MEMBER` m ON mb.MEM_NO = m.MEM_NO
         WHERE mb.MATCH_NO = #{matchNo} AND mb.TEAM_NO = #{teamNo}
     </select>
+
+
 </mapper>

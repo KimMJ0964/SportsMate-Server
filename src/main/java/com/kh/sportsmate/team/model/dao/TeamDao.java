@@ -171,8 +171,8 @@ public class TeamDao {
      * @param cno
      * @return
      */
-	public int deleteReply(SqlSessionTemplate sqlSession, int cno) {
-		return sqlSession.update("teamMapper.deleteReply", cno);
+	public int deleteReply(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("teamMapper.deleteReply", map);
 	}
 	
 	/**
@@ -539,6 +539,7 @@ public class TeamDao {
         return sqlSession.update("teamMapper.updateTeamRecord", score);
     }
 
+
     public ArrayList<String> selectEnrollmentInfo(SqlSessionTemplate sqlSession, int memNo) {
         return (ArrayList) sqlSession.selectList("teamMapper.selectEnrollmentInfo", memNo);
 
@@ -553,4 +554,6 @@ public class TeamDao {
     public MatchResultTeamInfoDTO selectTeamInfo(SqlSessionTemplate sqlSession, int matchNo) {
         return sqlSession.selectOne("teamMapper.selectTeamInfo", matchNo);
     }
+
+
 }
