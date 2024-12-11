@@ -77,7 +77,7 @@
         </div>
         <div class="btn-wrap">
             <c:choose>
-                <c:when test="${loginMember != null and canApply and isMemberTeam == null and not isMemberTeam }">
+                <c:when test="${loginMember != null and canApply and isMemberTeam != null and not isMemberTeam }">
                     <button type="button" id="back-list-btn" onclick="history.back()">목록으로 가기</button>
                     <button type="button" id="apply-btn" data-bs-toggle="modal" data-bs-target="#applyNow">신청하기</button>
                 </c:when>
