@@ -22,5 +22,4 @@ public class StadiumSubscription { // 신청하기
 	private String selectedDate;
 	private Time stadiumStartTime;
     private Time stadiumEndTime;
-    
 }

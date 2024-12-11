@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
@@ -17,7 +18,9 @@ import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
+import com.kh.sportsmate.team.model.dto.MyRecruitDto;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
+import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 import com.kh.sportsmate.team.model.vo.TeamRecord;
@@ -43,13 +46,13 @@ public interface MyPageService {
     ArrayList<MyTeamDto> selectMyTeam(int memNo);
     	
     // 내 구단 입단 명단
-    ArrayList<Recruit> selectMyRecruit(int memNo);
+    ArrayList<MyRecruitDto> selectMyRecruit(int memNo);
     
     // a팀 정보
-    ArrayList<MemberPositionDto> selectATeamInfo(int teamANo);
+    ArrayList<MemberPositionDto> selectATeamInfo(Map<String, Integer> aMap);
     
     // b팀 정보
-    ArrayList<MemberPositionDto> selectBTeamInfo(int teamBNo);
+    ArrayList<MemberPositionDto> selectBTeamInfo(Map<String, Integer> bMap);
     
     // 구장 리뷰
     int insertPReview(StadiumReview pr);
@@ -80,4 +83,10 @@ public interface MyPageService {
     
     // 리뷰 체크
     MatchBest checkReview(Map<String, Integer> map);
+    
+    // 전적 페이지 - 내 전적
+    ArrayList<TeamMatchInfoDto> myMatchInfo(Map<String, String> map, PageInfo pi);
+    
+    // 전적 갯수
+    int categoryMatchCount(Map<String, String> map);
 }

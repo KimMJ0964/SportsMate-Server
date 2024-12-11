@@ -84,7 +84,9 @@
 		FROM BOARD b
 		JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 		WHERE b.STATUS = 'Y'
-		AND b.TYPE = #{category}
+		<if test="category != null and category != ''">
+	        AND b.TYPE = #{category}
+	    </if>
 		AND b.TITLE LIKE CONCAT('%', #{keyword}, '%')
 		ORDER BY b.BOARD_NO DESC
 	</select>
@@ -279,6 +281,7 @@
 		STATUS = 'N'
 		WHERE
 		COM_NO = #{cno}
+		AND MEM_NO = #{memNo}
 	</update>
 
 	<!-- 조회수 증가 -->

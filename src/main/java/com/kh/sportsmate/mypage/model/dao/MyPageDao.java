@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.sportsmate.Attachment.model.vo.Profile;
+import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.model.vo.MatchQna;
@@ -20,7 +22,9 @@ import com.kh.sportsmate.member.model.vo.Member;
 import com.kh.sportsmate.member.model.vo.ProfileFile;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.model.vo.StadiumReview;
+import com.kh.sportsmate.team.model.dto.MyRecruitDto;
 import com.kh.sportsmate.team.model.dto.MyTeamDto;
+import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.vo.Recruit;
 import com.kh.sportsmate.team.model.vo.Team;
 import com.kh.sportsmate.team.model.vo.TeamRecord;
@@ -55,7 +59,7 @@ public class MyPageDao {
      * @param map
      * @return
      */
-	public ArrayList<Recruit> selectMyRecruit(SqlSessionTemplate sqlSession, int memNo) {
+	public ArrayList<MyRecruitDto> selectMyRecruit(SqlSessionTemplate sqlSession, int memNo) {
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyRecruit", memNo);
 	}
 
@@ -95,8 +99,8 @@ public class MyPageDao {
      * @param teamNo
      * @return
      */
-	public ArrayList<MemberPositionDto> selectATeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
-		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
+	public ArrayList<MemberPositionDto> selectATeamInfo(SqlSessionTemplate sqlSession, Map<String, Integer> aMap) {
+		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", aMap);
 	}
 
 	/**
@@ -105,8 +109,8 @@ public class MyPageDao {
      * @param teamNo
      * @return
      */
-	public ArrayList<MemberPositionDto> selectBTeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
-		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
+	public ArrayList<MemberPositionDto> selectBTeamInfo(SqlSessionTemplate sqlSession, Map<String, Integer> bMap) {
+		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", bMap);
 	}
 
 	/**
@@ -241,5 +245,21 @@ public class MyPageDao {
      */
 	public MatchBest checkReview(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
 		return sqlSession.selectOne("memberMapper.checkReview", map);
+	}
+	
+	/** 전적페이지 전적
+	 * @param sqlSession
+	 * @param map
+	 * @return 
+	 */
+	public ArrayList<TeamMatchInfoDto> myMatchInfo(SqlSessionTemplate sqlSession, Map<String, String> map, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("memberMapper.myMatchInfo", map, rowBounds);
+	}
+	
+	public int categoryMatchCount(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.selectOne("memberMapper.categoryMatchCount", map);
 	}
 }

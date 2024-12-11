@@ -12,8 +12,10 @@ import com.kh.sportsmate.member.model.vo.Member;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * packageName    : com.kh.sportsmate.member.model.dao
@@ -76,5 +78,18 @@ public class MemberDao {
     }
     public Member confirmMember(SqlSessionTemplate sqlSession, Member m){
         return sqlSession.selectOne("memberMapper.confirmMember",m);
+    }
+
+    public int updateTotalPoint(SqlSessionTemplate sqlSession, Map<String,Object> map) {
+        return sqlSession.update("memberMapper.updateTotalPoint", map);
+    }
+    public int updateAvgPoint(SqlSessionTemplate sqlSession, Map<String,Object> map) {
+        return sqlSession.update("memberMapper.updateAvgPoint", map);
+    }
+    public int updateMannerTotalPoint(SqlSessionTemplate sqlSession, Map<String,Object> map) {
+        return sqlSession.update("memberMapper.updateMannerTotalPoint", map);
+    }
+    public int updateMemberMannerPoint(SqlSessionTemplate sqlSession, Map<String,Object> map) {
+        return sqlSession.update("memberMapper.updateMemberMannerPoint", map);
     }
 }

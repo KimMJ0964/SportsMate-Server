@@ -8,13 +8,17 @@
 	<!-- SELECT -->
 	<!-- 결제정보 불러오기 -->
 	<select id="selectMatch" parameterType="Match" resultType="StadiumSubscription">
-	    SELECT S.STADIUM_NAME AS stadiumName,
-	    		S.STADIUM_ADDRESS AS stadiumAddress,
-	    		S.STADIUM_CATEGORY AS category,
-	    		M.MEM_NAME AS referee
-	    FROM STADIUM S
-	    JOIN MEMBER M ON M.MEM_NO = S.MEM_NO
-	    WHERE STADIUM_NO = #{stadiumNo}
+		SELECT S.STADIUM_NAME AS stadiumName,
+		S.STADIUM_ADDRESS AS stadiumAddress,
+		S.STADIUM_CATEGORY AS category,
+		M.MEM_NAME AS referee,
+		(SELECT SP.CHANGE_NAME
+		FROM stadium_img SP
+		WHERE SP.STADIUM_NO = S.STADIUM_NO
+		LIMIT 1) AS changeName
+		FROM STADIUM S
+		JOIN MEMBER M ON M.MEM_NO = S.MEM_NO
+		WHERE S.STADIUM_NO = #{stadiumNo};
 	</select>
 	
 	<select id="selectMatchA" parameterType="Match" resultType="StadiumSubscription">
@@ -29,6 +33,7 @@
 
 	<select id="selectMatchB" parameterType="Match" resultType="StadiumSubscription">
 	    SELECT T.TEAM_NAME AS opponent,
+	    		T.FILE_PATH AS teamFilePath,
 	    		CONCAT(
 		            R.MATCH_COUNT , '전 ',
 		            R.WIN, '승 ',
@@ -37,9 +42,51 @@
 		        ) AS result
 		FROM TEAM T
 		JOIN TEAM_RECORD R ON R.TEAM_NO = T.TEAM_NO
+		LEFT JOIN team_img TP ON T.TEAM_NO = TP.TEAM_NO
 		WHERE T.TEAM_NO = #{teamANo}
 	</select>
 	
+	<!-- 카테고리 명 select -->
+	<select id="selectCategory" resultType="String">
+		select CATEGORY as category
+		from `MATCH`
+		where match_no = #{matchNo};
+	</select>
+	
+	<!-- 메인페이지 매칭중 매치 -->
+	<select id="mainMatching" resultType="MyMatch">
+	    SELECT 
+		    M.RESERV_START AS reservStart,
+		    M.RESERV_END AS reservEnd,
+		    S.STADIUM_NO AS stadiumNo,
+		    S.STADIUM_NAME AS stadiumName,
+		    S.STADIUM_START_TIME AS stadiumStartTime,
+		    S.STADIUM_END_TIME AS stadiumEndTime
+		FROM 
+		    `MATCH` M
+		JOIN 
+		    STADIUM S
+		ON 
+		    M.STADIUM_NO = S.STADIUM_NO
+		WHERE 
+		    M.TEAM_A_NO IS NOT NULL
+		    AND M.TEAM_B_NO IS NULL
+		    <if test="category != null and category != ''">
+		        AND M.CATEGORY = #{category}
+		    </if>
+		    <if test="cityName != null and cityName != '' and districtName != null and districtName != ''">
+		        AND S.STADIUM_ADDRESS LIKE CONCAT('%', #{cityName}, '%', #{districtName}, '%')
+		    </if>
+		    <if test="starttime != null">
+	            AND M.RESERV_START >= #{starttime}
+	        </if>
+	        <if test="endtime != null">
+	        	AND M.RESERV_END &lt;= #{endtime}
+	        </if>
+	        <if test="date != null">
+	        	AND M.ACCESS_DATE = #{date}
+	        </if>
+	</select>
     
     <!-- UPDATE -->
     <!-- 베스트 플레이어 선정   #{memNo} #{matchNo} #{bestMNo} -->
@@ -53,6 +100,19 @@
 	    UPDATE MATCH_BEST
 	    SET MEM_NO_VOTE_COUNT = MEM_NO_VOTE_COUNT + 1
 	    WHERE MATCH_NO = #{matchNo} AND MEM_NO = #{bestMNo}
+	</update>
+
+	<!-- 경기 결과 점수 update -->
+	<update id="updateGameResult" parameterType="TeamScore">
+		update `match`
+		set SCORE_A = #{teamAScore}, SCORE_B = #{teamBScore}
+		where MATCH_NO = #{matchNo}
+		</update>
+	
+	<update id="insertMatchB" parameterType="Match">
+		UPDATE `MATCH`
+		SET TEAM_B_NO = #{teamBNo}
+		WHERE MATCH_NO = #{matchNo}
 	</update>
     
     <select id="mainRegionMatch" resultType="String">
@@ -83,11 +143,50 @@
 	    JOIN STADIUM S ON M.STADIUM_NO = S.STADIUM_NO
 	    WHERE M.SCORE_A IS NOT NULL
 	    AND M.SCORE_B IS NOT NULL
-	    AND S.STADIUM_NAME LIKE CONCAT('%', #{cityName}, ' ', #{districtName}, '%')
+	    AND S.STADIUM_ADDRESS LIKE CONCAT('%', #{cityName}, '%', #{districtName}, '%')
 	    <if test="category != null">
 	        AND M.CATEGORY = #{category}
 	    </if>
 	    ORDER BY M.MATCH_NO DESC
 	    LIMIT 6;
 	</select>
+	
+	<!-- insert -->
+	<!-- 매치 등록하기 -->
+	<insert id="insertMatchA" parameterType="Match" useGeneratedKeys="true" keyProperty="matchNo" keyColumn="MATCH_NO">
+		INSERT INTO `MATCH`(
+			STADIUM_NO,
+			TEAM_A_NO,
+			CATEGORY,
+			RESERV_START,
+			RESERV_END,
+			ACCESS_DATE
+		) VALUES (
+			#{stadiumNo},
+			#{teamANo},
+			#{category},
+			#{reservStart},
+			#{reservEnd},
+			#{accessDate}
+		)
+	</insert>
+	
+	<insert id="insertMatchBest" parameterType="java.util.List">
+	    INSERT INTO MATCH_BEST (
+	        MATCH_NO,
+	        MEM_NO,
+	        MEM_NO_VOTE_COUNT,
+	        TEAM_NO
+	    )
+	    VALUES
+	    <foreach collection="list" item="item" separator=",">
+	        (
+	            #{item.matchNo},
+	            #{item.memNo},
+	            #{item.memNoVoteCount},
+	            #{item.teamNo}
+	        )
+	    </foreach>
+	</insert>
+
 </mapper>

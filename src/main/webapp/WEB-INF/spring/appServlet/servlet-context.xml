@@ -36,6 +36,8 @@
             <mapping path="/boardLike.bd" />
             <mapping path="/boardReport.bd" />
             <mapping path="/replyComment.bd" />
+            <mapping path="/myMatch.mp" />
+            <mapping path="/myMatchInfo.mp" />
             <beans:bean class="com.kh.sportsmate.common.intercepter.LoginInterceptor" id="LoginIntercepter"/>
         </interceptor>
 		
@@ -77,7 +79,6 @@
 		<interceptor>
 			<mapping path="/modify.bd" />
 			<mapping path="/delete.bd" />
-			<mapping path="/deleteComm.tm" />
 			<beans:bean class="com.kh.sportsmate.common.intercepter.BoardInterceptor" id="BoardInterceptor" />
 		</interceptor>
 		

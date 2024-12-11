@@ -468,11 +468,7 @@
 		LEFT JOIN `MATCH_REFUND` MR ON M.MATCH_NO = MR.MATCH_NO  -- MATCH_REFUND 테이블 조인
 		WHERE 
 		    (M.TEAM_A_NO = #{tno} OR M.TEAM_B_NO = #{tno})
-		    AND NOT EXISTS (
-		        SELECT 1 
-		        FROM `MATCH_BEST` MB 
-		        WHERE MB.MATCH_NO = M.MATCH_NO
-		    );
+		    AND M.ACCESS_DATE >= CURRENT_DATE();
 	</select>
 	
 	<!-- 구단 전적 수 -->
@@ -503,6 +499,7 @@
 	    LEFT JOIN 
 	        PROFILE_FILE ON TEAM.TEAM_NO = PROFILE_FILE.TEAM_NO
 	    <where>
+	    	TEAM.STATUS = 'Y'
 	        <if test="category != null">
 	            AND TEAM.TEAM_CATEGORY = #{category}
 	        </if>
@@ -518,13 +515,7 @@
 		LEFT JOIN TEAM t ON (tm.TEAM_NO = t.TEAM_NO)
 		WHERE tm.MEM_NO = #{memNo}
 	</select>
-	
-	<select id="selectMemberTeamCount" resultType="_int">
-		SELECT COUNT(*)
-		from TEAM t
-		where MEM_NO = #{memNo}
-			and TEAM_NO= #{teamNo};
-	</select>
+
 	<!-- 게시글 생성 -->
 	<insert id="createBoard" useGeneratedKeys="true" keyProperty="boardNo">
 	  	INSERT INTO TEAM_BOARD (
@@ -610,7 +601,58 @@
 		SET STATUS = 'Y'
 		WHERE VOTE_NO = #{vno}
 	</update>
-	
+
+	<!-- 팀 전적 update -->
+	<update id="updateTeamRecord" parameterType="TeamScore">
+		UPDATE TEAM_RECORD
+		<set>
+			MATCH_COUNT = MATCH_COUNT + 1,
+			WIN = WIN +
+			<choose>
+				<when test="teamANo != null and teamAScore &gt; teamBScore">
+					CASE WHEN TEAM_NO = #{teamANo} THEN 1 WHEN TEAM_NO = #{teamBNo} THEN 0 ELSE 0 END
+				</when>
+				<when test="teamBNo != null and teamBScore &gt; teamAScore">
+					CASE WHEN TEAM_NO = #{teamBNo} THEN 1 WHEN TEAM_NO = #{teamANo} THEN 0 ELSE 0 END
+				</when>
+				<otherwise>0</otherwise>
+			</choose>,
+			LOSE = LOSE +
+			<choose>
+				<when test="teamANo != null and teamAScore &lt; teamBScore">
+					CASE WHEN TEAM_NO = #{teamANo} THEN 1 WHEN TEAM_NO = #{teamBNo} THEN 0 ELSE 0 END
+				</when>
+				<when test="teamBNo != null and teamBScore &lt; teamAScore">
+					CASE WHEN TEAM_NO = #{teamBNo} THEN 1 WHEN TEAM_NO = #{teamANo} THEN 0 ELSE 0 END
+				</when>
+				<otherwise>0</otherwise>
+			</choose>,
+			DRAW = DRAW +
+			<choose>
+				<when test="teamAScore == teamBScore">
+					1
+				</when>
+				<otherwise>0</otherwise>
+			</choose>,
+			POINT = POINT +
+			<choose>
+				<when test="teamANo != null and teamAScore &gt; teamBScore">
+					CASE WHEN TEAM_NO = #{teamANo} THEN 3 WHEN TEAM_NO = #{teamBNo} THEN 0 ELSE 0 END
+				</when>
+				<when test="teamBNo != null and teamBScore &gt; teamAScore">
+					CASE WHEN TEAM_NO = #{teamBNo} THEN 3 WHEN TEAM_NO = #{teamANo} THEN 0 ELSE 0 END
+				</when>
+				<when test="teamAScore == teamBScore">
+					1
+				</when>
+				<otherwise>0</otherwise>
+			</choose>
+		</set>
+		WHERE TEAM_NO IN (#{teamANo}, #{teamBNo});
+	</update>
+
+
+
 	<!-- 입단자 거절 -->
 	<delete id="rejectJoin">
 		DELETE
@@ -653,7 +695,9 @@
 	    JOIN MEMBER m ON b.MEM_NO = m.MEM_NO
 	    WHERE b.STATUS = 'Y'
 	    	AND b.TEAM_NO = #{tno}
-	        AND b.TYPE = #{category}
+	        <if test="category != null and category != ''">
+		        AND b.TYPE = #{category}
+		    </if>
 	    	AND b.TITLE LIKE CONCAT('%', #{keyword}, '%')
 	    ORDER BY b.BOARD_NO DESC
 	</select>
@@ -726,6 +770,7 @@
 	        STATUS = 'N'
 	    WHERE 
 	        COM_NO = #{cno}
+	    AND MEM_NO = #{memNo}
 	</update>
 	
 	<!-- 조회수 증가 -->
@@ -922,5 +967,23 @@
 		WHERE
 		    TV.VOTE_NO = #{voteNo};
 	</insert>
+	<!-- 경기 결과 디테일에 필요한 각 팀 정보 조회 -->
+	<select id="selectTeamInfo" parameterType="_int" resultType="MatchResultTeamInfoDTO">
+		SELECT
+		m.TEAM_A_NO as teamANo,
+		m.TEAM_B_NO as teamBNo,
+		t1.TEAM_NAME AS teamAName,
+		t2.TEAM_NAME AS teamBName,
+		pf1.CHANGE_NAME AS teamAChangeName,
+		pf2.CHANGE_NAME AS teamBChangeName
+		FROM
+		`match` m
+		JOIN team t1 ON m.TEAM_A_NO = t1.TEAM_NO
+		JOIN team t2 ON m.TEAM_B_NO = t2.TEAM_NO
+		LEFT JOIN PROFILE_FILE pf1 ON t1.TEAM_NO = pf1.TEAM_NO
+		LEFT JOIN PROFILE_FILE pf2 ON t2.TEAM_NO = pf2.TEAM_NO
+		WHERE
+		m.MATCH_NO = #{matchNo};
+	</select>
 
 </mapper>
