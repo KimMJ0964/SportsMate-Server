@@ -79,7 +79,6 @@
 		<interceptor>
 			<mapping path="/modify.bd" />
 			<mapping path="/delete.bd" />
-			<mapping path="/deleteComm.tm" />
 			<beans:bean class="com.kh.sportsmate.common.intercepter.BoardInterceptor" id="BoardInterceptor" />
 		</interceptor>
 		

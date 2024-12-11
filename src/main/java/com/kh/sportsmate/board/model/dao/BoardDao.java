@@ -132,8 +132,8 @@ public class BoardDao {
      * @param cno
      * @return
      */
-	public int deleteReply(SqlSessionTemplate sqlSession, int cno) {
-		return sqlSession.update("boardMapper.deleteReply", cno);
+	public int deleteReply(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("boardMapper.deleteReply", map);
 	}
 	
 	/**

@@ -155,8 +155,8 @@ public class BoardServiceImpl implements BoardService{
      */
 	@Override
 	@Transactional
-	public int deleteReply(int cno) {
-		return boardDao.deleteReply(sqlSession, cno);
+	public int deleteReply(Map<String, Integer> map) {
+		return boardDao.deleteReply(sqlSession, map);
 	}
 
 	/**

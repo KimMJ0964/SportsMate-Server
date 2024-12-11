@@ -14,6 +14,8 @@ import com.kh.sportsmate.team.model.dto.TeamInfoDto;
 import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
 import com.kh.sportsmate.team.model.dto.TeamMemberDto;
 import com.kh.sportsmate.team.model.dto.TeamVoteDetailDto;
+import com.kh.sportsmate.stadium.model.dto.TeamScore;
+import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -179,8 +181,8 @@ public class TeamDao {
      * @param cno
      * @return
      */
-	public int deleteReply(SqlSessionTemplate sqlSession, int cno) {
-		return sqlSession.update("teamMapper.deleteReply", cno);
+	public int deleteReply(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("teamMapper.deleteReply", map);
 	}
 	
 	/**
@@ -536,10 +538,10 @@ public class TeamDao {
     public ArrayList<MyTeamDto> mainRanking(SqlSessionTemplate sqlSession, String category) {
     	return (ArrayList) sqlSession.selectList("teamMapper.mainRanking", category);
     }
-    
+
     /**
      * 랭킹페이지 구단 랭킹
-     * 
+     *
      * @param sqlSession myBatis SQL 세션 객체
      * @param paramMap 파라미터가 담긴 Map (카테고리, 검색 키워드, 정렬 순서)
      * @param pi 페이지네이션 정보
@@ -550,14 +552,14 @@ public class TeamDao {
     	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); // 시작 위치 계산
     	int limit = pi.getBoardLimit(); // 한 페이지에 보여줄 데이터 수
     	RowBounds rowBounds = new RowBounds(offset, limit);
-    	
+
     	// myBatis 매퍼 호출 (RowBounds 사용)
     	return (ArrayList) sqlSession.selectList("teamMapper.RankingList", paramMap, rowBounds);
     }
-    
+
     /**
      * 카테고리 별 총 데이터 수 조회
-     * 
+     *
      * @param sqlSession MyBatis SqlSessionTemplate 객체
      * @param category 조회할 팀 카테고리
      * @return int 총 데이터 수
@@ -567,7 +569,31 @@ public class TeamDao {
     	return sqlSession.selectOne("teamMapper.Rankingpagination", paramMap);
     }
 
+    /**
+     * 팀 전적 update
+     * @param sqlSession
+     * @param score
+     * @return
+     */
+    public int updateTeamRecord(SqlSessionTemplate sqlSession, TeamScore score) {
+        return sqlSession.update("teamMapper.updateTeamRecord", score);
+    }
+
+
     public ArrayList<String> selectEnrollmentInfo(SqlSessionTemplate sqlSession, int memNo) {
         return (ArrayList) sqlSession.selectList("teamMapper.selectEnrollmentInfo", memNo);
+
     }
+
+    /**
+     * 경기 결과 디테일에 필요한 각 팀 정보 조회
+     * @param sqlSession
+     * @param matchNo 매치 번호
+     * @return
+     */
+    public MatchResultTeamInfoDTO selectTeamInfo(SqlSessionTemplate sqlSession, int matchNo) {
+        return sqlSession.selectOne("teamMapper.selectTeamInfo", matchNo);
+    }
+
+
 }
