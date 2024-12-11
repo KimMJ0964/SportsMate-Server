@@ -64,7 +64,7 @@
             <div>
                 <c:choose>
                     <c:when test="${isMemberTeam != null and not isMemberTeam}">
-                        <p id="warning">본인이 소속된 구단입니다. ${isMemberTeam}</p>
+                        <p id="warning">본인이 소속된 구단입니다.</p>
                     </c:when>
                     <c:when test="${canApply != null and not canApply}">
                         <p id="warning">소속 될 수 있는 구단은 종목당 1개 입니다</p>
