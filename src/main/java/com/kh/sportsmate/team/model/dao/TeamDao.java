@@ -4,15 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kh.sportsmate.team.model.dto.MyTeamDto;
-import com.kh.sportsmate.team.model.dto.RecruitDetailDto;
-import com.kh.sportsmate.team.model.dto.RecruitDto;
-import com.kh.sportsmate.team.model.dto.RecruitListDto;
-import com.kh.sportsmate.team.model.dto.RecruitListQueryStringDto;
-import com.kh.sportsmate.team.model.dto.TeamInfoDto;
-import com.kh.sportsmate.team.model.dto.TeamMatchInfoDto;
-import com.kh.sportsmate.team.model.dto.TeamMemberDto;
-import com.kh.sportsmate.team.model.dto.TeamVoteDetailDto;
+import com.kh.sportsmate.stadium.model.dto.TeamScore;
+import com.kh.sportsmate.team.model.dto.*;
 import com.kh.sportsmate.team.model.vo.*;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -536,7 +529,31 @@ public class TeamDao {
     	return (ArrayList) sqlSession.selectList("teamMapper.mainRanking", category);
     }
 
+    /**
+     * 팀 전적 update
+     * @param sqlSession
+     * @param score
+     * @return
+     */
+    public int updateTeamRecord(SqlSessionTemplate sqlSession, TeamScore score) {
+        return sqlSession.update("teamMapper.updateTeamRecord", score);
+    }
+
+
     public ArrayList<String> selectEnrollmentInfo(SqlSessionTemplate sqlSession, int memNo) {
         return (ArrayList) sqlSession.selectList("teamMapper.selectEnrollmentInfo", memNo);
+
     }
+
+    /**
+     * 경기 결과 디테일에 필요한 각 팀 정보 조회
+     * @param sqlSession
+     * @param matchNo 매치 번호
+     * @return
+     */
+    public MatchResultTeamInfoDTO selectTeamInfo(SqlSessionTemplate sqlSession, int matchNo) {
+        return sqlSession.selectOne("teamMapper.selectTeamInfo", matchNo);
+    }
+
+
 }

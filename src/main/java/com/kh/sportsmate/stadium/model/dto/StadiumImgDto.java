@@ -1,8 +1,5 @@
-package com.kh.sportsmate.stadium.model.vo;
+package com.kh.sportsmate.stadium.model.dto;
 
-import lombok.*;
-
-import java.sql.Date;
 import java.sql.Time;
 
 import lombok.AllArgsConstructor;
@@ -18,10 +15,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Schedule {
-	private int stadiumNo; // 구장 식별 번호
-	private Time stadiumStartTime; // 구장 운영 시작 시간
-    private Time stadiumEndTime;
-	private Date accessDate;
-
+public class StadiumImgDto {
+	private int stadiumNo;
+    private String originName;
+    private String changeName;
+    private String filePath;
+    private String fileType;
 }

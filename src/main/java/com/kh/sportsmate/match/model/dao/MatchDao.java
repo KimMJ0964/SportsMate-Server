@@ -1,9 +1,11 @@
-package com.kh.sportsmate.match.dao;
+package com.kh.sportsmate.match.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.sportsmate.stadium.model.dto.TeamScore;
+import com.kh.sportsmate.team.model.vo.Team;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -46,8 +48,19 @@ public class MatchDao {
 	public ArrayList<MyMatch> mainMatchList(SqlSessionTemplate sqlSession, Map<String, String> map) {
 		return (ArrayList) sqlSession.selectList("matchMapper.mainMatchList", map);
 	}
+
+	// 경기 카테고리 받아오기
+	public String selectCategory(SqlSessionTemplate sqlSession,String matchNo) {
+		return sqlSession.selectOne("matchMapper.selectCategory", matchNo);
+	}
+	// 경기 결과 점수 반영
+	public int updateGameResult(SqlSessionTemplate sqlSession, TeamScore score) {
+		return sqlSession.update("matchMapper.updateGameResult", score);
+	}
+
 	
 	public ArrayList<MyMatch> mainMatching(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return (ArrayList) sqlSession.selectList("matchMapper.mainMatching", map);
+
 	}
 }

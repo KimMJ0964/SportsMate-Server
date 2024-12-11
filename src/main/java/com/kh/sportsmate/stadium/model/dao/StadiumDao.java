@@ -1,20 +1,28 @@
 package com.kh.sportsmate.stadium.model.dao;
 
+import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.dto.*;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
+import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
+import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
+import com.kh.sportsmate.stadium.model.vo.Refund;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -35,20 +43,99 @@ import java.util.HashMap;
  */
 @Repository
 public class StadiumDao {
-    public int insertStadium(SqlSessionTemplate sqlSession, Stadium stadiumInfo){
+    @Autowired
+    private SqlSessionTemplate sqlSession;
+
+    // 구장 등록
+    public int insertStadium(SqlSessionTemplate sqlSession, Stadium stadiumInfo) {
         return sqlSession.insert("stadiumMapper.insertStadium", stadiumInfo);
     }
 
+    // 편의시설 등록
     public int insertAmenities(SqlSessionTemplate sqlSession, Amenities am) {
         return sqlSession.insert("stadiumMapper.insertAmenities", am);
     }
 
-    public int insetRental(SqlSessionTemplate sqlSession, Rental rental) {
+    // 대여 시스템 등록
+    public int insertRental(SqlSessionTemplate sqlSession, Rental rental) {
         return sqlSession.insert("stadiumMapper.insetRental", rental);
     }
-    public int insertStadiumAttachment(SqlSessionTemplate sqlSession, ArrayList<StadiumAttachment> stadiumAttachmentImgs){
+
+    // 구장 이미지 등록
+    public int insertStadiumAttachment(SqlSessionTemplate sqlSession, ArrayList<StadiumAttachment> stadiumAttachmentImgs) {
         return sqlSession.insert("stadiumMapper.insertStadiumAttachment", stadiumAttachmentImgs);
     }
+
+    // 관리자가 소유한 모든 구장 조회
+    public List<Stadium> selectStadiumByManager(SqlSessionTemplate sqlSession, int memNo) {
+        return sqlSession.selectList("stadiumMapper.selectStadiumByManager", memNo);
+    }
+
+    // 관리자가 소유한 단일 구장 조회
+    public StadiumDto selectOneStadiumByManager(SqlSessionTemplate sqlSession, int memNo) {
+    	return sqlSession.selectOne("stadiumMapper.selectOneStadiumByManager", memNo);
+    }
+
+    // 관리자가 소유한 구장의 이미지 조회
+    public List<StadiumDto> selectStadiumImages(SqlSessionTemplate sqlSession, int memNo) {
+        return sqlSession.selectList("stadiumMapper.selectStadiumImages", memNo);
+    }
+    
+ // 구매 완료된 매치 데이터 조회
+    public List<Refund> selectCompletedMatches(SqlSessionTemplate sqlSession, int memNo) {
+        return sqlSession.selectList("stadiumMapper.selectCompletedMatches", memNo);
+    }
+    
+    public List<StadiumRefundDto> getRefundPageData(int memNo) {
+		return (List)sqlSession.selectList("stadiumMapper.getRefundPageData", memNo);
+	}
+    
+
+    /**
+     * 구장 정보 수정
+     * @param stadiumDto - 수정할 구장 정보
+     * @return 업데이트된 행 수
+     */
+    public int updateStadium(SqlSessionTemplate sqlSession, StadiumDto stadiumDto) {
+        return sqlSession.update("stadiumMapper.updateStadium", stadiumDto);
+    }
+
+    /**
+     * 편의시설 정보 수정
+     * @param amenities - 수정할 편의시설 정보
+     * @return 업데이트된 행 수
+     */
+    public int updateAmenities(SqlSessionTemplate sqlSession, Amenities amenities) {
+        return sqlSession.update("stadiumMapper.updateAmenities", amenities);
+    }
+
+    /**
+     * 대여 시스템 정보 수정
+     * @param rental - 수정할 대여 시스템 정보
+     * @return 업데이트된 행 수
+     */
+    public int updateRental(SqlSessionTemplate sqlSession, Rental rental) {
+        return sqlSession.update("stadiumMapper.updateRental", rental);
+    }
+
+    /**
+     * 구장 이미지 삭제
+     * @param stadiumNo - 삭제할 구장의 번호
+     * @return 삭제된 행 수
+     */
+    public int deleteStadiumImages(SqlSessionTemplate sqlSession, int stadiumNo) {
+        return sqlSession.delete("stadiumMapper.deleteStadiumImages", stadiumNo);
+    }
+
+    /**
+     * 구장 이미지 추가
+     * @param stadiumAttachmentImgs - 새로 추가할 이미지 리스트
+     * @return 추가된 행 수
+     */
+    public int addStadiumImages(SqlSessionTemplate sqlSession, ArrayList<StadiumAttachment> stadiumAttachmentImgs) {
+        return sqlSession.insert("stadiumMapper.addStadiumImages", stadiumAttachmentImgs);
+    }
+
     
     // 검색 결과 개수 조회
     public int getSearchResultCount(SqlSessionTemplate sqlSession, Map<String, Object> params) {
@@ -119,4 +206,38 @@ public class StadiumDao {
     public int inquiryUpdate(SqlSessionTemplate sqlSession, StadiumQna sq) {
     	return sqlSession.update("stadiumMapper.inquiryUpdate", sq);
     }
+
+    // 환불 처리
+	public int updateReservationStatus(SqlSessionTemplate sqlSession, int matchNo) {
+		return sqlSession.update("stadiumMapper.updateReservationStatus", matchNo);
+	}
+
+	public List<GameScheduleDto> selectGameScheduleData(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.selectList("stadiumMapper.getGameScheduleData", memNo);
+	}
+	
+	public int deleteMatchBest(SqlSessionTemplate sqlSession, int matchNo) {
+	    return sqlSession.delete("stadiumMapper.deleteMatchBest", matchNo);
+	}
+
+	public int deleteMatch(SqlSessionTemplate sqlSession, int matchNo) {
+	    return sqlSession.delete("stadiumMapper.deleteMatch", matchNo);
+	}
+
+    public int insertPenalty(SqlSessionTemplate sqlSession, StadiumPenaltyDTO penaltyInfo) {
+        return sqlSession.insert("stadiumMapper.insertPenalty", penaltyInfo);
+    }
+    
+    // 진행 완료 매치
+    public List<GameFinishDto> getCompleteMatches(SqlSessionTemplate sqlSession, int stadiumNo) {
+        return sqlSession.selectList("stadiumMapper.getCompleteMatches", stadiumNo);
+    }
+    public int getStadiumNo(SqlSessionTemplate sqlSession, int memNo) {
+        return sqlSession.selectOne("stadiumMapper.getStadiumNo", memNo);
+    }
+    public ArrayList<MatchResultMemberInfoDTO> selectMatchMemberInfo(SqlSessionTemplate sqlSession, Map<String,Object> map) {
+        return (ArrayList) sqlSession.selectList("stadiumMapper.selectMatchMemberInfo", map);
+
+    }
+
 }

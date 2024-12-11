@@ -108,6 +108,17 @@
     margin: 0 8px;
 }
 
+.vs{
+    display: flex;
+    justify-content: center;
+}
+
+.game-time{
+    display: flex;
+    justify-content: center;
+    font-size: x-small;
+}
+
 .gamelistback-button {
     display: flex;
     align-items: center;
@@ -168,7 +179,7 @@
 
         .team-name {
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
         }
         
         .team-level {
