@@ -21,7 +21,11 @@
 
     <!-- 이미지와 지도 컨테이너 -->
     <div class="image-container">
-        <img id="stadiumImage" src="${pageContext.request.contextPath}/resources/images/field.png" alt="Stadium Image" />
+		<a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}">
+		   <img id="stadiumImage" 
+		        src="${pageContext.request.contextPath}/resources/images/stadiumFile/${stadiumDetail.changeName}" 
+		        alt="${stadiumDetail.stadiumName}" />
+		</a>
         <div id="map"></div> <!-- 지도 div 추가 -->
     </div>
 
