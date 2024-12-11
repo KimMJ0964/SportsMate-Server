@@ -490,7 +490,7 @@
 
 	<select id="selectMemberTeamCount" resultType="_int">
 		SELECT COUNT(*)
-		from TEAM t
+		from TEAM_Member
 		where MEM_NO = #{memNo}
 		and TEAM_NO= #{teamNo};
 	</select>

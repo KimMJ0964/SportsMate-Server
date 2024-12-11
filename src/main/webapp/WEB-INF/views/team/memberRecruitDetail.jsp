@@ -63,7 +63,7 @@
             <div>${detailInfo.teamDescription}</div>
             <div>
                 <c:choose>
-                    <c:when test="${isMemberTeam != null and not isMemberTeam}">
+                    <c:when test="${isMemberTeam != null and isMemberTeam}">
                         <p id="warning">본인이 소속된 구단입니다.</p>
                     </c:when>
                     <c:when test="${canApply != null and not canApply}">
@@ -77,7 +77,7 @@
         </div>
         <div class="btn-wrap">
             <c:choose>
-                <c:when test="${loginMember != null and canApply and not isMemberTeam }">
+                <c:when test="${loginMember != null and canApply and isMemberTeam == null and not isMemberTeam }">
                     <button type="button" id="back-list-btn" onclick="history.back()">목록으로 가기</button>
                     <button type="button" id="apply-btn" data-bs-toggle="modal" data-bs-target="#applyNow">신청하기</button>
                 </c:when>
