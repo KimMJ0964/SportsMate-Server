@@ -105,6 +105,7 @@
 		update `match`
 		set SCORE_A = #{teamAScore}, SCORE_B = #{teamBScore}
 		where MATCH_NO = #{matchNo}
+		</update>
 	
 	<update id="insertMatchB" parameterType="Match">
 		UPDATE `MATCH`
