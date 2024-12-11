@@ -21,7 +21,11 @@
 
     <!-- 이미지와 지도 컨테이너 -->
     <div class="image-container">
-        <img id="stadiumImage" src="${pageContext.request.contextPath}/resources/images/field.png" alt="Stadium Image" />
+        <a href="detail.st?stadiumNo=${stadiumDetail.stadiumNo}">
+		    <img id="stadiumImage" 
+		         src="${pageContext.request.contextPath}/resources/images/stadiumFile/${stadiumDetail.changeName}" 
+		         alt="${stadiumDetail.stadiumName}" />
+		</a>
         <div id="map"></div> <!-- 지도 div 추가 -->
     </div>
 
@@ -117,7 +121,7 @@
 									</c:if>
 									
 									<!-- Else 조건 -->
-									<c:if test="${stadiumDetail.shower == 'N'}">
+									<c:if test="${stadiumDetail.shower != 'Y'}">
 										<p class="title_line">샤워실</p>
 									</c:if>
 								</div>
@@ -128,7 +132,7 @@
 									<c:if test="${stadiumDetail.smoke == 'Y'}">
 						                <p>흡연 구역</p>
 						            </c:if>
-						            <c:if test="${stadiumDetail.smoke == 'N'}">
+						            <c:if test="${stadiumDetail.smoke != 'Y'}">
 						                <p class="title_line">흡연 구역</p>
 						            </c:if>
 								</div>
@@ -139,7 +143,7 @@
 									<c:if test="${stadiumDetail.park == 'Y'}">
 						                <p>주차장</p>
 						            </c:if>
-						            <c:if test="${stadiumDetail.park == 'N'}">
+						            <c:if test="${stadiumDetail.park != 'Y'}">
 						                <p class="title_line">주차장</p>
 						            </c:if>
 								</div>
@@ -150,7 +154,7 @@
 									<c:if test="${stadiumDetail.drink == 'Y'}">
 						                <p>음료 판매</p>
 						            </c:if>
-						            <c:if test="${stadiumDetail.drink == 'N'}">
+						            <c:if test="${stadiumDetail.drink != 'Y'}">
 						                <p class="title_line">음료 판매</p>
 						            </c:if>
 								</div>
@@ -173,7 +177,7 @@
 									<c:if test="${stadiumDetail.ball == 'Y'}">
 						                <p>공 대여</p>
 						            </c:if>
-						            <c:if test="${stadiumDetail.ball == 'N'}">
+						            <c:if test="${stadiumDetail.ball != 'Y'}">
 						                <p class="title_line">공 대여</p>
 						            </c:if>
 								</div>
@@ -184,7 +188,7 @@
 									<c:if test="${stadiumDetail.vest == 'Y'}">
 						                <p>조끼</p>
 						            </c:if>
-						            <c:if test="${stadiumDetail.vest == 'N'}">
+						            <c:if test="${stadiumDetail.vest != 'Y'}">
 						                <p class="title_line">조끼</p>
 						            </c:if>
 								</div>
@@ -623,14 +627,14 @@
 			
 			                <!-- 대기중인 매치 -->
 			                <div class="row mb-3">
-			                    <div class="col-12 text-center">
-			                        <p class="fw-bold">대기중인 매치</p>
-			                        <div class="pending-matches">
-			                            <p class="text-muted">현재 대기중인 매치가 없습니다.</p>
-			                        </div>
-			                    </div>
-			                </div>
-			
+							    <div class="col-12 text-center">
+							        <p class="fw-bold">대기중인 매치</p>
+							        <div class="pending-matches">
+							            <p class="text-muted">현재 대기중인 매치가 없습니다.</p>
+							        </div>
+							    </div>
+							</div>
+										
 			                <!-- 신청 버튼 -->
 			                <div class="modal-footer">
 			                    <button type="submit" class="btn btn-primary w-100">신청하기</button>
@@ -648,6 +652,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/stadium/detail.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/time.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/match.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/stadium/teamajax.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=043f5595cb50307eae5f33cc8943d0e6&libraries=services"></script>
     <script>
     var map;

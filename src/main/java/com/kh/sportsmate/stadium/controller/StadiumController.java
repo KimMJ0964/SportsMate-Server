@@ -342,8 +342,14 @@ public class StadiumController {
         }
 
     }
-
     
+    @ResponseBody
+    @PostMapping("/stadium/teams")
+    public List<TeamDto> getTeamsByDateAndTime(@RequestBody MatchRequestDto request) {
+        System.out.println("요청 데이터: " + request);
+        return stadiumService.findTeamsByDateAndTime(request);
+    }
+   
     /**
      * 문의 등록
      *

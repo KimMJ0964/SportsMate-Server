@@ -41,6 +41,10 @@ public class StadiumDetail {
     private String park; // 주차장 유무
     private String drink; // 음료 구비 유무
     
+    // 이미지 필드 추가
+    private String filePath; // 파일 경로
+    private String changeName; // 변경된 파일 이름
+    
     // StadiumReview 정보
     private List<StadiumReviewDto> reviews; 
 }
