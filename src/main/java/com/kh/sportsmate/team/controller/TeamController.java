@@ -961,11 +961,15 @@ public class TeamController {
     @GetMapping(value = "recruit_detail.tm")
     public String moveRecruitDetail(int tno, HttpServletRequest request, HttpSession session) {
         log.info("팀번호 : {}", tno);
+
+		// 팀 디테일 정보 조회
         RecruitDetailDto detailInfo = teamService.selectRecruitDetail(tno);
         log.info("디테일 INFO : {}", detailInfo);
+
 		// 구단에 소속된 카테고리 조회
 		Member m = (Member) session.getAttribute("loginMember");
 		boolean canApply = false;
+		boolean isMemberTeam = false;
 		if(m != null && detailInfo != null){
 			EnrollmentInfoDTO enrollmentInfo = teamService.selectEnrollmentInfo(m);
 			log.info("소속 구단 카테고리 정보 조회 결과 : {}", enrollmentInfo);
@@ -976,17 +980,16 @@ public class TeamController {
 						("futsal".equals(teamCategory) && !enrollmentInfo.isFutsal()) ||
 						("basketball".equals(teamCategory) && !enrollmentInfo.isBasketball()) ||
 						("baseball".equals(teamCategory) && !enrollmentInfo.isBaseball());
+				request.setAttribute("canApply", canApply);
 			}
+			// 본인 소속 구단 여부 확인
+			Map<String, Integer> map = new HashMap<>();
+			map.put("memNo", m.getMemNo());
+			map.put("teamNo", tno);
+			isMemberTeam = teamService.isMemberTeam(map);
+			log.info("소속 구단 여부 확인 결과 : {}", isMemberTeam);
+			request.setAttribute("isMemberTeam", isMemberTeam);
 		}
-		// 본인 소속 구단 여부 확인
-		boolean isMemberTeam = false;
-		Map<String, Integer> map = new HashMap<>();
-		map.put("memNo", m.getMemNo());
-		map.put("teamNo", tno);
-		isMemberTeam = teamService.isMemberTeam(map);
-		log.info("소속 구단 여부 확인 결고 : {}",isMemberTeam);
-		request.setAttribute("isMemberTeam", isMemberTeam);
-		request.setAttribute("canApply", canApply);
         request.setAttribute("detailInfo", detailInfo);
         return "team/memberRecruitDetail";
     }

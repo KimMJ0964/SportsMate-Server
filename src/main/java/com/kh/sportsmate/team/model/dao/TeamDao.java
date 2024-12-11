@@ -555,5 +555,8 @@ public class TeamDao {
         return sqlSession.selectOne("teamMapper.selectTeamInfo", matchNo);
     }
 
+    public int selectMemberTeamCount(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+        return sqlSession.selectOne("teamMapper.selectMemberTeamCount", map);
+    }
 
 }

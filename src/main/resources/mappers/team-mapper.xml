@@ -487,7 +487,14 @@
 		FROM MATCH_REFUND
 		WHERE MATCH_NO = #{matchNo}
 	</select>
-	
+
+	<select id="selectMemberTeamCount" resultType="_int">
+		SELECT COUNT(*)
+		from TEAM t
+		where MEM_NO = #{memNo}
+		and TEAM_NO= #{teamNo};
+	</select>
+
 	<!-- 메인페이지 구단 랭킹 -->
 	<select id="mainRanking" resultType="MyTeamDto">
 	    SELECT 
