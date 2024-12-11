@@ -282,7 +282,7 @@ public class StadiumController {
         int memNo = loginMember.getMemNo();
 
         // 팀 번호 조회
-        int teamNo = stadiumService.getTeamNoByMemNo(memNo);
+        int teamNo = stadiumService.getTeamNoByMemNo(memNo,stadiumNo);
 
         // 구단 멤버 정보 가져오기
         List<StadiumDetailmodal> stadiumReservation = new ArrayList<>();

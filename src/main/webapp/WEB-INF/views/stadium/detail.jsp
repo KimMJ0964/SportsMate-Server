@@ -532,7 +532,7 @@
 					</div>
 					<!-- Modal body -->
 					<div class="modal-body">
-						<form action="orderInfo.st" method="post" class="modal-form">
+						<form action="orderInfo.st" method="post" class="modal-form" typeof="ap">
 							<!-- Hidden Inputs -->
 						    <input type="hidden" id="stadium-id" name="stadiumNo" value="${stadiumDetail.stadiumNo}">
 						    <input type="hidden" id="price" name="price" value="${stadiumDetail.stadiumPrice}">

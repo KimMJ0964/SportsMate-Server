@@ -200,8 +200,8 @@ public class MatchController {
 	    while (true) {
 	        String teamNo = request.getParameter("mb[" + index + "].teamNo");
 	        String memNo = request.getParameter("mb[" + index + "].memNo");
-
-	        if (teamNo == null || memNo == null) {
+			log.info(" teamNO: " + teamNo + " memNo: " + memNo);
+	        if (memNo == null ||teamNo == null) {
 	            break; // 더 이상의 데이터가 없으면 종료
 	        }
 

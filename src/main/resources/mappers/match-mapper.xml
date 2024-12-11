@@ -8,15 +8,17 @@
 	<!-- SELECT -->
 	<!-- 결제정보 불러오기 -->
 	<select id="selectMatch" parameterType="Match" resultType="StadiumSubscription">
-	    SELECT S.STADIUM_NAME AS stadiumName,
-	    		S.STADIUM_ADDRESS AS stadiumAddress,
-	    		S.STADIUM_CATEGORY AS category,
-	    		M.MEM_NAME AS referee,
-	    		SP.FILE_PATH AS filePath
-	    FROM STADIUM S
-	    JOIN MEMBER M ON M.MEM_NO = S.MEM_NO
-	    LEFT JOIN stadium_img SP ON S.STADIUM_NO = SP.STADIUM_NO
-	    WHERE S.STADIUM_NO = #{stadiumNo}
+		SELECT S.STADIUM_NAME AS stadiumName,
+		S.STADIUM_ADDRESS AS stadiumAddress,
+		S.STADIUM_CATEGORY AS category,
+		M.MEM_NAME AS referee,
+		(SELECT SP.CHANGE_NAME
+		FROM stadium_img SP
+		WHERE SP.STADIUM_NO = S.STADIUM_NO
+		LIMIT 1) AS changeName
+		FROM STADIUM S
+		JOIN MEMBER M ON M.MEM_NO = S.MEM_NO
+		WHERE S.STADIUM_NO = #{stadiumNo};
 	</select>
 	
 	<select id="selectMatchA" parameterType="Match" resultType="StadiumSubscription">

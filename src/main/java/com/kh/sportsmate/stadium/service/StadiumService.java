@@ -81,7 +81,7 @@ public interface StadiumService {
 	// 대기 중인 매치 정보 가져오기
     List<StadiumDetailmodal> getPendingMatches(int teamNo);
 	
-	int getTeamNoByMemNo(int memNo);
+	int getTeamNoByMemNo(int memNo,int stadiumNo);
 	
 	// 문의 등록
 	boolean insertQna(StadiumQnaDto stadiumQnaDto);
@@ -108,6 +108,7 @@ public interface StadiumService {
 
 	// 매치 참여 선수 리스트 조회
 	ArrayList<MatchResultMemberInfoDTO> selectMatchMemberInfo(Map<String, Object> map);
+
 
 }
 
