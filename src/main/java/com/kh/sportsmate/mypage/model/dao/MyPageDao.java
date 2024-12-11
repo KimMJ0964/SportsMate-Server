@@ -99,8 +99,8 @@ public class MyPageDao {
      * @param teamNo
      * @return
      */
-	public ArrayList<MemberPositionDto> selectATeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
-		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
+	public ArrayList<MemberPositionDto> selectATeamInfo(SqlSessionTemplate sqlSession, Map<String, Integer> aMap) {
+		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", aMap);
 	}
 
 	/**
@@ -109,8 +109,8 @@ public class MyPageDao {
      * @param teamNo
      * @return
      */
-	public ArrayList<MemberPositionDto> selectBTeamInfo(SqlSessionTemplate sqlSession, int teamNo) {
-		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", teamNo);
+	public ArrayList<MemberPositionDto> selectBTeamInfo(SqlSessionTemplate sqlSession, Map<String, Integer> bMap) {
+		return (ArrayList) sqlSession.selectList("memberMapper.selectTeamInfo", bMap);
 	}
 
 	/**
