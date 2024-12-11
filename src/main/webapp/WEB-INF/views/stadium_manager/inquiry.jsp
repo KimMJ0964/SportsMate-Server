@@ -86,7 +86,7 @@
 						<c:when
 							test="${pi.currentPage != 1 || (pi.startPage / pi.boardLimit)  > 1}">
 							<li class="page-item"><a
-								href="inquiry.me?cpage=1"
+								href="inquiry.gp?cpage=1"
 								class="page-link"> <span aria-hidden="true">&laquo;</span>
 							</a></li>
 						</c:when>
@@ -99,7 +99,7 @@
 					<c:choose>
 						<c:when test="${pi.currentPage > 1}">
 							<li class="page-item"><a
-								href="inquiry.me?cpage=${pi.currentPage - 1}"
+								href="inquiry.gp?cpage=${pi.currentPage - 1}"
 								class="page-link"> <span aria-hidden="true">&lt;</span>
 							</a></li>
 						</c:when>
@@ -118,7 +118,7 @@
 							</c:when>
 							<c:otherwise>
 								<li class="page-item"><a class="page-link"
-									href="inquiry.me?cpage=${page}">${page}</a>
+									href="inquiry.gp?cpage=${page}">${page}</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
@@ -126,7 +126,7 @@
 					<c:choose>
 						<c:when test="${pi.currentPage < pi.maxPage}">
 							<li class="page-item"><a
-								href="inquiry.me?cpage=${pi.currentPage + 1}"
+								href="inquiry.gp?cpage=${pi.currentPage + 1}"
 								class="page-link"> <span aria-hidden="true">&gt;</span>
 							</a></li>
 						</c:when>
@@ -144,13 +144,13 @@
 						</c:when>
 						<c:when test="${pi.currentPage  < pi.maxPage and pi.maxPage > 1}">
 							<li class="page-item"><a
-								href="inquiry.me?cpage=${pi.maxPage}"
+								href="inquiry.gp?cpage=${pi.maxPage}"
 								class="page-link"> <span aria-hidden="true">&raquo;</span>
 							</a></li>
 						</c:when>
 						<c:when test="${(pi.endPage / boardLimit)  < pi.maxPage}">
 							<li class="page-item"><a
-								href="inquiry.me?cpage=${pi.endPage + 1}"
+								href="inquiry.gp?cpage=${pi.endPage + 1}"
 								class="page-link"> <span aria-hidden="true">&raquo;</span>
 							</a></li>
 						</c:when>

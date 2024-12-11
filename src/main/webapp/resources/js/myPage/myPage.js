@@ -93,13 +93,15 @@ $(document).on('click', '.bestplayer-btn', function () {
 	console.log("bestplayer-btn 클릭")
 	var teamANo = $(this).data('atno');
 	var teamBNo = $(this).data('btno');
+	var matchNo = $(this).data('matchno');
 
 	$.ajax({
 		url: 'getTeamInfo.mp', // 서버에서 팀 정보를 받아올 URL
 		type: 'GET',
 		data: {
 			teamANo: teamANo,
-			teamBNo: teamBNo
+			teamBNo: teamBNo,
+			matchNo: matchNo
 		},
 		success: function (response) {
 			console.log(response);
