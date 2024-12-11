@@ -532,9 +532,8 @@
 					</div>
 					<!-- Modal body -->
 					<div class="modal-body">
-						<form action="" method="post" class="modal-form">
+						<form action="orderInfo.st" method="post" class="modal-form">
 							<!-- Hidden Inputs -->
-							<input type="hidden" id="teamNo" name="teamNo" value="${teamNo}">
 						    <input type="hidden" id="stadium-id" name="stadiumNo" value="${stadiumDetail.stadiumNo}">
 						    <input type="hidden" id="price" name="price" value="${stadiumDetail.stadiumPrice}">
 						    <input type="hidden" id="category" name="category" value="${stadiumDetail.stadiumCategory}">
@@ -590,9 +589,10 @@
 			                                    <p class="text-muted">참여 가능한 멤버가 없습니다.</p>
 			                                </c:when>
 			                                <c:otherwise>
-			                                    <c:forEach var="member" items="${stadiumReservation}">
+			                                    <c:forEach var="member" items="${stadiumReservation}" varStatus="status">
 			                                        <div class="form-check">
-			                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="memberNo" value="${member.memNo}">
+														<input type="hidden" id="teamNo" name="mb[${status.index}].teamNo" value="${teamNo}">
+			                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="mb[${status.index}].memNo" value="${member.memNo}">
 			                                            <label class="form-check-label" for="member-${member.memNo}">
 			                                                ${member.memName}
 			                                            </label>

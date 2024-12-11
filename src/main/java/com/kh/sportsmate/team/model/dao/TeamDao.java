@@ -171,8 +171,8 @@ public class TeamDao {
      * @param cno
      * @return
      */
-	public int deleteReply(SqlSessionTemplate sqlSession, int cno) {
-		return sqlSession.update("teamMapper.deleteReply", cno);
+	public int deleteReply(SqlSessionTemplate sqlSession, Map<String, Integer> map) {
+		return sqlSession.update("teamMapper.deleteReply", map);
 	}
 	
 	/**

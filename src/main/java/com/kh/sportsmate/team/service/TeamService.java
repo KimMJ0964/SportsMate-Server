@@ -55,7 +55,7 @@ public interface TeamService {
 	int writeReply(Map<String, String> map);
 	
 	// 댓글 삭제
-	int deleteReply(int cno);
+	int deleteReply(Map<String, Integer> map);
 	
 	// 조회수 증가
 	int viewAdd(int bno);

@@ -203,8 +203,8 @@ public class TeamServiceImpl implements TeamService {
      */
  	@Override
  	@Transactional
- 	public int deleteReply(int cno) {
- 		return teamDao.deleteReply(sqlSession, cno);
+ 	public int deleteReply(Map<String, Integer> map) {
+ 		return teamDao.deleteReply(sqlSession, map);
  	}
 
  	/**
