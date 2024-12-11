@@ -24,5 +24,13 @@ function confirmDelete() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const add = document.querySelector('#modify-add').getAttribute('data-add') || '';
+    const addParts = add.split(",").map(part => part.trim()); // 공백 제거 추가
+
+    document.getElementById('memberBaseAdd').value = addParts[0] || ''; // 값이 없을 경우 대비
+    document.getElementById('memberDetailAdd').value = addParts[1] || ''; // 값이 없을 경우 대비
+});
+
 
 

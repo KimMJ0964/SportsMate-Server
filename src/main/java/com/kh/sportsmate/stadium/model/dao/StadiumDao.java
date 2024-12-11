@@ -1,18 +1,8 @@
 package com.kh.sportsmate.stadium.model.dao;
 
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
-import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
-import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.dto.*;
 import com.kh.sportsmate.Attachment.model.vo.StadiumAttachment;
-import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
-import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Refund;
