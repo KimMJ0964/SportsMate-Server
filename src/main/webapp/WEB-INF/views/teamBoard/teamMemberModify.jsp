@@ -30,7 +30,7 @@
 		<br>
 		<jsp:include page="../common/nav.jsp" />
 		<div class="recruit-list-wrap">
-			<div id="title">단원모집</div>
+			<div id="title">단원관리</div>
 
 			<div class="list-wrap">
 				<c:forEach var="ml" items="${memberList}">
