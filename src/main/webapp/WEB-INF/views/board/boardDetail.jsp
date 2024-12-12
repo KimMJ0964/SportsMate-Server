@@ -124,9 +124,11 @@
 						</div>
 						<hr>
 						<div class="bd-button-container">
-							<div class="bd-red-button"
-								onclick="location.href = 'deleteComm.bd?cno=${comments.comNo}&bno=${board.boardNo }'">댓글
-								삭제</div>
+							<c:if test="${loginMember != null && loginMember.memNo == comments.memNo}">
+								<div class="bd-red-button"
+									onclick="location.href = 'deleteComm.bd?cno=${comments.comNo}&bno=${board.boardNo }'">댓글
+									삭제</div>
+							</c:if>
 							<div class="bd-red-button" data-bs-toggle="modal"
 								data-bs-target="#reportModal"
 								onclick="setReportData(${board.boardNo}, ${comments.comNo}, ${comments.memNo})">신고하기</div>
@@ -169,9 +171,11 @@
 									</div>
 									<hr>
 									<div class="bd-button-container">
-										<button class="bd-red-button"
-											onclick="location.href = 'deleteComm.bd?cno=${reply.comNo}&bno=${board.boardNo }'">답글
-											삭제</button>
+										<c:if test="${loginMember != null && loginMember.memNo == reply.memNo}">
+											<button class="bd-red-button"
+												onclick="location.href = 'deleteComm.bd?cno=${reply.comNo}&bno=${board.boardNo }'">답글
+												삭제</button>
+										</c:if>
 										<button class="bd-red-button" data-bs-toggle="modal"
 											data-bs-target="#reportModal"
 											onclick="setReportData(${board.boardNo}, ${reply.comNo}, ${comments.memNo})">신고하기</button>

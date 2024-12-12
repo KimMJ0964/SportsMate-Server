@@ -612,4 +612,20 @@ MyInfoContainer img {
 		height: 50px;
 		position: relative;
 	}
+	
+	.mypage-qna-header:nth-child(1), .mypage-qna-cell:nth-child(1) {
+    	width: 20%; /* 첫 번째 열 너비 */
+	}
+	
+	.mypage-qna-header:nth-child(2), .mypage-qna-cell:nth-child(2) {
+	    width: 30%; /* 두 번째 열 너비 */
+	}
+	
+	.mypage-qna-header:nth-child(3), .mypage-qna-cell:nth-child(3) {
+	    width: 35%; /* 세 번째 열 너비 */
+	}
+	
+	.mypage-qna-header:nth-child(4), .mypage-qna-cell:nth-child(4) {
+	    width: 15%; /* 네 번째 열 너비 */
+	}
 }
