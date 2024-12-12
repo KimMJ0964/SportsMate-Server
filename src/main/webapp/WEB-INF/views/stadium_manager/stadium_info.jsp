@@ -64,12 +64,12 @@
             
             <div class="form-group">
                 <label for="memberBaseAdd">주소</label>
-                <div class="address-container">
+                <div class="address-container" id="modify-add" data-add="${stadium.stadiumAdd}">
                     <input type="text" class="zipcode" id="memberZipcode" name="stadiumZipcode" value="${stadium.stadiumZipcode}">
                     <button type="button" class="address-search-button" onclick="addSearch('memberZipcode','memberBaseAdd','memberDetailAdd')">주소 검색</button>
                 </div>
-                <input type="text" class="basic-address" id="memberBaseAdd" name="stadiumAdd" value="${stadium.stadiumAdd}" readonly>
-                <input type="text" class="detail-address" id="memberDetailAdd" name="stadiumDetailAdd" value="${stadium.stadiumAdd}">
+                <input type="text" class="basic-address" id="memberBaseAdd" name="stadiumAdd"  readonly>
+                <input type="text" class="detail-address" id="memberDetailAdd" name="stadiumDetailAdd">
             </div>
             
             <div class="form-group">
