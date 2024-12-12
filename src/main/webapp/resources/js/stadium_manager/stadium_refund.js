@@ -31,9 +31,7 @@ function submitRefund(event) {
         .then(data => {
             if (data.success) {
                 alert("환불처리 되었습니다."); // 환불 성공 알림 표시
-
                 closeModal(); // 모달 창 닫기
-
                 // 서버로부터 성공 응답을 받은 후 해당 예약 항목을 UI에서 제거
                 const matchNo = formData.get('matchNo'); // 폼 데이터에서 예약 번호를 가져옴
                 const elementToRemove = document.querySelector(`[data-match-no="${matchNo}"]`);
