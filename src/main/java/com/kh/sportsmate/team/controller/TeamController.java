@@ -207,7 +207,7 @@ public class TeamController {
             return "redirect:boardList.tm?tno=" + tno;
         } else { // 실패
             System.out.println("일반 게시글 생성 실패");
-            m.addAttribute("alertMsg", "게시글 작성 실패");
+            session.setAttribute("alertMsg", "게시글 작성 실패");
             return "redirect:boardList.tm?tno=" + tno;
         }
 
