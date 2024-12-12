@@ -34,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MatchServiceImpl implements MatchService {
 	
 	private final SqlSessionTemplate sqlSession;
@@ -142,6 +143,7 @@ public class MatchServiceImpl implements MatchService {
 		return ss;
 	}
 
+	@Transactional
 	@Override
 	public int insertMatch(Match mc, List<MatchBest> mb) {
 		int result1 = 0;
