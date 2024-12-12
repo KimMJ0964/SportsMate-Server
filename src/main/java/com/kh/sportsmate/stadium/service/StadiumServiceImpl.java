@@ -3,40 +3,38 @@ package com.kh.sportsmate.stadium.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.kh.sportsmate.admin.model.dao.AdminDao;
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.match.model.dao.MatchDao;
-import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.member.model.dao.MemberDao;
 import com.kh.sportsmate.stadium.model.dto.*;
 import com.kh.sportsmate.team.model.dao.TeamDao;
 import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
-import com.kh.sportsmate.stadium.model.vo.Refund;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 
+import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
+import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
+import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
+import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
+import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -67,21 +65,25 @@ public class StadiumServiceImpl implements StadiumService{
 		return stadiumDao.selectStadiumImages(sqlSession, memNo);
 	}
 
+	@Transactional
 	@Override
 	public int updateStadium(StadiumDto stadiumDto) {
 		return stadiumDao.updateStadium(sqlSession, stadiumDto);
 	}
 
+	@Transactional
 	@Override
 	public int updateAmenities(Amenities amenities) {
 		return stadiumDao.updateAmenities(sqlSession, amenities);
 	}
 
+	@Transactional
 	@Override
 	public int updateRental(Rental rental) {
 		return stadiumDao.updateRental(sqlSession, rental);
 	}
 
+	@Transactional
 	@Override
 	public boolean updateStadium(StadiumDto stadiumDto, Amenities amenities, Rental rental) {
 		boolean isStadiumUpdated = stadiumDao.updateStadium(sqlSession, stadiumDto) > 0; // 구장 정보 업데이트
@@ -90,7 +92,7 @@ public class StadiumServiceImpl implements StadiumService{
 
         return isStadiumUpdated && isAmenitiesUpdated && isRentalUpdated;
 	}
-	
+
 	@Override
 	public List<StadiumRefundDto> getRefundPageData(int memNo) {
 	    // DAO에서 VO 리스트 가져오기
@@ -98,6 +100,7 @@ public class StadiumServiceImpl implements StadiumService{
 	    return stadiumDao.getRefundPageData(memNo);
 	}
 
+	@Transactional
 	@Override
 	public boolean processRefund(int matchNo) {
 	    int result = stadiumDao.updateReservationStatus(sqlSession, matchNo);
@@ -149,8 +152,8 @@ public class StadiumServiceImpl implements StadiumService{
 		return stadiumDao.selectGameScheduleData(sqlSession, memNo);
 	}
 
-	@Override
 	@Transactional
+	@Override
 	public boolean deleteMatchAndBest(int matchNo) {
 		// 1. MATCH_BEST 데이터 삭제
 	    int matchBestDeleted = stadiumDao.deleteMatchBest(sqlSession, matchNo);
@@ -200,7 +203,8 @@ public class StadiumServiceImpl implements StadiumService{
 		params.put("category", category);
 		return stadiumDao.getTeamNoByMemNo(sqlSession, params);
 	}
-	
+
+	@Transactional
 	@Override
 	public boolean insertQna(StadiumQnaDto stadiumQnaDto) {
 	    int result = stadiumDao.insertQna(sqlSession, stadiumQnaDto);
@@ -217,6 +221,7 @@ public class StadiumServiceImpl implements StadiumService{
         return stadiumDao.inquiryList(sqlSession, memNo, pi);
     }
 
+	@Transactional
     @Override
     public int inquiryUpdate(StadiumQna sq) {
         return stadiumDao.inquiryUpdate(sqlSession, sq);
@@ -284,6 +289,7 @@ public class StadiumServiceImpl implements StadiumService{
 	 * @param penaltyInfo
 	 * @return
 	 */
+	@Transactional
 	@Override
 	public int insertPenalty(StadiumPenaltyDTO penaltyInfo) {
 		int pnCount = adminDao.selectPenaltyCount(sqlSession, penaltyInfo.getMemNo());

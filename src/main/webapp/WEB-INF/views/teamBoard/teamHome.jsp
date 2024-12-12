@@ -29,17 +29,8 @@
 		<jsp:include page="/WEB-INF/views/common/nav.jsp" />
 
 		<div class="board-banner">
-			<c:choose>
-				<c:when test="${teamBanner == null}">
 					<img
 						src="${pageContext.request.contextPath}/resources/images/team_board_banner.png" />
-				</c:when>
-				<c:otherwise>
-					<img
-						src="${pageContext.request.contextPath}/resources/images/userProFile/${teamBanner.changeName}"
-						alt="팀 배너 이미지" />
-				</c:otherwise>
-			</c:choose>
 			<div class="banner-text">구단 미니 홈피</div>
 		</div>
 

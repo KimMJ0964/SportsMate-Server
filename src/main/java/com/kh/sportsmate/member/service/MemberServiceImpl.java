@@ -253,6 +253,7 @@ public class MemberServiceImpl implements MemberService {
      * @return Update 성공 여부
      */
     @Override
+    @Transactional
     public int updatePwd(MemberEnrollDto memInfo) {
         return memberDao.updatePwd(sqlSession,memInfo);
     }

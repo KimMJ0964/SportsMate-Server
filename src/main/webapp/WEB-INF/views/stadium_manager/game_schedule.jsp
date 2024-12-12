@@ -48,7 +48,7 @@
                 <div class="vsdetail-container">
                     <div class="team-match">
                         <div class="gamelist-info">
-                            <img src="${game.aaTeamImage}" alt="${game.aaTeamImage}" class="team1-logo">
+                            <img src="${pageContext.request.contextPath}/resources/images/userProFile/${game.aaTeamImage}" alt="${game.aaTeamImage}" class="team1-logo">
                             <div class="team-info">
                                 <p class="team-name">${game.aaTeamName}</p>
                             </div>
@@ -58,7 +58,7 @@
                             <div class="game-time">${game.reservStart} ~ ${game.reservEnd}</div>
                         </div>
                         <div class="gamelist-info">
-                            <img src="${game.bbTeamImage}" alt="${game.bbTeamImage}" class="team2-logo">
+                            <img src="${pageContext.request.contextPath}/resources/images/userProFile/${game.bbTeamImage}" alt="${game.bbTeamImage}" class="team2-logo">
                             <div class="team-info">
                                 <p class="team-name">${game.bbTeamName}</p>
                             </div>

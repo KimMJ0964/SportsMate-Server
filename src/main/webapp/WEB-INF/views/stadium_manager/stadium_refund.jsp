@@ -49,7 +49,7 @@
                             <div class="victory-container" data-match-no="${refund.matchNo}">
                                 <div class="victory-row">
                                     <div class="team-info">
-                                        <img src="${pageContext.request.contextPath}/resources/images/stadium.png" alt="경기 결과 로고" class="gameresult-logo">
+                                        <img src="${pageContext.request.contextPath}/resources/images/stadiumFile/${refund.stadiumImage}" alt="경기 결과 로고" class="gameresult-logo">
                                             <ul>
                                                 <li><b>${refund.stadiumName}</b></li>
                                                 <li><b>${refund.aaTeamName} VS ${refund.bbTeamName}</b></li>
