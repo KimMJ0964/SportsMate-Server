@@ -108,30 +108,33 @@
 	</form>
 	
 <section class="video-grid">
-				<c:forEach var="stadiumSearch" items="${results}">
-			        <div class="video-priview">
-			            	<a href="detail.st?stadiumNo=${stadiumSearch.stadiumNo}">
-			                	<img src="${pageContext.request.contextPath}/resources/images/stadiumFile/${stadiumSearch.changeName}" 
-								     alt="${stadiumSearch.stadiumName}" 
-								     class="thumbnail" />
-			                </a>
-			            <div class="video-info-grid" >
-			                <div class="video-info">
-			                	<p class="vider-author">${stadiumSearch.stadiumAddress}</p>
-			                	<p class="vider-title">${stadiumSearch.stadiumName}</p>
-			                	<p class="vider-state">
-			                		<c:choose>
-								        <c:when test="${stadiumSearch.stadiumCategory == 'soccer'}">축구</c:when>
-								        <c:when test="${stadiumSearch.stadiumCategory == 'baseball'}">야구</c:when>
-								        <c:when test="${stadiumSearch.stadiumCategory == 'basketball'}">농구</c:when>
-								        <c:when test="${stadiumSearch.stadiumCategory == 'futsal'}">풋살</c:when>
-								    </c:choose>
-			                	</p>
-			                </div>
-			            </div>
-			        </div>
-				</c:forEach>
-			</section>
+    <input type="hidden" id="active-date" value="${selectedDate}"> <!-- 선택된 날짜 저장 -->
+    <c:forEach var="stadiumSearch" items="${results}">
+        <!-- <a> 태그가 전체 <div>를 감싸면서 링크 작동 -->
+        <a href="${pageContext.request.contextPath}/detail.st?stadiumNo=${stadiumSearch.stadiumNo}" class="video-preview-link">
+            <div class="video-priview">
+                <img src="${pageContext.request.contextPath}/resources/images/stadiumFile/${stadiumSearch.changeName}" 
+                     alt="${stadiumSearch.stadiumName}" 
+                     class="thumbnail" />
+                <div class="video-info-grid">
+                    <div class="video-info">
+                        <p class="video-author">${stadiumSearch.stadiumAddress}</p>
+                        <p class="video-title">${stadiumSearch.stadiumName}</p>
+                        <p class="video-state">
+                            <c:choose>
+                                <c:when test="${stadiumSearch.stadiumCategory == 'soccer'}">축구</c:when>
+                                <c:when test="${stadiumSearch.stadiumCategory == 'baseball'}">야구</c:when>
+                                <c:when test="${stadiumSearch.stadiumCategory == 'basketball'}">농구</c:when>
+                                <c:when test="${stadiumSearch.stadiumCategory == 'futsal'}">풋살</c:when>
+                            </c:choose>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </c:forEach>
+</section>
+
                     <div id="pagenation">
                         <nav>
                             <ul class="pagination">

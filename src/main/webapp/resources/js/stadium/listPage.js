@@ -1,93 +1,99 @@
-// 요일 이름 배열
-const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-
-// 요일과 날짜를 생성하는 함수
+// 날짜와 요일을 동적으로 생성하는 함수
 function generateWeekdays(activeDate) {
-  const today = new Date(); // 현재 날짜 가져오기
-  const startOfWeek = new Date(today); // 이번 주 시작일 계산
-  startOfWeek.setDate(today.getDate() - today.getDay()); // 이번 주 첫 번째 요일(일요일)로 설정
+    const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+    const today = new Date();
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - today.getDay());
 
-  const weekdaySelector = document.getElementById("weekdaySelector"); // 슬라이드 컨테이너 요소 가져오기
-  weekdaySelector.innerHTML = ""; // 기존 내용 초기화
+    const weekdaySelector = document.getElementById("weekdaySelector");
+    weekdaySelector.innerHTML = "";
 
-  for (let week = 0; week < 2; week++) { // 총 2주치 데이터를 생성
-    const weekSlide = document.createElement("div"); // 주 단위 슬라이드 생성
-    weekSlide.className = "swiper-slide"; // Swiper 슬라이드 클래스 추가
+    for (let week = 0; week < 2; week++) {
+        const weekSlide = document.createElement("div");
+        weekSlide.className = "swiper-slide";
 
-    for (let i = 0; i < 7; i++) { // 각 주의 7일씩 생성
-      const dayDate = new Date(startOfWeek); // 날짜 생성
-      dayDate.setDate(startOfWeek.getDate() + i + week * 7); // 해당 주의 특정 날짜 계산
+        for (let i = 0; i < 7; i++) {
+            const dayDate = new Date(startOfWeek);
+            dayDate.setDate(startOfWeek.getDate() + i + week * 7);
 
-      const fullDate = `${dayDate.getFullYear()}-${(dayDate.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}-${dayDate
-        .getDate()
-        .toString()
-        .padStart(2, "0")}`; // yyyy-mm-dd 형식으로 날짜 포맷
+            const fullDate = `${dayDate.getFullYear()}-${(dayDate.getMonth() + 1).toString().padStart(2, "0")}-${dayDate.getDate().toString().padStart(2, "0")}`;
+            const date = dayDate.getDate();
+            const day = daysOfWeek[dayDate.getDay()];
+            const isSaturday = dayDate.getDay() === 6;
+            const isSunday = dayDate.getDay() === 0;
 
-      const date = dayDate.getDate(); // 날짜 (1~31)
-      const day = daysOfWeek[dayDate.getDay()]; // 요일 이름
-      const isSaturday = dayDate.getDay() === 6; // 토요일 여부
-      const isSunday = dayDate.getDay() === 0; // 일요일 여부
+            const dayBox = document.createElement("div");
+            dayBox.className = `day-box ${fullDate === activeDate ? "active" : ""}`;
+            dayBox.innerHTML = `
+                <span class="date ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${date}</span>
+                <span class="day ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${day}</span>
+            `;
 
-      // 개별 날짜 요소 생성
-      const dayBox = document.createElement("div");
-      dayBox.className = `day-box ${fullDate === activeDate ? "active" : ""}`; // 활성화된 날짜 강조
-      dayBox.innerHTML = `
-        <span class="date ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${date}</span>
-        <span class="day ${isSaturday ? 'std' : isSunday ? 'sd' : ''}">${day}</span>
-      `;
+            dayBox.dataset.date = fullDate;
 
-      // 클릭 이벤트 추가 (활성화 상태 변경)
-      dayBox.addEventListener("click", () => toggleDay(dayBox));
+            // 날짜 클릭 이벤트 추가
+            dayBox.addEventListener("click", () => {
+                document.querySelectorAll(".day-box").forEach(box => box.classList.remove("active"));
+                dayBox.classList.add("active");
 
-      weekSlide.appendChild(dayBox); // 주 단위 슬라이드에 날짜 추가
+                const activeDateElement = document.querySelector("#active-date");
+                if (activeDateElement) {
+                    activeDateElement.value = fullDate;
+                    console.log("Active Date Updated:", fullDate);
+                }
+            });
+
+            weekSlide.appendChild(dayBox);
+        }
+
+        weekdaySelector.appendChild(weekSlide);
     }
-
-    weekdaySelector.appendChild(weekSlide); // Swiper Wrapper에 주 단위 슬라이드 추가
-  }
-}
-
-// 날짜 선택 시 활성화 상태를 변경하는 함수
-function toggleDay(element) {
-  const activeClass = "active"; // 활성화 클래스 이름
-  const allBoxes = document.querySelectorAll(".day-box"); // 모든 날짜 박스 가져오기
-  allBoxes.forEach(box => box.classList.remove(activeClass)); // 기존 활성화 상태 초기화
-  element.classList.add(activeClass); // 선택한 날짜 활성화
-
-  // 선택한 날짜 정보 가져오기
-  const date = element.querySelector(".date").innerText; // 날짜 텍스트
-  const day = element.querySelector(".day").innerText; // 요일 텍스트
-  const today = new Date();
-  const year = today.getFullYear(); // 현재 연도
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // 현재 월 (01~12)
-
-  // 선택된 날짜를 특정 형식으로 조합 (예: 2024.12.06.수)
-  const selectedDate = `${year}.${month}.${date}.${day}`;
-
-  // 선택된 날짜를 링크에 추가 (예: href에 selectedDate 파라미터 추가)
-  const links = document.querySelectorAll(".video-priview a"); // 링크 요소 가져오기
-  links.forEach(link => {
-    const href = link.getAttribute("href"); // 기존 href 값 가져오기
-    const newHref = `${href}&selectedDate=${encodeURIComponent(selectedDate)}`; // 선택된 날짜 추가
-    link.setAttribute("href", newHref); // 새 href 설정
-  });
-
-  console.log("날짜가 링크에 추가됨:", selectedDate); // 디버깅 로그
 }
 
 // DOM 로드 이후 초기화
 document.addEventListener("DOMContentLoaded", () => {
-  const activeDateElement = document.getElementById("active-date"); // 활성화된 날짜 요소
-  const activeDate = activeDateElement ? activeDateElement.value : null; // 활성화된 날짜 값 가져오기
+    const activeDateElement = document.getElementById("active-date");
+    const activeDate = activeDateElement ? activeDateElement.value : null;
 
-  generateWeekdays(activeDate); // 날짜 생성 함수 호출
+    generateWeekdays(activeDate);
 
-  // Swiper.js 초기화 (1주씩 표시)
-  new Swiper(".swiper-container", {
-    slidesPerView: 1, // 한 번에 한 주만 표시
-    spaceBetween: 10, // 슬라이드 간 간격
-    allowTouchMove: true, // 터치 및 드래그 활성화
-    centeredSlides: true, // 슬라이드를 정렬하지 않고 자연스럽게
-  });
+    const links = document.querySelectorAll(".video-preview-link");
+    links.forEach(link => {
+        link.addEventListener("click", (event) => {
+            const selectedDate = activeDateElement ? activeDateElement.value : null;
+
+            // 날짜가 선택되지 않았으면 경고 표시
+            if (!selectedDate || selectedDate.trim() === "") {
+                alert("날짜를 선택해주세요.");
+                event.preventDefault();
+                return;
+            }
+
+            try {
+                // 기존 href 가져오기
+                const href = link.getAttribute("href");
+                const url = new URL(href, window.location.origin);
+
+                // 기존 `selectedDate` 제거 및 새로운 값 추가
+                url.searchParams.delete("selectedDate");
+                url.searchParams.append("selectedDate", selectedDate);
+
+                // 갱신된 href를 설정
+                link.setAttribute("href", url.toString());
+                console.log("Updated href:", url.toString());
+            } catch (error) {
+                console.error("Invalid URL format:", error);
+                alert("잘못된 요청입니다. URL을 확인하세요.");
+                event.preventDefault();
+            }
+        });
+    });
+
+    // Swiper.js 초기화
+    new Swiper(".swiper-container", {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        allowTouchMove: true,
+        centeredSlides: true,
+    });
 });

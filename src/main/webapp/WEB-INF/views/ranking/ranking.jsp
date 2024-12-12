@@ -71,11 +71,11 @@
 				        
 		<!-- 팀 랭킹 -->
 		<div class="team">
-		    <c:forEach var="team" items="${rankingList}" varStatus="status">
+		    <c:forEach var="team" items="${rankingList}">
 		        <div class="row">
 		            <div class="cell left">
 		                <!-- 순서를 출력 -->
-                		<span>${status.index + 1}</span>
+                		<span>${team.rank}</span>
 		                <!-- 이미지가 존재하지 않을 경우 기본 이미지 출력 -->
 		                <img src="<c:choose>
 		                            <c:when test="${team.filePath != null and team.changeName != null}">

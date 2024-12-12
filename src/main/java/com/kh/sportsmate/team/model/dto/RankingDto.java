@@ -21,6 +21,7 @@ public class RankingDto {
 	private String teamName; // 팀 이름
 	private int teamPoint; // 팀 점수
 	private String teamCategory; // 팀 카테고리
+	private int rank;
 	
 	// 이미지 관련 필드
 	private int fileNo; // 파일 번호

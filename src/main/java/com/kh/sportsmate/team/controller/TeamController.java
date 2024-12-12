@@ -1049,8 +1049,19 @@ public class TeamController {
 
         // 카테고리별 팀 랭킹 데이터 조회
         ArrayList<RankingDto> rankingList = teamService.rankingList(params, pi);
+        
+        // 순위 계산 (검색된 결과가 하나일 경우에도 순위 계산)
+        int rank = 1;
+        int prevPoint = -1;
 
-    	
+        for (RankingDto team : rankingList) {
+            if (team.getTeamPoint() != prevPoint) {
+                team.setRank(rank);  // 순위 부여
+                prevPoint = team.getTeamPoint();
+            }
+            rank++;
+        }
+   	
     	// 모델에 데이터 추가
     	model.addAttribute("rankingList", rankingList);
     	model.addAttribute("selectedCategory", category);

@@ -298,7 +298,13 @@ public class StadiumController {
         if (stadiumReservation!=null &&!stadiumReservation.isEmpty()) {
             teamLeaderId = stadiumReservation.get(0).getTmemNo();
         }
+        
+        log.info("teamLeaderId: {}", teamLeaderId); // 디버깅을 위한 로그
 
+        // 팀장 여부 확인
+        boolean isTeamLeader = (teamLeaderId != null && teamLeaderId.equals(memNo)); // 구단장 번호가 현재 로그인한 사용자와 동일한지 확인
+        log.info("isTeamLeader: {}", isTeamLeader); // 디버깅을 위한 로그
+        
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);
         model.addAttribute("selectedDate", selectedDate);
