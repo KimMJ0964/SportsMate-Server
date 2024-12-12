@@ -87,3 +87,90 @@ prevNextIcon2.forEach(icon => {
         renderCalendar2();
     });
 });
+
+$(document).ready(function () {
+    // 시간 데이터를 HH:mm:ss 형식으로 변환하는 함수
+    function formatTimeToSeconds(time) {
+        if (time && time.length === 5) {
+            return time + ":00"; // "19:00" → "19:00:00"
+        }
+        return time; // 이미 "HH:mm:ss" 형식이면 그대로 반환
+    }
+
+    $('#start-time, #end-time').change(function () {
+        const selectedDate = $('#hidden-selected-date-2').val();
+        const startTime = formatTimeToSeconds($('#start-time').val());
+        const endTime = formatTimeToSeconds($('#end-time').val());
+        const stadiumNo = $('#stadium-id').val(); // 경기장 ID
+
+        if (selectedDate && startTime && endTime) {
+            $.ajax({
+                url: '/SportsMate/stadium/teams', // AJAX 요청 경로
+                method: 'POST',
+                contentType: 'application/json', // JSON 요청
+                data: JSON.stringify({
+                    accessDate: selectedDate,
+                    startTime: startTime,
+                    endTime: endTime,
+                    stadiumNo: stadiumNo
+                }),
+                success: function (response) {
+				    console.log(response);
+				
+				    // 응답의 ajaxstatus가 'XXXXY'인 경우 처리
+				    if (response.ajaxstatus === 'XXXXY') {
+				        console.log("성공");
+				        console.log("response : "+response);
+						console.log("팀번호 : "+response.teamANo);
+				
+				
+				        // 응답 데이터를 HTML 요소로 업데이트
+				        const teamName = response.teamName || "팀 이름 없음";
+				        const score = response.score || "0";
+				        const teamPoint = response.teamPoint || "0";
+				        const teamANo =response.teamANo;
+				        console.log("teamANo : " + teamANo);
+				
+				        $('.pending-matches').html(`
+				            <div class="team-info">
+				                <p><strong>팀 이름:</strong> ${teamName}</p>
+				                <p><strong>평점:</strong> ${score}</p>
+				                <p><strong>팀 점수:</strong> ${teamPoint}</p>
+				            </div>
+				        `);
+						$('#ajax').html(`						    
+							<input type="hidden" name="teamBNo" value=""> <!-- B팀 번호 -->
+					      	<input type="hidden" name="matchNo" value=""> <!-- 매치 번호 -->	
+					      	`);			
+						 // Hidden Input 값 설정
+							// Hidden Input 값 설정
+							const currentTeamANo = $('input[type=hidden][name=teamANo]').val(); // 기존 teamANo 값을 가져옴
+							$('input[type=hidden][name=teamBNo]').val(currentTeamANo); // teamBNo에 기존 teamANo 값 설정
+							$('input[type=hidden][name=teamANo]').val(teamANo);
+							$('input[type=hidden][name=matchNo]').val(response.matchNo); 
+				
+				    } else {
+				        // 성공은 했지만 데이터가 없는 경우 처리
+				        console.log("성공은 했는데 데이터가 없습니다.");
+				        $('.pending-matches').html(`
+				            <div class="team-info">
+				                <p class="text-muted">현재 대기중인 매치가 없습니다.</p>
+				            </div>
+				        `);
+				    }
+				    
+			       
+				},
+
+                error: function (xhr, status, error) {
+                    console.error("AJAX 요청 오류 발생:");
+                    console.error("응답 내용: ", xhr.responseText);
+                    console.error("HTTP 상태 코드: ", xhr.status);
+                    console.error("에러 메시지: ", error);
+                }
+            });
+        } else {
+            console.warn("선택된 날짜, 시작 시간, 종료 시간이 유효하지 않습니다.");
+        }
+    });
+});

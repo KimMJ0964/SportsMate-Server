@@ -342,7 +342,8 @@ public class StadiumController {
         log.info("전달받은 요청 데이터: {}", request);
 
         // 서비스 호출
-        TeamDto teamDTO = stadiumService.findTeamsByDateAndTime(request);
+        TeamDto teamDTO = new TeamDto();
+		teamDTO = stadiumService.findTeamsByDateAndTime(request);
        log.info("teamDTO : {}",teamDTO);
 
         

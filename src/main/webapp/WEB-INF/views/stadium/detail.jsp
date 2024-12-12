@@ -541,10 +541,10 @@
 						    <input type="hidden" id="stadium-id" name="stadiumNo" value="${stadiumDetail.stadiumNo}">
 						    <input type="hidden" id="price" name="price" value="${stadiumDetail.stadiumPrice}">
 						    <input type="hidden" id="category" name="category" value="${stadiumDetail.stadiumCategory}">
-						    <input type="hidden" name="teamANo" value=""> <!-- A팀 번호 -->
-						    <input type="hidden" name="teamBNo" value=""> <!-- B팀 번호 -->
-						    <input type="hidden" name="matchNo" value=""> <!-- 매치 번호 -->
-						    <input type="hidden" id="teamNo" name="teamNo" value="${teamNo}"> <!-- 현재 로그인된 팀 번호 -->
+						    <input type="hidden" name="teamANo" value="${teamNo}"> <!-- A팀 번호 -->
+							<div id="ajax">
+								
+							</div>
 						    
 							<!-- 경기장 이름과 가격 -->
 			                <div class="row text-center mb-4">
@@ -655,8 +655,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/detail.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/stadium/time.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/stadium/match.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/stadium/teamajax.js"></script>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=043f5595cb50307eae5f33cc8943d0e6&libraries=services"></script>
     <script>
     var map;

@@ -137,7 +137,7 @@ public class MatchServiceImpl implements MatchService {
 			StadiumSubscription s2 = matchDao.selectMatchB(sqlSession, mc);
 			ss.setResult(s2.getResult());
 			ss.setOpponent(s2.getOpponent());
-			ss.setTeamName(s2.getTeamName());
+			
 		}
 
 		return ss;
