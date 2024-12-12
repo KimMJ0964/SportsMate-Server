@@ -383,60 +383,62 @@
 	
 	<!-- 구단 전적 -->
 	<select id="matchInfo" resultType="TeamMatchInfoDto">
-		SELECT 
-		    CASE 
-		        WHEN M.TEAM_A_NO = #{tno} THEN T1.TEAM_NAME
-		        ELSE T2.TEAM_NAME
-		    END AS myTeamName,
-		    CASE 
-		        WHEN M.TEAM_A_NO = #{tno} THEN T2.TEAM_NAME
-		        ELSE T1.TEAM_NAME
-		    END AS enemyTeamName,
-		    CASE 
-		        WHEN M.TEAM_A_NO = #{tno} THEN T1.TEAM_POINT
-		        ELSE T2.TEAM_POINT
-		    END AS myTeamPoint,
-		    CASE 
-		        WHEN M.TEAM_A_NO = #{tno} THEN T2.TEAM_POINT
-		        ELSE T1.TEAM_POINT
-		    END AS enemyTeamPoint,
-		    CASE 
-		        WHEN M.TEAM_A_NO = #{tno} THEN M.TEAM_A_NO 
-		        ELSE M.TEAM_B_NO 
-		    END AS myTeamNo,
-		    CASE 
-		        WHEN M.TEAM_A_NO = #{tno} THEN M.TEAM_B_NO
-		        ELSE M.TEAM_A_NO
-		    END AS enemyTeamNo,
-		    CASE 
-		        WHEN M.TEAM_A_NO = #{tno} THEN M.SCORE_A
-		        ELSE M.SCORE_B
-		    END AS myScore,
-		    CASE 
-		        WHEN M.TEAM_A_NO = #{tno} THEN M.SCORE_B
-		        ELSE M.SCORE_A
-		    END AS enemyScore,
-		    CASE 
-		        WHEN M.TEAM_A_NO = #{tno} THEN PF1.CHANGE_NAME
-		        ELSE PF2.CHANGE_NAME
-		    END AS myTeamProfile,
-		    CASE 
-		        WHEN M.TEAM_A_NO = #{tno} THEN PF2.CHANGE_NAME
-		        ELSE PF1.CHANGE_NAME
-		    END AS enemyTeamProfile
-		FROM 
-		    `MATCH` M
-		LEFT JOIN `TEAM` T1 ON M.TEAM_A_NO = T1.TEAM_NO
-		LEFT JOIN `TEAM` T2 ON M.TEAM_B_NO = T2.TEAM_NO
-		LEFT JOIN `PROFILE_FILE` PF1 ON M.TEAM_A_NO = PF1.TEAM_NO
-		LEFT JOIN `PROFILE_FILE` PF2 ON M.TEAM_B_NO = PF2.TEAM_NO
-		WHERE 
-	     (M.TEAM_A_NO = #{tno} OR M.TEAM_B_NO = #{tno})
-		    AND EXISTS (
-		        SELECT 1 
-		        FROM `MATCH_BEST` MB 
-		        WHERE MB.MATCH_NO = M.MATCH_NO
-		    );
+		SELECT
+	    CASE 
+	        WHEN M.TEAM_A_NO = #{tno} THEN T1.TEAM_NAME
+	        ELSE T2.TEAM_NAME
+	    END AS myTeamName,
+	    CASE 
+	        WHEN M.TEAM_A_NO = #{tno} THEN T2.TEAM_NAME
+	        ELSE T1.TEAM_NAME
+	    END AS enemyTeamName,
+	    CASE 
+	        WHEN M.TEAM_A_NO = #{tno} THEN T1.TEAM_POINT
+	        ELSE T2.TEAM_POINT
+	    END AS myTeamPoint,
+	    CASE 
+	        WHEN M.TEAM_A_NO = #{tno} THEN T2.TEAM_POINT
+	        ELSE T1.TEAM_POINT
+	    END AS enemyTeamPoint,
+	    CASE 
+	        WHEN M.TEAM_A_NO = #{tno} THEN M.TEAM_A_NO
+	        ELSE M.TEAM_B_NO
+	    END AS myTeamNo,
+	    CASE 
+	        WHEN M.TEAM_A_NO = #{tno} THEN M.TEAM_B_NO
+	        ELSE M.TEAM_A_NO
+	    END AS enemyTeamNo,
+	    CASE 
+	        WHEN M.TEAM_A_NO = #{tno} THEN M.SCORE_A
+	        ELSE M.SCORE_B
+	    END AS myScore,
+	    CASE 
+	        WHEN M.TEAM_A_NO = #{tno} THEN M.SCORE_B
+	        ELSE M.SCORE_A
+	    END AS enemyScore,
+	    CASE 
+	        WHEN M.TEAM_A_NO = #{tno} THEN PF1.CHANGE_NAME
+	        ELSE PF2.CHANGE_NAME
+	    END AS myTeamProfile,
+	    CASE 
+	        WHEN M.TEAM_A_NO = #{tno} THEN PF2.CHANGE_NAME
+	        ELSE PF1.CHANGE_NAME
+	    END AS enemyTeamProfile
+	FROM
+	    `MATCH` M
+	LEFT JOIN `TEAM` T1 ON M.TEAM_A_NO = T1.TEAM_NO
+	LEFT JOIN `TEAM` T2 ON M.TEAM_B_NO = T2.TEAM_NO
+	LEFT JOIN `PROFILE_FILE` PF1 ON M.TEAM_A_NO = PF1.TEAM_NO
+	LEFT JOIN `PROFILE_FILE` PF2 ON M.TEAM_B_NO = PF2.TEAM_NO
+	WHERE
+	    (M.TEAM_A_NO = #{tno} OR M.TEAM_B_NO = #{tno})
+	    AND EXISTS (
+	        SELECT 1
+	        FROM `MATCH_BEST` MB
+	        WHERE MB.MATCH_NO = M.MATCH_NO
+	    )
+	    AND M.SCORE_A IS NOT NULL 
+	    AND M.SCORE_B IS NOT NULL; 
 
 	</select>
 	
