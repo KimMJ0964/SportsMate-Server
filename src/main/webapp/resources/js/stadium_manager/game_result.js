@@ -23,6 +23,7 @@ const requestWarning = ()=>{
             $(`button[data-memNo="${memNo}"]`).prop("disabled", true);
             $(`button[data-memNo="${memNo}"]`).removeClass("expose");
             $(`button[data-memNo="${memNo}"]`).addClass("disabled");
+            $('#reason-for-report').val('');
         }else{
             alert("경고 등록 실패! 다시 시도하세요.");
         }
