@@ -206,7 +206,7 @@ public class MatchController {
 		log.info("mbList : {}",mbLists);
 
 		StadiumSubscription ss = matchService.selectMatch(mc, price);
-		
+		log.info("ss : {}", ss);
 		model.addAttribute("ss", ss);
 		
 		// MatchBest 리스트 생성

@@ -39,11 +39,11 @@
             <div class="match-info">
                 <div>
                     <c:choose>
-                        <c:when test="${ss.filePath} != null">
-                            <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/stadiumFile/${ss.filePath}" alt="">
+                        <c:when test="${ss.changeName != null}">
+                            <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/stadiumFile/${ss.changeName}" alt="">
                         </c:when>
                         <c:otherwise>
-                            <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/stadiumFile/default.jpg" alt="">
+                            <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="">
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -64,13 +64,13 @@
 	            </div>
 	
 	            <div class="match-a">
-	                <div class="team-profile">
+	                <div class="team-info">
                         <c:choose>
-                            <c:when test="${ss.filePath} != null">
-                                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="">
+                            <c:when test="${ss.opChangeName != null}">
+                                <img src="${pageContext.request.contextPath}/resources/images/profileFile/${ss.opChangeName}" alt="">
                             </c:when>
                             <c:otherwise>
-                                <img src="${pageContext.request.contextPath}/resources/images/profileFile/${ss.teamFilePath}" alt="">
+                                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="">
                             </c:otherwise>
                         </c:choose>
 	                    
@@ -91,8 +91,15 @@
             </div>
 
             <div class="match-b">
-                <div class="team-profile">
-                    <img src="" alt="">
+                <div class="team-info">
+                    <c:choose>
+                            <c:when test="${ss.teamChangeName != null}">
+                                <img src="${pageContext.request.contextPath}/resources/images/profileFile/${ss.teamChangeName}" alt="">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="">
+                            </c:otherwise>
+                        </c:choose>
                     <h4>구단: ${ss.teamName}</h4>
                 </div>
 

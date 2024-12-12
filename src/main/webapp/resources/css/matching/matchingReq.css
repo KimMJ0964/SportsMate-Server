@@ -55,6 +55,11 @@
     align-items: center;
 }
 
+.team-info{
+    display: flex;
+    align-items: center;
+}
+
 .team-detail, .match-category{
     text-align: left;
     margin-left: 6px;

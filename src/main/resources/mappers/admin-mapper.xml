@@ -76,7 +76,7 @@
 		    GROUP_CONCAT(mp.PN_CONTENT SEPARATOR ', ') AS pnContent,
 		    MIN(pf.ORIGIN_NAME) AS originName,
 		    MIN(pf.CHANGE_NAME) AS changeName,
-		    MIN(pf.FILE_PATH) AS filePath
+		    MIN(pf.CHANGE_NAME) AS filePath
 		FROM 
 		    MEMBER m
 		LEFT JOIN 
