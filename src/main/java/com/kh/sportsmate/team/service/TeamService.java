@@ -173,5 +173,8 @@ public interface TeamService {
 
 	 // 구단 가입 정보 조회
 	EnrollmentInfoDTO selectEnrollmentInfo(Member m);
+
+	// 본인 소속 구단 여부 확인
+	boolean isMemberTeam(Map<String, Integer> map);
 }
 

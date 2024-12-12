@@ -595,7 +595,9 @@
 			                                <c:otherwise>
 			                                    <c:forEach var="member" items="${stadiumReservation}" varStatus="status">
 			                                        <div class="form-check">
+														<c:if test="${teamNo != null}">
 														<input type="hidden" id="teamNo" name="mb[${status.index}].teamNo" value="${teamNo}">
+														</c:if>
 <%--														<input type="hidden" id="teamNo" name="playerTeamNo" value="${teamNo}">--%>
 			                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="mb[${status.index}].memNo" value="${member.memNo}">
 <%--			                                            <input type="checkbox" class="form-check-input" id="member-${member.memNo}" name="playerMemNo" value="${member.memNo}">--%>

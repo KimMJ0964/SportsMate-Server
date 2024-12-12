@@ -468,7 +468,7 @@
 		LEFT JOIN `MATCH_REFUND` MR ON M.MATCH_NO = MR.MATCH_NO  -- MATCH_REFUND 테이블 조인
 		WHERE 
 		    (M.TEAM_A_NO = #{tno} OR M.TEAM_B_NO = #{tno})
-		    AND M.ACCESS_DATE >= CURRENT_DATE(); 
+		    AND M.ACCESS_DATE >= CURRENT_DATE();
 	</select>
 	
 	<!-- 구단 전적 수 -->
@@ -487,7 +487,14 @@
 		FROM MATCH_REFUND
 		WHERE MATCH_NO = #{matchNo}
 	</select>
-	
+
+	<select id="selectMemberTeamCount" resultType="_int">
+		SELECT COUNT(*)
+		from TEAM_Member
+		where MEM_NO = #{memNo}
+		and TEAM_NO= #{teamNo};
+	</select>
+
 	<!-- 메인페이지 구단 랭킹 -->
 	<select id="mainRanking" resultType="MyTeamDto">
 	    SELECT 
@@ -652,7 +659,7 @@
 	</update>
 
 
-	
+
 	<!-- 입단자 거절 -->
 	<delete id="rejectJoin">
 		DELETE

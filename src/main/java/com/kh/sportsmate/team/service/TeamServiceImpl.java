@@ -734,5 +734,15 @@ public class TeamServiceImpl implements TeamService {
 
 		return enrollmentInfo;
 	}
+
+	@Override
+	public boolean isMemberTeam(Map<String, Integer> map) {
+		int countResult = teamDao.selectMemberTeamCount(sqlSession, map);
+		if (countResult > 0) {
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
 
