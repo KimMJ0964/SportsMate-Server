@@ -167,7 +167,7 @@ public class StadiumDao {
     }
     
     // 팀번호로 조회
-    public int getTeamNoByMemNo(SqlSessionTemplate sqlSession, Map<String, Object> params) {
+    public Integer getTeamNoByMemNo(SqlSessionTemplate sqlSession, Map<String, Object> params) {
         return sqlSession.selectOne("stadiumMapper.getTeamNoByMemNo", params);
     }
     

@@ -69,7 +69,7 @@ public interface StadiumService {
 	// 대기 중인 매치 정보 가져오기
     List<StadiumDetailmodal> getPendingMatches(int teamNo);
 	
-	int getTeamNoByMemNo(int memNo,int stadiumNo);
+	Integer getTeamNoByMemNo(int memNo,int stadiumNo);
 	
 	// 문의 등록
 	boolean insertQna(StadiumQnaDto stadiumQnaDto);

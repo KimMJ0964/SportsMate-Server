@@ -192,7 +192,7 @@ public class StadiumServiceImpl implements StadiumService{
     }
 
 	@Override
-	public int getTeamNoByMemNo(int memNo, int stadiumNo) {
+	public Integer getTeamNoByMemNo(int memNo, int stadiumNo) {
 		String category = stadiumDao.getStadiumCategory(sqlSession, stadiumNo);
 		log.info("구장 번호로 가져온 카테고리 : {}",category);
 		Map<String, Object> params = new HashMap<>();
