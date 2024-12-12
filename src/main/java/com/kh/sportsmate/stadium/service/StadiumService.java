@@ -103,5 +103,8 @@ public interface StadiumService {
      * @return 팀 정보 리스트 (TeamDto)
      */
 	TeamDto findTeamsByDateAndTime(MatchRequestDto request);
+	
+	public Integer getTeamLeaderId(int teamNo);
+
 }
 

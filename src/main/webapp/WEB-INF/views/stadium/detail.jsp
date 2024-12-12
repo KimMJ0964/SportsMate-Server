@@ -477,15 +477,15 @@
 			        </div>
 			        <div class="btnWrap" style="width: 144px;">
 			            <c:if test="${isTeamLeader}">
-			                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscription">
-			                    	신청하기
-			                </button>
-			            </c:if>
-			            <c:if test="${!isTeamLeader}">
-			                <button type="button" class="btn btn-secondary" disabled>
-			                    	팀장만 신청 가능합니다
-			                </button>
-			            </c:if>
+						    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscription">
+						        신청하기
+						    </button>
+						</c:if>
+						<c:if test="${!isTeamLeader}">
+						    <button type="button" class="btn btn-secondary" disabled>
+						        팀장만 신청 가능합니다
+						    </button>
+						</c:if>
 			        </div>
 			    </div>
 			</div>

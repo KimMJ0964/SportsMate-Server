@@ -242,4 +242,9 @@ public class StadiumDao {
     public TeamDto getTeamsByDateAndTime(SqlSessionTemplate sqlSession, MatchRequestDto request) {
         return sqlSession.selectOne("stadiumMapper.getTeamsByDateAndTime", request);
     }
+    
+    public Integer getTeamLeaderId(int teamNo) {
+        return sqlSession.selectOne("stadiumMapper.getTeamLeaderId", teamNo);
+    }
+
 }

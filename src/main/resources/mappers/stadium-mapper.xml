@@ -585,6 +585,14 @@
     AND STATUS = 'Y'
     and TEAM_CATEGORY =#{category};
 </select>
+
+<select id="getTeamLeaderId" parameterType="int" resultType="Integer">
+    SELECT TM.MEM_NO
+    FROM TEAM_MEMBER TM
+    WHERE TM.TEAM_NO = #{teamNo} AND TM.STATUS = 'Y' AND TM.IS_LEADER = 'Y'
+</select>
+
+
 <select id="getStadiumCategory" parameterType="_int" resultType="String">
     select s.STADIUM_CATEGORY as category
     from STADIUM s
