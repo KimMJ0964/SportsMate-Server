@@ -48,8 +48,8 @@
 	                <div class="victory-row">
 	                    <div class="team-info">
                             <c:choose>
-                                <c:when test="${b.filePath} != null">
-                                    <img src="${pageContext.request.contextPath}/resources/images/userProFile/${b.filePath}" alt="" class="gameresult-logo">
+                                <c:when test="${b.filePath != null}">
+                                    <img src="${pageContext.request.contextPath}/resources/images/profileFile/${b.filePath}" alt="" class="gameresult-logo">
                                 </c:when>
                                 <c:otherwise>
                                     <img src="${pageContext.request.contextPath}/resources/images/my-profile.png" alt="" class="gameresult-logo">
