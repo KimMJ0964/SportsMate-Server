@@ -394,7 +394,7 @@ public class StadiumController {
         // 성공 여부에 따라 리다이렉트
         if (result) {
             session.setAttribute("alertMsg", "문의가 성공적으로 등록되었습니다.");
-            return "redirect:inquiry.me"; // 문의 목록 페이지로 리다이렉트
+            return "redirect:myPageInfo.mp"; // 문의 목록 페이지로 리다이렉트
         } else {
             model.addAttribute("errorMsg", "문의 등록에 실패했습니다.");
             return "common/errorPage";
