@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +44,14 @@
             <div class="order-result">
                 <div class="order-ground">
                     <div>
-                        <img src="${pageContext.request.contextPath}/resources/images/event-banner.png" alt="">
+                        <c:choose>
+                            <c:when test="${st.changeName != null}">
+                                <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/stadiumFile/${st.changeName}" alt="">
+                            </c:when>
+                            <c:otherwise>
+                                <img class="ground-thunb" src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div class="order-info">
                         <p>${st.stadiumAddress }</p>

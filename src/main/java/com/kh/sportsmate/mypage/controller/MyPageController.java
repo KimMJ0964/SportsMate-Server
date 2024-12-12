@@ -277,20 +277,20 @@ public class MyPageController {
 		// 비밀번호 확인: 입력한 기존 비밀번호와 재입력된 비밀번호 비교
 		if (!pwdCheck.equals(memPwd)) {
 			session.setAttribute("alertMsg", "기존 비밀번호와 재입력한 비밀번호가 다릅니다.");
-			return "myPage/myPageModify";
+			return "redirect:/";
 		}
 
 		// 1. 기존 비밀번호와 저장된 암호화된 비밀번호 비교
 		String storedPassword = loginMember.getMemPwd(); // 저장된 암호화된 비밀번호
 		if (!bCryptPasswordEncoder.matches(memPwd, storedPassword)) {
 			session.setAttribute("alertMsg", "기존 비밀번호가 일치하지 않습니다.");
-			return "myPage/myPageModify";
+			return "redirect:/";
 		}
 
 		String passwordPattern = "^[A-Za-z0-9]{6,16}$"; // 6~16자리 영문자와 숫자만 허용
 		if (!pwdModify.matches(passwordPattern)) {
 			session.setAttribute("alertMsg", "새 비밀번호는 6~16자리의 영문자와 숫자 조합이어야 합니다.");
-			return "myPage/myPageModify";
+			return "redirect:/";
 		}
 
 		// 2. 새 비밀번호 암호화
@@ -305,11 +305,12 @@ public class MyPageController {
 		// 3. 새 비밀번호 변경
 		int isUpdated = myPageService.updatePassword(map);
 		if (isUpdated > 0) {
-			session.setAttribute("alertMsg", "비밀번호 변경에 성공했습니다.");
-			return "myPage/myPageModify";
+			session.setAttribute("alertMsg", "비밀번호 변경에 성공했습니다. 다시 로그인해주실 바랍니다.");
+			session.removeAttribute("loginMember");
+			return "redirect:/";
 		} else {
 			session.setAttribute("alertMsg", "비밀번호 변경에 실패했습니다.");
-			return "myPage/myPageModify";
+			return "redirect:/";
 		}
 	}
 

@@ -265,7 +265,8 @@
 					<!-- 모바일 -->
 					<div class="app-club-container">
 						<c:forEach var="mt" items="${myTeam}">
-							<div class="club-container">
+							<div class="club-container"
+							onclick="location.href = 'boardList.tm?tno=${mt.teamNo}'">
 								<div class="clubInfoContainer">
 									<div class="club-info">
 										<!-- 야구 구단 -->

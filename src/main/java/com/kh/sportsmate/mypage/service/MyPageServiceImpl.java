@@ -40,6 +40,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class MyPageServiceImpl implements MyPageService{
 	
 	@Autowired

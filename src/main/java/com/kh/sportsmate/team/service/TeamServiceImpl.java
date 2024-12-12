@@ -178,7 +178,6 @@ public class TeamServiceImpl implements TeamService {
      * @return
      */
  	@Override
- 	@Transactional(readOnly = true)
  	public ArrayList<TeamBoard> searchBoard(PageInfo pi, Map<String, String> map) {
  		return teamDao.searchBoard(sqlSession, pi, map);
  	}
@@ -353,6 +352,7 @@ public class TeamServiceImpl implements TeamService {
      * @param map
      * @return
      */
+	@Transactional
 	@Override
 	public int boardToLike(Map<String, Integer> map) {
 		return teamDao.boardToLike(sqlSession, map);
@@ -364,6 +364,7 @@ public class TeamServiceImpl implements TeamService {
      * @param map
      * @return
      */
+	@Transactional
 	@Override
 	public int boardToUnLike(Map<String, Integer> map) {
 		return teamDao.boardToUnLike(sqlSession, map);
@@ -375,6 +376,7 @@ public class TeamServiceImpl implements TeamService {
      * @param map
      * @return
      */
+	@Transactional
 	@Override
 	public int boardInsertLike(Map<String, Integer> map) {
 		return teamDao.boardInsertLike(sqlSession, map);
@@ -386,6 +388,7 @@ public class TeamServiceImpl implements TeamService {
      * @param map
      * @return
      */
+	@Transactional
 	@Override
 	public int replyComment(Map<String, String> map) {
 		return teamDao.replyComment(sqlSession, map);
@@ -397,6 +400,7 @@ public class TeamServiceImpl implements TeamService {
      * @param bg
      * @return
      */
+	@Transactional
 	@Override
 	public int saveBoardFile(BoardFile bf) {
 		return teamDao.saveBoardFile(sqlSession, bf);
@@ -408,6 +412,7 @@ public class TeamServiceImpl implements TeamService {
      * @param team
      * @return
      */
+	@Transactional
 	@Override
 	public int teamOut(Team team) {
 		return teamDao.teamOut(sqlSession, team);
@@ -501,6 +506,7 @@ public class TeamServiceImpl implements TeamService {
      * @param teamVote
      * @return
      */
+	@Transactional
 	@Override
 	public int createVote(TeamVote teamVote) {
 		int result1 = 0;
@@ -543,6 +549,7 @@ public class TeamServiceImpl implements TeamService {
      * @param map
      * @return
      */
+	@Transactional
 	@Override
 	public int choseVote(Map<String, Integer> map) {
 		return teamDao.choseVote(sqlSession, map);
@@ -554,6 +561,7 @@ public class TeamServiceImpl implements TeamService {
      * @param vno
      * @return
      */
+	@Transactional
 	@Override
 	public int voteComplete(int vno) {
 		return teamDao.voteComplete(sqlSession, vno);
@@ -635,6 +643,7 @@ public class TeamServiceImpl implements TeamService {
 	 * @param mr
 	 * @return
 	 */
+	@Transactional
 	@Override
 	public int teamMatchRefund(MatchRefund mr, HttpSession session) {
 		int result = 0;
@@ -658,6 +667,7 @@ public class TeamServiceImpl implements TeamService {
 	 * @param tno
 	 * @return 
 	 */
+	@Transactional
 	@Override
 	public int teamClosing(int tno) {
 		return teamDao.teamClosing(sqlSession, tno);

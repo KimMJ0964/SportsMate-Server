@@ -118,4 +118,8 @@
 	.team-match-matchedRecord thead tr {
 		font-size: 14px;
 	}
+	
+	.matchRefundBtn {
+		font-size: 12px;
+	}
 }

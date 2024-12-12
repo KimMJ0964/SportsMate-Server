@@ -100,7 +100,9 @@
 		            </div>
 		            <hr>
 		            <div class="bd-button-container">
-		                <div class="bd-red-button" onclick="location.href = 'deleteComm.tm?cno=${comments.comNo}&bno=${teamBoard.boardNo }&tno=${teamBoard.teamNo }'">댓글 삭제</div>
+		            	<c:if test="${loginMember != null && loginMember.memNo == comments.memNo}">
+		                	<div class="bd-red-button" onclick="location.href = 'deleteComm.tm?cno=${comments.comNo}&bno=${teamBoard.boardNo }&tno=${teamBoard.teamNo }'">댓글 삭제</div>
+		                </c:if>
 		                <div class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${teamBoard.boardNo}, ${comments.comNo}, ${comments.memNo}, ${teamBoard.teamNo})">신고하기</div>
 		                <button class="bd-button" data-bs-toggle="modal" data-bs-target="#commentModal" onclick="setCommentData(${comments.comNo}, ${teamBoard.boardNo})">답글 작성</button>
 		            </div>
@@ -136,7 +138,9 @@
 							</div>
                               <hr>
                               <div class="bd-button-container">
-                                  <button class="bd-red-button" onclick="location.href = 'deleteComm.tm?cno=${reply.comNo}&bno=${teamBoard.boardNo }'">답글 삭제</button>
+                              	  <c:if test="${loginMember != null && loginMember.memNo == reply.memNo}">
+                                  	<button class="bd-red-button" onclick="location.href = 'deleteComm.tm?cno=${reply.comNo}&bno=${teamBoard.boardNo }'">답글 삭제</button>
+                                  </c:if>
                                   <button class="bd-red-button" data-bs-toggle="modal" data-bs-target="#reportModal" onclick="setReportData(${teamBoard.boardNo}, ${reply.comNo}, ${reply.memNo}, ${teamBoard.teamNo})">신고하기</button>
                                   <button class="bd-button" data-bs-toggle="modal" data-bs-target="#commentModal" onclick="setCommentData(${reply.comParentNo}, ${teamBoard.boardNo})">답글 작성</button>
                               </div>

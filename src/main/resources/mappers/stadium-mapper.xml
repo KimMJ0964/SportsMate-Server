@@ -347,7 +347,7 @@
 		SELECT 
 		    m.MATCH_NO AS matchNo,              
 		    s.STADIUM_NAME AS stadiumName,       
-		    si.FILE_PATH AS stadiumImage,              
+		    si.CHANGE_NAME AS stadiumImage,              
 		    a_team.TEAM_NAME AS aaTeamName,        
 		    b_team.TEAM_NAME AS bbTeamName,      
 		    m.RESERV_START AS reservStart,        
@@ -370,31 +370,31 @@
 	<!-- 경기 예정 리스트 -->
 	<select id="getGameScheduleData" parameterType="int" resultType="GameScheduleDto">
 		SELECT 
-		    m.MATCH_NO AS matchNo,              
-		    s.STADIUM_NAME AS stadiumName,       
-		    a_team_img.FILE_PATH AS aaTeamImage,             
-		    b_team_img.FILE_PATH AS bbTeamImage,             
-		    a_team.TEAM_NAME AS aaTeamName,        
-		    b_team.TEAM_NAME AS bbTeamName,      
-		    m.RESERV_START AS reservStart,        
-		    m.RESERV_END AS reservEnd
-		FROM 
-		    `MATCH` m
-		JOIN 
-		    `STADIUM` s ON m.STADIUM_NO = s.STADIUM_NO
-		JOIN 
-		    `TEAM` a_team ON m.TEAM_A_NO = a_team.TEAM_NO
-		JOIN 
-		    `TEAM` b_team ON m.TEAM_B_NO = b_team.TEAM_NO
-		LEFT JOIN 
-		    `TEAM_IMG` a_team_img ON a_team.TEAM_NO = a_team_img.TEAM_NO AND a_team_img.FILE_LEVER = '3'
-		LEFT JOIN 
-		    `TEAM_IMG` b_team_img ON b_team.TEAM_NO = b_team_img.TEAM_NO AND b_team_img.FILE_LEVER = '3'
-		WHERE
-			m.MATCH_NO = #{matchNo} 
-		    AND m.SCORE_A IS NULL 					<!-- A팀 점수가 NULL -->
-		    AND m.SCORE_B IS NULL 				<!-- B팀 점수가 NULL -->
-		    AND m.ACCESS_DATE &gt; CURRENT_DATE 	<!-- 오늘 이후로 잡힌 매치 -->
+	    m.MATCH_NO AS matchNo,
+	    s.STADIUM_NAME AS stadiumName,
+	    a_profile_file.CHANGE_NAME AS aaTeamImage,
+	    b_profile_file.CHANGE_NAME AS bbTeamImage,
+	    a_team.TEAM_NAME AS aaTeamName,
+	    b_team.TEAM_NAME AS bbTeamName,
+	    m.RESERV_START AS reservStart,
+	    m.RESERV_END AS reservEnd
+	FROM 
+	    `MATCH` m
+	JOIN 
+	    `STADIUM` s ON m.STADIUM_NO = s.STADIUM_NO
+	JOIN 
+	    `TEAM` a_team ON m.TEAM_A_NO = a_team.TEAM_NO
+	JOIN 
+	    `TEAM` b_team ON m.TEAM_B_NO = b_team.TEAM_NO
+	LEFT JOIN 
+	    `PROFILE_FILE` a_profile_file ON m.TEAM_A_NO = a_profile_file.TEAM_NO
+	LEFT JOIN 
+	    `PROFILE_FILE` b_profile_file ON m.TEAM_B_NO = b_profile_file.TEAM_NO
+	WHERE
+	    m.MATCH_NO = #{matchNo}
+	    AND m.SCORE_A IS NULL
+	    AND m.SCORE_B IS NULL
+	    AND m.ACCESS_DATE > CURRENT_DATE;
 
 	</select>
 
@@ -630,28 +630,28 @@
     <!-- 진행 완료 매치 리스트 -->
     <select id="getCompleteMatches" resultType="GameFinishDto">
 	    SELECT
-	        M.MATCH_NO AS matchNo,
-	        TA.TEAM_NAME AS aaTeamName,
-	        TB.TEAM_NAME AS bbTeamName,
-	        TIA.FILE_PATH AS aaTeamImage,
-	        TIB.FILE_PATH AS bbTeamImage,
-	        M.RESERV_START AS reservStart,
-	        M.RESERV_END AS reservEnd,
-	        M.ACCESS_DATE AS accessDate
-	    FROM
-	        `MATCH` M
-	    JOIN
-	        TEAM TA ON M.TEAM_A_NO = TA.TEAM_NO
-	    JOIN
-	        TEAM TB ON M.TEAM_B_NO = TB.TEAM_NO
-	    LEFT JOIN
-	        TEAM_IMG TIA ON TA.TEAM_NO = TIA.TEAM_NO AND TIA.FILE_LEVER = '3'
-	    LEFT JOIN
-	        TEAM_IMG TIB ON TB.TEAM_NO = TIB.TEAM_NO AND TIB.FILE_LEVER = '3'
-	    WHERE
-	        M.ACCESS_DATE &lt; CURRENT_DATE
-	        AND (M.SCORE_A IS NULL OR M.SCORE_B IS NULL)
-	        AND M.STADIUM_NO = #{stadiumNo}
+		    M.MATCH_NO AS matchNo,
+		    TA.TEAM_NAME AS aaTeamName,
+		    TB.TEAM_NAME AS bbTeamName,
+		    PFA.CHANGE_NAME AS aaTeamImage,
+		    PFB.CHANGE_NAME AS bbTeamImage,
+		    M.RESERV_START AS reservStart,
+		    M.RESERV_END AS reservEnd,
+		    M.ACCESS_DATE AS accessDate
+		FROM
+		    `MATCH` M
+		JOIN
+		    TEAM TA ON M.TEAM_A_NO = TA.TEAM_NO
+		JOIN
+		    TEAM TB ON M.TEAM_B_NO = TB.TEAM_NO
+		LEFT JOIN
+		    PROFILE_FILE PFA ON TA.TEAM_NO = PFA.TEAM_NO
+		LEFT JOIN
+		    PROFILE_FILE PFB ON TB.TEAM_NO = PFB.TEAM_NO
+		WHERE
+		    M.ACCESS_DATE &lt; CURRENT_DATE
+		    AND (M.SCORE_A IS NULL OR M.SCORE_B IS NULL)
+		    AND M.STADIUM_NO = #{stadiumNo}
 	</select>
 
 
