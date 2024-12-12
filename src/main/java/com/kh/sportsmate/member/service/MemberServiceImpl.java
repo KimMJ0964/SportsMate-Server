@@ -129,7 +129,7 @@ public class MemberServiceImpl implements MemberService {
         // 사용자 정보 결합
         String memBirth = m.getYear() + "." + m.getMonth() + "." + m.getDay(); // 생년월일 concatenate
         String memPhone = m.getPhone1() + "-" + m.getPhone2() + "-" + m.getPhone3(); // 전화번호
-        String memAdd = m.getMemberBaseAdd() + " " + m.getMemberDetailAdd();
+        String memAdd = m.getMemberBaseAdd() + ", " + m.getMemberDetailAdd();
         // 구장 주소 결합
         String stadiumAdd = m.getBaseAdd() + " " + m.getDetailAdd();
 

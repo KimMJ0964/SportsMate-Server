@@ -366,6 +366,7 @@
 		    m.MATCH_NO = #{matchNo};
 	</select>
 	
+	
 	<!-- 경기 예정 리스트 -->
 	<select id="getGameScheduleData" parameterType="int" resultType="GameScheduleDto">
 		SELECT 
@@ -390,10 +391,10 @@
 		LEFT JOIN 
 		    `TEAM_IMG` b_team_img ON b_team.TEAM_NO = b_team_img.TEAM_NO AND b_team_img.FILE_LEVER = '3'
 		WHERE
-			m.MATCH_NO = #{memNo}
+			m.MATCH_NO = #{matchNo} 
 		    AND m.SCORE_A IS NULL 					<!-- A팀 점수가 NULL -->
 		    AND m.SCORE_B IS NULL 				<!-- B팀 점수가 NULL -->
-		    AND m.ACCESS_DATE > CURRENT_DATE 	<!-- 오늘 이후로 잡힌 매치 -->
+		    AND m.ACCESS_DATE &gt; CURRENT_DATE 	<!-- 오늘 이후로 잡힌 매치 -->
 
 	</select>
 

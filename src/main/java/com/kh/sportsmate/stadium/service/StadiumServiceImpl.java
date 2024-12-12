@@ -9,10 +9,6 @@ import com.kh.sportsmate.admin.model.dao.AdminDao;
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.match.model.dao.MatchDao;
 import com.kh.sportsmate.member.model.dao.MemberDao;
-import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
-import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
-import com.kh.sportsmate.stadium.model.dto.Rating;
-import com.kh.sportsmate.stadium.model.dto.TeamScore;
 import com.kh.sportsmate.stadium.model.dto.*;
 import com.kh.sportsmate.team.model.dao.TeamDao;
 import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
@@ -22,9 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.stadium.model.dao.StadiumDao;
-import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
@@ -36,6 +29,9 @@ import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
 import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -330,5 +326,6 @@ public class StadiumServiceImpl implements StadiumService{
 	public ArrayList<MatchResultMemberInfoDTO> selectMatchMemberInfo(Map<String, Object> map) {
 		return stadiumDao.selectMatchMemberInfo(sqlSession, map);
 	}
+
 
 }
