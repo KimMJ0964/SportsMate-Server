@@ -564,7 +564,7 @@
     TM.TEAM_NO, T.MEM_NO, T.TEAM_NAME, T.SCORE, T.TEAM_POINT, TM.MEM_NO, M.MEM_NAME, TM.STATUS;
 </select>
 <!-- 팀번호로  조회 -->
-<select id="getTeamNoByMemNo" parameterType="map" resultType="_int">
+<select id="getTeamNoByMemNo" parameterType="map" resultType="Integer">
     select
         t.TEAM_NO
     FROM TEAM t

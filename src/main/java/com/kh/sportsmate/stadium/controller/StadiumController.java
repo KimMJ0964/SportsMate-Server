@@ -12,15 +12,11 @@ import javax.servlet.http.HttpSession;
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
 import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
-import com.kh.sportsmate.stadium.model.dto.Rating;
-import com.kh.sportsmate.stadium.model.dto.TeamScore;
 
 import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
 import lombok.RequiredArgsConstructor;
 import com.kh.sportsmate.stadium.model.dto.*;
-import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,18 +27,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.*;
 
-import com.kh.sportsmate.board.model.vo.Board;
-
-import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
 import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
 import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
-import com.kh.sportsmate.board.model.vo.Board;
+
 import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.common.vo.PageInfo;
 import com.kh.sportsmate.member.model.vo.Member;
@@ -51,7 +42,6 @@ import com.kh.sportsmate.stadium.model.dto.StadiumDto;
 import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.StadiumQna;
 import com.kh.sportsmate.stadium.service.StadiumService;
-import com.kh.sportsmate.team.model.dto.MyTeamDto;
 
 @CrossOrigin
 @Slf4j
@@ -155,12 +145,6 @@ public class StadiumController {
         return "redirect:inquiry.gp?cpage=1";
     }
 
-//    // 경기 결과 관리 페이지로 이동
-//    @RequestMapping(value = "gameresult.gp")
-//    public String gameresult() {
-//        return "stadium_manager/game_result";
-//    }
-//
  // 환불 관리 페이지로 이동
     @RequestMapping(value = "stadiumrefund.gp")
     public String stadiumrefund(HttpSession session, Model model) {
@@ -282,11 +266,12 @@ public class StadiumController {
         int memNo = loginMember.getMemNo();
 
         // 팀 번호 조회
-        int teamNo = stadiumService.getTeamNoByMemNo(memNo,stadiumNo);
-
+        Integer teamNo = null;
+        teamNo = stadiumService.getTeamNoByMemNo(memNo,stadiumNo);
+        log.info("teamNo: {}",teamNo);
         // 구단 멤버 정보 가져오기
         List<StadiumDetailmodal> stadiumReservation = new ArrayList<>();
-        if (teamNo > 0) {
+        if (teamNo != null) {
             stadiumReservation = stadiumService.getStadiumReservation(teamNo);
         }
 
@@ -307,7 +292,7 @@ public class StadiumController {
 
         // 구단장 번호 추출
         Integer teamLeaderId = null;
-        if (!stadiumReservation.isEmpty()) {
+        if (stadiumReservation!=null &&!stadiumReservation.isEmpty()) {
             teamLeaderId = stadiumReservation.get(0).getTmemNo();
         }
 
@@ -425,6 +410,12 @@ public class StadiumController {
 		return "stadium/listPage"; // 검색 결과 페이지
     }
 
+    /**
+     * 경고 사유 등록 AJAX
+     * @param penaltyInfo
+     * @param request
+     * @return
+     */
     @ResponseBody
     @PostMapping(value = "warning_reason.gp")
     public String insertPenalty(StadiumPenaltyDTO penaltyInfo, HttpServletRequest request) {
@@ -435,7 +426,6 @@ public class StadiumController {
         }else {
             return "XXXXX";
         }
-//        return "redirect:/";
     }
     @GetMapping(value = "game_detail.gp")
     public String moveGameResultView(int matchNo, HttpServletRequest request, HttpSession session){

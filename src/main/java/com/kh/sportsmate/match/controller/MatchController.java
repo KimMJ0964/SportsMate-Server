@@ -23,7 +23,6 @@ import com.kh.sportsmate.common.template.Template;
 import com.kh.sportsmate.match.model.vo.Match;
 import com.kh.sportsmate.match.model.vo.MatchBest;
 import com.kh.sportsmate.match.service.MatchService;
-import com.kh.sportsmate.team.model.dto.MyTeamDto;
 
 import lombok.extern.slf4j.Slf4j;
 
