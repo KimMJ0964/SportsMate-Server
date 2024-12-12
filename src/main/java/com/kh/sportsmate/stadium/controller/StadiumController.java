@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
 import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
@@ -295,7 +298,13 @@ public class StadiumController {
         if (stadiumReservation!=null &&!stadiumReservation.isEmpty()) {
             teamLeaderId = stadiumReservation.get(0).getTmemNo();
         }
+        
+        log.info("teamLeaderId: {}", teamLeaderId); // 디버깅을 위한 로그
 
+        // 팀장 여부 확인
+        boolean isTeamLeader = (teamLeaderId != null && teamLeaderId.equals(memNo)); // 구단장 번호가 현재 로그인한 사용자와 동일한지 확인
+        log.info("isTeamLeader: {}", isTeamLeader); // 디버깅을 위한 로그
+        
         // 모델에 데이터 추가
         model.addAttribute("stadiumDetail", stadiumDetail);
         model.addAttribute("selectedDate", selectedDate);
@@ -305,6 +314,7 @@ public class StadiumController {
         model.addAttribute("stadiumReservation", stadiumReservation); // 모달용 데이터 추가
         model.addAttribute("teamLeaderId", teamLeaderId);
         model.addAttribute("teamNo", teamNo);
+        model.addAttribute("isTeamLeader", isTeamLeader);
 
         // 뷰로 이동
         return "stadium/detail";
@@ -327,8 +337,38 @@ public class StadiumController {
         }
 
     }
-
     
+    /**
+     * 선택된 날짜와 시간에 따라 팀 정보 조회 AJAX
+     * @param request 요청 데이터 객체 (accessDate, startTime, endTime, stadiumNo)
+     * @return 팀 정보 리스트
+     */
+    @ResponseBody
+    @PostMapping("/stadium/teams")
+    public TeamDto getTeamsByDateAndTime(@RequestBody MatchRequestDto request, HttpServletResponse response) {
+        log.info("전달받은 요청 데이터: {}", request);
+
+        // 서비스 호출
+        TeamDto teamDTO = new TeamDto();
+		teamDTO = stadiumService.findTeamsByDateAndTime(request);
+       log.info("teamDTO : {}",teamDTO);
+
+        
+        
+        
+        // 결과 확인 후 반환
+        if (teamDTO != null) {
+        	teamDTO.setAjaxstatus("XXXXY");
+            log.info("조회된 팀 목록: {}", teamDTO);
+            
+            return teamDTO;
+        } else {
+        	teamDTO.setAjaxstatus("XXXXX");
+            log.info("조회된 팀이 없습니다.");
+            return teamDTO; // 빈 리스트 반환
+        }
+    }
+   
     /**
      * 문의 등록
      *
@@ -354,7 +394,7 @@ public class StadiumController {
         // 성공 여부에 따라 리다이렉트
         if (result) {
             session.setAttribute("alertMsg", "문의가 성공적으로 등록되었습니다.");
-            return "redirect:inquiry.me"; // 문의 목록 페이지로 리다이렉트
+            return "redirect:myPageInfo.mp"; // 문의 목록 페이지로 리다이렉트
         } else {
             model.addAttribute("errorMsg", "문의 등록에 실패했습니다.");
             return "common/errorPage";

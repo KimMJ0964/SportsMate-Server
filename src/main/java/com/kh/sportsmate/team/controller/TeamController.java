@@ -1007,10 +1007,69 @@ public class TeamController {
         return "redirect:/";
     }
     
-    // 랭킹페이지
+    /**
+     * 랭킹페이지 구단 랭킹
+     * 
+     * @param category 선택된 카테고리 (기본값: "축구")
+     * @param cpage 현재 페이지 (기본값: 1)
+     * @param sortOrder 정렬 순서 ("desc" 또는 "asc", 기본값: "desc")
+     * @param model JSP로 데이터를 전달하기 위한 모델 객체
+     * @return 랭킹 페이지 뷰 이름
+     */
     @RequestMapping("/ranking.tm")
-    public String showStadiumList() {
-        return "ranking/ranking";
-    }
+    public String showRankingPage(
+    		@RequestParam(value = "category", defaultValue = "soccer") String category, 
+    		@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+    		@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+    		@RequestParam(value = "sortOrder", defaultValue = "desc") String sortOrder,
+    		Model model) {
+    	
+    	// 검색 및 정렬 조건 설정
+        Map<String, Object> params = new HashMap<>();
+        params.put("category", category);
+        params.put("searchKeyword", searchKeyword);
+        params.put("sortOrder", sortOrder);
+    	
+    	// 전체 데이터 개수 조회
+    	int listCount = teamService.rankingPagination(params);
+    	
+    	// 페이지네이션 설정
+    	int pageLimit = 5; // 하단 페이지 번호 개수
+    	int boardLimit = 10; // 한 페이지에 보여줄 데이터 개수
+    	int maxPage = (int) Math.ceil((double) listCount / boardLimit);
+        int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+        int endPage = startPage + pageLimit - 1;
 
+        if (endPage > maxPage) {
+            endPage = maxPage;
+        }
+        
+        // PageInfo 객체 생성
+        PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+
+        // 카테고리별 팀 랭킹 데이터 조회
+        ArrayList<RankingDto> rankingList = teamService.rankingList(params, pi);
+        
+        // 순위 계산 (검색된 결과가 하나일 경우에도 순위 계산)
+        int rank = 1;
+        int prevPoint = -1;
+
+        for (RankingDto team : rankingList) {
+            if (team.getTeamPoint() != prevPoint) {
+                team.setRank(rank);  // 순위 부여
+                prevPoint = team.getTeamPoint();
+            }
+            rank++;
+        }
+   	
+    	// 모델에 데이터 추가
+    	model.addAttribute("rankingList", rankingList);
+    	model.addAttribute("selectedCategory", category);
+    	model.addAttribute("searchKeyword", searchKeyword);
+    	model.addAttribute("pi", pi);
+    	model.addAttribute("sortOrder", sortOrder);
+    	
+    	// 뷰 이름 반환
+    	return "ranking/ranking";
+    }
 }

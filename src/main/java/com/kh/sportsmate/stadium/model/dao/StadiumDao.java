@@ -232,4 +232,19 @@ public class StadiumDao {
     public String getStadiumCategory(SqlSessionTemplate sqlSession, int stadiumNo) {
         return sqlSession.selectOne("stadiumMapper.getStadiumCategory", stadiumNo);
     }
+    
+    /**
+     * 날짜와 시간에 맞는 팀 정보를 가져옵니다.
+     * @param sqlSession - SqlSessionTemplate 객체
+     * @param request - 요청 정보 (MatchRequestDto)
+     * @return 팀 정보 리스트 (TeamDto)
+     */
+    public TeamDto getTeamsByDateAndTime(SqlSessionTemplate sqlSession, MatchRequestDto request) {
+        return sqlSession.selectOne("stadiumMapper.getTeamsByDateAndTime", request);
+    }
+    
+    public Integer getTeamLeaderId(int teamNo) {
+        return sqlSession.selectOne("stadiumMapper.getTeamLeaderId", teamNo);
+    }
+
 }

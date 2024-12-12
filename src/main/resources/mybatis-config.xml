@@ -58,7 +58,8 @@
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.QnaRequestDto" alias="QnaRequestDto"/>
 		<typeAlias type="com.kh.sportsmate.stadium.model.dto.GameFinishDto" alias="GameFinishDto"/>
         <typeAlias type="com.kh.sportsmate.stadium.model.dto.MatchResultMemberInfoDTO" alias="MatchResultMemberInfoDTO"/>
-
+        <typeAlias type="com.kh.sportsmate.stadium.model.dto.MatchRequestDto" alias="MatchRequestDto"/>
+		<typeAlias type="com.kh.sportsmate.stadium.model.dto.TeamDto" alias="TeamDto"/>
 
         <!-- Board -->
         <typeAlias type="com.kh.sportsmate.board.model.vo.Board" alias="Board"/>
@@ -89,7 +90,8 @@
         <typeAlias type="com.kh.sportsmate.team.model.dto.MyRecruitDto" alias="MyRecruitDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.TeamMatchInfoDto" alias="TeamMatchInfoDto"/>
         <typeAlias type="com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO" alias="MatchResultTeamInfoDTO"/>
-
+		<typeAlias type="com.kh.sportsmate.team.model.dto.RankingDto" alias="RankingDto"/>
+		
     </typeAliases>
 
     <mappers>

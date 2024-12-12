@@ -327,5 +327,13 @@ public class StadiumServiceImpl implements StadiumService{
 		return stadiumDao.selectMatchMemberInfo(sqlSession, map);
 	}
 
+	@Override
+	public TeamDto findTeamsByDateAndTime(MatchRequestDto request) {
+		return stadiumDao.getTeamsByDateAndTime(sqlSession, request);
+	}
 
+	@Override
+	public Integer getTeamLeaderId(int teamNo) {
+		return stadiumDao.getTeamLeaderId(teamNo);
+	}
 }

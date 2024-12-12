@@ -97,6 +97,14 @@ public interface StadiumService {
 	// 매치 참여 선수 리스트 조회
 	ArrayList<MatchResultMemberInfoDTO> selectMatchMemberInfo(Map<String, Object> map);
 
+	/**
+     * 날짜와 시간에 맞는 팀 정보를 가져옵니다.
+     * @param request - 요청 정보 (MatchRequestDto)
+     * @return 팀 정보 리스트 (TeamDto)
+     */
+	TeamDto findTeamsByDateAndTime(MatchRequestDto request);
+	
+	public Integer getTeamLeaderId(int teamNo);
 
 }
 

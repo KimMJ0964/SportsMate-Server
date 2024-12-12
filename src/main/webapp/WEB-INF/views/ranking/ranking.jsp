@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,7 @@
 </head>
 <body>
     <div class="wrap">
-        <jsp:include page="TeamSearch.jsp" />
+        <jsp:include page="/WEB-INF/views/common/header.jsp" />
         
         <br>
         
@@ -30,102 +31,166 @@
         <hr>
         
         <p class="size">실시간 랭킹</p>
-        <div class="sport-button-container">
-            <button class="sport-btn active">축구</button>
-            <button class="sport-btn">풋살</button>
-            <button class="sport-btn">야구</button>
-            <button class="sport-btn">농구</button>
-        </div>
-        <div class="team">
-			<div class="row">
-	        	<div class="cell left"><span>1</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">리버풀FC</div>
-	            <div class="cell right"><div class="point">Point</div>1389</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>2</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">맨시티FC</div>
-	            <div class="cell right"><div class="point">Point</div>1388</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>3</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">첼시FC</div>
-	            <div class="cell right"><div class="point">Point</div>1387</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>4</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">아스널FC</div>
-	            <div class="cell right"><div class="point">Point</div>1386</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>5</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">노팅엄 포레스트FC</div>
-	            <div class="cell right"><div class="point">Point</div>1385</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>6</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">브라이턴FC</div>
-	            <div class="cell right"><div class="point">Point</div>1384</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>7</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">풀럼FC</div>
-	            <div class="cell right"><div class="point">Point</div>1383</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>8</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">뉴캐슬FC</div>
-	            <div class="cell right"><div class="point">Point</div>1382</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>9</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">애스턴 빌라FC</div>
-	            <div class="cell right"><div class="point">Point</div>1381</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>10</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">토트넘FC</div>
-	            <div class="cell right"><div class="point">Point</div>1380</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>11</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">브렌트퍼드FC</div>
-	            <div class="cell right"><div class="point">Point</div>1379</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>12</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">본머스FC</div>
-	            <div class="cell right"><div class="point">Point</div>1378</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>13</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">맨유FC</div>
-	            <div class="cell right"><div class="point">Point</div>1377</div>
-	        </div>
-	        <div class="row">
-	            <div class="cell left"><span>14</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">웨스트햄FC</div>
-	            <div class="cell right"><div class="point">Point</div>1376</div>
-	        </div>	 
-	        <div class="row">
-	        	<div class="cell left"><span>15</span><img src="resources/images/team.png" /></div>
-	            <div class="cell center">레스터 시티FC</div>
-	            <div class="cell right"><div class="point">Point</div>1375</div>
-	        </div>  
-	        <div class="row"></div>     	           
-	    </div>  
-        <div class="board-pagination">
-            <button class="board-page-btn">&laquo;</button>
-            <button class="board-page-btn">1</button>
-            <button class="board-page-btn">2</button>
-            <button class="board-page-btn">3</button>
-            <button class="board-page-btn">4</button>
-            <button class="board-page-btn">5</button>
-            <button class="board-page-btn">&raquo;</button>
-        </div>
+        
+		<!-- 종목 선택 버튼 -->
+		<div class="sport-button-container" style="text-align: center; margin-bottom: 20px;">
+		    <button class="sport-btn ${selectedCategory == 'soccer' ? 'active' : ''}" onclick="location.href='ranking.tm?category=soccer'">축구</button>
+		    <button class="sport-btn ${selectedCategory == 'futsal' ? 'active' : ''}" onclick="location.href='ranking.tm?category=futsal'">풋살</button>
+		    <button class="sport-btn ${selectedCategory == 'baseball' ? 'active' : ''}" onclick="location.href='ranking.tm?category=baseball'">야구</button>
+		    <button class="sport-btn ${selectedCategory == 'basketball' ? 'active' : ''}" onclick="location.href='ranking.tm?category=basketball'">농구</button>
+		</div>
+		
+		<!-- 정렬 및 검색 컨테이너 -->
+		<div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+		    <!-- 랭킹순 버튼 -->
+		    <div class="sort-container" style="flex: 1; text-align: left;">
+		        <button 
+		            class="sort-btn ${sortOrder == 'desc' ? 'active' : ''}" 
+		            onclick="location.href='ranking.tm?category=${selectedCategory}&sortOrder=desc'">
+		            높은 순위 팀
+		        </button>
+		        <button 
+		            class="sort-btn ${sortOrder == 'asc' ? 'active' : ''}" 
+		            onclick="location.href='ranking.tm?category=${selectedCategory}&sortOrder=asc'">
+		            낮은 순위 팀
+		        </button>
+		    </div>
+		
+		    <!-- 검색창 -->
+		    <div class="search-bar-team" style="flex: 2; text-align: right;">
+		        <form action="ranking.tm" method="get" id="search-bar-form-team" style="display: flex; gap: 10px;">
+		            <input type="hidden" name="category" value="${selectedCategory}">
+		            <input type="text" name="searchKeyword" placeholder="팀 이름을 입력하세요." value="${searchKeyword}" style="flex: 1;">
+		            <button type="submit">
+		                <img src="${pageContext.request.contextPath}/resources/images/search-btn.png" class="search-btn-team" alt="검색">
+		            </button>
+		        </form>
+		    </div>
+		</div>
+
+				        
+		<!-- 팀 랭킹 -->
+		<div class="team">
+		    <c:forEach var="team" items="${rankingList}">
+		        <div class="row">
+		            <div class="cell left">
+		                <!-- 순서를 출력 -->
+                		<span>${team.rank}</span>
+		                <!-- 이미지가 존재하지 않을 경우 기본 이미지 출력 -->
+		                <img src="<c:choose>
+		                            <c:when test="${team.filePath != null and team.changeName != null}">
+		                                ${pageContext.request.contextPath}/resources/images/userProFile/${team.changeName}
+		                            </c:when>
+		                            <c:otherwise>
+		                                ${pageContext.request.contextPath}/resources/images/default-team.png
+		                            </c:otherwise>
+		                         </c:choose>" 
+		                     alt="${team.teamName} 이미지">
+		            </div>
+		            <div class="cell center">${team.teamName}</div>
+		            <div class="cell right">
+		                <div class="point">Point</div>
+		                ${team.teamPoint}
+		            </div>
+		        </div>
+		    </c:forEach>
+		    <div class="row"></div> <!-- 빈 row 추가 -->   	           
+		</div>
+	    
+	    <!-- 페이지네이션 -->
+	    <div id="pagenation">
+		    <nav>
+		        <ul class="pagination">
+		            <!-- 맨 처음 페이지로 이동 -->
+		            <c:choose>
+		                <c:when test="${pi.currentPage > 1}">
+		                    <li class="page-item">
+		                        <a href="ranking.tm?category=${selectedCategory}&cpage=1" class="page-link">
+		                            <span aria-hidden="true">&laquo;</span>
+		                        </a>
+		                    </li>
+		                </c:when>
+		                <c:otherwise>
+		                    <li class="page-item disabled">
+		                        <a href="#" class="page-link">
+		                            <span aria-hidden="true">&laquo;</span>
+		                        </a>
+		                    </li>
+		                </c:otherwise>
+		            </c:choose>
+		
+		            <!-- 이전 페이지 -->
+		            <c:choose>
+		                <c:when test="${pi.currentPage > 1}">
+		                    <li class="page-item">
+		                        <a href="ranking.tm?category=${selectedCategory}&cpage=${pi.currentPage - 1}" class="page-link">
+		                            <span aria-hidden="true">&lt;</span>
+		                        </a>
+		                    </li>
+		                </c:when>
+		                <c:otherwise>
+		                    <li class="page-item disabled">
+		                        <a href="#" class="page-link">
+		                            <span aria-hidden="true">&lt;</span>
+		                        </a>
+		                    </li>
+		                </c:otherwise>
+		            </c:choose>
+		
+		            <!-- 페이지 번호 -->
+		            <c:forEach var="page" begin="${pi.startPage}" end="${pi.endPage}">
+		                <c:choose>
+		                    <c:when test="${page == pi.currentPage}">
+		                        <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
+		                    </c:when>
+		                    <c:otherwise>
+		                        <li class="page-item">
+		                            <a class="page-link" href="ranking.tm?category=${selectedCategory}&cpage=${page}">${page}</a>
+		                        </li>
+		                    </c:otherwise>
+		                </c:choose>
+		            </c:forEach>
+		
+		            <!-- 다음 페이지 -->
+		            <c:choose>
+		                <c:when test="${pi.currentPage < pi.maxPage}">
+		                    <li class="page-item">
+		                        <a href="ranking.tm?category=${selectedCategory}&cpage=${pi.currentPage + 1}" class="page-link">
+		                            <span aria-hidden="true">&gt;</span>
+		                        </a>
+		                    </li>
+		                </c:when>
+		                <c:otherwise>
+		                    <li class="page-item disabled">
+		                        <a href="#" class="page-link">
+		                            <span aria-hidden="true">&gt;</span>
+		                        </a>
+		                    </li>
+		                </c:otherwise>
+		            </c:choose>
+		
+		            <!-- 맨 마지막 페이지로 이동 -->
+		            <c:choose>
+		                <c:when test="${pi.currentPage < pi.maxPage}">
+		                    <li class="page-item">
+		                        <a href="ranking.tm?category=${selectedCategory}&cpage=${pi.maxPage}" class="page-link">
+		                            <span aria-hidden="true">&raquo;</span>
+		                        </a>
+		                    </li>
+		                </c:when>
+		                <c:otherwise>
+		                    <li class="page-item disabled">
+		                        <a href="#" class="page-link">
+		                            <span aria-hidden="true">&raquo;</span>
+		                        </a>
+		                    </li>
+		                </c:otherwise>
+		            </c:choose>
+		        </ul>
+		    </nav>
+		</div>
 
         <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     </div>
-    <script src="${pageContext.request.contextPath}/resources/js/ranking/ranking.js"></script>
 </body>
 </html>

@@ -994,5 +994,47 @@
 		WHERE
 		m.MATCH_NO = #{matchNo};
 	</select>
+	
+	<!-- 팀 랭킹 정보를 조회하는 쿼리 (검색 기능 포함) -->
+	<select id="RankingList" parameterType="map" resultType="RankingDto">
+		SELECT
+			t.TEAM_NO AS teamNo, <!-- 팀 번호 -->
+			t.TEAM_NAME AS teamName, <!-- 팀 이름 -->
+			t.TEAM_POINT AS teamPoint, <!-- 팀 점수 -->
+			t.TEAM_CATEGORY AS teamCategory, <!-- 팀 카테고리 -->
+			p.FILE_NO AS fileNo, <!-- 파일 번호 -->
+			p.FILE_PATH AS filePath, <!-- 이미지 파일 경로 -->
+			p.CHANGE_NAME AS changeName <!-- 이미지 파일 이름 -->
+		FROM
+			TEAM t
+		LEFT JOIN
+			PROFILE_FILE p
+		ON
+			t.TEAM_NO = p.TEAM_NO
+		WHERE
+			t.TEAM_CATEGORY = #{category} <!-- 선택된 카테고리 해당하는 팀만 조회 -->
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND t.TEAM_NAME LIKE CONCAT('%', #{searchKeyword}, '%') <!-- 검색 키워드 포함 -->
+			</if>
+		ORDER BY
+			t.TEAM_POINT
+			<if test="sortOrder == 'asc'">
+				ASC
+			</if>
+			<if test="sortOrder == 'desc'">
+				DESC
+			</if> <!-- 동적 정렬 순서 -->
+	</select>
+
+	<!-- 랭킹페이지 페이지네이션 -->
+	<!-- 카테고리 별 총데이터 수 조회 -->
+	<select id="Rankingpagination" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM TEAM t
+		WHERE t.TEAM_CATEGORY = #{category}
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND t.TEAM_NAME LIKE CONCAT('%', #{searchKeyword}, '%') <!-- 검색 키워드 포함 -->
+			</if>
+	</select>
 
 </mapper>
