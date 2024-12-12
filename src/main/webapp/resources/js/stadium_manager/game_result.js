@@ -175,7 +175,7 @@ const getRating = () => {
 };
 
 const clickRegisterBtn = () => {
-    setGameResult(getRating(), () => {
+    setGameResult(getRating(), (res) => {
         if(res === 'XXXXY'){
             alert("경기 결과 등록 성공")
             location.href = 'gamefinish.gp';
