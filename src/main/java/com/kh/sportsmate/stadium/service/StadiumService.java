@@ -8,22 +8,10 @@ import java.util.Map;
 
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.common.vo.PageInfo;
-import com.kh.sportsmate.stadium.model.dto.GameScheduleDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumImgDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumRefundDto;
 import com.kh.sportsmate.stadium.model.vo.Amenities;
 import com.kh.sportsmate.stadium.model.vo.Rental;
 import com.kh.sportsmate.stadium.model.vo.Stadium;
-import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
-import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
-import com.kh.sportsmate.stadium.model.dto.QnaRequestDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetail;
-import com.kh.sportsmate.stadium.model.dto.StadiumDetailmodal;
-import com.kh.sportsmate.stadium.model.dto.StadiumQnaDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumReviewDto;
-import com.kh.sportsmate.stadium.model.dto.StadiumSearch;
-import com.kh.sportsmate.stadium.model.dto.WeatherResponse;
+
 import java.util.Map;
 
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
