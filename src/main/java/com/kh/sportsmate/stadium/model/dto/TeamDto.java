@@ -21,4 +21,5 @@ public class TeamDto {
 	
 	private int matchNo;
 	private int teamANo;
+	private String ajaxstatus; 
 }

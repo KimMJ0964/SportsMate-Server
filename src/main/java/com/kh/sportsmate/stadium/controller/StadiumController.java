@@ -8,8 +8,10 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.sportsmate.admin.model.dto.StadiumPenaltyDTO;
 import com.kh.sportsmate.stadium.model.dto.GameFinishDto;
 import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
@@ -336,19 +338,26 @@ public class StadiumController {
      */
     @ResponseBody
     @PostMapping("/stadium/teams")
-    public List<TeamDto> getTeamsByDateAndTime(@RequestBody MatchRequestDto request) {
+    public TeamDto getTeamsByDateAndTime(@RequestBody MatchRequestDto request, HttpServletResponse response) {
         log.info("전달받은 요청 데이터: {}", request);
 
         // 서비스 호출
-        List<TeamDto> teamList = stadiumService.findTeamsByDateAndTime(request);
+        TeamDto teamDTO = stadiumService.findTeamsByDateAndTime(request);
+       log.info("teamDTO : {}",teamDTO);
 
+        
+        
+        
         // 결과 확인 후 반환
-        if (teamList != null && !teamList.isEmpty()) {
-            log.info("조회된 팀 목록: {}", teamList);
-            return teamList;
+        if (teamDTO != null) {
+        	teamDTO.setAjaxstatus("XXXXY");
+            log.info("조회된 팀 목록: {}", teamDTO);
+            
+            return teamDTO;
         } else {
+        	teamDTO.setAjaxstatus("XXXXX");
             log.info("조회된 팀이 없습니다.");
-            return Collections.emptyList(); // 빈 리스트 반환
+            return teamDTO; // 빈 리스트 반환
         }
     }
    

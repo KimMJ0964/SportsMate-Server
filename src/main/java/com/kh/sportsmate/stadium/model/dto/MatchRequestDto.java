@@ -19,4 +19,5 @@ public class MatchRequestDto {
 	private String startTime; // 시작 시간
 	private String endTime; // 종료 시간 
 	private int stadiumNo;
+	
 }

@@ -102,6 +102,6 @@ public interface StadiumService {
      * @param request - 요청 정보 (MatchRequestDto)
      * @return 팀 정보 리스트 (TeamDto)
      */
-    List<TeamDto> findTeamsByDateAndTime(MatchRequestDto request);
+	TeamDto findTeamsByDateAndTime(MatchRequestDto request);
 }
 

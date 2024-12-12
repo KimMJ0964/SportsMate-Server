@@ -5,6 +5,7 @@ $(document).ready(function () {
             return time + ":00"; // "19:00" → "19:00:00"
         }
         return time; // 이미 "HH:mm:ss" 형식이면 그대로 반환
+        console.log("jstest")
     }
 
     $('#start-time, #end-time').change(function () {
@@ -25,6 +26,10 @@ $(document).ready(function () {
                     stadiumNo: stadiumNo
                 }),
                 success: function (response) {
+                	console.log(response);
+                	if(response.ajaxstatus === 'XXXXY'){
+                		console.log("성공");
+                	}
                     const matchNoInput = $("input[name='matchNo']");
                     const teamANoInput = $("input[name='teamANo']");
                     const teamBNoInput = $("input[name='teamBNo']");

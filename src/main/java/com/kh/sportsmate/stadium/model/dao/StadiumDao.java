@@ -239,7 +239,7 @@ public class StadiumDao {
      * @param request - 요청 정보 (MatchRequestDto)
      * @return 팀 정보 리스트 (TeamDto)
      */
-    public List<TeamDto> getTeamsByDateAndTime(SqlSessionTemplate sqlSession, MatchRequestDto request) {
-        return sqlSession.selectList("stadiumMapper.getTeamsByDateAndTime", request);
+    public TeamDto getTeamsByDateAndTime(SqlSessionTemplate sqlSession, MatchRequestDto request) {
+        return sqlSession.selectOne("stadiumMapper.getTeamsByDateAndTime", request);
     }
 }
