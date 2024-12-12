@@ -541,8 +541,10 @@
 						    <input type="hidden" id="stadium-id" name="stadiumNo" value="${stadiumDetail.stadiumNo}">
 						    <input type="hidden" id="price" name="price" value="${stadiumDetail.stadiumPrice}">
 						    <input type="hidden" id="category" name="category" value="${stadiumDetail.stadiumCategory}">
-						    <input type="hidden" name="teamANo" value="${teamNo}">
-                     		<input type="hidden" name="teamBNo" value="">
+						    <input type="hidden" name="teamANo" value=""> <!-- A팀 번호 -->
+						    <input type="hidden" name="teamBNo" value=""> <!-- B팀 번호 -->
+						    <input type="hidden" name="matchNo" value=""> <!-- 매치 번호 -->
+						    <input type="hidden" id="teamNo" name="teamNo" value="${teamNo}"> <!-- 현재 로그인된 팀 번호 -->
 						    
 							<!-- 경기장 이름과 가격 -->
 			                <div class="row text-center mb-4">

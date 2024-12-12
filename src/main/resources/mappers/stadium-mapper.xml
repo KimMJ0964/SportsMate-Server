@@ -481,20 +481,22 @@
 
 <!-- 경기장 상세 정보 조회 -->
 <select id="getStadiumDetail" parameterType="int" resultType="StadiumDetail">
-	SELECT
-        S.STADIUM_NO as stadiumNo, 
-        S.MEM_NO as memNo, 
-        S.STADIUM_NAME as stadiumName, 
-        S.STADIUM_ZIPCODE as stadiumZipcode, 
-        S.STADIUM_ADDRESS as stadiumAddress, 
-        S.STADIUM_SCORE as stadiumScore, 
-        S.STADIUM_PRICE as stadiumPrice, 
-        S.STADIUM_CATEGORY as stadiumCategory, 
-        S.STADIUM_START_TIME as stadiumStartTime, 
-        S.STADIUM_END_TIME as stadiumEndTime, 
-        S.STATUS as status,
-        F.FILE_PATH as filePath,
-        F.CHANGE_NAME as changeName,
+	 SELECT
+        S.STADIUM_NO AS stadiumNo, 
+        S.MEM_NO AS memNo, 
+        S.STADIUM_NAME AS stadiumName, 
+        S.STADIUM_ZIPCODE AS stadiumZipcode, 
+        S.STADIUM_ADDRESS AS stadiumAddress, 
+        -- 리뷰 평점 계산
+        IFNULL(AVG(RV.REVIEW_STAR), 0) AS stadiumScore, 
+        S.STADIUM_PRICE AS stadiumPrice, 
+        S.STADIUM_CATEGORY AS stadiumCategory, 
+        S.STADIUM_START_TIME AS stadiumStartTime, 
+        S.STADIUM_END_TIME AS stadiumEndTime, 
+        S.STATUS AS status,
+        -- 이미지 정보
+        F.FILE_PATH AS filePath,
+        F.CHANGE_NAME AS changeName,
         -- 물품 지원
         R.BALL,
         R.VEST,
@@ -512,8 +514,12 @@
         STADIUM_AM A ON S.STADIUM_NO = A.STADIUM_NO
     LEFT JOIN 
         STADIUM_IMG F ON S.STADIUM_NO = F.STADIUM_NO
+    LEFT JOIN 
+        STADIUM_REVIEW RV ON S.STADIUM_NO = RV.STADIUM_NO
     WHERE 
         S.STADIUM_NO = #{stadiumNo}
+    GROUP BY 
+        S.STADIUM_NO
     LIMIT 1
 </select>
 
@@ -670,7 +676,9 @@
 	    SELECT 
 	        T.TEAM_NAME AS teamName,
 	        T.SCORE AS score,
-	        T.TEAM_POINT AS teamPoint
+	        T.TEAM_POINT AS teamPoint,
+	        M.MATCH_NO AS matchNo,
+	        M.TEAM_A_NO AS teamANo
 	    FROM 
 	        `MATCH` M
 	    JOIN 

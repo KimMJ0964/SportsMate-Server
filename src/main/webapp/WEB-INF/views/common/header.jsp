@@ -126,11 +126,10 @@
                                     <!-- 스포츠 종류 선택 -->
                                     <div class="type-select-group">
                                         <select class="form-select" name="stadiumCategory">
-                                        	<option value="전체">전체</option>
-                                            <option value="축구">축구</option>
-                                            <option value="풋살">풋살</option>
-                                            <option value="야구">야구</option>
-                                            <option value="농구">농구</option>
+                                            <option value="soccer" ${stadiumCategory == 'soccer' ? 'active' : ''}>축구</option>
+                                            <option value="futsal" ${stadiumCategory == 'futsal' ? 'active' : ''}>풋살</option>
+                                            <option value="baseball" ${stadiumCategory == 'baseball' ? 'active' : ''}>야구</option>
+                                            <option value="basketball" ${stadiumCategory == 'basketball' ? 'active' : ''}>농구</option>
                                         </select>
                                     </div>
                                 </div>

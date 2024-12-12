@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -328,11 +329,27 @@ public class StadiumController {
 
     }
     
+    /**
+     * 선택된 날짜와 시간에 따라 팀 정보 조회 AJAX
+     * @param request 요청 데이터 객체 (accessDate, startTime, endTime, stadiumNo)
+     * @return 팀 정보 리스트
+     */
     @ResponseBody
     @PostMapping("/stadium/teams")
     public List<TeamDto> getTeamsByDateAndTime(@RequestBody MatchRequestDto request) {
-        System.out.println("요청 데이터: " + request);
-        return stadiumService.findTeamsByDateAndTime(request);
+        log.info("전달받은 요청 데이터: {}", request);
+
+        // 서비스 호출
+        List<TeamDto> teamList = stadiumService.findTeamsByDateAndTime(request);
+
+        // 결과 확인 후 반환
+        if (teamList != null && !teamList.isEmpty()) {
+            log.info("조회된 팀 목록: {}", teamList);
+            return teamList;
+        } else {
+            log.info("조회된 팀이 없습니다.");
+            return Collections.emptyList(); // 빈 리스트 반환
+        }
     }
    
     /**

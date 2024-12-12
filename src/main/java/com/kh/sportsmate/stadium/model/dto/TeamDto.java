@@ -18,4 +18,7 @@ public class TeamDto {
 	private String teamName;
 	private double score;
 	private int teamPoint;
+	
+	private int matchNo;
+	private int teamANo;
 }
