@@ -27,6 +27,7 @@ public class StadiumSubscription { // 신청하기
 	private String referee; //심판명
 	private int price; //가격
 	private String payment; //결제수단
-	private String filePath;
-	private String teamFilePath;
+	private String changeName;
+	private String teamChangeName;
+	private String opChangeName;
 }
