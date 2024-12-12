@@ -449,15 +449,15 @@
         S.STADIUM_END_TIME as stadiumEndTime,
         A.ACTIVITY_AREA as activityArea,
         SI.FILE_PATH as filePath,
-        SI.CHANGE_NAME as changeName 
+        SI.CHANGE_NAME as changeName
     FROM 
         STADIUM S
     JOIN 
         AREA A ON S.STADIUM_ADDRESS LIKE CONCAT('%', REPLACE(A.AREA_NAME, '서울시 ', ''), '%')
     LEFT JOIN 
         STADIUM_IMG SI ON S.STADIUM_NO = SI.STADIUM_NO
-        AND SI.FILE_TYPE = 0 
-        AND SI.STATUS = 'Y' 
+        AND SI.FILE_TYPE = 0
+        AND SI.STATUS = 'Y'
     WHERE 
         S.STATUS = 'Y'
     <if test="activityArea != null and activityArea != ''">
@@ -537,43 +537,48 @@
 
 <!-- 구장 신청하기 -->
 <select id="StadiumReservation" parameterType="int" resultType="StadiumDetailmodal">
-	SELECT
-		TM.TEAM_NO AS teamNo, -- 구단 번호
-		T.MEM_NO AS tmemNo, -- 구단장 번호 (별칭으로 tmemNo 사용)
-		T.TEAM_NAME AS teamName, -- 구단 이름
-		T.SCORE AS Score, -- 구단 평점
-		T.TEAM_POINT AS teamPoint, -- 구단 점수
-		TM.MEM_NO AS memNo, -- 멤버 번호
-		M.MEM_NAME AS memName, -- 멤버 이름
-		TM.STATUS AS Status, -- 멤버 상태
-		-- 대기 중인 매치 정보
-	    `MATCH`.MATCH_NO AS matchNo,
-	    `MATCH`.TEAM_A_NO AS teamANo,
-	    `MATCH`.TEAM_B_NO AS teamBNo,
-	    `MATCH`.CATEGORY AS category,
-	    `MATCH`.RESERV_START AS reservStart,
-	    `MATCH`.RESERV_END AS reservEnd,
-	    `MATCH`.ACCESS_DATE AS accessDate
-	FROM
-	    TEAM_MEMBER TM
-	JOIN
-	    TEAM T ON TM.TEAM_NO = T.TEAM_NO
-	JOIN
-	    MEMBER M ON TM.MEM_NO = M.MEM_NO
-	LEFT JOIN
-	    `MATCH` ON T.TEAM_NO = `MATCH`.TEAM_A_NO
-	WHERE
-	    T.TEAM_NO = #{teamNo} -- 팀 번호로 조회
-	    AND TM.STATUS = 'Y'
-	    AND (`MATCH`.TEAM_B_NO IS NULL OR `MATCH`.TEAM_B_NO = 0); -- B팀이 매칭되지 않은 경우
+    SELECT
+    TM.TEAM_NO AS teamNo,
+    T.MEM_NO AS tmemNo,
+    T.TEAM_NAME AS teamName,
+    T.SCORE AS Score,
+    T.TEAM_POINT AS teamPoint,
+    TM.MEM_NO AS memNo,
+    M.MEM_NAME AS memName,
+    TM.STATUS AS Status,
+    MIN(`MATCH`.MATCH_NO) AS matchNo, -- 첫 번째 MATCH_NO 선택
+    MIN(`MATCH`.RESERV_START) AS reservStart, -- 첫 번째 예약 시작 시간
+    MIN(`MATCH`.RESERV_END) AS reservEnd -- 첫 번째 예약 종료 시간
+    FROM
+    TEAM_MEMBER TM
+    JOIN
+    TEAM T ON TM.TEAM_NO = T.TEAM_NO
+    JOIN
+    MEMBER M ON TM.MEM_NO = M.MEM_NO
+    LEFT JOIN
+    `MATCH` ON T.TEAM_NO = `MATCH`.TEAM_A_NO
+    WHERE
+    T.TEAM_NO = #{teamNo}
+    AND TM.STATUS = 'Y'
+    AND (`MATCH`.TEAM_B_NO IS NULL OR `MATCH`.TEAM_B_NO = 0)
+    GROUP BY
+    TM.TEAM_NO, T.MEM_NO, T.TEAM_NAME, T.SCORE, T.TEAM_POINT, TM.MEM_NO, M.MEM_NAME, TM.STATUS;
 </select>
 <!-- 팀번호로  조회 -->
-<select id="getTeamNoByMemNo" parameterType="int" resultType="int">
-    SELECT TEAM_NO
-    FROM TEAM
+<select id="getTeamNoByMemNo" parameterType="map" resultType="_int">
+    select
+        t.TEAM_NO
+    FROM TEAM t
     WHERE MEM_NO = #{memNo}
-      AND STATUS = 'Y'; -- 활성화된 상태
+    AND STATUS = 'Y'
+    and TEAM_CATEGORY =#{category};
 </select>
+<select id="getStadiumCategory" parameterType="_int" resultType="String">
+    select s.STADIUM_CATEGORY as category
+    from STADIUM s
+    where s.STADIUM_NO = #{stadiumNo};
+</select>
+
 <insert id="insertQna" parameterType="StadiumQnaDto">
     INSERT INTO STADIUM_QNA (
         Q_MEM_NO, STADIUM_NO, MATCH_Q_TITLE, MATCH_Q_DETAIL, MATCH_QNA_DATE
@@ -606,32 +611,32 @@
     <update id="inquiryUpdate">
     	UPDATE STADIUM_QNA
 		SET MATCH_A = #{matchA}
-		WHERE MATCH_QNA_NO = #{matchQnaNo};
+		WHERE MATCH_QNA_NO = #{matchQnaNo}
     </update>
 
-    
+
     <!-- 진행 완료 매치 리스트 -->
     <select id="getCompleteMatches" resultType="GameFinishDto">
-	    SELECT 
-	        M.MATCH_NO AS matchNo, 
-	        TA.TEAM_NAME AS aaTeamName, 
-	        TB.TEAM_NAME AS bbTeamName, 
-	        TIA.FILE_PATH AS aaTeamImage, 
+	    SELECT
+	        M.MATCH_NO AS matchNo,
+	        TA.TEAM_NAME AS aaTeamName,
+	        TB.TEAM_NAME AS bbTeamName,
+	        TIA.FILE_PATH AS aaTeamImage,
 	        TIB.FILE_PATH AS bbTeamImage,
-	        M.RESERV_START AS reservStart, 
+	        M.RESERV_START AS reservStart,
 	        M.RESERV_END AS reservEnd,
 	        M.ACCESS_DATE AS accessDate
-	    FROM 
+	    FROM
 	        `MATCH` M
-	    JOIN 
+	    JOIN
 	        TEAM TA ON M.TEAM_A_NO = TA.TEAM_NO
-	    JOIN 
+	    JOIN
 	        TEAM TB ON M.TEAM_B_NO = TB.TEAM_NO
-	    LEFT JOIN 
+	    LEFT JOIN
 	        TEAM_IMG TIA ON TA.TEAM_NO = TIA.TEAM_NO AND TIA.FILE_LEVER = '3'
-	    LEFT JOIN 
+	    LEFT JOIN
 	        TEAM_IMG TIB ON TB.TEAM_NO = TIB.TEAM_NO AND TIB.FILE_LEVER = '3'
-	    WHERE 
+	    WHERE
 	        M.ACCESS_DATE &lt; CURRENT_DATE
 	        AND (M.SCORE_A IS NULL OR M.SCORE_B IS NULL)
 	        AND M.STADIUM_NO = #{stadiumNo}

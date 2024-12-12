@@ -15,6 +15,7 @@ import com.kh.sportsmate.stadium.model.dto.GameResultDTO;
 import com.kh.sportsmate.stadium.model.dto.Rating;
 import com.kh.sportsmate.stadium.model.dto.TeamScore;
 
+import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
 import lombok.RequiredArgsConstructor;
 import com.kh.sportsmate.stadium.model.dto.*;
 import com.kh.sportsmate.team.model.dto.MatchResultTeamInfoDTO;
@@ -93,14 +94,14 @@ public class StadiumController {
             return "redirect:/loginForm.me"; // 로그인 페이지로 리다이렉트
         }
 
-        
+
         // 구장 번호 가져오기
         int stadiumNo = stadiumService.getStadiumByManager(loginMember.getMemNo()).getStadiumNo();
-        
+
         // 진행 완료 매치 리스트 가져오기
         List<GameFinishDto> completedMatches = stadiumService.getCompleteMatches(stadiumNo);
         log.info("dddd: {}",completedMatches);
-        
+
         // match_no 리스트를 모델에 추가
         List<Integer> matchNoList = completedMatches.stream()
                                                     .map(GameFinishDto::getMatchNo)
@@ -151,15 +152,15 @@ public class StadiumController {
 			session.setAttribute("alertMsg", "문의 답장 실패");
 		}
 		
-        return "redirect:inquiry.me?cpage=1";
+        return "redirect:inquiry.gp?cpage=1";
     }
 
-    // 경기 결과 관리 페이지로 이동
-    @RequestMapping(value = "gameresult.gp")
-    public String gameresult() {
-        return "stadium_manager/game_result";
-    }
-    
+//    // 경기 결과 관리 페이지로 이동
+//    @RequestMapping(value = "gameresult.gp")
+//    public String gameresult() {
+//        return "stadium_manager/game_result";
+//    }
+//
  // 환불 관리 페이지로 이동
     @RequestMapping(value = "stadiumrefund.gp")
     public String stadiumrefund(HttpSession session, Model model) {
@@ -281,7 +282,7 @@ public class StadiumController {
         int memNo = loginMember.getMemNo();
 
         // 팀 번호 조회
-        int teamNo = stadiumService.getTeamNoByMemNo(memNo);
+        int teamNo = stadiumService.getTeamNoByMemNo(memNo,stadiumNo);
 
         // 구단 멤버 정보 가져오기
         List<StadiumDetailmodal> stadiumReservation = new ArrayList<>();

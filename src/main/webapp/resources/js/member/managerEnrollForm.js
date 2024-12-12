@@ -98,8 +98,8 @@ const updateEntireAgreementStatus = () => {
 
 const toggleSubmit = () => {
     const submitBtn = $('#submitBtn');
-    const isFormValid = isEmailValid && areTermsChecked && isPasswordConfirmed && isPasswordConditionMet;
-    // isPassEmailAuth
+    const isFormValid = isEmailValid && areTermsChecked && isPasswordConfirmed && isPasswordConditionMet && isPassEmailAuth;
+
 
     console.log("Form Valid:", isFormValid);  // 상태 로그
     console.log("Submit Button:", submitBtn); // 버튼 참조 로그
@@ -273,10 +273,10 @@ const authCodeCheckBtnClick = () => {
             $('#send-mail-btn').addClass('email-auth-btn-disabled').removeClass('email-auth-btn');
             $('#auth-code-btn').addClass('email-auth-btn-disabled').removeClass('email-auth-btn');
 
-            // isPassEmailAuth = true;
+            isPassEmailAuth = true;
         } else {
             $('#timer').text('인증 실패');
-            // isPassEmailAuth = false
+            isPassEmailAuth = false
         }
     });
 }

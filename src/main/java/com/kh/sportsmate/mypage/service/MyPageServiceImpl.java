@@ -131,8 +131,8 @@ public class MyPageServiceImpl implements MyPageService{
      */
 	@Override
 	@Transactional(readOnly = true)
-	public ArrayList<MemberPositionDto> selectATeamInfo(int teamANo) {
-		return mypageDao.selectATeamInfo(sqlSession, teamANo);
+	public ArrayList<MemberPositionDto> selectATeamInfo(Map<String, Integer> aMap) {
+		return mypageDao.selectATeamInfo(sqlSession, aMap);
 	}
 	
 	/**
@@ -143,8 +143,8 @@ public class MyPageServiceImpl implements MyPageService{
      */
 	@Override
 	@Transactional(readOnly = true)
-	public ArrayList<MemberPositionDto> selectBTeamInfo(int teamBNo) {
-		return mypageDao.selectBTeamInfo(sqlSession, teamBNo);
+	public ArrayList<MemberPositionDto> selectBTeamInfo(Map<String, Integer> bMap) {
+		return mypageDao.selectBTeamInfo(sqlSession, bMap);
 	}
 	
 	/**

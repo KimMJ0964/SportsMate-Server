@@ -44,6 +44,7 @@
             </div>
             <!-- 5. 버튼들 -->
             <div class="bd-button-container">
+            	<div class="bd-button"><a href="javascript:history.back()" style="color:white;">뒤로가기</a></div>
                 <div class="bd-button"><a href="${downloadLink}" style="color:white;" download>파일 다운로드</a></div>
                 <c:if test="${loginMember != null && loginMember.memNo == teamBoard.memNo}">
                  	<button class="bd-button"  onclick="location.href = 'modifyMoveBd.tm?mpage=${teamBoard.boardNo}'">수정하기</button>

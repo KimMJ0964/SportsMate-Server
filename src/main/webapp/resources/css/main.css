@@ -94,12 +94,14 @@
 	border-bottom: 2px solid lightgray;
 	margin-bottom: 10px;
 }
-
+.team-record-name {
+	font-size: 16px;
+}
 .team-A, .team-B {
 	display: flex;
 	align-items: baseline;
 	font-size: 12px;
-	width: 50%;
+	width: 30%;
 }
 
 .team-A {

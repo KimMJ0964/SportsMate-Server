@@ -49,10 +49,10 @@ public interface MyPageService {
     ArrayList<MyRecruitDto> selectMyRecruit(int memNo);
     
     // a팀 정보
-    ArrayList<MemberPositionDto> selectATeamInfo(int teamANo);
+    ArrayList<MemberPositionDto> selectATeamInfo(Map<String, Integer> aMap);
     
     // b팀 정보
-    ArrayList<MemberPositionDto> selectBTeamInfo(int teamBNo);
+    ArrayList<MemberPositionDto> selectBTeamInfo(Map<String, Integer> bMap);
     
     // 구장 리뷰
     int insertPReview(StadiumReview pr);
