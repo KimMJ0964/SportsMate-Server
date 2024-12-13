@@ -62,12 +62,15 @@ public class StadiumController {
     public String gameschedule(HttpSession session, Model model) {
     	Member loginMember = (Member) session.getAttribute("loginMember");
 
+
         if (loginMember == null) {
             return "redirect:/loginForm.me"; // 로그인 페이지로 리다이렉트
         }
 
-        int memNo = loginMember.getMemNo();
-        List<GameScheduleDto> gameScheduleList = stadiumService.getGameScheduleData(memNo);
+        // 구장 번호 가져오기
+        int stadiumNo = stadiumService.getStadiumByManager(loginMember.getMemNo()).getStadiumNo();
+
+        List<GameScheduleDto> gameScheduleList = stadiumService.getGameScheduleData(stadiumNo);
 
         System.out.println("Controller 결과: " + gameScheduleList);
         model.addAttribute("gameScheduleList", gameScheduleList);
