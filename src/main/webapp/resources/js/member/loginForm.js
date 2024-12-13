@@ -4,7 +4,7 @@ const naverLogin= (clientId) =>{
     // 랜덤한 수 2개를 넣어줘야한다. (36진수로 변환 후 2개 뽑는다.)
     const state = Math.random().toString(36).substring(2);
     let apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-    const redirectURI = encodeURIComponent("http://localhost:7777/SportsMate/naver-login");
+    const redirectURI = encodeURIComponent("http://192.168.130.243:7777/SportsMate/naver-login");
     apiURL += "&client_id=" + clientId;
     apiURL += "&redirect_uri=" + redirectURI;
     apiURL += "&state=" + state;
@@ -15,7 +15,7 @@ const kakaoLogin = (clientId) => {
     const state = Math.random().toString(36).substring(2); // 유니크한 state 값 생성
     let apiURL = "https://kauth.kakao.com/oauth/authorize?";
     apiURL += "client_id=" + clientId;
-    apiURL += "&redirect_uri=http://localhost:7777/SportsMate/kakao-login";
+    apiURL += "&redirect_uri=http://192.168.130.243:7777/SportsMate/kakao-login";
     apiURL += "&response_type=code"; // 응답 유형
     apiURL += "&state=" + encodeURIComponent(state); // state 인코딩
     location.href = apiURL; // 최종 URL로 이동
