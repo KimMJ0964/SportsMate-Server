@@ -30,9 +30,20 @@
 ## 개발 환경 및 기술 스택
 
 ### 개발 환경
-- 운영체제: Windows 10 / macOS  
-- IDE: Visual Studio Code, IntelliJ IDEA  
-- 형상 관리: Git, GitHub, Notion, Discord
+
+- **운영체제:**  
+  <img src="https://img.shields.io/badge/Windows%2010-0078D6?style=for-the-badge&logo=Windows&logoColor=white">
+  <img src="https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white">
+
+- **IDE:**  
+  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+  <img src="https://img.shields.io/badge/IntelliJ%20IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
+
+- **형상 관리:**  
+  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white">
+  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white">
+  <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+  <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
 
 ### 기술 스택
 ### Stacks
