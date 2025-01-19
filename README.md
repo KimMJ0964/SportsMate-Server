@@ -35,7 +35,7 @@
 - **전적페이지**: 사용자의 전적 조회.
 - **구장페이지**: 구장 조회 및 예약.
 - **랭킹페이지**: 구단 랭킹 조회.
-- **구단메뉴페이지**: 구단 생성 및 단원 모집.
+- **구단 메뉴 페이지**: 구단 생성 및 단원 모집.
 
 ---
 
@@ -65,10 +65,12 @@
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black">
   <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jQuery&logoColor=white">
 
+- <img src="https://img.shields.io/badge/Server-%23121011?style=for-the-badge">
+  <img src="https://img.shields.io/badge/ApacheTomcat-F8DC75?style=for-the-badge&logo=ApacheTomcat&logoColor=black">
+
 - <img src="https://img.shields.io/badge/Backend-%23121011?style=for-the-badge">
   <img src="https://img.shields.io/badge/JSP-007396?style=for-the-badge&logo=Java&logoColor=white">
   <img src="https://img.shields.io/badge/Java-%23ED8B00?style=for-the-badge&logo=openjdk&logoColor=white">
-  <img src="https://img.shields.io/badge/ApacheTomcat-F8DC75?style=for-the-badge&logo=ApacheTomcat&logoColor=black">
   <img src="https://img.shields.io/badge/MyBatis-BF0D3E?style=for-the-badge">
   <img src="https://img.shields.io/badge/JSTL-007396?style=for-the-badge&logo=Java&logoColor=white">
   <img src="https://img.shields.io/badge/GSON-FFCA28?style=for-the-badge">
@@ -85,28 +87,56 @@
 
 ## 화면 구성
 
-1. **메인 페이지**
+1. **로그인 페이지**
+   - 로그인
+   - 회원가입
+   - 아이디 / 비밀번호 찾기
+
+2. **메인 페이지**
    - 실시간 랭킹
    - 지역 전적
    - 현재 진행중인 매칭
      
-2. **마이페이지**
+3. **마이페이지**
    - 내 정보 출력, 수정
    - 내 전적
    - 내 소속 구단
    - 내 소속 구단 입단 신청 목록
    - 내 문의
      
-4. **커뮤니티**
+4. **사이트 관리자 페이지**
+   - 대관 결제
+   - 결제 성공 / 실패
+   - 차단 유저 관리
+   - 신고 관리
+
+5. **구장 관리자 페이지**
+   -  대관 승인
+   -  대관 거절
+   -  경기 리스트
+   -  구장정보 수정
+   -  구장정보 탈퇴
+   -  문의
+   -  경기 결과 입력
+   -  경고 사유 등록
+     
+6. **커뮤니티**
    - 게시판 및 댓글 기능
    - 게시판 및 댓글 신고 기능
      
-5. **구단 미니 홈피**
+7. **구단 미니 홈피**
    - 커뮤티니 기능
    - 구단원 목록 출력
    - 구단 투표
    - 구단 관리
    - 구단 매치 관리
+     
+8. **구단 메뉴 페이지**
+   - 구단 창설
+   - 구단 가입 신청
+  
+9. **랭킹 페이지**
+   - 구단 랭킹
 
 
 ---
