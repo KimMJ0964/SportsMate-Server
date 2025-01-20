@@ -93,6 +93,7 @@
    - 로그인
    - 회원가입
    - 아이디 / 비밀번호 찾기
+![login_page](https://github.com/user-attachments/assets/6d43a270-b261-4f81-a5c0-1756d3b70566)
 
 2. **메인 페이지**
    - 실시간 랭킹
