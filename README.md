@@ -87,6 +87,13 @@
 
 ---
 
+## 논리적 모델링
+
+https://www.erdcloud.com/d/KRtu99yQC76YKd3iL
+![erd](https://github.com/user-attachments/assets/679684e6-43b9-487a-a4e2-032be899ebb7)
+
+---
+
 ## 화면 구성
 
 | **페이지**                    | **기능**                                                                                                                                                            | **이미지**                    |
