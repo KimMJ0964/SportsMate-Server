@@ -18,11 +18,11 @@
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href=""><img src="width="100px;" alt=""/><br /><sub><b>PM : 이철규</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>일정관리자 : 강주원</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>DBA : 김민재</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>이슈관리자 : 김현준</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>형상관리자 : 이명건</b></sub></a><br /></td>
+      <td align="center"><b>PM : 이철규</b></td>
+      <td align="center"><b>일정관리자 : 강주원</b></td>
+      <td align="center"><b>DBA : 김민재</b></td>
+      <td align="center"><b>이슈관리자 : 김현준</b></td>
+      <td align="center"><b>형상관리자 : 이명건</b></td>
     </tr>
   </tbody>
 </table>
